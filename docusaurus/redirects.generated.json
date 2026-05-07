@@ -4,6 +4,10 @@
     "to": "/docs/dxl"
   },
   {
+    "from": "/docs/en/dxl/ax",
+    "to": "/docs/dxl/ax"
+  },
+  {
     "from": "/docs/en/dxl/ax/ax-12a",
     "to": "/docs/dxl/ax/ax-12a"
   },
@@ -14,6 +18,14 @@
   {
     "from": "/docs/en/dxl/ax/ax-18a",
     "to": "/docs/dxl/ax/ax-18a"
+  },
+  {
+    "from": "/docs/en/dxl/crc",
+    "to": "/docs/dxl/crc"
+  },
+  {
+    "from": "/docs/en/dxl/dx",
+    "to": "/docs/dxl/dx"
   },
   {
     "from": "/docs/en/dxl/dx/dx-113",
@@ -28,8 +40,24 @@
     "to": "/docs/dxl/dx/dx-117"
   },
   {
+    "from": "/docs/en/dxl/dxl-quick-start-guide",
+    "to": "/docs/dxl/dxl-quick-start-guide"
+  },
+  {
+    "from": "/docs/en/dxl/dxl-quick-start-insert",
+    "to": "/docs/dxl/dxl-quick-start-insert"
+  },
+  {
+    "from": "/docs/en/dxl/ex",
+    "to": "/docs/dxl/ex"
+  },
+  {
     "from": "/docs/en/dxl/ex/ex-106+",
     "to": "/docs/dxl/ex/ex-106+"
+  },
+  {
+    "from": "/docs/en/dxl/mx",
+    "to": "/docs/dxl/mx"
   },
   {
     "from": "/docs/en/dxl/mx/mx-106",
@@ -172,6 +200,18 @@
     "to": "/docs/dxl/pro/m54-60-s250-ra"
   },
   {
+    "from": "/docs/en/dxl/protocol1",
+    "to": "/docs/dxl/protocol1"
+  },
+  {
+    "from": "/docs/en/dxl/protocol2",
+    "to": "/docs/dxl/protocol2"
+  },
+  {
+    "from": "/docs/en/dxl/rx",
+    "to": "/docs/dxl/rx"
+  },
+  {
     "from": "/docs/en/dxl/rx/rx-10",
     "to": "/docs/dxl/rx/rx-10"
   },
@@ -190,6 +230,22 @@
   {
     "from": "/docs/en/dxl/x",
     "to": "/docs/dxl/x"
+  },
+  {
+    "from": "/docs/en/dxl/x_c",
+    "to": "/docs/dxl/x_c"
+  },
+  {
+    "from": "/docs/en/dxl/x_h",
+    "to": "/docs/dxl/x_h"
+  },
+  {
+    "from": "/docs/en/dxl/x_l",
+    "to": "/docs/dxl/x_l"
+  },
+  {
+    "from": "/docs/en/dxl/x_m",
+    "to": "/docs/dxl/x_m"
   },
   {
     "from": "/docs/en/dxl/x/2xc430-w250",
