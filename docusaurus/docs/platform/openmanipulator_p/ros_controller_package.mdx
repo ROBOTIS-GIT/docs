@@ -146,7 +146,7 @@ Joint Dynamixel ID : 6, Model Name : PRO-PLUS-PH42-020-S300-R
 **TIP**:  
 - If you can't load DYNAMIXEL, please check your DYNAMIXEL settings by using the following command from DYNAMIXEL Workbench packages.   
 `rosrun dynamixel_workbench_controllers find_dynamixel /dev/ttyUSB0`  
-if DYNAMIXEL aren't recoginized, please check firmware with ROBOTIS software ([R+ Manager 2.0](https://emanual.robotis.com/docs/en/software/rplus2/manager/) or [DYNAMIXEL Wizard 2.0](https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_wizard2/#firmware-update))
+if DYNAMIXEL aren't recoginized, please check firmware with ROBOTIS software ([R+ Manager 2.0](/docs/software/rplus2/manager) or [DYNAMIXEL Wizard 2.0](/docs/software/dynamixel/dynamixel_wizard2#firmware-update))
 
 - If you would like to change DYNAMIXEL ID, please check [`open_manipulator_p.cpp`](https://github.com/ROBOTIS-GIT/open_manipulator_p/blob/master/open_manipulator_p_libs/src/open_manipulator_p.cpp) in the open_manipulator_p_lib folder. The default ID is **1, 2, 3, 4 ,5 and 6** for joints.
 
@@ -156,7 +156,7 @@ if DYNAMIXEL aren't recoginized, please check firmware with ROBOTIS software ([R
 
 :::info
 
-**NOTE**: OpenMANIPULATOR-P controller is compatible with [Protocol 2.0](https://emanual.robotis.com/docs/en/dxl/protocol2/). [Protocol 1.0](https://emanual.robotis.com/docs/en/dxl/protocol1/) doesn't support SyncRead instructions that access to multiple DYNAMIXEL's simultaneously. Protocol 2.0 supports `MX 2.0`, `X`, `Pro`, `Pro +` series, but it does not support `AX`, `RX` and `EX`.
+**NOTE**: OpenMANIPULATOR-P controller is compatible with [Protocol 2.0](/docs/dxl/protocol2). [Protocol 1.0](/docs/dxl/protocol1) doesn't support SyncRead instructions that access to multiple DYNAMIXEL's simultaneously. Protocol 2.0 supports `MX 2.0`, `X`, `Pro`, `Pro +` series, but it does not support `AX`, `RX` and `EX`.
 
 :::
 

@@ -90,7 +90,7 @@ $ git clone https://github.com/ROBOTIS-GIT/DynamixelSDK.git
 
 In order to use Exameples for OpenCM 9.04 in Arduino, Porting OpenCM9.04 Board to Arduino IDE is required.  
 
-- [Porting the OpenCR1.0 board to the Arduino IDE](https://emanual.robotis.com/docs/en/parts/controller/opencr10/#porting-to-arduino-idelinux)
+- [Porting the OpenCR1.0 board to the Arduino IDE](/docs/parts/controller/opencr10#porting-to-arduino-idelinux)
 
 #### OpenCM Arduino IDE
 
@@ -98,7 +98,7 @@ In order to use Exameples for OpenCM 9.04 in Arduino, Porting OpenCM9.04 Board t
 
 In order to use Exameples for OpenCM 9.04 in Arduino, Porting OpenCM9.04 Board to Arduino IDE is required.  
 
-- [Porting the OpenCM9.04 board to the Arduino IDE](https://emanual.robotis.com/docs/en/parts/controller/opencm904/#porting-the-opencm904-board-to-the-arduino-ide)
+- [Porting the OpenCM9.04 board to the Arduino IDE](/docs/parts/controller/opencm904#porting-the-opencm904-board-to-the-arduino-ide)
 
 ## Linux and macOS
 **NOTE**: We don't have a plan to release for `Windows OS`. But we will happily merge any contributions regarding Windows environment.
@@ -132,7 +132,7 @@ Please check **power input** and **usb port** once again.
 ## U2D2
 ### How to Setup
 
-[How to Setup](https://emanual.robotis.com/docs/en/parts/interface/u2d2/)
+[How to Setup](/docs/parts/interface/u2d2)
 
 ### Copy rules file
 
@@ -177,7 +177,7 @@ Then you can use `/dev/ttyACM0` port (The number of port may be different depend
 ## OpenCM
 ### Connect power(12v) and TTL(4 pin)or RS485(8 pin)  
 
-**TIP**: Please follow a [link](https://emanual.robotis.com/docs/en/parts/controller/opencm485exp/) for getting more information about pin
+**TIP**: Please follow a [link](/docs/parts/controller/opencm485exp) for getting more information about pin
 
 
 ![](/img/parts/controller/opencm904/opencm485exp_01.jpg)
@@ -283,7 +283,7 @@ tilt:
 :::info
 
 **WARNING**: Be sure to keep the following for right use of the package.  
--`Torque Enable`, which is the data of [Control Table](https://emanual.robotis.com/docs/en/faq/faq_dynamixel/) of DYNAMIXEL, is not supposed to be set by users, but it's enabled by itself during initialization.  
+-`Torque Enable`, which is the data of [Control Table](/docs/faq/faq_dynamixel) of DYNAMIXEL, is not supposed to be set by users, but it's enabled by itself during initialization.  
 - Control Table item has to follow [Camel_Case](https://en.wikipedia.org/wiki/Camel_case) without a blank.    
 - Be sure to set DYNAMIXEL ID before use of this package. Use 
 - 2XL430-W250 does not support this package (**Controllers**). By using this package with 2XL430-W250, one of Torque Enable (64) of a detected ID from two axles of 2XL430-W250 is automatically set as '1' (Torque on).  
@@ -1954,60 +1954,60 @@ Return load. Unit is %
 [DYNAMIXEL SDK]: /docs/software/dynamixel/dynamixel_sdk/overview/
 [DYNAMIXEL Wizard 2.0]: /docs/software/dynamixel/dynamixel_wizard2/
 [R+ Manager 2.0]: /docs/software/rplus2/manager/
-[AX-12W]: https://emanual.robotis.com/docs/en/dxl/ax/ax-12w/
-[AX-12+/12A]: https://emanual.robotis.com/docs/en/dxl/ax/ax-12a/
-[AX-18F/18A]: https://emanual.robotis.com/docs/en/dxl/ax/ax-18a/
-[EX-106+]: https://emanual.robotis.com/docs/en/dxl/ex/ex-106+/
-[RX-10]: https://emanual.robotis.com/docs/en/dxl/rx/rx-10/
-[RX-24F]: https://emanual.robotis.com/docs/en/dxl/rx/rx-24f/
-[RX-28]: https://emanual.robotis.com/docs/en/dxl/rx/rx-28/
-[RX-64]: https://emanual.robotis.com/docs/en/dxl/rx/rx-64/
-[MX-12W]: https://emanual.robotis.com/docs/en/dxl/mx/mx-12w/
-[MX-28]: https://emanual.robotis.com/docs/en/dxl/mx/mx-28/
-[MX-28(2.0)]: https://emanual.robotis.com/docs/en/dxl/mx/mx-28-2/
-[MX-64]: https://emanual.robotis.com/docs/en/dxl/mx/mx-64/
-[MX-64(2.0)]: https://emanual.robotis.com/docs/en/dxl/mx/mx-64-2/
-[MX-106]: https://emanual.robotis.com/docs/en/dxl/mx/mx-106/
-[MX-106(2.0)]: https://emanual.robotis.com/docs/en/dxl/mx/mx-106-2/
-[XL320]: https://emanual.robotis.com/docs/en/dxl/x/xl320/
-[XL430-W250]: https://emanual.robotis.com/docs/en/dxl/x/xl430-w250/
-[2XL430-W250]: https://emanual.robotis.com/docs/en/dxl/x/2xl430-w250/
-[XC430-W150]: https://emanual.robotis.com/docs/en/dxl/x/xc430-w150/
-[XC430-W240]: https://emanual.robotis.com/docs/en/dxl/x/xc430-w240/
+[AX-12W]: /docs/dxl/ax/ax-12w
+[AX-12+/12A]: /docs/dxl/ax/ax-12a
+[AX-18F/18A]: /docs/dxl/ax/ax-18a
+[EX-106+]: /docs/dxl/ex/ex-106+
+[RX-10]: /docs/dxl/rx/rx-10
+[RX-24F]: /docs/dxl/rx/rx-24f
+[RX-28]: /docs/dxl/rx/rx-28
+[RX-64]: /docs/dxl/rx/rx-64
+[MX-12W]: /docs/dxl/mx/mx-12w
+[MX-28]: /docs/dxl/mx/mx-28
+[MX-28(2.0)]: /docs/dxl/mx/mx-28-2
+[MX-64]: /docs/dxl/mx/mx-64
+[MX-64(2.0)]: /docs/dxl/mx/mx-64-2
+[MX-106]: /docs/dxl/mx/mx-106
+[MX-106(2.0)]: /docs/dxl/mx/mx-106-2
+[XL320]: /docs/dxl/x/xl320
+[XL430-W250]: /docs/dxl/x/xl430-w250
+[2XL430-W250]: /docs/dxl/x/2xl430-w250
+[XC430-W150]: /docs/dxl/x/xc430-w150
+[XC430-W240]: /docs/dxl/x/xc430-w240
 [XC430-W150BB]: https://emanual.robotis.com/docs/en/dxl/x/xc430-w150bb/
 [XC430-W240BB]: https://emanual.robotis.com/docs/en/dxl/x/xc430-w240bb/
-[XM430-W210]: https://emanual.robotis.com/docs/en/dxl/x/xm430-w210/
-[XM430-W350]: https://emanual.robotis.com/docs/en/dxl/x/xm430-w350/
-[XH430-W210]: https://emanual.robotis.com/docs/en/dxl/x/xh430-w210/
-[XM540-W150]: https://emanual.robotis.com/docs/en/dxl/x/xm540-w150/
-[XM540-W270]: https://emanual.robotis.com/docs/en/dxl/x/xm540-w270/
-[XH430-W350]: https://emanual.robotis.com/docs/en/dxl/x/xh430-w350/
-[XH430-V210]: https://emanual.robotis.com/docs/en/dxl/x/xh430-v210/
-[XH430-V350]: https://emanual.robotis.com/docs/en/dxl/x/xh430-v350/
-[XH540-W150]: https://emanual.robotis.com/docs/en/dxl/x/xh540-w150/
-[XH540-W270]: https://emanual.robotis.com/docs/en/dxl/x/xh540-w270/
-[XH540-V150]: https://emanual.robotis.com/docs/en/dxl/x/xh540-v150/
-[XH540-V270]: https://emanual.robotis.com/docs/en/dxl/x/xh540-v270/
-[H54-200-S500-R]: https://emanual.robotis.com/docs/en/dxl/pro/h54-200-s500-r/
-[H54-100-S500-R]: https://emanual.robotis.com/docs/en/dxl/pro/h54-100-s500-r/
-[H42-20-S300-R]: https://emanual.robotis.com/docs/en/dxl/pro/h42-20-s300-r/
-[M54-60-S250-R]: https://emanual.robotis.com/docs/en/dxl/pro/m54-60-s250-r/
-[M54-40-S250-R]: https://emanual.robotis.com/docs/en/dxl/pro/m54-40-s250-r/
-[M42-10-S260-R]: https://emanual.robotis.com/docs/en/dxl/pro/m42-10-s260-r/
-[H54-200-S500-R(A)]: https://emanual.robotis.com/docs/en/dxl/pro/h54-200-s500-ra/
-[H54-100-S500-R(A)]: https://emanual.robotis.com/docs/en/dxl/pro/h54-100-s500-ra/
-[H42-20-S300-R(A)]: https://emanual.robotis.com/docs/en/dxl/pro/h42-20-s300-ra/
-[M54-60-S250-R(A)]: https://emanual.robotis.com/docs/en/dxl/pro/m54-60-s250-ra/
-[M54-40-S250-R(A)]: https://emanual.robotis.com/docs/en/dxl/pro/m54-40-s250-ra/
-[M42-10-S260-R(A)]: https://emanual.robotis.com/docs/en/dxl/pro/m42-10-s260-ra/
-[L54-50-S500-R]: https://emanual.robotis.com/docs/en/dxl/pro/l54-50-s500-r/
-[L54-50-S290-R]: https://emanual.robotis.com/docs/en/dxl/pro/l54-50-s290-r/
-[L54-30-S500-R]: https://emanual.robotis.com/docs/en/dxl/pro/l54-30-s500-r/
-[L54-30-S400-R]: https://emanual.robotis.com/docs/en/dxl/pro/l54-30-s400-r/
-[L42-10-S300-R]: https://emanual.robotis.com/docs/en/dxl/pro/l42-10-s300-r/
-[PH42-020-S300-R]: https://emanual.robotis.com/docs/en/dxl/p/ph42-020-s300-r/
-[PH54-100-S500-R]: https://emanual.robotis.com/docs/en/dxl/p/ph54-100-s500-r/
-[PH54-200-S500-R]: https://emanual.robotis.com/docs/en/dxl/p/ph54-200-s500-r/
-[PM54-060-S250-R]: https://emanual.robotis.com/docs/en/dxl/p/pm54-060-s250-r/
-[PM54-040-S250-R]: https://emanual.robotis.com/docs/en/dxl/p/pm54-040-s250-r/
-[PM42-010-S260-R]: https://emanual.robotis.com/docs/en/dxl/p/pm42-010-s260-r/
+[XM430-W210]: /docs/dxl/x/xm430-w210
+[XM430-W350]: /docs/dxl/x/xm430-w350
+[XH430-W210]: /docs/dxl/x/xh430-w210
+[XM540-W150]: /docs/dxl/x/xm540-w150
+[XM540-W270]: /docs/dxl/x/xm540-w270
+[XH430-W350]: /docs/dxl/x/xh430-w350
+[XH430-V210]: /docs/dxl/x/xh430-v210
+[XH430-V350]: /docs/dxl/x/xh430-v350
+[XH540-W150]: /docs/dxl/x/xh540-w150
+[XH540-W270]: /docs/dxl/x/xh540-w270
+[XH540-V150]: /docs/dxl/x/xh540-v150
+[XH540-V270]: /docs/dxl/x/xh540-v270
+[H54-200-S500-R]: /docs/dxl/pro/h54-200-s500-r
+[H54-100-S500-R]: /docs/dxl/pro/h54-100-s500-r
+[H42-20-S300-R]: /docs/dxl/pro/h42-20-s300-r
+[M54-60-S250-R]: /docs/dxl/pro/m54-60-s250-r
+[M54-40-S250-R]: /docs/dxl/pro/m54-40-s250-r
+[M42-10-S260-R]: /docs/dxl/pro/m42-10-s260-r
+[H54-200-S500-R(A)]: /docs/dxl/pro/h54-200-s500-ra
+[H54-100-S500-R(A)]: /docs/dxl/pro/h54-100-s500-ra
+[H42-20-S300-R(A)]: /docs/dxl/pro/h42-20-s300-ra
+[M54-60-S250-R(A)]: /docs/dxl/pro/m54-60-s250-ra
+[M54-40-S250-R(A)]: /docs/dxl/pro/m54-40-s250-ra
+[M42-10-S260-R(A)]: /docs/dxl/pro/m42-10-s260-ra
+[L54-50-S500-R]: /docs/dxl/pro/l54-50-s500-r
+[L54-50-S290-R]: /docs/dxl/pro/l54-50-s290-r
+[L54-30-S500-R]: /docs/dxl/pro/l54-30-s500-r
+[L54-30-S400-R]: /docs/dxl/pro/l54-30-s400-r
+[L42-10-S300-R]: /docs/dxl/pro/l42-10-s300-r
+[PH42-020-S300-R]: /docs/dxl/p/ph42-020-s300-r
+[PH54-100-S500-R]: /docs/dxl/p/ph54-100-s500-r
+[PH54-200-S500-R]: /docs/dxl/p/ph54-200-s500-r
+[PM54-060-S250-R]: /docs/dxl/p/pm54-060-s250-r
+[PM54-040-S250-R]: /docs/dxl/p/pm54-040-s250-r
+[PM42-010-S260-R]: /docs/dxl/p/pm42-010-s260-r

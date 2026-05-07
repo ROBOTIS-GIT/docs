@@ -27,7 +27,7 @@ By giving IDs to Instruction and Status Packets, Main Controller can control onl
 ## DYNAMIXEL Protocol
 DYNAMIXEL does the Asynchronous Serial Communication with 8 bit, 1 Stop bit, and None Parity.
 
-If DYNAMIXEL with the same ID is connected, packet will collide and network problem will occur. Thus, set ID as such that there is no DYNAMIXEL with the same ID. To change the DYNAMIXEL's ID, reference the [DYNAMIXEL Control Table](https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_wizard2/#dynamixel-control-table) section in the DYNAMIXEL Wizard 2.0.
+If DYNAMIXEL with the same ID is connected, packet will collide and network problem will occur. Thus, set ID as such that there is no DYNAMIXEL with the same ID. To change the DYNAMIXEL's ID, reference the [DYNAMIXEL Control Table](/docs/software/dynamixel/dynamixel_wizard2#dynamixel-control-table) section in the DYNAMIXEL Wizard 2.0.
 
 
 :::note
@@ -369,7 +369,7 @@ This instruction is to reset the Control Table of DYNAMIXEL to the factory defau
 
 ## Reboot
 This instruction restarts DYNAMIXEL.
-- Supported products : DYNAMIXEL [MX-12W(V41), MX-28/64/106(V40), MX(2.0)](https://emanual.robotis.com/docs/en/dxl/mx/) and [X Series](https://emanual.robotis.com/docs/en/dxl/x/) (excluding XL-320)
+- Supported products : DYNAMIXEL [MX-12W(V41), MX-28/64/106(V40), MX(2.0)](/docs/dxl/mx) and [X Series](/docs/dxl/x) (excluding XL-320)
 
 ### Example
 
@@ -430,7 +430,7 @@ This instruction is used to control multiple DYNAMIXEL's simultaneously with a s
 ## Bulk Read
 This instruction is used for reading values of multiple `MX series` DYNAMIXEL's simultaneously by sending a single Instruction Packet. The packet length is shortened compared to sending multiple READ commands, and the idle time between the status packets being returned is also shortened to save communication time. However, this cannot be used to read a single module. If an identical ID is designated multiple times, only the first designated parameter will be processed.
 
-- Supported products : DYNAMIXEL [MX, MX(2.0)](https://emanual.robotis.com/docs/en/dxl/mx/) and [X Series](https://emanual.robotis.com/docs/en/dxl/x/) (excluding XL-320)
+- Supported products : DYNAMIXEL [MX, MX(2.0)](/docs/dxl/mx) and [X Series](/docs/dxl/x) (excluding XL-320)
 
 |      Item      | Description                   |
 |:--------------:|:------------------------------|
@@ -448,7 +448,7 @@ This instruction is used for reading values of multiple `MX series` DYNAMIXEL's 
 
 :::warning
 
-**WARNING**: Note that a parameter field construction of [Bulk Read in DYNAMIXEL Protocol 2.0](https://emanual.robotis.com/docs/kr/dxl/protocol2/#bulk-read) differs from the parameter field construction of the Bulk Read in Protocol 1.0.
+**WARNING**: Note that a parameter field construction of [Bulk Read in DYNAMIXEL Protocol 2.0](/docs/dxl/protocol2#bulk-read) differs from the parameter field construction of the Bulk Read in Protocol 1.0.
 
 :::
 

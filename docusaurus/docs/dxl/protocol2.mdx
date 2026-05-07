@@ -8,27 +8,27 @@ sidebar_label: "DYNAMIXEL Protocol 2.0"
 DYNAMIXEL servos utilize the DYNAMIXEL protocol for serial communications and control operations. This document serves as a reference for the specifications of 2.0 DYNAMIXEL Protocol communication.
 
 DYNAMIXEL Protocol 2.0 communications are supported on the following servos:
-* [DYNAMIXEL Y](https://emanual.robotis.com/docs/en/dxl/y)
-* [DYNAMIXEL P](https://emanual.robotis.com/docs/en/dxl/p)
-* [DYNAMIXEL X](https://emanual.robotis.com/docs/en/dxl/x)
-* [DYNAMIXEL MX](https://emanual.robotis.com/docs/en/dxl/mx)
+* [DYNAMIXEL Y](/docs/dxl/y)
+* [DYNAMIXEL P](/docs/dxl/p)
+* [DYNAMIXEL X](/docs/dxl/x)
+* [DYNAMIXEL MX](/docs/dxl/mx)
 
 
 :::note
 
-**Note**: MX(2.0) is a special firmware for the DYNAMIXEL MX series providing support for DYNAMIXEL Protocol 2.0. MX(2.0) firmware can be uploaded to your servo using [Firmware Recovery](https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_wizard2/) in DYNAMIXEL Wizard 2.0.
+**Note**: MX(2.0) is a special firmware for the DYNAMIXEL MX series providing support for DYNAMIXEL Protocol 2.0. MX(2.0) firmware can be uploaded to your servo using [Firmware Recovery](/docs/software/dynamixel/dynamixel_wizard2) in DYNAMIXEL Wizard 2.0.
 
 :::
 
 
 DYNAMIXEL Protocol 2.0 communications are supported by the following controllers:
-* [OpenRB-150](https://emanual.robotis.com/docs/en/parts/controller/openrb-150/)
-* [OpenCR1.0](https://emanual.robotis.com/docs/en/parts/controller/opencr10/)
-* [CM-550](https://emanual.robotis.com/docs/en/parts/controller/cm-550/)
-* [OpenCM9.04](https://emanual.robotis.com/docs/en/parts/controller/opencm904/)
-* [CM-200](https://emanual.robotis.com/docs/en/parts/controller/cm-200/)
-* [CM-150](https://emanual.robotis.com/docs/en/parts/controller/cm-150/)
-* [CM-50](https://emanual.robotis.com/docs/en/parts/controller/cm-50/)
+* [OpenRB-150](/docs/parts/controller/openrb-150)
+* [OpenCR1.0](/docs/parts/controller/opencr10)
+* [CM-550](/docs/parts/controller/cm-550)
+* [OpenCM9.04](/docs/parts/controller/opencm904)
+* [CM-200](/docs/parts/controller/cm-200)
+* [CM-150](/docs/parts/controller/cm-150)
+* [CM-50](/docs/parts/controller/cm-50)
 
 
 :::tip
@@ -47,7 +47,7 @@ DYNAMIXELs communicate with their controllers using structured data packets in o
 ## ID
 Each DYNAMIXEL servo is assigned a communication ID for identification over the DYNAMIXEL bus.
 
-Each connected DYNAMIXEL must have a unique ID number. If DYNAMIXELs with the same ID are connected, packet collision and network problems will occur. To change a DYNAMIXEL's ID, reference the [DYNAMIXEL Control Table](https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_wizard2/#dynamixel-control-table) section on the DYNAMIXEL Wizard 2.0 eManual page.
+Each connected DYNAMIXEL must have a unique ID number. If DYNAMIXELs with the same ID are connected, packet collision and network problems will occur. To change a DYNAMIXEL's ID, reference the [DYNAMIXEL Control Table](/docs/software/dynamixel/dynamixel_wizard2#dynamixel-control-table) section on the DYNAMIXEL Wizard 2.0 eManual page.
 
 
 :::note
@@ -186,7 +186,7 @@ This section contains the data sent in the packet, and may differ in length and 
 
 
 ## CRC
-A 16bit checksum used to determine if the Packet has been damaged during communication. This field is divided into low and high bytes in the [Instruction Packet] and is calculated based on the content of the packet ranging from the Header (FF FF FD 00) to to the Parameters before the CRC field in the [Instruction Packet]. See the following page for [CRC Calculation](https://emanual.robotis.com/docs/en/dxl/crc/) documentation.
+A 16bit checksum used to determine if the Packet has been damaged during communication. This field is divided into low and high bytes in the [Instruction Packet] and is calculated based on the content of the packet ranging from the Header (FF FF FD 00) to to the Parameters before the CRC field in the [Instruction Packet]. See the following page for [CRC Calculation](/docs/dxl/crc) documentation.
 
 # Status Packet
 The Status Packet is the response transmitted from the device to the main controller following the receipt of an [Instruction Packet]. Note that it has the same construction as the Instruction Packet with the addition of the ERROR field.
@@ -598,8 +598,8 @@ Note that given examples use the following abbreviations for each packet section
 :::note
 
 **Note**
-- See [Backup and Restore](https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_wizard2/#backup-and-restore) for more details.
-- RAM data can be restored by configuring the **Startup Configuration(60)** setting. Refer to [Restoring RAM Area](https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_wizard2/#restoring-ram-area) for more information.
+- See [Backup and Restore](/docs/software/dynamixel/dynamixel_wizard2#backup-and-restore) for more details.
+- RAM data can be restored by configuring the **Startup Configuration(60)** setting. Refer to [Restoring RAM Area](/docs/software/dynamixel/dynamixel_wizard2#restoring-ram-area) for more information.
 
 :::
 
@@ -1095,7 +1095,7 @@ Note that given examples use the following abbreviations for each packet section
 |:----:|:----:|:----:|:----:|:----:|
 | 0x00 | 0x04 | 0x1F | 0xD9 | 0xC1 |
 
-[Control Table]: https://emanual.robotis.com/docs/en/faq/faq_dynamixel/
+[Control Table]: /docs/faq/faq_dynamixel
 [Instruction Packet]: #instruction-packet
 [Status Packet]: #status-packet
 [Ping]: #ping-0x01

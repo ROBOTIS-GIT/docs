@@ -231,20 +231,20 @@ We assume the SECOND case in the following description.
 | Methods of DXL submobule          | Description                                                  | Parameter  | Return     | Example                             |
 |:-------------------------------------|:-------------------------------------------------------------|:-----------|:-----------|:------------------------------------|
 | ```DXL(id) -> object ```           | Create an Dynamixel object with specified ID                      | 0 ~ 252 : Single ID<br/>254 : Broadcast ID     | Dynamixel object    | ``` obj = DXL(1) ```            |
-| [```mode() -> int ```](https://emanual.robotis.com/docs/en/dxl/x/xl430-w250/#operating-mode11)           | Return mode number of Dynamixel object                      | None     | 1 : Velocity Control Mode<br/>3 : Position Control Mode<br/>4 : Multi-turn Mode<br/>    | ``` obj.mode() ```            |
-| [```mode(mode) -> None ```](https://emanual.robotis.com/docs/en/dxl/x/xl430-w250/#operating-mode11)           | Set mode for Dynamixel object                      | 1 : Velocity Control Mode<br/>3 : Position Control Mode<br/>4 : Multi-turn Mode<br/> | None   | ``` obj.mode(3) ```            |
+| [```mode() -> int ```](/docs/dxl/x/xl430-w250#operating-mode11)           | Return mode number of Dynamixel object                      | None     | 1 : Velocity Control Mode<br/>3 : Position Control Mode<br/>4 : Multi-turn Mode<br/>    | ``` obj.mode() ```            |
+| [```mode(mode) -> None ```](/docs/dxl/x/xl430-w250#operating-mode11)           | Set mode for Dynamixel object                      | 1 : Velocity Control Mode<br/>3 : Position Control Mode<br/>4 : Multi-turn Mode<br/> | None   | ``` obj.mode(3) ```            |
 | ```torque_on() -> None ```           | Turn on torque for Dynamixel object                 | None    | None   | ``` obj.torque_on() ```            |
 | ```torque_off() -> None ```          | Turn off torque for Dynamixel object                 | None    | None   | ``` obj.torque_off() ```            |
 | ```led_on() -> None ```          | Turn on LED for Dynamixel object                 | None    | None   | ``` obj.led_on() ```            |
 | ```led_off() -> None ```          | Turn off LED for Dynamixel object                 | None    | None   | ``` obj.led_off() ```            |
 | ```led_toggle() -> None ```       | Toggle LED for Dynamixel object                 | None    | None   | ``` obj.led_toggle() ```            |
-| [```goal_velocity() -> int ```](https://emanual.robotis.com/docs/en/dxl/x/xl430-w250/#goal-velocity104)       | Return goal velocity value                 | None    | -1023 ~ 1023 (unit: 0.229 rev/min)  | ``` obj.goal_velocity() ```            |
-| [```goal_velocity(v) -> None ```](https://emanual.robotis.com/docs/en/dxl/x/xl430-w250/#goal-velocity104)       | Set goal velocity value                 | -1023 ~ 1023  (unit: 0.229 rev/min)   |  None  | ``` obj.goal_velocity(100) ```            |
-| [```goal_position() -> int ```](https://emanual.robotis.com/docs/en/dxl/x/xl430-w250/#goal-position116)       | Return goal position value                 | None    | -4095 ~ 4095  | ``` obj.goal_position() ```            |
-| [```goal_position(p) -> None ```](https://emanual.robotis.com/docs/en/dxl/x/xl430-w250/#goal-position116)       | Set goal position value                 | -4095 ~ 4095   |  None  | ``` obj.goal_position(1024) ```            |
-| [```is_moving() -> bool ```](https://emanual.robotis.com/docs/en/dxl/x/xl430-w250/#moving122)       | Return moving status                 | None    | True : Dynamixel is moving<br/>False : Dyanmixel is not moving  | ``` obj.is_moving() ```            |
-| [```present_velocity() -> int ```](https://emanual.robotis.com/docs/en/dxl/x/xl430-w250/#present-velocity128)       | Return present velocity value                 | None    | -1023 ~ 1023 (unit: 0.229 rev/min)  | ``` obj.present_velocity() ```            |
-| [```present_position() -> int ```](https://emanual.robotis.com/docs/en/dxl/x/xl430-w250/#present-position132)       | Return present position value                 | None    | -4095 ~ 4095  | ``` obj.present_position() ```            |
+| [```goal_velocity() -> int ```](/docs/dxl/x/xl430-w250#goal-velocity104)       | Return goal velocity value                 | None    | -1023 ~ 1023 (unit: 0.229 rev/min)  | ``` obj.goal_velocity() ```            |
+| [```goal_velocity(v) -> None ```](/docs/dxl/x/xl430-w250#goal-velocity104)       | Set goal velocity value                 | -1023 ~ 1023  (unit: 0.229 rev/min)   |  None  | ``` obj.goal_velocity(100) ```            |
+| [```goal_position() -> int ```](/docs/dxl/x/xl430-w250#goal-position116)       | Return goal position value                 | None    | -4095 ~ 4095  | ``` obj.goal_position() ```            |
+| [```goal_position(p) -> None ```](/docs/dxl/x/xl430-w250#goal-position116)       | Set goal position value                 | -4095 ~ 4095   |  None  | ``` obj.goal_position(1024) ```            |
+| [```is_moving() -> bool ```](/docs/dxl/x/xl430-w250#moving122)       | Return moving status                 | None    | True : Dynamixel is moving<br/>False : Dyanmixel is not moving  | ``` obj.is_moving() ```            |
+| [```present_velocity() -> int ```](/docs/dxl/x/xl430-w250#present-velocity128)       | Return present velocity value                 | None    | -1023 ~ 1023 (unit: 0.229 rev/min)  | ``` obj.present_velocity() ```            |
+| [```present_position() -> int ```](/docs/dxl/x/xl430-w250#present-position132)       | Return present position value                 | None    | -4095 ~ 4095  | ``` obj.present_position() ```            |
 
 
 ## RPI Submodule

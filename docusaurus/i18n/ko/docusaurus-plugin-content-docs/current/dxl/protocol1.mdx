@@ -21,7 +21,7 @@ Instruction Packet과 Status Packet에 ID를 넣음으로써 Main Controller는 
 다이나믹셀은 8 bit, 1 Stop bit, None Parity의 Asynchronous Serial 통신을 합니다.
 
 만약 같은 ID 를 가진 다이나믹셀이 연결되었을 경우 Packet 충돌이 일어나서 통신에 문제를 일으키게 됩니다.
-그러므로 ID가 같은 다이나믹셀이 존재하지 않도록 ID설정을 해야 합니다. ID 설정을 위해서는, 다이나믹셀 위자드 2.0에서 [컨트롤 테이블](https://emanual.robotis.com/docs/kr/software/dynamixel/dynamixel_wizard2/#다이나믹셀-컨트롤-테이블)을 참고 하세요.
+그러므로 ID가 같은 다이나믹셀이 존재하지 않도록 ID설정을 해야 합니다. ID 설정을 위해서는, 다이나믹셀 위자드 2.0에서 [컨트롤 테이블](/docs/software/dynamixel/dynamixel_wizard2#다이나믹셀-컨트롤-테이블)을 참고 하세요.
 
 
 :::note
@@ -379,7 +379,7 @@ Control Table의 Data를 공장 출하 값 상태로 되돌려 놓습니다.
 
 ## Reboot
 장치를 재부팅 시킵니다.
-- 지원 모델 : 다이나믹셀 [MX-12W(V41), MX-28/64/106(V40), MX(2.0)](https://emanual.robotis.com/docs/kr/dxl/mx/), [X 시리즈](https://emanual.robotis.com/docs/kr/dxl/x/)
+- 지원 모델 : 다이나믹셀 [MX-12W(V41), MX-28/64/106(V40), MX(2.0)](/docs/dxl/mx), [X 시리즈](/docs/dxl/x)
 
 
 ### 예제
@@ -444,7 +444,7 @@ Control Table의 Data를 공장 출하 값 상태로 되돌려 놓습니다.
 한 번의 Instruction Packet 전송으로 여러 개의 다이나믹셀(MX시리즈)에서 동시에 값을 읽어오고자 할 때 사용되는 명령어입니다.
 여러 번의 READ 명령을 내리는 것에 비해 패킷의 길이가 줄어들고, 리턴 되는 상태 패킷들 사이에 유휴 시간이 줄어들어 통신 시간을 절약할 수 있습니다.
 단, 하나의 모듈에 여러 번 읽어 오도록 사용할 수는 없으며 동일한 모듈 ID 를 여러 번 지정할 경우 가장 먼저 지정된 파라미터만 처리됩니다.
-- 지원 모델 : 다이나믹셀 [MX, MX(2.0)](https://emanual.robotis.com/docs/kr/dxl/mx/), [X 시리즈](https://emanual.robotis.com/docs/kr/dxl/x/) (XL-320 제외)
+- 지원 모델 : 다이나믹셀 [MX, MX(2.0)](/docs/dxl/mx), [X 시리즈](/docs/dxl/x) (XL-320 제외)
 
 |      항목      | 설명                               |
 |:--------------:|:-----------------------------------|
@@ -462,7 +462,7 @@ Control Table의 Data를 공장 출하 값 상태로 되돌려 놓습니다.
 
 :::warning
 
-**주의**: [DYNAMIXEL Protocol 2.0의 Bulk Read](https://emanual.robotis.com/docs/kr/dxl/protocol2/#bulk-read) 패킷과 Parameter 필드의 구성이 다르므로 주의하세요.
+**주의**: [DYNAMIXEL Protocol 2.0의 Bulk Read](/docs/dxl/protocol2#bulk-read) 패킷과 Parameter 필드의 구성이 다르므로 주의하세요.
 
 :::
 
@@ -537,7 +537,7 @@ Control Table의 Data를 공장 출하 값 상태로 되돌려 놓습니다.
 ![](/img/dxl/protocol1/protocol1_example_21.png)
 
 
-[다이나믹셀 ID설정]: https://emanual.robotis.com/docs/kr/software/rplus1/manager/#id-설정
+[다이나믹셀 ID설정]: /docs/software/rplus1/manager#id-설정
 [Ping]: #ping
 [Read]: #read
 [Write]: #write
