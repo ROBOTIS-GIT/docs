@@ -1050,5 +1050,489 @@
   {
     "from": "/docs/en/software",
     "to": "/docs/software"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/c_broadcast_ping_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/c/broadcast_ping_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/c_bulk_read_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/c/bulk_read_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/c_bulk_read_write_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/c/bulk_read_write_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/c_clear_multi_turn_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/c/clear_multi_turn_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/c_dxl_monitor",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/c/dxl_monitor"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/c_indirect_address_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/c/indirect_address_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/c_multi_port_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/c/multi_port_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/c_multi_port_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/c/multi_port_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/c_ping_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/c/ping_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/c_ping_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/c/ping_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/c_protocol_combined",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/c/protocol_combined"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/c_read_write_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/c/read_write_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/c_read_write_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/c/read_write_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/c_reboot_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/c/reboot_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/c_reset_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/c/reset_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/c_reset_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/c/reset_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/c_sync_read_write_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/c/sync_read_write_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/c_sync_write_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/c/sync_write_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/cpp_broadcast_ping_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/cpp/broadcast_ping_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/cpp_bulk_read_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/cpp/bulk_read_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/cpp_bulk_read_write_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/cpp/bulk_read_write_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/cpp_clear_multi_turn_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/cpp/clear_multi_turn_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/cpp_dxl_monitor",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/cpp/dxl_monitor"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/cpp_indirect_address_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/cpp/indirect_address_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/cpp_multi_port_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/cpp/multi_port_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/cpp_multi_port_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/cpp/multi_port_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/cpp_ping_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/cpp/ping_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/cpp_ping_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/cpp/ping_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/cpp_protocol_combined",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/cpp/protocol_combined"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/cpp_read_write_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/cpp/read_write_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/cpp_read_write_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/cpp/read_write_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/cpp_reboot_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/cpp/reboot_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/cpp_reset_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/cpp/reset_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/cpp_reset_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/cpp/reset_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/cpp_sync_read_write_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/cpp/sync_read_write_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/cpp_sync_write_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/cpp/sync_write_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/csharp_broadcast_ping_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/csharp/broadcast_ping_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/csharp_bulk_read_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/csharp/bulk_read_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/csharp_bulk_read_write_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/csharp/bulk_read_write_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/csharp_clear_multi_turn_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/csharp/clear_multi_turn_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/csharp_indirect_address_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/csharp/indirect_address_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/csharp_multi_port_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/csharp/multi_port_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/csharp_multi_port_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/csharp/multi_port_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/csharp_ping_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/csharp/ping_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/csharp_ping_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/csharp/ping_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/csharp_protocol_combined",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/csharp/protocol_combined"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/csharp_read_write_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/csharp/read_write_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/csharp_read_write_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/csharp/read_write_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/csharp_reboot_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/csharp/reboot_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/csharp_reset_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/csharp/reset_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/csharp_reset_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/csharp/reset_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/csharp_sync_read_write_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/csharp/sync_read_write_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/csharp_sync_write_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/csharp/sync_write_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/java_broadcast_ping_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/java/broadcast_ping_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/java_bulk_read_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/java/bulk_read_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/java_bulk_read_write_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/java/bulk_read_write_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/java_clear_multi_turn_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/java/clear_multi_turn_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/java_indirect_address_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/java/indirect_address_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/java_multi_port_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/java/multi_port_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/java_multi_port_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/java/multi_port_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/java_ping_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/java/ping_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/java_ping_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/java/ping_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/java_protocol_combined",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/java/protocol_combined"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/java_read_write_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/java/read_write_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/java_read_write_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/java/read_write_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/java_reboot_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/java/reboot_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/java_reset_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/java/reset_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/java_reset_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/java/reset_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/java_sync_read_write_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/java/sync_read_write_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/java_sync_write_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/java/sync_write_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/labview_broadcast_ping_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/labview/broadcast_ping_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/labview_bulk_read_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/labview/bulk_read_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/labview_bulk_read_write_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/labview/bulk_read_write_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/labview_clear_multi_turn_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/labview/clear_multi_turn_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/labview_indirect_address_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/labview/indirect_address_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/labview_multi_port_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/labview/multi_port_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/labview_multi_port_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/labview/multi_port_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/labview_ping_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/labview/ping_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/labview_ping_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/labview/ping_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/labview_protocol_combined",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/labview/protocol_combined"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/labview_read_write_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/labview/read_write_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/labview_read_write_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/labview/read_write_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/labview_reboot_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/labview/reboot_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/labview_reset_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/labview/reset_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/labview_reset_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/labview/reset_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/labview_sync_read_write_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/labview/sync_read_write_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/labview_sync_write_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/labview/sync_write_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/matlab_broadcast_ping_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/matlab/broadcast_ping_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/matlab_bulk_read_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/matlab/bulk_read_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/matlab_bulk_read_write_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/matlab/bulk_read_write_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/matlab_clear_multi_turn_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/matlab/clear_multi_turn_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/matlab_indirect_address_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/matlab/indirect_address_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/matlab_multi_port_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/matlab/multi_port_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/matlab_multi_port_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/matlab/multi_port_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/matlab_ping_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/matlab/ping_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/matlab_ping_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/matlab/ping_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/matlab_protocol_combined",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/matlab/protocol_combined"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/matlab_read_write_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/matlab/read_write_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/matlab_read_write_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/matlab/read_write_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/matlab_reboot_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/matlab/reboot_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/matlab_reset_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/matlab/reset_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/matlab_reset_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/matlab/reset_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/matlab_sync_read_write_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/matlab/sync_read_write_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/matlab_sync_write_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/matlab/sync_write_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/python_broadcast_ping_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/python/broadcast_ping_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/python_bulk_read_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/python/bulk_read_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/python_bulk_read_write_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/python/bulk_read_write_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/python_clear_multi_turn_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/python/clear_multi_turn_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/python_indirect_address_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/python/indirect_address_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/python_multi_port_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/python/multi_port_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/python_multi_port_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/python/multi_port_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/python_ping_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/python/ping_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/python_ping_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/python/ping_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/python_protocol_combined",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/python/protocol_combined"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/python_read_write_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/python/read_write_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/python_read_write_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/python/read_write_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/python_reboot_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/python/reboot_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/python_reset_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/python/reset_protocol_1_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/python_reset_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/python/reset_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/python_sync_read_write_protocol_2_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/python/sync_read_write_protocol_2_0"
+  },
+  {
+    "from": "/docs/en/software/dynamixel/dynamixel_sdk/sample_code/python_sync_write_protocol_1_0",
+    "to": "/docs/software/dynamixel/dynamixel_sdk/sample_code/python/sync_write_protocol_1_0"
   }
 ]

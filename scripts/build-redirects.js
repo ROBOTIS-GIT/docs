@@ -83,6 +83,9 @@ const PERMALINK_OVERRIDES = {
   '/docs/en/platform/rh_p12_rna':    '/docs/platform/rh_p12_rn/rh_p12_rna',
   '/docs/en/platform/rh_p12_rn_ur':  '/docs/platform/rh_p12_rn/rh_p12_rn_ur',
   '/docs/en/platform/rh_p12_rn_dr':  '/docs/platform/rh_p12_rn/rh_p12_rn_dr',
+  // DYNAMIXEL SDK Sample Code: 원본 source는 /sample_code/<lang>_<example>/ 단일 슬러그였지만
+  // 출력은 /sample_code/<lang>/<example> 폴더 구조로 분리됨.
+  // 패턴 매핑은 toDocusaurusUrl() 의 후처리에서 처리.
 };
 
 /** 원본 permalink → Docusaurus URL */
@@ -97,7 +100,19 @@ function toDocusaurusUrl(permalink) {
   const [, locale, rest] = m;
   const cfg = LOCALE_MAP[locale];
   if (!cfg) return null;
-  return `${cfg.prefix}/docs/${rest}`.replace(/\/+$/, '') || '/';
+
+  // DYNAMIXEL SDK Sample Code 패턴 변환:
+  // software/dynamixel/dynamixel_sdk/sample_code/<lang>_<example>
+  //   → software/dynamixel/dynamixel_sdk/sample_code/<lang>/<example>
+  let mappedRest = rest;
+  const sdkMatch = rest.match(
+    /^software\/dynamixel\/dynamixel_sdk\/sample_code\/(c|cpp|python|java|csharp|labview|matlab)_(.+)$/i,
+  );
+  if (sdkMatch) {
+    mappedRest = `software/dynamixel/dynamixel_sdk/sample_code/${sdkMatch[1].toLowerCase()}/${sdkMatch[2]}`;
+  }
+
+  return `${cfg.prefix}/docs/${mappedRest}`.replace(/\/+$/, '') || '/';
 }
 
 /** Docusaurus가 trailing-slash를 자동 처리하므로 정규화된 형식 1개만 */
