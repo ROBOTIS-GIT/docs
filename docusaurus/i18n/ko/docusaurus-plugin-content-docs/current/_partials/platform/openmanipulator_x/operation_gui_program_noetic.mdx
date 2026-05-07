@@ -1,0 +1,31 @@
+:::info
+
+**NOTE**:
+- This instructions are supposed to be running on PC with ROS packages installed in. Please run the instructions below on your PC ROS packages installed in.
+- Make sure to run the [OpenMANIPULATOR-X controller](/docs/platform/openmanipulator_x/ros_controller_package#launch-controller) instructions before running the GUI Program.
+
+:::
+
+
+1. Launch the GUI program. The [OpenMANIPULATOR-X Controller](/docs/platform/openmanipulator_x/ros_controller_package#launch-controller) must be running on another terminal.
+```bash
+$ roslaunch open_manipulator_control_gui open_manipulator_control_gui.launch
+```
+
+2. Click the `Timer Start` button.  
+![](/img/platform/openmanipulator_x/OpenManipulator_GUI.png)  
+
+3. Check the status of OpenMANIPULATOR-X.  
+![](/img/platform/openmanipulator_x/OpenManipulator_GUI2.png)  
+
+4. To manipulate OpenMANIPULATOR-X in the [joint space], enter the joint angles and total time for the trajectory. Then click the `send` button to start the motion.  
+![](/img/platform/openmanipulator_x/OpenManipulator_GUI3.png)  
+
+5. To manipulate OpenMANIPULATOR-X in the [task space], enter the kinematics pose of the OpenMANIPULATOR-X end-effector(tool) in the [task space] and the total time for the trajectory. Then click the `send` button to start the motion.  
+![](/img/platform/openmanipulator_x/OpenManipulator_GUI4.png)  
+
+6. To create a drawing trajectory with OpenMANIPULATOR-X, choose the drawing trajectory type(line, circle, rhombus, heart). And enter the parameters according to the drawing trajectory type and the total time of the drawing trajectory. Then click the `send` button to start drawing.  
+![](/img/platform/openmanipulator_x/OpenManipulator_GUI5.png)  
+
+[task space]: https://emanual.robotis.com/docs/en/popup/open_manipulator_coordinates/
+[joint space]: https://emanual.robotis.com/docs/en/popup/open_manipulator_coordinates/

@@ -1,0 +1,104 @@
+---
+id: ros_applications
+title: "ROS Applications"
+sidebar_position: 13
+tags: [openmanipulator_x]
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import ApplicationsSetupKinetic from '@site/docs/_partials/platform/openmanipulator_x/applications_setup_kinetic.mdx';
+import ApplicationsInstallKinetic from '@site/docs/_partials/platform/openmanipulator_x/applications_install_kinetic.mdx';
+import ApplicationsExecuteNoetic from '@site/docs/_partials/platform/openmanipulator_x/applications_execute_noetic.mdx';
+
+:::info
+
+한국어 번역은 준비 중입니다. 영문 콘텐츠를 그대로 표시합니다.
+
+:::
+
+# Applications
+## Master and Slave
+<Tabs groupId="ros" queryString>
+<TabItem value="jazzy" label="Jazzy">
+
+
+:::warning
+
+Not supported
+
+:::
+
+
+</TabItem>
+<TabItem value="humble" label="Humble">
+
+
+:::warning
+
+Not supported
+
+:::
+
+
+</TabItem>
+<TabItem value="noetic" label="Noetic">
+
+In this example, if the user is holding the master OpenMANIPULATOR, the slave OpenMANIPULATOR-X moves like master robot. Recording mode allows you to save the trajectory as you move the master OpenMANIPULATOR-X and play it back to the slave OpenMANIPULATOR.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/kTS3Yx75mLo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+</TabItem>
+<TabItem value="arduino" label="Arduino">
+
+
+:::warning
+
+Master and Slave is not supported in Arduino
+
+:::
+
+
+</TabItem>
+</Tabs>
+
+
+### Setup OpenMANIPULATOR-X
+<Tabs groupId="ros" queryString>
+<TabItem value="noetic" label="Noetic">
+
+<ApplicationsSetupKinetic />
+
+</TabItem>
+</Tabs>
+
+
+### Install Package
+<Tabs groupId="ros" queryString>
+<TabItem value="noetic" label="Noetic">
+
+<ApplicationsInstallKinetic />
+
+</TabItem>
+</Tabs>
+
+
+### Execute Example
+<Tabs groupId="ros" queryString>
+<TabItem value="noetic" label="Noetic">
+
+<ApplicationsExecuteNoetic />
+
+</TabItem>
+</Tabs>
+
+
+## OpenCR Teaching
+:::warning
+
+This controller is not compatible with ROS, but runs on the OpenCR as a standalone controller.
+
+:::
+
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/t2xUWZYMw8Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
