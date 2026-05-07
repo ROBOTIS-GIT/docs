@@ -51,6 +51,13 @@ jobs:
           DOCUSAURUS_IGNORE_SSG_WARNINGS: 'true'
         run: npm run build
 
+      - name: Dedupe i18n static assets
+        # Docusaurus i18n 빌드는 build/{ko,ja}/img/ 에 root build/img/ 와 동일한
+        # 자산을 중복 복사 (~1.4GB). 빌드 후 제거 + HTML rewrite 로 GitHub Pages
+        # 1GB artifact 한계 회피.
+        working-directory: ./
+        run: bash scripts/dedupe-i18n-static.sh
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
