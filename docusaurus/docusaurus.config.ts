@@ -19,7 +19,10 @@ const config: Config = {
   projectName: 'emanual-v2',
 
   onBrokenLinks: 'throw',
-  onBrokenAnchors: 'warn',
+  // <a id> invisible anchor (inject-heading-anchors.js로 부착)는 빌드 HTML에
+  // 살아있지만 Docusaurus 검증 알고리즘은 heading id만 인식. 실제 브라우저
+  // anchor scroll 동작 정상이므로 워닝을 끄고 진짜 broken은 시각 검증으로 처리.
+  onBrokenAnchors: 'ignore',
   markdown: {
     hooks: {
       onBrokenMarkdownLinks: 'warn',
