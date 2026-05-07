@@ -1,0 +1,10 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.dxlSidebar.category.AX Series": {
+    "message": "AX Series",
+    "description": "The label for category 'AX Series' in sidebar 'dxlSidebar'"
+  }
+}

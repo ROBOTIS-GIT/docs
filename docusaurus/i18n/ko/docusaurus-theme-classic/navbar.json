@@ -1,0 +1,38 @@
+{
+  "title": {
+    "message": "ROBOTIS e-Manual",
+    "description": "The title in the navbar"
+  },
+  "logo.alt": {
+    "message": "ROBOTIS Logo",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.DYNAMIXEL": {
+    "message": "DYNAMIXEL",
+    "description": "Navbar item with label DYNAMIXEL"
+  },
+  "item.label.Platform": {
+    "message": "Platform",
+    "description": "Navbar item with label Platform"
+  },
+  "item.label.Software": {
+    "message": "Software",
+    "description": "Navbar item with label Software"
+  },
+  "item.label.Parts": {
+    "message": "Parts",
+    "description": "Navbar item with label Parts"
+  },
+  "item.label.Edu": {
+    "message": "Edu",
+    "description": "Navbar item with label Edu"
+  },
+  "item.label.FAQ": {
+    "message": "FAQ",
+    "description": "Navbar item with label FAQ"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub",
+    "description": "Navbar item with label GitHub"
+  }
+}

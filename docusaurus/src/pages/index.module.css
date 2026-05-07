@@ -1,23 +1,180 @@
-/**
- * CSS files with the .module.css suffix will be treated as CSS modules
- * and scoped locally.
- */
-
-.heroBanner {
-  padding: 4rem 0;
+/* Hero */
+.hero {
+  background: var(--robotis-hero-bg);
+  color: #fff;
+  padding: 6rem 0 4.5rem;
   text-align: center;
   position: relative;
   overflow: hidden;
 }
 
-@media screen and (max-width: 996px) {
-  .heroBanner {
-    padding: 2rem;
+.heroTitle {
+  font-size: 3.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0 0 1rem;
+}
+
+.heroSubtitle {
+  font-size: 1.25rem;
+  max-width: 720px;
+  margin: 0 auto 2.5rem;
+  opacity: 0.92;
+  line-height: 1.5;
+}
+
+.heroActions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.heroSecondary {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+.heroSecondary:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 4rem 0 3rem;
+  }
+  .heroTitle {
+    font-size: 2.25rem;
+  }
+  .heroSubtitle {
+    font-size: 1.05rem;
   }
 }
 
-.buttons {
+/* Sections */
+.section {
+  padding: 4rem 0;
+}
+
+.sectionAlt {
+  background: var(--ifm-color-emphasis-100);
+}
+
+.sectionTitle {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin: 0 0 2rem;
+  text-align: center;
+  letter-spacing: -0.01em;
+}
+
+/* Product grid */
+.productGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+@media (max-width: 996px) {
+  .productGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .productGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.productCard {
+  display: block;
+  padding: 1.75rem;
+  border: 1px solid var(--robotis-card-border);
+  border-radius: 12px;
+  background: var(--ifm-background-color);
+  box-shadow: var(--robotis-card-shadow);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  color: inherit;
+  text-decoration: none;
+}
+
+.productCard:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--robotis-card-shadow-hover);
+  border-color: var(--ifm-color-primary);
+  text-decoration: none;
+  color: inherit;
+}
+
+.productEmoji {
+  font-size: 2rem;
+  margin-bottom: 0.85rem;
+  line-height: 1;
+}
+
+.productTitle {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0 0 0.4rem;
+  color: var(--ifm-heading-color);
+}
+
+.productDesc {
+  font-size: 0.95rem;
+  color: var(--robotis-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Quick links */
+.quickLinks {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  max-width: 880px;
+  margin-inline: auto;
+}
+
+@media (max-width: 700px) {
+  .quickLinks {
+    grid-template-columns: 1fr;
+  }
+}
+
+.quickLink {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.95rem 1.15rem;
+  border: 1px solid var(--robotis-card-border);
+  border-radius: 8px;
+  background: var(--ifm-background-color);
+  color: inherit;
+  font-weight: 500;
+  text-decoration: none;
+  transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+}
+
+.quickLink:hover {
+  border-color: var(--ifm-color-primary);
+  background: var(--ifm-color-primary-lightest);
+  color: var(--ifm-color-primary-darkest);
+  text-decoration: none;
+  transform: translateX(2px);
+}
+
+.quickArrow {
+  color: var(--ifm-color-primary);
+  font-weight: 600;
+  transition: transform 0.15s ease;
+}
+
+.quickLink:hover .quickArrow {
+  transform: translateX(2px);
 }

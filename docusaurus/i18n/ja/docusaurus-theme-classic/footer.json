@@ -1,0 +1,46 @@
+{
+  "link.title.Docs": {
+    "message": "Docs",
+    "description": "The title of the footer links column with title=Docs in the footer"
+  },
+  "link.title.Community": {
+    "message": "Community",
+    "description": "The title of the footer links column with title=Community in the footer"
+  },
+  "link.title.More": {
+    "message": "More",
+    "description": "The title of the footer links column with title=More in the footer"
+  },
+  "link.item.label.DYNAMIXEL": {
+    "message": "DYNAMIXEL",
+    "description": "The label of footer link with label=DYNAMIXEL linking to /docs/dxl/"
+  },
+  "link.item.label.Platform": {
+    "message": "Platform",
+    "description": "The label of footer link with label=Platform linking to /docs/platform/"
+  },
+  "link.item.label.Software": {
+    "message": "Software",
+    "description": "The label of footer link with label=Software linking to /docs/software/"
+  },
+  "link.item.label.ROBOTIS Forum": {
+    "message": "ROBOTIS Forum",
+    "description": "The label of footer link with label=ROBOTIS Forum linking to https://forum.robotis.com/"
+  },
+  "link.item.label.GitHub": {
+    "message": "GitHub",
+    "description": "The label of footer link with label=GitHub linking to https://github.com/Luke-K-Robotis/emanual-v2"
+  },
+  "link.item.label.ROBOTIS": {
+    "message": "ROBOTIS",
+    "description": "The label of footer link with label=ROBOTIS linking to https://www.robotis.com/"
+  },
+  "link.item.label.Shop": {
+    "message": "Shop",
+    "description": "The label of footer link with label=Shop linking to https://www.robotis.us/"
+  },
+  "copyright": {
+    "message": "Copyright © 2026 ROBOTIS Co., Ltd. Built with Docusaurus.",
+    "description": "The footer copyright"
+  }
+}
