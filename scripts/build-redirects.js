@@ -70,8 +70,27 @@ function extractPermalink(filepath) {
   return value || null;
 }
 
+/**
+ * 명시적 permalink 매핑 오버라이드.
+ * 원본 permalink 의 일부 시리즈는 출력 URL 구조가 달라 자동 매핑으로 안 잡힘.
+ * 예: source 의 rh_p12_rn / rh_p12_rna / rh_p12_rn_ur 페이지는
+ *     모두 docusaurus output 의 platform/rh_p12_rn/<page> 폴더로 이동했다.
+ */
+const PERMALINK_OVERRIDES = {
+  // RH-P12-RN 시리즈는 source에서 4개 별도 permalink였지만 output은 한 폴더로 통합.
+  // rh_p12_rn.mdx 는 폴더와 동일 이름이라 Docusaurus가 폴더 인덱스로 promote → 슬러그가 '/docs/platform/rh_p12_rn'
+  '/docs/en/platform/rh_p12_rn':     '/docs/platform/rh_p12_rn',
+  '/docs/en/platform/rh_p12_rna':    '/docs/platform/rh_p12_rn/rh_p12_rna',
+  '/docs/en/platform/rh_p12_rn_ur':  '/docs/platform/rh_p12_rn/rh_p12_rn_ur',
+  '/docs/en/platform/rh_p12_rn_dr':  '/docs/platform/rh_p12_rn/rh_p12_rn_dr',
+};
+
 /** 원본 permalink → Docusaurus URL */
 function toDocusaurusUrl(permalink) {
+  const trimmed = permalink.replace(/\/+$/, '');
+  if (Object.prototype.hasOwnProperty.call(PERMALINK_OVERRIDES, trimmed)) {
+    return PERMALINK_OVERRIDES[trimmed];
+  }
   // 형식: /docs/<locale>/<path>/   또는 일반   /docs/<locale>/<path>
   const m = permalink.match(/^\/docs\/(en|kr|jp)\/(.*?)\/?$/);
   if (!m) return null;

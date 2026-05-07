@@ -1,0 +1,33 @@
+---
+id: op3_GetPresentJointOffsetData_srv
+title: "op3_GetPresentJointOffsetData_srv"
+sidebar_position: 17
+tags: [msgs]
+---
+
+:::info
+
+한국어 번역은 준비 중입니다. 영문 콘텐츠를 그대로 표시합니다.
+
+:::
+
+# op3_GetPresentJointOffsetData_srv
+- File: `op3_offset_tuner_msgs/srv/GetPresentJointOffsetData.srv`
+
+- Message Definition
+  ```c
+  ---
+  JointOffsetPositionData[] present_data_array
+  ```
+
+- Description  
+The service to get offset data of each joint.
+
+  - Request  
+    * `empty`  
+
+  - Response  
+    * `JointOffsetPositionData[] present_data_array`([op3_offset_tuner_msgs/JointOffsetPositionData])    
+&emsp;&emsp; Array of the offset parameter data of each joint  
+
+[op3_offset_tuner_msgs/JointOffsetPositionData]: https://emanual.robotis.com/docs/en/popup/op3_JointOffsetPositionData.msg/

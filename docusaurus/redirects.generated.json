@@ -460,6 +460,22 @@
     "to": "/docs/platform/ai_manipulator_main"
   },
   {
+    "from": "/docs/en/platform/common/arduino_examples_op3",
+    "to": "/docs/platform/common/arduino_examples_op3"
+  },
+  {
+    "from": "/docs/en/platform/common/humanoid_navigation",
+    "to": "/docs/platform/common/humanoid_navigation"
+  },
+  {
+    "from": "/docs/en/platform/common/op3_robot_operating_system",
+    "to": "/docs/platform/common/op3_robot_operating_system"
+  },
+  {
+    "from": "/docs/en/platform/common/robotis_math",
+    "to": "/docs/platform/common/robotis_math"
+  },
+  {
     "from": "/docs/en/platform/manipulator_h/examples",
     "to": "/docs/platform/manipulator_h/examples"
   },
@@ -494,6 +510,126 @@
   {
     "from": "/docs/en/platform/manipulator_h/ros_reference",
     "to": "/docs/platform/manipulator_h/ros_reference"
+  },
+  {
+    "from": "/docs/en/platform/msgs/BalanceParam_msg",
+    "to": "/docs/platform/msgs/BalanceParam_msg"
+  },
+  {
+    "from": "/docs/en/platform/msgs/DampingBalanceParam_msg",
+    "to": "/docs/platform/msgs/DampingBalanceParam_msg"
+  },
+  {
+    "from": "/docs/en/platform/msgs/geometry_msgs_Pose_msg",
+    "to": "/docs/platform/msgs/geometry_msgs_Pose_msg"
+  },
+  {
+    "from": "/docs/en/platform/msgs/geometry_msgs_Pose2D_msg",
+    "to": "/docs/platform/msgs/geometry_msgs_Pose2D_msg"
+  },
+  {
+    "from": "/docs/en/platform/msgs/GetPresentJointOffsetData_srv",
+    "to": "/docs/platform/msgs/GetPresentJointOffsetData_srv"
+  },
+  {
+    "from": "/docs/en/platform/msgs/JointFeedBackGain_msg",
+    "to": "/docs/platform/msgs/JointFeedBackGain_msg"
+  },
+  {
+    "from": "/docs/en/platform/msgs/JointOffsetPositionData_msg",
+    "to": "/docs/platform/msgs/JointOffsetPositionData_msg"
+  },
+  {
+    "from": "/docs/en/platform/msgs/JointTorqueOnOff_msg",
+    "to": "/docs/platform/msgs/JointTorqueOnOff_msg"
+  },
+  {
+    "from": "/docs/en/platform/msgs/JointTorqueOnOffArray_msg",
+    "to": "/docs/platform/msgs/JointTorqueOnOffArray_msg"
+  },
+  {
+    "from": "/docs/en/platform/msgs/op3_GetPresentJointOffsetData_srv",
+    "to": "/docs/platform/msgs/op3_GetPresentJointOffsetData_srv"
+  },
+  {
+    "from": "/docs/en/platform/msgs/op3_JointOffsetPositionData_msg",
+    "to": "/docs/platform/msgs/op3_JointOffsetPositionData_msg"
+  },
+  {
+    "from": "/docs/en/platform/msgs/op3_JointTorqueOnOff_msg",
+    "to": "/docs/platform/msgs/op3_JointTorqueOnOff_msg"
+  },
+  {
+    "from": "/docs/en/platform/msgs/op3_JointTorqueOnOffArray_msg",
+    "to": "/docs/platform/msgs/op3_JointTorqueOnOffArray_msg"
+  },
+  {
+    "from": "/docs/en/platform/msgs/op3_KinematicsPose_msg",
+    "to": "/docs/platform/msgs/op3_KinematicsPose_msg"
+  },
+  {
+    "from": "/docs/en/platform/msgs/op3_PreviewRequest_msg",
+    "to": "/docs/platform/msgs/op3_PreviewRequest_msg"
+  },
+  {
+    "from": "/docs/en/platform/msgs/op3_PreviewResponse_msg",
+    "to": "/docs/platform/msgs/op3_PreviewResponse_msg"
+  },
+  {
+    "from": "/docs/en/platform/msgs/op3_WalkingParam_msg",
+    "to": "/docs/platform/msgs/op3_WalkingParam_msg"
+  },
+  {
+    "from": "/docs/en/platform/msgs/PoseXYZRPY_msg",
+    "to": "/docs/platform/msgs/PoseXYZRPY_msg"
+  },
+  {
+    "from": "/docs/en/platform/msgs/PoseZRPY_msg",
+    "to": "/docs/platform/msgs/PoseZRPY_msg"
+  },
+  {
+    "from": "/docs/en/platform/msgs/std_msgs_header",
+    "to": "/docs/platform/msgs/std_msgs_header"
+  },
+  {
+    "from": "/docs/en/platform/msgs/Step2D_msg",
+    "to": "/docs/platform/msgs/Step2D_msg"
+  },
+  {
+    "from": "/docs/en/platform/msgs/Step2DArray_msg",
+    "to": "/docs/platform/msgs/Step2DArray_msg"
+  },
+  {
+    "from": "/docs/en/platform/msgs/StepData_msg",
+    "to": "/docs/platform/msgs/StepData_msg"
+  },
+  {
+    "from": "/docs/en/platform/msgs/StepPositionData_msg",
+    "to": "/docs/platform/msgs/StepPositionData_msg"
+  },
+  {
+    "from": "/docs/en/platform/msgs/StepTimeData_msg",
+    "to": "/docs/platform/msgs/StepTimeData_msg"
+  },
+  {
+    "from": "/docs/en/platform/omy/overview",
+    "to": "/docs/platform/omy/overview"
+  },
+  {
+    "from": "/docs/en/platform/omy/quick_start_guide",
+    "to": "/docs/platform/omy/quick_start_guide"
+  },
+  {
+    "from": "/docs/en/platform/omy/ros2_operation",
+    "to": "/docs/platform/omy/ros2_operation"
+  },
+  {
+    "from": "/docs/en/platform/omy/ros2_simulation",
+    "to": "/docs/platform/omy/ros2_simulation"
+  },
+  {
+    "from": "/docs/en/platform/omy/specification",
+    "to": "/docs/platform/omy/specification"
   },
   {
     "from": "/docs/en/platform/op/development",
@@ -698,6 +834,26 @@
   {
     "from": "/docs/en/platform/openmanipulator_x/tool_modification",
     "to": "/docs/platform/openmanipulator_x/tool_modification"
+  },
+  {
+    "from": "/docs/en/platform/rh_p12_rn_main",
+    "to": "/docs/platform/rh_p12_rn_main"
+  },
+  {
+    "from": "/docs/en/platform/rh_p12_rn_ur",
+    "to": "/docs/platform/rh_p12_rn/rh_p12_rn_ur"
+  },
+  {
+    "from": "/docs/en/platform/rh_p12_rn/examples",
+    "to": "/docs/platform/rh_p12_rn/examples"
+  },
+  {
+    "from": "/docs/en/platform/rh_p12_rn/gazebo",
+    "to": "/docs/platform/rh_p12_rn/gazebo"
+  },
+  {
+    "from": "/docs/en/platform/rh_p12_rna",
+    "to": "/docs/platform/rh_p12_rn/rh_p12_rna"
   },
   {
     "from": "/docs/en/platform/thormang3/gazebo_simulation",
