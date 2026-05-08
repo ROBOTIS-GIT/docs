@@ -435,5 +435,23 @@
   },
   "home.quick.faq": {
     "message": "FAQ"
+  },
+  "home.hero.badge": {
+    "message": "v2.0 · EN / 한국어 / 日本語"
+  },
+  "home.card.cta": {
+    "message": "Explore"
+  },
+  "home.products.eyebrow": {
+    "message": "Browse by category"
+  },
+  "home.products.lead": {
+    "message": "From smart actuators to robot platforms and developer SDKs — pick a category to dive in."
+  },
+  "home.popular.eyebrow": {
+    "message": "Quick links"
+  },
+  "home.popular.lead": {
+    "message": "Frequently visited references and getting-started guides."
   }
 }

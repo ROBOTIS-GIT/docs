@@ -11,6 +11,10 @@ function HomeHero(): ReactNode {
   return (
     <header className={styles.hero}>
       <div className="container">
+        <span className={styles.heroBadge}>
+          <span className={styles.heroBadgeDot} aria-hidden />
+          <Translate id="home.hero.badge">v2.0 · EN / 한국어 / 日本語</Translate>
+        </span>
         <Heading as="h1" className={styles.heroTitle}>
           <Translate id="home.hero.title">ROBOTIS e-Manual</Translate>
         </Heading>
@@ -24,7 +28,7 @@ function HomeHero(): ReactNode {
             <Translate id="home.hero.ctaPrimary">Browse documentation</Translate>
           </Link>
           <Link
-            className={`button button--secondary button--lg ${styles.heroSecondary}`}
+            className={`button button--lg ${styles.heroSecondary}`}
             to="/search">
             <Translate id="home.hero.ctaSecondary">Search the manuals</Translate>
           </Link>
@@ -52,6 +56,12 @@ function ProductCard({to, imageSrc, imageAlt, title, desc}: CardProps): ReactNod
         {title}
       </Heading>
       <p className={styles.productDesc}>{desc}</p>
+      <span className={styles.productCta}>
+        <Translate id="home.card.cta">Explore</Translate>
+        <span aria-hidden className={styles.productCtaArrow}>
+          →
+        </span>
+      </span>
     </Link>
   );
 }
@@ -60,9 +70,17 @@ function ProductGrid(): ReactNode {
   return (
     <section className={styles.section}>
       <div className="container">
+        <span className={styles.sectionEyebrow}>
+          <Translate id="home.products.eyebrow">Browse by category</Translate>
+        </span>
         <Heading as="h2" className={styles.sectionTitle}>
-          <Translate id="home.products.heading">Browse by category</Translate>
+          <Translate id="home.products.heading">Build with ROBOTIS</Translate>
         </Heading>
+        <p className={styles.sectionLead}>
+          <Translate id="home.products.lead">
+            From smart actuators to robot platforms and developer SDKs — pick a category to dive in.
+          </Translate>
+        </p>
         <div className={styles.productGrid}>
           <ProductCard
             to="/docs/dxl/"
@@ -133,9 +151,17 @@ function PopularGuides(): ReactNode {
   return (
     <section className={`${styles.section} ${styles.sectionAlt}`}>
       <div className="container">
+        <span className={styles.sectionEyebrow}>
+          <Translate id="home.popular.eyebrow">Quick links</Translate>
+        </span>
         <Heading as="h2" className={styles.sectionTitle}>
           <Translate id="home.popular.heading">Popular guides</Translate>
         </Heading>
+        <p className={styles.sectionLead}>
+          <Translate id="home.popular.lead">
+            Frequently visited references and getting-started guides.
+          </Translate>
+        </p>
         <ul className={styles.quickLinks}>
           <QuickLink
             to="/docs/dxl/ax/ax-12a"

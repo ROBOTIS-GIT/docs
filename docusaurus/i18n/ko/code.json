@@ -435,5 +435,23 @@
   },
   "home.quick.faq": {
     "message": "FAQ"
+  },
+  "home.hero.badge": {
+    "message": "v2.0 · EN / 한국어 / 日本語"
+  },
+  "home.card.cta": {
+    "message": "둘러보기"
+  },
+  "home.products.eyebrow": {
+    "message": "카테고리별"
+  },
+  "home.products.lead": {
+    "message": "스마트 액추에이터부터 로봇 플랫폼, 개발자 SDK까지 — 원하는 카테고리를 선택하세요."
+  },
+  "home.popular.eyebrow": {
+    "message": "바로가기"
+  },
+  "home.popular.lead": {
+    "message": "자주 찾는 레퍼런스와 시작 가이드."
   }
 }
