@@ -1,32 +1,38 @@
 /* ============================================================
-   Hero
+   Hero — light/clean Dyte 스타일 (배경색 제거, 가독성 향상)
    ============================================================ */
 .hero {
   position: relative;
   overflow: hidden;
   padding: 7rem 0 6rem;
   text-align: center;
-  background: var(--robotis-hero-bg);
-  color: #fff;
+  background: transparent;
+  color: var(--ifm-heading-color);
   isolation: isolate;
 }
 
-/* 배경 그리드 + radial mask (Dyte 스타일 — 중앙 집중, 외곽 페이드) */
+/* 옅은 격자 + radial mask (light 모드용 차분한 톤) */
 .hero::before {
   content: '';
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.10) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.10) 1px, transparent 1px);
+    linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
   background-size: 48px 48px;
-  -webkit-mask-image: radial-gradient(ellipse 70% 60% at center, black 30%, transparent 80%);
-  mask-image: radial-gradient(ellipse 70% 60% at center, black 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at center, black 30%, transparent 85%);
+  mask-image: radial-gradient(ellipse 70% 60% at center, black 30%, transparent 85%);
   pointer-events: none;
   z-index: 0;
 }
 
-/* 부드러운 글로우 */
+[data-theme='dark'] .hero::before {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+}
+
+/* primary 컬러 글로우 — 은은하게 */
 .hero::after {
   content: '';
   position: absolute;
@@ -35,9 +41,13 @@
   width: 720px;
   height: 720px;
   transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.18), transparent 60%);
+  background: radial-gradient(circle, rgba(0, 160, 223, 0.10), transparent 60%);
   pointer-events: none;
   z-index: 0;
+}
+
+[data-theme='dark'] .hero::after {
+  background: radial-gradient(circle, rgba(76, 198, 240, 0.14), transparent 60%);
 }
 
 .hero > div {
@@ -51,23 +61,21 @@
   gap: 0.5rem;
   padding: 0.4rem 0.9rem;
   margin: 0 auto 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid var(--ifm-color-emphasis-300);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.10);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: var(--ifm-color-emphasis-100);
   font-size: 0.85rem;
   font-weight: 500;
   letter-spacing: 0.01em;
-  color: rgba(255, 255, 255, 0.95);
+  color: var(--ifm-color-emphasis-800);
 }
 
 .heroBadgeDot {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #7be0ff;
-  box-shadow: 0 0 10px rgba(123, 224, 255, 0.9);
+  background: var(--ifm-color-primary);
+  box-shadow: 0 0 8px rgba(0, 160, 223, 0.6);
 }
 
 .heroTitle {
@@ -76,11 +84,23 @@
   letter-spacing: -0.025em;
   line-height: 1.05;
   margin: 0 0 1.25rem;
-  background: linear-gradient(180deg, #ffffff 0%, #d6f4ff 100%);
+  color: var(--ifm-heading-color);
+}
+
+/* primary 그라데이션 텍스트 (light/dark 모두 적용) */
+.heroTitleAccent {
+  background: linear-gradient(135deg, var(--ifm-color-primary), var(--ifm-color-primary-darkest));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
+}
+
+[data-theme='dark'] .heroTitleAccent {
+  background: linear-gradient(135deg, var(--ifm-color-primary-light), var(--ifm-color-primary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .heroSubtitle {
@@ -88,7 +108,7 @@
   max-width: 720px;
   margin: 0 auto 2.5rem;
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.88);
+  color: var(--robotis-muted);
   font-weight: 400;
 }
 
@@ -99,34 +119,33 @@
   flex-wrap: wrap;
 }
 
-/* Hero 안 CTA 버튼 */
+/* Primary CTA — primary 컬러 fill */
 .heroActions :global(.button--primary) {
-  background: #ffffff;
-  color: var(--ifm-color-primary-darkest);
+  background: var(--ifm-color-primary);
+  color: #fff;
   border-color: transparent;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 8px 24px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 1px 2px rgba(0, 160, 223, 0.20), 0 8px 24px rgba(0, 160, 223, 0.18);
   font-weight: 600;
   padding: 0.85rem 1.75rem;
 }
 .heroActions :global(.button--primary:hover) {
-  background: #f5fbff;
+  background: var(--ifm-color-primary-dark);
   transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.10), 0 12px 32px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 2px 4px rgba(0, 160, 223, 0.25), 0 12px 32px rgba(0, 160, 223, 0.28);
 }
 
+/* Secondary CTA — outline + neutral */
 .heroSecondary {
-  background: rgba(255, 255, 255, 0.10);
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.30);
+  background: var(--ifm-background-color);
+  color: var(--ifm-color-emphasis-800);
+  border: 1px solid var(--ifm-color-emphasis-300);
   font-weight: 500;
   padding: 0.85rem 1.75rem;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
 }
 .heroSecondary:hover {
-  background: rgba(255, 255, 255, 0.18);
-  color: #fff;
-  border-color: rgba(255, 255, 255, 0.50);
+  background: var(--ifm-color-emphasis-100);
+  color: var(--ifm-color-primary-darkest);
+  border-color: var(--ifm-color-primary);
 }
 
 @media (max-width: 768px) {

@@ -4,7 +4,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 import generatedRedirects from './redirects.generated.json';
 
 const config: Config = {
-  title: 'ROBOTIS e-Manual',
+  title: 'ROBOTIS Docs',
   tagline: 'ROBOTIS product documentation',
   favicon: 'img/favicon.ico',
 
@@ -32,11 +32,10 @@ const config: Config = {
 
   i18n: {
     defaultLocale: 'en',
-    locales: ['en', 'ko', 'ja'],
+    locales: ['en', 'ko'],
     localeConfigs: {
       en: {label: 'English', htmlLang: 'en-US'},
       ko: {label: '한국어', htmlLang: 'ko-KR'},
-      ja: {label: '日本語', htmlLang: 'ja-JP'},
     },
   },
 
@@ -67,7 +66,7 @@ const config: Config = {
       require.resolve('@easyops-cn/docusaurus-search-local'),
       {
         hashed: true,
-        language: ['en', 'ko', 'ja'],
+        language: ['en', 'ko'],
         indexBlog: false,
         docsRouteBasePath: '/docs',
         highlightSearchTermsOnTargetPage: true,
@@ -87,16 +86,15 @@ const config: Config = {
   ],
 
   themeConfig: {
-    image: 'img/robotis-social-card.jpg',
     colorMode: {
       respectPrefersColorScheme: true,
     },
     navbar: {
-      title: 'ROBOTIS e-Manual',
+      // 로고 이미지에 "ROBOTIS e-Manual" 텍스트 포함 → 중복 방지 위해 title 빈 문자열
+      title: '',
       logo: {
-        alt: 'ROBOTIS Logo',
-        src: 'img/logo_r.png',
-        srcDark: 'img/logo_w.svg',
+        alt: 'ROBOTIS e-Manual',
+        src: 'img/emanaul_logo.webp',
       },
       items: [
         {

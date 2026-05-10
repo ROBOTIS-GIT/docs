@@ -22,25 +22,23 @@ fi
 before=$(du -sb "$BUILD" 2>/dev/null | cut -f1)
 echo "build size before: $((before / 1024 / 1024)) MiB"
 
-for locale in ko ja; do
+for locale in ko; do
   if [ -d "$BUILD/$locale/img" ]; then
     rm -rf "$BUILD/$locale/img"
     echo "removed $BUILD/$locale/img"
   fi
 done
 
-# ko/ja HTML의 /ko/img/ /ja/img/ → /img/
+# ko HTML의 /ko/img/ → /img/
 echo "rewriting HTML img references..."
-find "$BUILD/ko" "$BUILD/ja" -name "*.html" -type f 2>/dev/null | while IFS= read -r f; do
-  sed -i 's|/ko/img/|/img/|g; s|/ja/img/|/img/|g' "$f"
+find "$BUILD/ko" -name "*.html" -type f 2>/dev/null | while IFS= read -r f; do
+  sed -i 's|/ko/img/|/img/|g' "$f"
 done
 
-# search-index.json 도 동일 처리 (locale별)
-for locale in ko ja; do
-  if [ -f "$BUILD/$locale/search-index.json" ]; then
-    sed -i "s|/$locale/img/|/img/|g" "$BUILD/$locale/search-index.json"
-  fi
-done
+# search-index.json 도 동일 처리
+if [ -f "$BUILD/ko/search-index.json" ]; then
+  sed -i "s|/ko/img/|/img/|g" "$BUILD/ko/search-index.json"
+fi
 
 after=$(du -sb "$BUILD" 2>/dev/null | cut -f1)
 echo "build size after:  $((after / 1024 / 1024)) MiB"
