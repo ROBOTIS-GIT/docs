@@ -31,6 +31,17 @@
   --robotis-muted: #5b6573;
 }
 
+/* Navbar 로고: 200px 고정 width (Docusaurus 기본 height: 100% 가 이미지 해상도를
+   왜곡하는 문제 방지). 컨테이너 자체도 height auto 로 풀어서 로고 비율 유지. */
+.navbar__logo {
+  height: auto;
+}
+.navbar__logo img {
+  width: 200px;
+  height: auto;
+  max-width: 200px;
+}
+
 [data-theme='dark'] {
   --ifm-color-primary: #4cc6f0;
   --ifm-color-primary-dark: #2bb9eb;
