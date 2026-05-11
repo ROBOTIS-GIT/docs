@@ -42,6 +42,14 @@
   max-width: 150px;
 }
 
+/* navbar의 locale dropdown 옆 globe(번역) 아이콘 + 외부 링크 화살표 아이콘 숨김 */
+.navbar svg[class*='iconLanguage'],
+.navbar svg.iconLanguage,
+.navbar__link svg[class*='iconExternalLink'],
+.navbar__link svg.iconExternalLink {
+  display: none;
+}
+
 [data-theme='dark'] {
   --ifm-color-primary: #4cc6f0;
   --ifm-color-primary-dark: #2bb9eb;

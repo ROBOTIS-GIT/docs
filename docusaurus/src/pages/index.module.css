@@ -164,7 +164,7 @@
 }
 
 .sectionAlt {
-  background: var(--ifm-color-emphasis-100);
+  background: transparent;
 }
 
 .sectionTitle {
