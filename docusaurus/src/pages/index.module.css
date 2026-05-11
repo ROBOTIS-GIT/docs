@@ -41,13 +41,13 @@
   width: 720px;
   height: 720px;
   transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgba(0, 160, 223, 0.10), transparent 60%);
+  background: radial-gradient(circle, rgba(33, 96, 253, 0.10), transparent 60%);
   pointer-events: none;
   z-index: 0;
 }
 
 [data-theme='dark'] .hero::after {
-  background: radial-gradient(circle, rgba(76, 198, 240, 0.14), transparent 60%);
+  background: radial-gradient(circle, rgba(75, 124, 253, 0.14), transparent 60%);
 }
 
 .hero > div {
@@ -75,7 +75,7 @@
   height: 7px;
   border-radius: 50%;
   background: var(--ifm-color-primary);
-  box-shadow: 0 0 8px rgba(0, 160, 223, 0.6);
+  box-shadow: 0 0 8px rgba(33, 96, 253, 0.6);
 }
 
 .heroTitle {
@@ -123,14 +123,14 @@
   background: var(--ifm-color-primary);
   color: #fff;
   border-color: transparent;
-  box-shadow: 0 1px 2px rgba(0, 160, 223, 0.20), 0 8px 24px rgba(0, 160, 223, 0.18);
+  box-shadow: 0 1px 2px rgba(33, 96, 253, 0.20), 0 8px 24px rgba(33, 96, 253, 0.18);
   font-weight: 600;
   padding: 0.85rem 1.75rem;
 }
 .heroActions :global(.button--primary:hover) {
   background: var(--ifm-color-primary-dark);
   transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0, 160, 223, 0.25), 0 12px 32px rgba(0, 160, 223, 0.28);
+  box-shadow: 0 2px 4px rgba(33, 96, 253, 0.25), 0 12px 32px rgba(33, 96, 253, 0.28);
 }
 
 /* Secondary CTA — outline + neutral */
