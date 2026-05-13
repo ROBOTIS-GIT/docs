@@ -76,10 +76,10 @@ function ProductGrid(): ReactNode {
             to="/docs/platform/"
             imageSrc="/img/home/platform.png"
             imageAlt="Platform"
-            title={<Translate id="home.card.platform.title">Platform</Translate>}
+            title={<Translate id="home.card.platform.title">Echosystem</Translate>}
             desc={
               <Translate id="home.card.platform.desc">
-                Robot platforms — TurtleBot3, OP3, OMY, OpenManipulator.
+                Robot Echosystem — Humanoid, Manipulator, Mobile, and etc. platforms.
               </Translate>
             }
           />
@@ -90,7 +90,7 @@ function ProductGrid(): ReactNode {
             title={<Translate id="home.card.software.title">Software</Translate>}
             desc={
               <Translate id="home.card.software.desc">
-                SDKs, Wizard, R+ Suite, ROS packages.
+                SDKs, Wizard, ROS packages.
               </Translate>
             }
           />
