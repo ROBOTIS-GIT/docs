@@ -1,0 +1,15 @@
+services:
+  docs:
+    container_name: robotis-docs
+    build:
+      # 컨텍스트는 docusaurus 폴더, Dockerfile 은 레포 루트(상위)에 위치
+      context: ./docusaurus
+      dockerfile: ../Dockerfile
+    volumes:
+      # 소스 전체를 마운트해 편집 시 즉시 hot reload
+      - ./docusaurus:/app
+      # 호스트엔 node_modules 가 없으므로 이미지 안의 것을 보존
+      - /app/node_modules
+    ports:
+      - "5714:5714"
+    restart: unless-stopped
