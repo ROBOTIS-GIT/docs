@@ -1,0 +1,33 @@
+### Launch Gazebo
+
+
+
+:::danger
+
+It is recommended to run on a PC other than OMY.
+
+:::
+
+
+1. Refer to [Software Setup](/docs/systems/omy/quick_start_guide#software-setup) to prepare the OM container.
+2. Press Ctrl + Alt + T to open a new terminal and enter the following command.
+```bash
+xhost +
+```
+3. Access the container.
+```bash
+# Enter the running container
+./docker/container.sh enter
+```
+
+4. Run Gazebo with the following command.
+``` bash
+$ ros2 launch open_manipulator_bringup omy_f3m_gazebo.launch.py
+```
+2. Run [Moveit, GUI Operation](/docs/systems/omy/ros2_operation) in Gazebo simulation.
+
+#### OMY_F3M
+<img src="/img/systems/omy/omy_f3m_gazebo.webp" width="700"/>
+
+#### OMY_3M
+<img src="/img/systems/omy/omy_3m_gazebo.webp" width="700"/>

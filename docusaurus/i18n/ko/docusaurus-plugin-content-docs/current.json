@@ -39,53 +39,53 @@
     "message": "P Series",
     "description": "The label for category 'P Series' in sidebar 'dxlSidebar'"
   },
-  "sidebar.platformSidebar.category.TurtleBot3": {
+  "sidebar.systemsSidebar.category.TurtleBot3": {
     "message": "TurtleBot3",
-    "description": "The label for category 'TurtleBot3' in sidebar 'platformSidebar'"
+    "description": "The label for category 'TurtleBot3' in sidebar 'systemsSidebar'"
   },
-  "sidebar.platformSidebar.category.OMY": {
+  "sidebar.systemsSidebar.category.OMY": {
     "message": "OMY",
-    "description": "The label for category 'OMY' in sidebar 'platformSidebar'"
+    "description": "The label for category 'OMY' in sidebar 'systemsSidebar'"
   },
-  "sidebar.platformSidebar.category.OpenMANIPULATOR-X": {
+  "sidebar.systemsSidebar.category.OpenMANIPULATOR-X": {
     "message": "OpenMANIPULATOR-X",
-    "description": "The label for category 'OpenMANIPULATOR-X' in sidebar 'platformSidebar'"
+    "description": "The label for category 'OpenMANIPULATOR-X' in sidebar 'systemsSidebar'"
   },
-  "sidebar.platformSidebar.category.OpenMANIPULATOR-P": {
+  "sidebar.systemsSidebar.category.OpenMANIPULATOR-P": {
     "message": "OpenMANIPULATOR-P",
-    "description": "The label for category 'OpenMANIPULATOR-P' in sidebar 'platformSidebar'"
+    "description": "The label for category 'OpenMANIPULATOR-P' in sidebar 'systemsSidebar'"
   },
-  "sidebar.platformSidebar.category.Manipulator H": {
+  "sidebar.systemsSidebar.category.Manipulator H": {
     "message": "Manipulator H",
-    "description": "The label for category 'Manipulator H' in sidebar 'platformSidebar'"
+    "description": "The label for category 'Manipulator H' in sidebar 'systemsSidebar'"
   },
-  "sidebar.platformSidebar.category.ROBOTIS OP3": {
+  "sidebar.systemsSidebar.category.ROBOTIS OP3": {
     "message": "ROBOTIS OP3",
-    "description": "The label for category 'ROBOTIS OP3' in sidebar 'platformSidebar'"
+    "description": "The label for category 'ROBOTIS OP3' in sidebar 'systemsSidebar'"
   },
-  "sidebar.platformSidebar.category.RH-P12-RN": {
+  "sidebar.systemsSidebar.category.RH-P12-RN": {
     "message": "RH-P12-RN",
-    "description": "The label for category 'RH-P12-RN' in sidebar 'platformSidebar'"
+    "description": "The label for category 'RH-P12-RN' in sidebar 'systemsSidebar'"
   },
-  "sidebar.platformSidebar.category.ROS Messages": {
+  "sidebar.systemsSidebar.category.ROS Messages": {
     "message": "ROS Messages",
-    "description": "The label for category 'ROS Messages' in sidebar 'platformSidebar'"
+    "description": "The label for category 'ROS Messages' in sidebar 'systemsSidebar'"
   },
-  "sidebar.platformSidebar.category.ROBOTIS OP2": {
+  "sidebar.systemsSidebar.category.ROBOTIS OP2": {
     "message": "ROBOTIS OP2",
-    "description": "The label for category 'ROBOTIS OP2' in sidebar 'platformSidebar'"
+    "description": "The label for category 'ROBOTIS OP2' in sidebar 'systemsSidebar'"
   },
-  "sidebar.platformSidebar.category.Common": {
+  "sidebar.systemsSidebar.category.Common": {
     "message": "Common",
-    "description": "The label for category 'Common' in sidebar 'platformSidebar'"
+    "description": "The label for category 'Common' in sidebar 'systemsSidebar'"
   },
-  "sidebar.platformSidebar.category.ROBOTIS OP": {
+  "sidebar.systemsSidebar.category.ROBOTIS OP": {
     "message": "ROBOTIS OP",
-    "description": "The label for category 'ROBOTIS OP' in sidebar 'platformSidebar'"
+    "description": "The label for category 'ROBOTIS OP' in sidebar 'systemsSidebar'"
   },
-  "sidebar.platformSidebar.category.ROBOTIS THORMANG3": {
+  "sidebar.systemsSidebar.category.ROBOTIS THORMANG3": {
     "message": "ROBOTIS THORMANG3",
-    "description": "The label for category 'ROBOTIS THORMANG3' in sidebar 'platformSidebar'"
+    "description": "The label for category 'ROBOTIS THORMANG3' in sidebar 'systemsSidebar'"
   },
   "sidebar.softwareSidebar.category.DYNAMIXEL Software": {
     "message": "DYNAMIXEL Software",

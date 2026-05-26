@@ -55,29 +55,6 @@
   z-index: 1;
 }
 
-.heroBadge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.4rem 0.9rem;
-  margin: 0 auto 1.5rem;
-  border: 1px solid var(--ifm-color-emphasis-300);
-  border-radius: 999px;
-  background: var(--ifm-color-emphasis-100);
-  font-size: 0.85rem;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  color: var(--ifm-color-emphasis-800);
-}
-
-.heroBadgeDot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--ifm-color-primary);
-  box-shadow: 0 0 8px rgba(33, 96, 253, 0.6);
-}
-
 .heroTitle {
   font-size: 4rem;
   font-weight: 800;

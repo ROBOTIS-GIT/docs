@@ -24,8 +24,11 @@ const config: Config = {
   // anchor scroll 동작 정상이므로 워닝을 끄고 진짜 broken은 시각 검증으로 처리.
   onBrokenAnchors: 'ignore',
 
-  // 클라이언트 사이드 모듈: navbar mega-menu sticky behaviour
-  clientModules: [require.resolve('./src/clients/mega-menu-sticky.js')],
+  // 클라이언트 사이드 모듈: navbar mega-menu / docs UI enhancements
+  clientModules: [
+    require.resolve('./src/clients/mega-menu-sticky.js'),
+    require.resolve('./src/clients/platform-docs-ui.js'),
+  ],
   markdown: {
     hooks: {
       onBrokenMarkdownLinks: 'warn',
@@ -93,11 +96,10 @@ const config: Config = {
       respectPrefersColorScheme: true,
     },
     navbar: {
-      // 로고 이미지에 "ROBOTIS e-Manual" 텍스트 포함 → 중복 방지 위해 title 빈 문자열
-      title: '',
+      title: 'ROBOTIS DOCS',
       logo: {
-        alt: 'ROBOTIS e-Manual',
-        src: 'img/emanaul_logo.webp',
+        alt: 'ROBOTIS',
+        src: 'img/common/ai_worker_website/favicon.svg',
       },
       items: [
         {
@@ -227,19 +229,19 @@ const config: Config = {
                   <div class="mega-menu__right">
                     <div class="mega-menu__panel" data-panel="humanoid">
                       <div class="mega-menu__grid">
-                        <a class="mega-menu__product" href="/docs/platform/aiworker">
+                        <a class="mega-menu__product" href="/docs/systems/aiworker/ai_worker/introduction">
                           <div class="mega-menu__product-thumb"><img src="/img/mega-menu/ai-worker.webp" alt="AI Worker" /></div>
                           <span>AI Worker</span>
                         </a>
-                        <a class="mega-menu__product" href="/docs/platform/aisapiens">
+                        <a class="mega-menu__product" href="/docs/systems/aisapiens/introduction_ai_sapiens">
                           <div class="mega-menu__product-thumb"><img src="/img/mega-menu/ai-sapiens.webp" alt="AI Sapiens" /></div>
                           <span>AI Sapiens</span>
                         </a>
-                        <a class="mega-menu__product" href="/docs/platform/op/getting_started">
+                        <a class="mega-menu__product" href="/docs/systems/op/getting_started">
                           <div class="mega-menu__product-thumb"><img src="/img/mega-menu/robotos-op.webp" alt="ROBOTIS OP" /></div>
                           <span>ROBOTIS OP</span>
                         </a>
-                        <a class="mega-menu__product" href="/docs/platform/thormang3/introduction">
+                        <a class="mega-menu__product" href="/docs/systems/thormang3/introduction">
                           <div class="mega-menu__product-thumb"><img src="/img/mega-menu/thormang3.webp" alt="THORMANG3" /></div>
                           <span>THORMANG3</span>
                         </a>
@@ -247,15 +249,15 @@ const config: Config = {
                     </div>
                     <div class="mega-menu__panel" data-panel="hand">
                       <div class="mega-menu__grid">
-                        <a class="mega-menu__product" href="/docs/platform/hx5_d20">
+                        <a class="mega-menu__product" href="/docs/systems/hx5_d20/hx5_d20/introduction">
                           <div class="mega-menu__product-thumb"><img src="/img/mega-menu/hx5-d20.webp" alt="HX5-D20" /></div>
                           <span>HX5-D20</span>
                         </a>
-                        <a class="mega-menu__product" href="/docs/platform/rh_p12_rn">
+                        <a class="mega-menu__product" href="/docs/systems/rh_p12_rn">
                           <div class="mega-menu__product-thumb"><img src="/img/mega-menu/rh-p12-rn.webp" alt="RH-P12-RN(A)" /></div>
                           <span>RH-P12-RN(A)</span>
                         </a>
-                        <a class="mega-menu__product" href="/docs/platform/rh_p12_rn/rh_p12_rn_ur">
+                        <a class="mega-menu__product" href="/docs/systems/rh_p12_rn/rh_p12_rn_ur">
                           <div class="mega-menu__product-thumb"><img src="/img/mega-menu/rh-p12-rn.webp" alt="RH-P12-RN-UR" /></div>
                           <span>RH-P12-RN-UR</span>
                         </a>
@@ -266,11 +268,11 @@ const config: Config = {
                         <h5 class="mega-menu__group-title">AI Manipulator</h5>
                         <p class="mega-menu__group-desc">designed for physical AI research</p>
                         <div class="mega-menu__grid">
-                          <a class="mega-menu__product" href="/docs/platform/omy/overview">
+                          <a class="mega-menu__product" href="/docs/systems/omy/omy/introduction">
                             <div class="mega-menu__product-thumb"><img src="/img/mega-menu/omy.webp" alt="OMY" /></div>
                             <span>OMY</span>
                           </a>
-                          <a class="mega-menu__product" href="/docs/platform/omx">
+                          <a class="mega-menu__product" href="/docs/systems/omx/omx/introduction">
                             <div class="mega-menu__product-thumb"><img src="/img/mega-menu/omx.webp" alt="OMX" /></div>
                             <span>OMX</span>
                           </a>
@@ -280,15 +282,15 @@ const config: Config = {
                         <h5 class="mega-menu__group-title">OpenManipulator</h5>
                         <p class="mega-menu__group-desc">Open-Source Manipulator System</p>
                         <div class="mega-menu__list">
-                          <a class="mega-menu__product mega-menu__product--row" href="/docs/platform/openmanipulator_p/overview">
+                          <a class="mega-menu__product mega-menu__product--row" href="/docs/systems/openmanipulator_p/overview">
                             <div class="mega-menu__product-thumb mega-menu__product-thumb--sm"><img src="/img/mega-menu/openmanipulator-p.webp" alt="OpenMANIPULATOR-P" /></div>
                             <span>OpenMANIPULATOR-P</span>
                           </a>
-                          <a class="mega-menu__product mega-menu__product--row" href="/docs/platform/openmanipulator_x/overview">
+                          <a class="mega-menu__product mega-menu__product--row" href="/docs/systems/openmanipulator_x/overview">
                             <div class="mega-menu__product-thumb mega-menu__product-thumb--sm"><img src="/img/mega-menu/openmanipulator-x.webp" alt="OpenMANIPULATOR-X" /></div>
                             <span>OpenMANIPULATOR-X</span>
                           </a>
-                          <a class="mega-menu__product mega-menu__product--row" href="/docs/platform/manipulator_h/introduction">
+                          <a class="mega-menu__product mega-menu__product--row" href="/docs/systems/manipulator_h/introduction">
                             <div class="mega-menu__product-thumb mega-menu__product-thumb--sm"><img src="/img/mega-menu/manipulator-h.webp" alt="Manipulator-H" /></div>
                             <span>Manipulator-H</span>
                           </a>
@@ -334,6 +336,21 @@ const config: Config = {
           label: 'FAQ',
         },
         {
+          to: '/docs/common/ecosystem',
+          position: 'left',
+          label: 'Ecosystem',
+        },
+        {
+          to: '/docs/common/opensource',
+          position: 'left',
+          label: 'Open Source',
+        },
+        {
+          to: '/docs/common/contact',
+          position: 'left',
+          label: 'Contact',
+        },
+        {
           type: 'localeDropdown',
           position: 'right',
         },
@@ -346,7 +363,7 @@ const config: Config = {
           title: 'Docs',
           items: [
             {label: 'DYNAMIXEL', to: '/docs/dxl/'},
-            {label: 'Platform', to: '/docs/platform/'},
+            {label: 'Systems', to: '/docs/systems/'},
             {label: 'Software', to: '/docs/software/'},
           ],
         },

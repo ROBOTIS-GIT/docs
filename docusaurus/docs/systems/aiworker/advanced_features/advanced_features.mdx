@@ -1,0 +1,65 @@
+# Advanced Features
+
+## Overview
+
+This section covers advanced control and autonomy features that extend the AI Worker's capabilities beyond basic imitation learning. These features enable more sophisticated task execution, decision-making, and adaptive behaviors in complex real-world scenarios.
+
+## Available Features
+
+### 1. Behavior Trees
+
+Behavior Trees provide a modular, hierarchical framework for organizing robot control logic. They enable:
+
+- **Task Decomposition**: Break complex tasks into manageable subtasks
+- **Reactive Control**: Respond dynamically to sensor inputs and state changes
+- **Reusability**: Share behaviors across different tasks and scenarios
+- **Visual Design with Groot 2**: Design and edit behavior trees graphically using Groot 2, then export to XML format for execution
+
+Behavior Trees are particularly powerful when combined with imitation learning models, where learned policies serve as action nodes within a larger decision-making structure. The AI Worker uses XML-based behavior tree definitions created with [Groot 2](https://www.behaviortree.dev/groot), providing a visual workflow for designing complex robot behaviors.
+
+<a href="/docs/systems/aiworker/advanced_features/behavior_trees" class="button-shortcut">
+<span>Learn More About Behavior Trees</span>
+</a>
+
+### 2. Cyclo Control
+
+Cyclo Control is the software layer that turns easier robot commands, such as target hand poses or joint commands, into joint trajectories that the real robot can execute. It is useful when you want higher-level motion commands while still relying on the controller to generate safe robot motion.
+
+- **Higher-Level Commanding**: Command target poses or joint goals instead of manually sending every joint step
+- **Interpolated Motion**: Generate smooth `MoveL` and `MoveJ` motions from the current state to the goal over a requested time
+- **QP-Based Safety**: Apply constraints such as joint range, joint velocity, and self-collision avoidance while tracking the command
+
+On AI Worker, this is especially helpful when you want motion that is easier to command than raw low-level control, but still filtered through the controller's safety-aware optimization.
+
+<a href="/docs/systems/aiworker/advanced_features/cyclo_control" class="button-shortcut">
+<span>Learn More About Cyclo Motion Controller</span>
+</a>
+
+### 3. Cyclo Manager
+
+Cyclo Manager is an integrated control system for managing and controlling the robot through a web-based UI. You can bring up the robot from the UI, and inspect and manage Docker container status from the same interface.
+
+- **Robot bring-up system**: Start and coordinate the robot stack from the UI instead of wiring together many manual steps.
+- **Topic viewer**: Inspect ROS 2 topics and message flow from the browser while the system is running.
+- **Docker management system**: View container health, control lifecycle, and keep the containerized services aligned with what the robot needs.
+- **noVNC**: Open remote desktop sessions in the browser so you can interact with graphical tools on the host or in containers without a separate VNC client.
+
+<a href="/docs/systems/aiworker/advanced_features/cyclo_manager" class="button-shortcut">
+<span>Learn More About Cyclo Manager</span>
+</a>
+
+### 4. ROBOTIS Vuer
+
+ROBOTIS Vuer lets AI Worker use a **Meta Quest 3** headset together with a browser-based **Vuer** client for immersive robot interaction. The headset connects to the robot-side ROS 2 system through **HTTPS/WSS**, allowing the system to exchange pose, visualization, and control data in real time.
+
+- **Immersive Monitoring**: View the robot scene and related 3D information directly in the headset
+- **Hand-Tracking Interaction**: Use VR hand tracking and related input as references for robot control
+- **Browser-Based Workflow**: Start the VR session from the headset browser without installing a separate native application
+- **ROS 2 Integration**: Connect the Vuer-based VR interface with the robot-side ROS 2 stack for teleoperation and state visualization
+
+In AI Worker, ROBOTIS Vuer is used as the front-end interface for VR teleoperation. Vuer handles the browser-side 3D scene and WebXR interaction, while ROS 2 nodes on the robot side process the incoming references and connect them to the robot control pipeline.
+
+
+<a href="/docs/systems/aiworker/advanced_features/robotis_vuer" class="button-shortcut">
+<span>Learn More About ROBOTIS Vuer</span>
+</a>

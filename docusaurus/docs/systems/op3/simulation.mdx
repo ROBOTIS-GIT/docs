@@ -1,0 +1,128 @@
+---
+id: simulation
+title: "Simulation"
+sidebar_position: 7
+tags: [op3]
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import SimulationRev2 from '@site/docs/_partials/systems/op3/simulation_rev2.mdx';
+
+<Tabs groupId="op3-revision" queryString>
+<TabItem value="2025" label="2025 ~">
+
+# Simulation
+## Overview
+This manual page will describe how to use the Gazebo and Webots simulation environments with the ROBOTIS-OP3 robot. Install the required packages below to begin. Note that all required packages must be installed to to use simulation properly. 
+
+## Gazebo Installation
+### Gazebo
+* [Gazebo Tutorials]   
+* [Gazebo Installation]   
+
+
+:::warning
+
+**CAUTION** : Before installing Gazebo, please reference this [table of compatible ROS and Gazebo Combinations to verify your configuration is supported](https://gazebosim.org/docs/harmonic/ros_installation/).
+
+:::
+
+
+### Additional Packages for Gazebo
+To use the Gazebo simulation environment you'll need to install the following packages:
+* [ROS2 Control](https://control.ros.org/rolling/index.html)
+* [ROS2 Controllers](https://control.ros.org/rolling/doc/ros2_controllers/doc/controllers_index.html)
+* [ROS GZ](https://github.com/gazebosim/ros_gz)
+* [GZ ROS2 Control](https://github.com/ros-controls/gz_ros2_control)
+
+If you are using ROS2 jazzy, the following commands will install the required packages.
+```
+$ sudo apt install ros-jazzy-ros2-control
+$ sudo apt install ros-jazzy-ros2-controllers
+$ sudo apt install ros-jazzy-ros-gz 
+$ sudo apt install ros-jazzy-gz-ros2-control
+```
+
+## Webots Installation
+## Webots
+* [Webots Tutorials]   
+* [Webots Installation]   
+
+### Additional Installation for Webots
+To use the Gazebo simulation environment you'll need to install the following packages:
+* [Webots ROS2](https://github.com/cyberbotics/webots_ros2)
+If you are using ROS2 jazzy, the following commands will install the required packages.
+```
+$ sudo apt-get install ros-jazzy-webots-ros2
+```
+
+### Download Packages
+* [ROBOTIS OP3 Common]   
+* [ROBOTIS OP3 Simulations]   
+
+
+## How to execute Gazebo Simulation
+### How to Execute
+Use the command below to launch the ROBOTIS-OP3 Gazebo simulation.
+```
+$ ros2 launch op3_gazebo_ros2 robot_sim.launch.py 
+```
+
+
+![](/img/systems/op3/op3_gazebo2.webp)
+
+### [op3_manager] for Simulation
+
+* Launch op3_manager for simulation   
+```
+$ ros2 launch op3_manager op3_simulation.launch.py
+```
+
+* Please refer to the tutorials below for the additional simulation and control procedures.   
+[OP3 Tutorials]
+
+
+
+## How to execute Webots Simulation
+### How to execute
+Use the command below to launch the ROBOTIS-OP3 in Webots
+```
+$ ros2 launch op3_webots_ros2 robot_launch.py 
+```
+
+
+![](/img/systems/op3/op3_webots.webp)
+
+### [op3_manager] for Simulation
+
+* Launch op3_manager for simulation   
+```
+$ ros2 launch op3_manager op3_simulation.launch.py
+```
+
+* Please refer to the tutorials below for additional simulation procedures.
+[OP3 Tutorials]
+
+
+
+[ROBOTIS OP3 Common]: /docs/systems/op3/robotis_ros_packages#robotis-op3-common
+[op3_manager]: /docs/systems/op3/robotis_ros_packages#op3-manager
+[OP3 Tutorials]: /docs/systems/op3/tutorials#tutorials
+[Gazebo Tutorials]: https://gazebosim.org/docs/harmonic/getstarted/   
+[Gazebo Installation]: https://gazebosim.org/docs/harmonic/install/   
+   
+[ROBOTIS OP3 Simulations]: https://github.com/ROBOTIS-GIT/ROBOTIS-OP3-Simulations 
+
+
+
+[Webots Tutorials]: https://cyberbotics.com/doc/guide/tutorials   
+[Webots Installation]: https://cyberbotics.com/doc/guide/installation-procedure
+
+</TabItem>
+<TabItem value="2023" label="~ 2023">
+
+<SimulationRev2 />
+
+</TabItem>
+</Tabs>

@@ -11,16 +11,12 @@ function HomeHero(): ReactNode {
   return (
     <header className={styles.hero}>
       <div className="container">
-        <span className={styles.heroBadge}>
-          <span className={styles.heroBadgeDot} aria-hidden />
-          <Translate id="home.hero.badge">v2.0 · EN / 한국어</Translate>
-        </span>
         <Heading as="h1" className={styles.heroTitle}>
-          <Translate id="home.hero.title">Build with ROBOTIS</Translate>
+          <Translate id="home.hero.title">ROBOTIS DOCS</Translate>
         </Heading>
         <p className={styles.heroSubtitle}>
           <Translate id="home.hero.subtitle">
-            Documentation for ROBOTIS hardware, firmware, and developer tools. From smart actuators to robot platforms and developer SDKs — pick a category to dive in.
+            Complete e-Manuals for ROBOTIS products, from DYNAMIXEL actuators to robot platforms and developer tools.
           </Translate>
         </p>
       </div>
@@ -73,9 +69,9 @@ function ProductGrid(): ReactNode {
             }
           />
           <ProductCard
-            to="/docs/platform/"
+            to="/docs/systems/"
             imageSrc="/img/home/platform.png"
-            imageAlt="Platform"
+            imageAlt="Systems"
             title={<Translate id="home.card.platform.title">Ecosystem</Translate>}
             desc={
               <Translate id="home.card.platform.desc">
@@ -151,7 +147,7 @@ function PopularGuides(): ReactNode {
             label={<Translate id="home.quick.dxlIntro">DYNAMIXEL overview</Translate>}
           />
           <QuickLink
-            to="/docs/platform/"
+            to="/docs/systems/"
             label={<Translate id="home.quick.platform">Robot platforms</Translate>}
           />
           <QuickLink
@@ -179,7 +175,7 @@ export default function Home(): ReactNode {
       title={siteConfig.title}
       description={translate({
         id: 'home.meta.description',
-        message: 'Documentation for ROBOTIS hardware, firmware, and developer tools.',
+        message: 'Complete e-Manuals for ROBOTIS products, platforms, and developer tools.',
       })}>
       <HomeHero />
       <main>

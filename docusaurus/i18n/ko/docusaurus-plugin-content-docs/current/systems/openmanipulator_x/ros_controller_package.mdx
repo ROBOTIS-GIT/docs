@@ -1,0 +1,84 @@
+---
+id: ros_controller_package
+title: "ROS Controller Package"
+sidebar_position: 6
+tags: [openmanipulator_x]
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import ControllerLaunchControllerPkgJazzy from '@site/docs/_partials/systems/openmanipulator_x/controller_launch_controller_pkg_jazzy.mdx';
+import ControllerLaunchControllerPkgHumble from '@site/docs/_partials/systems/openmanipulator_x/controller_launch_controller_pkg_humble.mdx';
+import ControllerLaunchControllerPkgNoetic from '@site/docs/_partials/systems/openmanipulator_x/controller_launch_controller_pkg_noetic.mdx';
+import ControllerLaunchControllerJazzy from '@site/docs/_partials/systems/openmanipulator_x/controller_launch_controller_jazzy.mdx';
+import ControllerLaunchControllerHumble from '@site/docs/_partials/systems/openmanipulator_x/controller_launch_controller_humble.mdx';
+import ControllerLaunchControllerNoetic from '@site/docs/_partials/systems/openmanipulator_x/controller_launch_controller_noetic.mdx';
+
+:::info
+
+한국어 번역은 준비 중입니다. 영문 콘텐츠를 그대로 표시합니다.
+
+:::
+
+# Controller
+<Tabs groupId="ros" queryString>
+<TabItem value="jazzy" label="Jazzy">
+
+<ControllerLaunchControllerPkgJazzy />
+
+</TabItem>
+<TabItem value="humble" label="Humble">
+
+<ControllerLaunchControllerPkgHumble />
+
+</TabItem>
+<TabItem value="noetic" label="Noetic">
+
+<ControllerLaunchControllerPkgNoetic />
+
+</TabItem>
+<TabItem value="arduino" label="Arduino">
+
+
+:::note
+
+Arduino sketch for OpenCR OpenMANIPULATOR-X includes the controller in the code.
+
+:::
+
+
+</TabItem>
+</Tabs>
+
+
+## Launch Controller
+<Tabs groupId="ros" queryString>
+<TabItem value="jazzy" label="Jazzy">
+
+<ControllerLaunchControllerJazzy />
+
+</TabItem>
+<TabItem value="humble" label="Humble">
+
+<ControllerLaunchControllerHumble />
+
+</TabItem>
+<TabItem value="noetic" label="Noetic">
+
+<ControllerLaunchControllerNoetic />
+
+</TabItem>
+<TabItem value="arduino" label="Arduino">
+
+
+:::warning
+
+- Arduino sketch for OpenCR OpenMANIPULATOR-X includes the controller in the code.  
+- Connecting the OpenMANIPULATOR-X and 12V power source, and turning on the power switch of the OpenCR 1.0 will automatically launch the controller.  
+- Please refer to the [Launch Controller](/docs/systems/openmanipulator_x/quick_start_guide_basic_operation#launch-controller) in the Basic Operation section.
+
+:::
+
+
+</TabItem>
+</Tabs>

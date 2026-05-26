@@ -53,63 +53,63 @@ Please refer to the below Ubuntu installation process.
 
 **[Intel® Joule™]** Installation will be proceeded as shown in below images. When Joule is turned on, monitor will blink about 3 times after 5 seconds, and print menu screen. Press _F7_ to go to `Boot Manager`.
 
-![](/img/platform/turtlebot3/preparation/j1.webp)
+![](/img/systems/turtlebot3/preparation/j1.webp)
 
 **[Intel® Joule™]** Select _USB Device_.
 
-![](/img/platform/turtlebot3/preparation/j2.webp)
+![](/img/systems/turtlebot3/preparation/j2.webp)
 
-![](/img/platform/turtlebot3/preparation/j3.webp)
+![](/img/systems/turtlebot3/preparation/j3.webp)
 
-![](/img/platform/turtlebot3/preparation/j4.webp)
+![](/img/systems/turtlebot3/preparation/j4.webp)
 
-![](/img/platform/turtlebot3/preparation/j5.webp)
+![](/img/systems/turtlebot3/preparation/j5.webp)
 
 **[Intel® Joule™]** Select _Erase disk and install Ubuntu_ then _continue_.
 
-![](/img/platform/turtlebot3/preparation/j6.webp)
+![](/img/systems/turtlebot3/preparation/j6.webp)
 
 **[Intel® Joule™]** `Intel® Joule™` has two different disk drives: 16GB micro SD Card and 16GB eMMC. In this instruction, it is highly recommended to install `Alternarive Ubuntu for Joule` on the `16GB eMMC`. Select `MMC/SD card #2 (mmcblk1) - 15.7 GB MMC 016G32` then _continue_.
 
-![](/img/platform/turtlebot3/preparation/j7.webp)
+![](/img/systems/turtlebot3/preparation/j7.webp)
 
-![](/img/platform/turtlebot3/preparation/j8.webp)
+![](/img/systems/turtlebot3/preparation/j8.webp)
 
 **[Intel® Joule™]** Installation will take about 10 minutes.
 
-![](/img/platform/turtlebot3/preparation/j9.webp)
+![](/img/systems/turtlebot3/preparation/j9.webp)
 
 **[Intel® Joule™]** When installation is completed, click _Restart Now_.
 
-![](/img/platform/turtlebot3/preparation/j10.webp)
+![](/img/systems/turtlebot3/preparation/j10.webp)
 
 **[Intel® Joule™]** Remove bootable USB drive from Joule.
 
-![](/img/platform/turtlebot3/preparation/j11.webp)
+![](/img/systems/turtlebot3/preparation/j11.webp)
 
 **[Intel® Joule™]** Don't press any key. It will boot from _16GB eMMC_ which is a default boot device.
 
-![](/img/platform/turtlebot3/preparation/j12.webp)
+![](/img/systems/turtlebot3/preparation/j12.webp)
 
-![](/img/platform/turtlebot3/preparation/j13.webp)
+![](/img/systems/turtlebot3/preparation/j13.webp)
 
-![](/img/platform/turtlebot3/preparation/j14.webp)
+![](/img/systems/turtlebot3/preparation/j14.webp)
 
 **[Intel® Joule™]** Finish the rest of settings.
 
-![](/img/platform/turtlebot3/preparation/j15.webp)
+![](/img/systems/turtlebot3/preparation/j15.webp)
 
-![](/img/platform/turtlebot3/preparation/j16.webp)
+![](/img/systems/turtlebot3/preparation/j16.webp)
 
-![](/img/platform/turtlebot3/preparation/j17.webp)
+![](/img/systems/turtlebot3/preparation/j17.webp)
 
-![](/img/platform/turtlebot3/preparation/j18.webp)
+![](/img/systems/turtlebot3/preparation/j18.webp)
 
-![](/img/platform/turtlebot3/preparation/j19.webp)
+![](/img/systems/turtlebot3/preparation/j19.webp)
 
-![](/img/platform/turtlebot3/preparation/j20.webp)
+![](/img/systems/turtlebot3/preparation/j20.webp)
 
-![](/img/platform/turtlebot3/preparation/j21.webp)
+![](/img/systems/turtlebot3/preparation/j21.webp)
 
 
 :::warning
@@ -128,7 +128,7 @@ Please refer to the below Ubuntu installation process.
 :::
 
 
-![](/img/platform/turtlebot3/logo/logo_ros.webp)
+![](/img/systems/turtlebot3/logo/logo_ros.webp)
 
 **[TurtleBot]** Install ROS
 
@@ -215,7 +215,7 @@ $ rosrun turtlebot3_bringup create_udev_rules
 ```
 
 ## Network Configuration
-![](/img/platform/turtlebot3/quick_start/quick_start/network_configuration.webp)
+![](/img/systems/turtlebot3/quick_start/quick_start/network_configuration.webp)
 
 ROS requires IP addresses in order to communicate between TurtleBot3 and remote PC.
 
@@ -227,7 +227,7 @@ $ ifconfig
 
 Texts in the rectangle is the IP address of the `TurtleBot`.
 
-![](/img/platform/turtlebot3/quick_start/quick_start/network_configuration4.webp)
+![](/img/systems/turtlebot3/quick_start/quick_start/network_configuration4.webp)
 
 Enter the following command.
 
@@ -239,7 +239,7 @@ Press ' `alt+/` ' to end line of the file.
 
 Replace the `localhost` in the ROS_MASTER_URI address with the IP address acquired from [Remote PC Network Configuration](http://emanual.robotis.com/docs/en/platform/turtlebot3/pc_setup/#network-configuration). Also replace the `localhost` in the ROS_HOSTNAME address with the IP address acquired from the above terminal window, which is the IP address of TurtleBot3.
 
-![](/img/platform/turtlebot3/quick_start/quick_start/network_configuration5.webp)
+![](/img/systems/turtlebot3/quick_start/quick_start/network_configuration5.webp)
 
 Then, source the bashrc with below command.
 

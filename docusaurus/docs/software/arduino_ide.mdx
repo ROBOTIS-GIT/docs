@@ -26,7 +26,7 @@ $ sudo udevadm control --reload-rules
 $ sudo udevadm trigger
 ```
 
-![](/img/platform/turtlebot3/preparation/7_1_1_usb_port_setting.webp)
+![](/img/systems/turtlebot3/preparation/7_1_1_usb_port_setting.webp)
 
 #### For OpenCM9.04
 Make the OpenCM9.04 USB port be able to upload the Arduino IDE program without root permission.
@@ -44,7 +44,7 @@ Since the OpenCR and OpenCM9.04 libraries are built for 32 bit platform, 64 bit 
 $ sudo apt-get install libncurses5-dev:i386
 ```
 
-![](/img/platform/turtlebot3/preparation/7_1_2_compiler_settings.webp)
+![](/img/systems/turtlebot3/preparation/7_1_2_compiler_settings.webp)
 
 ### Install Arduino IDE(Linux)
 Download the latest version of Arduino IDE from the official arduino homepage, and install it. Currently, OpenCR and OpenCM9.04 will be compatible with the version 1.6.4 or later.
@@ -73,7 +73,7 @@ To run the Arduino IDE on Linux platform, type into the terminal as follows.
 $ arduino
 ```
 
-![](/img/platform/turtlebot3/preparation/ide0.webp)
+![](/img/systems/turtlebot3/preparation/ide0.webp)
 
 ### Porting to Arduino IDE(Linux)
 #### Preferences
@@ -86,7 +86,7 @@ Please select the appropriate file URL based on your board.
 https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCR/master/arduino/opencr_release/package_opencr_index.json
 ```
 
-![](/img/platform/turtlebot3/preparation/ide1.webp)
+![](/img/systems/turtlebot3/preparation/ide1.webp)
 
 ##### For OpenCM9.04
 
@@ -99,21 +99,21 @@ https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCM9.04/master/arduino/opencm_r
 #### Install the board package via Boards Manager
 Click Tools → Board → Boards Manager. This step may take more than 20 minutes depending on the network status.
 
-![](/img/platform/turtlebot3/preparation/ide2.webp)
+![](/img/systems/turtlebot3/preparation/ide2.webp)
 
 ##### For OpenCR
 
 Type OpenCR into the textbox to find the OpenCR by ROBOTIS package. After it finds out, click Install.
 
-![](/img/platform/turtlebot3/preparation/ide3.webp)
+![](/img/systems/turtlebot3/preparation/ide3.webp)
 
 After the installation, “INSTALLED” will be appeared.
 
-![](/img/platform/turtlebot3/preparation/ide4.webp)
+![](/img/systems/turtlebot3/preparation/ide4.webp)
 
 See if OpenCR Board is now on the list of Tools → Board. Click this to import the OpenCR Board source.
 
-![](/img/platform/turtlebot3/preparation/ide5.webp)
+![](/img/systems/turtlebot3/preparation/ide5.webp)
 
 ##### For OpenCM9.04
 
@@ -137,7 +137,7 @@ Select Tools → Port → /dev/ttyACM0.
 **WARNING** : The last digit value **0** in the string **/dev/ttyACM0** might be different depend on the USB connection environment.
 
 
-![](/img/platform/turtlebot3/preparation/ide6.webp)
+![](/img/systems/turtlebot3/preparation/ide6.webp)
 
 ### Remove Modemmanager
 Only **OpenCR** requires this process. If you are using OpenCM9.04, please skip this section.
@@ -415,7 +415,7 @@ Press the `Reset Button` while the `Boot Button` is being pushed. This activates
 #### For Linux
 If you successfully entered to DFU mode, you will be able to find `STMicroelectronics STM Device in DFU Mode` text string when *lsusb* is entered in the terminal.
 
-![](/img/platform/turtlebot3/preparation/ide10.webp)
+![](/img/systems/turtlebot3/preparation/ide10.webp)
 
 #### For Windows
 
@@ -427,7 +427,7 @@ If you successfully entered to DFU mode, you will be able to find `STM32 BOOTLOA
 
 Click `Tools` > `Burn Bootloader` to burn the bootloader.
 
-![](/img/platform/turtlebot3/preparation/ide9.webp)
+![](/img/systems/turtlebot3/preparation/ide9.webp)
 
 [Arduino IDE]: https://www.arduino.cc/en/Main/Software
 [OpenCR]: /docs/parts/controller/opencr10

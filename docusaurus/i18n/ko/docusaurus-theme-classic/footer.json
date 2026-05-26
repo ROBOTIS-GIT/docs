@@ -17,7 +17,7 @@
   },
   "link.item.label.Platform": {
     "message": "다이나믹셀 시스템",
-    "description": "The label of footer link with label=Platform linking to /docs/platform/"
+    "description": "The label of footer link with label=Platform linking to /docs/systems/"
   },
   "link.item.label.Software": {
     "message": "소프트웨어",

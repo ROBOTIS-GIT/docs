@@ -785,599 +785,599 @@
   },
   {
     "from": "/docs/en/platform",
-    "to": "/docs/platform"
+    "to": "/docs/systems"
   },
   {
     "from": "/docs/en/platform/ai_manipulator_main",
-    "to": "/docs/platform/ai_manipulator_main"
+    "to": "/docs/systems/ai_manipulator_main"
   },
   {
     "from": "/docs/en/platform/common/arduino_examples_op3",
-    "to": "/docs/platform/common/arduino_examples_op3"
+    "to": "/docs/systems/common/arduino_examples_op3"
   },
   {
     "from": "/docs/en/platform/common/humanoid_navigation",
-    "to": "/docs/platform/common/humanoid_navigation"
+    "to": "/docs/systems/common/humanoid_navigation"
   },
   {
     "from": "/docs/en/platform/common/op3_robot_operating_system",
-    "to": "/docs/platform/common/op3_robot_operating_system"
+    "to": "/docs/systems/common/op3_robot_operating_system"
   },
   {
     "from": "/docs/en/platform/common/robotis_math",
-    "to": "/docs/platform/common/robotis_math"
+    "to": "/docs/systems/common/robotis_math"
   },
   {
     "from": "/docs/en/platform/manipulator_h/examples",
-    "to": "/docs/platform/manipulator_h/examples"
+    "to": "/docs/systems/manipulator_h/examples"
   },
   {
     "from": "/docs/en/platform/manipulator_h/firmware_recovery",
-    "to": "/docs/platform/manipulator_h/firmware_recovery"
+    "to": "/docs/systems/manipulator_h/firmware_recovery"
   },
   {
     "from": "/docs/en/platform/manipulator_h/getting_started",
-    "to": "/docs/platform/manipulator_h/getting_started"
+    "to": "/docs/systems/manipulator_h/getting_started"
   },
   {
     "from": "/docs/en/platform/manipulator_h/introduction",
-    "to": "/docs/platform/manipulator_h/introduction"
+    "to": "/docs/systems/manipulator_h/introduction"
   },
   {
     "from": "/docs/en/platform/manipulator_h/manipulator_ros_programming",
-    "to": "/docs/platform/manipulator_h/manipulator_ros_programming"
+    "to": "/docs/systems/manipulator_h/manipulator_ros_programming"
   },
   {
     "from": "/docs/en/platform/manipulator_h/manipulator_sdk_programming",
-    "to": "/docs/platform/manipulator_h/manipulator_sdk_programming"
+    "to": "/docs/systems/manipulator_h/manipulator_sdk_programming"
   },
   {
     "from": "/docs/en/platform/manipulator_h/references",
-    "to": "/docs/platform/manipulator_h/references"
+    "to": "/docs/systems/manipulator_h/references"
   },
   {
     "from": "/docs/en/platform/manipulator_h/ros_example",
-    "to": "/docs/platform/manipulator_h/ros_example"
+    "to": "/docs/systems/manipulator_h/ros_example"
   },
   {
     "from": "/docs/en/platform/manipulator_h/ros_reference",
-    "to": "/docs/platform/manipulator_h/ros_reference"
+    "to": "/docs/systems/manipulator_h/ros_reference"
   },
   {
     "from": "/docs/en/platform/msgs/BalanceParam_msg",
-    "to": "/docs/platform/msgs/BalanceParam_msg"
+    "to": "/docs/systems/msgs/BalanceParam_msg"
   },
   {
     "from": "/docs/en/platform/msgs/DampingBalanceParam_msg",
-    "to": "/docs/platform/msgs/DampingBalanceParam_msg"
+    "to": "/docs/systems/msgs/DampingBalanceParam_msg"
   },
   {
     "from": "/docs/en/platform/msgs/geometry_msgs_Pose_msg",
-    "to": "/docs/platform/msgs/geometry_msgs_Pose_msg"
+    "to": "/docs/systems/msgs/geometry_msgs_Pose_msg"
   },
   {
     "from": "/docs/en/platform/msgs/geometry_msgs_Pose2D_msg",
-    "to": "/docs/platform/msgs/geometry_msgs_Pose2D_msg"
+    "to": "/docs/systems/msgs/geometry_msgs_Pose2D_msg"
   },
   {
     "from": "/docs/en/platform/msgs/GetPresentJointOffsetData_srv",
-    "to": "/docs/platform/msgs/GetPresentJointOffsetData_srv"
+    "to": "/docs/systems/msgs/GetPresentJointOffsetData_srv"
   },
   {
     "from": "/docs/en/platform/msgs/JointFeedBackGain_msg",
-    "to": "/docs/platform/msgs/JointFeedBackGain_msg"
+    "to": "/docs/systems/msgs/JointFeedBackGain_msg"
   },
   {
     "from": "/docs/en/platform/msgs/JointOffsetPositionData_msg",
-    "to": "/docs/platform/msgs/JointOffsetPositionData_msg"
+    "to": "/docs/systems/msgs/JointOffsetPositionData_msg"
   },
   {
     "from": "/docs/en/platform/msgs/JointTorqueOnOff_msg",
-    "to": "/docs/platform/msgs/JointTorqueOnOff_msg"
+    "to": "/docs/systems/msgs/JointTorqueOnOff_msg"
   },
   {
     "from": "/docs/en/platform/msgs/JointTorqueOnOffArray_msg",
-    "to": "/docs/platform/msgs/JointTorqueOnOffArray_msg"
+    "to": "/docs/systems/msgs/JointTorqueOnOffArray_msg"
   },
   {
     "from": "/docs/en/platform/msgs/op3_GetPresentJointOffsetData_srv",
-    "to": "/docs/platform/msgs/op3_GetPresentJointOffsetData_srv"
+    "to": "/docs/systems/msgs/op3_GetPresentJointOffsetData_srv"
   },
   {
     "from": "/docs/en/platform/msgs/op3_JointOffsetPositionData_msg",
-    "to": "/docs/platform/msgs/op3_JointOffsetPositionData_msg"
+    "to": "/docs/systems/msgs/op3_JointOffsetPositionData_msg"
   },
   {
     "from": "/docs/en/platform/msgs/op3_JointTorqueOnOff_msg",
-    "to": "/docs/platform/msgs/op3_JointTorqueOnOff_msg"
+    "to": "/docs/systems/msgs/op3_JointTorqueOnOff_msg"
   },
   {
     "from": "/docs/en/platform/msgs/op3_JointTorqueOnOffArray_msg",
-    "to": "/docs/platform/msgs/op3_JointTorqueOnOffArray_msg"
+    "to": "/docs/systems/msgs/op3_JointTorqueOnOffArray_msg"
   },
   {
     "from": "/docs/en/platform/msgs/op3_KinematicsPose_msg",
-    "to": "/docs/platform/msgs/op3_KinematicsPose_msg"
+    "to": "/docs/systems/msgs/op3_KinematicsPose_msg"
   },
   {
     "from": "/docs/en/platform/msgs/op3_PreviewRequest_msg",
-    "to": "/docs/platform/msgs/op3_PreviewRequest_msg"
+    "to": "/docs/systems/msgs/op3_PreviewRequest_msg"
   },
   {
     "from": "/docs/en/platform/msgs/op3_PreviewResponse_msg",
-    "to": "/docs/platform/msgs/op3_PreviewResponse_msg"
+    "to": "/docs/systems/msgs/op3_PreviewResponse_msg"
   },
   {
     "from": "/docs/en/platform/msgs/op3_WalkingParam_msg",
-    "to": "/docs/platform/msgs/op3_WalkingParam_msg"
+    "to": "/docs/systems/msgs/op3_WalkingParam_msg"
   },
   {
     "from": "/docs/en/platform/msgs/PoseXYZRPY_msg",
-    "to": "/docs/platform/msgs/PoseXYZRPY_msg"
+    "to": "/docs/systems/msgs/PoseXYZRPY_msg"
   },
   {
     "from": "/docs/en/platform/msgs/PoseZRPY_msg",
-    "to": "/docs/platform/msgs/PoseZRPY_msg"
+    "to": "/docs/systems/msgs/PoseZRPY_msg"
   },
   {
     "from": "/docs/en/platform/msgs/std_msgs_header",
-    "to": "/docs/platform/msgs/std_msgs_header"
+    "to": "/docs/systems/msgs/std_msgs_header"
   },
   {
     "from": "/docs/en/platform/msgs/Step2D_msg",
-    "to": "/docs/platform/msgs/Step2D_msg"
+    "to": "/docs/systems/msgs/Step2D_msg"
   },
   {
     "from": "/docs/en/platform/msgs/Step2DArray_msg",
-    "to": "/docs/platform/msgs/Step2DArray_msg"
+    "to": "/docs/systems/msgs/Step2DArray_msg"
   },
   {
     "from": "/docs/en/platform/msgs/StepData_msg",
-    "to": "/docs/platform/msgs/StepData_msg"
+    "to": "/docs/systems/msgs/StepData_msg"
   },
   {
     "from": "/docs/en/platform/msgs/StepPositionData_msg",
-    "to": "/docs/platform/msgs/StepPositionData_msg"
+    "to": "/docs/systems/msgs/StepPositionData_msg"
   },
   {
     "from": "/docs/en/platform/msgs/StepTimeData_msg",
-    "to": "/docs/platform/msgs/StepTimeData_msg"
+    "to": "/docs/systems/msgs/StepTimeData_msg"
   },
   {
     "from": "/docs/en/platform/omy/overview",
-    "to": "/docs/platform/omy/overview"
+    "to": "/docs/systems/omy/overview"
   },
   {
     "from": "/docs/en/platform/omy/quick_start_guide",
-    "to": "/docs/platform/omy/quick_start_guide"
+    "to": "/docs/systems/omy/quick_start_guide"
   },
   {
     "from": "/docs/en/platform/omy/ros2_operation",
-    "to": "/docs/platform/omy/ros2_operation"
+    "to": "/docs/systems/omy/ros2_operation"
   },
   {
     "from": "/docs/en/platform/omy/ros2_simulation",
-    "to": "/docs/platform/omy/ros2_simulation"
+    "to": "/docs/systems/omy/ros2_simulation"
   },
   {
     "from": "/docs/en/platform/omy/specification",
-    "to": "/docs/platform/omy/specification"
+    "to": "/docs/systems/omy/specification"
   },
   {
     "from": "/docs/en/platform/op/development",
-    "to": "/docs/platform/op/development"
+    "to": "/docs/systems/op/development"
   },
   {
     "from": "/docs/en/platform/op/getting_started",
-    "to": "/docs/platform/op/getting_started"
+    "to": "/docs/systems/op/getting_started"
   },
   {
     "from": "/docs/en/platform/op/maintenance",
-    "to": "/docs/platform/op/maintenance"
+    "to": "/docs/systems/op/maintenance"
   },
   {
     "from": "/docs/en/platform/op/references",
-    "to": "/docs/platform/op/references"
+    "to": "/docs/systems/op/references"
   },
   {
     "from": "/docs/en/platform/op/simulation",
-    "to": "/docs/platform/op/simulation"
+    "to": "/docs/systems/op/simulation"
   },
   {
     "from": "/docs/en/platform/op2/getting_started",
-    "to": "/docs/platform/op2/getting_started"
+    "to": "/docs/systems/op2/getting_started"
   },
   {
     "from": "/docs/en/platform/op3/advanced_tutorials",
-    "to": "/docs/platform/op3/advanced_tutorials"
+    "to": "/docs/systems/op3/advanced_tutorials"
   },
   {
     "from": "/docs/en/platform/op3/getting_started",
-    "to": "/docs/platform/op3/getting_started"
+    "to": "/docs/systems/op3/getting_started"
   },
   {
     "from": "/docs/en/platform/op3/hardware",
-    "to": "/docs/platform/op3/hardware"
+    "to": "/docs/systems/op3/hardware"
   },
   {
     "from": "/docs/en/platform/op3/introduction",
-    "to": "/docs/platform/op3/introduction"
+    "to": "/docs/systems/op3/introduction"
   },
   {
     "from": "/docs/en/platform/op3/quick_start",
-    "to": "/docs/platform/op3/quick_start"
+    "to": "/docs/systems/op3/quick_start"
   },
   {
     "from": "/docs/en/platform/op3/recovery",
-    "to": "/docs/platform/op3/recovery"
+    "to": "/docs/systems/op3/recovery"
   },
   {
     "from": "/docs/en/platform/op3/robotis_ros_packages",
-    "to": "/docs/platform/op3/robotis_ros_packages"
+    "to": "/docs/systems/op3/robotis_ros_packages"
   },
   {
     "from": "/docs/en/platform/op3/simulation",
-    "to": "/docs/platform/op3/simulation"
+    "to": "/docs/systems/op3/simulation"
   },
   {
     "from": "/docs/en/platform/op3/tutorials",
-    "to": "/docs/platform/op3/tutorials"
+    "to": "/docs/systems/op3/tutorials"
   },
   {
     "from": "/docs/en/platform/openmanipulator_p/getting_started",
-    "to": "/docs/platform/openmanipulator_p/getting_started"
+    "to": "/docs/systems/openmanipulator_p/getting_started"
   },
   {
     "from": "/docs/en/platform/openmanipulator_p/overview",
-    "to": "/docs/platform/openmanipulator_p/overview"
+    "to": "/docs/systems/openmanipulator_p/overview"
   },
   {
     "from": "/docs/en/platform/openmanipulator_p/ros_applications",
-    "to": "/docs/platform/openmanipulator_p/ros_applications"
+    "to": "/docs/systems/openmanipulator_p/ros_applications"
   },
   {
     "from": "/docs/en/platform/openmanipulator_p/ros_controller_package",
-    "to": "/docs/platform/openmanipulator_p/ros_controller_package"
+    "to": "/docs/systems/openmanipulator_p/ros_controller_package"
   },
   {
     "from": "/docs/en/platform/openmanipulator_p/ros_controls",
-    "to": "/docs/platform/openmanipulator_p/ros_controls"
+    "to": "/docs/systems/openmanipulator_p/ros_controls"
   },
   {
     "from": "/docs/en/platform/openmanipulator_p/ros_manipulator_manager",
-    "to": "/docs/platform/openmanipulator_p/ros_manipulator_manager"
+    "to": "/docs/systems/openmanipulator_p/ros_manipulator_manager"
   },
   {
     "from": "/docs/en/platform/openmanipulator_p/ros_operation",
-    "to": "/docs/platform/openmanipulator_p/ros_operation"
+    "to": "/docs/systems/openmanipulator_p/ros_operation"
   },
   {
     "from": "/docs/en/platform/openmanipulator_p/ros_perceptions",
-    "to": "/docs/platform/openmanipulator_p/ros_perceptions"
+    "to": "/docs/systems/openmanipulator_p/ros_perceptions"
   },
   {
     "from": "/docs/en/platform/openmanipulator_p/ros_setup",
-    "to": "/docs/platform/openmanipulator_p/ros_setup"
+    "to": "/docs/systems/openmanipulator_p/ros_setup"
   },
   {
     "from": "/docs/en/platform/openmanipulator_p/ros_simulation",
-    "to": "/docs/platform/openmanipulator_p/ros_simulation"
+    "to": "/docs/systems/openmanipulator_p/ros_simulation"
   },
   {
     "from": "/docs/en/platform/openmanipulator_p/ros2_applications",
-    "to": "/docs/platform/openmanipulator_p/ros2_applications"
+    "to": "/docs/systems/openmanipulator_p/ros2_applications"
   },
   {
     "from": "/docs/en/platform/openmanipulator_p/ros2_controller_package",
-    "to": "/docs/platform/openmanipulator_p/ros2_controller_package"
+    "to": "/docs/systems/openmanipulator_p/ros2_controller_package"
   },
   {
     "from": "/docs/en/platform/openmanipulator_p/ros2_controls",
-    "to": "/docs/platform/openmanipulator_p/ros2_controls"
+    "to": "/docs/systems/openmanipulator_p/ros2_controls"
   },
   {
     "from": "/docs/en/platform/openmanipulator_p/ros2_manipulator_manager",
-    "to": "/docs/platform/openmanipulator_p/ros2_manipulator_manager"
+    "to": "/docs/systems/openmanipulator_p/ros2_manipulator_manager"
   },
   {
     "from": "/docs/en/platform/openmanipulator_p/ros2_operation",
-    "to": "/docs/platform/openmanipulator_p/ros2_operation"
+    "to": "/docs/systems/openmanipulator_p/ros2_operation"
   },
   {
     "from": "/docs/en/platform/openmanipulator_p/ros2_perceptions",
-    "to": "/docs/platform/openmanipulator_p/ros2_perceptions"
+    "to": "/docs/systems/openmanipulator_p/ros2_perceptions"
   },
   {
     "from": "/docs/en/platform/openmanipulator_p/ros2_setup",
-    "to": "/docs/platform/openmanipulator_p/ros2_setup"
+    "to": "/docs/systems/openmanipulator_p/ros2_setup"
   },
   {
     "from": "/docs/en/platform/openmanipulator_p/ros2_simulation",
-    "to": "/docs/platform/openmanipulator_p/ros2_simulation"
+    "to": "/docs/systems/openmanipulator_p/ros2_simulation"
   },
   {
     "from": "/docs/en/platform/openmanipulator_p/ros2_tools",
-    "to": "/docs/platform/openmanipulator_p/ros2_tools"
+    "to": "/docs/systems/openmanipulator_p/ros2_tools"
   },
   {
     "from": "/docs/en/platform/openmanipulator_p/specification",
-    "to": "/docs/platform/openmanipulator_p/specification"
+    "to": "/docs/systems/openmanipulator_p/specification"
   },
   {
     "from": "/docs/en/platform/openmanipulator_x/assembly",
-    "to": "/docs/platform/openmanipulator_x/assembly"
+    "to": "/docs/systems/openmanipulator_x/assembly"
   },
   {
     "from": "/docs/en/platform/openmanipulator_x/friends",
-    "to": "/docs/platform/openmanipulator_x/friends"
+    "to": "/docs/systems/openmanipulator_x/friends"
   },
   {
     "from": "/docs/en/platform/openmanipulator_x/mobile_manipulation",
-    "to": "/docs/platform/openmanipulator_x/mobile_manipulation"
+    "to": "/docs/systems/openmanipulator_x/mobile_manipulation"
   },
   {
     "from": "/docs/en/platform/openmanipulator_x/overview",
-    "to": "/docs/platform/openmanipulator_x/overview"
+    "to": "/docs/systems/openmanipulator_x/overview"
   },
   {
     "from": "/docs/en/platform/openmanipulator_x/quick_start_guide",
-    "to": "/docs/platform/openmanipulator_x/quick_start_guide"
+    "to": "/docs/systems/openmanipulator_x/quick_start_guide"
   },
   {
     "from": "/docs/en/platform/openmanipulator_x/quick_start_guide_basic_operation",
-    "to": "/docs/platform/openmanipulator_x/quick_start_guide_basic_operation"
+    "to": "/docs/systems/openmanipulator_x/quick_start_guide_basic_operation"
   },
   {
     "from": "/docs/en/platform/openmanipulator_x/ros_applications",
-    "to": "/docs/platform/openmanipulator_x/ros_applications"
+    "to": "/docs/systems/openmanipulator_x/ros_applications"
   },
   {
     "from": "/docs/en/platform/openmanipulator_x/ros_controller_check_setting",
-    "to": "/docs/platform/openmanipulator_x/ros_controller_check_setting"
+    "to": "/docs/systems/openmanipulator_x/ros_controller_check_setting"
   },
   {
     "from": "/docs/en/platform/openmanipulator_x/ros_controller_experiment",
-    "to": "/docs/platform/openmanipulator_x/ros_controller_experiment"
+    "to": "/docs/systems/openmanipulator_x/ros_controller_experiment"
   },
   {
     "from": "/docs/en/platform/openmanipulator_x/ros_controller_msg",
-    "to": "/docs/platform/openmanipulator_x/ros_controller_msg"
+    "to": "/docs/systems/openmanipulator_x/ros_controller_msg"
   },
   {
     "from": "/docs/en/platform/openmanipulator_x/ros_controller_package",
-    "to": "/docs/platform/openmanipulator_x/ros_controller_package"
+    "to": "/docs/systems/openmanipulator_x/ros_controller_package"
   },
   {
     "from": "/docs/en/platform/openmanipulator_x/ros_operation",
-    "to": "/docs/platform/openmanipulator_x/ros_operation"
+    "to": "/docs/systems/openmanipulator_x/ros_operation"
   },
   {
     "from": "/docs/en/platform/openmanipulator_x/ros_perceptions",
-    "to": "/docs/platform/openmanipulator_x/ros_perceptions"
+    "to": "/docs/systems/openmanipulator_x/ros_perceptions"
   },
   {
     "from": "/docs/en/platform/openmanipulator_x/ros_simulation",
-    "to": "/docs/platform/openmanipulator_x/ros_simulation"
+    "to": "/docs/systems/openmanipulator_x/ros_simulation"
   },
   {
     "from": "/docs/en/platform/openmanipulator_x/specification",
-    "to": "/docs/platform/openmanipulator_x/specification"
+    "to": "/docs/systems/openmanipulator_x/specification"
   },
   {
     "from": "/docs/en/platform/openmanipulator_x/tool_modification",
-    "to": "/docs/platform/openmanipulator_x/tool_modification"
+    "to": "/docs/systems/openmanipulator_x/tool_modification"
   },
   {
     "from": "/docs/en/platform/rh_p12_rn_main",
-    "to": "/docs/platform/rh_p12_rn_main"
+    "to": "/docs/systems/rh_p12_rn_main"
   },
   {
     "from": "/docs/en/platform/rh_p12_rn_ur",
-    "to": "/docs/platform/rh_p12_rn/rh_p12_rn_ur"
+    "to": "/docs/systems/rh_p12_rn/rh_p12_rn_ur"
   },
   {
     "from": "/docs/en/platform/rh_p12_rn/examples",
-    "to": "/docs/platform/rh_p12_rn/examples"
+    "to": "/docs/systems/rh_p12_rn/examples"
   },
   {
     "from": "/docs/en/platform/rh_p12_rn/gazebo",
-    "to": "/docs/platform/rh_p12_rn/gazebo"
+    "to": "/docs/systems/rh_p12_rn/gazebo"
   },
   {
     "from": "/docs/en/platform/rh_p12_rna",
-    "to": "/docs/platform/rh_p12_rn/rh_p12_rna"
+    "to": "/docs/systems/rh_p12_rn/rh_p12_rna"
   },
   {
     "from": "/docs/en/platform/thormang3/gazebo_simulation",
-    "to": "/docs/platform/thormang3/gazebo_simulation"
+    "to": "/docs/systems/thormang3/gazebo_simulation"
   },
   {
     "from": "/docs/en/platform/thormang3/getting_started",
-    "to": "/docs/platform/thormang3/getting_started"
+    "to": "/docs/systems/thormang3/getting_started"
   },
   {
     "from": "/docs/en/platform/thormang3/introduction",
-    "to": "/docs/platform/thormang3/introduction"
+    "to": "/docs/systems/thormang3/introduction"
   },
   {
     "from": "/docs/en/platform/thormang3/quick_start",
-    "to": "/docs/platform/thormang3/quick_start"
+    "to": "/docs/systems/thormang3/quick_start"
   },
   {
     "from": "/docs/en/platform/thormang3/references",
-    "to": "/docs/platform/thormang3/references"
+    "to": "/docs/systems/thormang3/references"
   },
   {
     "from": "/docs/en/platform/thormang3/thormang3_operation",
-    "to": "/docs/platform/thormang3/thormang3_operation"
+    "to": "/docs/systems/thormang3/thormang3_operation"
   },
   {
     "from": "/docs/en/platform/thormang3/thormang3_ros_packages",
-    "to": "/docs/platform/thormang3/thormang3_ros_packages"
+    "to": "/docs/systems/thormang3/thormang3_ros_packages"
   },
   {
     "from": "/docs/en/platform/turtlebot3/additional_sensors",
-    "to": "/docs/platform/turtlebot3/additional_sensors"
+    "to": "/docs/systems/turtlebot3/additional_sensors"
   },
   {
     "from": "/docs/en/platform/turtlebot3/appendix_dynamixel",
-    "to": "/docs/platform/turtlebot3/appendix_dynamixel"
+    "to": "/docs/systems/turtlebot3/appendix_dynamixel"
   },
   {
     "from": "/docs/en/platform/turtlebot3/appendix_lds_01",
-    "to": "/docs/platform/turtlebot3/appendix_lds_01"
+    "to": "/docs/systems/turtlebot3/appendix_lds_01"
   },
   {
     "from": "/docs/en/platform/turtlebot3/appendix_lds_02",
-    "to": "/docs/platform/turtlebot3/appendix_lds_02"
+    "to": "/docs/systems/turtlebot3/appendix_lds_02"
   },
   {
     "from": "/docs/en/platform/turtlebot3/appendix_lds_03",
-    "to": "/docs/platform/turtlebot3/appendix_lds_03"
+    "to": "/docs/systems/turtlebot3/appendix_lds_03"
   },
   {
     "from": "/docs/en/platform/turtlebot3/appendix_opencr1_0",
-    "to": "/docs/platform/turtlebot3/appendix_opencr1_0"
+    "to": "/docs/systems/turtlebot3/appendix_opencr1_0"
   },
   {
     "from": "/docs/en/platform/turtlebot3/appendix_raspi_cam",
-    "to": "/docs/platform/turtlebot3/appendix_raspi_cam"
+    "to": "/docs/systems/turtlebot3/appendix_raspi_cam"
   },
   {
     "from": "/docs/en/platform/turtlebot3/appendix_realsense",
-    "to": "/docs/platform/turtlebot3/appendix_realsense"
+    "to": "/docs/systems/turtlebot3/appendix_realsense"
   },
   {
     "from": "/docs/en/platform/turtlebot3/appendixes",
-    "to": "/docs/platform/turtlebot3/appendixes"
+    "to": "/docs/systems/turtlebot3/appendixes"
   },
   {
     "from": "/docs/en/platform/turtlebot3/applications",
-    "to": "/docs/platform/turtlebot3/applications"
+    "to": "/docs/systems/turtlebot3/applications"
   },
   {
     "from": "/docs/en/platform/turtlebot3/autonomous_driving",
-    "to": "/docs/platform/turtlebot3/autonomous_driving"
+    "to": "/docs/systems/turtlebot3/autonomous_driving"
   },
   {
     "from": "/docs/en/platform/turtlebot3/autonomous_driving_autorace",
-    "to": "/docs/platform/turtlebot3/autonomous_driving_autorace"
+    "to": "/docs/systems/turtlebot3/autonomous_driving_autorace"
   },
   {
     "from": "/docs/en/platform/turtlebot3/basic_examples",
-    "to": "/docs/platform/turtlebot3/basic_examples"
+    "to": "/docs/systems/turtlebot3/basic_examples"
   },
   {
     "from": "/docs/en/platform/turtlebot3/basic_operation",
-    "to": "/docs/platform/turtlebot3/basic_operation"
+    "to": "/docs/systems/turtlebot3/basic_operation"
   },
   {
     "from": "/docs/en/platform/turtlebot3/bringup",
-    "to": "/docs/platform/turtlebot3/bringup"
+    "to": "/docs/systems/turtlebot3/bringup"
   },
   {
     "from": "/docs/en/platform/turtlebot3/challenges",
-    "to": "/docs/platform/turtlebot3/challenges"
+    "to": "/docs/systems/turtlebot3/challenges"
   },
   {
     "from": "/docs/en/platform/turtlebot3/compatible_devices",
-    "to": "/docs/platform/turtlebot3/compatible_devices"
+    "to": "/docs/systems/turtlebot3/compatible_devices"
   },
   {
     "from": "/docs/en/platform/turtlebot3/contact_us",
-    "to": "/docs/platform/turtlebot3/contact_us"
+    "to": "/docs/systems/turtlebot3/contact_us"
   },
   {
     "from": "/docs/en/platform/turtlebot3/fakenode_simulation",
-    "to": "/docs/platform/turtlebot3/fakenode_simulation"
+    "to": "/docs/systems/turtlebot3/fakenode_simulation"
   },
   {
     "from": "/docs/en/platform/turtlebot3/faq",
-    "to": "/docs/platform/turtlebot3/faq"
+    "to": "/docs/systems/turtlebot3/faq"
   },
   {
     "from": "/docs/en/platform/turtlebot3/features",
-    "to": "/docs/platform/turtlebot3/features"
+    "to": "/docs/systems/turtlebot3/features"
   },
   {
     "from": "/docs/en/platform/turtlebot3/hardware_setup",
-    "to": "/docs/platform/turtlebot3/hardware_setup"
+    "to": "/docs/systems/turtlebot3/hardware_setup"
   },
   {
     "from": "/docs/en/platform/turtlebot3/home_service_challenge",
-    "to": "/docs/platform/turtlebot3/home_service_challenge"
+    "to": "/docs/systems/turtlebot3/home_service_challenge"
   },
   {
     "from": "/docs/en/platform/turtlebot3/learn",
-    "to": "/docs/platform/turtlebot3/learn"
+    "to": "/docs/systems/turtlebot3/learn"
   },
   {
     "from": "/docs/en/platform/turtlebot3/locomotion",
-    "to": "/docs/platform/turtlebot3/locomotion"
+    "to": "/docs/systems/turtlebot3/locomotion"
   },
   {
     "from": "/docs/en/platform/turtlebot3/machine_learning",
-    "to": "/docs/platform/turtlebot3/machine_learning"
+    "to": "/docs/systems/turtlebot3/machine_learning"
   },
   {
     "from": "/docs/en/platform/turtlebot3/manipulation",
-    "to": "/docs/platform/turtlebot3/manipulation"
+    "to": "/docs/systems/turtlebot3/manipulation"
   },
   {
     "from": "/docs/en/platform/turtlebot3/nav_simulation",
-    "to": "/docs/platform/turtlebot3/nav_simulation"
+    "to": "/docs/systems/turtlebot3/nav_simulation"
   },
   {
     "from": "/docs/en/platform/turtlebot3/navigation",
-    "to": "/docs/platform/turtlebot3/navigation"
+    "to": "/docs/systems/turtlebot3/navigation"
   },
   {
     "from": "/docs/en/platform/turtlebot3/opencr_setup",
-    "to": "/docs/platform/turtlebot3/opencr_setup"
+    "to": "/docs/systems/turtlebot3/opencr_setup"
   },
   {
     "from": "/docs/en/platform/turtlebot3/opensource",
-    "to": "/docs/platform/turtlebot3/opensource"
+    "to": "/docs/systems/turtlebot3/opensource"
   },
   {
     "from": "/docs/en/platform/turtlebot3/other_ros_versions",
-    "to": "/docs/platform/turtlebot3/other_ros_versions"
+    "to": "/docs/systems/turtlebot3/other_ros_versions"
   },
   {
     "from": "/docs/en/platform/turtlebot3/overview",
-    "to": "/docs/platform/turtlebot3/overview"
+    "to": "/docs/systems/turtlebot3/overview"
   },
   {
     "from": "/docs/en/platform/turtlebot3/projects",
-    "to": "/docs/platform/turtlebot3/projects"
+    "to": "/docs/systems/turtlebot3/projects"
   },
   {
     "from": "/docs/en/platform/turtlebot3/sbc_setup",
-    "to": "/docs/platform/turtlebot3/sbc_setup"
+    "to": "/docs/systems/turtlebot3/sbc_setup"
   },
   {
     "from": "/docs/en/platform/turtlebot3/simulation",
-    "to": "/docs/platform/turtlebot3/simulation"
+    "to": "/docs/systems/turtlebot3/simulation"
   },
   {
     "from": "/docs/en/platform/turtlebot3/slam",
-    "to": "/docs/platform/turtlebot3/slam"
+    "to": "/docs/systems/turtlebot3/slam"
   },
   {
     "from": "/docs/en/platform/turtlebot3/slam_simulation",
-    "to": "/docs/platform/turtlebot3/slam_simulation"
+    "to": "/docs/systems/turtlebot3/slam_simulation"
   },
   {
     "from": "/docs/en/platform/turtlebot3/standalone_gazebo_simulation",
-    "to": "/docs/platform/turtlebot3/standalone_gazebo_simulation"
+    "to": "/docs/systems/turtlebot3/standalone_gazebo_simulation"
   },
   {
     "from": "/docs/en/platform/turtlebot3/teleoperation",
-    "to": "/docs/platform/turtlebot3/teleoperation"
+    "to": "/docs/systems/turtlebot3/teleoperation"
   },
   {
     "from": "/docs/en/platform/turtlebot3/videos",
-    "to": "/docs/platform/turtlebot3/videos"
+    "to": "/docs/systems/turtlebot3/videos"
   },
   {
     "from": "/docs/en/popup/(op3_tuning_module_msgs)GetPresentJointOffsetData.srv",

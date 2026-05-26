@@ -26,7 +26,7 @@ If you need more help with installing Ubuntu, check out the step-by-step guide f
 - [Install ubuntu desktop](https://www.ubuntu.com/download/desktop/install-ubuntu-desktop)
 
 ### Install ROS on PC
-![](/img/platform/turtlebot3/logo/logo_ros.webp)
+![](/img/systems/turtlebot3/logo/logo_ros.webp)
 
 The following script will allow you to simplify the ROS installation procedure. Run the following command in a terminal window. The terminal application can be found with the Ubuntu search icon on the top left corner of the screen. The shortcut key to open a terminal is `Ctrl`+`Alt`+`t`. After installing ROS, please reboot PC.
 
@@ -58,7 +58,7 @@ If the catkin_make command has been completed without any errors, all the prepar
 ### Connection
 Connect PC and OpenCR to micro USB as shown below.
 
-![](/img/platform/openmanipulator_x/OpenManipulator_opencr_setup.webp)
+![](/img/systems/openmanipulator_x/OpenManipulator_opencr_setup.webp)
 
 **NOTE** : Please refer the detailed description of [OpenCR](http://emanual.robotis.com/docs/en/parts/controller/opencr10/).
 
@@ -94,7 +94,7 @@ To run the Arduino IDE on Linux platform, type into the terminal as follows.
 $ arduino
 ```
 
-![](/img/platform/turtlebot3/preparation/ide0.webp)
+![](/img/systems/turtlebot3/preparation/ide0.webp)
 
 #### Porting to Arduino IDE(Linux)
 
@@ -105,24 +105,24 @@ After Arduino IDE is run, click File → Preferences in the top menu of the IDE.
 https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCR/master/arduino/opencr_release/package_opencr_index.json
 ```
 
-![](/img/platform/turtlebot3/preparation/ide1.webp)
+![](/img/systems/turtlebot3/preparation/ide1.webp)
 
 ##### Install the OpenCR package via Boards Manager
 Click Tools → Board → Boards Manager.
 
-![](/img/platform/turtlebot3/preparation/ide2.webp)
+![](/img/systems/turtlebot3/preparation/ide2.webp)
 
 Type OpenCR into the textbox to find the OpenCR by ROBOTIS package. After it finds out, click Install.
 
-![](/img/platform/turtlebot3/preparation/ide3.webp)
+![](/img/systems/turtlebot3/preparation/ide3.webp)
 
 After the installation, “INSTALLED” will be appeared.
 
-![](/img/platform/turtlebot3/preparation/ide4.webp)
+![](/img/systems/turtlebot3/preparation/ide4.webp)
 
 See if OpenCR Board is now on the list of Tools → Board. Click this to import the OpenCR Board source.
 
-![](/img/platform/turtlebot3/preparation/ide5.webp)
+![](/img/systems/turtlebot3/preparation/ide5.webp)
 
 ##### Port setting
 This step shows the port setting for the program uploads. The OpenCR should be connected to the PC and the OpenCR via the USB ports.
@@ -132,7 +132,7 @@ Select Tools → Port → /dev/ttyACM0.
 **WARNING** : The last digit value `0` in the string `/dev/ttyACM0` might be different depend on the USB connection environment.
 
 
-![](/img/platform/turtlebot3/preparation/ide6.webp)
+![](/img/systems/turtlebot3/preparation/ide6.webp)
 
 **NOTE**: Please refer to [Arduino IDE for using OpenCR(linux)](/docs/parts/controller/opencr10#install-on-linux) for detailed setting method.
 
