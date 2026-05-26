@@ -82,7 +82,7 @@ const omySidebar: SidebarsConfig[string] = [
     label: 'Resources',
     collapsed: false,
     items: [
-      {type: 'doc', id: 'common/opensource', label: 'Open Source'},
+      {type: 'doc', id: 'systems/omy/resources/open_source', label: 'Open Source'},
       {type: 'doc', id: 'systems/omy/resources/release_notes', label: 'Release Notes'},
     ],
   },
@@ -96,7 +96,7 @@ const omySidebar: SidebarsConfig[string] = [
       {type: 'link', label: 'Discord Server', href: 'https://discord.gg/robotis'},
       {type: 'doc', id: 'systems/omy/support/issues', label: 'Issues'},
       {type: 'doc', id: 'systems/omy/support/faq', label: 'FAQ'},
-      {type: 'doc', id: 'common/contact', label: 'Contact Us'},
+      {type: 'doc', id: 'systems/omy/support/contact_us', label: 'Contact Us'},
     ],
   },
 ];

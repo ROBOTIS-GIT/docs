@@ -90,7 +90,7 @@ const omxSidebar: SidebarsConfig[string] = [
     label: 'Resources',
     collapsed: false,
     items: [
-      {type: 'doc', id: 'common/opensource', label: 'Open Source'},
+      {type: 'doc', id: 'systems/omx/resources/open_source', label: 'Open Source'},
       {type: 'doc', id: 'systems/omx/resources/release_notes', label: 'Release Notes'},
       {
         type: 'category',
@@ -111,7 +111,7 @@ const omxSidebar: SidebarsConfig[string] = [
       {type: 'link', label: 'Discord Server', href: 'https://discord.gg/robotis'},
       {type: 'doc', id: 'systems/omx/support/issues', label: 'Issues'},
       {type: 'doc', id: 'systems/omx/support/faq', label: 'FAQ'},
-      {type: 'doc', id: 'common/contact', label: 'Contact Us'},
+      {type: 'doc', id: 'systems/omx/support/contact_us', label: 'Contact Us'},
     ],
   },
 ];

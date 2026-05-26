@@ -52,7 +52,7 @@ const hx5d20Sidebar: SidebarsConfig[string] = [
     label: 'Resources',
     collapsed: false,
     items: [
-      {type: 'doc', id: 'common/opensource', label: 'Open Source'},
+      {type: 'doc', id: 'systems/hx5_d20/resources/open_source', label: 'Open Source'},
       {type: 'doc', id: 'systems/hx5_d20/resources/release_notes', label: 'Release Notes'},
       {
         type: 'category',
@@ -73,7 +73,7 @@ const hx5d20Sidebar: SidebarsConfig[string] = [
       {type: 'link', label: 'Discord Server', href: 'https://discord.gg/robotis'},
       {type: 'doc', id: 'systems/hx5_d20/support/issues', label: 'Issues'},
       {type: 'doc', id: 'systems/hx5_d20/support/faq', label: 'FAQ'},
-      {type: 'doc', id: 'common/contact', label: 'Contact Us'},
+      {type: 'doc', id: 'systems/hx5_d20/support/contact_us', label: 'Contact Us'},
     ],
   },
 ];
