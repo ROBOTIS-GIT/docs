@@ -1,11 +1,11 @@
-name: Deploy to GitHub Pages
+name: Deploy Docusaurus site to Pages
 
 on:
   push:
-    branches:
-      - master
+    branches: [main]
     paths:
       - 'docusaurus/**'
+      - 'scripts/**'
       - '.github/workflows/deploy.yml'
   workflow_dispatch:
 
@@ -40,8 +40,14 @@ jobs:
           cache: npm
           cache-dependency-path: docusaurus/package-lock.json
 
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
       - name: Install dependencies
         run: npm ci
+
+      - name: Type check
+        run: npm run typecheck
 
       - name: Build website
         env:
@@ -49,6 +55,7 @@ jobs:
           # 가 GitHub Actions에서 error로 승격되어 빌드를 차단하는 것을 막음.
           # 로컬 빌드는 여전히 SUCCESS이고, 워닝은 build 로그에 출력됨.
           DOCUSAURUS_IGNORE_SSG_WARNINGS: 'true'
+          NODE_OPTIONS: --max_old_space_size=4096
         run: npm run build
 
       - name: Dedupe i18n static assets
@@ -57,6 +64,12 @@ jobs:
         # 1GB artifact 한계 회피.
         working-directory: ./
         run: bash scripts/dedupe-i18n-static.sh
+
+      - name: Check build output
+        working-directory: ./
+        run: |
+          test -d docusaurus/build
+          test -f docusaurus/build/index.html
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

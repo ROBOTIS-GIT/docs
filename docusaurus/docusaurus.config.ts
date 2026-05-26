@@ -15,8 +15,8 @@ const config: Config = {
   url: 'https://docs.robotis.com',
   baseUrl: '/',
 
-  organizationName: 'Luke-K-Robotis',
-  projectName: 'emanual-v2',
+  organizationName: 'ROBOTIS-GIT',
+  projectName: 'docs',
 
   onBrokenLinks: 'throw',
   // <a id> invisible anchor (inject-heading-anchors.js로 부착)는 빌드 HTML에
@@ -52,7 +52,7 @@ const config: Config = {
         docs: {
           sidebarPath: './sidebars.ts',
           routeBasePath: '/docs',
-          editUrl: 'https://github.com/Luke-K-Robotis/emanual-v2/edit/master/docusaurus/',
+          editUrl: 'https://github.com/ROBOTIS-GIT/docs/edit/main/docusaurus/',
           showLastUpdateTime: true,
         },
         blog: false,

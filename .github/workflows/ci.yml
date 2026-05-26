@@ -1,0 +1,77 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'docusaurus/**'
+      - 'scripts/**'
+      - '.github/workflows/ci.yml'
+      - '.github/workflows/deploy.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docusaurus/**'
+      - 'scripts/**'
+      - '.github/workflows/ci.yml'
+      - '.github/workflows/deploy.yml'
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./docusaurus
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: docusaurus/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Build Docusaurus site
+        env:
+          DOCUSAURUS_IGNORE_SSG_WARNINGS: 'true'
+          NODE_OPTIONS: --max_old_space_size=4096
+        run: npm run build
+
+      - name: Dedupe i18n static assets
+        working-directory: ./
+        run: bash scripts/dedupe-i18n-static.sh
+
+      - name: Check build output
+        working-directory: ./
+        run: |
+          test -d docusaurus/build
+          test -f docusaurus/build/index.html
+
+      - name: Upload build artifacts on failure
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: build-artifacts-${{ github.sha }}
+          path: |
+            docusaurus/build
+            docusaurus/.docusaurus
+          retention-days: 7
