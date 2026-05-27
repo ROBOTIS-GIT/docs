@@ -121,23 +121,23 @@ const config: Config = {
                 <div class="mega-menu">
                   <div class="mega-menu__left">
                     <div class="mega-menu__category" data-cat="dxl-quickstart" tabindex="0">
-                      <h4>Quick Start</h4>
-                      <p>Guides and open sources</p>
+                      <h4>Overview</h4>
+                      <p>Start here</p>
                     </div>
                     <div class="mega-menu__category" data-cat="dxl-series" tabindex="0">
-                      <h4>DYNAMIXEL</h4>
-                      <p>Guides and open sources</p>
+                      <h4>Model Reference</h4>
+                      <p>Specifications and control tables</p>
                     </div>
                     <div class="mega-menu__category" data-cat="dxl-protocol" tabindex="0">
                       <h4>Protocol</h4>
-                      <p>Guides and open sources</p>
+                      <p>Communication protocol</p>
                     </div>
                   </div>
                   <div class="mega-menu__right">
                     <div class="mega-menu__panel" data-panel="dxl-quickstart">
                       <div class="mega-menu__list">
                         <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/dxl">
-                          <span>All DYNAMIXEL</span>
+                          <span>DYNAMIXEL Overview</span>
                         </a>
                         <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/dxl/dxl-quick-start-guide">
                           <span>Quick Start</span>
