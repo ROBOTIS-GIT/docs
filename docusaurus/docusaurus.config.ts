@@ -3,6 +3,9 @@ import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 import generatedRedirects from './redirects.generated.json';
 
+const docsRouteBasePath = process.env.DOCUSAURUS_DOCS_ROUTE_BASE_PATH ?? '/docs';
+const isProjectPagesPreview = docsRouteBasePath === '/';
+
 const config: Config = {
   title: 'ROBOTIS Docs',
   tagline: 'ROBOTIS product documentation',
@@ -12,8 +15,8 @@ const config: Config = {
     v4: true,
   },
 
-  url: 'https://docs.robotis.com',
-  baseUrl: '/',
+  url: process.env.DOCUSAURUS_URL ?? 'https://docs.robotis.com',
+  baseUrl: process.env.DOCUSAURUS_BASE_URL ?? '/',
 
   organizationName: 'ROBOTIS-GIT',
   projectName: 'docs',
@@ -51,7 +54,7 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          routeBasePath: '/docs',
+          routeBasePath: docsRouteBasePath,
           editUrl: 'https://github.com/ROBOTIS-GIT/docs/edit/main/docusaurus/',
           showLastUpdateTime: true,
         },
@@ -74,12 +77,12 @@ const config: Config = {
         hashed: true,
         language: ['en', 'ko'],
         indexBlog: false,
-        docsRouteBasePath: '/docs',
+        docsRouteBasePath,
         highlightSearchTermsOnTargetPage: true,
         explicitSearchResultPath: true,
       },
     ],
-    [
+    !isProjectPagesPreview && [
       '@docusaurus/plugin-client-redirects',
       {
         // scripts/build-redirects.js 가 source/docs/**/*.md 의 permalink 추출 → JSON
@@ -89,7 +92,7 @@ const config: Config = {
         // 별도 i18n redirect 미들웨어 또는 GitHub Pages level 처리로 후속.
       },
     ],
-  ],
+  ].filter(Boolean),
 
   themeConfig: {
     colorMode: {

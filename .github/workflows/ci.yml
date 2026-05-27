@@ -53,6 +53,9 @@ jobs:
       - name: Build Docusaurus site
         env:
           DOCUSAURUS_IGNORE_SSG_WARNINGS: 'true'
+          DOCUSAURUS_URL: 'https://robotis-git.github.io'
+          DOCUSAURUS_BASE_URL: '/docs/'
+          DOCUSAURUS_DOCS_ROUTE_BASE_PATH: '/'
           NODE_OPTIONS: --max_old_space_size=4096
         run: npm run build
 
