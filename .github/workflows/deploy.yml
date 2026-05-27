@@ -55,9 +55,9 @@ jobs:
           # 가 GitHub Actions에서 error로 승격되어 빌드를 차단하는 것을 막음.
           # 로컬 빌드는 여전히 SUCCESS이고, 워닝은 build 로그에 출력됨.
           DOCUSAURUS_IGNORE_SSG_WARNINGS: 'true'
-          DOCUSAURUS_URL: 'https://robotis-git.github.io'
-          DOCUSAURUS_BASE_URL: '/docs/'
-          DOCUSAURUS_DOCS_ROUTE_BASE_PATH: '/'
+          # Production: https://docs.robotis.com (GitHub Pages custom domain)
+          DOCUSAURUS_URL: 'https://docs.robotis.com'
+          DOCUSAURUS_BASE_URL: '/'
           DOCUSAURUS_ON_BROKEN_LINKS: 'warn'
           NODE_OPTIONS: --max_old_space_size=4096
         run: npm run build
