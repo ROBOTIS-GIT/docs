@@ -77,6 +77,13 @@ function extractPermalink(filepath) {
  *     모두 docusaurus output 의 platform/rh_p12_rn/<page> 폴더로 이동했다.
  */
 const PERMALINK_OVERRIDES = {
+  // OMY pages were reorganized under the new Systems navigation.
+  '/docs/en/platform/omy/overview':          '/docs/systems/omy/omy/introduction',
+  '/docs/en/platform/omy/quick_start_guide': '/docs/systems/omy/quick_start_guide/setup_guide',
+  '/docs/en/platform/omy/ros2_operation':    '/docs/systems/omy/quick_start_guide/operation_guide',
+  '/docs/en/platform/omy/ros2_simulation':   '/docs/systems/omy/simulation/simulation',
+  '/docs/en/platform/omy/specification':     '/docs/systems/omy/specifications/hardware',
+
   // RH-P12-RN 시리즈는 source에서 4개 별도 permalink였지만 output은 한 폴더로 통합.
   // rh_p12_rn.mdx 는 폴더와 동일 이름이라 Docusaurus가 폴더 인덱스로 promote → 슬러그가 '/docs/platform/rh_p12_rn'
   '/docs/en/platform/rh_p12_rn':     '/docs/platform/rh_p12_rn',
