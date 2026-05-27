@@ -43,7 +43,7 @@ const omxSidebar: SidebarsConfig[string] = [
     label: 'Imitation Learning',
     collapsed: false,
     items: [
-      {type: 'doc', id: 'systems/omx/imitation_learning/imitation_learning', label: 'Overview'},
+      {type: 'doc', id: 'systems/omx/imitation_learning/imitation_learning', label: 'Overview', key: 'imitation-learning-overview'},
       {
         type: 'category',
         label: 'ROS 2 (Physical AI Tools)',
@@ -72,7 +72,7 @@ const omxSidebar: SidebarsConfig[string] = [
     label: 'Simulation',
     collapsed: false,
     items: [
-      {type: 'doc', id: 'systems/omx/simulation/simulation', label: 'Overview'},
+      {type: 'doc', id: 'systems/omx/simulation/simulation', label: 'Overview', key: 'simulation-overview'},
       {type: 'doc', id: 'systems/omx/simulation/gazebo', label: 'Gazebo'},
     ],
   },
@@ -81,7 +81,7 @@ const omxSidebar: SidebarsConfig[string] = [
     label: 'Advanced Features',
     collapsed: false,
     items: [
-      {type: 'doc', id: 'systems/omx/advanced_features/advanced_features', label: 'Overview'},
+      {type: 'doc', id: 'systems/omx/advanced_features/advanced_features', label: 'Overview', key: 'advanced-features-overview'},
       {type: 'doc', id: 'systems/omx/advanced_features/cyclo_control', label: 'Cyclo Control'},
     ],
   },

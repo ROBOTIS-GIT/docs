@@ -957,7 +957,7 @@
   },
   {
     "from": "/docs/en/platform/omy/ros2_simulation",
-    "to": "/docs/systems/omy/simulation/simulation"
+    "to": "/docs/systems/omy/simulation"
   },
   {
     "from": "/docs/en/platform/omy/specification",

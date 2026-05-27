@@ -15,8 +15,8 @@ const aiworkerSidebar: SidebarsConfig[string] = [
     label: 'Specifications',
     collapsed: false,
     items: [
-      {type: 'doc', id: 'systems/aiworker/specifications/hardware', label: 'Hardware'},
-      {type: 'doc', id: 'systems/aiworker/specifications/software', label: 'Software'},
+      {type: 'doc', id: 'systems/aiworker/specifications/hardware', label: 'Hardware', key: 'specifications-hardware'},
+      {type: 'doc', id: 'systems/aiworker/specifications/software', label: 'Software', key: 'specifications-software'},
     ],
   },
   {
@@ -30,8 +30,8 @@ const aiworkerSidebar: SidebarsConfig[string] = [
         link: {type: 'doc', id: 'systems/aiworker/quick_start_guide/setup_overview/setup_overview'},
         collapsed: false,
         items: [
-          {type: 'doc', id: 'systems/aiworker/quick_start_guide/setup_overview/hardware', label: 'Hardware'},
-          {type: 'doc', id: 'systems/aiworker/quick_start_guide/setup_overview/software', label: 'Software'},
+          {type: 'doc', id: 'systems/aiworker/quick_start_guide/setup_overview/hardware', label: 'Hardware', key: 'setup-overview-hardware'},
+          {type: 'doc', id: 'systems/aiworker/quick_start_guide/setup_overview/software', label: 'Software', key: 'setup-overview-software'},
         ],
       },
       {
@@ -52,7 +52,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
     label: 'Imitation Learning',
     collapsed: false,
     items: [
-      {type: 'doc', id: 'systems/aiworker/imitation_learning/imitation_learning', label: 'Overview'},
+      {type: 'doc', id: 'systems/aiworker/imitation_learning/imitation_learning', label: 'Overview', key: 'imitation-learning-overview'},
       {
         type: 'category',
         label: 'Dataset Preparation',
@@ -74,7 +74,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
     label: 'Simulation',
     collapsed: false,
     items: [
-      {type: 'doc', id: 'systems/aiworker/simulation/simulation', label: 'Overview'},
+      {type: 'doc', id: 'systems/aiworker/simulation/simulation', label: 'Overview', key: 'simulation-overview'},
       {type: 'doc', id: 'systems/aiworker/simulation/gazebo', label: 'Gazebo'},
       {type: 'doc', id: 'systems/aiworker/simulation/isaac_sim_lab', label: 'Isaac Sim/Lab'},
     ],
@@ -84,7 +84,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
     label: 'Advanced Features',
     collapsed: false,
     items: [
-      {type: 'doc', id: 'systems/aiworker/advanced_features/advanced_features', label: 'Overview'},
+      {type: 'doc', id: 'systems/aiworker/advanced_features/advanced_features', label: 'Overview', key: 'advanced-features-overview'},
       {type: 'doc', id: 'systems/aiworker/advanced_features/cyclo_manager', label: 'Cyclo Manager'},
       {type: 'doc', id: 'systems/aiworker/advanced_features/cyclo_control', label: 'Cyclo Control'},
       {type: 'doc', id: 'systems/aiworker/advanced_features/behavior_trees', label: 'Behavior Trees'},

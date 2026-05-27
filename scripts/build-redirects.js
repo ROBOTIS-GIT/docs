@@ -81,7 +81,7 @@ const PERMALINK_OVERRIDES = {
   '/docs/en/platform/omy/overview':          '/docs/systems/omy/omy/introduction',
   '/docs/en/platform/omy/quick_start_guide': '/docs/systems/omy/quick_start_guide/setup_guide',
   '/docs/en/platform/omy/ros2_operation':    '/docs/systems/omy/quick_start_guide/operation_guide',
-  '/docs/en/platform/omy/ros2_simulation':   '/docs/systems/omy/simulation/simulation',
+  '/docs/en/platform/omy/ros2_simulation':   '/docs/systems/omy/simulation',
   '/docs/en/platform/omy/specification':     '/docs/systems/omy/specifications/hardware',
 
   // RH-P12-RN 시리즈는 source에서 4개 별도 permalink였지만 output은 한 폴더로 통합.
@@ -162,7 +162,8 @@ function collectExistingDocusaurusPaths() {
     if (!last.endsWith('.md') && !last.endsWith('.mdx')) return null;
     const stem = last.replace(/\.(md|mdx)$/, '');
     const dirParts = rel.slice(0, -1);
-    const urlParts = stem === 'index' ? dirParts : [...dirParts, stem];
+    const parent = dirParts[dirParts.length - 1];
+    const urlParts = stem === 'index' || stem === parent ? dirParts : [...dirParts, stem];
     const localePrefix = locale === 'en' ? '' : `/${locale}`;
     const urlPath = `${localePrefix}/docs/${urlParts.join('/')}`.replace(/\/+$/, '');
     return urlPath || `${localePrefix}/docs`;

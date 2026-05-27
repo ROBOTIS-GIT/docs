@@ -41,7 +41,7 @@ const omySidebar: SidebarsConfig[string] = [
     label: 'Imitation Learning',
     collapsed: false,
     items: [
-      {type: 'doc', id: 'systems/omy/imitation_learning/imitation_learning', label: 'Overview'},
+      {type: 'doc', id: 'systems/omy/imitation_learning/imitation_learning', label: 'Overview', key: 'imitation-learning-overview'},
       {
         type: 'category',
         label: 'Dataset Preparation',
@@ -63,7 +63,7 @@ const omySidebar: SidebarsConfig[string] = [
     label: 'Simulation',
     collapsed: false,
     items: [
-      {type: 'doc', id: 'systems/omy/simulation/simulation', label: 'Overview'},
+      {type: 'doc', id: 'systems/omy/simulation/simulation', label: 'Overview', key: 'simulation-overview'},
       {type: 'doc', id: 'systems/omy/simulation/gazebo', label: 'Gazebo'},
       {type: 'doc', id: 'systems/omy/simulation/isaac_sim_lab', label: 'Isaac Sim/Lab'},
     ],
@@ -73,7 +73,7 @@ const omySidebar: SidebarsConfig[string] = [
     label: 'Advanced Features',
     collapsed: false,
     items: [
-      {type: 'doc', id: 'systems/omy/advanced_features/advanced_features', label: 'Overview'},
+      {type: 'doc', id: 'systems/omy/advanced_features/advanced_features', label: 'Overview', key: 'advanced-features-overview'},
       {type: 'doc', id: 'systems/omy/advanced_features/cyclo_control', label: 'Cyclo Control'},
     ],
   },
