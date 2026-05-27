@@ -120,10 +120,6 @@ const config: Config = {
               value: `
                 <div class="mega-menu">
                   <div class="mega-menu__left">
-                    <div class="mega-menu__category" data-cat="dxl-quickstart" tabindex="0">
-                      <h4>Overview</h4>
-                      <p>Start here</p>
-                    </div>
                     <div class="mega-menu__category" data-cat="dxl-series" tabindex="0">
                       <h4>Model Reference</h4>
                       <p>Specifications and control tables</p>
@@ -134,51 +130,46 @@ const config: Config = {
                     </div>
                   </div>
                   <div class="mega-menu__right">
-                    <div class="mega-menu__panel" data-panel="dxl-quickstart">
+                    <div class="mega-menu__panel" data-panel="dxl-series">
                       <div class="mega-menu__list">
-                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/dxl">
-                          <span>DYNAMIXEL Overview</span>
-                        </a>
-                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/dxl/dxl-quick-start-guide">
-                          <span>Quick Start</span>
+                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/dxl/model_reference/">
+                          <span>All Models</span>
                         </a>
                       </div>
-                    </div>
-                    <div class="mega-menu__panel" data-panel="dxl-series">
                       <div class="mega-menu__grid mega-menu__grid--3col">
-                        <a class="mega-menu__product" href="/docs/dxl/y">
+                        <a class="mega-menu__product" href="/docs/dxl/model_reference/y_series/">
                           <div class="mega-menu__product-thumb"><img src="/img/mega-menu/Y-series.webp" alt="Y Series" /></div>
                           <span>Y Series</span>
                         </a>
-                        <a class="mega-menu__product" href="/docs/dxl/p">
+                        <a class="mega-menu__product" href="/docs/dxl/model_reference/p_series/">
                           <div class="mega-menu__product-thumb"><img src="/img/mega-menu/p-series.webp" alt="P Series" /></div>
                           <span>P Series</span>
                         </a>
-                        <a class="mega-menu__product" href="/docs/dxl/x">
+                        <a class="mega-menu__product" href="/docs/dxl/model_reference/x_series/">
                           <div class="mega-menu__product-thumb"><img src="/img/mega-menu/x-series.webp" alt="X Series" /></div>
                           <span>X Series</span>
                         </a>
-                        <a class="mega-menu__product" href="/docs/dxl/mx">
+                        <a class="mega-menu__product" href="/docs/dxl/model_reference/mx_series/">
                           <div class="mega-menu__product-thumb"><img src="/img/mega-menu/mx-series.webp" alt="MX Series" /></div>
                           <span>MX Series</span>
                         </a>
-                        <a class="mega-menu__product" href="/docs/dxl/ax">
+                        <a class="mega-menu__product" href="/docs/dxl/model_reference/ax_series/">
                           <div class="mega-menu__product-thumb"><img src="/img/mega-menu/ax-series.webp" alt="AX Series" /></div>
                           <span>AX Series</span>
                         </a>
-                        <a class="mega-menu__product" href="/docs/dxl/ex">
+                        <a class="mega-menu__product" href="/docs/dxl/model_reference/ex_series/">
                           <div class="mega-menu__product-thumb"><img src="/img/mega-menu/ex-series.webp" alt="EX Series" /></div>
                           <span>EX Series</span>
                         </a>
-                        <a class="mega-menu__product" href="/docs/dxl/dx">
+                        <a class="mega-menu__product" href="/docs/dxl/model_reference/dx_series/">
                           <div class="mega-menu__product-thumb"><img src="/img/mega-menu/dx-series.webp" alt="DX Series" /></div>
                           <span>DX Series</span>
                         </a>
-                        <a class="mega-menu__product" href="/docs/dxl/rx">
+                        <a class="mega-menu__product" href="/docs/dxl/model_reference/rx_series/">
                           <div class="mega-menu__product-thumb"><img src="/img/mega-menu/rx-series.webp" alt="RX Series" /></div>
                           <span>RX Series</span>
                         </a>
-                        <a class="mega-menu__product" href="/docs/dxl/pro">
+                        <a class="mega-menu__product" href="/docs/dxl/model_reference/pro_series/">
                           <div class="mega-menu__product-thumb"><img src="/img/mega-menu/pro-series.webp" alt="PRO Series" /></div>
                           <span>PRO Series</span>
                         </a>
@@ -186,13 +177,13 @@ const config: Config = {
                     </div>
                     <div class="mega-menu__panel" data-panel="dxl-protocol">
                       <div class="mega-menu__list">
-                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/dxl/protocol1">
+                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/dxl/protocol/protocol1">
                           <span>DYNAMIXEL Protocol 1.0</span>
                         </a>
-                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/dxl/protocol2">
+                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/dxl/protocol/protocol2">
                           <span>DYNAMIXEL Protocol 2.0</span>
                         </a>
-                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/dxl/crc">
+                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/dxl/protocol/crc">
                           <span>CRC Calculation</span>
                         </a>
                       </div>
@@ -368,7 +359,7 @@ const config: Config = {
         {
           title: 'Docs',
           items: [
-            {label: 'DYNAMIXEL', to: '/docs/dxl/'},
+            {label: 'DYNAMIXEL', to: '/docs/dxl/model_reference/'},
             {label: 'Systems', to: '/docs/systems/'},
             {label: 'Software', to: '/docs/software/'},
           ],

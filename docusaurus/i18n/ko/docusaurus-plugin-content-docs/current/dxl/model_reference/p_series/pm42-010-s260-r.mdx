@@ -1,0 +1,561 @@
+import Warning from '@site/docs/_partials/dxl/p/warning.mdx';
+import NotePerformanceGraph from '@site/docs/_partials/dxl/p/note_performance_graph.mdx';
+import ControlTable from '@site/docs/_partials/dxl/p/control_table.mdx';
+import PControlTable6FirmwareVersion from '@site/docs/_partials/dxl/p/p_control_table_6_firmware_version.mdx';
+import PControlTable7Id from '@site/docs/_partials/dxl/p/p_control_table_7_id.mdx';
+import PControlTable8BaudRate from '@site/docs/_partials/dxl/p/p_control_table_8_baud_rate.mdx';
+import PControlTable9ReturnDelayTime from '@site/docs/_partials/dxl/p/p_control_table_9_return_delay_time.mdx';
+import PControlTable10DriveMode from '@site/docs/_partials/dxl/p/p_control_table_10_drive_mode.mdx';
+import PControlTable11OperatingMode from '@site/docs/_partials/dxl/p/p_control_table_11_operating_mode.mdx';
+import PControlTable12SecondaryId from '@site/docs/_partials/dxl/p/p_control_table_12_secondary_id.mdx';
+import PControlTable13ProtocolType from '@site/docs/_partials/dxl/p/p_control_table_13_protocol_type.mdx';
+import PControlTable20HomingOffset from '@site/docs/_partials/dxl/p/p_control_table_20_homing_offset.mdx';
+import PControlTable24MovingThreshold from '@site/docs/_partials/dxl/p/p_control_table_24_moving_threshold.mdx';
+import PControlTable31TemperatureLimit from '@site/docs/_partials/dxl/p/p_control_table_31_temperature_limit.mdx';
+import PControlTable32VoltageLimit from '@site/docs/_partials/dxl/p/p_control_table_32_voltage_limit.mdx';
+import PControlTable36PwmLimit from '@site/docs/_partials/dxl/p/p_control_table_36_pwm_limit.mdx';
+import PControlTable38CurrentLimit from '@site/docs/_partials/dxl/p/p_control_table_38_current_limit.mdx';
+import PControlTable40AccelerationLimit from '@site/docs/_partials/dxl/p/p_control_table_40_acceleration_limit.mdx';
+import PControlTable44VelocityLimit from '@site/docs/_partials/dxl/p/p_control_table_44_velocity_limit.mdx';
+import PControlTable56ExternalPort from '@site/docs/_partials/dxl/p/p_control_table_56_external_port.mdx';
+import ControlTable60StartupConfiguration from '@site/docs/_partials/dxl/p/control_table_60_startup_configuration.mdx';
+import ControlTableShutdown from '@site/docs/_partials/dxl/p/control_table_shutdown.mdx';
+import PControlTable168Indirect from '@site/docs/_partials/dxl/p/p_control_table_168_indirect.mdx';
+import ControlTableTorqueEnable from '@site/docs/_partials/dxl/p/control_table_torque_enable.mdx';
+import PControlTable513Led from '@site/docs/_partials/dxl/p/p_control_table_513_led.mdx';
+import LedPolicyProa from '@site/docs/_partials/dxl/p/led_policy_proa.mdx';
+import PControlTable516StatusReturnLevel from '@site/docs/_partials/dxl/p/p_control_table_516_status_return_level.mdx';
+import PControlTable517RegisteredInstruction from '@site/docs/_partials/dxl/p/p_control_table_517_registered_instruction.mdx';
+import PControlTable518HardwareErrorStatus from '@site/docs/_partials/dxl/p/p_control_table_518_hardware_error_status.mdx';
+import PControlTable524VelocityGain from '@site/docs/_partials/dxl/p/p_control_table_524_velocity_gain.mdx';
+import PControlTable528PositionGain from '@site/docs/_partials/dxl/p/p_control_table_528_position_gain.mdx';
+import PControlTable546BusWatchdog from '@site/docs/_partials/dxl/p/p_control_table_546_bus_watchdog.mdx';
+import PControlTable548GoalPwm from '@site/docs/_partials/dxl/p/p_control_table_548_goal_pwm.mdx';
+import PControlTable550GoalCurrent from '@site/docs/_partials/dxl/p/p_control_table_550_goal_current.mdx';
+import PControlTable552GoalVelocity from '@site/docs/_partials/dxl/p/p_control_table_552_goal_velocity.mdx';
+import PControlTable556ProfileAcceleration from '@site/docs/_partials/dxl/p/p_control_table_556_profile_acceleration.mdx';
+import PControlTable560ProfileVelocity from '@site/docs/_partials/dxl/p/p_control_table_560_profile_velocity.mdx';
+import PControlTable564GoalPosition from '@site/docs/_partials/dxl/p/p_control_table_564_goal_position.mdx';
+import PControlTable568RealtimeTick from '@site/docs/_partials/dxl/p/p_control_table_568_realtime_tick.mdx';
+import PControlTable570Moving from '@site/docs/_partials/dxl/p/p_control_table_570_moving.mdx';
+import PControlTable571MovingStatus from '@site/docs/_partials/dxl/p/p_control_table_571_moving_status.mdx';
+import PControlTable572PresentPwm from '@site/docs/_partials/dxl/p/p_control_table_572_present_pwm.mdx';
+import PControlTable574PresentCurrent from '@site/docs/_partials/dxl/p/p_control_table_574_present_current.mdx';
+import PControlTable576PresentVelocity from '@site/docs/_partials/dxl/p/p_control_table_576_present_velocity.mdx';
+import PControlTable580PresentPosition from '@site/docs/_partials/dxl/p/p_control_table_580_present_position.mdx';
+import PControlTable584VelocityTrajectory from '@site/docs/_partials/dxl/p/p_control_table_584_velocity_trajectory.mdx';
+import PControlTable588PositionTrajectory from '@site/docs/_partials/dxl/p/p_control_table_588_position_trajectory.mdx';
+import PControlTable592PresentInputVoltage from '@site/docs/_partials/dxl/p/p_control_table_592_present_input_voltage.mdx';
+import PControlTable594PresentTemperature from '@site/docs/_partials/dxl/p/p_control_table_594_present_temperature.mdx';
+import ControlTableBackupReady from '@site/docs/_partials/dxl/p/control_table_backup_ready.mdx';
+import PProfileDescription from '@site/docs/_partials/dxl/p/p_profile_description.mdx';
+import FccClassA from '@site/docs/_partials/dxl/p/fcc_class_a.mdx';
+import PJst485ProPlus from '@site/docs/_partials/dxl/p/p_jst_485_pro_plus.mdx';
+import CommunicationCircuitPro from '@site/docs/_partials/dxl/p/communication_circuit_pro.mdx';
+import DownloadCenterNotice from '@site/docs/_partials/dxl/p/download_center_notice.mdx';
+import CommonLink from '@site/docs/_partials/dxl/p/common_link.mdx';
+
+![](/img/dxl/p/pm42-010-s260-r.webp)
+
+> PM42-010-S260-R
+
+# 주요 사양
+| 항목                      | 내용                                                           |
+|:--------------------------|:---------------------------------------------------------------|
+| MCU                     | ARM CORTEX-M4 (168 [MHz], 32Bit)                        |
+| 모터                      | Coreless (Maxon)              |
+| 통신속도                  | 9,600 [bps] ~ 10.5 [Mbps]           |
+| 동작모드                  | 토크 제어모드<br />속도 제어모드<br />위치 제어모드<br />확장 위치 제어모드<br />PWM 제어모드(전압 제어모드)             |
+| 무게                      | 270 [g]             |
+| 크기 (W x H x D)          | 42 x 72 x 42 [mm]         |
+| 해상도                    | 526,374 [pulse/rev]         |
+| 감속비                    | 257.019:1          |
+| 백래쉬                    | &lt; 6 [arcmin], 0.1 [&deg;]           |
+| <a href="/img/dxl/axial_radial_load_pro.webp" target="_blank">반경방향 하중</a> | 280 [N] (혼으로부터 10 [mm])         |
+| <a href="/img/dxl/axial_radial_load_pro.webp" target="_blank">축방향 하중</a>   | 100 [N]          |
+| No Load Speed             | 28.0 [rev/min]        |
+| No Load Current           | 0.52 [A]      |
+| `1` Continuous Speed      | 26.0 [rev/min]          |
+| `1` Continuous Torque     | 1.7 [N.m]         |
+| `1` Continuous Current    | 0.6 [A]        |
+| 출력                      | 10 [W]             |
+| 동작 온도                 | -5 ~ +55 [&deg;C]        |
+| 사용 전압                 | 24.0 [V]          |
+| Command Signal            | Digital Packet    |
+| Physical Connection       | RS-485 Multidrop Bus <br /> RS-485 비동기 시리얼 통신 (8bit, 1stop, No Parity)|
+| ID                        | 253 ID (0 ~ 252)                 |
+| 대기 전류                 | 30 [mA]       |
+
+
+:::note
+
+`1` 명시된 토크/전류 값은 입력 모터 사양에 따른 값입니다. 일반적으로 사용하는 토크 범위는 성능 그래프를 참고하여 주시고, 장시간 사용 환경에서는 별도로 문의 바랍니다.
+
+:::
+
+
+
+<Warning />
+
+
+## 성능 그래프
+![](/img/dxl/pro/m42-10-s260-r_performance_graph_2.webp)
+
+
+
+
+<NotePerformanceGraph />
+
+
+
+<ControlTable />
+
+
+## EEPROM 영역
+| 주소 | 크기(Byte) |   모드버스 주소   | 명칭                                            | 접근 |  기본값   |                               범위                               |          단위           |
+|:----:|:----------:|:-----------------:|:------------------------------------------------|:----:|:---------:|:----------------------------------------------------------------:|:-----------------------:|
+|  0   |     2      |      *40001*      | [Model Number](#model-number)                   |  R   |   2,100   |                                -                                 |            -            |
+|  2   |     4      |      *40002*      | [Model Information](#model-information)         |  R   |     -     |                                -                                 |            -            |
+|  6   |     1      | *40004 (Lo Byte)* | [Firmware Version](#firmware-version)           |  R   |     -     |                                -                                 |            -            |
+|  7   |     1      | *40004 (Hi Byte)* | [ID](#id)                                       |  RW  |     1     | 0 ~ 252 (**DYNAMIXEL Protocol 2.0**) <br /> 1 ~ 247 (**Modbus**) |            -            |
+|  8   |     1      | *40005 (Lo Byte)* | [Baud Rate](#baud-rate)                         |  RW  |     1     |                              0 ~ 9                               |            -            |
+|  9   |     1      |        N/A        | [Return Delay Time](#return-delay-time)         |  RW  |    250    |                             0 ~ 254                              |        2 [μsec]         |
+|  10  |     1      | *40006 (Lo Byte)* | [Drive Mode](#drive-mode)                       |  RW  |     0     |                              0 ~ 13                              |            -            |
+|  11  |     1      | *40006 (Hi Byte)* | [Operating Mode](#operating-mode)               |  RW  |     3     |                          0, 1, 3, 4, 16                          |            -            |
+|  12  |     1      |        N/A        | [Secondary ID](#secondary-id)                   |  RW  |    255    |                             0 ~ 255                              |            -            |
+|  13  |     1      | *40007 (Hi Byte)* | [Protocol Type](#protocol-type13)               |  RW  |     2     |                              2, 10                               |            -            |
+|  20  |     4      |      *40011*      | [Homing Offset](#homing-offset)                 |  RW  |     0     |                -2,147,483,648 ~<br /> 2,147,483,647                |        1 [pulse]        |
+|  24  |     4      |      *40013*      | [Moving Threshold](#moving-threshold)           |  RW  |    20     |                            0 ~ 2,600                             |     0.01 [rev/min]      |
+|  31  |     1      | *40016 (Hi Byte)* | [Temperature Limit](#temperature-limit)         |  RW  |    80     |                             0 ~ 100                              |       1 [&deg;C]        |
+|  32  |     2      |      *40017*      | [Max Voltage Limit](#max-voltage-limit)         |  RW  |    350    |                            150 ~ 350                             |         0.1 [V]         |
+|  34  |     2      |      *40018*      | [Min Voltage Limit](#min-voltage-limit)         |  RW  |    150    |                            150 ~ 350                             |         0.1 [V]         |
+|  36  |     2      |      *40019*      | [PWM Limit](#pwm-limit)                         |  RW  |   2,009   |                            0 ~ 2,009                             |       0.0498 [%]        |
+|  38  |     2      |      *40020*      | [Current Limit](#current-limit)                 |  RW  |   1,461   |                            0 ~ 1,461                             |         1 [mA]          |
+|  40  |     4      |      *40021*      | [Acceleration Limit](#acceleration-limit)       |  RW  | 4,346,756 |                          0 ~ 4,346,756                           | 1 [rev/min<sup>2</sup>] |
+|  44  |     4      |      *40023*      | [Velocity Limit](#velocity-limit)               |  RW  |   2,600   |                            0 ~ 2,600                             |     0.01 [rev/min]      |
+|  48  |     4      |      *40025*      | [Max Position Limit](#max-position-limit)       |  RW  |  262,931  |                      -263,187 ~<br /> 263,187                      |        1 [pulse]        |
+|  52  |     4      |      *40027*      | [Min Position Limit](#min-position-limit)       |  RW  | -262,931  |                      -263,187 ~<br /> 263,187                      |        1 [pulse]        |
+|  56  |     1      | *40029 (Lo Byte)* | [External Port Mode 1](#external-port-mode)     |  RW  |     3     |                              0 ~ 3                               |            -            |
+|  57  |     1      | *40029 (Hi Byte)* | [External Port Mode 2](#external-port-mode)     |  RW  |     3     |                              0 ~ 3                               |            -            |
+|  58  |     1      | *40030 (Lo Byte)* | [External Port Mode 3](#external-port-mode)     |  RW  |     3     |                              0 ~ 3                               |            -            |
+|  59  |     1      | *40030 (Hi Byte)* | [External Port Mode 4](#external-port-mode)     |  RW  |     3     |                              0 ~ 3                               |            -            |
+|  60  |     1      | _40031 (Lo Byte)_ | [Startup Configuration](#startup-configuration) |  RW  |     0     |                                3                                 |            -            |
+|  63  |     1      | *40032 (Hi Byte)* | [Shutdown](#shutdown)                           |  RW  |    58     |                              0 ~ 63                              |            -            |
+| 168  |     2      |        N/A        | [Indirect Address 1](#indirect-address)         |  RW  |    634    |                           512 ~ 1,023                            |            -            |
+| 170  |     2      |        N/A        | [Indirect Address 2](#indirect-address)         |  RW  |    635    |                           512 ~ 1,023                            |            -            |
+| 172  |     2      |        N/A        | [Indirect Address 3](#indirect-address)         |  RW  |    636    |                           512 ~ 1,023                            |            -            |
+| ...  |    ...     |        ...        | ...                                             | ...  |    ...    |                               ...                                |           ...           |
+| 422  |     2      |        N/A        | [Indirect Address 128](#indirect-address)       |  RW  |    761    |                           512 ~ 1,023                            |            -            |
+
+
+## RAM 영역
+| 주소 | 크기(Byte) |   모드버스 주소   | 명칭                                              | 접근 | 기본값 |                        범위                         |          단위           |
+|:----:|:----------:|:-----------------:|:--------------------------------------------------|:----:|:------:|:---------------------------------------------------:|:-----------------------:|
+| 512  |     1      | *40257 (Lo Byte)* | [Torque Enable](#torque-enable)                   |  RW  |   0    |                        0 ~ 1                        |            -            |
+| 513  |     1      | *40257 (Hi Byte)* | [LED Red](#led-red)                               |  RW  |   0    |                       0 ~ 255                       |            -            |
+| 514  |     1      | *40258 (Lo Byte)* | [LED Green](#led-green)                           |  RW  |   0    |                       0 ~ 255                       |            -            |
+| 515  |     1      | *40258 (Hi Byte)* | [LED Blue](#led-blue)                             |  RW  |   0    |                       0 ~ 255                       |            -            |
+| 516  |     1      |        N/A        | [Status Return Level](#status-return-level)       |  RW  |   2    |                        0 ~ 2                        |            -            |
+| 517  |     1      |        N/A        | [Registered Instruction](#registered-instruction) |  R   |   0    |                          -                          |            -            |
+| 518  |     1      | *40260 (Lo Byte)* | [Hardware Error Status](#hardware-error-status)   |  R   |   0    |                          -                          |            -            |
+| 524  |     2      |      *40263*      | [Velocity I Gain](#velocity-pi-gain)              |  RW  |  6740  |                     0 ~ 32,767                      |            -            |
+| 526  |     2      |      *40264*      | [Velocity P Gain](#velocity-pi-gain)              |  RW  |  2145  |                     0 ~ 32,767                      |            -            |
+| 528  |     2      |      *40265*      | [Position D Gain](#position-pid-gain)             |  RW  |   0    |                     0 ~ 32,767                      |            -            |
+| 530  |     2      |      *40266*      | [Position I Gain](#position-pid-gain)             |  RW  |   0    |                     0 ~ 32,767                      |            -            |
+| 532  |     2      |      *40267*      | [Position P Gain](#position-pid-gain)             |  RW  |  1061  |                     0 ~ 32,767                      |            -            |
+| 536  |     2      |      *40269*      | [Feedforward 2nd Gain](#feedforward-2nd-gain)     |  RW  |   0    |                     0 ~ 32,767                      |            -            |
+| 538  |     2      |      *40270*      | [Feedforward 1st Gain](#feedforward-1st-gain)     |  RW  |   0    |                     0 ~ 32,767                      |            -            |
+| 546  |     1      | *40274 (Lo Byte)* | [Bus Watchdog](#bus-watchdog)                     |  RW  |   0    |                       0 ~ 127                       |        20 [msec]        |
+| 548  |     2      |      *40275*      | [Goal PWM](#goal-pwm)                             |  RW  |   -    |         -PWM Limit(36) ~<br /> PWM Limit(36)          |       0.0498 [%]        |
+| 550  |     2      |      *40276*      | [Goal Current](#goal-current)                     |  RW  |   -    |     -Current Limit(38) ~<br /> Current Limit(38)      |         1 [mA]          |
+| 552  |     4      |      *40277*      | [Goal Velocity](#goal-velocity)                   |  RW  |   -    |    -Velocity Limit(44) ~<br /> Velocity Limit(44)     |     0.01 [rev/min]      |
+| 556  |     4      |      *40279*      | [Profile Acceleration](#profile-acceleration)     |  RW  |   -    |           0 ~<br /> Acceleration Limit(40)            | 1 [rev/min<sup>2</sup>] |
+| 560  |     4      |      *40281*      | [Profile Velocity](#profile-velocity)             |  RW  |   -    |             0 ~<br /> Velocity Limit(44)              |     0.01 [rev/min]      |
+| 564  |     4      |      *40283*      | [Goal Position](#goal-position)                   |  RW  |   -    | Min Position Limit(52) ~<br /> Max Position Limit(48) |        1[pulse]         |
+| 568  |     2      |      *40285*      | [Realtime Tick](#realtime-tick)                   |  R   |   -    |                     0 ~ 32,767                      |        1 [msec]         |
+| 570  |     1      | *40286 (Lo Byte)* | [Moving](#moving)                                 |  R   |   -    |                          -                          |            -            |
+| 571  |     1      | *40286 (Hi Byte)* | [Moving Status](#moving-status)                   |  R   |   -    |                          -                          |            -            |
+| 572  |     2      |      *40287*      | [Present PWM](#present-pwm)                       |  R   |   -    |                          -                          |       0.0498 [%]        |
+| 574  |     2      |      *40288*      | [Present Current](#present-current)               |  R   |   -    |                          -                          |         1 [mA]          |
+| 576  |     4      |      *40289*      | [Present Velocity](#present-velocity)             |  R   |   -    |                          -                          |     0.01 [rev/min]      |
+| 580  |     4      |      *40291*      | [Present Position](#present-position)             |  R   |   -    |                          -                          |        1 [pulse]        |
+| 584  |     4      |      *40293*      | [Velocity Trajectory](#velocity-trajectory)       |  R   |   -    |                          -                          |     0.01 [rev/min]      |
+| 588  |     4      |      *40295*      | [Position Trajectory](#position-trajectory)       |  R   |   -    |                          -                          |        1 [pulse]        |
+| 592  |     2      |      *40297*      | [Present Input Voltage](#present-input-voltage)   |  R   |   -    |                          -                          |         0.1 [V]         |
+| 594  |     1      | *40298 (Lo Byte)* | [Present Temperature](#present-temperature)       |  R   |   -    |                          -                          |       1 [&deg;C]        |
+| 600  |     2      |      *40301*      | [External Port Data 1](#external-port-data)       | R/RW |   0    |                      0 ~ 4,095                      |            -            |
+| 602  |     2      |      *40302*      | [External Port Data 2](#external-port-data)       | R/RW |   0    |                      0 ~ 4,095                      |            -            |
+| 604  |     2      |      *40303*      | [External Port Data 3](#external-port-data)       | R/RW |   0    |                      0 ~ 4,095                      |            -            |
+| 606  |     2      |      *40304*      | [External Port Data 4](#external-port-data)       | R/RW |   0    |                      0 ~ 4,095                      |            -            |
+| 634  |     1      |        N/A        | [Indirect Data 1](#indirect-data)                 |  RW  |   0    |                       0 ~ 255                       |            -            |
+| 635  |     1      |        N/A        | [Indirect Data 2](#indirect-data)                 |  RW  |   0    |                       0 ~ 255                       |            -            |
+| 636  |     1      |        N/A        | [Indirect Data 3](#indirect-data)                 |  RW  |   0    |                       0 ~ 255                       |            -            |
+| ...  |    ...     |                   | ...                                               | ...  |  ...   |                         ...                         |           ...           |
+| 761  |     1      |        N/A        | [Indirect Data 128](#indirect-data)               |  RW  |   0    |                       0 ~ 255                       |            -            |
+| 878  |     1      |        N/A        | [Backup Ready](#backup-ready)                     |  R   |   -    |                        0 ~ 1                        |            -            |
+
+
+## 컨트롤 테이블 설명
+:::warning
+
+**주의**: EEPROM Area에 존재하는 모든 Data는 Torque Enable(512)의 값이 ‘0’일 때만 변경할 수 있습니다.
+
+:::
+
+
+<a id="model-number"></a>
+### Model Number(0)
+모델 번호입니다.
+
+<a id="firmware-version"></a>
+### Firmware Version(6)
+<PControlTable6FirmwareVersion />
+
+
+<a id="id"></a>
+### ID(7)
+<PControlTable7Id />
+
+
+<a id="baud-rate"></a>
+### Baud Rate(8)
+<PControlTable8BaudRate />
+
+
+<a id="return-delay-time"></a>
+### Return Delay Time(9)
+<PControlTable9ReturnDelayTime />
+
+
+<a id="drive-mode"></a>
+### Drive Mode(10)
+<PControlTable10DriveMode />
+
+
+<a id="operating-mode"></a>
+### Operating Mode(11)
+<PControlTable11OperatingMode />
+
+
+<a id="secondary-id"></a>
+### Secondary ID(12)
+<PControlTable12SecondaryId />
+
+
+<a id="secondary-id"></a>
+### Protocol Type(13)
+<PControlTable13ProtocolType />
+
+
+<a id="homing-offset"></a>
+### Homing Offset(20)
+<PControlTable20HomingOffset />
+
+
+
+
+:::note
+
+**참고** : 위치제어 모드(관절 모드)의 경우, Homing Offset(20)은 (-90 ~ 90 [&deg;]) 범위보다 클 경우 무시됩니다. 
+
+![](/img/dxl/p/h42p_homming.webp)
+
+:::
+
+
+
+:::warning
+
+**주의** : [Drive Mode(10)]의 Reverse Mode가 설정되었더라도, Homing Offset(20)의 부호는 반전되지 않습니다.
+
+:::
+
+
+<a id="moving-threshold"></a>
+### Moving Threshold(24)
+<PControlTable24MovingThreshold />
+
+
+|      단위      |   범위    |
+|:--------------:|:---------:|
+| 0.01 [rev/min] | 0 ~ 2,600 |
+
+<a id="temperature-limit"></a>
+### Temperature Limit(31)
+<PControlTable31TemperatureLimit />
+
+
+<a id="max-voltage-limit"></a>
+<a id="min-voltage-limit"></a>
+### Max/Min Voltage Limit(32, 34)
+<PControlTable32VoltageLimit />
+
+
+<a id="pwm-limit"></a>
+### PWM Limit(36)
+<PControlTable36PwmLimit />
+
+
+<a id="current-limit"></a>
+### Current Limit(38)
+<PControlTable38CurrentLimit />
+
+
+|  단위  |   범위    |
+|:------:|:---------:|
+| 1 [mA] | 0 ~ 1,461 |
+
+<a id="acceleration-limit"></a>
+### Acceleration Limit(40)
+<PControlTable40AccelerationLimit />
+
+
+|          단위           |     범위      |
+|:-----------------------:|:-------------:|
+| 1 [rev/min<sup>2</sup>] | 0 ~ 4,346,756 |
+
+<a id="velocity-limit"></a>
+### Velocity Limit(44)
+<PControlTable44VelocityLimit />
+
+
+|      단위      |   범위    |
+|:--------------:|:---------:|
+| 0.01 [rev/min] | 0 ~ 2,600 |
+
+<a id="max-position-limit"></a>
+<a id="min-position-limit"></a>
+### Max/Min Position Limit(48, 52)
+위치 제어 모드에서 목표 위치의 제한 값으로써, 1회전(-263,187 ~ 263,187) 범위 내에서 목표 위치를 제한 합니다.  
+따라서 위치 제어 모드에서 Goal position(564)은 이 값보다 클 수 없습니다. 큰 값을 입력하면, Status Packet은 Error 필드를 통해서 Data Limit Error를 전송합니다.
+
+|   단위    |     값의 범위      |
+|:---------:|:------------------:|
+| 1 [pulse] | -263,187 ~ 263,187 |
+
+
+:::note
+
+**참고** : Max Position Limit(48)와 Min Position Limit(52)는 1회전 내에서 제어하는 위치제어 모드(관절 모드)에서만 적용 됩니다.
+
+:::
+
+
+<a id="external-port-mode"></a>
+<a id="external-port-data"></a>
+### External Port Mode, External Port Data (56, 57, 58, 59)
+<PControlTable56ExternalPort />
+
+
+<a id="startup-configuration"></a>
+### Startup Configuration(60)
+<ControlTable60StartupConfiguration />
+
+
+<a id="shutdown"></a>
+### Shutdown(63)
+<ControlTableShutdown />
+
+
+<a id="indirect-address"></a>
+<a id="indirect-data"></a>
+### Indirect Address, Indirect Data
+<PControlTable168Indirect />
+
+
+<a id="torque-enable"></a>
+### Torque Enable(512)
+<ControlTableTorqueEnable />
+
+
+<a id="led"></a>
+### RGB LED (513, 514, 515)
+<PControlTable513Led />
+
+
+
+<LedPolicyProa />
+
+
+<a id="status-return-level"></a>
+### Status Return Level(516)
+<PControlTable516StatusReturnLevel />
+
+
+<a id="registered-instruction"></a>
+### Registered Instruction(517)
+<PControlTable517RegisteredInstruction />
+
+
+<a id="hardware-error-status"></a>
+### Hardware Error Status(518)
+<PControlTable518HardwareErrorStatus />
+
+
+<a id="velocity-pi-gain"></a>
+<a id="feedforward-2nd-gain"></a>
+### Velocity PI Gain(524, 526), Feedforward 2nd Gains(536)
+<PControlTable524VelocityGain />
+
+
+<a id="position-pid-gain"></a>
+<a id="feedforward-1st-gain"></a>
+### Position PID Gain(528, 530, 532), Feedforward 1st Gains(538)
+<PControlTable528PositionGain />
+
+
+<a id="bus-watchdog"></a>
+### Bus Watchdog(546)
+<PControlTable546BusWatchdog />
+
+
+<a id="goal-pwm"></a>
+### Goal PWM(548)
+<PControlTable548GoalPwm />
+
+
+<a id="goal-current"></a>
+### Goal Current(550)
+<PControlTable550GoalCurrent />
+
+
+<a id="goal-velocity"></a>
+### Goal Velocity(552)
+<PControlTable552GoalVelocity />
+
+
+<a id="profile-acceleration"></a>
+### Profile Acceleration(556)
+<PControlTable556ProfileAcceleration />
+
+
+<a id="profile-velocity"></a>
+### Profile Velocity(560)
+<PControlTable560ProfileVelocity />
+
+
+<a id="goal-position"></a>
+### Goal Position(564)
+<PControlTable564GoalPosition />
+
+
+|            각도            |       위치값       |                       방향                       |
+|:--------------------------:|:------------------:|:------------------------------------------------:|
+| -180 [&deg;] ~ 180 [&deg;] | -263,187 ~ 263,187 | ![](/img/dxl/p/h42p_goal_position.webp) |
+
+<a id="realtime-tick"></a>
+### Realtime Tick(568)
+<PControlTable568RealtimeTick />
+
+
+<a id="moving"></a>
+### Moving(570)
+<PControlTable570Moving />
+
+
+<a id="moving-status"></a>
+### Moving Status(571)
+<PControlTable571MovingStatus />
+
+
+<a id="present-pwm"></a>
+### Present PWM(572)
+<PControlTable572PresentPwm />
+
+
+<a id="present-current"></a>
+### Present Current(574)
+<PControlTable574PresentCurrent />
+
+
+<a id="present-velocity"></a>
+### Present Velocity(576)
+<PControlTable576PresentVelocity />
+
+
+<a id="present-position"></a>
+### Present Position(580)
+<PControlTable580PresentPosition />
+
+
+<a id="velocity-trajectory"></a>
+### Velocity Trajectory(584)
+<PControlTable584VelocityTrajectory />
+
+
+<a id="position-trajectory"></a>
+### Position Trajectory(588)
+<PControlTable588PositionTrajectory />
+
+
+<a id="present-input-voltage"></a>
+### Present Input Voltage(592)
+<PControlTable592PresentInputVoltage />
+
+
+<a id="present-temperature"></a>
+### Present Temperature(594)
+<PControlTable594PresentTemperature />
+
+
+<a id="backup-ready"></a>
+### Backup Ready(878)
+<ControlTableBackupReady />
+
+
+# 조립 예시
+## 옵션프레임 조립
+- FRP42-H221K Set  
+
+![](/img/dxl/p/m42p_010_s260_r_01.webp)
+
+![](/img/dxl/p/m42p_010_s260_r_02.webp)
+
+# 유지보수
+# 참고자료
+:::note
+
+**참고**  
+[호환성 가이드]  
+<a href="/img/dxl/cable_compatibility.webp" target="_blank">케이블 호환성</a>
+
+:::
+
+
+## Profile
+<PProfileDescription />
+
+
+## 인증 획득
+표기되지 않은 인증에 대해서는 별도 문의하시기 바랍니다.
+
+### FCC
+<FccClassA />
+
+
+## 커넥터 정보
+<PJst485ProPlus />
+
+
+## 통신 회로
+<CommunicationCircuitPro />
+
+
+## 도면
+`Download` [PDF], [DWG], [STEP], [IGES]
+
+## Moment of Inertia
+- `Download` [DYNAMIXEL-PM Moment of Inertia.pdf]
+
+
+<DownloadCenterNotice />
+
+
+[DYNAMIXEL-PM Moment of Inertia.pdf]: https://www.robotis.com/service/download.php?no=2006
+[PDF]: http://www.robotis.com/service/download.php?no=1277
+[DWG]: http://www.robotis.com/service/download.php?no=1276
+[STEP]: http://www.robotis.com/service/download.php?no=1278
+[IGES]: http://www.robotis.com/service/download.php?no=1279
+[호환성 가이드]: http://www.robotis.com/service/compatibility_table.php?cate=dpro
+
+<CommonLink />

@@ -1,7 +1,19 @@
 import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
 import aiworkerSidebar from './sidebars/aiworker';
 import aisapiensSidebar from './sidebars/aisapiens';
-import {dxlQuickStartSidebar, dxlSidebar, protocolSidebar} from './sidebars/dxl';
+import {
+  allModelsSidebar,
+  axSeriesSidebar,
+  dxSeriesSidebar,
+  exSeriesSidebar,
+  mxSeriesSidebar,
+  pSeriesSidebar,
+  proSeriesSidebar,
+  protocolSidebar,
+  rxSeriesSidebar,
+  xSeriesSidebar,
+  ySeriesSidebar,
+} from './sidebars/dxl';
 import eduSidebar from './sidebars/edu';
 import faqSidebar from './sidebars/faq';
 import hx5d20Sidebar from './sidebars/hx5d20';
@@ -21,8 +33,16 @@ import thormang3Sidebar from './sidebars/thormang3';
 import turtlebot3Sidebar from './sidebars/turtlebot3';
 
 const sidebars: SidebarsConfig = {
-  dxlQuickStartSidebar,
-  dxlSidebar,
+  allModelsSidebar,
+  ySeriesSidebar,
+  pSeriesSidebar,
+  xSeriesSidebar,
+  mxSeriesSidebar,
+  axSeriesSidebar,
+  exSeriesSidebar,
+  dxSeriesSidebar,
+  rxSeriesSidebar,
+  proSeriesSidebar,
   protocolSidebar,
   aiworkerSidebar,
   aisapiensSidebar,

@@ -62,7 +62,7 @@ For more details about Instruction and Status Packets as well as how to read and
 :::tip
 
 **TIP** : The firmware addresses remain similar for DYNAMIXEL's within the same series.    
-ex) Goal Position of [AX-12A](/docs/dxl/ax/ax-12a#goal-position-30) and [AX-18A](/docs/dxl/ax/ax-18a#goal-position-30) is firmware address 30.
+ex) Goal Position of [AX-12A](/docs/dxl/model_reference/ax_series/ax-12a#goal-position-30) and [AX-18A](/docs/dxl/model_reference/ax_series/ax-18a#goal-position-30) is firmware address 30.
 
 :::
 
@@ -119,9 +119,9 @@ Replacement gear sets for AX, MX and X Series DYNAMIXELs are available for purch
 Each DYNAMIXEL has different power requirements. Please refer to the eManual page for your DYNAMIXEL model for more information.
 
 # Can I mix different DYNAMIXEL series actuators in the same DYNAMIXEL Network?
-DYNAMIXEL communication relies on all actuators utilizing the same communication protocol as well as the [correct logic level (buffer circuit)](http://emanual.robotis.com/docs/en/dxl/x/xl430-w250/#ttl-communication) for packet structure and instructions.
+DYNAMIXEL communication relies on all actuators utilizing the same communication protocol as well as the [correct logic level (buffer circuit)](http://emanual.robotis.com/docs/en/dxl/model_reference/x_series/xl430-w250/#ttl-communication) for packet structure and instructions.
 
-DYNAMIXEL Protocol 2.0 DYNAMIXEL actuators may be configured to accept Communication DYNAMIXEL Protocol 1.0 commands by changing the [DYNAMIXEL Protocol Version parameter](/docs/dxl/x/xl430-w250#protocol-version13) in DYNAMIXEL firmware to allow compatibility with legacy actuators.
+DYNAMIXEL Protocol 2.0 DYNAMIXEL actuators may be configured to accept Communication DYNAMIXEL Protocol 1.0 commands by changing the [DYNAMIXEL Protocol Version parameter](/docs/dxl/model_reference/x_series/xl430-w250#protocol-version13) in DYNAMIXEL firmware to allow compatibility with legacy actuators.
 
 # What is the recommended torque range for DYNAMIXEL actuators?
 Each DYNAMIXEL has different torque ranges. Please refer to the performance graph on the eManual page for your actuator for more specific information.
@@ -145,8 +145,8 @@ This character indicates the supported communications protocol for that model of
 - T indicates support for TTL serial communication
 
 Connector information for each communications protocol is available here on the ROBOTIS eManual.
-- [MOLEX Connector Information](/docs/dxl/mx/mx-28#connector-information)
-- [JST Connector Information](/docs/dxl/x/xm430-w350#connector-information)
+- [MOLEX Connector Information](/docs/dxl/model_reference/mx_series/mx-28#connector-information)
+- [JST Connector Information](/docs/dxl/model_reference/x_series/xm430-w350#connector-information)
 
 
 # What certifications/ratings do DYNAMIXEL actuators have?
@@ -158,17 +158,17 @@ Connector information for each communications protocol is available here on the 
 
 
 
-[DYNAMIXEL Protocol 1.0]: /docs/dxl/protocol1
-[DYNAMIXEL Protocol 2.0]: /docs/dxl/protocol2
-[MX Series]: /docs/dxl#mx-series/
-[AX Series]: /docs/dxl#ax-series/
-[RX Series]: /docs/dxl#rx-series/
-[EX Series]: /docs/dxl#ex-series/
-[DX Series]: /docs/dxl#dx-series/
-[DYNAMIXEL-X]: /docs/dxl#x-series/
-[DYNAMIXEL Pro]: /docs/dxl#pro-series/
-[DYNAMIXEL-P]: /docs/dxl#p-series/
-[MX]: /docs/dxl#mx-series/
+[DYNAMIXEL Protocol 1.0]: /docs/dxl/protocol/protocol1
+[DYNAMIXEL Protocol 2.0]: /docs/dxl/protocol/protocol2
+[MX Series]: /docs/dxl/model_reference/#mx-series/
+[AX Series]: /docs/dxl/model_reference/#ax-series/
+[RX Series]: /docs/dxl/model_reference/#rx-series/
+[EX Series]: /docs/dxl/model_reference/#ex-series/
+[DX Series]: /docs/dxl/model_reference/#dx-series/
+[DYNAMIXEL-X]: /docs/dxl/model_reference/#x-series/
+[DYNAMIXEL Pro]: /docs/dxl/model_reference/#pro-series/
+[DYNAMIXEL-P]: /docs/dxl/model_reference/#p-series/
+[MX]: /docs/dxl/model_reference/#mx-series/
 [U2D2]: /docs/parts/interface/u2d2
 [USB2DYNAMIXEL]: /docs/parts/interface/usb2dynamixel
 [manual installation]: /docs/parts/interface/usb2dynamixel#install-driver-manually

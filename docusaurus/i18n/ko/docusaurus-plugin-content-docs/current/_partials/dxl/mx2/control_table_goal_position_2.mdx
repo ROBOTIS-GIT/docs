@@ -38,7 +38,7 @@ The Goal Position(116) sets desired position. From the front view of DYNAMIXEL, 
 However, [Present Position(132)](#present-position) will be reset to an absolute position value within one full rotation in the following cases:
 1. When the Operating Mode(11) is changed to **Position Control Mode**.
 2. When torque is turned on in **Position Control Mode**.
-3. When the actuator is turned on or when rebooted using a [Reboot Instruction](/docs/dxl/protocol2#reboot).
+3. When the actuator is turned on or when rebooted using a [Reboot Instruction](/docs/dxl/protocol/protocol2#reboot).
 
 Note that a [Present Position(132)](#present-position) value that has been reset to the absolute value within a single rotation will still be affected by the configured [Homing Offset(20)](#homing-offset) value.
 

@@ -1,0 +1,567 @@
+import YFirstWarning from '@site/docs/_partials/dxl/y/y_first_warning.mdx';
+import YYWarningMb from '@site/docs/_partials/dxl/y/y_y_warning_mb.mdx';
+import NotePerformanceGraph from '@site/docs/_partials/dxl/y/note_performance_graph.mdx';
+import YYControlTable from '@site/docs/_partials/dxl/y/y_y_control_table.mdx';
+import YControlTable0ModelNumber from '@site/docs/_partials/dxl/y/y_control_table_0_model_number.mdx';
+import YControlTable2ModelInformation from '@site/docs/_partials/dxl/y/y_control_table_2_model_information.mdx';
+import YControlTable6FirmwareVersion from '@site/docs/_partials/dxl/y/y_control_table_6_firmware_version.mdx';
+import YControlTable7Id from '@site/docs/_partials/dxl/y/y_control_table_7_id.mdx';
+import YControlTable8BusWatchdog from '@site/docs/_partials/dxl/y/y_control_table_8_bus_watchdog.mdx';
+import YControlTable10SecondaryId from '@site/docs/_partials/dxl/y/y_control_table_10_secondary_id.mdx';
+import YControlTable11ProtocolType from '@site/docs/_partials/dxl/y/y_control_table_11_protocol_type.mdx';
+import YControlTable12BaudRate from '@site/docs/_partials/dxl/y/y_control_table_12_baud_rate.mdx';
+import YControlTable13ReturnDelayTime from '@site/docs/_partials/dxl/y/y_control_table_13_return_delay_time.mdx';
+import YControlTable15StatusReturnLevel from '@site/docs/_partials/dxl/y/y_control_table_15_status_return_level.mdx';
+import YControlTable16RegisteredInstruction from '@site/docs/_partials/dxl/y/y_control_table_16_registered_instruction.mdx';
+import YControlTable32DriveMode from '@site/docs/_partials/dxl/y/y_control_table_32_drive_mode.mdx';
+import YControlTable33OperatingMode from '@site/docs/_partials/dxl/y/y_control_table_33_operating_mode.mdx';
+import YControlTable34StartupConfiguration from '@site/docs/_partials/dxl/y/y_control_table_34_startup_configuration.mdx';
+import YControlTable38PositionLimitThreshold from '@site/docs/_partials/dxl/y/y_control_table_38_position_limit_threshold.mdx';
+import YControlTable40InPositionThreshold from '@site/docs/_partials/dxl/y/y_control_table_40_in_position_threshold.mdx';
+import YControlTable44FollowingErrorThreshold from '@site/docs/_partials/dxl/y/y_control_table_44_following_error_threshold.mdx';
+import YControlTable48MovingThreshold from '@site/docs/_partials/dxl/y/y_control_table_48_moving_threshold.mdx';
+import YControlTable52HomingOffset from '@site/docs/_partials/dxl/y/y_control_table_52_homing_offset.mdx';
+import YControlTable56TemperatureLimit from '@site/docs/_partials/dxl/y/y_control_table_56_temperature_limit.mdx';
+import YControlTable60VoltageLimit from '@site/docs/_partials/dxl/y/y_control_table_60_voltage_limit.mdx';
+import YControlTable64PwmLimit from '@site/docs/_partials/dxl/y/y_control_table_64_pwm_limit.mdx';
+import YControlTable66CurrentLimit80 from '@site/docs/_partials/dxl/y/y_control_table_66_current_limit_80.mdx';
+import YControlTable68AccelerationLimit from '@site/docs/_partials/dxl/y/y_control_table_68_acceleration_limit.mdx';
+import YControlTable72VelocityLimit from '@site/docs/_partials/dxl/y/y_control_table_72_velocity_limit.mdx';
+import YControlTable76PositionLimit from '@site/docs/_partials/dxl/y/y_control_table_76_position_limit.mdx';
+import YControlTable96ElectronicGearRatioNumerator from '@site/docs/_partials/dxl/y/y_control_table_96_electronic_gear_ratio_numerator.mdx';
+import YControlTableTorqueOnOffTimingChart from '@site/docs/_partials/dxl/y/y_control_table_torque_on_off_timing_chart.mdx';
+import YControlTable104SafeStopTime from '@site/docs/_partials/dxl/y/y_control_table_104_safe_stop_time.mdx';
+import YControlTable106BrakeDelay from '@site/docs/_partials/dxl/y/y_control_table_106_brake_delay.mdx';
+import YControlTable110OverexcitationVoltage from '@site/docs/_partials/dxl/y/y_control_table_110_overexcitation_voltage.mdx';
+import YControlTable132PresentVelocityLpfFrequency from '@site/docs/_partials/dxl/y/y_control_table_132_present_velocity_lpf_frequency.mdx';
+import YControlTable134GoalCurrentLpfFrequency from '@site/docs/_partials/dxl/y/y_control_table_134_goal_current_lpf_frequency.mdx';
+import YControlTable136PositionFfLpfTime from '@site/docs/_partials/dxl/y/y_control_table_136_position_ff_lpf_time.mdx';
+import YControlTable138VelocityFfLpfTime from '@site/docs/_partials/dxl/y/y_control_table_138_velocity_ff_lpf_time.mdx';
+import YControlTable152ControllerState from '@site/docs/_partials/dxl/y/y_control_table_152_controller_state.mdx';
+import YControlTable153ErrorCode from '@site/docs/_partials/dxl/y/y_control_table_153_error_code.mdx';
+import YControlTableErrorCodeHistory from '@site/docs/_partials/dxl/y/y_control_table_error_code_history.mdx';
+import YControlTable170HybridSave from '@site/docs/_partials/dxl/y/y_control_table_170_hybrid_save.mdx';
+import YControlTable212VelocityGain from '@site/docs/_partials/dxl/y/y_control_table_212_velocity_gain.mdx';
+import YControlTable224PositionGain from '@site/docs/_partials/dxl/y/y_control_table_224_position_gain.mdx';
+import YControlTable240ProfileAcceleration from '@site/docs/_partials/dxl/y/y_control_table_240_profile_acceleration.mdx';
+import YControlTable248ProfileAccelerationTime from '@site/docs/_partials/dxl/y/y_control_table_248_profile_acceleration_time.mdx';
+import YControlTable168Indirect from '@site/docs/_partials/dxl/y/y_control_table_168_indirect.mdx';
+import YControlTable512TorqueEnableM from '@site/docs/_partials/dxl/y/y_control_table_512_torque_enable_m.mdx';
+import YControlTable513Led from '@site/docs/_partials/dxl/y/y_control_table_513_led.mdx';
+import YControlTable516PwmCurrentVeloctiyOffset from '@site/docs/_partials/dxl/y/y_control_table_516_pwm_current_veloctiy_offset.mdx';
+import YControlTable524GoalPwm from '@site/docs/_partials/dxl/y/y_control_table_524_goal_pwm.mdx';
+import YControlTable526GoalCurrent from '@site/docs/_partials/dxl/y/y_control_table_526_goal_current.mdx';
+import YControlTable528GoalVelocity from '@site/docs/_partials/dxl/y/y_control_table_528_goal_velocity.mdx';
+import YControlTable532GoalPosition from '@site/docs/_partials/dxl/y/y_control_table_532_goal_position.mdx';
+import YControlTable541MovingStatus from '@site/docs/_partials/dxl/y/y_control_table_541_moving_status.mdx';
+import YControlTable542RealtimeTick from '@site/docs/_partials/dxl/y/y_control_table_542_realtime_tick.mdx';
+import YControlTable544PresentPwm from '@site/docs/_partials/dxl/y/y_control_table_544_present_pwm.mdx';
+import YControlTable546PresentCurrent from '@site/docs/_partials/dxl/y/y_control_table_546_present_current.mdx';
+import YControlTable548PresentVelocity from '@site/docs/_partials/dxl/y/y_control_table_548_present_velocity.mdx';
+import YControlTable552PresentPosition from '@site/docs/_partials/dxl/y/y_control_table_552_present_position.mdx';
+import YControlTable560PositionTrajectory from '@site/docs/_partials/dxl/y/y_control_table_560_position_trajectory.mdx';
+import YControlTable564VelocityTrajectory from '@site/docs/_partials/dxl/y/y_control_table_564_velocity_trajectory.mdx';
+import YControlTable568PresentInputVoltage from '@site/docs/_partials/dxl/y/y_control_table_568_present_input_voltage.mdx';
+import YControlTable570PresentInverterTemperature from '@site/docs/_partials/dxl/y/y_control_table_570_present_inverter_temperature.mdx';
+import YControlTable571PresentMotorTemperature from '@site/docs/_partials/dxl/y/y_control_table_571_present_motor_temperature.mdx';
+import YControlTable919BackupReady from '@site/docs/_partials/dxl/y/y_control_table_919_backup_ready.mdx';
+import YFactoryResetRebootClearInstruction from '@site/docs/_partials/dxl/y/y_factory_reset_reboot_clear_instruction.mdx';
+import YYProfileDescription from '@site/docs/_partials/dxl/y/y_y_profile_description.mdx';
+import YConnectorY080 from '@site/docs/_partials/dxl/y/y_connector_y080.mdx';
+import YUartConnectionY from '@site/docs/_partials/dxl/y/y_uart_connection_y.mdx';
+import DownloadCenterNotice from '@site/docs/_partials/dxl/y/download_center_notice.mdx';
+import YClearPacket from '@site/docs/_partials/dxl/y/y_clear_packet.mdx';
+import YOutputBearingYM from '@site/docs/_partials/dxl/y/y_output_bearing_y_m.mdx';
+import CommonLink from '@site/docs/_partials/dxl/y/common_link.mdx';
+
+![](/img/dxl/y/ym080-230-m-rh_porduct.webp)
+
+> YM080-230-M001-RH
+
+
+<YFirstWarning />
+
+
+# Specifications
+| Item                           | Specifications                                            |
+|:-------------------------------|:----------------------------------------------------------|
+| MCU                            | ARM Cortex-M4 (168 [Mhz], 32 [bit])                  |
+| Motor                          | Frameless BLDC                |
+| Baud Rate                      | 9,600 [bps] ~ 10,500,000 [bps]             |
+| Operating Modes                | Position Control Mode<br />Velocity Control Mode<br />Current Control Mode            |
+| Weight                         | 530 [g]               |
+| Dimensions (W x H x D)         | Ø80 x 54.1 [mm]           |
+| Hollow Shaft Size              | Ø19[mm]             |
+| Resolution                     | 524,288 [pulse/rev]           |
+| Encoder Specifications         | Single-Turn: 19Bit (524,288 [Pulse/Rev])<br />**Multi-Turn: 18Bit (262,144 [Rev])**          |
+| Gear Ratio                     | -            |
+| Backlash                       | -             |
+| Radial Load                    | 52 [N] [(see the output bearing section)](#output-bearing)        |
+| Brake type                     | -                |
+| No Load Speed                  | 3,190 [rev/min]          |
+| Continuous Speed               | 2,597 [rev/min]            |
+| Continuous Torque              | 0.62 [N.m]           |
+| Continuous Current<sup>1)</sup> | 12.6 [A]          |
+| Maximum Torque<sup>2)</sup>     | 1.24 [N.m]        |
+| Maximum Current<sup>1) 2)</sup> | 22.4 [A]       |
+| Output                         | 230 [W]               |
+| Input Voltage                  | 24 [V]            |
+| Operating Temperature          | -5 ~ +55 [&deg;C]          |
+| Command Signal                 | Digital Packet        |
+| Physical Connection            | RS-485 Multidrop Bus<br />RS-485 Asynchronous Serial Communication (8bit, 1stop, No Parity)        |
+| ID                             | 253 (0 ~ 252)                   |
+| Standby Current                | 40 [mA]       |
+
+
+
+
+:::note
+
+1. Current values are based on the phase current of the internal motor.
+2. The Maximum Torque and Current values represent the servo's maximum instantaneous output. Continuous operation at or near these values will initiate an overload error to protect the device from damage.
+
+:::
+
+
+
+<YYWarningMb />
+
+
+## Performance Graph
+![](/img/dxl/y/ym080_230_m001_performance_graph.webp)
+
+
+<NotePerformanceGraph />
+
+
+
+<YYControlTable />
+
+
+## Control Table Configuration
+| Address | Size(Byte) | _Modbus_<br />Address | Area   | Data Name                                                             | Access |       Initial<br />Value        |                           Range                            |      Unit      |
+| :-----: | :--------: | :-----------------: | :----- | :-------------------------------------------------------------------- | :----: | :---------------------------: | :--------------------------------------------------------: | :------------: |
+|    0    |     2      |        40001        | EEPROM | [Model Number](#model-number)                                         |   R    | 4,120<br />4,121<sup>1)</sup> | 4,120 **(Dynamixel Protocol 2.0)**<br />4,121 **(Modbus)** |       -        |
+|    2    |     4      |        40002        | EEPROM | [Model Information](#model-information)                               |   R    |               -               |                             -                              |       -        |
+|    6    |     1      |   40004 (Lo byte)   | EEPROM | [Firmware Version](#firmware-version)                                 |   R    |               -               |                             -                              |       -        |
+|    7    |     1      |   40004 (Hi byte)   | EEPROM | [ID](#id)                                                             |   RW   |               1               | 0 ~ 252 **(Dynamixel Protocol 2.0)**<br />0 ~ 247 **(Modbus)** |       -        |
+|    8    |     2      |        40005        | RAM    | [Bus Watchdog](#bus-watchdog)                                         |   RW   |               0               |                          0 ~ 127                           |       -        |
+|   10    |     1      |   40006 (Lo byte)   | EEPROM | [Secondary(Shadow) ID](#secondaryshadow-id)                           |   RW   |              255              |                          0 ~ 252                           |       -        |
+|   11    |     1      |   40006 (Hi byte)   | EEPROM | [Protocol Type](#protocol-type)                                       |   RW   |           2<br />10           |    2 **(Dynamixel Protocol 2.0)**<br />10 **(Modbus)**     |       -        |
+|   12    |     1      |   40007 (Lo byte)   | EEPROM | [Baud Rate (Bus)](#baud-rate-bus)                                     |   RW   |               1               |                           0 ~ 9                            |       -        |
+|   13    |     1      |   40007 (hi byte)   | EEPROM | [Return Delay Time](#return-delay-time)                               |   RW   |              250              |                          0 ~ 254                           |     2 [us]     |
+|   15    |     1      |   40008 (hi byte)   | RAM    | [Status Return Level](#status-return-level)                           |   RW   |               2               |                           0 ~ 2                            |       -        |
+|   16    |     1      |   40009 (Lo byte)   | RAM    | [Registered Instruction](#registered-instruction)                     |   R    |               0               |                           0 ~ 1                            |       -        |
+|   32    |     1      |   40017 (Lo byte)   | EEPROM | [Drive Mode](#drive-mode)                                             |   RW   |               0               |                           0 ~ 77                           |       -        |
+|   33    |     1      |   40017 (hi byte)   | EEPROM | [Operating Mode](#operating-mode)                                     |   RW   |               3               |                           0 ~ 3                            |       -        |
+|   34    |     1      |   40018 (Lo byte)   | EEPROM | [Startup Configuration](#startup-configuration)                       |   RW   |               0               |                           0 ~ 1                            |       -        |
+|   38    |     2      |        40020        | EEPROM | [Position Limit Threshold](#position-limit-threshold)                 |   RW   |               0               |                         0 ~ 32,767                         |   1 [pulse]    |
+|   40    |     4      |        40021        | EEPROM | [In-Position Threshold](#in-position-threshold)                       |   RW   |             1,000             |                     0 ~ 2,147,483,647                      |   1 [pulse]    |
+|   44    |     4      |        40023        | EEPROM | [Following Error Threshold](#following-error-threshold)               |   RW   |               0               |                     0 ~ 2,147,483,647                      |   1 [pulse]    |
+|   48    |     4      |        40025        | EEPROM | [Moving Threshold](#moving-threshold)                                 |   RW   |             1,000             |                     0 ~ 2,147,483,647                      |  5 [pulse/ms]  |
+|   52    |     4      |        40027        | EEPROM | [Homing Offset](#homing-offset)                                       |   RW   |               0               |               -2,147,483,648 ~ 2,147,483,647               |   1 [pulse]    |
+|   56    |     1      |   40029 (Lo byte)   | EEPROM | [Inverter Temperature Limit](#inverter-temperature-limit)             |   RW   |              80               |                          0 ~ 100                           |     1 [°C]     |
+|   57    |     1      |   40029 (Hi byte)   | EEPROM | [Motor Temperature Limit](#motor-temperature-limit)                   |   RW   |              80               |                          0 ~ 100                           |     1 [°C]     |
+|   60    |     2      |        40031        | EEPROM | [Max Voltage Limit](#max-voltage-limit)                               |   RW   |              320              |                         240 ~ 400                          |    0.1 [V]     |
+|   62    |     2      |        40032        | EEPROM | [Min Voltage Limit](#min-voltage-limit)                               |   RW   |              160              |                         160 ~ 400                          |    0.1 [V]     |
+|   64    |     2      |        40033        | EEPROM | [PWM Limit](#pwm-limit)                                               |   RW   |             1,000             |                         0 ~ 1,000                          |    0.1 [%]     |
+|   66    |     2      |        40034        | EEPROM | [Current Limit](#current-limit)                                       |   RW   |             2,240             |                         0 ~ 2,240                          |    0.01 [A]    |
+|   68    |     4      |        40035        | EEPROM | [Acceleration Limit](#acceleration-limit)                             |   RW   |            24,800             |                       0 ~ 21,336,000                       | 10 [rev/min²]  |
+|   72    |     4      |        40037        | EEPROM | [Velocity Limit](#velocity-limit)                                     |   RW   |            310,000            |                        0 ~ 355,600                         | 0.01 [rev/min] |
+|   76    |     4      |        40039        | EEPROM | [Max Position Limit](#max-position-limit)                             |   RW   |            262,144            |               -2,147,483,648 ~ 2,147,483,647               |   1 [pulse]    |
+|   84    |     4      |        40043        | EEPROM | [Min Position Limit](#min-position-limit)                             |   RW   |           -262,144            |               -2,147,483,648 ~ 2,147,483,647               |   1 [pulse]    |
+|   96    |     4      |        40049        | EEPROM | [Electronic GearRatio Numerator](#electronic-gearratio-numerator)     |   RW   |               1               |                       1 ~ 1,045,576                        |      1/R       |
+|   100   |     4      |        40051        | EEPROM | [Electronic GearRatio Denominator](#electronic-gearratio-denominator) |   RW   |               1               |                       1 ~ 1,045,576                        |       R        |
+|   104   |     2      |        40053        | EEPROM | [Safe Stop Time](#safe-stop-time)                                     |   RW   |              200              |                         0 ~ 32,767                         |     1 [ms]     |
+|   106   |     2      |        40054        | EEPROM | [Brake Delay](#brake-delay)                                           |   RW   |               0               |                         0 ~ 32,767                         |     1 [ms]     |
+|   108   |     2      |        40055        | EEPROM | [Goal Update Delay](#goal-update-delay)                               |   RW   |               0               |                         0 ~ 32,767                         |     1 [ms]     |
+|   110   |     1      |   40056 (Lo byte)   | EEPROM | [Overexcitation Voltage](#overexcitation-voltage)                     |   RW   |              100              |                          0 ~ 100                           |     1 [%]      |
+|   111   |     1      |   40056 (Hi byte)   | EEPROM | [Normal Excitation Voltage](#normal-excitation-voltage)               |   RW   |               0               |                          0 ~ 100                           |     1 [%]      |
+|   112   |     2      |        40057        | EEPROM | [Overexcitation Time](#overexcitation-time)                           |   RW   |               0               |                         0 ~ 32,767                         |     1 [ms]     |
+|   132   |     2      |        40067        | EEPROM | [Present Velocity LPF Frequency](#present-velocity-lpf-frequency)     |   RW   |               0               |                         0 ~ 32,767                         |    0.1 [Hz]    |
+|   134   |     2      |        40068        | EEPROM | [Goal Current LPF Frequency](#goal-current-lpf-frequency)             |   RW   |               0               |                         0 ~ 32,767                         |    0.1 [Hz]    |
+|   136   |     2      |        40069        | EEPROM | [Position FF LPF Time](#position-ff-lpf-time)                         |   RW   |               0               |                          0 ~ 512                           |    0.2 [ms]    |
+|   138   |     2      |        40070        | EEPROM | [Velocity FF LPF Time](#velocity-ff-lpf-time)                         |   RW   |               0               |                          0 ~ 512                           |    0.2 [ms]    |
+|   152   |     1      |   40077 (Lo byte)   | RAM    | [Controller State](#controller-state)                                 |   R    |               -               |                             -                              |       -        |
+|   153   |     1      |   40077 (Hi byte)   | RAM    | [Error Code](#error-code)                                             |   R    |               -               |                             -                              |       -        |
+|   154   |     1      |   40078 (Lo byte)   | RAM    | [Error Code History 1](#error-code-history)                           |   R    |               -               |                             -                              |       -        |
+|   155   |     1      |   40078 (Hi byte)   | RAM    | [Error Code History 2](#error-code-history)                           |   R    |               -               |                             -                              |       -        |
+|   ...   |    ...     |         ...         | ...    | ...                                                                   |  ...   |              ...              |                            ...                             |      ...       |
+|   168   |     1      |   40085 (Lo byte)   | RAM    | [Error Code History 15](#error-code-history)                          |   R    |               -               |                             -                              |       -        |
+|   169   |     1      |   40085 (Hi byte)   | RAM    | [Error Code History 16](#error-code-history)                          |   R    |               -               |                             -                              |       -        |
+|   170   |     1      |   40086 (Lo byte)   | RAM    | [Hybrid Save](#hybrid-save)                                           |   RW   |               0               |                           0 ~ 2                            |       -        |
+|   212   |     4      |        40107        | Hybrid | [Velocity I Gain](#velocity-i-gain)                                   |   RW   |           5,765,630           |                     0 ~ 2,147,483,647                      |       -        |
+|   216   |     4      |        40109        | Hybrid | [Velocity P Gain](#velocity-p-gain)                                   |   RW   |            51,387             |                     0 ~ 2,147,483,647                      |       -        |
+|   220   |     4      |        40111        | Hybrid | [Velocity FF Gain](#velocity-ff-gain)                                 |   RW   |               0               |                     0 ~ 2,147,483,647                      |       -        |
+|   224   |     4      |        40113        | Hybrid | [Position D Gain](#position-d-gain)                                   |   RW   |             8,000             |                     0 ~ 2,147,483,647                      |       -        |
+|   228   |     4      |        40115        | Hybrid | [Position I Gain](#position-i-gain)                                   |   RW   |               0               |                     0 ~ 2,147,483,647                      |       -        |
+|   232   |     4      |        40117        | Hybrid | [Position P Gain](#position-p-gain)                                   |   RW   |           6,283,185           |                     0 ~ 2,147,483,647                      |       -        |
+|   236   |     4      |        40119        | Hybrid | [Position FF Gain](#position-ff-gain)                                 |   RW   |               0               |                     0 ~ 2,147,483,647                      |       -        |
+|   240   |     4      |        40121        | Hybrid | [Profile Acceleration](#profile-acceleration)                         |   RW   |            24,800             |                 0 ~ Acceleration Limit(68)                 | 10 [rev/min²]  |
+|   244   |     4      |        40123        | Hybrid | [Profile Velocity](#profile-velocity)                                 |   RW   |            310,000            |                   0 ~ Velocity Limit(72)                   | 0.01 [rev/min] |
+|   248   |     4      |        40125        | Hybrid | [Profile Acceleration Time](#profile-acceleration-time)               |   RW   |              400              |                        0 ~ 262,144                         |    0.2 [ms]    |
+|   252   |     4      |        40127        | Hybrid | [Profile Time](#profile-time)                                         |   RW   |              800              |                        0 ~ 524,288                         |    0.2 [ms]    |
+|   256   |     2      |         N/A         | EEPROM | [Indirect Address 1](#indirect-address)                               |   RW   |              634              |                          8 ~ 919                           |       -        |
+|   258   |     2      |         N/A         | EEPROM | [Indirect Address 2](#indirect-address)                               |   RW   |              635              |                          8 ~ 919                           |       -        |
+|   ...   |    ...     |         ...         | ...    | ...                                                                   |  ...   |              ...              |                            ...                             |      ...       |
+|   508   |     2      |         N/A         | EEPROM | [Indirect Address 127](#indirect-address)                             |   RW   |              760              |                          8 ~ 919                           |       -        |
+|   510   |     2      |         N/A         | EEPROM | [Indirect Address 128](#indirect-address)                             |   RW   |              761              |                          8 ~ 919                           |       -        |
+|   512   |     1      |   40257 (Lo byte)   | RAM    | [Torque Enable](#torque-enable)                                       |   RW   |               0               |                           0 ~ 1                            |       -        |
+|   513   |     1      |   40257 (Hi byte)   | RAM    | [LED](#led)                                                           |   RW   |               0               |                           0 ~ 1                            |       -        |
+|   516   |     2      |        40259        | RAM    | [PWM Offset](#pwm-offset)                                             |   RW   |               0               |   - Voltage(PWM)Limit(64) ~ <br />Voltage(PWM)Limit(64)    |    0.1 [%]     |
+|   518   |     2      |        40260        | RAM    | [Current Offset](#current-offset)                                     |   RW   |               0               |        - Current Limit(66) ~<br />Current Limit(66)        |    0.01 [A]    |
+|   520   |     4      |        40261        | RAM    | [Velocity Offset](#velocity-offset)                                   |   RW   |               0               |       - Velocity Limit(72) ~<br />Velocity Limit(72)       | 0.01 [rev/min] |
+|   524   |     2      |        40263        | RAM    | [Goal PWM](#goal-pwm)                                                 |   RW   |               0               |   - Voltage(PWM) Limit(64) ~<br />Voltage(PWM)Limit(64)    |    0.1 [%]     |
+|   526   |     2      |        40264        | RAM    | [Goal Current](#goal-current)                                         |   RW   |               0               |        - Current Limit(66) ~<br />Current Limit(66)        |    0.01 [A]    |
+|   528   |     4      |        40265        | RAM    | [Goal Velocity](#goal-velocity)                                       |   RW   |               0               |       - Velocity Limit(72) ~<br />Velocity Limit(72)       | 0.01 [rev/min] |
+|   532   |     4      |        40267        | RAM    | [Goal Position](#goal-position)                                       |   RW   |               0               |    Min Position Limit(84) ~<br />Max Position Limit(76)    |   1 [pulse]    |
+|   541   |     1      |   40271 (Hi byte)   | RAM    | [Moving Status](#moving-status)                                       |   R    |               -               |                             -                              |       -        |
+|   542   |     2      |        40272        | RAM    | [Realtime Tick](#realtime-tick)                                       |   R    |               -               |                             -                              |     1[ms]      |
+|   544   |     2      |        40273        | RAM    | [Present PWM](#present-pwm)                                           |   R    |               -               |                             -                              |    0.1 [%]     |
+|   546   |     2      |        40274        | RAM    | [Present Current](#present-current)                                   |   R    |               -               |                             -                              |    0.01 [A]    |
+|   548   |     4      |        40275        | RAM    | [Present Velocity](#present-velocity)                                 |   R    |               -               |                             -                              | 0.01 [rev/min] |
+|   552   |     4      |        40277        | RAM    | [Present Position](#present-position)                                 |   R    |               -               |                             -                              |   1 [pulse]    |
+|   560   |     4      |        40279        | RAM    | [Position Trajectory](#position-trajectory)                           |   R    |               -               |                             -                              |   1 [pulse]    |
+|   564   |     4      |        40281        | RAM    | [Velocity Trajectory](#velocity-trajectory)                           |   R    |               -               |                             -                              |  1 [pulse/s]   |
+|   568   |     2      |        40283        | RAM    | [Present Input Voltage](#present-input-voltage)                       |   R    |               -               |                             -                              |    0.1 [V]    |
+|   570   |     1      |   40284 (Lo byte)   | RAM    | [Present Inverter Temperature](#present-inverter-temperature)         |   R    |               -               |                             -                              |     1 [°C]     |
+|   571   |     1      |   40284 (Hi byte)   | RAM    | [Present Motor Temperature](#present-motor-temperature)               |   R    |               -               |                             -                              |     1 [°C]     |
+|   634   |     1      |         N/A         | RAM    | [Indirect Data 1](#indirect-data)                                     |   RW   |               0               |                          0 ~ 255                           |       -        |
+|   635   |     1      |         N/A         | RAM    | [Indirect Data 2](#indirect-data)                                     |   RW   |               0               |                          0 ~ 255                           |       -        |
+|   ...   |    ...     |         ...         | ...    | ...                                                                   |  ...   |              ...              |                            ...                             |      ...       |
+|   760   |     1      |         N/A         | RAM    | [Indirect Data 127](#indirect-data)                                   |   RW   |               0               |                          0 ~ 255                           |       -        |
+|   761   |     1      |         N/A         | RAM    | [Indirect Data 128](#indirect-data)                                   |   RW   |               0               |                          0 ~ 255                           |       -        |
+|   919   |     1      |         N/A         | RAM    | [Backup Ready](#backup-ready)                                         |   R    |               -               |                             -                              |       -        |
+|   N/A   |     2      |        41001        | RAM    | [Factory Reset Instruction](#factory-reset-instruction)               |   W    |               -               |                             -                              |       -        |
+|   N/A   |     2      |        41002        | RAM    | [Reboot Instruction](#reboot-instruction)                             |   W    |               -               |                             -                              |       -        |
+|   N/A   |     2      |        41003        | RAM    | [Clear Instruction](#clear-instruction)                               |   W    |               -               |                             -                              |       -        |
+
+## Control Table Description
+:::warning
+
+**Caution**: All data present in the EEPROM Area can only be modified when the value of Torque Enable (512) is '0'.
+
+:::
+
+
+### Model Number(0)
+<YControlTable0ModelNumber />
+
+
+### Model Information(2)
+<YControlTable2ModelInformation />
+
+
+### Firmware Version(6)
+<YControlTable6FirmwareVersion />
+
+
+### ID(7)
+<YControlTable7Id />
+
+
+### Bus Watchdog(8)
+<YControlTable8BusWatchdog />
+
+
+### Secondary(Shadow) ID(10)
+<YControlTable10SecondaryId />
+
+
+### Protocol Type(11)
+<YControlTable11ProtocolType />
+
+
+### Baud Rate (Bus)(12)
+<YControlTable12BaudRate />
+
+
+### Return Delay Time(13)
+<YControlTable13ReturnDelayTime />
+
+
+### Status Return Level(15)
+<YControlTable15StatusReturnLevel />
+
+
+### Registered Instruction(16)
+<YControlTable16RegisteredInstruction />
+
+
+### Drive Mode(32)
+<YControlTable32DriveMode />
+
+
+### Operating Mode(33)
+<YControlTable33OperatingMode />
+
+
+### Startup Configuration(34)
+<YControlTable34StartupConfiguration />
+
+
+### Position Limit Threshold(38)
+<YControlTable38PositionLimitThreshold />
+
+
+### In-Position Threshold(40)
+<YControlTable40InPositionThreshold />
+
+
+### Following Error Threshold(44)
+<YControlTable44FollowingErrorThreshold />
+
+
+### Moving Threshold(48)
+<YControlTable48MovingThreshold />
+
+
+### Homing Offset(52)
+<YControlTable52HomingOffset />
+
+
+### Inverter/Motor Temperature Limit(56, 57)
+<YControlTable56TemperatureLimit />
+
+
+### Max/Min Voltage Limit(60, 62)
+<YControlTable60VoltageLimit />
+
+
+### PWM Limit(64)
+<YControlTable64PwmLimit />
+
+
+### Current Limit(66)
+<YControlTable66CurrentLimit80 />
+
+
+### Acceleration Limit(68)
+<YControlTable68AccelerationLimit />
+
+
+|     Unit      |     Range      |
+| :-----------: | :------------: |
+| 10 [rev/min²] | 0 ~ 21,336,000 |
+
+### Velocity Limit(72)
+<YControlTable72VelocityLimit />
+
+
+|   Unit    |    Range    |                                           Description                                            |
+| :-------: | :---------: | :----------------------------------------------------------------------------------------------: |
+| 0.01[RPM] | 0 ~ 355,600 | 100,000 = Maximum speed limited to 1,000[RPM]<br />642,200 = Maximum speed limited to 6,422[RPM] |
+
+### Max/Min Position Limit(76, 84)
+<YControlTable76PositionLimit />
+
+
+### Electronic Gear Ratio Numerator/Denominator(96, 100)
+<YControlTable96ElectronicGearRatioNumerator />
+
+
+### Torque ON-OFF Timing Chart
+<YControlTableTorqueOnOffTimingChart />
+
+
+### Safe Stop Time(104)
+<YControlTable104SafeStopTime />
+
+
+### Brake Delay(106), Goal Update Delay(108)
+<YControlTable106BrakeDelay />
+
+
+### Overexcitation Voltage(110), Normal Excitation Voltage(111), Overexcitation Time(112)
+<YControlTable110OverexcitationVoltage />
+
+
+### Present Velocity LPF Frequency(132)
+<YControlTable132PresentVelocityLpfFrequency />
+
+
+### Goal Current LPF Frequency(134)
+<YControlTable134GoalCurrentLpfFrequency />
+
+
+### Position FF LPF Time(136)
+<YControlTable136PositionFfLpfTime />
+
+
+### Velocity FF LPF Time(138)
+<YControlTable138VelocityFfLpfTime />
+
+
+### Controller State(152)
+<YControlTable152ControllerState />
+
+
+### Error Code(153)
+<YControlTable153ErrorCode />
+
+
+### Error Code History
+<YControlTableErrorCodeHistory />
+
+
+### Hybrid Save(170)
+<YControlTable170HybridSave />
+
+
+### Velocity I Gain(212), Velocity P Gain(216), Velocity FF Gain(220)
+<YControlTable212VelocityGain />
+
+
+### Position D Gain(224), Position I Gain(228), Position P Gain(232), Position FF Gain(236)
+<YControlTable224PositionGain />
+
+
+### Profile Acceleration(240), Profile Velocity(244)
+<YControlTable240ProfileAcceleration />
+
+
+### Profile Acceleration Time(248), Profile Time(252)
+<YControlTable248ProfileAccelerationTime />
+
+
+### Indirect Address, Indirect Data
+<YControlTable168Indirect />
+
+
+### Torque Enable(512)
+<YControlTable512TorqueEnableM />
+
+
+### LED(513)
+<YControlTable513Led />
+
+
+### PWM/Current/Velocity Offset(516, 518, 520)
+<YControlTable516PwmCurrentVeloctiyOffset />
+
+
+### Goal PWM(524)
+<YControlTable524GoalPwm />
+
+
+### Goal Current(526)
+<YControlTable526GoalCurrent />
+
+
+### Goal Velocity(528)
+<YControlTable528GoalVelocity />
+
+
+### Goal Position(532)
+<YControlTable532GoalPosition />
+
+
+### Moving Status(541)
+<YControlTable541MovingStatus />
+
+
+### Realtime Tick(542)
+<YControlTable542RealtimeTick />
+
+
+### Present PWM(544)
+<YControlTable544PresentPwm />
+
+
+### Present Current(546)
+<YControlTable546PresentCurrent />
+
+
+### Present Velocity(548)
+<YControlTable548PresentVelocity />
+
+
+### Present Position(552)
+<YControlTable552PresentPosition />
+
+
+### Position Trajectory(560)
+<YControlTable560PositionTrajectory />
+
+
+### Velocity Trajectory(564)
+<YControlTable564VelocityTrajectory />
+
+
+### Present Input Voltage(568)
+<YControlTable568PresentInputVoltage />
+
+
+### Present Inverter Temperature(570)
+<YControlTable570PresentInverterTemperature />
+
+
+### Present Motor Temperature(571)
+<YControlTable571PresentMotorTemperature />
+
+
+### Backup Ready(919)
+<YControlTable919BackupReady />
+
+
+### Factory Reset, Reboot, Clear Instruction (Modbus)
+<YFactoryResetRebootClearInstruction />
+
+
+# How to Assemble
+## Assembly Guide
+![](/img/dxl/y/ym080_m_assembly.webp)
+
+# Maintenance
+# Reference
+## Profile
+<YYProfileDescription />
+
+
+## Certifications
+Please reach out to us at contactus2@robotis.com for certifications that are not listed.
+
+### FCC
+% include en/dxl/fcc_class_b.md %}
+
+## Connector Information
+<YConnectorY080 />
+
+
+## Communication Circuit
+<YUartConnectionY />
+
+
+## Cable Connection
+The pin configuration of the DYNAMIXEL-Y connector is shown below.
+
+![](/img/dxl/y/80_connect_cable_1.webp)  
+![](/img/dxl/y/80_connect_cable_2.webp)
+
+## Drawings
+- `Download` [PDF], [DWG], [STEP], [IGES]
+
+## Moment of Inertia
+TBD
+
+
+<DownloadCenterNotice />
+
+
+# Clear Packet
+<YClearPacket />
+
+
+# Output Bearing
+<YOutputBearingYM />
+
+
+
+<CommonLink />
+
+
+
+[DWG]: https://www.robotis.com/service/download.php?no=2177
+[PDF]: https://www.robotis.com/service/download.php?no=2178
+[STEP]: https://www.robotis.com/service/download.php?no=2179
+[IGES]: https://www.robotis.com/service/download.php?no=2180
