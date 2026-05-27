@@ -93,7 +93,7 @@ const turtlebot3Sidebar: SidebarsConfig[string] = [
   },
   {
     type: 'category',
-    label: 'Friends(Locomotion)',
+    label: 'Friends',
     items: [
       doc('systems/turtlebot3/locomotion', 'TurtleBot3 Friends'),
     ],

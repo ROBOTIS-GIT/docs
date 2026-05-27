@@ -58,7 +58,6 @@ const config: Config = {
         docs: {
           sidebarPath: './sidebars.ts',
           routeBasePath: docsRouteBasePath,
-          editUrl: 'https://github.com/ROBOTIS-GIT/docs/edit/main/docusaurus/',
           showLastUpdateTime: true,
         },
         blog: false,
