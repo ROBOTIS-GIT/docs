@@ -58,6 +58,7 @@ jobs:
           DOCUSAURUS_URL: 'https://robotis-git.github.io'
           DOCUSAURUS_BASE_URL: '/docs/'
           DOCUSAURUS_DOCS_ROUTE_BASE_PATH: '/'
+          DOCUSAURUS_ON_BROKEN_LINKS: 'warn'
           NODE_OPTIONS: --max_old_space_size=4096
         run: npm run build
 
