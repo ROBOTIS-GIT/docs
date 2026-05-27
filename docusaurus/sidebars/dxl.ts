@@ -6,7 +6,7 @@ const ySeriesSidebar: SidebarsConfig[string] = [
     type: 'category',
     label: 'Y Series',
     link: {type: 'doc', id: 'dxl/model_reference/y_series/y_series'},
-    collapsed: false,
+    collapsed: true,
     items: [
       doc('dxl/model_reference/y_series/ym070-210-a051-rh', 'YM070-210-A051-RH'),
       doc('dxl/model_reference/y_series/ym070-210-a099-rh', 'YM070-210-A099-RH'),
@@ -29,7 +29,7 @@ const pSeriesSidebar: SidebarsConfig[string] = [
     type: 'category',
     label: 'P Series',
     link: {type: 'doc', id: 'dxl/model_reference/p_series/p_series'},
-    collapsed: false,
+    collapsed: true,
     items: [
       doc('dxl/model_reference/p_series/ph42-020-s300-r', 'PH42-020-S300-R'),
       doc('dxl/model_reference/p_series/ph54-100-s500-r', 'PH54-100-S500-R'),
@@ -46,7 +46,7 @@ const xSeriesSidebar: SidebarsConfig[string] = [
     type: 'category',
     label: 'X Series',
     link: {type: 'doc', id: 'dxl/model_reference/x_series/x_series'},
-    collapsed: false,
+    collapsed: true,
     items: [
       doc('dxl/model_reference/x_series/xc_series', 'XC Series'),
       doc('dxl/model_reference/x_series/xh_series', 'XH Series'),
@@ -97,7 +97,7 @@ const mxSeriesSidebar: SidebarsConfig[string] = [
     type: 'category',
     label: 'MX Series',
     link: {type: 'doc', id: 'dxl/model_reference/mx_series/mx_series'},
-    collapsed: false,
+    collapsed: true,
     items: [
       doc('dxl/model_reference/mx_series/mx-12w', 'MX-12W'),
       doc('dxl/model_reference/mx_series/mx-28', 'MX-28T/R/AT/AR'),
@@ -115,7 +115,7 @@ const axSeriesSidebar: SidebarsConfig[string] = [
     type: 'category',
     label: 'AX Series',
     link: {type: 'doc', id: 'dxl/model_reference/ax_series/ax_series'},
-    collapsed: false,
+    collapsed: true,
     items: [
       doc('dxl/model_reference/ax_series/ax-12a', 'AX-12A'),
       doc('dxl/model_reference/ax_series/ax-12w', 'AX-12W'),
@@ -129,7 +129,7 @@ const exSeriesSidebar: SidebarsConfig[string] = [
     type: 'category',
     label: 'EX Series',
     link: {type: 'doc', id: 'dxl/model_reference/ex_series/ex_series'},
-    collapsed: false,
+    collapsed: true,
     items: [
       doc('dxl/model_reference/ex_series/ex-106+', 'EX-106+'),
     ],
@@ -141,7 +141,7 @@ const dxSeriesSidebar: SidebarsConfig[string] = [
     type: 'category',
     label: 'DX Series',
     link: {type: 'doc', id: 'dxl/model_reference/dx_series/dx_series'},
-    collapsed: false,
+    collapsed: true,
     items: [
       doc('dxl/model_reference/dx_series/dx-113', 'DX-113'),
       doc('dxl/model_reference/dx_series/dx-116', 'DX-116'),
@@ -155,7 +155,7 @@ const rxSeriesSidebar: SidebarsConfig[string] = [
     type: 'category',
     label: 'RX Series',
     link: {type: 'doc', id: 'dxl/model_reference/rx_series/rx_series'},
-    collapsed: false,
+    collapsed: true,
     items: [
       doc('dxl/model_reference/rx_series/rx-10', 'RX-10'),
       doc('dxl/model_reference/rx_series/rx-24f', 'RX-24F'),
@@ -170,7 +170,7 @@ const proSeriesSidebar: SidebarsConfig[string] = [
     type: 'category',
     label: 'PRO Series',
     link: {type: 'doc', id: 'dxl/model_reference/pro_series/pro_series'},
-    collapsed: false,
+    collapsed: true,
     items: [
       doc('dxl/model_reference/pro_series/pro_h_series', 'DYNAMIXEL PRO-H Series'),
       doc('dxl/model_reference/pro_series/pro_l_series', 'DYNAMIXEL PRO-L Series'),

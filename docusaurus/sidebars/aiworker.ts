@@ -4,7 +4,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'AI Worker',
-    collapsed: false,
+    collapsed: true,
     items: [
       {type: 'doc', id: 'systems/aiworker/ai_worker/introduction', label: 'Introduction'},
       {type: 'doc', id: 'systems/aiworker/ai_worker/video_gallery', label: 'Video Gallery'},
@@ -13,7 +13,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Specifications',
-    collapsed: false,
+    collapsed: true,
     items: [
       {type: 'doc', id: 'systems/aiworker/specifications/hardware', label: 'Hardware', key: 'specifications-hardware'},
       {type: 'doc', id: 'systems/aiworker/specifications/software', label: 'Software', key: 'specifications-software'},
@@ -22,13 +22,13 @@ const aiworkerSidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Quick Start Guide',
-    collapsed: false,
+    collapsed: true,
     items: [
       {
         type: 'category',
         label: 'Setup Overview',
         link: {type: 'doc', id: 'systems/aiworker/quick_start_guide/setup_overview/setup_overview'},
-        collapsed: false,
+        collapsed: true,
         items: [
           {type: 'doc', id: 'systems/aiworker/quick_start_guide/setup_overview/hardware', label: 'Hardware', key: 'setup-overview-hardware'},
           {type: 'doc', id: 'systems/aiworker/quick_start_guide/setup_overview/software', label: 'Software', key: 'setup-overview-software'},
@@ -38,7 +38,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
         type: 'category',
         label: 'Operation Guide',
         link: {type: 'doc', id: 'systems/aiworker/quick_start_guide/operation_guide/operation_guide'},
-        collapsed: false,
+        collapsed: true,
         items: [
           {type: 'doc', id: 'systems/aiworker/quick_start_guide/operation_guide/teleoperation', label: 'Teleoperation'},
           {type: 'doc', id: 'systems/aiworker/quick_start_guide/operation_guide/vr_teleoperation', label: 'VR Teleoperation'},
@@ -50,14 +50,14 @@ const aiworkerSidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Imitation Learning',
-    collapsed: false,
+    collapsed: true,
     items: [
       {type: 'doc', id: 'systems/aiworker/imitation_learning/imitation_learning', label: 'Overview', key: 'imitation-learning-overview'},
       {
         type: 'category',
         label: 'Dataset Preparation',
         link: {type: 'doc', id: 'systems/aiworker/imitation_learning/dataset_preparation/dataset_preparation'},
-        collapsed: false,
+        collapsed: true,
         items: [
           {type: 'doc', id: 'systems/aiworker/imitation_learning/dataset_preparation/prerequisites', label: 'Prerequisites'},
           {type: 'doc', id: 'systems/aiworker/imitation_learning/dataset_preparation/recording', label: 'Recording'},
@@ -72,7 +72,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Simulation',
-    collapsed: false,
+    collapsed: true,
     items: [
       {type: 'doc', id: 'systems/aiworker/simulation/simulation', label: 'Overview', key: 'simulation-overview'},
       {type: 'doc', id: 'systems/aiworker/simulation/gazebo', label: 'Gazebo'},
@@ -82,7 +82,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Advanced Features',
-    collapsed: false,
+    collapsed: true,
     items: [
       {type: 'doc', id: 'systems/aiworker/advanced_features/advanced_features', label: 'Overview', key: 'advanced-features-overview'},
       {type: 'doc', id: 'systems/aiworker/advanced_features/cyclo_manager', label: 'Cyclo Manager'},
@@ -94,7 +94,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Resources',
-    collapsed: false,
+    collapsed: true,
     items: [
       {type: 'doc', id: 'systems/aiworker/resources/open_source', label: 'Open Source'},
       {type: 'doc', id: 'systems/aiworker/resources/release_notes', label: 'Release Notes'},
@@ -102,7 +102,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
         type: 'category',
         label: 'Technical Story',
         link: {type: 'doc', id: 'systems/aiworker/resources/technical_story/technical_story'},
-        collapsed: false,
+        collapsed: true,
         items: [
           {type: 'doc', id: 'systems/aiworker/resources/technical_story/isaac_gr00t', label: 'Isaac GR00T'},
           {type: 'doc', id: 'systems/aiworker/resources/technical_story/nav2', label: 'Nav2'},
@@ -113,7 +113,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Support',
-    collapsed: false,
+    collapsed: true,
     items: [
       {type: 'doc', id: 'systems/aiworker/support/troubleshooting_guide', label: 'Troubleshooting Guide'},
       {type: 'link', label: 'Discord Server', href: 'https://discord.gg/robotis'},

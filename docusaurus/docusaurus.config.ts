@@ -296,7 +296,7 @@ const config: Config = {
                     </div>
                     <div class="mega-menu__panel" data-panel="turtlebot3">
                       <div class="mega-menu__grid">
-                        <a class="mega-menu__product" href="/docs/category/turtlebot3">
+                        <a class="mega-menu__product" href="/docs/systems/turtlebot3/overview">
                           <div class="mega-menu__product-thumb"><img src="/img/mega-menu/turtlebot3.webp" alt="TurtleBot3" /></div>
                           <span>TurtleBot3</span>
                         </a>

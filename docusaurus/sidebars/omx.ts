@@ -4,7 +4,7 @@ const omxSidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'OMX',
-    collapsed: false,
+    collapsed: true,
     items: [
       {type: 'doc', id: 'systems/omx/omx/introduction', label: 'Introduction'},
       {type: 'doc', id: 'systems/omx/omx/video_gallery', label: 'Video Gallery'},
@@ -13,7 +13,7 @@ const omxSidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Specifications',
-    collapsed: false,
+    collapsed: true,
     items: [
       {type: 'doc', id: 'systems/omx/specifications/hardware', label: 'Hardware'},
       {type: 'doc', id: 'systems/omx/specifications/software', label: 'Software'},
@@ -22,14 +22,14 @@ const omxSidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Quick Start Guide',
-    collapsed: false,
+    collapsed: true,
     items: [
       {type: 'doc', id: 'systems/omx/quick_start_guide/assembly_guide', label: 'Assembly Guide'},
       {
         type: 'category',
         label: 'Setup Guide',
         link: {type: 'doc', id: 'systems/omx/quick_start_guide/setup_guide/setup_guide'},
-        collapsed: false,
+        collapsed: true,
         items: [
           {type: 'doc', id: 'systems/omx/quick_start_guide/setup_guide/physical_ai_tools', label: 'ROS 2 (Physical AI Tools)'},
           {type: 'link', label: 'LeRobot', href: 'https://huggingface.co/docs/lerobot/omx'},
@@ -41,19 +41,19 @@ const omxSidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Imitation Learning',
-    collapsed: false,
+    collapsed: true,
     items: [
       {type: 'doc', id: 'systems/omx/imitation_learning/imitation_learning', label: 'Overview', key: 'imitation-learning-overview'},
       {
         type: 'category',
         label: 'ROS 2 (Physical AI Tools)',
-        collapsed: false,
+        collapsed: true,
         items: [
           {
             type: 'category',
             label: 'Dataset Preparation',
             link: {type: 'doc', id: 'systems/omx/imitation_learning/physical_ai_tools/dataset_preparation/dataset_preparation'},
-            collapsed: false,
+            collapsed: true,
             items: [
               {type: 'doc', id: 'systems/omx/imitation_learning/physical_ai_tools/dataset_preparation/prerequisites', label: 'Prerequisites'},
               {type: 'doc', id: 'systems/omx/imitation_learning/physical_ai_tools/dataset_preparation/recording', label: 'Recording'},
@@ -70,7 +70,7 @@ const omxSidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Simulation',
-    collapsed: false,
+    collapsed: true,
     items: [
       {type: 'doc', id: 'systems/omx/simulation/simulation', label: 'Overview', key: 'simulation-overview'},
       {type: 'doc', id: 'systems/omx/simulation/gazebo', label: 'Gazebo'},
@@ -79,7 +79,7 @@ const omxSidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Advanced Features',
-    collapsed: false,
+    collapsed: true,
     items: [
       {type: 'doc', id: 'systems/omx/advanced_features/advanced_features', label: 'Overview', key: 'advanced-features-overview'},
       {type: 'doc', id: 'systems/omx/advanced_features/cyclo_control', label: 'Cyclo Control'},
@@ -88,7 +88,7 @@ const omxSidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Resources',
-    collapsed: false,
+    collapsed: true,
     items: [
       {type: 'doc', id: 'systems/omx/resources/open_source', label: 'Open Source'},
       {type: 'doc', id: 'systems/omx/resources/release_notes', label: 'Release Notes'},
@@ -96,7 +96,7 @@ const omxSidebar: SidebarsConfig[string] = [
         type: 'category',
         label: 'Technical Story',
         link: {type: 'doc', id: 'systems/omx/resources/technical_story/technical_story'},
-        collapsed: false,
+        collapsed: true,
         items: [
           {type: 'doc', id: 'systems/omx/resources/technical_story/drawing_tutorial', label: 'Drawing Tutorial'},
         ],
@@ -106,7 +106,7 @@ const omxSidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Support',
-    collapsed: false,
+    collapsed: true,
     items: [
       {type: 'link', label: 'Discord Server', href: 'https://discord.gg/robotis'},
       {type: 'doc', id: 'systems/omx/support/issues', label: 'Issues'},

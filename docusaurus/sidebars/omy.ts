@@ -4,7 +4,7 @@ const omySidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'OMY',
-    collapsed: false,
+    collapsed: true,
     items: [
       {type: 'doc', id: 'systems/omy/omy/introduction', label: 'Introduction'},
       {type: 'doc', id: 'systems/omy/omy/video_gallery', label: 'Video Gallery'},
@@ -13,13 +13,13 @@ const omySidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Specifications',
-    collapsed: false,
+    collapsed: true,
     items: [
       {
         type: 'category',
         label: 'Hardware',
         link: {type: 'doc', id: 'systems/omy/specifications/hardware'},
-        collapsed: false,
+        collapsed: true,
         items: [
           {type: 'doc', id: 'systems/omy/specifications/control_table', label: 'Control Table'},
         ],
@@ -30,7 +30,7 @@ const omySidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Quick Start Guide',
-    collapsed: false,
+    collapsed: true,
     items: [
       {type: 'doc', id: 'systems/omy/quick_start_guide/setup_guide', label: 'Setup Guide'},
       {type: 'doc', id: 'systems/omy/quick_start_guide/operation_guide', label: 'Operation Guide'},
@@ -39,14 +39,14 @@ const omySidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Imitation Learning',
-    collapsed: false,
+    collapsed: true,
     items: [
       {type: 'doc', id: 'systems/omy/imitation_learning/imitation_learning', label: 'Overview', key: 'imitation-learning-overview'},
       {
         type: 'category',
         label: 'Dataset Preparation',
         link: {type: 'doc', id: 'systems/omy/imitation_learning/dataset_preparation/dataset_preparation'},
-        collapsed: false,
+        collapsed: true,
         items: [
           {type: 'doc', id: 'systems/omy/imitation_learning/dataset_preparation/prerequisites', label: 'Prerequisites'},
           {type: 'doc', id: 'systems/omy/imitation_learning/dataset_preparation/recording', label: 'Recording'},
@@ -61,7 +61,7 @@ const omySidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Simulation',
-    collapsed: false,
+    collapsed: true,
     items: [
       {type: 'doc', id: 'systems/omy/simulation/simulation', label: 'Overview', key: 'simulation-overview'},
       {type: 'doc', id: 'systems/omy/simulation/gazebo', label: 'Gazebo'},
@@ -71,7 +71,7 @@ const omySidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Advanced Features',
-    collapsed: false,
+    collapsed: true,
     items: [
       {type: 'doc', id: 'systems/omy/advanced_features/advanced_features', label: 'Overview', key: 'advanced-features-overview'},
       {type: 'doc', id: 'systems/omy/advanced_features/cyclo_control', label: 'Cyclo Control'},
@@ -80,7 +80,7 @@ const omySidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Resources',
-    collapsed: false,
+    collapsed: true,
     items: [
       {type: 'doc', id: 'systems/omy/resources/open_source', label: 'Open Source'},
       {type: 'doc', id: 'systems/omy/resources/release_notes', label: 'Release Notes'},
@@ -89,7 +89,7 @@ const omySidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Support',
-    collapsed: false,
+    collapsed: true,
     items: [
       {type: 'doc', id: 'systems/omy/support/troubleshooting_guide', label: 'Troubleshooting Guide'},
       {type: 'doc', id: 'systems/omy/support/manual_packing_procedure', label: 'Manual Packing Procedure'},
