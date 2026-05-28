@@ -1,10 +1,6 @@
----
-slug: ../ros2_controller_package
----
-
 # [[ROS 2] Controller Package](#ros-controller-package)
 
-OpenMANIPULATOR-P controller provides basic manipulation of OpenMANIPULATOR-P. You can control DYNAMIXEL's of OpenMANIPULATOR-P and check states of OpenMANIPULATOR-P through [messages](/docs/systems/openmanipulator_p/ros2_controller_package#message-list) of the controller.  
+OpenMANIPULATOR-P controller provides basic manipulation of OpenMANIPULATOR-P. You can control DYNAMIXEL's of OpenMANIPULATOR-P and check states of OpenMANIPULATOR-P through [messages](/docs/systems/openmanipulator_p/ros2/ros2_controller_package#message-list) of the controller.  
 
 
 
@@ -12,7 +8,7 @@ OpenMANIPULATOR-P controller provides basic manipulation of OpenMANIPULATOR-P. Y
 
 **NOTE** :  
 - The test is done on `ROS 2 Dashing Diademata` installed in `Ubuntu 18.04`.
-- Make sure ROS dependencies are installed before performing these instructions. - [Install ROS 2 Packages](/docs/systems/openmanipulator_p/ros2_setup#install-ros-2-packages).
+- Make sure ROS dependencies are installed before performing these instructions. - [Install ROS 2 Packages](/docs/systems/openmanipulator_p/ros2/ros2_setup#install-ros-2-packages).
 
 :::
 
@@ -71,8 +67,8 @@ Joint Dynamixel ID : 6, Model Name : PRO-PLUS-PH42-020-S300-R
 
 **NOTE**:  
 - The test is done on `ROS 2 Dashing Diademata` installed in `Ubuntu 18.04`
-- Make sure ROS dependencies are installed before performing these instructions. - [Install ROS 2 Packages](/docs/systems/openmanipulator_p/ros2_setup#install-ros-2-packages).
-- Make sure to run the [OpenMANIPULATOR-P controller](/docs/systems/openmanipulator_p/ros2_controller_package#launch-controller) instructions before use of the instruction
+- Make sure ROS dependencies are installed before performing these instructions. - [Install ROS 2 Packages](/docs/systems/openmanipulator_p/ros2/ros2_setup#install-ros-2-packages).
+- Make sure to run the [OpenMANIPULATOR-P controller](/docs/systems/openmanipulator_p/ros2/ros2_controller_package#launch-controller) instructions before use of the instruction
 
 :::
 
@@ -466,7 +462,7 @@ Active Joint
 
 **NOTE**:  
 - The test is done on `ROS 2 Dashing Diademata` installed in `Ubuntu 18.04`.
-- Make sure ROS dependencies are installed before performing these instructions. - [Install ROS 2 Packages](/docs/systems/openmanipulator_p/ros2_setup#install-ros-2-packages).
+- Make sure ROS dependencies are installed before performing these instructions. - [Install ROS 2 Packages](/docs/systems/openmanipulator_p/ros2/ros2_setup#install-ros-2-packages).
 
 :::
 
@@ -482,7 +478,7 @@ $ ros2 launch open_manipulator_p_description open_manipulator_p_rviz2.launch.py
 :::info
 
 **NOTE**:
-- If you launched the [OpenMANIPULATOR-P controller](/docs/systems/openmanipulator_p/ros2_controller_package#launch-controller) before launching the open_manipulator_p_controller file, the robot model on RViz would be synchronized with the actual robot.
+- If you launched the [OpenMANIPULATOR-P controller](/docs/systems/openmanipulator_p/ros2/ros2_controller_package#launch-controller) before launching the open_manipulator_p_controller file, the robot model on RViz would be synchronized with the actual robot.
 - If users would like to check only model of OpenMANIPULATOR-P without OpenMANIPULATOR-P, the user can launch the RViz without the OpenMANIPULATOR-P controller.  
 The user can change each joint by GUI, if the user launch only RViz by executing the following command :
 `$ ros2 launch open_manipulator_p_description open_manipulator_p_rviz.launch.py use_gui:=true`
@@ -498,8 +494,8 @@ The user can change each joint by GUI, if the user launch only RViz by executing
 
 **NOTE**:  
 - The test is done on `ROS Dashing Diademata` installed in `Ubuntu 18.04`.
-- Make sure ROS dependencies are installed before performing these instructions - [Install ROS Packages](/docs/systems/openmanipulator_p/ros2_setup#install-ros-packages) 
-- Make sure to run the [OpenMANIPULATOR-P controller](/docs/systems/openmanipulator_p/ros2_controller_package#launch-controller) instructions before running the instructions below.
+- Make sure ROS dependencies are installed before performing these instructions - [Install ROS Packages](/docs/systems/openmanipulator_p/ros2/ros2_setup#install-ros-packages) 
+- Make sure to run the [OpenMANIPULATOR-P controller](/docs/systems/openmanipulator_p/ros2/ros2_controller_package#launch-controller) instructions before running the instructions below.
 
 :::
 
