@@ -264,13 +264,13 @@ const config: Config = {
                       <div class="mega-menu__group">
                         <h5 class="mega-menu__group-title">OpenManipulator</h5>
                         <p class="mega-menu__group-desc">Open-Source Manipulator System</p>
-                        <div class="mega-menu__list">
-                          <a class="mega-menu__product mega-menu__product--row" href="/docs/systems/openmanipulator_p/overview">
-                            <div class="mega-menu__product-thumb mega-menu__product-thumb--sm"><img src="/img/mega-menu/openmanipulator-p.webp" alt="OpenMANIPULATOR-P" /></div>
+                        <div class="mega-menu__grid">
+                          <a class="mega-menu__product" href="/docs/systems/openmanipulator_p/overview">
+                            <div class="mega-menu__product-thumb"><img src="/img/mega-menu/openmanipulator-p.webp" alt="OpenMANIPULATOR-P" /></div>
                             <span>OpenMANIPULATOR-P</span>
                           </a>
-                          <a class="mega-menu__product mega-menu__product--row" href="/docs/systems/openmanipulator_x/overview">
-                            <div class="mega-menu__product-thumb mega-menu__product-thumb--sm"><img src="/img/mega-menu/openmanipulator-x.webp" alt="OpenMANIPULATOR-X" /></div>
+                          <a class="mega-menu__product" href="/docs/systems/openmanipulator_x/overview">
+                            <div class="mega-menu__product-thumb"><img src="/img/mega-menu/openmanipulator-x.webp" alt="OpenMANIPULATOR-X" /></div>
                             <span>OpenMANIPULATOR-X</span>
                           </a>
                         </div>
