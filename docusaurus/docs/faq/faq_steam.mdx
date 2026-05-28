@@ -94,14 +94,14 @@ tags: [faq]
 
 ## **How can I program my MINI?**
 
-Please use [OpenCM IDE] in order to program the ROBOTIS-MINI.
+Please use [Arduino IDE](/docs/software/arduino_ide) in order to program the ROBOTIS-MINI.
 
 It is recommended to use **R+Task 2.0**([Windows](http://en.robotis.com/service/download.php?no=1) / [Android](https://play.google.com/store/apps/details?id=com.robotis.task2&hl=en) + [BT-210] or [BT-410]) because you can also directly download the examples within the software instead of visiting [e-Manaul](https://emanual.robotis.com/docs/en/edu/mini/) for examples.
 
 
 :::warning
 
-**WARNING** : if you use the [OpenCM IDE], you will delete the RoboPlus firmware that is on the OpenCM9.04. Therefore, you will need to recover the OpenCM9.04's firmware in order to use your robot with RoboPlus again.
+**WARNING** : if you use Arduino IDE with custom sketches, you may overwrite the RoboPlus firmware on the OpenCM9.04. You will need to recover the OpenCM9.04 firmware in order to use your robot with RoboPlus again.
 
 :::
 
@@ -191,12 +191,8 @@ It is recommended to use **R+Task 2.0**([Windows](http://en.robotis.com/service/
 
 ## **How can I program Level 1?**
   You can use **RoboPlus Task(R+ 1.0)** or  **R+Task 2.0**([Windows](http://en.robotis.com/service/download.php?no=1) / [Android](https://play.google.com/store/apps/details?id=com.robotis.task2&hl=en) + [BT-210] or [BT-410]). It is recommended to use **R+Task 2.0** because you can directly download the examples within the software instead of visiting e-Manaul for examples.
-  For advanced users, you will use [embedded C(CM530)] for programming.
-
 ## **How can I program Level 2?**
   You can use **RoboPlus Task(R+ 1.0)** or  **R+Task 2.0**([Windows](http://en.robotis.com/service/download.php?no=1) / [Android](https://play.google.com/store/apps/details?id=com.robotis.task2&hl=en) + [BT-210] or [BT-410]) and **RoboPlus Motion(R+ 1.0)** or **R+Motion 2.0**([Windows](http://www.robotis.com/sub/page_routing.php?key=1) / [OS X](http://www.robotis.com/sub/page_routing.php?key=1) / [Android](https://play.google.com/store/apps/details?id=com.robotis.motion&hl=en) + [BT-210] or [BT-410] / [iOS] + [BT-410]. It is recommended to use **R+Task 2.0** and **R+Motion 2.0** because you can directly download the examples within the software instead of visiting e-Manaul for examples.
-  For advanced users, you will use [embedded C(CM530)] for programming.
-
 ## **CM-510 / CM-530 is not recognized from my PC.**
 
   - Is the controller connected to PC?
@@ -408,20 +404,11 @@ It is recommended to use **R+Task 2.0**([Windows](http://en.robotis.com/service/
 ## **How can I replace the fuse?**
   Please refer to [the controller fuse replacement manual.](/docs/edu/bioloid/premium#replacing-fuse)
 
-## **I want to control the robot by myself using C Language.**
-  You can use [embedded C(CM530)] to program your own code
-
-## **I want to control the robot remotely using my PC.**
-  You can use [Zigbee SDK](/docs/software/embedded_sdk/zigbee_sdk)
-
 ## **Which softwares do I need for programming?**
   You can use **RoboPlus Task(R+ 1.0)** or **R+Task 2.0**([Windows](http://en.robotis.com/service/download.php?no=1) / [Android](https://play.google.com/store/apps/details?id=com.robotis.task2&hl=en) + [BT-210] or [BT-410]) and **RoboPlus Motion(R+ 1.0)** or **R+Motion 2.0**([Windows](http://en.robotis.com/service/download.php?no=3) / [OS X](http://www.robotis.com/sub/page_routing.php?key=1) / [Android](https://play.google.com/store/apps/details?id=com.robotis.motion&hl=en) + [BT-210] or [BT-410] / [iOS] + [BT-410]). It is recommended to use **R+Task 2.0** and **R+Motion 2.0** because you can directly download the examples within the software instead of visiting e-Manaul for examples.
 
 ## **I want to learn how to program the robot.**
   There is [tutorials](/docs/edu/bioloid/premium#tutorial) for example codes to learn how to program the robot.
-
-## **I want to develop a software to communicate with RoboPlus Task code.**
-  You can use [Zigbee SDK.](/docs/software/embedded_sdk/zigbee_sdk)
 
 ## **Is there any easier way to make the robot's motions?**
   Yes, there is. [Pose Utility](https://emanual.robotis.com/docs/en/software/rplus1/motion#pose-utility)
@@ -476,7 +463,6 @@ It is recommended to use **R+Task 2.0**([Windows](http://en.robotis.com/service/
 
 
 
-[embedded C(CM530)]: /docs/software/embedded_sdk/embedded_c_cm530#programming
 [RoboPlus]: http://en.robotis.com/service/downloadpage.php?ca_id=10
 [R+Motion 2.0]: http://en.robotis.com/service/download.php?no=3
 [R+Manager 2.0]: http://en.robotis.com/service/download.php?no=8
@@ -491,5 +477,4 @@ It is recommended to use **R+Task 2.0**([Windows](http://en.robotis.com/service/
 [LN-101]: /docs/parts/interface/ln-101
 [Testing DXL control table]: /docs/software/dynamixel/dynamixel_wizard2#dynamixel-control-table
 [Testing controller control table]: /docs/software/dynamixel/dynamixel_wizard2#controller-control-table
-[OpenCM IDE]: /docs/software/opencm_ide/getting_started
 [ZIG-100/110A]: /docs/parts/communication/zig-110

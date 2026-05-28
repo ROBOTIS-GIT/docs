@@ -179,18 +179,6 @@
     "message": "DYNAMIXEL Easy SDK",
     "description": "The label for category 'DYNAMIXEL Easy SDK' in sidebar 'softwareSidebar'"
   },
-  "sidebar.softwareSidebar.category.Embedded SDK": {
-    "message": "Embedded SDK",
-    "description": "The label for category 'Embedded SDK' in sidebar 'softwareSidebar'"
-  },
-  "sidebar.softwareSidebar.category.OpenCM IDE": {
-    "message": "OpenCM IDE",
-    "description": "The label for category 'OpenCM IDE' in sidebar 'softwareSidebar'"
-  },
-  "sidebar.softwareSidebar.category.ROBOTIS Framework Packages": {
-    "message": "ROBOTIS Framework Packages",
-    "description": "The label for category 'ROBOTIS Framework Packages' in sidebar 'softwareSidebar'"
-  },
   "sidebar.softwareSidebar.category.Mobile App": {
     "message": "Mobile App",
     "description": "The label for category 'Mobile App' in sidebar 'softwareSidebar'"
