@@ -273,10 +273,6 @@ const config: Config = {
                             <div class="mega-menu__product-thumb mega-menu__product-thumb--sm"><img src="/img/mega-menu/openmanipulator-x.webp" alt="OpenMANIPULATOR-X" /></div>
                             <span>OpenMANIPULATOR-X</span>
                           </a>
-                          <a class="mega-menu__product mega-menu__product--row" href="/docs/systems/manipulator_h/introduction">
-                            <div class="mega-menu__product-thumb mega-menu__product-thumb--sm"><img src="/img/mega-menu/manipulator-h.webp" alt="Manipulator-H" /></div>
-                            <span>Manipulator-H</span>
-                          </a>
                         </div>
                       </div>
                     </div>

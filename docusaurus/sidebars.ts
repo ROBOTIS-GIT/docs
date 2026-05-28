@@ -17,7 +17,6 @@ import {
 import eduSidebar from './sidebars/edu';
 import faqSidebar from './sidebars/faq';
 import hx5d20Sidebar from './sidebars/hx5d20';
-import manipulatorHSidebar from './sidebars/manipulatorH';
 import opSidebar from './sidebars/op';
 import op2Sidebar from './sidebars/op2';
 import op3Sidebar from './sidebars/op3';
@@ -56,7 +55,6 @@ const sidebars: SidebarsConfig = {
   omxSidebar,
   openmanipulatorPSidebar,
   openmanipulatorXSidebar,
-  manipulatorHSidebar,
   turtlebot3Sidebar,
   systemsSidebar,
   softwareSidebar,
