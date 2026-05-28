@@ -1,7 +1,4 @@
 {
   "label": "모터",
-  "position": 50,
-  "link": {
-    "type": "generated-index"
-  }
+  "position": 50
 }

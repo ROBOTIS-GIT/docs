@@ -1,8 +1,5 @@
 {
   "label": "engineer",
   "collapsed": true,
-  "collapsible": false,
-  "link": {
-    "type": "generated-index"
-  }
+  "collapsible": false
 }

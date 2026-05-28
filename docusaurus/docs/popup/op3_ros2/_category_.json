@@ -1,8 +1,5 @@
 {
   "label": "op3_ros2",
   "collapsed": true,
-  "collapsible": false,
-  "link": {
-    "type": "generated-index"
-  }
+  "collapsible": false
 }

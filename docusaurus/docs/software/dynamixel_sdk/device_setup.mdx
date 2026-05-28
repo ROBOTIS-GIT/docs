@@ -1,0 +1,75 @@
+---
+id: device_setup
+title: "Device Setup"
+sidebar_label: "Device Setup"
+sidebar_position: 4
+tags: [dynamixel_sdk]
+---
+
+This section provides instructions on how to configure the device.
+
+# Requirements
+**NOTE** : The Quick Start Guide explains how to use DYNAMIXEL with a PC as the controller. Instead of a PC, controllers such as `OpenCR`, `OpenRB`, or `Arduino` can also be used.  
+  - [OpenRB-150](/docs/parts/controller/openrb-150)  
+  - [OpenCR](http://emanual.robotis.com/docs/en/parts/controller/opencr10/)  
+  - [OpenCM9.04](http://emanual.robotis.com/docs/en/parts/controller/opencm904/)  
+  - Most other Arduino boards.
+
+
+In order to use DYNAMIXEL with a PC, you need a `U2D2` to convert USB signals to `TTL` or `RS-485`.  
+The U2D2 does not supply power to the DYNAMIXEL, so a `U2D2 Power Hub Board` is also required to provide power.  
+![](/img/parts/interface/u2d2_01.webp)  
+
+
+:::info
+
+# USB2DYNAMIXEL Driver Installation
+**NOTE** : Recent Linux include the kernel which contains the FT232RL driver for the FTDI driver used by the U2D2. **Most Linux users won't need to install the driver manually.**
+
+:::
+
+
+Windows users need to install the FTDI driver to enable USB-to-serial communication.  
+Install the latest VCP driver from the [FTDI Driver Download page](http://www.ftdichip.com/Drivers/VCP.htm).  
+
+# Connecting The Motor
+Please use an SMPS that matches the operating voltage of the motor you are using.
+* 12V for `X Series` (also for `AX`, `EX`, `RX`, and `MX` series)
+* 24V for `P` and `Y` series  
+
+## How to connect the motor
+Connect as shown below.  
+You can either daisy-chain the U2D2 and Power Hub Board (PHB) to the motor, or connect them separately.  
+![](/img/software/dynamixel/dynamixel_sdk/device_setup/dynamixel_connection.webp)  
+
+You can connect multiple DYNAMIXELs in a daisy-chain configuration as shown below.  
+![](/img/software/dynamixel/dynamixel_sdk/device_setup/dynamixel_multi_connection.webp)  
+
+
+
+:::info
+
+**NOTE** : You should match the port according to whether your DYNAMIXEL supports TTL or RS-485.  
+`TTL`: TTL-based DYNAMIXEL's have 3 pin connectors  
+`RS-485`: RS-485-based DYNAMIXEL's have 4 pin connectors.  
+![](/img/software/dynamixel/dynamixel_sdk/device_setup/dynamixel_3pin_4pin.webp)
+
+:::
+
+
+# Verifying Connection
+Once all the above settings are complete, you can use the `Dynamixel Wizard 2.0` to ensure the connection is working properly  
+
+
+:::danger
+
+**DON'T SKIP THIS STEP!**  
+**For checking and setting Motor ID, this process is essential.**  
+
+:::
+
+1. [Install Dynamixel Wizard 2.0](/docs/software/dynamixel_wizard_2_0#software-installation)
+2. [Scan the motor and Operate it](/docs/software/dynamixel_wizard_2_0#basic-features)
+3. [Check and set the motor ID](/docs/software/dynamixel_wizard_2_0#id-inspection)
+4. [If the firmware is outdated, update it.](/docs/software/dynamixel_wizard_2_0#firmware-update)
+

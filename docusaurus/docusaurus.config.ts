@@ -291,10 +291,66 @@ const config: Config = {
           ],
         },
         {
-          type: 'docSidebar',
-          sidebarId: 'softwareSidebar',
+          type: 'dropdown',
           position: 'left',
           label: 'Software',
+          className: 'mega-menu-trigger',
+          items: [
+            {
+              type: 'html',
+              className: 'mega-menu-wrapper',
+              value: `
+                <div class="mega-menu">
+                  <div class="mega-menu__left">
+                    <div class="mega-menu__category" data-cat="software-overview" tabindex="0">
+                      <h4>Overview</h4>
+                      <p>Software index</p>
+                    </div>
+                    <div class="mega-menu__category" data-cat="dynamixel-software" tabindex="0">
+                      <h4>DYNAMIXEL Software</h4>
+                      <p>Tools and SDKs</p>
+                    </div>
+                    <div class="mega-menu__category" data-cat="arduino-ide" tabindex="0">
+                      <h4>Arduino IDE</h4>
+                      <p>Controller development</p>
+                    </div>
+                  </div>
+                  <div class="mega-menu__right">
+                    <div class="mega-menu__panel" data-panel="software-overview">
+                      <div class="mega-menu__list">
+                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/software/overview">
+                          <span>Overview</span>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="mega-menu__panel" data-panel="dynamixel-software">
+                      <div class="mega-menu__list">
+                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/software/dynamixel_sdk">
+                          <span>DYNAMIXEL SDK</span>
+                        </a>
+                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/software/dynamixel_wizard_2_0">
+                          <span>DYNAMIXEL Wizard 2.0</span>
+                        </a>
+                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/software/dynamixel_easy_sdk">
+                          <span>DYNAMIXEL Easy SDK</span>
+                        </a>
+                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/software/dynamixel_workbench">
+                          <span>DYNAMIXEL Workbench</span>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="mega-menu__panel" data-panel="arduino-ide">
+                      <div class="mega-menu__list">
+                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/software/arduino_ide">
+                          <span>Arduino IDE</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              `,
+            },
+          ],
         },
         {
           type: 'docSidebar',
@@ -343,7 +399,7 @@ const config: Config = {
           items: [
             {label: 'DYNAMIXEL', to: '/docs/dxl/model_reference/'},
             {label: 'Systems', to: '/docs/systems/'},
-            {label: 'Software', to: '/docs/software/'},
+            {label: 'Software', to: '/docs/software/overview'},
           ],
         },
         {

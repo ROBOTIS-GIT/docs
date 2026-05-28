@@ -80,7 +80,7 @@ function ProductGrid(): ReactNode {
             }
           />
           <ProductCard
-            to="/docs/software/"
+            to="/docs/software/overview"
             imageSrc="/img/home/software.png"
             imageAlt="Software"
             title={<Translate id="home.card.software.title">Software</Translate>}
@@ -151,7 +151,7 @@ function PopularGuides(): ReactNode {
             label={<Translate id="home.quick.platform">Robot platforms</Translate>}
           />
           <QuickLink
-            to="/docs/software/"
+            to="/docs/software/overview"
             label={<Translate id="home.quick.software">Software & SDKs</Translate>}
           />
           <QuickLink

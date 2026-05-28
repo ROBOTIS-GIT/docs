@@ -1,8 +1,0 @@
-{
-  "label": "Bulk Read/Write 튜토리얼",
-  "position": 7,
-  "link": {
-    "type": "doc",
-    "id": "software/dynamixel/dynamixel_sdk/bulk_read_write_tutorial/index"
-  }
-}
