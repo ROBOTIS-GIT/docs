@@ -25,7 +25,8 @@ import omxSidebar from './sidebars/omx';
 import openmanipulatorPSidebar from './sidebars/openmanipulatorP';
 import openmanipulatorXSidebar from './sidebars/openmanipulatorX';
 import partsSidebar from './sidebars/parts';
-import rhp12rnSidebar from './sidebars/rhp12rn';
+import rhp12rnaSidebar from './sidebars/rhp12rna';
+import rhp12rnurSidebar from './sidebars/rhp12rnur';
 import softwareSidebar from './sidebars/software';
 import systemsSidebar from './sidebars/systems';
 import thormang3Sidebar from './sidebars/thormang3';
@@ -50,7 +51,8 @@ const sidebars: SidebarsConfig = {
   op3Sidebar,
   thormang3Sidebar,
   hx5d20Sidebar,
-  rhp12rnSidebar,
+  rhp12rnaSidebar,
+  rhp12rnurSidebar,
   omySidebar,
   omxSidebar,
   openmanipulatorPSidebar,

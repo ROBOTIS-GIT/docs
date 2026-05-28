@@ -236,7 +236,7 @@ const config: Config = {
                           <div class="mega-menu__product-thumb"><img src="/img/mega-menu/hx5-d20.webp" alt="HX5-D20" /></div>
                           <span>HX5-D20</span>
                         </a>
-                        <a class="mega-menu__product" href="/docs/systems/rh_p12_rn">
+                        <a class="mega-menu__product" href="/docs/systems/rh_p12_rn/">
                           <div class="mega-menu__product-thumb"><img src="/img/mega-menu/rh-p12-rn.webp" alt="RH-P12-RN(A)" /></div>
                           <span>RH-P12-RN(A)</span>
                         </a>
