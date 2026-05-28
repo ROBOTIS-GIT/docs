@@ -1,10 +1,7 @@
 import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
-import generatedRedirects from './redirects.generated.json';
-
 const docsRouteBasePath = process.env.DOCUSAURUS_DOCS_ROUTE_BASE_PATH ?? '/docs';
-const isProjectPagesPreview = docsRouteBasePath === '/';
 const onBrokenLinks = ['throw', 'warn', 'ignore', 'log'].includes(process.env.DOCUSAURUS_ON_BROKEN_LINKS ?? '')
   ? (process.env.DOCUSAURUS_ON_BROKEN_LINKS as 'throw' | 'warn' | 'ignore' | 'log')
   : 'throw';
@@ -84,17 +81,7 @@ const config: Config = {
         explicitSearchResultPath: true,
       },
     ],
-    !isProjectPagesPreview && [
-      '@docusaurus/plugin-client-redirects',
-      {
-        // scripts/build-redirects.js 가 source/docs/**/*.md 의 permalink 추출 → JSON
-        redirects: generatedRedirects,
-        // 다국어 redirect (kr/jp 원본 URL → ko/ja 페이지)는 client-redirects
-        // 플러그인의 valid-path 검증 한계로 한 번에 처리 불가.
-        // 별도 i18n redirect 미들웨어 또는 GitHub Pages level 처리로 후속.
-      },
-    ],
-  ].filter(Boolean),
+  ],
 
   themeConfig: {
     colorMode: {

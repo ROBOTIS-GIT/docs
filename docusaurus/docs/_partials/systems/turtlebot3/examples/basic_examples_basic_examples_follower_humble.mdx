@@ -49,11 +49,11 @@ In the demo video and manual, it was used as shown below.
 $ export TURTLEBOT3_MODEL=burger
 $ ros2 launch turtlebot3_gazebo multi_robot.launch.py
 ```  
-![](/img/systems/turtlebot3/examples/basic_examples/follower/gazebo.webp)  
+![](/img/systems/turtlebot3/basic_examples/follower/gazebo.webp)  
 
 3. Modify the `turtlebot3_follower.launch.py` in `turtlebot3_follower package`.  
 Set the variable `number_of_follower`. In the demo, we used 5 robots in total, so we set it to 4.  
-![](/img/systems/turtlebot3/examples/basic_examples/follower/follower_launch.webp)
+![](/img/systems/turtlebot3/basic_examples/follower/follower_launch.webp)
 
 4. Launch the follower node.  
 **[Remote PC]**
@@ -66,19 +66,19 @@ $ ros2 launch turtlebot3_follower turtlebot3_follower.launch.py use_sim_time:=tr
 ```bash
 $ rviz2
 ```
-![](/img/systems/turtlebot3/examples/basic_examples/follower/rviz_gazebo.webp)  
+![](/img/systems/turtlebot3/basic_examples/follower/rviz_gazebo.webp)  
 
 6. Teleop leader robot.  
 **[Remote PC]**  
 ```bash
 $ ros2 run turtlebot3_teleop teleop_keyboard --ros-args -r __ns:=/TB3_1
 ```
-![](/img/systems/turtlebot3/examples/basic_examples/follower/rviz_gazebo2.webp)  
+![](/img/systems/turtlebot3/basic_examples/follower/rviz_gazebo2.webp)  
 
 ### Follower in real robot
 
 1. Align the TurtleBot3s in a straight line and place them close together like below picture.  
-![](/img/systems/turtlebot3/examples/basic_examples/follower/real_robot.webp)  
+![](/img/systems/turtlebot3/basic_examples/follower/real_robot.webp)  
 
 2. Bringup leader turtlebot3 with namespace `TB3_1`.  
 **[TurtleBot3 SBC]**  
@@ -102,7 +102,7 @@ $ ros2 launch turtlebot3_follower turtlebot3_follower.launch.py
 ```bash
 $ rviz2
 ```
-![](/img/systems/turtlebot3/examples/basic_examples/follower/rviz_reality_robot.webp)
+![](/img/systems/turtlebot3/basic_examples/follower/rviz_reality_robot.webp)
 
 6. Teleop leader robot.  
 **[Remote PC]**

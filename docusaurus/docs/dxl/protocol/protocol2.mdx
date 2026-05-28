@@ -107,7 +107,7 @@ Before changing the communication direction, the **TXD_SHIFT_REGISTER_EMPTY_BIT*
 ## Byte to Byte Time
 The allowed delay time between bytes when sending an instruction packet is 1.5ms. If the delay time is over 1.5ms, then DYNAMIXEL actuator recognizes this as a communication problem and waits for the next header (0xff 0xff 0xfd) before continuing to process packets.
 
-![](/img/dxl/protocol/protocol2/protocol20_bytetobytetime.webp)
+![](/img/dxl/protocol2/protocol20_BytetoByteTime.webp)
 
 
 # Instruction Packet
@@ -123,7 +123,7 @@ This field is used to indicate the start of a status packet.
 ## Reserved
 An additional 0x00 byte included in the header field.
 
-![](/img/dxl/protocol/protocol2/protocol20_packet_example_02.webp)
+![](/img/dxl/protocol2/protocol20_packet_example_02.webp)
 > Example DYNAMIXEL packet
 
 ## Packet ID

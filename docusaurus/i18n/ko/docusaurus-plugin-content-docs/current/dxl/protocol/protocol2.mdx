@@ -103,7 +103,7 @@ Direction을 전환하는 시점에서는 TXD_SHIFT_REGISTER_EMPTY_BIT를 확인
 ## Byte to Byte Time
 Instruction Packet을 전송할 때 Byte와 Byte사이의 Delay Time을 의미하는데, 이 시간이 1.5 msec가 넘을 경우 다이나믹셀은 전송 장애가 발생한 것으로 간주하고, 다시 Packet의 header(0xff 0xff 0xfd)를 기다립니다
 
-![](/img/dxl/protocol/protocol2/protocol20_bytetobytetime.webp)
+![](/img/dxl/protocol2/protocol20_BytetoByteTime.webp)
 
 
 # Instruction Packet
@@ -121,7 +121,7 @@ Packet의 시작을 나타내는 신호.
 
 예를 들어, [다이나믹셀 위자드 2.0](/docs/software/dynamixel/dynamixel_wizard2#패킷)의 [패킷 상세 정보](/docs/software/dynamixel/dynamixel_wizard2#패킷-창)에서, Reserved는 Header에 포함되어 사용.
 
-![](/img/dxl/protocol/protocol2/protocol20_packet_example_02.webp)
+![](/img/dxl/protocol2/protocol20_packet_example_02.webp)
 > 다이나믹셀 위자드 2.0 패킷 상세정보
 
 ## Packet ID

@@ -35,14 +35,14 @@ In this example, we are using a public dataset from Roboflow, which is already l
 
 **Step 2: Export the Dataset**  
 Download and export the dataset in YOLO format.  
-![](/img/systems/turtlebot3/examples/basic_examples/yolo_object_detection/download_dataset.webp) 
+![](/img/systems/turtlebot3/basic_examples/yolo_object_detection/download_dataset.webp) 
 
 ### Model Training
 Google Colab provides a free GPU environment, which is especially useful if you don't have a local GPU setup.  
 
 **Step 1: Change the runtime type to GPU**  
 To enable GPU acceleration, go to `Runtime` → `Change runtime type`, and select `GPU` as the hardware accelerator. This will allow your training to run faster using Colab's free GPU resources.  
-![](/img/systems/turtlebot3/examples/basic_examples/yolo_object_detection/colab_gpu.webp) 
+![](/img/systems/turtlebot3/basic_examples/yolo_object_detection/colab_gpu.webp) 
 
 **Step 2: Install Ultralytics**  
 **[Colab]**  
@@ -53,7 +53,7 @@ To enable GPU acceleration, go to `Runtime` → `Change runtime type`, and selec
 **Step 3: Load the Dataset**  
 Copy the dataset loading code from Roboflow. It is provided after exporting. Make sure the paths to the `train`, `val` and `test` image directories are correctly defined in the `data.yaml` file.  
 - Example of `data.yaml` file  
-![](/img/systems/turtlebot3/examples/basic_examples/yolo_object_detection/yaml.webp) 
+![](/img/systems/turtlebot3/basic_examples/yolo_object_detection/yaml.webp) 
 
 **Step 4: Train the Model**  
 **[Colab]**  

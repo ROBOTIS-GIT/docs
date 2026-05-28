@@ -7,9 +7,9 @@
   - **What is Load Multiple TurtleBot3s example?**  
     - This example shows how to operate multiple TurtleBot3s from one Remote PC.  
     - If you operate multiple TurtleBots as if you were operating just one, you won’t be able to distinguish which topic belongs to which robot.  
-    ![](/img/systems/turtlebot3/examples/basic_examples/load_multiple_turtlebot3s/explain1.webp)  
+    ![](/img/systems/turtlebot3/basic_examples/load_multiple_turtlebot3s/explain1.webp)  
     - You can assign a unique namespace to each TurtleBot3's `node`, `topic`, `frame` so you can identify each TurtleBot3.  
-    ![](/img/systems/turtlebot3/examples/basic_examples/load_multiple_turtlebot3s/explain2.webp)  
+    ![](/img/systems/turtlebot3/basic_examples/load_multiple_turtlebot3s/explain2.webp)  
 
   - **launch files**  
     1. multi_robot.launch.py  
@@ -36,11 +36,11 @@
 <br />
 
 - You can see three TurtleBot3s as in the picture below.  
-   ![](/img/systems/turtlebot3/examples/basic_examples/load_multiple_turtlebot3s/multi_robot_gazebo.webp)  
+   ![](/img/systems/turtlebot3/basic_examples/load_multiple_turtlebot3s/multi_robot_gazebo.webp)  
 <br />
 
 - Nodes and topics are completely separated by namespace.  
-  ![](/img/systems/turtlebot3/examples/basic_examples/load_multiple_turtlebot3s/node_graph_gazebo.webp)  
+  ![](/img/systems/turtlebot3/basic_examples/load_multiple_turtlebot3s/node_graph_gazebo.webp)  
 
 
 :::info
@@ -55,7 +55,7 @@
 <br />
 
 - Frames are completely saparated by namespace.  
-  ![](/img/systems/turtlebot3/examples/basic_examples/load_multiple_turtlebot3s/frames_graph_gazebo.webp)  
+  ![](/img/systems/turtlebot3/basic_examples/load_multiple_turtlebot3s/frames_graph_gazebo.webp)  
 
 ### Modifing Multi Robot launch in Gazebo
 :::note
@@ -74,7 +74,7 @@
 - **Change robot namespace.**  
   - multi_robot.launch → Change value of `namespace` variable.  
 
-  ![](/img/systems/turtlebot3/examples/basic_examples/load_multiple_turtlebot3s/multi_robot_code.webp)  
+  ![](/img/systems/turtlebot3/basic_examples/load_multiple_turtlebot3s/multi_robot_code.webp)  
 <br />
 
 **TurtleBot3 World Example**  
@@ -88,7 +88,7 @@
 
 :::
 
-  ![](/img/systems/turtlebot3/examples/basic_examples/load_multiple_turtlebot3s/multi_robot_turtlebot3_world.webp)  
+  ![](/img/systems/turtlebot3/basic_examples/load_multiple_turtlebot3s/multi_robot_turtlebot3_world.webp)  
 
 
 ### Multi Robot launch in reality
@@ -111,12 +111,12 @@
 ```bash
 $ nano ~/turtlebot3_ws/src/turtlebot3/turtlebot3_node/include/turtlebot3_node/sensors/imu.hpp  
 ```
-  ![](/img/systems/turtlebot3/examples/basic_examples/load_multiple_turtlebot3s/imu_hpp.webp)  
+  ![](/img/systems/turtlebot3/basic_examples/load_multiple_turtlebot3s/imu_hpp.webp)  
 
 ```bash
 $ nano ~/turtlebot3_ws/src/ld08_driver/src/lipkg.cpp  
 ```
-  ![](/img/systems/turtlebot3/examples/basic_examples/load_multiple_turtlebot3s/lipkg_cpp.webp)  
+  ![](/img/systems/turtlebot3/basic_examples/load_multiple_turtlebot3s/lipkg_cpp.webp)  
 <br />
 
 - Launch bringup with the namespace as an argument.  
@@ -126,7 +126,7 @@ $ ros2 launch turtlebot3_bringup robot.launch.py namespace:=tb3_1 # Insert what 
 <br />
 
 - Nodes and topics are completely separated by namespace.  
-  ![](/img/systems/turtlebot3/examples/basic_examples/load_multiple_turtlebot3s/node_graph_reality.webp)  
+  ![](/img/systems/turtlebot3/basic_examples/load_multiple_turtlebot3s/node_graph_reality.webp)  
 
 
 
