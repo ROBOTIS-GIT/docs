@@ -44,8 +44,8 @@ slug: ../ros_tool
 **NOTE** :  
 - The test is done on `ROS Kinetic Kame` installed in `Ubuntu 16.04`.
 - The test is done on `ROS Melodic Morenia`installed in `Ubuntu 18.04`.
-- Make sure ROS dependencies are installed before performing these instructions - [Install ROS Packages](/docs/systems/openmanipulator_p/ros/ros_setup#install-ros-packages)
-- Make sure to run the [OpenMANIPULATOR-P controller](/docs/systems/openmanipulator_p/ros/ros_controller_package#launch-controller) instructions before running the instruction below
+- Make sure ROS dependencies are installed before performing these instructions - [Install ROS Packages](/docs/systems/openmanipulator_p/ros_setup#install-ros-packages)
+- Make sure to run the [OpenMANIPULATOR-P controller](/docs/systems/openmanipulator_p/ros_controller_package#launch-controller) instructions before running the instruction below
 
 :::
 
@@ -80,7 +80,7 @@ To activate RH-P12-RN (Gripper), Click the `Gripper open` button.
 ![](/img/systems/openmanipulator_p/open_manipulator_gripper_operation_02.webp)
 
 
-- [GUI Program e-Manual](/docs/systems/openmanipulator_p/ros/ros_operation#ros-operation)  
+- [GUI Program e-Manual](/docs/systems/openmanipulator_p/ros_operation#ros-operation)  
 
 #### Teleoperation
 **Keyboard**  
@@ -98,13 +98,13 @@ $ roslaunch teleop_twist_joy teleop.launch
 $ roslaunch open_manipulator_p_teleop open_manipulator_p_teleop_joystick.launch with_gripper:=true
 ```
 
-- [Teleoperation e-Manual](/docs/systems/openmanipulator_p/ros/ros_operation#teleoperation)
+- [Teleoperation e-Manual](/docs/systems/openmanipulator_p/ros_operation#teleoperation)
 
 #### MoveIt!
 ```bash 
 $ roslaunch open_manipulator_p_controllers joint_trajectory_controller.launch sim:=false with_gripper:=true
 ```
-- [MoveIt! e-Manual](/docs/systems/openmanipulator_p/ros/ros_operation#moveit)
+- [MoveIt! e-Manual](/docs/systems/openmanipulator_p/ros_operation#moveit)
 
 ### Simulation
 :::info
@@ -112,7 +112,7 @@ $ roslaunch open_manipulator_p_controllers joint_trajectory_controller.launch si
 **NOTE** :  
 - The test is done on `ROS Kinetic Kame` installed in `Ubuntu 16.04`.
 - The test is done on `ROS Melodic Morenia`installed in `Ubuntu 18.04`.
-- Make sure ROS dependencies are installed before performing these instructions - [Install ROS Packages](/docs/systems/openmanipulator_p/ros/ros_setup#install-ros-packages)
+- Make sure ROS dependencies are installed before performing these instructions - [Install ROS Packages](/docs/systems/openmanipulator_p/ros_setup#install-ros-packages)
 
 :::
 
@@ -124,7 +124,7 @@ Load OpenManipulator-PRO on Gazebo simulator
 $ roslaunch open_manipulator_p_gazebo open_manipulator_p_gazebo.launch with_gripper:=true
 ```
 
-- [Launch Gazebo e-Manual](/docs/systems/openmanipulator_p/ros/ros_simulation#launch-gazebo)
+- [Launch Gazebo e-Manual](/docs/systems/openmanipulator_p/ros_simulation#launch-gazebo)
 
 #### Controller for Gazebo
 Launch the open_manipulator_p_controller for gazebo simulation.
@@ -132,4 +132,4 @@ Launch the open_manipulator_p_controller for gazebo simulation.
 ```bash
 $ roslaunch open_manipulator_p_controller open_manipulator_p_controller.launch use_platform:=false with_gripper:=true
 ```
-- [Controller for Gazebo e-Manual](/docs/systems/openmanipulator_p/ros/ros_simulation#controller-for-gazebo)
+- [Controller for Gazebo e-Manual](/docs/systems/openmanipulator_p/ros_simulation#controller-for-gazebo)
