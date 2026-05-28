@@ -12,13 +12,7 @@ const turtlebot3Sidebar: SidebarsConfig[string] = [
       doc('systems/turtlebot3/overview/events', 'Events'),
     ],
   },
-  {
-    type: 'category',
-    label: 'Features',
-    items: [
-      doc('systems/turtlebot3/features/features', 'Features'),
-    ],
-  },
+  doc('systems/turtlebot3/features', 'Features'),
   {
     type: 'category',
     label: 'Quick Start Guide',
@@ -34,20 +28,8 @@ const turtlebot3Sidebar: SidebarsConfig[string] = [
       doc('systems/turtlebot3/quick_start_guide/export_turtlebot3_model', 'Export TURTLEBOT3_MODEL'),
     ],
   },
-  {
-    type: 'category',
-    label: 'SLAM',
-    items: [
-      doc('systems/turtlebot3/slam/slam', 'SLAM'),
-    ],
-  },
-  {
-    type: 'category',
-    label: 'Navigation',
-    items: [
-      doc('systems/turtlebot3/navigation/navigation', 'Navigation'),
-    ],
-  },
+  doc('systems/turtlebot3/slam', 'SLAM'),
+  doc('systems/turtlebot3/navigation', 'Navigation'),
   {
     type: 'category',
     label: 'Simulation',
@@ -91,13 +73,7 @@ const turtlebot3Sidebar: SidebarsConfig[string] = [
       doc('systems/turtlebot3/examples/applications', 'Applications'),
     ],
   },
-  {
-    type: 'category',
-    label: 'Friends',
-    items: [
-      doc('systems/turtlebot3/friends/friends', 'TurtleBot3 Friends'),
-    ],
-  },
+  doc('systems/turtlebot3/friends', 'TurtleBot3 Friends'),
   {
     type: 'category',
     label: 'Learn',
@@ -126,13 +102,7 @@ const turtlebot3Sidebar: SidebarsConfig[string] = [
       doc('systems/turtlebot3/more_info/other_ros_versions', 'Other ROS Versions'),
     ],
   },
-  {
-    type: 'category',
-    label: 'FAQ',
-    items: [
-      doc('systems/turtlebot3/faq/faq', 'FAQ'),
-    ],
-  },
+  doc('systems/turtlebot3/faq', 'FAQ'),
 ];
 
 export default turtlebot3Sidebar;
