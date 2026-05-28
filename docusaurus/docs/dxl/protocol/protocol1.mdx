@@ -363,7 +363,7 @@ This instruction is to reset the Control Table of DYNAMIXEL to the factory defau
 
 ## Reboot
 This instruction restarts DYNAMIXEL.
-- Supported products : DYNAMIXEL [MX-12W(V41), MX-28/64/106(V40), MX(2.0)](/docs/dxl/model_reference/mx_series/mx_series) and [X Series](/docs/dxl/model_reference/x_series/x_series) (excluding XL-320)
+- Supported products : DYNAMIXEL [MX-12W(V41), MX-28/64/106(V40), MX(2.0)](/docs/dxl/model_reference/mx_series) and [X Series](/docs/dxl/model_reference/x_series) (excluding XL-320)
 
 ### Example
 
@@ -424,7 +424,7 @@ This instruction is used to control multiple DYNAMIXEL's simultaneously with a s
 ## Bulk Read
 This instruction is used for reading values of multiple `MX series` DYNAMIXEL's simultaneously by sending a single Instruction Packet. The packet length is shortened compared to sending multiple READ commands, and the idle time between the status packets being returned is also shortened to save communication time. However, this cannot be used to read a single module. If an identical ID is designated multiple times, only the first designated parameter will be processed.
 
-- Supported products : DYNAMIXEL [MX, MX(2.0)](/docs/dxl/model_reference/mx_series/mx_series) and [X Series](/docs/dxl/model_reference/x_series/x_series) (excluding XL-320)
+- Supported products : DYNAMIXEL [MX, MX(2.0)](/docs/dxl/model_reference/mx_series) and [X Series](/docs/dxl/model_reference/x_series) (excluding XL-320)
 
 |      Item      | Description                   |
 |:--------------:|:------------------------------|
