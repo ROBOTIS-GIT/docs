@@ -58,7 +58,7 @@ function ProductGrid(): ReactNode {
       <div className="container"> 
         <div className={styles.productGrid}>
           <ProductCard
-            to="/docs/dxl/"
+            to="/docs/dxl/model_reference"
             imageSrc="/img/home/dxl.png"
             imageAlt="DYNAMIXEL"
             title={<Translate id="home.card.dxl.title">DYNAMIXEL</Translate>}
@@ -139,11 +139,11 @@ function PopularGuides(): ReactNode {
         </p>
         <ul className={styles.quickLinks}>
           <QuickLink
-            to="/docs/dxl/ax/ax-12a"
+            to="/docs/dxl/model_reference/ax_series/ax-12a"
             label={<Translate id="home.quick.ax12a">AX-12A reference</Translate>}
           />
           <QuickLink
-            to="/docs/dxl/"
+            to="/docs/dxl/model_reference"
             label={<Translate id="home.quick.dxlIntro">DYNAMIXEL overview</Translate>}
           />
           <QuickLink
