@@ -69,7 +69,7 @@ Connecting to DARWIN-OP wirelessly may be differentdepending on the access point
 
 
 
-ote
+:::info
 
 `Attention`
 1. It is possible to establish wireless connection to DARWIN-OP automatically as long as the the wireless IP address remains unchanged. You may need to peridically check for any changes in your access point/wireless router's DHCP. Please consult your access point/wireless router for further information.
@@ -185,7 +185,7 @@ The illustration above depicts the re-execution of the demo program
 
 
 
-ote
+:::info
 
 **NOTE** :
 1. the execute command is **./demo &** instead of the normal **./demo**
@@ -1147,7 +1147,7 @@ Returns the angle between vectors axes
 - #include "Point.h"
 
 ### minINI Reference
-ote
+:::info
 
 `MININI` is a minimal INI file parser
 
@@ -3280,7 +3280,7 @@ Reads position values for the right arm. From values' data the left arm mirrors 
 #### Tutorial Procedure
 
 
-ote
+:::info
 
 **NOTE** : Before you begin ensure that DARWIN-OP is in a stable kneeling position. During this tutorial torque from all actuators will be released.
 
@@ -3358,7 +3358,7 @@ Camera's gain and exposure values can be can be changed by clicking the buttons.
 #### Tutorial Procedure
 
 
-ote
+:::info
 
 **NOTE** : Before you begin, ensure that DARwIn-OP is in a stable kneeling position. During this tutorial torque from all actuators will be released.
 
@@ -3431,7 +3431,7 @@ From the capture screen color RGB(255, 0, 0) (color) replacement is shown
 #### Tutorial procedure
 
 
-ote
+:::info
 
 **NOTE** : Before you begin, ensure that DARwIn-OP is in a stable kneeling position. During this tutorial torque from all actuators will be released.
 
@@ -3486,7 +3486,7 @@ The following table represents change in values from red ball (default) to blue 
 |      Exposure      |     1000      |       1000        |                           1000                            |
 
 
-ote
+:::info
 
 **NOTE** : Remember that these values are in accordance to the HSV color space. The values assigned for the colors are arbitrary and you may choose any values to suit your needs.
 
@@ -3550,7 +3550,7 @@ Head pan and tilt joints aim at the center of mass of the captured color. the he
 #### Tutorial Procedure
 
 
-ote
+:::info
 
 **NOTE** : Before you begin, ensure that DARwIn-OP is in a stable kneeling position. During this tutorial torque from all actuators will be released.
 
@@ -3684,7 +3684,7 @@ Ball is tracked by head tracking, Walking towards the ball via walking module.
 #### Tutorial Procedure
 
 
-ote
+:::info
 
 **NOTE** : Before you begin, ensure that DARwIn-OP is in a stable kneeling position. During this tutorial torque from all actuators will be released.
 
@@ -3781,7 +3781,7 @@ Execution of the pre-scripted sequence action and mp3 playback from the script f
 #### Tutorial Procedure
 
 
-ote
+:::info
 
 **NOTE** : Before you begin, ensure that DARwIn-OP is in a stable kneeling position. During this tutorial torque from all actuators will be released.
 
@@ -3961,7 +3961,7 @@ Press the space bar to goggle walking on and off.
 #### Tutorial Procedure
 
 
-ote
+:::info
 
 **NOTE** : Before you begin, ensure that DARwIn-OP is in a stable kneeling position. During this tutorial torque from all actuators will be released.
 
@@ -4014,7 +4014,7 @@ For example if you want to make a new robot pose simply turn any MX-28 off, make
 - **Exit**: There may be times when a motion is stopped. If that’s the case the robot may be in an unstable position. Exit is much like Next, so Exit should be linked to a page where DARWIN-OP can return to a stable pose. Number 0 indicates no link to exit page linked (default value).
 
 
-ote
+:::info
 
 `Tip` when calling a motion requires multiple pages we strongly suggest that you call that motion from the starting page. For example “talk2” starts at page 41 and ends at page 47; this means you should call page 41 when calling “talk2.” Calling the subsequent pages for “talk2” (i.e. page 43) may cause the robot to perform abnormally.
 
@@ -4144,7 +4144,7 @@ The menu options are very extensive so you may not be able to memorize every com
 Let's modify DARWIN-OP's pose when kneeling. Let's change the position of the left arm during kneeling. DYNAMIXEL's for the left arm are ID 2, 4, and 6.
 
 
-ote
+:::info
 
 `Tip` Before you begin you may want to make a copy of "motion_4096.bin" file and save it elsewhere. If you don't like with the changes you've made you can always revert back to the original data by overwriting the file.
 
@@ -4258,7 +4258,7 @@ You may find RoboPlus-related files at `/darwin/Linux/project/roboplus`
 However, to properly execute this program DARWIN-OP must be connected to a computer via wired/wireless LAN with **RoboPlus 1.0.23.0 or above**.
 
 
-ote
+:::info
 
 **NOTE** : This section assumes that the actuators installed in DARWIN-OP are set at the resolution of 1024( MX-28 firmware version 26(0x1A) ). RoboPlus currently does not support MX-28 angle resolution of 4096 ( MX-28 firmware version 27(0x1B) or higher ).
 
@@ -4291,7 +4291,7 @@ You may save any changes into a motion.bin file. The directory is `/darwin/Data/
 Let's change DARWIN-OP's sitting pose further by changing the pose of the left arm. Let's continue the work from [Action Editor](#action-editor). Remember that you may continue any work done with Action Editor with Roboplus and viceversa.
 
 
-ote
+:::info
 
 `Tips` Before you begin you may want to make a copy of "motion_4096.bin" file and save it elsewhere. If you don't like with the changes you've made you can always revert back to the original data by overwriting the file.
 
@@ -4337,7 +4337,7 @@ You may modify DARWIN-OP's pace and other walking related items.
 Before starting walking pace tuner ensure that DARWIN-OP is in the kneeling position.
 
 
-ote
+:::info
 
 `Tip` change value(s) in small increments. Large increments may cause DARWIN-OP to perform unexpectedly.
 
@@ -4345,7 +4345,7 @@ ote
 
 
 
-ote
+:::info
 
 `Tip` Hold DARWIN-OP via the handle at all times during this program.
 
@@ -4498,7 +4498,7 @@ Make sure to run Walk Tuner
   - If you are interfacing with DARWIN-OP via wifi then type http://IP-address-from-DHCP:8080 on the address bar
 
 
-ote
+:::info
 
 `Tip` If you cannot remember the IP address provided by DHCP then on a new terminal window type ifconfig.
 
@@ -4508,7 +4508,7 @@ ote
   
 
   
-ote
+:::info
 
 When interfacing with DARWIN-OP wirelessly make sure you:
   - remember the IP address assigned by DHCP.

@@ -182,7 +182,7 @@ Please perform the following procedure in order to in order to safely shutdown t
   ![](/img/systems/op3/op3_022_rev2.webp)
 
 
-ote
+:::info
 
 **NOTE** : If the power supply is cut off before the blue LED is turned off, ROBOTIS OP3 may have problems on the next startup.
 
@@ -443,7 +443,7 @@ Allowed values range from 0 (0x00) to 252 (0xFC), Value 254 (0xFE) is reserved f
 If the Broadcast ID is used to transmit an Instruction Packet, the instruction will be executed by all connected DYNAMIXELs.
 
 
-ote
+:::info
 
 **NOTE** : The ID number for each DYNAMIXEL must be unique on each daisy chain, or communications issues will occur.
 
@@ -465,7 +465,7 @@ The configured communication speed.
 |  7   | 4,500,000 | 4,500,000  |  0.000 %  |
 
 
-ote
+:::info
 
 **NOTE** : A Maximum Baud Rate error of 3% is within the tolerance of UART communication.
 
@@ -491,7 +491,7 @@ If an Instruction Packet has a Broadcast ID, Status Packet will not be returned 
 |   2   |               Return for all commands                |
 
 
-ote
+:::info
 
 **NOTE** : When Instruction packet is Broadcast ID, Status packet is not returned regardless of Status return level.
 
