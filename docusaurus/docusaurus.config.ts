@@ -404,10 +404,76 @@ const config: Config = {
           ],
         },
         {
-          type: 'docSidebar',
-          sidebarId: 'partsSidebar',
-          position: 'left',
+          type: 'dropdown',
           label: 'Parts',
+          position: 'left',
+          className: 'mega-menu-trigger',
+          items: [
+            {
+              type: 'html',
+              className: 'mega-menu-wrapper',
+              value: `
+                <div class="mega-menu">
+                  <div class="mega-menu__left">
+                    <div class="mega-menu__category" data-cat="parts-controller" tabindex="0">
+                      <h4>Controller</h4>
+                      <p>Arduino-based DYNAMIXEL controllers</p>
+                    </div>
+                    <div class="mega-menu__category" data-cat="parts-interface" tabindex="0">
+                      <h4>Interface</h4>
+                      <p>Communication interface boards</p>
+                    </div>
+                  </div>
+                  <div class="mega-menu__right">
+                    <div class="mega-menu__panel" data-panel="parts-controller">
+                      <div class="mega-menu__grid">
+                        <a class="mega-menu__product" href="/docs/parts/controller/openrb-150">
+                          <div class="mega-menu__product-thumb"><img src="/img/parts/controller/openrb-150/openrb-150_product.webp" alt="OpenRB-150" /></div>
+                          <span>OpenRB-150</span>
+                        </a>
+                        <a class="mega-menu__product" href="/docs/parts/controller/opencr10">
+                          <div class="mega-menu__product-thumb"><img src="/img/parts/controller/opencr10/opencr_product.webp" alt="OpenCR 1.0" /></div>
+                          <span>OpenCR 1.0</span>
+                        </a>
+                        <a class="mega-menu__product" href="/docs/parts/controller/cm-550">
+                          <div class="mega-menu__product-thumb"><img src="/img/parts/controller/cm-550/cm-550_product.webp" alt="CM-550" /></div>
+                          <span>CM-550</span>
+                        </a>
+                        <a class="mega-menu__product" href="/docs/parts/controller/cm-530">
+                          <div class="mega-menu__product-thumb"><img src="/img/parts/controller/cm-530/cm-530_product.webp" alt="CM-530" /></div>
+                          <span>CM-530</span>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="mega-menu__panel" data-panel="parts-interface">
+                      <div class="mega-menu__grid">
+                        <a class="mega-menu__product" href="/docs/parts/interface/u2d2">
+                          <div class="mega-menu__product-thumb"><img src="/img/parts/interface/u2d2_product.webp" alt="U2D2" /></div>
+                          <span>U2D2</span>
+                        </a>
+                        <a class="mega-menu__product" href="/docs/parts/interface/u2d2_power_hub">
+                          <div class="mega-menu__product-thumb"><img src="/img/parts/interface/u2d2_power_hub/product_image.webp" alt="U2D2 Power Hub Board" /></div>
+                          <span>U2D2 PHB</span>
+                        </a>
+                        <a class="mega-menu__product" href="/docs/parts/interface/dxl_bridge">
+                          <div class="mega-menu__product-thumb"><img src="/img/parts/interface/dxl_bridge/dxl_bridge_product.webp" alt="DXL-Bridge" /></div>
+                          <span>DXL-Bridge</span>
+                        </a>
+                        <a class="mega-menu__product" href="/docs/parts/interface/dynamixel_shield">
+                          <div class="mega-menu__product-thumb"><img src="/img/parts/interface/dynamixel_shield/dynamixel_shield.webp" alt="DYNAMIXEL Shield" /></div>
+                          <span>DYNAMIXEL Shield</span>
+                        </a>
+                        <a class="mega-menu__product" href="/docs/parts/interface/mkr_shield">
+                          <div class="mega-menu__product-thumb"><img src="/img/parts/interface/mkr_shield/DXL_MKRShield_info01.webp" alt="MKR Shield" /></div>
+                          <span>MKR Shield</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              `,
+            },
+          ],
         },
         {
           type: 'docSidebar',
