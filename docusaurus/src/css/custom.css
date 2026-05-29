@@ -1144,3 +1144,8 @@
     justify-self: start;
   }
 }
+
+/* 모든 H1 동일 크기 */
+.markdown h1 {
+  --ifm-h1-font-size: 2.5rem;
+}
