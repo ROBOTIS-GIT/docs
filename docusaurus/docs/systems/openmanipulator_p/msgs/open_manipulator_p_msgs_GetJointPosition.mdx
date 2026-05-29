@@ -1,0 +1,27 @@
+---
+id: open_manipulator_p_msgs_GetJointPosition
+title: "open manipulator msgs GetJointPosition"
+---
+
+- File: `open_manipulator_p_msgs/GetJointPosition.srv`
+
+- Service Definition
+```c
+string planning_group
+---
+JointPosition joint_position
+```
+
+- Description  
+This topic msessage receives the position of joint.
+
+  - Request
+    * `string planning_group`  
+&emsp;&emsp; Planning Group which set MoveIt! configuration
+
+  - Response
+    * `JointPosition joint_position`([open_manipulator_p_msgs/JointPosition])  
+&emsp;&emsp; Goal position of the joints to create a trajectory.
+
+
+[open_manipulator_p_msgs/JointPosition]: /docs/systems/openmanipulator_p/msgs/open_manipulator_p_msgs_GetJointPosition

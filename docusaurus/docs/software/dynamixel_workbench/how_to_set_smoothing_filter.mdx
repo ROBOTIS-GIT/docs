@@ -1,0 +1,95 @@
+---
+id: how_to_set_smoothing_filter
+title: "How to set smoothing filter into joint trajectory"
+---
+
+## Download the **ROS-INDUSTRIAL CORE** package
+
+```bash
+$ git clone https://github.com/ros-industrial/industrial_core.git
+```
+
+## Check ‘industrial_trajectory_filters’ in downloaded ros-industrial package
+
+```bash
+$ cd ~/catkin_ws/src/industrial_core/industrial_trajectory_filters/
+```
+
+## Copy ***planning_request_adapters_plugin_description.xml***, ***src*** and ***include*** folders in the ***industrial_trajectory_filters*** folder and paste it into the moveit package you created earlier
+
+```bash
+$ cp -r planning_request_adapters_plugin_description.xml src include ~/catkin_ws/src/$(YOUR_MOVEIT_CONFIGURATION_PACKAGE)/
+```
+
+## Create ‘smoothing_filter_params.yaml’ in the config folder and specify the coefficient
+
+```bash
+$ cd ~/catkin_ws/src/$(YOUR_MOVEIT_CONFIGURATION_PACKAGE)/config
+$ nano smoothing_filter_params.yaml
+```
+
+Copy and Paste below texts
+
+```yaml
+smoothing_filter_name: /move_group/smoothing_5_coef  
+smoothing_5_coef:  
+- 0.25  
+- 0.50  
+- 1.00  
+- 0.50  
+- 0.25  
+```
+
+
+## Open ***ompl_planning_pipeline.launch.xml*** in the launch folder and add the following filter to planning_adapters
+
+```bash
+$ cd ~/catkin_ws/src/$(YOUR_MOVEIT_CONFIGURATION_PACKAGE)/launch
+$ nano ompl_planning_pipeline.launch.xml
+```
+
+Copy and Paste below texts
+
+```text
+industrial_trajectory_filters/UniformSampleFilter   
+industrial_trajectory_filters/AddSmoothingFilter   
+```
+        
+
+## Add the following parameters to the same file.
+
+```xml
+<param name="sample_duration" value="0.030" />  
+<rosparam command="load" file="$(YOUR_MOVEIT_CONFIGURATION_PACKAGE)veit)/config/smoothing_filter_params.yaml"/>  
+```
+
+## The contents of the launch file when you insert contents 5 and 6 are shown in the following example.
+
+```xml
+<launch>
+
+<arg name="planning_plugin" value="ompl_interface/OMPLPlanner" />
+
+<arg name="planning_adapters" value="
+industrial_trajectory_filters/UniformSampleFilter
+industrial_trajectory_filters/AddSmoothingFilter
+default_planner_request_adapters/AddTimeParameterization
+default_planner_request_adapters/FixWorkspaceBounds
+default_planner_request_adapters/FixStartStateBounds
+default_planner_request_adapters/FixStartStateCollision
+default_planner_request_adapters/FixStartStatePathConstraints" />
+
+<arg name="start_state_max_bounds_error" value="0.1" />
+
+<param name="planning_plugin" value="$(arg planning_plugin)" />
+<param name="request_adapters" value="$(arg planning_adapters)" />
+<param name="start_state_max_bounds_error" value="$(arg start_state_max_bounds_error)" />
+
+<param name="sample_duration" value="0.030" />
+
+<rosparam command="load" file="$($(YOUR_MOVEIT_CONFIGURATION_PACKAGE))/config/ompl_planning.yaml"/>
+<rosparam command="load" file="$($(YOUR_MOVEIT_CONFIGURATION_PACKAGE))/config/smoothing_filter_params.yaml"/>
+
+</launch>    
+```
+

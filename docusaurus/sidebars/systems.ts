@@ -2,7 +2,6 @@ import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
 
 const systemsSidebar: SidebarsConfig[string] = [
   'systems/index',
-  'systems/ai_manipulator_main',
   {
     type: 'category',
     label: 'Common',
