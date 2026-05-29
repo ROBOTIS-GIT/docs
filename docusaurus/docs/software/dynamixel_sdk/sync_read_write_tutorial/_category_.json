@@ -1,8 +1,0 @@
-{
-  "label": "Sync Read/Write Tutorial",
-  "position": 6,
-  "link": {
-    "type": "doc",
-    "id": "software/dynamixel_sdk/sync_read_write_tutorial/sync_read_write_tutorial"
-  }
-}

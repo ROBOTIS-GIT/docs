@@ -32,6 +32,9 @@ import openmanipulatorXSidebar from './sidebars/openmanipulatorX';
 import partsSidebar from './sidebars/parts';
 import rhp12rnaSidebar from './sidebars/rhp12rna';
 import rhp12rnurSidebar from './sidebars/rhp12rnur';
+import rplus1Sidebar from './sidebars/rplus1';
+import rplusManager2Sidebar from './sidebars/rplusManager2';
+import rplusTask3Sidebar from './sidebars/rplusTask3';
 import softwareSidebar from './sidebars/software';
 import systemsSidebar from './sidebars/systems';
 import thormang3Sidebar from './sidebars/thormang3';
@@ -69,6 +72,9 @@ const sidebars: SidebarsConfig = {
   dynamixelWizardSidebar,
   dynamixelEasySdkSidebar,
   dynamixelWorkbenchSidebar,
+  rplus1Sidebar,
+  rplusManager2Sidebar,
+  rplusTask3Sidebar,
   softwareSidebar,
   partsSidebar,
   eduSidebar,

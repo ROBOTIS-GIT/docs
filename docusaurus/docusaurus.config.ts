@@ -314,6 +314,18 @@ const config: Config = {
                       <h4>Arduino IDE</h4>
                       <p>Controller development</p>
                     </div>
+                    <div class="mega-menu__category" data-cat="rplus-1-0" tabindex="0">
+                      <h4>R+ 1.0</h4>
+                      <p>Task, Manager, Motion</p>
+                    </div>
+                    <div class="mega-menu__category" data-cat="rplus-manager-2-0" tabindex="0">
+                      <h4>R+ Manager 2.0</h4>
+                      <p>Device management</p>
+                    </div>
+                    <div class="mega-menu__category" data-cat="rplus-task-3-0" tabindex="0">
+                      <h4>R+Task 3.0</h4>
+                      <p>Task and motion programming</p>
+                    </div>
                   </div>
                   <div class="mega-menu__right">
                     <div class="mega-menu__panel" data-panel="software-overview">
@@ -343,6 +355,45 @@ const config: Config = {
                       <div class="mega-menu__list">
                         <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/software/arduino_ide">
                           <span>Arduino IDE</span>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="mega-menu__panel" data-panel="rplus-1-0">
+                      <div class="mega-menu__list">
+                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/software/rplus_1_0/rplus_task/getting_started">
+                          <span>R+ Task</span>
+                        </a>
+                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/software/rplus_1_0/rplus_manager">
+                          <span>R+ Manager</span>
+                        </a>
+                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/software/rplus_1_0/rplus_motion">
+                          <span>R+ Motion</span>
+                        </a>
+                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/software/rplus_1_0/dynamixel_wizard">
+                          <span>Dynamixel Wizard</span>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="mega-menu__panel" data-panel="rplus-manager-2-0">
+                      <div class="mega-menu__list">
+                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/software/rplus_manager_2_0">
+                          <span>R+ Manager 2.0</span>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="mega-menu__panel" data-panel="rplus-task-3-0">
+                      <div class="mega-menu__list">
+                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/software/rplus_task_3_0">
+                          <span>R+ Task 3.0</span>
+                        </a>
+                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/software/rplus_task_3_0/task_programming">
+                          <span>Task Programming</span>
+                        </a>
+                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/software/rplus_task_3_0/motion_programming">
+                          <span>Motion Programming</span>
+                        </a>
+                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/software/rplus_task_3_0/python_api">
+                          <span>Python API</span>
                         </a>
                       </div>
                     </div>

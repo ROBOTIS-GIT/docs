@@ -1,0 +1,309 @@
+# Introduction
+
+## RoboPlus Manager 2.0
+The RoboPlus Manager 2.0 manages the Controller and DYNAMIXEL devices that comprise the robot.
+By connecting the product, the user can update the product to the latest version and test the Control Table.
+The functions that were previously provided in RoboPlus Manager 1.0 and Wizard 1.0 have been combined in RoboPlus Manager 2.0.
+
+![](/img/software/rplus2/manager/roboplus_manager2_01.jpg)
+ 
+## Precautions
+Supported products are limited starting from V2.0.0. For products that are not included in the list of supported products, please use RoboPlus Manager 1.0 and Wizard 1.0.
+ 
+List of Supported Products
+- Robotis Dream
+- Robotis MINI
+- DYNAMIXEL 2.0 Series (MX-28, MX-64, MX-106, XL-320, XM Series, XH Series, Pro Series)
+
+![](/img/software/rplus2/manager/roboplus_manager2_02.jpg)
+
+## Definition of Firmware
+
+Firmware is basic software that is installed on a device to operate the hardware. Firmware contains communication protocols with PC, smartphone, and other devices so it is recommended to keep the firmware to the latest version.  
+All devices (Controller, DYNAMIXEL etc) have firmware installed when first purchased, but new versions can be released if there are additional functions / bug fixes.
+ 
+### Role of Controller Firmware
+- Operates the control program written using RoboPlus Task
+- Interprets the motion data written using RoboPlus Motion
+- Performs packet communication function with PC, smartphone, and DYNAMIXEL
+ 
+### Role of DYNAMIXEL Firmware
+- Performs packet communication function with Controller when operating control program or motion on the Controller
+- Performs packet communication function with PC, smartphone, and DYNAMIXEL
+
+### Importance of Firmware Update
+
+- A new firmware can be released if there are additional functions or modifications to previous functions.
+- A new firmware can be released to improve compatibility if supporting a new S/W is necessary.
+- A new firmware can be released if there is a bug fix.
+- If the product does not function properly or communication is unstable, updating to the latest firmware may fix the problem.
+
+# Menu Description
+
+## Editing Tab for Each Stage
+The workspace is divided into Home Tab, Managing Tab, and Terminal Tab. (The Self-Checklist / Calibration functions in the Managing Tab and the Terminal Tab are not available as of yet in V2.0.0.)
+
+![](/img/software/rplus2/manager/roboplus_manager2_03.jpg)
+ 
+## Home Tab
+This is the first screen right after starting the program, which provides functions such as Product Selection menu and Firmware Update history function, etc
+
+![](/img/software/rplus2/manager/roboplus_manager2_04.jpg)
+
+## Management Tab
+This tab provides Firmware Update / Test / Recovery functions for the previously selected product. Depending on the selected product, the functions that can be used are filtered and showed.
+ 
+![](/img/software/rplus2/manager/roboplus_manager2_05.jpg)
+ 
+The figure below is a screen of testing the Control Table. It shows all searched products according to their communication speed and device model, and you can test by modifying the values in the Control Table.
+
+![](/img/software/rplus2/manager/roboplus_manager2_06.jpg)
+ 
+## Terminal Tab
+
+This feature is currently being prepared and will be supported in upcoming updates.
+
+# Basic Features
+
+## Firmware Update
+
+1. In the Home Tab,select the product that you wish to update or test. (ROBOTIS MINI was selected in the example below)
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_07.jpg)
+
+2. Select the “Update & Test” menu.
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_08.jpg)
+ 
+3. Connect the product with the PC as guided on screen and then turn on the product.
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_09.jpg)
+
+4. Select the connection port and click the “Next” button. (Bluetooth serial port was used in the example below)
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_10.jpg)
+ 
+5. Select the communication speed to search and click the “Next” button. (When using Bluetooth serial port, only 57,600bps can be used)
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_11.jpg)
+
+6. Check if the device to be managed has been properly searched and click the “Next” button. (If the product is not searched properly, then click the “Try Again” button.)
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_12.jpg)
+
+7. If the content to be updated is detected, then the “Update Now” button below will be activated. Check the update content and click the “Update Now” button.
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_13.jpg)
+ 
+8. Wait until the update has been properly completed and click the “Next” button.
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_14.jpg)
+
+9. If the update has been completed, then the “Control Table test” function will be executed. (Some controllers will turn off after the update is complete, and the window will be closed.)
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_15.jpg)
+
+## Firmware Recovery
+
+1. In the Home Tab, select the product that you wish to recover. (ROBOTIS MINI was selected in the example below)
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_21.jpg)
+ 
+2. Select the “Firmware Recovery” menu.
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_22.jpg)
+ 
+3. Check the notification message and click the “Next” button.
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_23.jpg)
+ 
+4. Select the product you wish to recover and click the “Next” button. (OpenCM9.04 was selected in the example below)
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_24.jpg)
+
+5. Follow the instructions that appear in order. Be sure to the check the yellow warning message below.
+
+6. After all preparations are finished click the “Next” button.
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_25.jpg)
+ 
+7. Select the connection port and click the “Next” button. (Bluetooth serial port was used in the example below)
+ 
+8. Once the device is connected, bootloader is detected for firmware installation. Click the “Next” button when it is activated.
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_26.jpg)
+ 
+9. Check the information of the firmware to the installed and click the “Next” button.
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_27.jpg)
+ 
+10. When the recovery is complete, click the “Finish” button.
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_28.jpg)
+
+## DYNAMIXEL Control Table
+
+1. To begin we will assume the Control Table window is open. (Please refer to the [Firmware Update](#firmware-update) section for the connection process.)
+
+2. The Control Table window categorizes the control tables according to their communication speed and device model. Select the communication speed and device model that you wish to test. (XL-320 was selected in the example below.)
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_16.jpg)
+
+3. From the menu on the right, clicking the “Factory Reset” button will restore all settings of the product to their factory default configuration.  
+    (The ID and Baud Rate value will not be changed.)  
+    From the menu on the right, clicking the “Rebooting” button will restart the corresponding DYNAMIXEL.  
+    From the menu on the right, click the “Turn On/Off Torque” button will turn the corresponding DYNAMIXEL torque on or off.
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_17.jpg)
+ 
+4. From the menu on the right, click the “Turn On Torque” button to turn DYNAMIXEL torque on.
+
+5. In the Control Table list, search and select the “Goal Position” item.
+
+6. Use the Goal Position control on the lower right corner to move the motor. 
+
+    **WARNING** : Take caution since the motor can suddenly move in the process of changing the value.
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_18.jpg)
+
+7. You can check if the current communication between the PC and the product is normal through the “Communication Status” LED on the lower left corner. (Green : Normal, Yellow : Time-Out, Red : Data Loss)
+8. You can check DYNAMIXEL response status through the “Response Error” message on the lower left corner.
+9. You can check the hardware’s error status through the “Hardware Alarm” message on the lower left corner.
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_19.jpg)
+ 
+10. Some DYNAMIXEL's provide the function to view the Profile Type status.  
+    In a given Operating Mode, the Profile Type is decided by the Profile Acceleration value and the Profile Velocity value. Please refer to the corresponding DYNAMIXEL E-Manual for details. (Supported products : XM Series and XH Series)
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_20.jpg)
+
+**NOTE** : For further information about the Control Table, please refer to each DYNAMIXEL.
+
+## Controller Control Table
+
+1. Select the controller to connect in the `Home` tab. (OpenCM7.0 is selected in the example)
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_48.png)
+ 
+2. Click `Update & Test` icon.
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_49.png)
+ 
+3. Connect the controller to PC according to the described image.
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_50.png)
+ 
+4. Select COM port to establish connection between PC and controller.(USB port is selected in the example)  
+    Click `Next` button.
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_51.png)
+ 
+5. Select Baud Rate to establish connection between PC and controller. Click `Next` button.
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_52.png)
+ 
+6. Confirm detected device with selected port and baudrate then click `Next` button. If the device is not detected, click `Retry` button and try again.
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_53.png)
+ 
+7. If there is any available firmware updates for the device, update menu will be available. Click `Update Now` button to update the device.  
+    If connected device already has the latest firmware, you will see below screen.  
+    Click `Next` button to proceed.
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_54.png)
+ 
+8. When the connection is established between PC and controller, below screen will be appeared. Control Table window arranges device with Baudrate and Device. If you have connected multiple devices, select baudrate and device of the controller to test.
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_55.png)
+ 
+9. On the right column of the window, `Factory Reset` button will reset all configuration except ID and Baudrate.
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_56.png)
+ 
+10. On the left bottom corner of the window, TX and RX communication status is visualized with colred bar (Green : normal, Yellow : timeout, Red : data loss)  
+    Return Error will notify response status of the device and H/W Alert will notify error status of the hardware.
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_57.png)
+ 
+11. Select an item with RW access property and change its value to test controller. For below example, select Green LED and change its value from the right table will control green LED on the controller.
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_58.png)
+ 
+12. Various peripheral devices can be attached and tested. Click the extention triangle button to display sensor selection pop up window.
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_59.png)
+ 
+13. Changing peripheral device will also change the address for the device. In the below example, selecting Ultrasonic sensor for port 3 will update its address to 244.
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_60.png)
+
+**NOTE** : For more details on peripheral devices, please refer to R+ Task 2.0.
+
+# Reference
+
+## Changing Control Value
+
+Use the left mouse-button to drag and change the value(used when changing the value in large amounts.)
+
+![](/img/software/rplus2/manager/rplusmanager2_35_kr.jpg)
+ 
+Use the mouse wheel to change the value (used when changing the value in small amounts.)
+
+![](/img/software/rplus2/manager/rplusmanager2_36_kr.jpg)
+
+Use the arrow keys in the keyboard to change the value (used when changing the value minutely.)
+
+![](/img/software/rplus2/manager/rplusmanager2_37_kr.jpg)
+ 
+Inputting the value directly. You can also use basic arithmetic operations (addition, subtraction) to set the value.
+
+![](/img/software/rplus2/manager/rplusmanager2_38_kr.jpg)
+
+## Firmware Information
+
+This is the function to check the Firmware version, release date, and update note.
+
+1. In the Home Tab, select the product for which you wish to check the Firmware version.
+2. Click on the “Firmware Information” button on the upper right corner.
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_39.jpg)
+ 
+3. You can check the Firmware version, release date, and update note of the selected product.
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_40.jpg)
+
+## Firmware Management(Bluetooth)
+
+By using the BT-210 or BT-110 you can manage the Firmware wirelessly (The BT-410 does not provide a wireless Firmware management function)
+
+Add a Bluetooth serial port by following the instructions below (Example below shown for Windows10).
+ 
+1. Connect the BT-210(or BT-110) to the Controller and turn on the Controller.
+2. Click on the Windows start button, and select the Settings menu.
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_41.jpg)
+ 
+3. Click on the Devices menu.
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_42.jpg)
+ 
+4. Select the Bluetooth category on the left, and turn on the Bluetooth option on the right.
+5. Select the searched Bluetooth module, and chick the Pair button.
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_43.jpg)
+ 
+6. In the device password field, enter 0000 and click on the Next button.
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_44.jpg)
+ 
+7. When the pairing is complete, select the paired device and click on “More Bluetooth options” found below.
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_45.jpg)
+ 
+8. Click on the COM Port tab and check the port number of the transmission port. (In the example below it was COM7)
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_46.jpg)
+ 
+9. In R+ Manager 2.0, select the installed Bluetooth port number and you can now manage the Firmware wirelessly.
+
+    ![](/img/software/rplus2/manager/roboplus_manager2_47.jpg)
