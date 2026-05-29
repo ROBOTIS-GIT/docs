@@ -360,88 +360,98 @@
 }
 
 /* ============================================================
-   Related Sites — hover dropdown
+   Related Sites — single-row 9-column grid
    ============================================================ */
 .siteLinks {
   list-style: none;
   padding: 0;
   margin: 0 auto;
-  display: flex;
-  gap: 1.5rem;
-  justify-content: center;
-  max-width: 600px;
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: 0.75rem;
+  max-width: 1200px;
 }
 
 .siteLinkWrap {
   position: relative;
-  flex: 1;
 }
 
 .siteLink {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 1rem 1.25rem;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 1.1rem 0.5rem;
   border: 1px solid var(--robotis-card-border);
   border-radius: 12px;
   background: var(--ifm-background-color);
+  box-shadow: var(--robotis-card-shadow);
+  font-size: 0.8rem;
   font-weight: 600;
-  font-size: 1rem;
-  cursor: default;
-  transition: border-color 0.2s ease, background 0.2s ease;
-  user-select: none;
+  color: var(--ifm-color-emphasis-800);
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.2s ease,
+    color 0.2s ease;
 }
 
+/* All SVG icons inside cards */
+.siteLink svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+  display: block;
+  flex-shrink: 0;
+}
+
+.siteLink:hover,
 .siteLinkWrap:hover .siteLink {
+  transform: translateY(-3px);
+  box-shadow: var(--robotis-card-shadow-hover);
   border-color: var(--ifm-color-primary);
-  background: var(--ifm-color-emphasis-100);
   color: var(--ifm-color-primary-darkest);
+  text-decoration: none;
 }
 
-.siteLinkArrow {
-  color: var(--ifm-color-primary);
-  font-size: 0.85rem;
-  transition: transform 0.2s ease;
-}
-
-.siteLinkWrap:hover .siteLinkArrow {
-  transform: translateY(2px);
-}
-
+/* Dropdown for ROBOTIS.COM and Shop */
 .siteLinkDropdown {
   list-style: none;
-  padding: 0.4rem 0;
+  padding: 0.35rem 0;
   margin: 0;
   position: absolute;
-  top: calc(100% + 6px);
-  left: 0;
-  right: 0;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  min-width: 150px;
   background: var(--ifm-background-color);
   border: 1px solid var(--robotis-card-border);
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
+  box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.10);
   opacity: 0;
   pointer-events: none;
-  transform: translateY(-6px);
-  transition: opacity 0.18s ease, transform 0.18s ease;
-  z-index: 20;
+  transition: opacity 0.16s ease, transform 0.16s ease;
+  z-index: 30;
 }
 
 .siteLinkWrap:hover .siteLinkDropdown {
   opacity: 1;
   pointer-events: auto;
-  transform: translateY(0);
+  transform: translateX(-50%) translateY(0);
 }
 
 .siteLinkDropdownItem {
   display: block;
-  padding: 0.55rem 1.25rem;
-  color: var(--ifm-color-emphasis-800);
-  font-size: 0.9rem;
+  padding: 0.45rem 1rem;
+  color: var(--ifm-color-emphasis-700);
+  font-size: 0.85rem;
   font-weight: 500;
   text-decoration: none;
-  transition: background 0.15s ease, color 0.15s ease;
+  transition: background 0.12s ease, color 0.12s ease;
+  white-space: nowrap;
 }
 
 .siteLinkDropdownItem:hover {
@@ -450,8 +460,14 @@
   text-decoration: none;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 900px) {
   .siteLinks {
-    flex-direction: column;
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (max-width: 540px) {
+  .siteLinks {
+    grid-template-columns: repeat(3, 1fr);
   }
 }

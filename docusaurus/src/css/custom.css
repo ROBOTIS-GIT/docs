@@ -34,6 +34,7 @@
 .navbar__brand {
   gap: 0.55rem;
   min-width: max-content;
+  margin-right: 3rem;
 }
 
 .navbar__logo {
@@ -65,8 +66,42 @@
   flex-wrap: nowrap;
 }
 
-.navbar__items--left {
+.theme-layout-navbar-left {
   min-width: 0;
+  flex: 1;
+}
+
+.theme-layout-navbar-left > .navbar__item,
+.theme-layout-navbar-left > .dropdown {
+  position: relative;
+  flex: 0 0 7.5rem;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+/* 항목 사이 구분선 */
+.theme-layout-navbar-left > .navbar__item::after,
+.theme-layout-navbar-left > .dropdown::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 1rem;
+  width: 1px;
+  background: var(--ifm-color-emphasis-300);
+  pointer-events: none;
+}
+
+.theme-layout-navbar-left > .navbar__item:last-child::after,
+.theme-layout-navbar-left > .dropdown:last-child::after {
+  display: none;
+}
+
+.theme-layout-navbar-left > .dropdown > .navbar__link {
+  width: 100%;
+  justify-content: center;
 }
 
 .navbar__item,
