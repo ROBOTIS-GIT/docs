@@ -84,6 +84,10 @@ const config: Config = {
   ],
 
   themeConfig: {
+    tableOfContents: {
+      minHeadingLevel: 1,
+      maxHeadingLevel: 3,
+    },
     colorMode: {
       respectPrefersColorScheme: false,
     },
