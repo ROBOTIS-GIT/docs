@@ -69,35 +69,35 @@ function ProductGrid(): ReactNode {
             }
           />
           <ProductCard
-            to="/docs/systems/"
-            imageSrc="/img/home/platform.png"
-            imageAlt="Systems"
-            title={<Translate id="home.card.platform.title">Ecosystem</Translate>}
+            to="/docs/systems/aiworker/ai_worker/introduction"
+            imageSrc="/img/mega-menu/ai-worker.webp"
+            imageAlt="AI Worker"
+            title={<Translate id="home.card.aiworker.title">AI Worker</Translate>}
             desc={
-              <Translate id="home.card.platform.desc">
-                Robot Ecosystem — Humanoid, Manipulator, Mobile, and etc. platforms.
+              <Translate id="home.card.aiworker.desc">
+                Semi-humanoid robot for physical AI and industrial automation.
               </Translate>
             }
           />
           <ProductCard
-            to="/docs/software/overview"
-            imageSrc="/img/home/software.png"
-            imageAlt="Software"
-            title={<Translate id="home.card.software.title">Software</Translate>}
+            to="/docs/systems/hx5_d20/hx5_d20/introduction"
+            imageSrc="/img/mega-menu/hx5-d20.webp"
+            imageAlt="Robot Hand"
+            title={<Translate id="home.card.hand.title">Hand</Translate>}
             desc={
-              <Translate id="home.card.software.desc">
-                SDKs, Wizard, ROS packages.
+              <Translate id="home.card.hand.desc">
+                Dexterous robot hands — HX5-D20, RH-P12-RN series.
               </Translate>
             }
           />
           <ProductCard
-            to="/docs/parts/"
-            imageSrc="/img/home/parts.png"
-            imageAlt="Parts"
-            title={<Translate id="home.card.parts.title">Parts</Translate>}
+            to="/docs/systems/omy/omy/introduction"
+            imageSrc="/img/mega-menu/omy.webp"
+            imageAlt="OMY"
+            title={<Translate id="home.card.omy.title">OMY</Translate>}
             desc={
-              <Translate id="home.card.parts.desc">
-                Frames, brackets, controllers, sensors and accessories.
+              <Translate id="home.card.omy.desc">
+                AI manipulator designed for physical AI research.
               </Translate>
             }
           />
@@ -107,60 +107,62 @@ function ProductGrid(): ReactNode {
   );
 }
 
-type QuickProps = {to: string; label: ReactNode};
+type SiteEntry = {label: string; href: string};
+type SiteLinkProps = {label: ReactNode; entries: SiteEntry[]};
 
-function QuickLink({to, label}: QuickProps): ReactNode {
+function SiteLinkItem({label, entries}: SiteLinkProps): ReactNode {
   return (
-    <li>
-      <Link to={to} className={styles.quickLink}>
-        {label}
-        <span aria-hidden className={styles.quickArrow}>
-          →
-        </span>
-      </Link>
+    <li className={styles.siteLinkWrap}>
+      <div className={styles.siteLink}>
+        <span>{label}</span>
+        <span aria-hidden className={styles.siteLinkArrow}>▾</span>
+      </div>
+      <ul className={styles.siteLinkDropdown}>
+        {entries.map(({label: entryLabel, href}) => (
+          <li key={entryLabel}>
+            <a href={href} className={styles.siteLinkDropdownItem} target="_blank" rel="noopener noreferrer">
+              {entryLabel}
+            </a>
+          </li>
+        ))}
+      </ul>
     </li>
   );
 }
 
-function PopularGuides(): ReactNode {
+function RelatedSites(): ReactNode {
   return (
     <section className={`${styles.section} ${styles.sectionAlt}`}>
       <div className="container">
         <span className={styles.sectionEyebrow}>
-          <Translate id="home.popular.eyebrow">Quick links</Translate>
+          <Translate id="home.sites.eyebrow">External links</Translate>
         </span>
         <Heading as="h2" className={styles.sectionTitle}>
-          <Translate id="home.popular.heading">Popular guides</Translate>
+          <Translate id="home.sites.heading">Related Sites</Translate>
         </Heading>
         <p className={styles.sectionLead}>
-          <Translate id="home.popular.lead">
-            Frequently visited references and getting-started guides.
+          <Translate id="home.sites.lead">
+            Visit ROBOTIS official websites and online shops.
           </Translate>
         </p>
-        <ul className={styles.quickLinks}>
-          <QuickLink
-            to="/docs/dxl/model_reference/ax_series/ax-12a"
-            label={<Translate id="home.quick.ax12a">AX-12A reference</Translate>}
+        <ul className={styles.siteLinks}>
+          <SiteLinkItem
+            label={<Translate id="home.sites.robotis">ROBOTIS.COM</Translate>}
+            entries={[
+              {label: 'English', href: 'https://www.robotis.com/en/'},
+              {label: 'Korea', href: 'https://www.robotis.com/ko/'},
+              {label: 'China', href: 'https://www.robotis.com/zh/'},
+              {label: 'Japan', href: 'https://www.robotis.com/ja/'},
+            ]}
           />
-          <QuickLink
-            to="/docs/dxl/model_reference"
-            label={<Translate id="home.quick.dxlIntro">DYNAMIXEL overview</Translate>}
-          />
-          <QuickLink
-            to="/docs/systems/"
-            label={<Translate id="home.quick.platform">Robot platforms</Translate>}
-          />
-          <QuickLink
-            to="/docs/software/overview"
-            label={<Translate id="home.quick.software">Software & SDKs</Translate>}
-          />
-          <QuickLink
-            to="/docs/edu/"
-            label={<Translate id="home.quick.edu">Education kits</Translate>}
-          />
-          <QuickLink
-            to="/docs/faq/"
-            label={<Translate id="home.quick.faq">FAQ</Translate>}
+          <SiteLinkItem
+            label={<Translate id="home.sites.shop">Shop</Translate>}
+            entries={[
+              {label: 'International', href: 'https://en.robotis.com/shop_en/'},
+              {label: 'Korea', href: 'https://en.robotis.com/shop/'},
+              {label: 'US', href: 'https://robotis.us/'},
+              {label: 'Japan', href: 'https://e-shop.robotis.co.jp/'},
+            ]}
           />
         </ul>
       </div>
@@ -180,7 +182,7 @@ export default function Home(): ReactNode {
       <HomeHero />
       <main>
         <ProductGrid />
-        <PopularGuides />
+        <RelatedSites />
       </main>
     </Layout>
   );

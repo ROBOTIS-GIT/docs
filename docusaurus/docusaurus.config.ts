@@ -612,30 +612,7 @@ const config: Config = {
     },
     footer: {
       style: 'dark',
-      links: [
-        {
-          title: 'Docs',
-          items: [
-            {label: 'DYNAMIXEL', to: '/docs/dxl/model_reference/'},
-            {label: 'Systems', to: '/docs/systems/'},
-            {label: 'Software', to: '/docs/software/overview'},
-          ],
-        },
-        {
-          title: 'Community',
-          items: [
-            {label: 'ROBOTIS Forum', href: 'https://forum.robotis.com/'},
-            {label: 'GitHub', href: 'https://github.com/Luke-K-Robotis/emanual-v2'},
-          ],
-        },
-        {
-          title: 'More',
-          items: [
-            {label: 'ROBOTIS', href: 'https://www.robotis.com/'},
-            {label: 'Shop', href: 'https://www.robotis.us/'},
-          ],
-        },
-      ],
+      links: [],
       copyright: `Copyright © ${new Date().getFullYear()} ROBOTIS Co., Ltd. Built with Docusaurus.`,
     },
     prism: {
