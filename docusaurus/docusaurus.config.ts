@@ -85,7 +85,7 @@ const config: Config = {
 
   themeConfig: {
     colorMode: {
-      respectPrefersColorScheme: true,
+      respectPrefersColorScheme: false,
     },
     navbar: {
       title: 'ROBOTIS DOCS',
@@ -221,7 +221,7 @@ const config: Config = {
                           <span>AI Sapiens</span>
                         </a>
                         <a class="mega-menu__product" href="/docs/systems/op3/introduction">
-                          <div class="mega-menu__product-thumb"><img src="/img/systems/op3/op3_product.webp" alt="ROBOTIS OP3" /></div>
+                          <div class="mega-menu__product-thumb"><img src="/img/mega-menu/op3.png" alt="ROBOTIS OP3" /></div>
                           <span>ROBOTIS OP3</span>
                         </a>
                         <a class="mega-menu__product" href="/docs/systems/thormang3/introduction">
@@ -436,7 +436,7 @@ const config: Config = {
                           <span>OpenCR 1.0</span>
                         </a>
                         <a class="mega-menu__product" href="/docs/parts/controller/cm-550">
-                          <div class="mega-menu__product-thumb"><img src="/img/parts/controller/cm-550/cm-550_product.webp" alt="CM-550" /></div>
+                          <div class="mega-menu__product-thumb"><img src="/img/parts/controller/cm-550/cm-550_product.png" alt="CM-550" /></div>
                           <span>CM-550</span>
                         </a>
                         <a class="mega-menu__product" href="/docs/parts/controller/cm-530">
@@ -448,23 +448,23 @@ const config: Config = {
                     <div class="mega-menu__panel" data-panel="parts-interface">
                       <div class="mega-menu__grid">
                         <a class="mega-menu__product" href="/docs/parts/interface/u2d2">
-                          <div class="mega-menu__product-thumb"><img src="/img/parts/interface/u2d2_product.webp" alt="U2D2" /></div>
+                          <div class="mega-menu__product-thumb"><img src="/img/mega-menu/u2d2.webp" alt="U2D2" /></div>
                           <span>U2D2</span>
                         </a>
                         <a class="mega-menu__product" href="/docs/parts/interface/u2d2_power_hub">
-                          <div class="mega-menu__product-thumb"><img src="/img/parts/interface/u2d2_power_hub/product_image.webp" alt="U2D2 Power Hub Board" /></div>
+                          <div class="mega-menu__product-thumb"><img src="/img/mega-menu/u2d2-phb.webp" alt="U2D2 Power Hub Board" /></div>
                           <span>U2D2 PHB</span>
                         </a>
                         <a class="mega-menu__product" href="/docs/parts/interface/dxl_bridge">
-                          <div class="mega-menu__product-thumb"><img src="/img/parts/interface/dxl_bridge/dxl_bridge_product.webp" alt="DXL-Bridge" /></div>
+                          <div class="mega-menu__product-thumb"><img src="/img/mega-menu/dxl-bridge.webp" alt="DXL-Bridge" /></div>
                           <span>DXL-Bridge</span>
                         </a>
                         <a class="mega-menu__product" href="/docs/parts/interface/dynamixel_shield">
-                          <div class="mega-menu__product-thumb"><img src="/img/parts/interface/dynamixel_shield/dynamixel_shield.webp" alt="DYNAMIXEL Shield" /></div>
+                          <div class="mega-menu__product-thumb"><img src="/img/mega-menu/dynamixel-shield.webp" alt="DYNAMIXEL Shield" /></div>
                           <span>DYNAMIXEL Shield</span>
                         </a>
                         <a class="mega-menu__product" href="/docs/parts/interface/mkr_shield">
-                          <div class="mega-menu__product-thumb"><img src="/img/parts/interface/mkr_shield/DXL_MKRShield_info01.webp" alt="MKR Shield" /></div>
+                          <div class="mega-menu__product-thumb"><img src="/img/mega-menu/mkr-shield.webp" alt="MKR Shield" /></div>
                           <span>MKR Shield</span>
                         </a>
                       </div>
@@ -500,7 +500,7 @@ const config: Config = {
                     <div class="mega-menu__panel" data-panel="edu-bioloid">
                       <div class="mega-menu__grid">
                         <a class="mega-menu__product" href="/docs/edu/bioloid/premium">
-                          <div class="mega-menu__product-thumb"><img src="/img/edu/bioloid/premium_product.webp" alt="ROBOTIS Premium" /></div>
+                          <div class="mega-menu__product-thumb"><img src="/img/mega-menu/bioloid-premium.webp" alt="ROBOTIS Premium" /></div>
                           <span>ROBOTIS Premium</span>
                         </a>
                       </div>
@@ -508,11 +508,11 @@ const config: Config = {
                     <div class="mega-menu__panel" data-panel="edu-engineer">
                       <div class="mega-menu__grid">
                         <a class="mega-menu__product" href="/docs/edu/engineer/kit1">
-                          <div class="mega-menu__product-thumb"><img src="/img/edu/engineer/kit1/2xl430_intro.webp" alt="Engineer Kit 1" /></div>
+                          <div class="mega-menu__product-thumb"><img src="/img/mega-menu/engineer-kit1.webp" alt="Engineer Kit 1" /></div>
                           <span>Engineer Kit 1</span>
                         </a>
                         <a class="mega-menu__product" href="/docs/edu/engineer/kit2_introduction">
-                          <div class="mega-menu__product-thumb"><img src="/img/edu/engineer/kit2/kit2_main.webp" alt="Engineer Kit 2" /></div>
+                          <div class="mega-menu__product-thumb"><img src="/img/mega-menu/engineer-kit2.webp" alt="Engineer Kit 2" /></div>
                           <span>Engineer Kit 2</span>
                         </a>
                       </div>
