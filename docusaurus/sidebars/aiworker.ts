@@ -88,6 +88,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
       {type: 'doc', id: 'systems/aiworker/advanced_features/cyclo_manager', label: 'Cyclo Manager'},
       {type: 'doc', id: 'systems/aiworker/advanced_features/cyclo_control', label: 'Cyclo Control'},
       {type: 'doc', id: 'systems/aiworker/advanced_features/behavior_trees', label: 'Behavior Trees'},
+      {type: 'doc', id: 'systems/aiworker/advanced_features/cyclo_intelligence', label: 'Cyclo Intelligence'},
       {type: 'doc', id: 'systems/aiworker/advanced_features/robotis_vuer', label: 'ROBOTIS Vuer'},
     ],
   },

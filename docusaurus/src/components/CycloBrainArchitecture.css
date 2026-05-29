@@ -1,0 +1,714 @@
+.cyclo-brain-architecture {
+  --arch-paper: #ffffff;
+  --arch-bg: #f6f8fb;
+  --arch-ink: #152033;
+  --arch-muted: #5d6878;
+  --arch-line: #c8d2df;
+  --arch-host: #2e5fa7;
+  --arch-main: #087f8c;
+  --arch-engine: #2f6f4e;
+  --arch-robot: #9a6a1d;
+  --arch-backend: #6554a8;
+  --arch-action: #b34242;
+  --arch-flow-opacity: 0.5;
+  --arch-shadow: 0 10px 28px rgba(21, 32, 51, 0.08);
+  margin: 1rem 0 1.5rem;
+  padding: 16px;
+  overflow: hidden;
+  border: 1px solid var(--arch-line);
+  border-radius: 8px;
+  background: var(--arch-bg);
+  color: var(--arch-ink);
+}
+
+.cyclo-brain-architecture *,
+.cyclo-brain-architecture *::before,
+.cyclo-brain-architecture *::after {
+  box-sizing: border-box;
+}
+
+.cyclo-brain-architecture .architecture-header {
+  display: grid;
+  gap: 12px;
+}
+
+.cyclo-brain-architecture .architecture-title {
+  margin: 0;
+  color: var(--arch-ink);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.cyclo-brain-architecture .architecture-summary {
+  margin: 0.35rem 0 0;
+  color: var(--arch-muted);
+  font-size: 0.86rem;
+  line-height: 1.55;
+}
+
+.cyclo-brain-architecture .legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.cyclo-brain-architecture .legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 4px 8px;
+  border: 1px solid var(--arch-line);
+  border-radius: 999px;
+  background: var(--arch-paper);
+  color: var(--arch-ink);
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.cyclo-brain-architecture .dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: var(--arch-host);
+  flex: 0 0 auto;
+}
+
+.cyclo-brain-architecture .command-dot { background: var(--arch-host); }
+.cyclo-brain-architecture .engine-dot { background: var(--arch-engine); }
+.cyclo-brain-architecture .robot-dot { background: var(--arch-robot); }
+.cyclo-brain-architecture .backend-dot { background: var(--arch-backend); }
+.cyclo-brain-architecture .action-dot { background: var(--arch-action); }
+
+.cyclo-brain-architecture .diagram-stage {
+  position: relative;
+  height: 1120px;
+  margin-top: 14px;
+}
+
+.cyclo-brain-architecture .flow-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.cyclo-brain-architecture .mobile-flow {
+  display: none;
+}
+
+.cyclo-brain-architecture .flow-line {
+  fill: none;
+  stroke-width: 2.5;
+  stroke-opacity: var(--arch-flow-opacity);
+  vector-effect: non-scaling-stroke;
+}
+
+.cyclo-brain-architecture .flow-line.dashed {
+  stroke-dasharray: 9 10;
+  stroke-linecap: round;
+}
+
+.cyclo-brain-architecture .command-line { stroke: var(--arch-host); }
+.cyclo-brain-architecture .main-line { stroke: var(--arch-main); }
+.cyclo-brain-architecture .engine-line { stroke: var(--arch-engine); }
+.cyclo-brain-architecture .robot-line { stroke: var(--arch-robot); }
+.cyclo-brain-architecture .action-line { stroke: var(--arch-action); }
+.cyclo-brain-architecture .backend-line { stroke: var(--arch-backend); }
+
+.cyclo-brain-architecture #arch-arrow-command path,
+.cyclo-brain-architecture #arch-mobile-command path {
+  fill: var(--arch-host);
+  fill-opacity: var(--arch-flow-opacity);
+}
+.cyclo-brain-architecture #arch-arrow-main path {
+  fill: var(--arch-main);
+  fill-opacity: var(--arch-flow-opacity);
+}
+.cyclo-brain-architecture #arch-arrow-engine path,
+.cyclo-brain-architecture #arch-mobile-engine path {
+  fill: var(--arch-engine);
+  fill-opacity: var(--arch-flow-opacity);
+}
+.cyclo-brain-architecture #arch-arrow-robot path,
+.cyclo-brain-architecture #arch-mobile-robot path {
+  fill: var(--arch-robot);
+  fill-opacity: var(--arch-flow-opacity);
+}
+.cyclo-brain-architecture #arch-arrow-action path,
+.cyclo-brain-architecture #arch-mobile-action path {
+  fill: var(--arch-action);
+  fill-opacity: var(--arch-flow-opacity);
+}
+.cyclo-brain-architecture #arch-arrow-backend path,
+.cyclo-brain-architecture #arch-mobile-backend path {
+  fill: var(--arch-backend);
+  fill-opacity: var(--arch-flow-opacity);
+}
+
+.cyclo-brain-architecture .zone,
+.cyclo-brain-architecture .process-panel,
+.cyclo-brain-architecture .node,
+.cyclo-brain-architecture .backend-island {
+  min-width: 0;
+  border: 1px solid var(--arch-line);
+  border-radius: 8px;
+  background: var(--arch-paper);
+}
+
+.cyclo-brain-architecture .zone {
+  position: absolute;
+  box-shadow: var(--arch-shadow);
+}
+
+.cyclo-brain-architecture .host-zone {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 126px;
+  border-color: rgba(46, 95, 167, 0.55);
+}
+
+.cyclo-brain-architecture .policy-zone {
+  top: 170px;
+  left: 0;
+  right: 0;
+  height: 800px;
+  border-color: rgba(8, 127, 140, 0.45);
+}
+
+.cyclo-brain-architecture .robot-zone {
+  top: 1005px;
+  left: 0;
+  right: 0;
+  height: 115px;
+  border-color: rgba(154, 106, 29, 0.58);
+}
+
+.cyclo-brain-architecture .zone-label,
+.cyclo-brain-architecture .process-title {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  top: 10px;
+  margin: 0;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--arch-line);
+  color: var(--arch-ink);
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.cyclo-brain-architecture .container-label {
+  color: var(--arch-main);
+}
+
+.cyclo-brain-architecture .process-title {
+  font-size: 0.78rem;
+}
+
+.cyclo-brain-architecture .process-panel {
+  position: absolute;
+}
+
+.cyclo-brain-architecture .main-panel {
+  top: 56px;
+  left: 16px;
+  width: calc(43% - 16px);
+  height: 620px;
+  border-color: rgba(8, 127, 140, 0.55);
+}
+
+.cyclo-brain-architecture .engine-panel {
+  top: 56px;
+  right: 16px;
+  width: calc(43% - 16px);
+  height: 620px;
+  border-color: rgba(47, 111, 78, 0.55);
+}
+
+.cyclo-brain-architecture .node {
+  position: absolute;
+  z-index: 3;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 3px;
+  padding: 6px;
+  text-align: center;
+  overflow-wrap: anywhere;
+  background: #fbfdff;
+}
+
+.cyclo-brain-architecture .node strong {
+  color: var(--arch-ink);
+  font-size: 0.68rem;
+  line-height: 1.22;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+.cyclo-brain-architecture .node span,
+.cyclo-brain-architecture .node em {
+  min-width: 0;
+  color: var(--arch-muted);
+  font-size: 0.58rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.24;
+}
+
+.cyclo-brain-architecture .node em {
+  display: inline-flex;
+  justify-content: center;
+  width: fit-content;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  margin-top: 1px;
+  padding: 1px 5px;
+  border-radius: 999px;
+  background: #eef4f8;
+  color: #344155;
+  font-family: monospace;
+  font-size: 0.5rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.cyclo-brain-architecture .lane-tag {
+  display: inline-flex;
+  justify-content: center;
+  width: fit-content;
+  max-width: 100%;
+  margin-bottom: 2px;
+  padding: 2px 5px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  background: #ffffff;
+  font-family: monospace;
+  font-size: 0.48rem !important;
+  font-weight: 800 !important;
+  line-height: 1.2 !important;
+  text-align: center;
+}
+
+.cyclo-brain-architecture .host-tag { color: var(--arch-host) !important; }
+.cyclo-brain-architecture .main-tag { color: var(--arch-main) !important; }
+.cyclo-brain-architecture .engine-tag { color: var(--arch-engine) !important; }
+.cyclo-brain-architecture .robot-tag { color: var(--arch-robot) !important; }
+
+.cyclo-brain-architecture .host-source {
+  top: 40px;
+  left: 20px;
+  width: 38%;
+  bottom: 10px;
+}
+
+.cyclo-brain-architecture .host-command {
+  top: 40px;
+  right: 20px;
+  width: 38%;
+  bottom: 10px;
+}
+
+.cyclo-brain-architecture .main-service {
+  top: 54px;
+  left: 18px;
+  width: calc(50% - 26px);
+  height: 76px;
+}
+
+.cyclo-brain-architecture .main-session {
+  top: 54px;
+  right: 18px;
+  width: calc(50% - 26px);
+  height: 76px;
+}
+
+.cyclo-brain-architecture .main-requester {
+  top: 178px;
+  left: 18px;
+  right: 18px;
+  height: 88px;
+}
+
+.cyclo-brain-architecture .main-actions {
+  top: 325px;
+  left: 18px;
+  right: 18px;
+  height: 94px;
+}
+
+.cyclo-brain-architecture .main-loop {
+  bottom: 28px;
+  left: 18px;
+  width: calc(50% - 26px);
+  height: 78px;
+}
+
+.cyclo-brain-architecture .main-robot-client {
+  bottom: 28px;
+  right: 18px;
+  width: calc(50% - 26px);
+  height: 78px;
+}
+
+.cyclo-brain-architecture .engine-worker {
+  top: 54px;
+  left: 18px;
+  right: 18px;
+  height: 98px;
+}
+
+.cyclo-brain-architecture .engine-backend {
+  top: 210px;
+  left: 18px;
+  right: 18px;
+  height: 220px;
+}
+
+.cyclo-brain-architecture .engine-robot-client {
+  bottom: 28px;
+  left: 18px;
+  right: 18px;
+  height: 78px;
+}
+
+.cyclo-brain-architecture .robot-sensors {
+  top: 40px;
+  left: 20px;
+  width: calc(50% - 28px);
+  bottom: 10px;
+}
+
+.cyclo-brain-architecture .robot-command {
+  top: 40px;
+  right: 20px;
+  width: calc(50% - 28px);
+  bottom: 10px;
+}
+
+.cyclo-brain-architecture .subnode-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.cyclo-brain-architecture .subnode-grid span {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  min-height: 34px;
+  padding: 5px 6px;
+  border: 1px solid var(--arch-line);
+  border-radius: 6px;
+  background: #fbfdff;
+  color: var(--arch-muted);
+  font-size: 0.58rem;
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: center;
+}
+
+.cyclo-brain-architecture .backend-island {
+  position: absolute;
+  z-index: 3;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  height: 74px;
+  padding: 10px;
+  border-color: rgba(101, 84, 168, 0.5);
+}
+
+.cyclo-brain-architecture .backend-island span {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  min-height: 34px;
+  padding: 6px 8px;
+  border: 1px solid var(--arch-line);
+  border-radius: 6px;
+  background: #fbfdff;
+  color: var(--arch-muted);
+  font-size: 0.66rem;
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: center;
+}
+
+.cyclo-brain-architecture .backend-island .backend-label {
+  justify-items: start;
+  border-color: transparent;
+  background: transparent;
+  color: var(--arch-ink);
+  text-align: left;
+}
+
+.cyclo-brain-architecture .flow-label,
+.cyclo-brain-architecture .flow-marker {
+  position: absolute;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.cyclo-brain-architecture .flow-label {
+  display: inline-flex;
+  max-width: min(100%, 220px);
+  padding: 3px 8px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  background: var(--arch-paper);
+  font-family: monospace;
+  font-size: 0.55rem;
+  font-weight: 800;
+  line-height: 1.2;
+  text-align: center;
+  overflow-wrap: anywhere;
+  transform: translate(-50%, -50%);
+}
+
+.cyclo-brain-architecture .flow-marker {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  color: #ffffff;
+  font-family: monospace;
+  font-size: 0.66rem;
+  font-weight: 800;
+  line-height: 1;
+  transform: translate(-50%, -50%);
+}
+
+.cyclo-brain-architecture .command-flow { color: var(--arch-host); }
+.cyclo-brain-architecture .main-flow { color: var(--arch-main); }
+.cyclo-brain-architecture .engine-flow { color: var(--arch-engine); }
+.cyclo-brain-architecture .robot-flow { color: var(--arch-robot); }
+.cyclo-brain-architecture .backend-flow { color: var(--arch-backend); }
+.cyclo-brain-architecture .action-flow { color: var(--arch-action); }
+
+.cyclo-brain-architecture .command-marker { background: var(--arch-host); }
+.cyclo-brain-architecture .engine-marker { background: var(--arch-engine); }
+.cyclo-brain-architecture .robot-marker { background: var(--arch-robot); }
+.cyclo-brain-architecture .action-marker { background: var(--arch-action); }
+
+.cyclo-brain-architecture .label-service { left: 43%; top: 150px; }
+.cyclo-brain-architecture .label-engine { left: 50%; top: 392px; }
+.cyclo-brain-architecture .label-action-list { left: 50%; top: 552px; }
+.cyclo-brain-architecture .label-processed { left: 29%; top: 698px; }
+.cyclo-brain-architecture .label-tick { left: 34%; top: 840px; }
+.cyclo-brain-architecture .label-observation { left: 28%; top: 990px; }
+.cyclo-brain-architecture .label-observation-policy { left: 84%; top: 680px; }
+.cyclo-brain-architecture .label-command-out { left: 74%; top: 990px; }
+.cyclo-brain-architecture .label-backend { left: 67%; top: 860px; }
+.cyclo-brain-architecture .marker-1 { left: 42%; top: 168px; }
+.cyclo-brain-architecture .marker-2 { left: 51%; top: 415px; }
+.cyclo-brain-architecture .marker-3 { left: 39%; top: 990px; }
+.cyclo-brain-architecture .marker-4 { left: 50%; top: 586px; }
+.cyclo-brain-architecture .marker-5 { left: 64%; top: 990px; }
+
+.cyclo-brain-architecture .flow-list {
+  display: grid;
+  gap: 8px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: cyclo-flow;
+}
+
+.cyclo-brain-architecture .flow-list li {
+  position: relative;
+  min-height: 38px;
+  padding: 8px 10px 8px 40px;
+  border: 1px solid var(--arch-line);
+  border-radius: 6px;
+  background: var(--arch-paper);
+  color: var(--arch-muted);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  counter-increment: cyclo-flow;
+}
+
+.cyclo-brain-architecture .flow-list li::before {
+  content: counter(cyclo-flow);
+  position: absolute;
+  top: 9px;
+  left: 10px;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  background: var(--arch-main);
+  color: #ffffff;
+  font-family: monospace;
+  font-size: 0.68rem;
+  font-weight: 800;
+}
+
+.cyclo-brain-architecture .flow-list strong {
+  color: var(--arch-ink);
+}
+
+.cyclo-brain-architecture .flow-list code {
+  font-size: 0.72rem;
+}
+
+.cyclo-brain-architecture .architecture-footer {
+  margin: 10px 0 0;
+  color: var(--arch-muted);
+  font-size: 0.72rem;
+  line-height: 1.45;
+}
+
+@media (max-width: 720px) {
+  .cyclo-brain-architecture .diagram-stage {
+    height: 1750px;
+  }
+
+  .cyclo-brain-architecture .desktop-flow {
+    display: none;
+  }
+
+  .cyclo-brain-architecture .mobile-flow {
+    display: block;
+  }
+
+  .cyclo-brain-architecture .host-zone {
+    height: 250px;
+  }
+
+  .cyclo-brain-architecture .policy-zone {
+    top: 290px;
+    height: 1190px;
+  }
+
+  .cyclo-brain-architecture .robot-zone {
+    top: 1530px;
+    height: 220px;
+  }
+
+  .cyclo-brain-architecture .host-source,
+  .cyclo-brain-architecture .host-command,
+  .cyclo-brain-architecture .robot-sensors,
+  .cyclo-brain-architecture .robot-command {
+    left: 20px;
+    right: 20px;
+    width: auto;
+    bottom: auto;
+  }
+
+  .cyclo-brain-architecture .host-source { top: 44px; height: 84px; }
+  .cyclo-brain-architecture .host-command { top: 150px; height: 84px; }
+  .cyclo-brain-architecture .robot-sensors { top: 44px; height: 74px; }
+  .cyclo-brain-architecture .robot-command { top: 134px; height: 74px; }
+
+  .cyclo-brain-architecture .main-panel,
+  .cyclo-brain-architecture .engine-panel {
+    left: 16px;
+    right: 16px;
+    width: auto;
+  }
+
+  .cyclo-brain-architecture .main-panel {
+    top: 52px;
+    height: 525px;
+  }
+
+  .cyclo-brain-architecture .engine-panel {
+    top: 610px;
+    height: 395px;
+  }
+
+  .cyclo-brain-architecture .main-service,
+  .cyclo-brain-architecture .main-session,
+  .cyclo-brain-architecture .main-requester,
+  .cyclo-brain-architecture .main-actions,
+  .cyclo-brain-architecture .main-loop,
+  .cyclo-brain-architecture .main-robot-client,
+  .cyclo-brain-architecture .engine-worker,
+  .cyclo-brain-architecture .engine-backend,
+  .cyclo-brain-architecture .engine-robot-client {
+    left: 18px;
+    right: 18px;
+    width: auto;
+    bottom: auto;
+  }
+
+  .cyclo-brain-architecture .main-service { top: 48px; height: 62px; }
+  .cyclo-brain-architecture .main-session { top: 128px; height: 62px; }
+  .cyclo-brain-architecture .main-requester { top: 208px; height: 74px; }
+  .cyclo-brain-architecture .main-actions { top: 292px; height: 74px; }
+  .cyclo-brain-architecture .main-loop { top: 382px; height: 62px; }
+  .cyclo-brain-architecture .main-robot-client { top: 456px; height: 62px; }
+
+  .cyclo-brain-architecture .engine-worker { top: 48px; height: 76px; }
+  .cyclo-brain-architecture .engine-backend { top: 148px; height: 166px; }
+  .cyclo-brain-architecture .engine-robot-client { top: 330px; height: 64px; }
+
+  .cyclo-brain-architecture .subnode-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+  }
+
+  .cyclo-brain-architecture .subnode-grid span {
+    min-height: 24px;
+    padding: 3px 6px;
+  }
+
+  .cyclo-brain-architecture .backend-island {
+    height: 160px;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cyclo-brain-architecture .backend-island span {
+    min-height: 24px;
+  }
+
+  .cyclo-brain-architecture .label-service { left: 50%; top: 265px; }
+  .cyclo-brain-architecture .label-engine { left: 64%; top: 882px; }
+  .cyclo-brain-architecture .label-action-list { left: 36%; top: 882px; }
+  .cyclo-brain-architecture .label-processed,
+  .cyclo-brain-architecture .label-tick {
+    display: none;
+  }
+  .cyclo-brain-architecture .label-observation { left: 42%; top: 1518px; }
+  .cyclo-brain-architecture .label-observation-policy {
+    display: none;
+  }
+  .cyclo-brain-architecture .label-command-out { left: 72%; top: 1518px; }
+  .cyclo-brain-architecture .label-backend {
+    display: none;
+  }
+  .cyclo-brain-architecture .marker-1 { left: 58%; top: 314px; }
+  .cyclo-brain-architecture .marker-2 { left: 56%; top: 888px; }
+  .cyclo-brain-architecture .marker-3 { left: 34%; top: 1518px; }
+  .cyclo-brain-architecture .marker-4 {
+    display: none;
+  }
+  .cyclo-brain-architecture .marker-5 { left: 64%; top: 1518px; }
+}
+
+@media (max-width: 520px) {
+  .cyclo-brain-architecture {
+    padding: 12px;
+  }
+
+  .cyclo-brain-architecture .legend span {
+    white-space: normal;
+  }
+}
