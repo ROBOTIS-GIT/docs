@@ -6,20 +6,7 @@ import dynamixelEasySdkSidebar from './sidebars/dynamixelEasySdk';
 import dynamixelSdkSidebar from './sidebars/dynamixelSdk';
 import dynamixelWizardSidebar from './sidebars/dynamixelWizard';
 import dynamixelWorkbenchSidebar from './sidebars/dynamixelWorkbench';
-import {
-  allModelsSidebar,
-  axSeriesSidebar,
-  dxSeriesSidebar,
-  dydSidebar,
-  exSeriesSidebar,
-  mxSeriesSidebar,
-  pSeriesSidebar,
-  proSeriesSidebar,
-  protocolSidebar,
-  rxSeriesSidebar,
-  xSeriesSidebar,
-  ySeriesSidebar,
-} from './sidebars/dxl';
+import {dxlSidebar, protocolSidebar} from './sidebars/dxl';
 import eduSidebar from './sidebars/edu';
 import faqSidebar from './sidebars/faq';
 import hx5d20Sidebar from './sidebars/hx5d20';
@@ -42,17 +29,7 @@ import thormang3Sidebar from './sidebars/thormang3';
 import turtlebot3Sidebar from './sidebars/turtlebot3';
 
 const sidebars: SidebarsConfig = {
-  allModelsSidebar,
-  ySeriesSidebar,
-  pSeriesSidebar,
-  xSeriesSidebar,
-  dydSidebar,
-  mxSeriesSidebar,
-  axSeriesSidebar,
-  exSeriesSidebar,
-  dxSeriesSidebar,
-  rxSeriesSidebar,
-  proSeriesSidebar,
+  dxlSidebar,
   protocolSidebar,
   aiworkerSidebar,
   aisapiensSidebar,

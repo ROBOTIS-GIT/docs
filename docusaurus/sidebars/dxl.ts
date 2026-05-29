@@ -1,7 +1,9 @@
 import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
 
 const doc = (id: string, label: string) => ({type: 'doc' as const, id, label});
-const ySeriesSidebar: SidebarsConfig[string] = [
+
+const dxlSidebar: SidebarsConfig[string] = [
+  doc('dxl/model_reference/model_reference', 'All Models'),
   {
     type: 'category',
     label: 'Y Series',
@@ -22,9 +24,6 @@ const ySeriesSidebar: SidebarsConfig[string] = [
       doc('dxl/model_reference/y_series/ym080-230-r099-rh', 'YM080-230-R099-RH'),
     ],
   },
-];
-
-const pSeriesSidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'P Series',
@@ -39,9 +38,6 @@ const pSeriesSidebar: SidebarsConfig[string] = [
       doc('dxl/model_reference/p_series/pm54-060-s250-r', 'PM54-060-S250-R'),
     ],
   },
-];
-
-const xSeriesSidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'X Series',
@@ -90,9 +86,17 @@ const xSeriesSidebar: SidebarsConfig[string] = [
       doc('dxl/model_reference/x_series/xw540-t260', 'XW540-T260-R'),
     ],
   },
-];
-
-const mxSeriesSidebar: SidebarsConfig[string] = [
+  {
+    type: 'category',
+    label: 'DYD',
+    link: {type: 'doc', id: 'dxl/model_reference/dyd/dyd'},
+    collapsed: true,
+    items: [
+      doc('dxl/model_reference/dyd/dyd_11', 'DYD-11'),
+      doc('dxl/model_reference/dyd/dyd_14', 'DYD-14'),
+      doc('dxl/model_reference/dyd/dyd_17', 'DYD-17'),
+    ],
+  },
   {
     type: 'category',
     label: 'MX Series',
@@ -108,9 +112,6 @@ const mxSeriesSidebar: SidebarsConfig[string] = [
       doc('dxl/model_reference/mx_series/mx-106-2', 'MX-106T/R(2.0)'),
     ],
   },
-];
-
-const axSeriesSidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'AX Series',
@@ -122,9 +123,6 @@ const axSeriesSidebar: SidebarsConfig[string] = [
       doc('dxl/model_reference/ax_series/ax-18a', 'AX-18A'),
     ],
   },
-];
-
-const exSeriesSidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'EX Series',
@@ -134,9 +132,6 @@ const exSeriesSidebar: SidebarsConfig[string] = [
       doc('dxl/model_reference/ex_series/ex-106+', 'EX-106+'),
     ],
   },
-];
-
-const dxSeriesSidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'DX Series',
@@ -148,9 +143,6 @@ const dxSeriesSidebar: SidebarsConfig[string] = [
       doc('dxl/model_reference/dx_series/dx-117', 'DX-117'),
     ],
   },
-];
-
-const rxSeriesSidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'RX Series',
@@ -163,9 +155,6 @@ const rxSeriesSidebar: SidebarsConfig[string] = [
       doc('dxl/model_reference/rx_series/rx-64', 'RX-64'),
     ],
   },
-];
-
-const proSeriesSidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'PRO Series',
@@ -196,41 +185,10 @@ const proSeriesSidebar: SidebarsConfig[string] = [
   },
 ];
 
-const dydSidebar: SidebarsConfig[string] = [
-  {
-    type: 'category',
-    label: 'DYD',
-    link: {type: 'doc', id: 'dxl/model_reference/dyd/dyd'},
-    collapsed: true,
-    items: [
-      doc('dxl/model_reference/dyd/dyd_11', 'DYD-11'),
-      doc('dxl/model_reference/dyd/dyd_14', 'DYD-14'),
-      doc('dxl/model_reference/dyd/dyd_17', 'DYD-17'),
-    ],
-  },
-];
-
 const protocolSidebar: SidebarsConfig[string] = [
   doc('dxl/protocol/protocol1', 'DYNAMIXEL Protocol 1.0'),
   doc('dxl/protocol/protocol2', 'DYNAMIXEL Protocol 2.0'),
   doc('dxl/protocol/crc', 'CRC Calculation'),
 ];
 
-const allModelsSidebar: SidebarsConfig[string] = [
-  doc('dxl/model_reference/model_reference', 'All Models'),
-];
-
-export {
-  ySeriesSidebar,
-  pSeriesSidebar,
-  xSeriesSidebar,
-  dydSidebar,
-  mxSeriesSidebar,
-  axSeriesSidebar,
-  exSeriesSidebar,
-  dxSeriesSidebar,
-  rxSeriesSidebar,
-  proSeriesSidebar,
-  protocolSidebar,
-  allModelsSidebar,
-};
+export {dxlSidebar, protocolSidebar};
