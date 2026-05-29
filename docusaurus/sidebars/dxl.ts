@@ -196,6 +196,20 @@ const proSeriesSidebar: SidebarsConfig[string] = [
   },
 ];
 
+const dydSidebar: SidebarsConfig[string] = [
+  {
+    type: 'category',
+    label: 'DYD',
+    link: {type: 'doc', id: 'dxl/model_reference/dyd/dyd'},
+    collapsed: true,
+    items: [
+      doc('dxl/model_reference/dyd/dyd_11', 'DYD-11'),
+      doc('dxl/model_reference/dyd/dyd_14', 'DYD-14'),
+      doc('dxl/model_reference/dyd/dyd_17', 'DYD-17'),
+    ],
+  },
+];
+
 const protocolSidebar: SidebarsConfig[string] = [
   doc('dxl/protocol/protocol1', 'DYNAMIXEL Protocol 1.0'),
   doc('dxl/protocol/protocol2', 'DYNAMIXEL Protocol 2.0'),
@@ -210,6 +224,7 @@ export {
   ySeriesSidebar,
   pSeriesSidebar,
   xSeriesSidebar,
+  dydSidebar,
   mxSeriesSidebar,
   axSeriesSidebar,
   exSeriesSidebar,

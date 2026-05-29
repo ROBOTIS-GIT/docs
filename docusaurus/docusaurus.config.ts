@@ -135,6 +135,10 @@ const config: Config = {
                           <div class="mega-menu__product-thumb"><img src="/img/mega-menu/x-series.webp" alt="X Series" /></div>
                           <span>X Series</span>
                         </a>
+                        <a class="mega-menu__product" href="/docs/dxl/model_reference/dyd/">
+                          <div class="mega-menu__product-thumb"><img src="/img/mega-menu/dyd.webp" alt="DYD" /></div>
+                          <span>DYD</span>
+                        </a>
                         <a class="mega-menu__product" href="/docs/dxl/model_reference/mx_series/">
                           <div class="mega-menu__product-thumb"><img src="/img/mega-menu/mx-series.webp" alt="MX Series" /></div>
                           <span>MX Series</span>
