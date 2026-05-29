@@ -524,10 +524,70 @@ const config: Config = {
           ],
         },
         {
-          type: 'docSidebar',
-          sidebarId: 'faqSidebar',
-          position: 'left',
+          type: 'dropdown',
           label: 'FAQ',
+          position: 'left',
+          className: 'mega-menu-trigger',
+          items: [
+            {
+              type: 'html',
+              className: 'mega-menu-wrapper',
+              value: `
+                <div class="mega-menu">
+                  <div class="mega-menu__left">
+                    <div class="mega-menu__category" data-cat="faq-by-topic" tabindex="0">
+                      <h4>FAQ by Topic</h4>
+                      <p>Answers by product category</p>
+                    </div>
+                    <div class="mega-menu__category" data-cat="faq-guides" tabindex="0">
+                      <h4>Guides</h4>
+                      <p>Reference guides and how-tos</p>
+                    </div>
+                  </div>
+                  <div class="mega-menu__right">
+                    <div class="mega-menu__panel" data-panel="faq-by-topic">
+                      <div class="mega-menu__list">
+                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/faq/faq_dynamixel">
+                          <span>DYNAMIXEL</span>
+                        </a>
+                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/faq/faq_platform">
+                          <span>DYNAMIXEL System</span>
+                        </a>
+                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/faq/faq_steam">
+                          <span>Education Kits</span>
+                        </a>
+                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/faq/faq_software">
+                          <span>Software</span>
+                        </a>
+                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/faq/faq_parts">
+                          <span>Parts</span>
+                        </a>
+                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/faq/faq_general">
+                          <span>General</span>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="mega-menu__panel" data-panel="faq-guides">
+                      <div class="mega-menu__list">
+                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/faq/dxl-selection-guide">
+                          <span>DYNAMIXEL Selection Guide</span>
+                        </a>
+                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/faq/download_task_code">
+                          <span>Download Task Code</span>
+                        </a>
+                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/faq/cm_510_530_fuse">
+                          <span>CM-510/530 Fuse Replacement</span>
+                        </a>
+                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/faq/op">
+                          <span>DARWIN-OP FAQ</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              `,
+            },
+          ],
         },
         {
           to: '/docs/common/ecosystem',
