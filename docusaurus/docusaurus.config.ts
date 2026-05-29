@@ -220,9 +220,9 @@ const config: Config = {
                           <div class="mega-menu__product-thumb"><img src="/img/mega-menu/ai-sapiens.webp" alt="AI Sapiens" /></div>
                           <span>AI Sapiens</span>
                         </a>
-                        <a class="mega-menu__product" href="/docs/systems/op/getting_started">
-                          <div class="mega-menu__product-thumb"><img src="/img/mega-menu/robotos-op.webp" alt="ROBOTIS OP" /></div>
-                          <span>ROBOTIS OP</span>
+                        <a class="mega-menu__product" href="/docs/systems/op3/introduction">
+                          <div class="mega-menu__product-thumb"><img src="/img/systems/op3/op3_product.webp" alt="ROBOTIS OP3" /></div>
+                          <span>ROBOTIS OP3</span>
                         </a>
                         <a class="mega-menu__product" href="/docs/systems/thormang3/introduction">
                           <div class="mega-menu__product-thumb"><img src="/img/mega-menu/thormang3.webp" alt="THORMANG3" /></div>
@@ -476,10 +476,52 @@ const config: Config = {
           ],
         },
         {
-          type: 'docSidebar',
-          sidebarId: 'eduSidebar',
-          position: 'left',
+          type: 'dropdown',
           label: 'Edu',
+          position: 'left',
+          className: 'mega-menu-trigger',
+          items: [
+            {
+              type: 'html',
+              className: 'mega-menu-wrapper',
+              value: `
+                <div class="mega-menu">
+                  <div class="mega-menu__left">
+                    <div class="mega-menu__category" data-cat="edu-bioloid" tabindex="0">
+                      <h4>Bioloid</h4>
+                      <p>Modular robotics education kits</p>
+                    </div>
+                    <div class="mega-menu__category" data-cat="edu-engineer" tabindex="0">
+                      <h4>Engineer</h4>
+                      <p>AI-based robotics education kits</p>
+                    </div>
+                  </div>
+                  <div class="mega-menu__right">
+                    <div class="mega-menu__panel" data-panel="edu-bioloid">
+                      <div class="mega-menu__grid">
+                        <a class="mega-menu__product" href="/docs/edu/bioloid/premium">
+                          <div class="mega-menu__product-thumb"><img src="/img/edu/bioloid/premium_product.webp" alt="ROBOTIS Premium" /></div>
+                          <span>ROBOTIS Premium</span>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="mega-menu__panel" data-panel="edu-engineer">
+                      <div class="mega-menu__grid">
+                        <a class="mega-menu__product" href="/docs/edu/engineer/kit1">
+                          <div class="mega-menu__product-thumb"><img src="/img/edu/engineer/kit1/2xl430_intro.webp" alt="Engineer Kit 1" /></div>
+                          <span>Engineer Kit 1</span>
+                        </a>
+                        <a class="mega-menu__product" href="/docs/edu/engineer/kit2_introduction">
+                          <div class="mega-menu__product-thumb"><img src="/img/edu/engineer/kit2/kit2_main.webp" alt="Engineer Kit 2" /></div>
+                          <span>Engineer Kit 2</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              `,
+            },
+          ],
         },
         {
           type: 'docSidebar',
