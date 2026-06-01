@@ -156,9 +156,8 @@ If the controller's firmware version is older than that of RoboPlus Manager, it 
 - Search speed is slower because it searches for DYNAMIXEL connected at different communication speeds.
 - The DYNAMIXEL that are not connected at 1Mbps are automatically adjusted to 1Mbps.  
  
-**NOTE** : If a DYNAMIXEL is no longer detected after a detailed search, there might be an ID duplication. In this case, connect only the undetected device, and change its ID to an unused one. (Refer to the [Change ID of DYNAMIXEL].)
+**NOTE** : If a DYNAMIXEL is no longer detected after a detailed search, there might be an ID duplication. In this case, connect only the undetected device, and change its ID to an unused one. (Refer to the Change ID of DYNAMIXEL.)
 
-[Change ID of DYNAMIXEL]: https://emanual.robotis.com/docs/en/edu/bioloid/beginner/#dynamixel-management
 
 #### Aux LED
 
@@ -439,7 +438,7 @@ In the program as shown below, users can set up and test DYNAMIXEL.
 ### ID Setup
 
 Each DYNAMIXEL has its own ID, and the controller manages each DYNAMIXEL using its ID.  This parameter is used to manage DYNAMIXEL ID.  
-(Please refer to [DYNAMIXEL Management] for more information about changing ID)
+(Please refer to DYNAMIXEL Management for more information about changing ID)
 
 #### Characteristics
 
@@ -451,7 +450,7 @@ Each DYNAMIXEL has its own ID, and the controller manages each DYNAMIXEL using i
 ### Position Limit and Mode
 
 This parameter is used to limit the position of the actuator or to set the movement mode.  
-(Please refer to [Changing the Movement Mode] for more information about changing Movement Mode)
+(Please refer to Changing the Movement Mode for more information about changing Movement Mode)
 
 #### Characteristics
 
@@ -984,7 +983,7 @@ For `IR Sensor Array` Determine set values for black and white for the IR array.
 
 Follow these steps to manage the Zig-100 module through RoboPlus Manager using Zig2Serial.
 
-1. Attach Zig-100 to Zig2Serial and connect Zig2Serial to the PC's serial port.(Please refer to [ZIG2Serial] for connection)  
+1. Attach Zig-100 to Zig2Serial and connect Zig2Serial to the PC's serial port.(Please refer to ZIG2Serial for connection)  
     If your PC does not have a serial port, you may use USB2DYNAMIXEL, as in the picture below.
 
     ![](/img/software/rplus1/manager/roboplus_manager_024.png)
@@ -1018,16 +1017,13 @@ Follow these steps to manage the Zig-100 module through RoboPlus Manager using Z
 
 [Video](https://www.youtube.com/watch?v=YgebCObXJZg)
 
-[ZIG2Serial]: https://emanual.robotis.com/docs/en/parts/communication/zig2serial/
 [RoboPlus]: http://en.robotis.com/BlueAD/board.php?bbs_id=downloads
 [Microsoft Download Center]: http://www.microsoft.com/downloads/Search.aspx?displaylang=en
 [Windows installer 3.1]: http://www.microsoft.com/downloads/details.aspx?FamilyID=889482fc-5f56-4a38-b838-de776fd4138c&DisplayLang=en
 [.NET Framework 3.5]: http://www.microsoft.com/downloads/details.aspx?FamilyID=d0e5dea7-ac26-4ad7-b68c-fe5076bba986&DisplayLang=en
 [managing information of each controller]: /docs/software/rplus_1_0/rplus_manager#controllers
-[controller information]: https://emanual.robotis.com/docs/en/parts/controller/controller_compatibility/
+[controller information]: /docs/parts/controller/controller_compatibility
 [ID Setup]: /docs/software/rplus_1_0/rplus_manager#id-setup
-[DYNAMIXEL Management]: https://emanual.robotis.com/docs/en/edu/bioloid/beginner/#dynamixel-management
-[Changing the Movement Mode]: https://emanual.robotis.com/docs/en/edu/bioloid/beginner/#dynamixel-management
 [Temperature]: /docs/software/rplus_1_0/rplus_task/programming_02#temperature
 [Voltage]: /docs/software/rplus_1_0/rplus_task/programming_02#voltage
 [Torque Enable]: /docs/software/rplus_1_0/rplus_task/programming_02#torque-enable

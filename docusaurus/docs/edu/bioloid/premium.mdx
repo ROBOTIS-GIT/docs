@@ -201,9 +201,9 @@ Point towards the IR receiver and try again.
 Check if there are others controlling robots nearby, which may cause wireless interferences.
 
 ##### We want to play soccer or battle with several robots.
-- In order to play a game with several users, you must install the [ZIG-110] set.
-- [ZIG-110] set is available at the Robotis shopping mall.
-- Please refer to [Controller] and [RC-100] for installation information.
+- In order to play a game with several users, you must install the ZIG-110 set.
+- ZIG-110 set is available at the Robotis shopping mall.
+- Please refer to Controller and [RC-100] for installation information.
 
 #### Demo Mode
 
@@ -384,7 +384,7 @@ Download the task code created above.([How to Download Task Code])
 
     ![Screen-Output-1][img_011]
 
-[How to Download Task Code]: https://emanual.robotis.com/docs/en/software/rplus1/task/getting_started#program-download
+[How to Download Task Code]: /docs/software/rplus_1_0/rplus_task/getting_started#program-download
 [img_011]: /img/edu/bioloid/bioloid_entry_tutorial_printscr_01.webp
 [img_012]: /img/edu/bioloid/bioloid_entry_tutorial_printscr_02.webp
 [img_013]: /img/edu/bioloid/bioloid_entry_tutorial_printscr_03.webp
@@ -517,12 +517,12 @@ A Gyro sensor is used to determine angular velocity (angular variation per secon
   A humanoid with a gyro uses the [Callback Function] to determin the posture adjustment value.
   The callback function is a function that runs independently of the main program routine and is automatically executed at  fixed intervals. Therefore, by calculating the adjustment value  and using the value in a callback function to adjust the posture at regular intervals, the robot can adjust its posture automatically.
 
-[Callback Function]: https://emanual.robotis.com/docs/en/software/rplus1/task/programming_01#callback-function
+[Callback Function]: /docs/software/rplus_1_0/rplus_task/programming_01#callback-function
 - [Joint Offset]
 
   The joint off set is added to the adjustment value from the gyro sensor before being used to adjust the humanoid’s posture. (More information on [Joint Offset]) This is a parameter that gives an offset to the specific actuator’s joint position value. Thus, the actuator with joint offset execute their motions using the position value + joint offset value, which are designated in the motion file.
 
-[Joint Offset]: https://emanual.robotis.com/docs/en/software/rplus1/task/programming_02#joint-offset
+[Joint Offset]: /docs/software/rplus_1_0/rplus_task/programming_02#joint-offset
 ### Task Code Overview
 
 1. `InitializationGyro` Call Function
@@ -577,7 +577,7 @@ Let’s learn how to add 4 motions below using the RoboPlus Motion program.
 
 ### Make a motion to block a ball on the right
 
-1. Execute RoboPlus Motion, then connect it to the controller(Please refer to [Connect Robot](https://emanual.robotis.com/docs/en/software/rplus1/motion#connect-to-robot))
+1. Execute RoboPlus Motion, then connect it to the controller(Please refer to [Connect Robot](/docs/software/rplus_1_0/rplus_motion#connect-to-robot))
 
   ![](/img/edu/bioloid/premium_tutorial_26.webp)
 
@@ -595,7 +595,7 @@ Let’s learn how to add 4 motions below using the RoboPlus Motion program.
 
   ![](/img/edu/bioloid/premium_tutorial_30.webp)
 
-5. You can adjust the pause and play durations. (Please refer for more information about [STEP STOP/PLAY](https://emanual.robotis.com/docs/en/software/rplus1/motion#pause))
+5. You can adjust the pause and play durations. (Please refer for more information about [STEP STOP/PLAY](/docs/software/rplus_1_0/rplus_motion#pause))
 
   ![](/img/edu/bioloid/premium_tutorial_31.webp)
 
@@ -607,7 +607,7 @@ Let’s learn how to add 4 motions below using the RoboPlus Motion program.
 
   ![](/img/edu/bioloid/premium_tutorial_33.webp)
 
-8. Additional settings ([Number of Repeats, Play Speed, etc](https://emanual.robotis.com/docs/en/software/rplus1/motion#set-page-repeattime))
+8. Additional settings ([Number of Repeats, Play Speed, etc](/docs/software/rplus_1_0/rplus_motion#set-page-repeattime))
 
   You can also set the number of repeats, entire speed, etc. for each page.
 
@@ -658,7 +658,7 @@ Code to execute user-defined motions has been added to the task code written in 
 2. If the motion added by the user does not require the gyro sensor to maintain posture, you must turn off the gyro sensor adjustment to prevent motion variation due to the offset. Set the `UseGyro` variable as FALSE.  Then call the `EXITPageWaitMotion` function and wait for the robot to come to a complete stop.
 3. The `Getting Up` motions added in motion pages 27 and 28 can be played just once. Thus, execute the motion, and wait for the motion to finish before executing another motion.
 4. The `Block Ball` motions added in motion page 14 and 16 are endlessly repeating motions. Thus, in order to end the motion, an EXIT page is needed.  Using the `WAIT WHILE` command so that if the button is not pressed and held, the `EXITPageWaitMotion` function will execute the EXIT to end the motion
-(For more information, please refer to the [Motion Page](https://emanual.robotis.com/docs/en/software/rplus1/task/programming_02#motion-page)).
+(For more information, please refer to the [Motion Page](/docs/software/rplus_1_0/rplus_task/programming_02#motion-page)).
 5. After the user's motion ends, set the `UseGyro` variable back to TRUE to restore gyro adjustment.
 
 ## Gripper Control
@@ -1079,7 +1079,7 @@ If the problem persists, your dynamixel may need repair. Please contact the serv
 
 ### Controller & ZIGBee
 
-OLLO and Bioloid both use the RC-100, which uses IR communication method. To upgrade to the Zigbee communication method, you must purchase the  ZIG-110 set separately. The ZIG-110 set includes one Zig-100 module, which is attached to the [RC-100], and one Zig-110 module which is attached to the [Controller].
+OLLO and Bioloid both use the RC-100, which uses IR communication method. To upgrade to the Zigbee communication method, you must purchase the  ZIG-110 set separately. The ZIG-110 set includes one Zig-100 module, which is attached to the [RC-100], and one Zig-110 module which is attached to the Controller.
 
 
 :::note
@@ -1098,7 +1098,6 @@ OLLO and Bioloid both use the RC-100, which uses IR communication method. To upg
 |![Zig-110_CM-510][Zig-110_CM-510]|![Zig-100_CM-5][Zig-100_CM-5]|
 
 
-[Controller]: https://emanual.robotis.com/docs/en/parts/controller/compatibility/
 [Zig-100_RC-100]: /img/parts/communication/rc_100_zig_100.webp
 [Zig-110_CM-100]: /img/parts/communication/cm_100_zig_110.webp
 [Zig-110_CM-510]: /img/parts/communication/cm_510_zig_110.webp
@@ -1206,7 +1205,7 @@ For more information on each sensors, please click on the names of the sensors.
   - The IR sensor can detects objects in front of the robot.
   - It can also be used to detect object on the side when walking or moving.
 
-[More information](https://emanual.robotis.com/docs/en/software/rplus1/task/programming_02#ir-sensor)
+[More information](/docs/software/rplus_1_0/rplus_task/programming_02#ir-sensor)
 
 ### Touch Sensor
 
@@ -1216,7 +1215,7 @@ For more information on each sensors, please click on the names of the sensors.
   - The touch sensor enables the robot to feel when it has been touched.
   - For example, the sensor can be used to make the robot react to certain touches.
 
-[More information](https://emanual.robotis.com/docs/en/software/rplus1/task/programming_02#touch-sensor)
+[More information](/docs/software/rplus_1_0/rplus_task/programming_02#touch-sensor)
 
 ## Make Your Own Sensor
 You can make your own sensor with simple control functions using the ADC port and OUT port on CM-510/CM-530.
@@ -1321,9 +1320,8 @@ AX-12+ #9 was used for the right gripper and AX-12+ #10 was used for the left.
 [AX-12A]: /docs/dxl/model_reference/ax_series/ax-12a
 
 
-[ZIG-110]: https://emanual.robotis.com/docs/en/parts/communication/zig-100_110/
 [How to Download of task code]: /docs/faq/download_task_code
-[How to Download motion file]: https://emanual.robotis.com/docs/en/software/rplus1/motion#download-motion
+[How to Download motion file]: /docs/software/rplus_1_0/rplus_motion#download-motion
 [premium_file_01]: http://www.robotis.com/download/doc/BIO_PRM_Humanoid_ASM.pdf
 [premium_file_02]: https://robotis.s3.ap-northeast-2.amazonaws.com/support/en/baggage_files/bioloid/bio_prm_humanoidtypea_en.tsk
 [premium_file_03]: https://robotis.s3.ap-northeast-2.amazonaws.com/support/en/baggage_files/bioloid/bio_prm_humanoidtypea_en.mtn

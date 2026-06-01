@@ -10,8 +10,8 @@ The main roles of the program are as follows:
 
 # Connecting Dynamixel
 
-1. Connect Dynamixel to PC through [USB2DYNAMIXEL].
-  - Please refer to [USB2DYNAMIXEL] for how to connect.
+1. Connect Dynamixel to PC through USB2DYNAMIXEL.
+  - Please refer to USB2DYNAMIXEL for how to connect.
   - The appropriate power cable for Dynamixel must be connected separately.
  
 2. Select the communication port.  
@@ -203,4 +203,3 @@ If during gear replacement the horn’s position becomes misaligned position can
 
 [Video](https://www.youtube.com/watch?v=mAm_9C1MoAs)
 
-[USB2DYNAMIXEL]: https://emanual.robotis.com/docs/en/parts/interface/usb2dynamixel/

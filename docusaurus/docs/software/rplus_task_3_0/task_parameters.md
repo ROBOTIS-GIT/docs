@@ -77,21 +77,21 @@ The following is an example of controlling the LED module.
 
 ##### Touch Sensor
 Detects whether there is contact with the touch sensor. (Returns True for contact, False for no contact)
-- [Touch Sensor Component Information]
+- Touch Sensor Component Information
 - The following is an example of using the touch sensor.
 
   ![](/img/software/rplus_task3/task3_079.png)
 
 ##### Infrared Sensor
 Measures the distance to the object (The value ranges from 0 to 1023, where the value increases from 0 as the object gets closer.)
-- [Infrared Sensor Component Information]
+- Infrared Sensor Component Information
 - The following is an example of using the infrared sensor.
 
   ![](/img/software/rplus_task3/task3_080.png)
 
 ##### Distance Measurement Sensor
 Measures the distance to the object (The value ranges from 0 to 1023, where the value increases from 0 as the object gets closer.)
-- [Distance Measurement Sensor Component Information]
+- Distance Measurement Sensor Component Information
 - The following is an example of using the distance measurement sensor.
 
   ![](/img/software/rplus_task3/task3_081.png)
@@ -102,28 +102,28 @@ Detects the color of an object.
 
   ![](/img/software/rplus_task3/task3_082.png)
 
-- [Color Sensor Component Information]
+- Color Sensor Component Information
 - The following is an example of using the color sensor.
 
   ![](/img/software/rplus_task3/task3_083.png)
 
 ##### Magnetic Sensor
 Detects magnetic materials near the sensor head (Returns True when magnetic property detected, False when not detected).
-- [Magnetic Sensor Component Information]
+- Magnetic Sensor Component Information
 - The following is an example of using the magnetic sensor.
 
   ![](/img/software/rplus_task3/task3_084.png)
 
 ##### Temperature Sensor
 Measures the temperature of an object (Temperature Range : -20 ~ 120 &deg;C)
-- [Temperature Sensor Component Information]
+- Temperature Sensor Component Information
 - The following is an example of using the temperature sensor.
 
   ![](/img/software/rplus_task3/task3_085.png)
 
 ##### Motion Detection (Passive infrared) Sensor
 Detects the motion of an object.
-- [Motion Detecting Sensor Component Information]
+- Motion Detecting Sensor Component Information
 - The following is an example of using the motion detection sensor.
 
   ![](/img/software/rplus_task3/task3_086.png)
@@ -150,7 +150,7 @@ Reads the output value of the user-created sensor.
 ### Motion Control
 
 - This section describes specific parameters for executing motions downloaded on controller via R+ Motion.
-- Only specific controllers support motion control. (Supported controllers : [CM-200], [CM-5], [CM-510], [CM-530], [CM-550], [CM-700], [OpenCM 9.04])
+- Only specific controllers support motion control. (Supported controllers : CM-200, CM-5, CM-510, [CM-530], [CM-550], CM-700, OpenCM 9.04)
 
 ![](/img/software/rplus_task3/motion_control_tab_menu.png)
 
@@ -213,7 +213,7 @@ This option allows to access various sensors and features built in the controlle
 
 #### Start Button Counter
 Reads the number of `START` button click while the Controller is turning on. The value of the `Start Button Counter` ranges from 0 to 255.  
-Supported Controllers : [CM-5], [CM-50], [CM-100A], [CM-150], [CM-200], [CM-510], [CM-530], [CM-700], [OpenCM 7.0], [OpenCM 9.04]
+Supported Controllers : CM-5, CM-50, CM-100A, CM-150, CM-200, CM-510, [CM-530], CM-700, OpenCM 7.0, OpenCM 9.04
 
 The following is an example of using the Start button counter.
 
@@ -223,7 +223,7 @@ The following is an example of using the Start button counter.
 
 Reads the status of the Controller’s buttons. Each Controller may have different buttons that can be used.
 
-Supported Controllers : [CM-5], [CM-50], [CM-100A], [CM-150], [CM-200], [CM-510], [CM-530], [CM-550], [CM-700], [OpenCM 7.0], [OpenCM 9.04]
+Supported Controllers : CM-5, CM-50, CM-100A, CM-150, CM-200, CM-510, [CM-530], [CM-550], CM-700, OpenCM 7.0, OpenCM 9.04
 
 The following is an example of using buttons for CM-5, CM-510, CM-530.
 
@@ -245,7 +245,7 @@ Button Pressed Timer counts up in second while pressing the button of CM-550.
 #### Detected Clap Count
 This function uses the Controller’s embedded mic to save the detected clap count. If you want to reset the counter, write `0` to the address.
 
-Supported Controllers : [CM-5], [CM-50], [CM-100A], [CM-150], [CM-200], [CM-510], [CM-530], [CM-550], [CM-700], [OpenCM 7.0], [OpenCM 9.04]
+Supported Controllers : CM-5, CM-50, CM-100A, CM-150, CM-200, CM-510, [CM-530], [CM-550], CM-700, OpenCM 7.0, OpenCM 9.04
 
 The following is an example of using the Detected Clap Count.
 
@@ -262,7 +262,7 @@ The following is an example of using the Clap Counter.
 
 - This function is used to read the value of the infrared sensor embedded in the Controller.
 - The value of the infrared sensor ranges from 0 to 1023, where the value increases from 0 as the object gets closer.
-- Each Controller model supports different types of sensors. Please refer to each Controller’s manual for more detail. (Supported Controllers : [CM-5], [CM-50], [CM-100A], [CM-150], [CM-200])
+- Each Controller model supports different types of sensors. Please refer to each Controller’s manual for more detail. (Supported Controllers : CM-5, CM-50, CM-100A, CM-150, CM-200)
 
 The following is an example of using the values of the infrared sensors of the Controller.
 
@@ -507,12 +507,12 @@ The `Speed Value` control can be used to designate the rotation direction and po
 
 #### Profile Acceleration
 Read or write the Profile Acceleration of DYNAMIXEL-X series.  
-Please refer to [Profile Acceleration(108)](https://emanual.robotis.com/docs/en/dxl/x/xm430-w210/#profile-acceleration).  
+Please refer to [Profile Acceleration(108)](/docs/dxl/model_reference/x_series/xm430-w210#profile-acceleration).  
 ![](/img/software/rplus_task3/task3_214.png)
 
 #### Profile Velocity
 Configure the maximum velocity of the profile when DYNAMIXEL-X series is running under Position Control mode or Extended Position Control mode.  
-Please refer to [Profile Velocity(112)](https://emanual.robotis.com/docs/en/dxl/x/xm430-w210/#profile-velocity).  
+Please refer to [Profile Velocity(112)](/docs/dxl/model_reference/x_series/xm430-w210#profile-velocity).  
 ![](/img/software/rplus_task3/task3_215.png)
 
 #### Goal Current / Goal Torque
@@ -544,7 +544,7 @@ Identify if DYNAMIXEL is in motion. Returns True while in motion.
 ![](/img/software/rplus_task3/task3_213.png)
 
 ### SyncWrite
-CM-550 supports [Protocol 2.0 - SyncWrite](https://emanual.robotis.com/docs/en/dxl/protocol2/#sync-write).
+CM-550 supports [Protocol 2.0 - SyncWrite](/docs/dxl/protocol/protocol2#sync-write).
 
 #### SyncWrite Command
 Use SyncWrite Command to build and transmit the packet. Please refer below table for details.
@@ -945,23 +945,7 @@ If motion project is opened and avilable, the motion will be listed in this sect
 Motion List menu will not be shown if motion example is not opened.  
 ![](/img/software/rplus_task3/task3_218.png)
 
-[Controller Compatibility]: https://emanual.robotis.com/docs/en/parts/controller/controller_compatibility/
-[Touch Sensor Component Information]: https://emanual.robotis.com/docs/en/parts/sensor/ts-10/
-[Infrared Sensor Component Information]: https://emanual.robotis.com/docs/en/parts/sensor/irss-10/
-[Color Sensor Component Information]: https://emanual.robotis.com/docs/en/parts/sensor/cs-10/
-[Magnetic Sensor Component Information]: https://emanual.robotis.com/docs/en/parts/sensor/mgss-10/
-[Temperature Sensor Component Information]: https://emanual.robotis.com/docs/en/parts/sensor/tps-10/
-[Distance Measurement Sensor Component Information]: https://emanual.robotis.com/docs/en/parts/sensor/dms-80/
-[Motion Detecting Sensor Component Information]: https://emanual.robotis.com/docs/en/parts/sensor/pir-10/
-[Building a User Device]: https://emanual.robotis.com/docs/en/edu/bioloid/premium/#make-your-own-sensor
-[CM-50]: https://emanual.robotis.com/docs/en/parts/controller/cm-100/
-[CM-100A]: https://emanual.robotis.com/docs/en/parts/controller/cm-100/
-[CM-150]: https://emanual.robotis.com/docs/en/parts/controller/cm-150/
-[CM-200]: https://emanual.robotis.com/docs/en/parts/controller/cm-200/
-[CM-5]: https://emanual.robotis.com/docs/en/parts/controller/cm-5/
-[CM-510]: https://emanual.robotis.com/docs/en/parts/controller/cm-510/
-[CM-530]: https://emanual.robotis.com/docs/en/parts/controller/cm-530/
-[CM-550]: https://emanual.robotis.com/docs/en/parts/controller/cm-550/
-[CM-700]: https://emanual.robotis.com/docs/en/parts/controller/cm-700/
-[OpenCM 7.0]: https://emanual.robotis.com/docs/en/parts/controller/opencm7/
-[OpenCM 9.04]: https://emanual.robotis.com/docs/en/parts/controller/opencm904/
+[Controller Compatibility]: /docs/parts/controller/controller_compatibility
+[Building a User Device]: /docs/edu/bioloid/premium#make-your-own-sensor
+[CM-530]: /docs/parts/controller/cm-530
+[CM-550]: /docs/parts/controller/cm-550

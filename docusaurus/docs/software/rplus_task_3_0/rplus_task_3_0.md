@@ -30,17 +30,17 @@ The Motion files are not backward compatible, but lower version files can be con
 
 ## Compatible Controllers
 
-- [CM-5]
-- [CM-50]
-- [CM-100]
-- [CM-150]
-- [CM-200]
-- [CM-510]
+- CM-5
+- CM-50
+- CM-100
+- CM-150
+- CM-200
+- CM-510
 - [CM-530]
 - [CM-550]
-- [CM-700]
-- [OpenCM7.0]
-- [OpenCM9.04]
+- CM-700
+- OpenCM7.0
+- OpenCM9.04
 
 **[Controller Compatibility Table]**
 
@@ -91,15 +91,6 @@ The Motion files are not backward compatible, but lower version files can be con
 
     ![](/img/software/rplus_task3/task3_007.png)
 
-[Controller Compatibility Table]: https://emanual.robotis.com/docs/en/parts/controller/controller_compatibility/
-[CM-50]: https://emanual.robotis.com/docs/en/parts/controller/cm-100/
-[CM-100]: https://emanual.robotis.com/docs/en/parts/controller/cm-100/
-[CM-150]: https://emanual.robotis.com/docs/en/parts/controller/cm-150/
-[CM-200]: https://emanual.robotis.com/docs/en/parts/controller/cm-200/
-[CM-5]: https://emanual.robotis.com/docs/en/parts/controller/cm-5/
-[CM-510]: https://emanual.robotis.com/docs/en/parts/controller/cm-510/
-[CM-530]: https://emanual.robotis.com/docs/en/parts/controller/cm-530/
-[CM-550]: https://emanual.robotis.com/docs/en/parts/controller/cm-550/
-[CM-700]: https://emanual.robotis.com/docs/en/parts/controller/cm-700/
-[OpenCM7.0]: https://emanual.robotis.com/docs/en/parts/controller/opencm7/
-[OpenCM9.04]: https://emanual.robotis.com/docs/en/parts/controller/opencm904/
+[Controller Compatibility Table]: /docs/parts/controller/controller_compatibility
+[CM-530]: /docs/parts/controller/cm-530
+[CM-550]: /docs/parts/controller/cm-550
