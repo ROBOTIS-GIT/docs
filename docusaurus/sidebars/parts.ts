@@ -6,6 +6,7 @@ const partsSidebar: SidebarsConfig[string] = [
     label: 'Controller',
     collapsed: true,
     items: [
+      {type: 'doc', id: 'parts/controller/controller_compatibility', label: 'Controller Compatibility'},
       {type: 'doc', id: 'parts/controller/openrb-150', label: 'OpenRB-150'},
       {type: 'doc', id: 'parts/controller/opencr10', label: 'OpenCR 1.0'},
       {type: 'doc', id: 'parts/controller/cm-550', label: 'CM-550'},

@@ -430,6 +430,9 @@ const config: Config = {
                   </div>
                   <div class="mega-menu__right">
                     <div class="mega-menu__panel" data-panel="parts-controller">
+                      <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/parts/controller/controller_compatibility">
+                        <span>Controller Compatibility</span>
+                      </a>
                       <div class="mega-menu__grid">
                         <a class="mega-menu__product" href="/docs/parts/controller/openrb-150">
                           <div class="mega-menu__product-thumb"><img src="/img/parts/controller/openrb-150/openrb-150_product.webp" alt="OpenRB-150" /></div>
