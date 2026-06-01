@@ -72,6 +72,12 @@ The OpenRB-150 also features 4 dedicated DYNAMIXEL ports, and supports the DYNAM
 
 :::danger
 
+- The current from the USB port is limited to 500mA with the built-in fuse, but a high current draw may cause damage to USB ports used to power the OpenRB-150.
+- For applications requiring rapid movement or high torque, use of the terminal block to supply power is recommended.
+- Always confirm the operating voltage of your DYNAMIXEL modules before connecting them to the OpenRB-150.
+- The maximum voltage that the I/O pins can tolerate is 3.3V. Applying voltages higher than 3.3V to any I/O pin could damage the board.
+- Do not connect or disconnect DYNAMIXEL actuator cables while power is being supplied.
+
 :::
 
 
@@ -136,7 +142,12 @@ The OpenRB-150 will not load it's Arduino sketch(or firmware) when in bootloader
 
 
 
-:::danger
+:::warning
+
+**WARNING**  
+Resetting the microcontroller will also reset the power of any connected DYNAMIXELs ([Power Switch](#dynamixel-power-switch)).
+
+It is important to only reset the microcontroller when the acutators are in a safe postion, to avoid possible damage or injury when the acuators are reset.
 
 :::
 
@@ -264,6 +275,12 @@ OpenRB-150 controller can be powered with three power sources.
 
 :::danger
 
+**WARNING**  
+1. Always check the polarity of any power supplies before connecting them to the OpenRB-150.  
+Incorrect polarity can permanently damage the microcontroller.
+
+2. Make sure to set the Jumper correctly depending on the power source.
+
 :::
 
 
@@ -274,6 +291,13 @@ OpenRB-150 controller can be powered with three power sources.
 
 
 :::danger
+
+**WARNING**  
+For applications that require high velocity or torque, please supply power via Terminal VIN.  
+USB port is not a suitable power source for dynamic motor operation.  
+Drawing excessive power from the USB port may cause reboot or damage on the PC.  
+Using an external power source is recommended as shown below.  
+![](/img/parts/controller/openrb-150/openrb-150_connection_example01_1.webp)
 
 :::
 
