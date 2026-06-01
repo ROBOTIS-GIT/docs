@@ -41,10 +41,9 @@ const config: Config = {
 
   i18n: {
     defaultLocale: 'en',
-    locales: ['en', 'ko'],
+    locales: ['en'],
     localeConfigs: {
       en: {label: 'English', htmlLang: 'en-US'},
-      ko: {label: '한국어', htmlLang: 'ko-KR'},
     },
   },
 
