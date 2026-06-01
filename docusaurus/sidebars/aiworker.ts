@@ -107,6 +107,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
         items: [
           {type: 'doc', id: 'systems/aiworker/resources/technical_story/isaac_gr00t', label: 'Isaac GR00T'},
           {type: 'doc', id: 'systems/aiworker/resources/technical_story/nav2', label: 'Nav2'},
+          {type: 'doc', id: 'systems/aiworker/resources/technical_story/isaac_vr_teleoperation', label: 'Isaac VR Teleoperation'},
         ],
       },
     ],
