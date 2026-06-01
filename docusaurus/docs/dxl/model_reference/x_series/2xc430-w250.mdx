@@ -59,14 +59,11 @@ import CommonLink from '@site/docs/_partials/dxl/x/common_link.mdx';
 <X2xIntro />
 
 
-
 :::info
 
 Refer to the [official specification page](/docs/dxl/model_reference/x_series/2xc430-w250#specifications) for detailed specifications.
 
 :::
-
-
 
 
 <Warning />
@@ -86,7 +83,6 @@ Refer to the [official specification page](/docs/dxl/model_reference/x_series/2x
 
 
 <NotePerformanceGraph />
-
 
 
 <ControlTable />
@@ -180,7 +176,6 @@ Refer to the [official specification page](/docs/dxl/model_reference/x_series/2x
 |   661   |     1      | [Indirect Data 56](#indirect-data)                |   RW   |         0          |                       0 ~ 255                       |                    -                     |
 
 
-
 :::warning
 
 **CAUTION** : Protocol 1.0 does not support addresses greater than 256. Therefore, Indirect Address 29 ~ 56 and Indirect Data 29 ~ 56 can only be accessed with Protocol 2.0.
@@ -205,7 +200,6 @@ Refer to the [official specification page](/docs/dxl/model_reference/x_series/2x
 <ControlTableId />
 
 
-
 :::warning
 
 **CAUTION** : Assign two different IDs for the 2XC430-W250. Attempting to assign an identical ID for each joint will result in Data Limit Error(0x06) of the status packet.
@@ -216,7 +210,6 @@ Refer to the [official specification page](/docs/dxl/model_reference/x_series/2x
 <a id="baud-rate"></a>
 ### Baud Rate(8)
 <ControlTableBaudrate2 />
-
 
 
 :::warning
@@ -249,7 +242,6 @@ Refer to the [official specification page](/docs/dxl/model_reference/x_series/2x
 <a id="protocol-type"></a>
 ### Protocol type(13)
 <ControlTableProtocolversion />
-
 
 
 :::warning
@@ -488,7 +480,6 @@ Please inquire us for information regarding unlisted certifications.
 
 ## Connector Information
 <JstTtl />
-
 
 
 <TtlConnectionX />

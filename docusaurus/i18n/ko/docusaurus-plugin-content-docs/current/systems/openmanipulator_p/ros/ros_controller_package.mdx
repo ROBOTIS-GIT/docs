@@ -7,7 +7,6 @@
 # [[ROS] Controller Package](#ros-controller-package)
 
 
-
 :::info
 
 **NOTE** :  
@@ -106,7 +105,6 @@ $ roslaunch open_manipulator_p_controller open_manipulator_p_controller.launch
 :::
 
 
-
 Follwing message will be shown in a terminal after the process is done successfully.  
 
 ```
@@ -139,7 +137,6 @@ Joint Dynamixel ID : 6, Model Name : PRO-PLUS-PH42-020-S300-R
 ```
 
 
-
 :::tip
 
 **TIP**:  
@@ -150,7 +147,6 @@ if DYNAMIXEL aren't recoginized, please check firmware with ROBOTIS software ([R
 - If you would like to change DYNAMIXEL ID, please check [`open_manipulator_p.cpp`](https://github.com/ROBOTIS-GIT/open_manipulator_p/blob/master/open_manipulator_p_libs/src/open_manipulator_p.cpp) in the open_manipulator_p_lib folder. The default ID is **1, 2, 3, 4 ,5 and 6** for joints.
 
 :::
-
 
 
 :::info
@@ -556,7 +552,6 @@ Active Joint
 ```
 
 
-
 ### RViz
 :::info
 
@@ -573,7 +568,6 @@ Load OpenMANIPULATOR-P on RViz.
 ``` bash
 $ roslaunch open_manipulator_p_description open_manipulator_p_rviz.launch
 ```
-
 
 
 :::info
@@ -615,7 +609,6 @@ $ rqt
 ```
 
 ![](/img/systems/openmanipulator_p/rqt1.webp)  
-
 
 
 :::tip
@@ -688,7 +681,6 @@ A list of topics that the open_manipulator_p_controller subscribes.
 `/open_manipulator/option`([std_msgs/String]) is used to set OpenMANIPULATOR-P options. **"print_open_manipulator_setting"** : is to request the open_manipulator_p_controller to display "Manipulator Description".
 
 
-
 `/open_manipulator/option`([moveit_msgs/DisplayTrajectory]) is used to subscribe a planned joint trajectory published from moveit!
 
 `/move_group/goal`([moveit_msgs/MoveGroupActionGoal]) is used to subscribe a planning option data published from moveit!
@@ -705,7 +697,6 @@ In addition, you can monitor topics through rqt whenever you have a topic added 
 **NOTE**: These services are messages to operate OpenMANIPULATOR-P or to change the status of DYNAMIXEL of OpenMANIPULATOR-P.
 
 :::
-
 
 
 **Service Server List** :
@@ -767,20 +758,16 @@ This service is used when using moveit! The user can use this service to create 
 - `/moveit/set_kinematics_pose` ([open_manipulator_msgs/SetKinematicsPose])  
 This service is used when using moveit! The user can use this service to create a trajectory in the [task space] by move_group. The user inputs the kinematics pose of the OpenMANIPULATOR-P end-effector(tool) in the [task space] and the total time of the trajectory.
 
-[open_manipulator_msgs/GetJointPosition]: /docs/popup/open_manipulator_msgs_GetJointPosition
-[open_manipulator_msgs/GetKinematicsPose]: /docs/popup/open_manipulator_msgs_GetKinematicsPose
-[open_manipulator_msgs/SetJointPosition]: /docs/popup/open_manipulator_msgs_SetJointPosition
-[open_manipulator_msgs/SetKinematicsPose]: /docs/popup/open_manipulator_msgs_SetKinematicsPose
-[open_manipulator_msgs/SetActuatorState]: /docs/popup/open_manipulator_msgs_SetActuatorState
-[open_manipulator_msgs/SetDrawingTrajectory]: /docs/popup/open_manipulator_msgs_SetDrawingTrajectory
-[std_msgs/Float64]: /docs/popup/std_msgs_Float64_msg
-[std_msgs/Empty]: /docs/popup/std_msgs_Empty_msg
-[moveit_msgs/DisplayTrajectory]: /docs/popup/moveit_msgs_DisplayTrajectory_msg
-[moveit_msgs/MoveGroupActionGoal]: /docs/popup/moveit_msgs_MoveGroup_action
-[moveit_msgs/ExecuteTrajectoryActionGoal]: /docs/popup/moveit_msgs_ExecuteTrajectory_action
-[sensor_msgs/JointState]: /docs/popup/sensor_msgs_JointState_msg
-[open_manipulator_msgs/KinematicsPose]: /docs/popup/open_manipulator_msgs_KinematicsPose
-[open_manipulator_msgs/OpenManipulatorState]: /docs/popup/open_manipulator_msgs_OpenManipulatorState
-[std_msgs/String]: /docs/popup/std_msgs_string
-[task space]: /docs/popup/open_manipulator_coordinates
-[joint space]: /docs/popup/open_manipulator_coordinates
+[open_manipulator_msgs/GetJointPosition]: /docs/systems/openmanipulator_x/msgs/open_manipulator_msgs_GetJointPosition
+[open_manipulator_msgs/GetKinematicsPose]: /docs/systems/openmanipulator_x/msgs/open_manipulator_msgs_GetKinematicsPose
+[open_manipulator_msgs/SetJointPosition]: /docs/systems/openmanipulator_x/msgs/open_manipulator_msgs_SetJointPosition
+[open_manipulator_msgs/SetKinematicsPose]: /docs/systems/openmanipulator_x/msgs/open_manipulator_msgs_SetKinematicsPose
+[open_manipulator_msgs/SetActuatorState]: /docs/systems/openmanipulator_x/msgs/open_manipulator_msgs_SetActuatorState
+[open_manipulator_msgs/SetDrawingTrajectory]: /docs/systems/openmanipulator_x/msgs/open_manipulator_msgs_SetDrawingTrajectory
+
+
+[open_manipulator_msgs/KinematicsPose]: /docs/systems/openmanipulator_x/msgs/open_manipulator_msgs_KinematicsPose
+[open_manipulator_msgs/OpenManipulatorState]: /docs/systems/openmanipulator_x/msgs/open_manipulator_msgs_OpenManipulatorState
+
+[task space]: /docs/systems/openmanipulator_x/msgs/open_manipulator_coordinates
+[joint space]: /docs/systems/openmanipulator_x/msgs/open_manipulator_coordinates

@@ -6,7 +6,6 @@
 | 16         | PWM Control Mode  (Voltage Control Mode)   | This mode directly controls PWM output. (Voltage Control Mode)                                                                                                                                                                                                                                |
 
 
-
 :::note
 
 **NOTE** : When the value of the Operating Mode(11) register changes, the  [Velocity PI(76, 78)](#velocity-pi-gain76-78); [Position PID(80, 82, 84)](#position-pid-gain80-82-84); [Feedforward(88, 90)](#position-pid-gain80-82-84), will be reset according to the selected Operating Mode(11). Aside from this, the following registers will also be reset: 
@@ -17,8 +16,6 @@
 :::
 
 
-
-
 :::note
 
 **NOTE** : PWM stands for **Pulse Width Modulation**, the signal that modulates voltage to control motors. It changes pulse width to control average supply voltage to the motor, and this technique is widely used in the motor control field.  
@@ -26,7 +23,6 @@ PWM Control Mode is similar to the Wheel Mode of [AX](/docs/dxl/model_reference/
 [Goal PWM(100)](#goal-pwm) is used to control supply voltage for DYNAMIXELs in **PWM Control Mode**.
 
 :::
-
 
 
 {/* nested include: en/dxl/control_table_opmode_note.md */}

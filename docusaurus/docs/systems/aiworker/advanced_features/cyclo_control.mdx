@@ -178,7 +178,6 @@ ros2 topic pub --once /leader/joint_trajectory_command_broadcaster_left/raw_join
 ![aiw_movel](/img/systems/aiworker/simulation/aiw_movej.gif)
 
 
-
 ## Launch Arguments
 
 - `controller_type`: Selects `movel`, `movej`, `vr`, or `leader`.
@@ -212,7 +211,6 @@ ros2 topic pub --once /leader/joint_trajectory_command_broadcaster_left/raw_join
 - `/leader/joint_trajectory_command_broadcaster_left/raw_joint_trajectory`: Raw left-arm moveJ input
 - `/leader/joint_trajectory_command_broadcaster_right/joint_trajectory`: Filtered or tracked right-arm output trajectory
 - `/leader/joint_trajectory_command_broadcaster_left/joint_trajectory`: Filtered or tracked left-arm output trajectory
-
 
 
 ## Troubleshooting
@@ -259,7 +257,6 @@ The main parameters live in `cyclo_motion_controller_ros/config/ai_worker_config
 - `right_traj_topic`, `left_traj_topic`: Raw right and left joint trajectory input topics.
 - `right_traj_filtered_topic`, `left_traj_filtered_topic`: Filtered right and left output trajectory topics.
 - `right_gripper_joint`, `left_gripper_joint`: Gripper joint names preserved from the input command.
-
 
 
 ## Safety and Usage Tips

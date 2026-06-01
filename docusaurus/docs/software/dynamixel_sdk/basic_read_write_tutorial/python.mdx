@@ -9,7 +9,6 @@ This section provides examples of how to write code in Python to read and write 
 :::
 
 
-
 # Make python file
 - Create a python file and open it in a text editor. In this case, we use visual studio code, but you can use any text editor you prefer.
 ```bash
@@ -19,13 +18,10 @@ $ code my_read_write.py
 ```
 
 
-
-
 # Make python file
 - Open the Visual Studio Code and create a python file in your workspace.
 
   ![](/img/software/dynamixel/dynamixel_sdk/basic_read_write_tutorial/vscodepython.webp)
-
 
 
 # Source Code Description
@@ -45,14 +41,11 @@ $ code my_read_write.py
 ```
 
 
-
-
 - Initialize the `PortHandler` and `PacketHandler`. Set the `port name` and `protocol version` according to your DYNAMIXEL setup. The example below uses `COM3` as the port name and `2.0` as the protocol version.
 ```python
   portHandler = PortHandler("COM3")  # your dxl port name
   packetHandler = PacketHandler(2.0)  # protocol version
 ```
-
 
 
 ## Open Port and Set Baud Rate
@@ -188,11 +181,9 @@ $ python3 my_read_write.py
 ```
 
 
-
 - Run the code through Visual Studio Code.
 
   ![](/img/software/dynamixel/dynamixel_sdk/basic_read_write_tutorial/runbutton.webp)
-
 
 
 # Full Source Code
@@ -266,7 +257,6 @@ portHandler.closePort()
 ```
 
 
-
 ```python
 #!/usr/bin/env python3
 
@@ -335,6 +325,5 @@ data = 0
 packetHandler.write1ByteTxRx(portHandler, dxl_id, torque_on_address, data)
 portHandler.closePort()
 ```
-
 
 

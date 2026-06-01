@@ -26,10 +26,6 @@ tags: [parts, interface]
 | 허용전류  | 1 A(아두이노), 10 A(터미널 전원 커넥터) |
 
 
-
-
-
-
 :::danger
 
 ![](/img/icon_warning.webp)  
@@ -44,11 +40,6 @@ tags: [parts, interface]
 :::
 
 
-
-
-
-
-
 :::warning
 
 ![](/img/icon_warning.webp)  
@@ -60,8 +51,6 @@ tags: [parts, interface]
 :::
 
 
-
-
 :::warning
 
 ![](/img/icon_warning.webp)  
@@ -71,7 +60,6 @@ tags: [parts, interface]
 - 제품에 강한 충격을 가하거나 떨어드리지 마세요.
 
 :::
-
 
 
 ## 지원되는 다이나믹셀
@@ -128,7 +116,6 @@ tags: [parts, interface]
 -	다이나믹셀 제어를 위해서 하드웨어 시리얼 포트를 사용하기 때문에 아두이노 핀 7/8번을 이용하여 소프트웨어 시리얼로 [RC-100] 혹은 [LN-101]을 연결하여 시리얼 통신 수행
 
 
-
 :::warning
 
 `주의1`: UART SW(SW_2)를 Upload로 세팅해야, 펌웨어를 USB 포트를 통해서 업로드 할 수 있다. 다이나믹셀로 세팅해야만, 다이나믹셀을 활용할 수 있다. 이 때는, USB 포트를 사용하지 못하므로, 펌웨어를 업로드 할 수 없다.  
@@ -155,7 +142,7 @@ UNO 및 Mega (8bit MCU)는 USB에서 사용하는 Serial핀이 다이나믹셀�
 
 :::note
 
-    **참고**: 이 포트는 Serial 핀이 아닌 일반 핀을 사용하기때문에, SoftwareSerial 라이브러리를 반드시 사용 해야 한다. UART포트에 사용하기 적합한 통신 모듈은 [BT-210](/docs/parts/communication/bt-410), [BT-410](/docs/parts/communication/bt-210), [LN-101](/docs/parts/interface/ln-101)이 있다.
+    **참고**: 이 포트는 Serial 핀이 아닌 일반 핀을 사용하기때문에, SoftwareSerial 라이브러리를 반드시 사용 해야 한다. UART포트에 사용하기 적합한 통신 모듈은 BT-210, BT-410, LN-101이 있다.
 
 :::
 
@@ -384,10 +371,7 @@ bool syncWriteEnd(void);
 :::
 
 
-
-
 ![](/img/dxl/x/x_series_485_pin.webp)
-
 
 
 전원은 Pin1(-), Pin2(+)를 통하여 다이나믹셀로 공급됩니다.(다이나믹셀 전용 Controller에는 위의 회로가 내장되어 있습니다.)  
@@ -476,49 +460,11 @@ bool syncWriteEnd(void);
 [PM54-060-S250-R]: /docs/dxl/model_reference/p_series/pm54-060-s250-r
 [PM54-040-S250-R]: /docs/dxl/model_reference/p_series/pm54-040-s250-r
 [PM42-010-S260-R]: /docs/dxl/model_reference/p_series/pm42-010-s260-r
-[LN-101]: /docs/parts/interface/ln-101
-[RC-100]: /docs/parts/communication/rc-100
+
 [Arduino Official Guide]: https://www.arduino.cc/en/Guide/Libraries
 [GitHub repository]: https://github.com/ROBOTIS-GIT/Dynamixel2Arduino
-[begin()]: /docs/popup/arduino_api/begin
-[getPortBaud()]: /docs/popup/arduino_api/getPortBaud
-[ping()]: /docs/popup/arduino_api/ping
-[scan()]: /docs/popup/arduino_api/scan
-[getModelNumber()]: /docs/popup/arduino_api/getModelNumber
-[setID()]: /docs/popup/arduino_api/setID
-[setProtocol()]: /docs/popup/arduino_api/setProtocol
-[setBaudrate()]: /docs/popup/arduino_api/setBaudrate
-[torqueOn()]: /docs/popup/arduino_api/torqueOn
-[torqueOff()]: /docs/popup/arduino_api/torqueOff
-[ledOn()]: /docs/popup/arduino_api/ledOn
-[ledOff()]: /docs/popup/arduino_api/ledOff
-[setOperatingMode()]: /docs/popup/arduino_api/setOperatingMode
-[setGoalPosition()]: /docs/popup/arduino_api/setGoalPosition
-[getPresentPosition()]: /docs/popup/arduino_api/getPresentPosition
-[setGoalVelocity()]: /docs/popup/arduino_api/setGoalVelocity
-[getPresentVelocity()]: /docs/popup/arduino_api/getPresentVelocity
-[setGoalPWM()]: /docs/popup/arduino_api/setGoalPWM
-[getPresentPWM()]: /docs/popup/arduino_api/getPresentPWM
-[setGoalCurrent()]: /docs/popup/arduino_api/setGoalCurrent
-[getPresentCurrent()]: /docs/popup/arduino_api/getPresentCurrent
-[readControlTableItem()]: /docs/popup/arduino_api/readControlTableItem
-[writeControlTableItem()]: /docs/popup/arduino_api/writeControlTableItem
-[syncRead()]: /docs/popup/arduino_api/syncRead
-[syncWrite()]: /docs/popup/arduino_api/syncWrite
-[bulkRead()]: /docs/popup/arduino_api/bulkRead
-[bulkWrite()]: /docs/popup/arduino_api/bulkWrite
-[getLastLibErrCode()]: /docs/popup/arduino_api/getLastLibErrCode
-[rc100_begin]: /docs/popup/arduino_api/rc100_begin
-[availableData()]: /docs/popup/arduino_api/availableData
-[readData()]: /docs/popup/arduino_api/readData
-[availableEvent()]: /docs/popup/arduino_api/availableEvent
-[readEvent()]: /docs/popup/arduino_api/readEvent
-[flushRx()]: /docs/popup/arduino_api/flushRx
-[available()]: /docs/popup/arduino_api/available
-[read()]: /docs/popup/arduino_api/rc100_read
-[peek()]: /docs/popup/arduino_api/peek
-[flush()]: /docs/popup/arduino_api/flush
-[write()]: /docs/popup/arduino_api/rc100_write
+
+
 [JST EHR-03]: http://www.jst-mfg.com/product/pdf/eng/eEH.pdf
 [JST EHR-04]: http://www.jst-mfg.com/product/pdf/eng/eEH.pdf
 [JST B3B-EH-A]: http://www.jst-mfg.com/product/pdf/eng/eEH.pdf

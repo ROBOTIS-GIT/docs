@@ -8,8 +8,6 @@ After replacing the Multi-turn Backup Battery, it is essential to perform this p
 | Error Clear      | 0x02 | Fixed value<br />(0x45 0x52 0x43 0x4C) | Clear errors that occurred in DYNAMIXEL.<br />If an error cannot be cleared or the conditions for clearance are not met, the error remains uncleared, and Result Fail (0x01) is displayed in the Error field of the Status Packet. |
 
 
-
-
 :::note
 
 **Note**: Multi-turn Clear resets the motor's absolute position value to within one revolution. Models with an attached reducer may lose their reducer-based absolute position. To prevent this issue, move the reducer's absolute position to 0 before proceeding with the Multi-turn Clear process.
@@ -25,7 +23,6 @@ After replacing the Multi-turn Backup Battery, it is essential to perform this p
 3. Select 'Clear Instruction' from the Instruction tab.
 4. Enter the DYNAMIXEL ID for the servo you wish to clear and click the 'Send' button to transmit the packet.
 5. Wait until the Status Packet is received. Check the received packet for errors before resuming operation of your servo.
-
 
 
 :::note

@@ -498,7 +498,7 @@ RoboPlus Manager는 두 가지의 검색 모드를 지원합니다.
 
 #### 제어기 외부 I/O
 
-### [CM-700](/docs/parts/controller/cm-700)
+### CM-700
 
 #### 일반/상세 검색
 
@@ -1146,8 +1146,8 @@ AX-S1에는 버저가 장착되어 있습니다. 버저 울림 시간을 설정�
 [제어기 정보]: https://emanual.robotis.com/docs/kr/parts/controller/controller_compatibility/
 [제어기별 관리방법]: #제어기
 [펌웨어복구]: #펌웨어-복구
-[OpenCM9.04 펌웨어복구]: /docs/parts/controller/opencm904#펌웨어-복구모드
+
 [CM150, CM200 해결방법]: https://emanual.robotis.com/docs/kr/popup/usb_driver_install/
-[OpenCM9.04 해결방법]: /docs/parts/controller/opencm904#아두이노-ide
+
 [제어기 펌웨어 업데이트]: #펌웨어-업데이트
 [Zig2Serial - Zig100 연결하기]: https://emanual.robotis.com/docs/kr/parts/communication/zig2serial/#사용-방법

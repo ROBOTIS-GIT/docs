@@ -47,7 +47,6 @@ The easiest way to select a DYNAMIXEL based on its performance is to look at the
 > Performance Graph (N-T graph)
 
 
-
 Most DYNAMIXEL servos have a graph like that one located on their page here on the e-Manual. This graph provides an easy way to examine the overall performance characteristics of the servo at a glance, by graphing four of the most important metrics against one another:
 
 
@@ -104,7 +103,6 @@ To control the DYNAMIXEL actuators, the main controller needs to convert its UAR
 **NOTE**: Above circuit is designed for 5V or 5V tolerant MCU. Otherwise, use a Level Shifter to match the voltage of MCU.
 
 :::
-
 
 
 :::note
@@ -176,7 +174,6 @@ Operating Voltage may differ depending on what model to be selected. See the fol
 DYNAMIXEL-P Series runs at 24.0V. This can be compatible with DYNAMIXEL-X's `V` [models](#models) (24V) which represent operating voltages at 24V.
 
 
-
 ## Power Solution
 ### SMPS
 The **SMPS** is recommended power solution with ROBOTIS' providing interface and controller. Most of items offer the SMPS DC Connector that is compatible with 2.5mm / 5.5mm OD, Center Positive SMPS.
@@ -199,11 +196,10 @@ The controller is one of the essential of the DYNAMIXEL system responsible for a
 For most applications, you can choose which of the following control solution fits your needs best.
 
 
-
 :::note
 
 **NOTE**: 
-The DYNAMIXEL [Controller Compatibility Chart](/docs/parts/controller/controller_compatibility) provides a convenient way to quickly check which controllers are compatible with each of ROBOTIS' sensors, servos, and software.
+The DYNAMIXEL Controller Compatibility Chart provides a convenient way to quickly check which controllers are compatible with each of ROBOTIS' sensors, servos, and software.
 
 :::
 
@@ -221,7 +217,6 @@ The DYNAMIXEL Starter Set includes everything you need to utilize your PC as you
   ![](/img/dxl/dxl_quick_start_insert/dxl_control_01.webp) 
 
   > Connection Example of the DYNAMIXEL Starter Set
-
 
 
 ### DYNAMIXEL Shields
@@ -269,11 +264,9 @@ The OpenCR is also compatible with Arduino IDE for developing customized softwar
 ![](/img/parts/controller/opencm904/opencm904_14.webp)
 
 
-
-
 :::note
 
-**NOTE**: When combined with the [OpenCM 485 EXP Board](/docs/parts/controller/opencm485exp) the OpenCM 9.04 can drive RS-485 DYNAMIXELs as well as TTL based DYNAMIXEL.
+**NOTE**: When combined with the OpenCM 485 EXP Board the OpenCM 9.04 can drive RS-485 DYNAMIXELs as well as TTL based DYNAMIXEL.
  
 ![](/img/parts/controller/opencm904/opencm485exp_product.webp)
 
@@ -282,7 +275,7 @@ The OpenCR is also compatible with Arduino IDE for developing customized softwar
 
 ## Educational
 ### CM Series
-CM Series are designed for the [Educational Kits](/docs/edu) to support our dedicated [educational software](#educational-software). 
+CM Series are designed for the Educational Kits to support our dedicated [educational software](#educational-software). 
 
 Most of CM Series controllers provide the OLLO Ports where [dedicated sensors for CM series](https://emanual.robotis.com/docs/en/parts/all_sensors/) can be mounted and easily controled by using R+ software. 
 
@@ -305,27 +298,26 @@ The following items are our recent & the most popular educational level controll
 :::
 
 
-
 :::note
 
-**NOTE**: Not all sensors are compatible with each CM series, check out the compatible sensors with each CM series at [Parts Compatibility](/docs/parts/controller/controller_compatibility#parts)
+**NOTE**: Not all sensors are compatible with each CM series, check out the compatible sensors with each CM series at Parts Compatibility
 
 :::
 
 
 ## Other Controllers
-ROBOTIS provides a range of [Educational Kits](/docs/edu) and [DYNAMIXEL System](/docs/systems) that accompany a dedicated controller.
+ROBOTIS provides a range of Educational Kits and [DYNAMIXEL System](/docs/systems) that accompany a dedicated controller.
 
 See all the range of [Controllers](https://emanual.robotis.com/docs/en/parts/all-controller/) for more information.
 
 # Software & Tools
 Your choice of software is another important consideration for your DYNAMIXEL System. Your controller combined with your software defines the capabilities of your project, and how you will interact with your DYNAMIXELs.
 
-Check out the [Software Compatibility](/docs/parts/controller/controller_compatibility#software) which software is supportive with your selection.
+Check out the Software Compatibility which software is supportive with your selection.
 
 ## Test & Management
 ### DYNAMIXEL Wizard 2.0
-[DYNAMIXEL Wizard 2.0](/docs/software/dynamixel_wizard_2_0) is an optimized tool for managing DYNAMIXEL’s from various operating systems (Linux / Mac / Windows). [U2D2](#u2d2) or [Compatible controller](/docs/parts/controller/controller_compatibility) is required to use.
+[DYNAMIXEL Wizard 2.0](/docs/software/dynamixel_wizard_2_0) is an optimized tool for managing DYNAMIXEL’s from various operating systems (Linux / Mac / Windows). [U2D2](#u2d2) or Compatible controller is required to use.
 
 The following features are provided with DYNAMIXEL Wizard 2.0.
 
@@ -395,7 +387,7 @@ ROBOTIS provides comprehensive code APIs and basic example for Arduino users.
 ![](/img/parts/interface/dynamixel_shield/library_manager_03.webp)
 
 ## Educational Software
-Educational software is ROBOTIS dedicated software for our [educational kits](/docs/edu) and [CM Series](#cm-series). 
+Educational software is ROBOTIS dedicated software for our educational kits and [CM Series](#cm-series). 
 
 - Task and motion programming tools ([R+ Software Suite](#r-software-suite)) provide a variety of examples that you can start off.
 - For easy maintanance for your kits and CM Series, ROBOTIS provdides free manager program for our educational kits and CM Series controller. See [R+ Manager 2.0](#r-manager-20)
@@ -410,9 +402,9 @@ The R+ (Roboplus) Software suite is ROBOTIS' first party robot controller softwa
 [DYNAMIXEL SDK]: /docs/software/dynamixel_sdk/overview
 [U2D2]: /docs/parts/interface/u2d2
 [U2D2 Power Hub Board]: /docs/parts/interface/u2d2_power_hub
-[Software]: /docs/software
-[OpenCM9.04]: /docs/parts/controller/opencm904
-[The OpenCM 485 Expansion Board]: /docs/parts/controller/opencm485exp
+[Software]: /docs/software/overview
+
+
 [OpenRB-150]: /docs/parts/controller/openrb-150
 [OpenCR 1.0]: /docs/parts/controller/opencr10
 [CM-530]: /docs/parts/controller/cm-530
@@ -420,8 +412,8 @@ The R+ (Roboplus) Software suite is ROBOTIS' first party robot controller softwa
 [R+ 3.0 software]: https://emanual.robotis.com/docs/en/software/rplustask3
 [DYNAMIXEL Shield]: /docs/parts/interface/dynamixel_shield
 [DYNAMIXEL Shield MKR]: /docs/parts/interface/mkr_shield
-[RC-100]: /docs/parts/communication/rc-100
-[LN-101]: /docs/parts/interface/ln-101
+
+
 [Dynamixel2Arduino]: https://github.com/ROBOTIS-GIT/Dynamixel2Arduino
 [DynamixelShield]: https://github.com/ROBOTIS-GIT/DynamixelShield
 [DYNAMIXEL Protocol 1.0]: /docs/dxl/protocol/protocol1

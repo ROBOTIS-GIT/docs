@@ -3,7 +3,6 @@ When [Torque Enable(512)] is '1' (Torque is ON), the [Bus Watchdog(8)] feature m
 When this is triggered, the [Bus Watchdog(8)] value changes to '-1' to indicate a Bus Watchdog Error. Once in the Bus Watchdog Error state, the Access attribute for Goal Values ([Goal PWM(524)], [Goal Current(526)], [Goal Velocity(528)], [Goal Position(532)] becomes Read-Only. Attempting to write a new value to these Goal Values will result in a Data Range Error, which will be indicated in the Status Packet's Error field. To resolve the Bus Watchdog Error, you must reset [Bus Watchdog(8)] to '0' or use the Error Clear Packet to clear the error.
 
 
-
 :::note
 
 **Note** : For detailed information about Data Range Errors, please refer to the [DYNAMIXEL Protocol 2.0](/docs/dxl/protocol/protocol2#status-packet) eManual page.
@@ -12,8 +11,6 @@ When this is triggered, the [Bus Watchdog(8)] value changes to '-1' to indicate 
 
 
 Here is an example of how the Bus Watchdog function operates:
-
-
 
 
 :::tip

@@ -20,13 +20,10 @@ $ code my_sync_read_write.py
 ```
 
 
-
-
 # Make python file
 - Open the Visual Studio Code and create a python file in your workspace.
 
   ![](/img/software/dynamixel/dynamixel_sdk/basic_read_write_tutorial/vscodepython.webp)
-
 
 
 # Source Code Description
@@ -52,8 +49,6 @@ $ code my_sync_read_write.py
 ```
 
 
-
-
 - Initialize the `PortHandler`,`PacketHandler`,`GroupSyncWrite` and `GroupSyncRead`. Set the `port name` and `protocol version` according to your DYNAMIXEL setup. The example below uses `COM3` as the port name and `2.0` as the protocol version.
 ```python
   portHandler = PortHandler('COM3')
@@ -65,7 +60,6 @@ $ code my_sync_read_write.py
   groupSyncWrite = GroupSyncWrite(portHandler, packetHandler, goal_position_address, data_length_4byte)
   groupSyncRead  = GroupSyncRead(portHandler, packetHandler, present_position_address, data_length_4byte)
 ```
-
 
 
 ## Open Port and Set Baud Rate
@@ -260,12 +254,9 @@ $ python3 my_sync_read_write.py
 ```
 
 
-
-
 - Run the code through Visual Studio Code.
 
   ![](/img/software/dynamixel/dynamixel_sdk/basic_read_write_tutorial/runbutton.webp)
-
 
 
 # Full Source Code
@@ -381,8 +372,6 @@ while True:
             break
 portHandler.closePort()
 ```
-
-
 
 
 ```python

@@ -270,8 +270,6 @@ Please refer to the following table and select the appropriate DYNAMIXEL protoco
 | 10         | Modbus-RTU, Industrial Standard Protocol |                            |
 
 
-
-
 ### Baud Rate (Bus) (12)
 Communication speed for communication with the upper controller.
 | Value        | Communication Speed         | Error Rate      |
@@ -350,7 +348,6 @@ UART communication is not affected if the baud rate error is within 3 [%].
 :::
 
 
-
 ### Operating Mode (33)
 Sets the operating mode of the device. Since each operating mode has different characteristics, please set the operating mode appropriate for the system you want to implement.
 | Value | Operating Mode | Description |
@@ -371,7 +368,6 @@ the Input Voltage Error Bit (0x01) of Hardware Error Status (71) is set, and the
 | Unit | Value | Description |
 |------|----|------|
 | Approx. 0.01 [V] | 1600 ~ 5500 | 16.0 ~ 55.0 [V] |
-
 
 
 ### LED (65)
@@ -435,7 +431,6 @@ Represents the current status of ROBOTIS Hand.
 | 0 | Input Voltage Error | When the applied voltage is outside the set operating voltage range |
 
 
-
 ### Indirect Address (122~632), Indirect Data (634~889)
 Users can use this function to collect and use necessary control tables.  
 When a specific address is set in the Indirect Address Table, the Indirect Data Table will have the same function as that specific address.  
@@ -494,7 +489,6 @@ When TableSync Enable is set to 1, TableSync1 Read Data 1~4 will be the same as 
 :::info
 Set TableSync Read Size and TableSync Write Size according to the size of the control table you want to map. Incorrect size settings may cause data corruption.
 :::
-
 
 
 ### Preset Index (2016)

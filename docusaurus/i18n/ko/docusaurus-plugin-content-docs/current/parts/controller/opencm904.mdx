@@ -39,7 +39,6 @@ tags: [parts, controller]
 :::
 
 
-
 :::warning
 
 **주의**: 다이나믹셀 펌웨어 업데이트 및 복구시 OpenCM9.04와 OpenCM 485 확장보드를 반드시 분리해주세요.
@@ -67,8 +66,6 @@ tags: [parts, controller]
 |          크기           |          27mm x 66.5mm          |
 
 
-
-
 :::danger
 
 - USB전원으로는 다이나믹셀을 구동할 수 없습니다. 별도의 전원을 공급해주세요.  
@@ -77,11 +74,6 @@ tags: [parts, controller]
 - 7.4V를 권장하는 XL-320은 다른 다이나믹셀과 동작전압의 차이가 있어 함께 사용할 수 없습니다.
 
 :::
-
-
-
-
-
 
 
 :::danger
@@ -98,11 +90,6 @@ tags: [parts, controller]
 :::
 
 
-
-
-
-
-
 :::warning
 
 ![](/img/icon_warning.webp)  
@@ -114,8 +101,6 @@ tags: [parts, controller]
 :::
 
 
-
-
 :::warning
 
 ![](/img/icon_warning.webp)  
@@ -125,8 +110,6 @@ tags: [parts, controller]
 - 제품에 강한 충격을 가하거나 떨어드리지 마세요.
 
 :::
-
-
 
 
 :::warning
@@ -226,7 +209,6 @@ OpenCM9.04의 컨트롤 테이블은 기본 펌웨어를 사용해서 접근이 
 :::
 
 
-
 :::warning
 
 **주의** : R+Manager를 통해 OpenCM9.04의 펌웨어를 복구시 제어기와 연결된 다이나믹셀의 ID가 200을 사용하지 않도록 주의해주세요.  
@@ -262,13 +244,11 @@ LBS-04 리튬 이온 배터리 2개를 직렬 연결하는 커넥터 입니다. 
 3핀 케이블(다이나믹셀 TTL Bus)을 사용하는 다이나믹셀을 Daisy chain으로 연결하기 위한 포트 입니다.
 
 
-
 :::danger
 
 **주의**: 커넥터 제조사의 PIN 순서와 상이할 수 있습니다. 사용자의 안전을 보호하고, 재산상의 손해를 막기위해, 반드시 PIN 순서를 확인하세요. 
 
 :::
-
 
 
 ### 통신포트
@@ -702,7 +682,6 @@ Tools > Port > /dev/ttyACM0를 선택하십시오.
 :::
 
 
-
 ![](/img/parts/controller/opencm904/opencm9.04_linux_6.webp)
 
 ### 맥에 설치하기
@@ -811,7 +790,6 @@ Tools > Port > COM1를 선택하십시오.
 :::
 
 
-
 ### 스케치 업로드하기
 OpenCM9.04에 코드를 업로드 하는 방법은, 일반 아두이노 보드 (Arduino Uno 등)의 방법과 유사합니다.
 
@@ -915,8 +893,6 @@ USB 포트를 통해 OpenCM9.04를 윈도우즈 환경에서 사용하려면 USB
 - [USB 드라이버 설치]
 
 
-
-
 ## 다양한 X시리즈 사용하기
 [DYNAMIXEL Channel](#dynamixel-channel-설정하기)을 설정하여, [다이나믹셀-X](/docs/dxl/model_reference/x_series#x-series)를 로보티즈가 제공하는 [소프트웨어](/docs/software/overview#로보플러스) (R+ Task, R+ Motion 및 R+ Manager)에서 사용하실수 있습니다. 
 
@@ -928,17 +904,12 @@ USB 포트를 통해 OpenCM9.04를 윈도우즈 환경에서 사용하려면 USB
 :::
 
 
-
-
 :::note
 
-**참고**: [OpenCM485 확장보드](/docs/parts/controller/opencm485exp)를 사용하면, 24V 다이나믹셀 및 RS485 통신이 사용 가능합니다.  
+**참고**: OpenCM485 확장보드를 사용하면, 24V 다이나믹셀 및 RS485 통신이 사용 가능합니다.  
 ![](/img/software/rplus2/manager/rplusmanager2_30_kr.webp) 
 
 :::
-
-
-
 
 
 :::note
@@ -951,11 +922,8 @@ USB 포트를 통해 OpenCM9.04를 윈도우즈 환경에서 사용하려면 USB
 :::
 
 
-
-
 ### DYNAMIXEL Channel 설정하기
 제어기에서 컨트롤 테이블의 **Dynamixel Channel** 항목을 변경하여, 다양한 X시리즈를 사용해보세요.
-
 
 
 :::note
@@ -994,10 +962,8 @@ USB 포트를 통해 OpenCM9.04를 윈도우즈 환경에서 사용하려면 USB
 :::
 
 
-
 ## 도면
 ![](/img/parts/controller/opencm904/floor_plan.webp)
-
 
 
 :::tip
@@ -1007,20 +973,18 @@ USB 포트를 통해 OpenCM9.04를 윈도우즈 환경에서 사용하려면 USB
 :::
 
 
-
 [MOLEX 53253-0370]: https://www.molex.com/molex/products/datasheet.jsp?part=active/0532530370_PCB_HEADERS.xml
 [MOLEX 22-03-5035]: http://www.molex.com/molex/products/datasheet.jsp?part=active/0022035035_PCB_HEADERS.xml
 [악세서리 구매하기]: http://www.robotis.com/shop/item.php?it_id=902-0084-030
 [OpenCM9.04 C Type 펌웨어 복구하기]: https://emanual.robotis.com/docs/kr/edu/mini/#로보티즈-미니-제어기-펌웨어-업데이트/
 [아두이노 IDE]: #아두이노-ide
-[LN-101]: /docs/parts/interface/ln-101
-[ZIG-110]: /docs/parts/communication/zig-110
+
+
 [BT-110]: /docs/parts/communication/bt-110
-[BT-210]: /docs/parts/communication/bt-210
-[BT-410]: /docs/parts/communication/bt-410
+
 [다이나믹셀 SDK]: /docs/software/dynamixel_sdk/overview
 [DynamixelWorkbench]: /docs/software/dynamixel_workbench
-[아두이노 라이브러리]: /docs/parts/controller/opencm904#라이브러리-api
+
 [컨트롤 테이블 확인하기]: /docs/software/dynamixel_wizard_2_0#다이나믹셀-컨트롤-테이블/
 [OpenCM9.04_manual_ko.zip]: http://www.robotis.com/download/doc/controller/OpenCM9.04_ko/OpenCM9.04_manual_ko.zip
 [SCHEMATIC-OpenCM9.04.pdf]: https://robotis.s3.ap-northeast-2.amazonaws.com/support/ko/baggage_files/opencm/opencm904_rev_10_final_schematic.pdf
@@ -1029,32 +993,5 @@ USB 포트를 통해 OpenCM9.04를 윈도우즈 환경에서 사용하려면 USB
 [OpenCM9.04_REV_1.-(131009)-Gerber.pdf]: https://robotis.s3.ap-northeast-2.amazonaws.com/support/ko/baggage_files/opencm/opencm9.04__rev_1.0(131009)-gerber.pdf
 [Arduino Official Guide]: https://www.arduino.cc/en/Guide/Libraries
 [GitHub repository]: https://github.com/ROBOTIS-GIT/Dynamixel2Arduino
-[begin()]: /docs/popup/arduino_api/begin
-[getPortBaud()]: /docs/popup/arduino_api/getPortBaud
-[ping()]: /docs/popup/arduino_api/ping
-[scan()]: /docs/popup/arduino_api/scan
-[getModelNumber()]: /docs/popup/arduino_api/getModelNumber
-[setID()]: /docs/popup/arduino_api/setID
-[setProtocol()]: /docs/popup/arduino_api/setProtocol
-[setBaudrate()]: /docs/popup/arduino_api/setBaudrate
-[torqueOn()]: /docs/popup/arduino_api/torqueOn
-[torqueOff()]: /docs/popup/arduino_api/torqueOff
-[ledOn()]: /docs/popup/arduino_api/ledOn
-[ledOff()]: /docs/popup/arduino_api/ledOff
-[setOperatingMode()]: /docs/popup/arduino_api/setOperatingMode
-[setGoalPosition()]: /docs/popup/arduino_api/setGoalPosition
-[getPresentPosition()]: /docs/popup/arduino_api/getPresentPosition
-[setGoalVelocity()]: /docs/popup/arduino_api/setGoalVelocity
-[getPresentVelocity()]: /docs/popup/arduino_api/getPresentVelocity
-[setGoalPWM()]: /docs/popup/arduino_api/setGoalPWM
-[getPresentPWM()]: /docs/popup/arduino_api/getPresentPWM
-[setGoalCurrent()]: /docs/popup/arduino_api/setGoalCurrent
-[getPresentCurrent()]: /docs/popup/arduino_api/getPresentCurrent
-[readControlTableItem()]: /docs/popup/arduino_api/readControlTableItem
-[writeControlTableItem()]: /docs/popup/arduino_api/writeControlTableItem
-[syncRead()]: /docs/popup/arduino_api/syncRead
-[syncWrite()]: /docs/popup/arduino_api/syncWrite
-[bulkRead()]: /docs/popup/arduino_api/bulkRead
-[bulkWrite()]: /docs/popup/arduino_api/bulkWrite
-[getLastLibErrCode()]: /docs/popup/arduino_api/getLastLibErrCode
-[USB 드라이버 설치]: /docs/popup/usb_driver_install
+
+

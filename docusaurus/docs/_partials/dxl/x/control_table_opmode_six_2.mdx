@@ -8,7 +8,6 @@
 | 16         | PWM Control Mode  (Voltage Control Mode)   | This mode directly controls PWM output. (Voltage Control Mode)                                                                                                                                                                                                                                |
 
 
-
 :::note
 
 **NOTE** : When the Operating Mode(11) switches to another mode, value of Gains, such as [Velocity PI(76, 78)](#velocity-pi-gain76-78); [Position PID(80, 82, 84)](#position-pid-gain80-82-84); [Feedforward(88, 90)](#position-pid-gain80-82-84), will be reset fitting to a selected Operating Mode(11). Beside, the profile generator and the data of determining the limit value will be reset either. See the next description for more details.  
@@ -22,8 +21,6 @@ Note that the changed value of [Position PID(80, 82, 84)](#position-pid-gain80-8
 :::
 
 
-
-
 :::note
 
 **NOTE** : PWM stands for **Pulse Width Modulation** that modulates PWM Duty to control motors. It changes pulse width to control average supply voltage to the motor, and this technique is widely used in the motor control field.  
@@ -31,7 +28,6 @@ Note that the changed value of [Position PID(80, 82, 84)](#position-pid-gain80-8
 2. Input [Goal PWM(100)](#goal-pwm) value to control supply voltage for DYNAMIXEL in **PWM Control Mode**.
 
 :::
-
 
 
 {/* nested include: en/dxl/control_table_opmode_note.md */}

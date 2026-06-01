@@ -4,14 +4,12 @@ For instance, allocating 513(which is the Address of red LED) to Indirect Addres
 If a specific item has address longer than 2 byte, each address byte has to be sequentially configured in the Indirect Address.
 
 
-
 <div class="notice--success">
 **Example 1** : Allocating 1 byte LED Red(513) to Indirect Data 1(634).
 1. Indirect Address 1(168) : write `513` which is the address of LED Red.
 2. Set Indirect Data 1(634) to `255` : The value of LED Red(513) will automatically set as `255` and LED will be turned on.
 3. Set Indirect Data 1(634) to `0` : The value of LED Red(513) will automatically set as `0` and LED will be turned off.
 </div>
-
 
 
 <div class="notice--success">
@@ -36,7 +34,6 @@ If a specific item has address longer than 2 byte, each address byte has to be s
 **NOTE** : In order to allocate Data in the Control Table longer than 2[byte] to Indirect Address, all address must be allocated to Indirect Address like the above Example 2.
 
 :::
-
 
 
 :::warning

@@ -1,7 +1,6 @@
 # [[ROS] Controller Package](#ros-controller-package)
 
 
-
 :::info
 
 **NOTE** :  
@@ -100,7 +99,6 @@ $ roslaunch open_manipulator_p_controller open_manipulator_p_controller.launch
 :::
 
 
-
 Follwing message will be shown in a terminal after the process is done successfully.  
 
 ```
@@ -133,7 +131,6 @@ Joint Dynamixel ID : 6, Model Name : PRO-PLUS-PH42-020-S300-R
 ```
 
 
-
 :::tip
 
 **TIP**:  
@@ -144,7 +141,6 @@ if DYNAMIXEL aren't recoginized, please check firmware with ROBOTIS software ([R
 - If you would like to change DYNAMIXEL ID, please check [`open_manipulator_p.cpp`](https://github.com/ROBOTIS-GIT/open_manipulator_p/blob/master/open_manipulator_p_libs/src/open_manipulator_p.cpp) in the open_manipulator_p_lib folder. The default ID is **1, 2, 3, 4 ,5 and 6** for joints.
 
 :::
-
 
 
 :::info
@@ -550,7 +546,6 @@ Active Joint
 ```
 
 
-
 ### RViz
 :::info
 
@@ -567,7 +562,6 @@ Load OpenMANIPULATOR-P on RViz.
 ``` bash
 $ roslaunch open_manipulator_p_description open_manipulator_p_rviz.launch
 ```
-
 
 
 :::info
@@ -609,7 +603,6 @@ $ rqt
 ```
 
 ![](/img/systems/openmanipulator_p/rqt1.webp)  
-
 
 
 :::tip
@@ -682,7 +675,6 @@ A list of topics that the open_manipulator_p_controller subscribes.
 `/open_manipulator/option`([std_msgs/String]) is used to set OpenMANIPULATOR-P options. **"print_open_manipulator_setting"** : is to request the open_manipulator_p_controller to display "Manipulator Description".
 
 
-
 `/open_manipulator/option`([moveit_msgs/DisplayTrajectory]) is used to subscribe a planned joint trajectory published from moveit!
 
 `/move_group/goal`([moveit_msgs/MoveGroupActionGoal]) is used to subscribe a planning option data published from moveit!
@@ -699,7 +691,6 @@ In addition, you can monitor topics through rqt whenever you have a topic added 
 **NOTE**: These services are messages to operate OpenMANIPULATOR-P or to change the status of DYNAMIXEL of OpenMANIPULATOR-P.
 
 :::
-
 
 
 **Service Server List** :

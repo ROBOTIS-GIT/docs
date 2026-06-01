@@ -14,7 +14,6 @@ Indirect Address and Indirect Data are useful when accessing two remote addresse
 3. Set Indirect Data 1(224) to ‘0’ : LED(65) also becomes ‘0’ and LED is turned off.
 
 
-
 `Example 2` Allocating Size 4 byte [Goal Position(116)] to Indirect Data 2(225), 4 sequential bytes have to be allocated.
 1. Indirect Address 2(170) : change the value to '116' which is the first address of Goal Position.
 2. Indirect Address 3(172) : change the value to '117' which is the second address of Goal Position.
@@ -23,13 +22,11 @@ Indirect Address and Indirect Data are useful when accessing two remote addresse
 5. Set 4 byte value '1,024' to Indirect Data 2 : [Goal Position(116)] also becomes '1024' and DYNAMIXEL moves.
 
 
-
 :::note
 
 **NOTE** : In order to allocate Data in the Control Table longer than 2[byte] to Indirect Address, all address must be allocated to Indirect Address like the above Example 2.
 
 :::
-
 
 
 :::note

@@ -34,10 +34,9 @@ The development environment for OpenCR1.0 is wide open from Arduino IDE and Scra
 
 :::warning
 
-<sup>`*`</sup> 5V power source is supplied from regulated 12V output. Total power consumption on 12V and 5V ports should not exceed 55W.
+5V power source is supplied from regulated 12V output. Total power consumption on 12V and 5V ports should not exceed 55W.
 
 :::
-
 
 
 :::note
@@ -47,16 +46,11 @@ The development environment for OpenCR1.0 is wide open from Arduino IDE and Scra
 :::
 
 
-
 :::note
 
 **NOTE** : Hot swap power switch between "shore power"(12V, 4.5A SMPS) and "mobile power"(battery) from OpenCR1.0 board enables UPS(Uninterrupted Power Supply) feature.
 
 :::
-
-
-
-
 
 
 :::danger
@@ -74,22 +68,15 @@ The development environment for OpenCR1.0 is wide open from Arduino IDE and Scra
 :::
 
 
-
-
-
-
-
 :::warning
 
 ![](/img/icon_warning.webp)  
 **CAUTION**  
 (Ignoring these warnings may cause mild injury or damage to the product)
- - Always comply with the product's offical operating environment specifications including input voltage, current, and operating temperature. 
+ - Always comply with the product's official operating environment specifications including input voltage, current, and operating temperature. 
 - Do not insert blades or other sharp objects during product operation.
 
 :::
-
-
 
 
 :::warning
@@ -104,17 +91,15 @@ The development environment for OpenCR1.0 is wide open from Arduino IDE and Scra
 :::
 
 
-
 # Layout/Pin Map
 ![](/img/parts/controller/opencr10/opencr_pinout.webp)
 
 
 :::danger
 
-**WARNING**: To enhance user safety and to prevent proprietary risk or damage, **be sure to check the pinout installed on DYNAMIXEL and the board**. The Pinout of DYNAMIXEL may differ depending on a manufacturer of connector. 
+**WARNING**: To enhance user safety and to prevent property damage, **be sure to check the pinout installed on DYNAMIXEL and the board**. The Pinout of DYNAMIXEL may differ depending on the connector manufacturer. 
 
 :::
-
 
 
 ## Arduino Connector
@@ -204,7 +189,6 @@ It has an 18-pin common GPIO expansion connector and is mapped to the GPIO pin o
 :::
 
 
-
 :::note
 
 **NOTE** : Typical pull-up / pull-down resistance is 40k&Omega;
@@ -262,10 +246,9 @@ void changeDirection_EXIT_0(void){
 
 :::warning
 
-**CAUTION**: Since Serial3 is used for DYNAMIXEL, its usage differs from other serial. (For more information, please refer to DYNAMIXELWorkbench.)
+**CAUTION**: Since Serial3 is used for DYNAMIXEL, its usage differs from other serial ports. (For more information, please refer to DYNAMIXEL Workbench.)
 
 :::
-
 
 
 ## Pin Definition
@@ -462,7 +445,7 @@ Select Tools → Port → /dev/ttyACM0.
 
 ![](/img/systems/turtlebot3/preparation/ide6.webp)
 
-### Remove Modemmanager
+### Remove ModemManager
 After programming with the Arduino IDE and uploading the program to the OpenCR, the OpenCR will be restarted and be reconnected. At the same moment, the modem-related packages of the Linux will send the AT command to manage the device. Thus indicates an connection error on the OpenCR, so this step should be done previously.
 
 ```bash
@@ -564,7 +547,6 @@ Select Tools → Port → COM1.
 **CAUTION** : The value of `COM1` may be different depending on the environment connected to the PC.
 
 :::
-
 
 
 # Examples
@@ -1201,17 +1183,17 @@ void loop()
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/DcDFl4UjUos" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
 
-### Joystic Sensor
-It is joystic test on the OpenCR board.
+### Joystick Sensor
+This is a joystick test on the OpenCR board.
 
 ![](/img/parts/controller/opencr10/joystick_sensor.webp)
 
 - Specification
-  - [Joystic Sensor Specification](https://www.dfrobot.com/wiki/index.php/Joystick_Module_For_Arduino_(SKU:DFR0061))
+  - [Joystick Sensor Specification](https://www.dfrobot.com/wiki/index.php/Joystick_Module_For_Arduino_(SKU:DFR0061))
   - Interface : Analog
 
 #### Code
-Joystic is to get the output value according to the input.  
+Joystick is used to get the output value according to the input.  
 We will look at the X Y Z values ​​that change depending on how we move.  
 Signal of x,y and z is connected to A0, A1, A2 of Arduino.
 
@@ -1639,7 +1621,7 @@ $ opencr_ld <Communication port> <Baudrate> <Firmware binary> <Firmware executio
 
   ![](/img/parts/controller/opencr10/arduino_bin_export.webp)
 
-  > Exporting compiled binary file fron Arduino IDE
+  > Exporting compiled binary file from Arduino IDE
 
 ## Example For Linux / Mac
 The following is an example for Linux and Mac users. Be sure that the command may differ depending on your PC environment.
@@ -1683,13 +1665,13 @@ opencr_ld.exe COM1 115200 ./opencrfw.bin 1
 ![](/img/parts/controller/opencr10/downloader_01.webp)
 
 ## Download Executable File
-Excutable file can be downloaded at the provided link.
+Executable file can be downloaded at the provided link.
 
 - [https://github.com/ROBOTIS-GIT/OpenCR/tree/master/arduino/opencr_arduino/tools/opencr_tools_1.0.0](https://github.com/ROBOTIS-GIT/OpenCR/tree/master/arduino/opencr_arduino/tools/opencr_tools_1.0.0)
 
 # Reference
 ## Recovery Mode
-If currupted or incompleted firmware is downloaded and the board freezes or does not work, you must enter a boot loader to be able to download the normal firmware. See [Boot Sequence](/docs/parts/controller/opencr10#boot-sequence) for more information.
+If corrupted or incomplete firmware is downloaded and the board freezes or does not work, you must enter a boot loader to be able to download the normal firmware. See [Boot Sequence](/docs/parts/controller/opencr10#boot-sequence) for more information.
 
 To execute the boot loader, please follow the instruction below.
 
@@ -1718,7 +1700,6 @@ Following table refers the pinout of DYNAMIXEL.
 |        PCB Header        | ![](/img/dxl/JST_B3B_EH-A.webp)<br />[JST B3B-EH-A] | ![](/img/dxl/JST_B4B-EH-A.webp)<br />[JST B4B-EH-A] |
 |      Crimp Terminal      |                     [JST SEH-001T-P0.6]                      |                     [JST SEH-001T-P0.6]                      |
 | Wire Gauge for DYNAMIXEL |                            21 AWG                            |                            21 AWG                            |
-
 
 
 [JST EHR-03]: http://www.jst-mfg.com/product/pdf/eng/eEH.pdf
@@ -1763,10 +1744,7 @@ To control the DYNAMIXEL actuators, the main controller needs to convert its UAR
 :::
 
 
-
-
 ![](/img/dxl/x/x_series_485_pin.webp)
-
 
 
 The power of DYNAMIXEL is supplied via Pin1(-), Pin2(+).  
@@ -1793,7 +1771,6 @@ Please inquire us for information regarding unlisted certifications.
 :::
 
 
-
 :::warning
 
 **WARNING**  
@@ -1801,7 +1778,6 @@ Any changes or modifications not expressly approved by the manufacturer could vo
 the equipment.
 
 :::
-
 
 
 [Reference Manual]: http://www.st.com/resource/en/reference_manual/dm00124865.pdf

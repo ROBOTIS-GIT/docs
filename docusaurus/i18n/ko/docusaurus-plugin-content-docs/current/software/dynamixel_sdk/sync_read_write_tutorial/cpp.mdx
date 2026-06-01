@@ -26,11 +26,8 @@ $ code my_sync_read_write.cpp
 ```
 
 
-
-
 - Open Visual Studio and create a new project as a Console Application.
   ![](/img/software/dynamixel/dynamixel_sdk/basic_read_write_tutorial/makeproject.webp)
-
 
 
 # Source Code Description
@@ -56,8 +53,6 @@ $ code my_sync_read_write.cpp
 ```
 
 
-
-
 - Make main function and initialize the `PortHandler`,`PacketHandler`,`GroupSyncWrite` and `GroupSyncRead`. Set the `port name` and `protocol version` according to your DYNAMIXEL setup. The example below uses `COM3` as the port name and `2.0` as the protocol version.
 ```cpp
   int main(){
@@ -70,7 +65,6 @@ $ code my_sync_read_write.cpp
     dynamixel::GroupSyncWrite groupSyncWrite(portHandler, packetHandler, goal_position_address, data_length_4byte);
     dynamixel::GroupSyncRead groupSyncRead(portHandler, packetHandler, present_position_address, data_length_4byte);
 ```
-
 
 
 ## Open Port and Set Baud Rate
@@ -298,8 +292,6 @@ $ ./my_sync_read_write
 ```
 
 
-
-
 - Set build properties.
 
   ![](/img/software/dynamixel/dynamixel_sdk/basic_read_write_tutorial/buildproperties.webp)
@@ -323,7 +315,6 @@ $ ./my_sync_read_write
 **WARNING**: If you execute the .exe file directly(not through the IDE), you might encounter a `missing DLL` error. To fix this, ensure that `dxl_x64_cpp.dll` is either in your system PATH or in the same directory as the application.
 
 :::
-
 
 
 # Full Source Code
@@ -463,8 +454,6 @@ int main(){
 ```
 
 
-
-
 ```cpp
 #include "dynamixel_sdk/dynamixel_sdk.h"
 #include <iostream>
@@ -599,7 +588,5 @@ int main(){
   return 0;
 }
 ```
-
-
 
 

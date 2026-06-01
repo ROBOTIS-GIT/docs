@@ -25,10 +25,6 @@
 :::
 
 
-
-
-
-
 :::danger
 
 ![](/img/icon_warning.webp)  
@@ -44,22 +40,15 @@
 :::
 
 
-
-
-
-
-
 :::warning
 
 ![](/img/icon_warning.webp)  
 **CAUTION**  
 (Ignoring these warnings may cause mild injury or damage to the product)
- - Always comply with the product's offical operating environment specifications including input voltage, current, and operating temperature. 
+ - Always comply with the product's official operating environment specifications including input voltage, current, and operating temperature. 
 - Do not insert blades or other sharp objects during product operation.
 
 :::
-
-
 
 
 :::warning
@@ -72,7 +61,6 @@
 - Do not connect or disconnect DYNAMIXEL cables while power is being supplied.
 
 :::
-
 
 
 # Control Table
@@ -92,7 +80,7 @@ Control Table consists of data regarding the current status and operation of con
   In case of data in the RAM Area, the initial values on the right side of the following control table are the ones when the power is turned on.
 
 - **Size**  
-  The Size of data varies from 1 ~ 4 bytes depend on their usage. Please check the size of data when updating the data with an Instruction Packet.
+  The size of data varies from 1 ~ 4 bytes depending on its usage. Please check the size of data when updating the data with an Instruction Packet.
 
 ## CM-550 Control Table
 |  Area  | Address | Size\[Byte\] |          Data Name          | Access | Default Value |           Range           |       Unit        | Value                                                                                                                                                                                                                                                                                                                                                                                                                                | Description                                                                                                                                                                                                                                               |
@@ -102,8 +90,8 @@ Control Table consists of data regarding the current status and operation of con
 | EEPROM |    7    |      1       |             ID              |   R    |      200      |            \-             |        \-         | \-                                                                                                                                                                                                                                                                                                                                                                                                                                   | Controller ID                                                                                                                                                                                                                                             |
 | EEPROM |   11    |      1       |     Bootloader Version      |   R    |      \-       |          0 ~ 255          |        \-         | \-                                                                                                                                                                                                                                                                                                                                                                                                                                   | Bootloader Version                                                                                                                                                                                                                                        |
 | EEPROM |   12    |      1       |    Baud Rate (DYNAMIXEL)    |   RW   |       3       |           0 ~ 7           |        \-         | 0 : 9600 bps<br />1 : 57600 bps<br />2 : 115200 bps<br />3 : 1 Mbps<br />4 : 2 Mbps<br />5 : 3 Mbps<br />6 : 4 Mbps<br />7 : 4.5 Mbps<br />                                                                                                                                                                                                                                                                                                          | DYNAMIXEL Communication Baud Rate <br /> Note that, If a baudrate of DYNAMIXEL is 57600 bps while CM550 is on boot, the baudrate of DYNAMIXEL will be automatically set to 1 M bps. Baud rates other than 57600 bps will stay on boot time.                                                                                                                                                                                                                          | 
-| EEPROM |   13    |      1       |      Baud Rate (UART)       |   RW   |       1       |           0 ~ 7           |        \-         | See Address 12                                                                                                                                                                                                                                                                                                                                                                                                                       | Emebedded UART Comunication Baud Rate                                                                                                                                                                                                                     |
-| EEPROM |   15    |      1       |    Contorller Direction     |   RW   |       0       |           0 ~ 1           |        \-         | 0 : Vertical<br />1 : Horizontal                                                                                                                                                                                                                                                                                                                                                                                                       | Set the value (Vertical or Horizontal) by the direction of the controller                                                                                                                                                                                 |
+| EEPROM |   13    |      1       |      Baud Rate (UART)       |   RW   |       1       |           0 ~ 7           |        \-         | See Address 12                                                                                                                                                                                                                                                                                                                                                                                                                       | Embedded UART Communication Baud Rate                                                                                                                                                                                                                     |
+| EEPROM |   15    |      1       |    Controller Direction     |   RW   |       0       |           0 ~ 1           |        \-         | 0 : Vertical<br />1 : Horizontal                                                                                                                                                                                                                                                                                                                                                                                                       | Set the value (Vertical or Horizontal) by the direction of the controller                                                                                                                                                                                 |
 | EEPROM |   16    |      1       |      Temperature Limit      |   RW   |      60       |        \-20 ~ 100         |        °C         | \-                                                                                                                                                                                                                                                                                                                                                                                                                                   | Set the value to limit temperature. In excessing this value, DYNAMIXEL connected with a controller will not operate.                                                                                                                                      |
 |  RAM   |   20    |      1       |       <br />Bypass Port       |   R    |       0       |           0 ~ 2           |        \-         | 0 : BLE<br />1 : UART<br />2 : USB                                                                                                                                                                                                                                                                                                                                                                                                       | <br />The communication port to bypass with DYNAMIXEL port.                                                                                                                                                                                                 |
 |  RAM   |   21    |      1       |         Mode Number         |   RW   |       2       |           0 ~ 4           |        \-         | 0 : IDLE<br />1 : Task Play<br />2 : Manage<br />3 : Bootloader<br />4 : Reboot                                                                                                                                                                                                                                                                                                                                                              | \- Set IDLE (0), Task Play(1) or Manage(2) to change operating mode.<br />\- Set Bootloader(3) to run a boot loader<br />\- Use Reboot(4) to reboot a controller.<br />                                                                                         |
@@ -118,8 +106,8 @@ Control Table consists of data regarding the current status and operation of con
 |  RAM   |   36    |      1       |          App Port           |   RW   |       0       |           0 ~ 1           |        \-         | 0 : BLE<br />1 : UART                                                                                                                                                                                                                                                                                                                                                                                                                  | <br />\- Set BLE (0) to use an embedded Bluetooth module.<br />\- Set UART (1) to use an external port supporting UART comunication                                                                                                                           |
 |  RAM   |   37    |      1       |        App Connected        |   R    |       0       |           0 ~ 1           |        \-         | 0 : False<br />1 : True                                                                                                                                                                                                                                                                                                                                                                                                                | App status check if a smart device is connected.                                                                                                                                                                                                          |
 |  RAM   |   39    |      1       |         Num of Dxl          |   R    |       0       |          0 ~ 255          |        \-         | \-                                                                                                                                                                                                                                                                                                                                                                                                                                   | \- The number of connected DYNAMIXEL with a controller.<br />\- Update the status of connected DYNAMIXELs using Scan DXL (Address 40)                                                                                                                       |
-|  RAM   |   40    |      1       |          Scan Dxl           |   RW   |       0       |           0 ~ 1           |        \-         | 0 : False<br />1 : True                                                                                                                                                                                                                                                                                                                                                                                                                | Search connected DYNAMIXELs via Protocol 1.0 / 2,0 and update the status of connected DYNAMIXELs.                                                                                                                                                         |
-|  RAM   |   41    |      1       |         Dxl Torque          |   RW   |       0       |           0 ~ 3           |        \-         | 0 : NONE<br />1 : OFF, Busy<br />2 : ON<br />3 : REBOOT                                                                                                                                                                                                                                                                                                                                                                                    | Enable (or disable) a torque of connected DYNAMIXEL, or to reboot.<br />\- Be sure to wait for few until the value is read and turned back to '0'.                                                                                                          |
+|  RAM   |   40    |      1       |          Scan Dxl           |   RW   |       0       |           0 ~ 1           |        \-         | 0 : False<br />1 : True                                                                                                                                                                                                                                                                                                                                                                                                                | Search connected DYNAMIXELs via Protocol 1.0 / 2.0 and update the status of connected DYNAMIXELs.                                                                                                                                                         |
+|  RAM   |   41    |      1       |         Dxl Torque          |   RW   |       0       |           0 ~ 3           |        \-         | 0 : NONE<br />1 : OFF, Busy<br />2 : ON<br />3 : REBOOT                                                                                                                                                                                                                                                                                                                                                                                    | Enable (or disable) torque of connected DYNAMIXELs, or reboot them.<br />\- Be sure to wait until the value is read and turned back to '0'.                                                                                                          |
 |  RAM   |   43    |      1       |         Remote Port         |   RW   |       0       |           0 ~ 2           |        \-         | 0 : BLE<br />1 : UART<br />2 : USB                                                                                                                                                                                                                                                                                                                                                                                                       | Select a port for use of remote controller. (Default: BLE (0))                                                                                                                                                                                            |
 |  RAM   |   51    |      4       |        Print Number         |   W    |       0       |      \-32768 ~ 32767      |        \-         | \-                                                                                                                                                                                                                                                                                                                                                                                                                                   | 4 bytes signed value for serial monitor output without a newline character.                                                                                                                                                                               |
 |  RAM   |   55    |      4       |       Print Number LF       |   W    |       0       |      \-32768 ~ 32767      |        \-         | \-                                                                                                                                                                                                                                                                                                                                                                                                                                   | 4 bytes signed value for serial monitor output with a newline character.                                                                                                                                                                                  |
@@ -309,17 +297,12 @@ The pinout of DYNAMIXEL TTL connector is shown below.
 [JST SEH-001T-P0.6]: http://www.jst-mfg.com/product/pdf/eng/eEH.pdf
 
 
-
-
 ## Communication Circuit
 To control the DYNAMIXEL actuators, the main controller needs to convert its UART signals to the half duplex type. The recommended circuit diagram for this is shown below.
 
 
-
 ### TTL Communication
 ![](/img/dxl/ttl_circuit.webp)
-
-
 
 
 :::note
@@ -329,9 +312,6 @@ To control the DYNAMIXEL actuators, the main controller needs to convert its UAR
 :::
 
 
-
-
-
 ![](/img/dxl/x/x_series_ttl_pin.webp)
 
  
@@ -339,16 +319,14 @@ To control the DYNAMIXEL actuators, the main controller needs to convert its UAR
 
 1. GND : Ground (0 [V])  
 2. VDD : Power Supply (Same as Battery Level)  
-3. DATA : Data tranceiving pin
+3. DATA : Data transceiving pin
 
 
 :::danger
 
-**WARNING**: To enhance user safety and to prevent proprietary risk or damage, **be sure to check the pinout installed on DYNAMIXEL and the board**. The Pinout of DYNAMIXEL may differ depending on a manufacturer of connector. 
+**WARNING**: To enhance user safety and to prevent property damage, **be sure to check the pinout installed on DYNAMIXEL and the board**. The Pinout of DYNAMIXEL may differ depending on the connector manufacturer. 
 
 :::
-
-
 
 
 :::warning
@@ -403,9 +381,9 @@ The `MODE` button flickers in **Standby Mode**. While the `MODE` LED is flickeri
 Press the `MODE` button again to exit to Standby Mode.
 
 ### MANAGE
-  - In Manage Mode, Roboplus softwares can be connected to controllers and DYNAMIXEL's for configuration.
+  - In Manage Mode, RoboPlus software can be connected to controllers and DYNAMIXELs for configuration.
   - The `MODE` LED will appear red under Manage Mode.
-  - [R+ Manager 2.0] can be used to configure or test CM-550 and connected X series DYNAMIXEL's.
+  - [R+ Manager 2.0] can be used to configure or test CM-550 and connected X series DYNAMIXELs.
   - If CM-550 detects [R+ Manager 2.0] or [R+ Task 3.0] connection, the mode automatically changes to Manage Mode.
 
 
@@ -429,12 +407,12 @@ Press the `MODE` button again to exit to Standby Mode.
   - While `MODE` LED is flickering in any color, press and hold the `MODE` button for five(5) seconds until the notification sounds with blue `MODE` LED.
 
 ## Firmware Recovery
-In case of unexpected firmware malfunction or incomplete task code download that interferes normal operation, CM-550 can be recovered with [R+ Manager 2.0] via [Firmware Recovery].  
+In case of unexpected firmware malfunction or incomplete task code download that interferes with normal operation, CM-550 can be recovered with [R+ Manager 2.0] via [Firmware Recovery].  
 It is strongly recommended to use `USB` port for the firmware recovery.
 
 # Compatible Software
 ## R+ Manager 2.0
-RoboPlus Manager 2.0 is able to connect to CM-550 so that supported peripheral devices such as X series DYNAMIXEL, [Touch Sensor], [LED Module], [IR Sensor] and etc.
+RoboPlus Manager 2.0 is able to connect to CM-550 and configure supported peripheral devices such as X series DYNAMIXEL, Touch Sensor, LED Module, and IR Sensor.
 
 ![](/img/software/rplus2/manager/roboplus_manager2_39.webp)
 
@@ -448,14 +426,14 @@ Task codes and Motions can be created and modified with R+ Task 3.0.
 There are three available options to connect PC and CM-550.
 
 1. Use 5pin micro USB cable to connect the PC and CM-550.
-2. Use [BT-410 Dongle] to pair the PC and CM-550 wirelessly.
+2. Use BT-410 Dongle to pair the PC and CM-550 wirelessly.
 3. Use LN-101 to connect the PC and CM-550.
 
 ![](/img/parts/controller/cm-550/cm-550_usb.webp)
 
 # Connect to Smart Device
 CM-550 includes BLE bluetooth slave module.  
-Smart devices or PC with [BT-410 Dongle] can be paired with CM-550 wirelessly.
+Smart devices or PC with BT-410 Dongle can be paired with CM-550 wirelessly.
 
 1. Turn on the CM-550 controller.  
   ![](/img/edu/engineer/kit1/bluetooth_connection_1.webp)
@@ -529,13 +507,11 @@ Current battery life can be verified by the color of the LED located on the CM-5
 :::
 
 
-
 :::warning
 
 **CAUTION** : Please disconnect the battery from the charger when charging is completed. Please do not charge the battery while operating the robot.
 
 :::
-
 
 
 # Fuse Replacement
@@ -557,14 +533,9 @@ Disconnect power source from CM-550 and replace the fuse on the bottom of CM-550
 ![](/img/edu/engineer/kit1/charger_fuse_2.webp)
 
 
-
-[R+ Manager 2.0]: /docs/software/dynamixel_wizard_2_0
-[R+ Task 3.0]: https://emanual.robotis.com/docs/en/software/rplustask3/
+[R+ Manager 2.0]: /docs/software/rplus_manager_2_0
+[R+ Task 3.0]: /docs/software/rplus_task_3_0
 [Charging Battery]: #charging-battery
 [Operating Mode]: #operating-mode
-[Touch Sensor]: /docs/parts/sensor/ts-10
-[LED Module]: /docs/parts/display/lm-10
-[IR Sensor]: /docs/parts/sensor/irss-10
 [Connector Information]: /docs/dxl/model_reference/x_series/2xl430-w250#connector-information/
 [Firmware Recovery]: /docs/software/dynamixel_wizard_2_0#firmware-recovery/
-[BT-410 Dongle]: /docs/parts/communication/bt-410-dongle

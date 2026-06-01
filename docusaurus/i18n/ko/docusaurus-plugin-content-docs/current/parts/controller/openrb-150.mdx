@@ -75,9 +75,6 @@ OpenRB-150은 아두이노와 호환되는 오픈소스 제어기입니다.
 :::
 
 
-
-
-
 :::danger
 
 - USB 포트에서 공급받을 수 있는 전류는 최대 500mA 입니다 (내장 퓨즈 사용). 그러나 순간적으로 높은 전류를 사용할 경우 OpenRB-150에 연결된 USB 포트가 손상될 수 있습니다.  
@@ -87,11 +84,6 @@ OpenRB-150은 아두이노와 호환되는 오픈소스 제어기입니다.
 - 전원이 꺼진 상태에서 장치와 전원을 연결하시고 스위치로 ON/OFF 해주세요.
 
 :::
-
-
-
-
-
 
 
 :::danger
@@ -108,11 +100,6 @@ OpenRB-150은 아두이노와 호환되는 오픈소스 제어기입니다.
 :::
 
 
-
-
-
-
-
 :::warning
 
 ![](/img/icon_warning.webp)  
@@ -122,8 +109,6 @@ OpenRB-150은 아두이노와 호환되는 오픈소스 제어기입니다.
 - 작동 중인 제품 내부로 칼날, 압정, 불씨 등을 흡입시키지 마세요.
 
 :::
-
-
 
 
 :::warning
@@ -137,7 +122,6 @@ OpenRB-150은 아두이노와 호환되는 오픈소스 제어기입니다.
 :::
 
 
-
 # 하드웨어 레이아웃
 ## 핀아웃
 ![](/img/parts/controller/openrb-150/openrb-150_pinout.webp)
@@ -146,7 +130,6 @@ OpenRB-150은 아두이노와 호환되는 오픈소스 제어기입니다.
 `RESET` 버튼을 눌러, 제어기를 재부팅할 수 있습니다. 
 
 `RESET` 버튼을 빠르게 2번 누르면 부트로더 모드로 진입하며, 이 상태에서는 업로드된 스케치 또는 펌웨어가 실행되지 않습니다. 
-
 
 
 :::danger
@@ -276,7 +259,6 @@ OpenRB-150은 다음의 3가지 전원 입력 방법을 통해 구동할 수 있
   ![](/img/parts/controller/openrb-150/openrb-150_power_terminal_vin.webp)
 
 
-
 :::danger
 
 **주의**  
@@ -289,7 +271,6 @@ OpenRB-150은 다음의 3가지 전원 입력 방법을 통해 구동할 수 있
 ## 연결 예시
 ### [USB 전용] 5V 다이나믹셀 연결하기
 ![](/img/parts/controller/openrb-150/openrb-150_connection_example01.webp)
-
 
 
 :::danger
@@ -494,31 +475,5 @@ OpenRB-150이 연결된 Port를 선택 후, `업로드` 버튼을 클릭하면 �
 [다이나믹셀 커뮤니케이션 브릿지]: /docs/parts/interface/dxl_bridge
 [Arduino Official Guide]: https://www.arduino.cc/en/Guide/Libraries
 [GitHub repository]: https://github.com/ROBOTIS-GIT/Dynamixel2Arduino
-[begin()]: /docs/popup/arduino_api/begin
-[getPortBaud()]: /docs/popup/arduino_api/getPortBaud
-[ping()]: /docs/popup/arduino_api/ping
-[scan()]: /docs/popup/arduino_api/scan
-[getModelNumber()]: /docs/popup/arduino_api/getModelNumber
-[setID()]: /docs/popup/arduino_api/setID
-[setProtocol()]: /docs/popup/arduino_api/setProtocol
-[setBaudrate()]: /docs/popup/arduino_api/setBaudrate
-[torqueOn()]: /docs/popup/arduino_api/torqueOn
-[torqueOff()]: /docs/popup/arduino_api/torqueOff
-[ledOn()]: /docs/popup/arduino_api/ledOn
-[ledOff()]: /docs/popup/arduino_api/ledOff
-[setOperatingMode()]: /docs/popup/arduino_api/setOperatingMode
-[setGoalPosition()]: /docs/popup/arduino_api/setGoalPosition
-[getPresentPosition()]: /docs/popup/arduino_api/getPresentPosition
-[setGoalVelocity()]: /docs/popup/arduino_api/setGoalVelocity
-[getPresentVelocity()]: /docs/popup/arduino_api/getPresentVelocity
-[setGoalPWM()]: /docs/popup/arduino_api/setGoalPWM
-[getPresentPWM()]: /docs/popup/arduino_api/getPresentPWM
-[setGoalCurrent()]: /docs/popup/arduino_api/setGoalCurrent
-[getPresentCurrent()]: /docs/popup/arduino_api/getPresentCurrent
-[readControlTableItem()]: /docs/popup/arduino_api/readControlTableItem
-[writeControlTableItem()]: /docs/popup/arduino_api/writeControlTableItem
-[syncRead()]: /docs/popup/arduino_api/syncRead
-[syncWrite()]: /docs/popup/arduino_api/syncWrite
-[bulkRead()]: /docs/popup/arduino_api/bulkRead
-[bulkWrite()]: /docs/popup/arduino_api/bulkWrite
-[getLastLibErrCode()]: /docs/popup/arduino_api/getLastLibErrCode
+
+

@@ -18,9 +18,6 @@ DYNAMIXEL Shield  was created to use [RC-100] and DYNAMIXEL on arduino board. We
 |  Maximum Current  | 1 A(Arduino), 10 A (Terminal Connector) |
 
 
-
-
-
 :::danger
 
 ![](/img/icon_warning.webp)  
@@ -36,11 +33,6 @@ DYNAMIXEL Shield  was created to use [RC-100] and DYNAMIXEL on arduino board. We
 :::
 
 
-
-
-
-
-
 :::warning
 
 ![](/img/icon_warning.webp)  
@@ -50,8 +42,6 @@ DYNAMIXEL Shield  was created to use [RC-100] and DYNAMIXEL on arduino board. We
 - Do not insert blades or other sharp objects during product operation.
 
 :::
-
-
 
 
 :::warning
@@ -64,7 +54,6 @@ DYNAMIXEL Shield  was created to use [RC-100] and DYNAMIXEL on arduino board. We
 - Do not connect or disconnect DYNAMIXEL cables while power is being supplied.
 
 :::
-
 
 
 ## Supported DYNAMIXEL
@@ -122,7 +111,6 @@ The DYNAMIXEL Shield has the same pin position as Aruduino UNO. To find the pino
 - The hardware serial port is used to communicate with DYNAMIXEL, therefore, [RC-100] or [LN-101] has to be connected to the software serial communication port(SW TX/RX) via Arduino pin 7 and 8.
 
 
-
 :::warning
 
 `Caution1` When uploading firmware using USB port, you should switch the UART SW(SW_2) to Upload mode. When you select the UART SW (SW_2) to DYNAMIXEL mode, you can use DYNAMIXEL but USB port.  
@@ -149,7 +137,7 @@ Check the type of your arduino board, and select the either of listed solution t
 
 :::note
 
-    **NOTE**: Be sure to use `SoftwareSerial` Library to use the serial port with DYNAMIXEL Shield and AVR 8 bit boards as the port is designed for the use of general pins. Prefered Comunication Modules: [BT-210](/docs/parts/communication/bt-410), [BT-410](/docs/parts/communication/bt-210), [LN-101](/docs/parts/interface/ln-101).
+    **NOTE**: Be sure to use `SoftwareSerial` Library to use the serial port with DYNAMIXEL Shield and AVR 8 bit boards as the port is designed for the use of general pins. Prefered Comunication Modules: BT-210, BT-410, LN-101.
 
 :::
 
@@ -225,7 +213,6 @@ Click `Install all` to install the dependent library `Dynamixel2Arduino`.
 If you have successfully installed both libraries, you'll be able to find several examples of DynamixelShield in the examples.
 
 ![](/img/parts/interface/dynamixel_shield/examples.webp)
-
 
 
 :::warning
@@ -382,10 +369,7 @@ To control the DYNAMIXEL actuators, the main controller needs to convert its UAR
 :::
 
 
-
-
 ![](/img/dxl/x/x_series_485_pin.webp)
-
 
 
 The power of DYNAMIXEL is supplied via Pin1(-), Pin2(+).  
@@ -393,7 +377,6 @@ The power of DYNAMIXEL is supplied via Pin1(-), Pin2(+).
 In the above circuit diagram, the direction of data signal of TxD and RxD in the TTL Level is determined according to the level of DIRECTION 485 as follows:  
 In case of DIRECTION485 Level = High: The signal of TxD is output to D+ and D-  
 In case of DIRECTION485 Level = Low: The signal of D+ and D- is output to RxD  
-
 
 
 # Download
@@ -477,8 +460,7 @@ In case of DIRECTION485 Level = Low: The signal of D+ and D- is output to RxD
 [PM54-060-S250-R]: /docs/dxl/model_reference/p_series/pm54-060-s250-r
 [PM54-040-S250-R]: /docs/dxl/model_reference/p_series/pm54-040-s250-r
 [PM42-010-S260-R]: /docs/dxl/model_reference/p_series/pm42-010-s260-r
-[LN-101]: /docs/parts/interface/ln-101
-[RC-100]: /docs/parts/communication/rc-100
+
 [Arduino Official Guide]: https://www.arduino.cc/en/Guide/Libraries
 [DYNAMIXEL2Arduino GitHub repository]: https://github.com/ROBOTIS-GIT/Dynamixel2Arduino
 [DYNAMIXEL Shield GitHub repository]: https://github.com/ROBOTIS-GIT/DynamixelShield

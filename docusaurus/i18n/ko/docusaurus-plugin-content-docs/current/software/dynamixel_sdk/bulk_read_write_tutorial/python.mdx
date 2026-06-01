@@ -28,13 +28,10 @@ $ code my_bulk_read_write.py
 ```
 
 
-
-
 # Make python file
 - Open the Visual Studio Code and create a python file in your workspace.
 
   ![](/img/software/dynamixel/dynamixel_sdk/basic_read_write_tutorial/vscodepython.webp)
-
 
 
 # Source Code Description
@@ -59,8 +56,6 @@ $ code my_bulk_read_write.py
 ```
 
 
-
-
 - Initialize the `PortHandler`,`PacketHandler`,`GroupBulkWrite` and `GroupBulkRead`. Set the `port name` and `protocol version` according to your DYNAMIXEL setup. The example below uses `COM3` as the port name and `2.0` as the protocol version.
 ```python
   portHandler = PortHandler('COM3')
@@ -71,7 +66,6 @@ $ code my_bulk_read_write.py
   groupBulkWrite = GroupBulkWrite(portHandler, packetHandler)
   groupBulkRead = GroupBulkRead(portHandler, packetHandler)
 ```
-
 
 
 ## Open Port and Set Baud Rate
@@ -277,12 +271,9 @@ $ python3 my_bulk_read_write.py
 ```
 
 
-
-
 - Run the code through Visual Studio Code.
 
   ![](/img/software/dynamixel/dynamixel_sdk/basic_read_write_tutorial/runbutton.webp)
-
 
 
 # Full Source Code
@@ -410,8 +401,6 @@ portHandler.closePort()
 ```
 
 
-
-
 ```python
 #!/usr/bin/env python3
 
@@ -534,6 +523,5 @@ while True:
             break
 portHandler.closePort()
 ```
-
 
 

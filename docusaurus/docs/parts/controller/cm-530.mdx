@@ -15,9 +15,6 @@
 |  External I/O Device  |            ROBOTIS 5-Pin Port x 6<br />AX/MX Series DYNAMIXEL Connector x 5             |
 
 
-
-
-
 :::danger
 
 ![](/img/icon_warning.webp)  
@@ -33,22 +30,15 @@
 :::
 
 
-
-
-
-
-
 :::warning
 
 ![](/img/icon_warning.webp)  
 **CAUTION**  
 (Ignoring these warnings may cause mild injury or damage to the product)
- - Always comply with the product's offical operating environment specifications including input voltage, current, and operating temperature. 
+ - Always comply with the product's official operating environment specifications including input voltage, current, and operating temperature. 
 - Do not insert blades or other sharp objects during product operation.
 
 :::
-
-
 
 
 :::warning
@@ -63,7 +53,6 @@
 :::
 
 
-
 # Layout
 ![](/img/parts/controller/cm-530/cm-530_01.webp)
 
@@ -76,7 +65,7 @@
 - **MODE Button** : Used to change the operation mode of CM-530. Please read below for more information.
 - **START Button** : Used to START selected mode. Please read below for more information.
 - **U / L / D / R Button** : Used for input purposes when a program is playing. These buttons can be used to send commands to the robot.
-- **AX/MX Serise Bus Port** : Used to connect the AX/MX DYNAMIXEL in a daisy chain method.
+- **AX/MX Series Bus Port** : Used to connect the AX/MX DYNAMIXEL in a daisy chain method.
 - **ROBOTIS 5-Pin Port** : Used to connect Distance Measurement Sensor, Touch Sensor, IR Sensor, and peripheral devices. The port numbers for each port are represented in bars such as I , II , III, IIII , IIIII , and IIIIII.
 - **Mode Display LED** : LED to display current operation mode of CM-530; Detailed descriptions are provided as below.
 
@@ -87,7 +76,7 @@
 
 ## [PROGRAM]
 - It displays the motion edit mode is in progress.
-- It is used when the motions are editted with [RoboPlus Motion].
+- It is used when the motions are edited with [RoboPlus Motion].
 - It is automatically executed when RoboPlus Motion and CM-530 are connected.
 
 ## [PLAY]
@@ -95,7 +84,7 @@
 - It is used after downloading the written code to CM-530 with [RoboPlus Task].
 - The Start button must be pressed directly by the user to execute when PLAY LED flickers.
 
-- **Status Display LED** : The LED represents the current status of CM-530. Detailed discriptions are provided as below.
+- **Status Display LED** : The LED represents the current status of CM-530. Detailed descriptions are provided as below.
   - **TxD** : Turned on while CM-530 is transmitting the data to the outside.
   - **RxD** : Turned on while CM-530 is receiving the data from the outside.
   - **AUX** : Assigned LED to be used by the user in the program.  It can be turned on or off using task code.
@@ -146,10 +135,9 @@ Please be careful not to change the direction considering the angular part.
 
 :::danger
 
-**WARNING**: To enhance user safety and to prevent proprietary risk or damage, **be sure to check the pinout installed on DYNAMIXEL and the board**. The Pinout of DYNAMIXEL may differ depending on a manufacturer of connector. 
+**WARNING**: To enhance user safety and to prevent property damage, **be sure to check the pinout installed on DYNAMIXEL and the board**. The Pinout of DYNAMIXEL may differ depending on the connector manufacturer. 
 
 :::
-
 
 
 # Connecting Power
@@ -160,10 +148,10 @@ The power is applied  if the battery is connected to battery socket of CM-530 or
 # How to Operate
 - **Turning the power on** : The power is turned on by moving the switch from OFF to ON.
   ※ If the power is not turned on in spite of moving the switch to ON, the batteries may have been discharged.
-  Pleaser refer to Charging to recharge, or connect the power using SMPS.
+  Please refer to Charging to recharge, or connect the power using SMPS.
 - **Start** : Move to PLAY using Mode Button to operate robots.  Press START Button to execute when the LED on PLAY flickers.
   ※ If START button is pressed, the LED on PLAY is not supposed to be flickering any more; that is the normal status of the execution.
-- **End** :  If you want to stop the executed operations, press MODE Button to get back to waiting mode stauts, or turn OFF the power using Power Switch.
+- **End** :  If you want to stop the executed operations, press MODE Button to get back to waiting mode status, or turn OFF the power using Power Switch.
 - It is used to control DYNAMIXEL and the peripherals, and it can connect DYNAMIXEL(AX/MX DYNAMIXEL... etc.) and various parts of OLLO(Touch Sensor, LED Module, IR Sensor etc.).
 - Specific motions can be edited and saved through RoboPlus Motion.  The saved motion (mtn file) can be always executed by RoboPlus Task, and also the motions of each part can be controlled by writing the task codes for control.
 
@@ -230,8 +218,6 @@ During charging the charger’s red LED turns on. When complete the green LED tu
 - Time to charge the battery depends on the status of the battery(If the charging time or battery life becomes too short, you may need to replace your battery).
 
 
-
-
 :::warning
 
 `Caution`
@@ -243,7 +229,7 @@ During charging the charger’s red LED turns on. When complete the green LED tu
 
 
 # Fuse Replacement
-The fuse in the CM-510/CM-530 prevents it from overloading,which can damage the circuit.
+The fuse in the CM-510/CM-530 prevents it from overloading, which can damage the circuit.
 
 If the CM-510/CM-530 does not turn on with the battery but turns on when connected to the SMPS, replace your fuse.
 
@@ -257,7 +243,7 @@ If the CM-510/CM-530 does not turn on with the battery but turns on when connect
 
     ![](/img/parts/controller/cm-530/cm510_fuse_01.webp)
 
-2. Use a pincette to replace the fuse with a new one.
+2. Use tweezers to replace the fuse with a new one.
 
     ![](/img/parts/controller/cm-530/cm510_fuse_02.webp)
 
@@ -269,16 +255,16 @@ If the CM-510/CM-530 does not turn on with the battery but turns on when connect
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/ZAstC0VRqYA" frameborder="0" allowfullscreen></iframe>
 
-[RoboPlus Task]: https://emanual.robotis.com/docs/en/software/rplus1/task/getting_started
-[RoboPlus Motion]: https://emanual.robotis.com/docs/en/software/rplus1/motion
-[RoboPlus Manager]: https://emanual.robotis.com/docs/en/software/rplus1/manager
-[Number of pressed Start button]: https://emanual.robotis.com/docs/en/software/rplus1/task/programming_02#button-count/
-[Start button]: https://emanual.robotis.com/docs/en/software/rplus1/task/programming_02#button-count/
-[LN-101]: /docs/parts/interface/ln-101
-[ZIG-110]: /docs/parts/communication/zig-110
-[BT-110]: /docs/parts/communication/bt-110
-[BT-210]: /docs/parts/communication/bt-210
-[BT-410]: /docs/parts/communication/bt-410
-[Automatic Turn-off]: https://emanual.robotis.com/docs/en/software/rplus1/task/programming_02#powersave-timer/
-[Firmware Update]: https://emanual.robotis.com/docs/en/software/rplus1/manager#firmware-update/
+[RoboPlus Task]: /docs/software/rplus_1_0/rplus_task/getting_started
+[RoboPlus Motion]: /docs/software/rplus_1_0/rplus_motion
+[RoboPlus Manager]: /docs/software/rplus_1_0/rplus_manager
+[Number of pressed Start button]: /docs/software/rplus_1_0/rplus_task/programming_02#button-count
+[Start button]: /docs/software/rplus_1_0/rplus_task/programming_02#button-count
+[LN-101]: https://emanual.robotis.com/docs/en/parts/interface/ln-101/
+[ZIG-110]: https://emanual.robotis.com/docs/en/parts/communication/zig-110/
+[BT-110]: https://emanual.robotis.com/docs/en/parts/communication/bt-110/
+[BT-210]: https://emanual.robotis.com/docs/en/parts/communication/bt-210/
+[BT-410]: https://emanual.robotis.com/docs/en/parts/communication/bt-410/
+[Automatic Turn-off]: /docs/software/rplus_1_0/rplus_task/programming_02#powersave-timer
+[Firmware Update]: /docs/software/rplus_1_0/rplus_manager#firmware-update
 [AX-Series Pin Assignment]: /docs/dxl/model_reference/ax_series/ax-12a#pin-assignment/

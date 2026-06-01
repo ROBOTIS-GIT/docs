@@ -63,7 +63,6 @@ tags: [edu, engineer]
 :::
 
 
-
 :::note
 
 **[CM-550 매뉴얼 바로가기]**
@@ -101,7 +100,6 @@ tags: [edu, engineer]
 9. 로봇이나 부품에 충격을 가하거나 날카로운 물체로 찌르지 마십시오.
 
 :::
-
 
 
 ### 사용상 주의사항
@@ -164,7 +162,6 @@ tags: [edu, engineer]
 ![](/img/edu/engineer/kit1/2xl430_horn.webp)  
 
 
-
 :::warning
 
 **주의**  
@@ -213,14 +210,12 @@ tags: [edu, engineer]
 :::
 
 
-
 # 작동하기
 ## 앱 설치하기
 - STEAMCUP ENGINEER는 [R+ Task 3.0]를 지원합니다.
 - [R+ Task 3.0]은 기존의 [R+ Task 2.0]과 [R+ Motion 2.0]이 통합된 프로그램입니다.
 - 태스크 코드를 작성하여, 로봇을 원하는대로 명령으로 구동할 수 있습니다.
 - 모션파일로 로봇의 행동을 직접 만들어 줄 수 있습니다.
-
 
 
 :::tip
@@ -235,15 +230,13 @@ tags: [edu, engineer]
 :::
 
 
-
-
 :::tip
 
 ![](/img/edu/engineer/kit1/icon_engineer_48.webp)  
 **로보플러스 엔지니어**
 - [구글 플레이에서 다운로드 받기](https://play.google.com/store/apps/details?id=com.robotis.robotisEngineer)
 - [앱 스토어에서 다운로드 받기](https://apps.apple.com/kr/app/r-engineer/id1475713920)
-- **참고**: [로보플러스 엔지니어 다운로드 방법](/docs/popup/engineer/engineer_app_installation)
+- **참고**: 로보플러스 엔지니어 다운로드 방법
 
 :::
 
@@ -468,7 +461,6 @@ STEAMCUP ENGINEER는 머신러닝(Tensor Flow)기반의 사물학습 및 객체�
 아래의 과정을 따라하며 머신러닝을 쉽게 시작해보세요.
 
 
-
 :::info
 
 - 사물학습 및 객체인식을 사용하기 위해서는, 카메라가 장착된 스마트 기기가 있어야 합니다.
@@ -627,7 +619,6 @@ pip install tensorflow==1.13.1
 :::
 
 
-
 :::warning
 
   **주의** : 폴더와 파일 이름은 반드시 영문으로 작성해주세요.
@@ -650,7 +641,6 @@ python retrain.py --bottleneck_dir=./bottlenecks --model_dir=./inception  --outp
     학습 명령어에서 `how_many_training_steps` 옵션은 이미지 학습의 횟수를 나타냅니다. 횟수는 1000회 정도가 적당하며, 예시의 명령어는 1000회로 학습합니다.
 
 :::
-
 
 
 :::warning
@@ -718,7 +708,6 @@ python retrain.py --bottleneck_dir=./bottlenecks --model_dir=./inception  --outp
     ![](/img/edu/engineer/kit1/obj_classification_test_05.webp)   
 
 
-
 :::info
 
 **참고** : 이미 생성된 학습파일인 `Smart_OC.txt` 와 `Smart_OC.pb` 에는 새로운 데이터를 추가할 수 없습니다.  
@@ -727,7 +716,6 @@ python retrain.py --bottleneck_dir=./bottlenecks --model_dir=./inception  --outp
 - [이미지 학습 방법](#이미지-학습)
 
 :::
-
 
 
 # 교육자료 다운로드
@@ -765,7 +753,6 @@ CM-550에 내장된 BLE 슬레이브 모듈의 신호의 세기가 약하거나 
 아래 표는 여러개의 CM-550를 한 공간에서 사용할 때 BLE 신호 세기를 설정하는 방법입니다.
 
 
-
 :::note
 
 | 나의 CM-550 | 주변의 CM-550 | BLE 신호 세기 |
@@ -780,7 +767,6 @@ CM-550에 내장된 BLE 슬레이브 모듈의 신호의 세기가 약하거나 
 - 모든 제어기의 통신이 잘 유지된다면 신호의 세기가 충분하고, 다른 제어기에 의해서 간섭이 발생하지 않는 경우입니다. **BLE 신호 세기를 유지시켜 주세요**.
 
 :::
-
 
 
 :::note
@@ -927,13 +913,11 @@ CM-550에 내장된 BLE 슬레이브 모듈의 신호의 세기가 약하거나 
 :::
 
 
-
 :::warning
 
 **주의** : 충전이 완료되면 반드시 충전기와 충전지를 분리하여 보관해주시고, 충전중인 충전지를 사용해서 로봇을 구동하지 않도록 주의하세요.
 
 :::
-
 
 
 ## 퓨즈 교체하기
@@ -955,7 +939,6 @@ CM-550에는 과전류가 흘러서 회로가 망가지는 것을 방지하기 �
 ![](/img/edu/engineer/kit1/charger_fuse_2.webp)
 
 
-
 :::tip
 
 ## 도면
@@ -970,9 +953,5 @@ CM-550에는 과전류가 흘러서 회로가 망가지는 것을 방지하기 �
 [R+ Task 2.0]: https://emanual.robotis.com/docs/en/software/rplus2/task
 [R+ Motion 2.0]: https://emanual.robotis.com/docs/en/software/rplus2/motion
 [동작 모드]: /docs/parts/controller/cm-550#동작-모드
-[제어기와 PC 연결하기]: /docs/popup/engineer/connect_controller_pc
-[PC에서 태스크 예제 다운로드 하기]: /docs/popup/engineer/task_download_pc
-[PC에서 모션 예제 다운로드 하기]: /docs/popup/engineer/motion_download_pc
-[제어기와 스마트기기 연결하기]: /docs/popup/engineer/connect_controller_mobile
-[스마트기기에서 태스크 예제 다운로드 하기]: /docs/popup/engineer/task_download_mobile
-[스마트기기에서 모션 예제 다운로드 하기]: /docs/popup/engineer/motion_download_mobile
+
+

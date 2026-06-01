@@ -10,7 +10,6 @@ These Gains are used in Position Control Mode and Extended Position Control Mode
 Below figure is a block diagram describing the position controller in Position Control Mode and Extended Position Control Mode. When the instruction is received by the device, it takes following steps until driving the device.
 
 
-
 <div class="notice--success">
 1. An Instruction from the user is transmitted via communication bus, then registered to Goal Position(564).
 2. Goal Position(564) is converted to desired position trajectory and desired velocity trajectory by Profile Velocity(560) and Profile Acceleration(556).
@@ -29,7 +28,6 @@ Below figure is a block diagram describing the position controller in Position C
 **NOTE** : In case of PWM Control Mode, both PID controller and Feedforward controller are deactivated while Goal PWM(548) value is directly controlling the motor through an Inverter. In this manner, users can directly control the supplying voltage of the motor.
 
 :::
-
 
 
 :::note

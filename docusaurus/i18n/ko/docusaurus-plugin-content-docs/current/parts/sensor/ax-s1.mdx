@@ -118,9 +118,6 @@ Control Table 에는 명칭이 같지만 (L) 과 (H) 가 뒤에 붙어서 Addres
   
 
 
-
-
-
 Instruction Packet으로 장치를 식별하기 위한 고유 번호입니다.
 0~252 (0xFC) 까지 사용 가능하며, 254(0xFE)는 브로드캐스트(Broadcast) ID로 특수하게 사용됩니다.
 브로드캐스트 ID(254, 0xFE)로 Instruction Packet을 전송하면 모든 장치에 명령을 내릴 수 있습니다.
@@ -133,13 +130,11 @@ Instruction Packet으로 장치를 식별하기 위한 고유 번호입니다.
 :::
 
 
-
 :::note
 
 **참고** : Instruction packet의 ID가 Broadcast ID(0xFE)인 경우, [Stuatus Return Level (68)](#status-return-level)의 설정값과 무관하게 Read Instruction 또는 Write Instruction에 대한 Status Packet은 반환되지 않습니다. 더 자세한 설명은 [다이나믹셀 프로토콜 2.0]의 `Status Packet` 항목을 참조하세요.
 
 :::
-
 
 
 <a id="baud-rate"></a>
@@ -167,7 +162,6 @@ Instruction Packet으로 장치를 식별하기 위한 고유 번호입니다.
 :::
 
 
-
 :::note
 
 **참고**: U2D2을 이용 시, 높은 통신 Baud rate에서 안정적인 통신을 위해서는 [USB 포트의 응답지연시간(Latency)](/docs/software/dynamixel_wizard_2_0#포트-응답-속도-설정) 을 낮춰주세요. 
@@ -175,12 +169,8 @@ Instruction Packet으로 장치를 식별하기 위한 고유 번호입니다.
 :::
 
 
-
 <a id="return-delay-time"></a>
 ### Return Delay Time (5)
-
-
-
 
 
 다이나믹셀은 Instruction Packet을 수신하면, Return Delay Time(5) 만큼 대기한 후 Status Packet을 반환 합니다.  
@@ -212,15 +202,11 @@ Status Packet의 반환 방식을 결정합니다.
 | 2  |            All Instructions            |     모든 명령에 대해서 Status Packe을 반환함      |
 
 
-
-
 :::note
 
 **참고** : Instruction packet 의 ID가 Broadcast ID(0xFE) 인 경우는  Stuatus Return Level (68)의 설정값과 무관하게 Read Instruction 또는 Write Instruction에 대한 Status Packet은 반환되지 않습니다. 더 자세한 설명은 [DYNAMIXEL Protocol 2.0]의 `Status Packet` 항목을 참조하세요.
 
 :::
-
-
 
 
 [DYNAMIXEL Protocol 1.0]: /docs/dxl/protocol/protocol1

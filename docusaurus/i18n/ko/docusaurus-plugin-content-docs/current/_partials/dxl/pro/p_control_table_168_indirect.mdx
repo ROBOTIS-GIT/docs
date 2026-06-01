@@ -7,14 +7,12 @@ Control Table Item의 모든 byte를 Indirect Address로 세팅 해주어야 정
 예를 들어, Indirect Data 2를 Goal Position(564)으로 사용하고 싶을 땐, 아래와 같이 세팅해야 합니다.
 
 
-
 <div class="notice--success">
 **예제 1** : 1 바이트 LED Red(513)를 Indirect Data 1(634)에 할당하기.
 1. Indirect Address 1(168) : Red LED의 주소값인 `513`으로 변경.
 2. Indirect Data 1(634)을 `255`로 변경 : LED Red(513)값 또한 `255`로 변경되며 붉은색 LED가 켜짐.
 3. Indirect Data 1(634)을 `0`로 변경 : LED Red(513)값 또한 `0`로 변경도며 LED가 꺼짐.
 </div>
-
 
 
 <div class="notice--success">
@@ -39,7 +37,6 @@ Control Table Item의 모든 byte를 Indirect Address로 세팅 해주어야 정
 **참고** : 2바이트 이상의 데이터를 Indirect Address에 할당하기 위해서는 모든 데이터의 주소를 '예제 2'와 같이 Indirect Address에 할당해주어야 합니다.
 
 :::
-
 
 
 :::warning

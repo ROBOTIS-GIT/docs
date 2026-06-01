@@ -55,14 +55,11 @@ import CommonLink from '@site/docs/_partials/dxl/x/common_link.mdx';
 <X2xIntro />
 
 
-
 :::info
 
 자세한 사양 정보는 [공식 사양 페이지](/docs/dxl/model_reference/x_series/2xc430-w250#specifications)를 참조하세요.
 
 :::
-
-
 
 
 <Warning />
@@ -82,7 +79,6 @@ import CommonLink from '@site/docs/_partials/dxl/x/common_link.mdx';
 
 
 <NotePerformanceGraph />
-
 
 
 <ControlTable />
@@ -200,7 +196,6 @@ import CommonLink from '@site/docs/_partials/dxl/x/common_link.mdx';
 <ControlTableId />
 
 
-
 :::warning
 
 **주의** : 2XC430의 두 개의 모터에는 서로 다른 ID를 부여해야 합니다. 만약 서로 같은 ID로 설정하려고 하면 Status packet에 Data Limit Error(0x06)가 발생하며 설정이 되지 않습니다.
@@ -211,7 +206,6 @@ import CommonLink from '@site/docs/_partials/dxl/x/common_link.mdx';
 <a id="baud-rate"></a>
 ### Baud Rate(8)
 <ControlTableBaudrate2 />
-
 
 
 :::warning
@@ -244,7 +238,6 @@ import CommonLink from '@site/docs/_partials/dxl/x/common_link.mdx';
 <a id="protocol-type"></a>
 ### Protocol Type(13)
 <ControlTableProtocolversion />
-
 
 
 :::warning
@@ -370,13 +363,11 @@ import CommonLink from '@site/docs/_partials/dxl/x/common_link.mdx';
 ![](/img/dxl/velocity_controller_pi_gain.webp)
 
 
-
 :::note
 
 **주의**: K<sub>a</sub>는 Anti-windup Gain이고 &beta;는 위치와 속도의 변환계수로 사용자가 변경할 수는 없습니다. PID 제어기에 대한 자세한 설명은 아래의 사이트를 참고하세요. [PID Controller at wikipedia](http://en.wikipedia.org/wiki/PID_controller).
 
 :::
-
 
 
 <a id="position-d-gain"></a>
@@ -416,13 +407,11 @@ import CommonLink from '@site/docs/_partials/dxl/x/common_link.mdx';
 :::
 
 
-
 :::note
 
 **주의**: K<sub>a</sub>는 Anti-windup Gain로서 사용자가 변경할 수는 없습니다. 보다 자세한 PID 제어기와 Feedforward 제어기에 대한 설명은 아래의 사이트를 참고바랍니다. [PID Controller](http://en.wikipedia.org/wiki/PID_controller) and [Feed Forward](https://en.wikipedia.org/wiki/Feed_forward_(control)).
 
 :::
-
 
 
 <a id="bus-watchdog"></a>
@@ -556,7 +545,6 @@ Profile에 의해 생성된 목표 속도 궤적입니다. 제어 모드에 따�
 
 ## 커넥터 정보
 <JstTtl />
-
 
 
 <TtlConnectionX />

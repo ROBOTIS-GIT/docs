@@ -22,13 +22,11 @@ Error Code stores the value of any currently active error statuses. The list of 
 | 20 (0x14) | Position Limit Reached Error | Y         | Y     | Y           | In position control mode, the current position has moved<br />beyond the Max/Min Position Limit + [Position Limit Threshold(38)] range. |
 
 
-
 :::note
 
 **Note** : *Hold indicates that writing new Goal Values is not possible while Torque is On and this error is in effect. In position and velocity control modes, the current position is maintained after deceleration and stop, while in current control mode, the servo will enter Dynamic Brake mode.
 
 :::
-
 
 
 #### How to Clear Error

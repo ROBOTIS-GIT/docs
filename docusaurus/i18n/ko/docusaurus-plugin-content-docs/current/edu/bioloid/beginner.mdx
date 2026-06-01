@@ -114,7 +114,6 @@ CM-5 는 기본적으로 BIOLOID 학습서에 나와 있는 것과 같이 기존
 :::
 
 
-
 # 튜토리얼
 ## 화면 출력하기
 - `학습 목표`: 화면에 1과 2를 출력합니다.
@@ -451,7 +450,7 @@ RoboPlus Motion 에서 작성한 모션을 CM-5 에 저장한 후 이 모션을 
 ### 다운로드
 
 - 완성된 태스크 코드 : [download][BIO_CMP_WalkingDroid_KR.tsk]
-- 다운로드 방법 : [태스크 코드 다운로드](/docs/edu/bioloid/beginner#태스크-코드-다운로드)
+- 다운로드 방법 : 태스크 코드 다운로드
 
 ### 동작 확인
 다운로드한 태스크 코드를 PLAY 시킵니다. 보행 경로 상에 장애물을 설치해 놓고 보행 드로이드가 장애물을 피해서 보행하는 것을 확인합니다.
@@ -490,7 +489,6 @@ RC-100 의 U / L / D / R 버튼을 누름에 따라 보행 드로이드가 전�
 
 [BIO_CMP_WalkingDroidExam_KR.tsk]: http://www.robotis.com/service/download.php?no=1243
 [BIO_CMP_WalkingDroidExam_KR.mtn]: http://www.robotis.com/service/download.php?no=1242
-
 
 
 :::note
@@ -734,7 +732,7 @@ RC-100 의 U / L / D / R 버튼을 누름에 따라 보행 드로이드가 전�
 
 [CM-5]: /docs/parts/controller/cm-5
 [펌웨어 업데이트]: https://emanual.robotis.com/docs/en/software/rplus1/manager#펌웨어-업데이트
-[USB2DYNAMIXEL]: /docs/parts/interface/usb2dynamixel
+
 ## 모션 파일 다운로드
 특정 파일 모션을 로봇 모션으로 바꿀 수 있습니다.
 
@@ -751,7 +749,6 @@ RC-100 의 U / L / D / R 버튼을 누름에 따라 보행 드로이드가 전�
 - 로보플러스 프로그램 다운로드(CM-510/530)
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/ynJ03u6W32k" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-
 
 
 :::note
@@ -848,8 +845,6 @@ CM-5 내부에는 과전류가 흘러서 회로가 망가지는 것을 막기 �
     ![](/img/edu/bioloid/id_change_2_kr.webp)
 
 
-
-
 :::note
 
 `ID변경시 유의사항`
@@ -900,12 +895,11 @@ RoboPlus Manager에서 다이나믹셀을 찾을 수 없는 경우가 발생합�
 [ZIG-100/110]은 로봇용 무선 통신 장치로서 ZIGBee 방식을 사용합니다. ZIGBee 는 Bluetooth 와 같이 PAN(Personal Area Network) 통신에 많이 사용되는 통신 기술입니다. 적외선 방식에 비해서 통신 품질이 매우 좋고, 여러 명이 동시에 조종하여도 각자 자신의 로봇을 조종할 수 있는 장점이 있습니다.
 
 
-
 :::warning
 
 구매한 제품에 지그비 모듈이 포함되지 않을 수 있습니다. 이 경우에는 별도로 구매해야 합니다. BT-210 또는 BT-410 사용자는 관련 e-Manual을 참조하세요.
-- [BT-210 e-Manual](/docs/parts/communication/bt-210)
-- [BT-410 e-Manual](/docs/parts/communication/bt-410)
+- BT-210 e-Manual
+- BT-410 e-Manual
 
 :::
 
@@ -927,10 +921,7 @@ RC-100 을 이용한 올로와 바이올로이드의 조종은 기본적으로 �
 |             CM-510 에 ZIG-110 모듈을 장착한 모습              |         CM-5 에 ZIG-100 모듈을 장착한 모습          |
 |      ![](/img/edu/bioloid/cm510_zig110_kr.webp)      |  ![](/img/edu/bioloid/cm5_zig100_kr.webp)  |
 
-[ZIG-100/110]: /docs/parts/communication/zig-110
-[ZIG-110 set]: /docs/parts/communication/zig-110
-[RC-100]: /docs/parts/communication/rc-100
-[제어기]: /docs/parts/controller/controller_compatibility
+
 ### 여러 대의 로봇 조종하기
 사용자가 댄스나 공연데모를 할 때 여러 대의 로봇에 동시에 명령을 주는 방법입니다. ZIGBEE 모듈의  Broadcast 모드를 이용 하는것으로 로봇에게 동시에 명령을 줄 수 있습니다.
 
@@ -989,8 +980,6 @@ CM-5에 장착한 ZIG-100모듈의 경우에는 채널 변경이 불가능 합�
 :::
 
 
-
-
 [CM-5]: /docs/parts/controller/cm-5
 [AX-12A]: /docs/dxl/model_reference/ax_series/ax-12a
 [AX-S1]: /docs/parts/sensor/ax-s1
@@ -1032,8 +1021,4 @@ CM-5에 장착한 ZIG-100모듈의 경우에는 채널 변경이 불가능 합�
 [콜백의 자세한 사용법은 여기를 참고하세요.]: https://emanual.robotis.com/docs/en/software/rplus1/task/programming_01#콜백-함수
 [함수 만들기/함수 호출의 자세한 사용법은 여기를 참고하세요.]: https://emanual.robotis.com/docs/en/software/rplus1/task/programming_01#함수-만들기호출
 [함수 강제 종료의 자세한 사용법은 여기를 참고하세요.]: https://emanual.robotis.com/docs/en/software/rplus1/task/programming_01#함수-강제종료
-[ZIG-100/110]: /docs/parts/communication/zig-110
-[ZIG-110 set]: /docs/parts/communication/zig-110
-[RC-100]: /docs/parts/communication/rc-100
-[RC-100 채널 바꾸는 방법 링크가기]: /docs/parts/communication/rc-100#적외선-통신채널-설정-방법
-[Zig2Serial 채널 바꾸는 방법 링크가기]: /docs/parts/communication/rc-100#zig-100bt-100-모듈-장착-방법
+

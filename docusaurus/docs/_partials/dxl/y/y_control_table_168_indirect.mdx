@@ -3,7 +3,6 @@ By assigning a control table item to an Indirect Address, the Indirect Data loca
 For example, if you assign ‘513’ to Indirect Address 1(256) and write ‘1’ to Indirect Data 1(634), the LED will light up and the value of the [LED(513)] control table item will change to ‘1’. Additionally, when a value is written [LED(513)], the value of Indirect Data 1 will also be updated. In other words, by assigning an address to an Indirect Address, the Indirect Data for that address becomes a mirror of the assigned address.
 
 
-
 :::tip
 
 **Example 1** : Allocating LED(513) to Indirect Data 1(634).
@@ -24,9 +23,6 @@ For example, if you assign ‘513’ to Indirect Address 1(256) and write ‘1�
 One thing to note is when setting a Control Table with a length of 2 bytes or more as an Indirect Address all bytes of the Control Table Item must be designated to sequential Indirect Addresses. For instance, if you wish to set Indirect Data 2 to mirror [Goal Position(532)], you must configure it as follows:
 
 
-
-
-
 :::tip
 
 **Example 2** : To allocate 4 byte Goal Position(532) to Indirect Data 2(635), all 4 consecutive bytes must be allocated.
@@ -45,7 +41,6 @@ One thing to note is when setting a Control Table with a length of 2 bytes or mo
 | 638                   | 535                   | 0x00            |
 
 :::
-
 
 
 [LED(513)]: #led513
