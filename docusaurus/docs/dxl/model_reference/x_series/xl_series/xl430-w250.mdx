@@ -1,0 +1,342 @@
+import Warning from '@site/docs/_partials/dxl/x/warning.mdx';
+import NotePerformanceGraph from '@site/docs/_partials/dxl/x/note_performance_graph.mdx';
+import ControlTable from '@site/docs/_partials/dxl/x/control_table.mdx';
+import ModelNumber from '@site/docs/_partials/dxl/x/model_number.mdx';
+import FirmwareVersion from '@site/docs/_partials/dxl/x/firmware_version.mdx';
+import Id from '@site/docs/_partials/dxl/x/id.mdx';
+import ControlTableBaudrate2 from '@site/docs/_partials/dxl/x/control_table_baudrate_2.mdx';
+import ReturnDelayTime from '@site/docs/_partials/dxl/x/return_delay_time.mdx';
+import DriveMode from '@site/docs/_partials/dxl/x/drive_mode.mdx';
+import OperatingModeXl from '@site/docs/_partials/dxl/x/operating_mode_xl.mdx';
+import ShadowId from '@site/docs/_partials/dxl/x/shadow_id.mdx';
+import ProtocolType from '@site/docs/_partials/dxl/x/protocol_type.mdx';
+import HomingOffset from '@site/docs/_partials/dxl/x/homing_offset.mdx';
+import MovingThreshold from '@site/docs/_partials/dxl/x/moving_threshold.mdx';
+import TemperatureLimit from '@site/docs/_partials/dxl/x/temperature_limit.mdx';
+import VoltageLimit from '@site/docs/_partials/dxl/x/voltage_limit.mdx';
+import PwmLimit from '@site/docs/_partials/dxl/x/pwm_limit.mdx';
+import VelocityLimit from '@site/docs/_partials/dxl/x/velocity_limit.mdx';
+import PositionLimit from '@site/docs/_partials/dxl/x/position_limit.mdx';
+import StartupConfiguration from '@site/docs/_partials/dxl/x/startup_configuration.mdx';
+import Shutdown from '@site/docs/_partials/dxl/x/shutdown.mdx';
+import TorqueEnable from '@site/docs/_partials/dxl/x/torque_enable.mdx';
+import Led from '@site/docs/_partials/dxl/x/led.mdx';
+import StatusReturnLevel from '@site/docs/_partials/dxl/x/status_return_level.mdx';
+import RegisteredInstruction from '@site/docs/_partials/dxl/x/registered_instruction.mdx';
+import HardwareErrorStatus from '@site/docs/_partials/dxl/x/hardware_error_status.mdx';
+import VelocityPiGain from '@site/docs/_partials/dxl/x/velocity_pi_gain.mdx';
+import PositionPidGain from '@site/docs/_partials/dxl/x/position_pid_gain.mdx';
+import BusWatchdog from '@site/docs/_partials/dxl/x/bus_watchdog.mdx';
+import GoalPwm from '@site/docs/_partials/dxl/x/goal_pwm.mdx';
+import GoalVelocity from '@site/docs/_partials/dxl/x/goal_velocity.mdx';
+import ProfileAcceleration from '@site/docs/_partials/dxl/x/profile_acceleration.mdx';
+import ProfileVelocity from '@site/docs/_partials/dxl/x/profile_velocity.mdx';
+import GoalPosition from '@site/docs/_partials/dxl/x/goal_position.mdx';
+import RealtimeTick from '@site/docs/_partials/dxl/x/realtime_tick.mdx';
+import Moving from '@site/docs/_partials/dxl/x/moving.mdx';
+import MovingStatus from '@site/docs/_partials/dxl/x/moving_status.mdx';
+import PresentPwm from '@site/docs/_partials/dxl/x/present_pwm.mdx';
+import PresentLoad from '@site/docs/_partials/dxl/x/present_load.mdx';
+import PresentVelocity from '@site/docs/_partials/dxl/x/present_velocity.mdx';
+import PresentPosition from '@site/docs/_partials/dxl/x/present_position.mdx';
+import VelocityTrajectory from '@site/docs/_partials/dxl/x/velocity_trajectory.mdx';
+import PositionTrajectory from '@site/docs/_partials/dxl/x/position_trajectory.mdx';
+import PresentInputVoltage from '@site/docs/_partials/dxl/x/present_input_voltage.mdx';
+import PresentTemperature from '@site/docs/_partials/dxl/x/present_temperature.mdx';
+import BackupReady from '@site/docs/_partials/dxl/x/backup_ready.mdx';
+import IndirectData from '@site/docs/_partials/dxl/x/indirect_data.mdx';
+import AssemblyXlXc430HornAssembly from '@site/docs/_partials/dxl/x/assembly_xl_xc430_horn_assembly.mdx';
+import AssemblyXl430FrameAssembly from '@site/docs/_partials/dxl/x/assembly_xl430_frame_assembly.mdx';
+import ProfileDescription from '@site/docs/_partials/dxl/x/profile_description.mdx';
+import FccClassB from '@site/docs/_partials/dxl/x/fcc_class_b.mdx';
+import QuickStart from '@site/docs/_partials/dxl/x/quick_start.mdx';
+import JstTtl from '@site/docs/_partials/dxl/x/jst_ttl.mdx';
+import TtlConnectionX from '@site/docs/_partials/dxl/x/ttl_connection_x.mdx';
+import DrawingXlXc430Drawing from '@site/docs/_partials/dxl/x/drawing_xl_xc430_drawing.mdx';
+import CommonLink from '@site/docs/_partials/dxl/x/common_link.mdx';
+import CompatibleX430 from '@site/docs/_partials/dxl/x/compatible_dxl/compatible_x430.mdx';
+
+![](/img/dxl/x/xl430_product_new.webp)
+
+> New XL430-W250 (Released in 2018)
+
+![](/img/dxl/x/xl430_product.webp)
+
+> Old XL430-W250 (Discontinued)
+
+# Specifications
+:::info
+
+Refer to the [official specification page](/docs/dxl/model_reference/x_series/xl_series/xl430-w250#specifications) for detailed specifications.
+
+:::
+
+
+<Warning />
+
+
+## Performance Graph
+![](/img/dxl/x/xl430_w250_performance_graph.webp)
+
+<details>
+<summary>
+![](/img/icon_unfold.webp) **Looking for the same form factor?**
+</summary>
+
+<CompatibleX430 />
+
+</details>
+
+
+<NotePerformanceGraph />
+
+
+<ControlTable />
+
+
+## Control Table of EEPROM Area
+| Address | Size(Byte) | Data Name                                       | Access | Initial<br />Value |           Range            |      Unit       |
+|:-------:|:----------:|:------------------------------------------------|:------:|:------------------:|:--------------------------:|:---------------:|
+|    0    |     2      | [Model Number](#model-number0)                   |   R    |       1,060        |             -              |        -        |
+|    2    |     4      | Model Information         |   R    |         -          |             -              |        -        |
+|    6    |     1      | [Firmware Version](#firmware-version6)           |   R    |         -          |             -              |        -        |
+|    7    |     1      | [ID](#id7)                                       |   RW   |         1          |          0 ~ 252           |        -        |
+|    8    |     1      | [Baud Rate](#baud-rate8)                         |   RW   |         1          |           0 ~ 7            |        -        |
+|    9    |     1      | [Return Delay Time](#return-delay-time9)         |   RW   |        250         |          0 ~ 254           |    2 [μsec]     |
+|   10    |     1      | [Drive Mode](#drive-mode10)                       |   RW   |         0          |           0 ~ 13           |        -        |
+|   11    |     1      | [Operating Mode](#operating-mode11)               |   RW   |         3          |           0 ~ 16           |        -        |
+|   12    |     1      | [Secondary(Shadow) ID](#secondaryshadow-id12)    |   RW   |        255         |          0 ~ 252           |        -        |
+|   13    |     1      | [Protocol Type](#protocol-type13)               |   RW   |         2          |           1 ~ 2            |        -        |
+|   20    |     4      | [Homing Offset](#homing-offset20)                 |   RW   |         0          | -1,044,479 ~ <br />1,044,479 |    1 [pulse]    |
+|   24    |     4      | [Moving Threshold](#moving-threshold24)           |   RW   |         10         |         0 ~ 1,023          | 0.229 [rev/min] |
+|   31    |     1      | [Temperature Limit](#temperature-limit31)         |   RW   |         72         |          0 ~ 100           |   1 [&deg;C]    |
+|   32    |     2      | [Max Voltage Limit](#minmax-voltage-limit34-32)         |   RW   |        140         |          60 ~ 140          |     0.1 [V]     |
+|   34    |     2      | [Min Voltage Limit](#minmax-voltage-limit34-32)         |   RW   |         60         |          60 ~ 140          |     0.1 [V]     |
+|   36    |     2      | [PWM Limit](#pwm-limit36)                         |   RW   |        885         |          0 ~ 885           |    0.113 [%]    |
+|   44    |     4      | [Velocity Limit](#velocity-limit44)               |   RW   |        265         |         0 ~ 1,023          | 0.229 [rev/min] |
+|   48    |     4      | [Max Position Limit](#minmax-position-limit52-48)       |   RW   |       4,095        |         0 ~ 4,095          |    1 [pulse]    |
+|   52    |     4      | [Min Position Limit](#minmax-position-limit52-48)       |   RW   |         0          |         0 ~ 4,095          |    1 [pulse]    |
+|   60    |     1      | [Startup Configuration](#startup-configuration60) |   RW   |         0          |             3              |        -        |
+|   63    |     1      | [Shutdown](#shutdown63)                           |   RW   |         52         |             -              |        -        |
+
+
+## Control Table of RAM Area
+| Address | Size(Byte) | Data Name                                         | Access | Initial<br />Value |                        Range                        |                  Unit                   |
+|:-------:|:----------:|:--------------------------------------------------|:------:|:------------------:|:---------------------------------------------------:|:---------------------------------------:|
+|   64    |     1      | [Torque Enable](#torque-enable64)                   |   RW   |         0          |                        0 ~ 1                        |                    -                    |
+|   65    |     1      | [LED](#led65)                                       |   RW   |         0          |                        0 ~ 1                        |                    -                    |
+|   68    |     1      | [Status Return Level](#status-return-level68)       |   RW   |         2          |                        0 ~ 2                        |                    -                    |
+|   69    |     1      | [Registered Instruction](#registered-instruction69) |   R    |         0          |                        0 ~ 1                        |                    -                    |
+|   70    |     1      | [Hardware Error Status](#hardware-error-status70)   |   R    |         0          |                          -                          |                    -                    |
+|   76    |     2      | [Velocity I Gain](#velocity-pi-gain76-78)               |   RW   |       1,000        |                     0 ~ 16,383                      |                    -                    |
+|   78    |     2      | [Velocity P Gain](#velocity-pi-gain76-78)               |   RW   |        100         |                     0 ~ 16,383                      |                    -                    |
+|   80    |     2      | [Position D Gain](#position-pid-gain80-82-84-feedforward-1st2nd-gains88-90)               |   RW   |       4,000        |                     0 ~ 16,383                      |                    -                    |
+|   82    |     2      | [Position I Gain](#position-pid-gain80-82-84-feedforward-1st2nd-gains88-90)               |   RW   |         0          |                     0 ~ 16,383                      |                    -                    |
+|   84    |     2      | [Position P Gain](#position-pid-gain80-82-84-feedforward-1st2nd-gains88-90)               |   RW   |        640         |                     0 ~ 16,383                      |                    -                    |
+|   88    |     2      | [Feedforward 2nd Gain](#position-pid-gain80-82-84-feedforward-1st2nd-gains88-90)     |   RW   |         0          |                     0 ~ 16,383                      |                    -                    |
+|   90    |     2      | [Feedforward 1st Gain](#position-pid-gain80-82-84-feedforward-1st2nd-gains88-90)     |   RW   |         0          |                     0 ~ 16,383                      |                    -                    |
+|   98    |     1      | [Bus Watchdog](#bus-watchdog98)                     |   RW   |         0          |                       1 ~ 127                       |                20 [msec]                |
+|   100   |     2      | [Goal PWM](#goal-pwm100)                             |   RW   |         -          |         -PWM Limit(36) ~<br /> PWM Limit(36)          |                0.113 [%]                |
+|   104   |     4      | [Goal Velocity](#goal-velocity104)                   |   RW   |         -          |    -Velocity Limit(44) ~<br /> Velocity Limit(44)     |             0.229 [rev/min]             |
+|   108   |     4      | [Profile Acceleration](#profile-acceleration108)     |   RW   |         0          |             0 ~ 32,767 <br /> 0 ~ 32,737              | 214.577 [rev/min<sup>2</sup>]<br />1 [ms] |
+|   112   |     4      | [Profile Velocity](#profile-velocity112)             |   RW   |         0          |                     0 ~ 32,767                      |             0.229 [rev/min]             |
+|   116   |     4      | [Goal Position](#goal-position116)                   |   RW   |         -          | Min Position Limit(52) ~<br /> Max Position Limit(48) |                1 [pulse]                |
+|   120   |     2      | [Realtime Tick](#realtime-tick120)                   |   R    |         -          |                     0 ~ 32,767                      |                1 [msec]                 |
+|   122   |     1      | [Moving](#moving122)                                 |   R    |         0          |                        0 ~ 1                        |                    -                    |
+|   123   |     1      | [Moving Status](#moving-status123)                   |   R    |         0          |                          -                          |                    -                    |
+|   124   |     2      | [Present PWM](#present-pwm124)                       |   R    |         -          |                          -                          |                    -                    |
+|   126   |     2      | [Present Load](#present-load126)                     |   R    |         -          |                   -1,000 ~ 1,000                    |                 0.1 [%]                 |
+|   128   |     4      | [Present Velocity](#present-velocity128)             |   R    |         -          |                          -                          |             0.229 [rev/min]             |
+|   132   |     4      | [Present Position](#present-position132)             |   R    |         -          |                          -                          |                1 [pulse]                |
+|   136   |     4      | [Velocity Trajectory](#velocity-trajectory136)       |   R    |         -          |                          -                          |             0.229 [rev/min]             |
+|   140   |     4      | [Position Trajectory](#position-trajectory140)       |   R    |         -          |                          -                          |                1 [pulse]                |
+|   144   |     2      | [Present Input Voltage](#present-input-voltage144)   |   R    |         -          |                          -                          |                 0.1 [V]                 |
+|   146   |     1      | [Present Temperature](#present-temperature146)       |   R    |         -          |                          -                          |               1 [&deg;C]                |
+|   147   |     1      | [Backup Ready](#backup-ready147)                     |   R    |         -          |                        0 ~ 1                        |                    -                    |
+|   168   |     2      | [Indirect Address 1](#indirect-address-indirect-data)           |   RW   |        224         |                      64 ~ 661                       |                    -                    |
+|   170   |     2      | [Indirect Address 2](#indirect-address-indirect-data)           |   RW   |        225         |                      64 ~ 661                       |                    -                    |
+|   172   |     2      | [Indirect Address 3](#indirect-address-indirect-data)           |   RW   |        226         |                      64 ~ 661                       |                    -                    |
+|    …    |     …      | …                                                 |   …    |         …          |                          -                          |                    -                    |
+|   218   |     2      | [Indirect Address 26](#indirect-address-indirect-data)          |   RW   |        249         |                      64 ~ 661                       |                    -                    |
+|   220   |     2      | [Indirect Address 27](#indirect-address-indirect-data)          |   RW   |        250         |                      64 ~ 661                       |                    -                    |
+|   222   |     2      | [Indirect Address 28](#indirect-address-indirect-data)          |   RW   |        251         |                      64 ~ 661                       |                    -                    |
+|   224   |     1      | [Indirect Data 1](#indirect-address-indirect-data)                 |   RW   |         0          |                       0 ~ 255                       |                    -                    |
+|   225   |     1      | [Indirect Data 2](#indirect-address-indirect-data)                 |   RW   |         0          |                       0 ~ 255                       |                    -                    |
+|   226   |     1      | [Indirect Data 3](#indirect-address-indirect-data)                 |   RW   |         0          |                       0 ~ 255                       |                    -                    |
+|    …    |     …      | …                                                 |   …    |         …          |                          -                          |                    -                    |
+|   249   |     1      | [Indirect Data 26](#indirect-address-indirect-data)                |   RW   |         0          |                       0 ~ 255                       |                    -                    |
+|   250   |     1      | [Indirect Data 27](#indirect-address-indirect-data)                |   RW   |         0          |                       0 ~ 255                       |                    -                    |
+|   251   |     1      | [Indirect Data 28](#indirect-address-indirect-data)                |   RW   |         0          |                       0 ~ 255                       |                    -                    |
+|   578   |     2      | [Indirect Address 29](#indirect-address-indirect-data)          |   RW   |        634         |                      64 ~ 661                       |                    -                    |
+|   580   |     2      | [Indirect Address 30](#indirect-address-indirect-data)          |   RW   |        635         |                      64 ~ 661                       |                    -                    |
+|   582   |     2      | [Indirect Address 31](#indirect-address-indirect-data)          |   RW   |        636         |                      64 ~ 661                       |                    -                    |
+|    …    |     …      | …                                                 |   …    |         …          |                          -                          |                    -                    |
+|   628   |     2      | [Indirect Address 54](#indirect-address-indirect-data)          |   RW   |        659         |                      64 ~ 661                       |                    -                    |
+|   630   |     2      | [Indirect Address 55](#indirect-address-indirect-data)          |   RW   |        660         |                      64 ~ 661                       |                    -                    |
+|   632   |     2      | [Indirect Address 56](#indirect-address-indirect-data)          |   RW   |        661         |                      64 ~ 661                       |                    -                    |
+|   634   |     1      | [Indirect Data 29](#indirect-address-indirect-data)                |   RW   |         0          |                       0 ~ 255                       |                    -                    |
+|   635   |     1      | [Indirect Data 30](#indirect-address-indirect-data)                |   RW   |         0          |                       0 ~ 255                       |                    -                    |
+|   636   |     1      | [Indirect Data 31](#indirect-address-indirect-data)                |   RW   |         0          |                       0 ~ 255                       |                    -                    |
+|    …    |     …      | …                                                 |   …    |         …          |                          -                          |                    -                    |
+|   659   |     1      | [Indirect Data 54](#indirect-address-indirect-data)                |   RW   |         0          |                       0 ~ 255                       |                    -                    |
+|   660   |     1      | [Indirect Data 55](#indirect-address-indirect-data)                |   RW   |         0          |                       0 ~ 255                       |                    -                    |
+|   661   |     1      | [Indirect Data 56](#indirect-address-indirect-data)                |   RW   |         0          |                       0 ~ 255                       |                    -                    |
+
+
+:::warning
+
+**CAUTION** : Protocol 1.0 does not support addresses greater than 256. Therefore, Indirect Address 29 ~ 56 and Indirect Data 29 ~ 56 can only be accessed with Protocol 2.0.
+
+:::
+
+
+## Control Table Description
+:::warning
+
+**CAUTION** : Data in the EEPROM Area can only be modified when the value of Torque Enable(64) is set to ‘0’.
+
+:::
+### Model Number(0)
+<ModelNumber />
+### Firmware Version(6)
+<FirmwareVersion />
+### ID(7)
+<Id />
+### Baud Rate(8)
+<ControlTableBaudrate2 />
+### Return Delay Time(9)
+<ReturnDelayTime />
+### Drive Mode(10)
+<DriveMode />
+### Operating Mode(11)
+<OperatingModeXl />
+### Secondary(Shadow) ID(12)
+<ShadowId />
+### Protocol Type(13)
+<ProtocolType />
+### Homing Offset(20)
+<HomingOffset />
+### Moving Threshold(24)
+<MovingThreshold />
+### Temperature Limit(31)
+<TemperatureLimit />
+### Min/Max Voltage Limit(34, 32)
+<VoltageLimit />
+### PWM Limit(36)
+<PwmLimit />
+### Velocity Limit(44)
+<VelocityLimit />
+### Min/Max Position Limit(52, 48)
+<PositionLimit />
+### Startup Configuration(60)
+<StartupConfiguration />
+### Shutdown(63)
+<Shutdown />
+### Torque Enable(64)
+<TorqueEnable />
+### LED(65)
+<Led />
+### Status Return Level(68)
+<StatusReturnLevel />
+### Registered Instruction(69)
+<RegisteredInstruction />
+### Hardware Error Status(70)
+<HardwareErrorStatus />
+### Velocity PI Gain(76, 78)
+<VelocityPiGain />
+### Position PID Gain(80, 82, 84), Feedforward 1st/2nd Gains(88, 90)
+<PositionPidGain />
+### Bus Watchdog(98)
+<BusWatchdog />
+### Goal PWM(100)
+<GoalPwm />
+### Goal Velocity(104)
+<GoalVelocity />
+### Profile Acceleration(108)
+<ProfileAcceleration />
+### Profile Velocity(112)
+<ProfileVelocity />
+### Goal Position(116)
+<GoalPosition />
+### Realtime Tick(120)
+<RealtimeTick />
+### Moving(122)
+<Moving />
+### Moving Status(123)
+<MovingStatus />
+### Present PWM(124)
+<PresentPwm />
+### Present Load(126)
+<PresentLoad />
+### Present Velocity(128)
+<PresentVelocity />
+### Present Position(132)
+<PresentPosition />
+### Velocity Trajectory(136)
+<VelocityTrajectory />
+### Position Trajectory(140)
+<PositionTrajectory />
+### Present Input Voltage(144)
+<PresentInputVoltage />
+### Present Temperature(146)
+<PresentTemperature />
+### Backup Ready(147)
+<BackupReady />
+### Indirect Address, Indirect Data
+<IndirectData />
+
+
+# How to Assemble
+## Horn Assembly
+<AssemblyXlXc430HornAssembly />
+
+
+## Frame Assembly
+<AssemblyXl430FrameAssembly />
+
+
+# Reference
+:::note
+
+**NOTE**
+[Compatibility Guide]  
+[Harness Compatibility]
+
+:::
+
+
+## What is the Profile
+<ProfileDescription />
+
+
+## Certifications
+Please inquire us for information regarding unlisted certifications.
+
+### FCC
+<FccClassB />
+
+
+## Quick Start
+<QuickStart />
+
+
+## Connector Information
+<JstTtl />
+
+
+<TtlConnectionX />
+
+
+## Drawings
+<DrawingXlXc430Drawing />
+
+
+[Compatibility Guide]: http://en.robotis.com/service/compatibility_table.php?cate=dx
+
+<CommonLink />
+
+
+## Moment Of Inertia
+- `Download` [XL430,XC430 Moment of Inertia]
+
+[XL430,XC430 Moment of Inertia]: https://www.robotis.com/service/download.php?no=2134
