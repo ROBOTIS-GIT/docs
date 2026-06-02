@@ -77,62 +77,54 @@ import CommonLink from '@site/docs/_partials/dxl/ax/common_link.mdx';
 
 | 주소 | 크기(Byte) | 명칭                                        | 의미                              | 접근 | 기본값 |
 |:----:|:----------:|:--------------------------------------------|:----------------------------------|:----:|:------:|
-|  0   |     2      | [Model Number](#model-number)               | 모델 번호                         |  R   |   10   |
-|  2   |     1      | [Firmware Version](#firmware-version)       | 펌웨어 버전 정보                  |  R   |   -    |
-|  3   |     1      | [ID](#id)                                   | 다이나믹셀 ID                     |  RW  |   1    |
-|  4   |     1      | [Baud Rate](#baud-rate)                     | 다이나믹셀 통신 속도              |  RW  |   34   |
-|  5   |     1      | [Return Delay Time](#return-delay-time)     | 응답 지연 시간                    |  RW  |  250   |
-|  6   |     2      | [CW Angle Limit](#cw-angle-limit)           | 시계 방향 한계 각도               |  RW  |   0    |
-|  8   |     2      | [CCW Angle Limit](#ccw-angle-limit)         | 반시계 방향 한계 각도             |  RW  |  1023  |
-|  11  |     1      | [Temperature Limit](#temperature-limit)     | 내부 한계 온도                    |  RW  |   80   |
-|  12  |     1      | [Min Voltage Limit](#min-voltage-limit)     | 최저 한계 전압                    |  RW  |   60   |
-|  13  |     1      | [Max Voltage Limit](#max-voltage-limit)     | 최고 한계 전압                    |  RW  |  190   |
-|  14  |     2      | [Max Torque](#max-torque)                   | 토크 한계                         |  RW  |  1023  |
-|  16  |     1      | [Status Return Level](#status-return-level) | 응답 레벨                         |  RW  |   2    |
-|  17  |     1      | [Alarm LED](#alarm-led)                     | 알람용 LED 기능                   |  RW  |   36   |
-|  18  |     1      | [Shutdown](#shutdown)                       | 알람용 셧 다운(Shut down) 기능    |  RW  |   36   |
+|  0   |     2      | [Model Number](#model-number-0)               | 모델 번호                         |  R   |   10   |
+|  2   |     1      | [Firmware Version](#firmware-version-2)       | 펌웨어 버전 정보                  |  R   |   -    |
+|  3   |     1      | [ID](#id-3)                                   | 다이나믹셀 ID                     |  RW  |   1    |
+|  4   |     1      | [Baud Rate](#baud-rate-4)                     | 다이나믹셀 통신 속도              |  RW  |   34   |
+|  5   |     1      | [Return Delay Time](#return-delay-time-5)     | 응답 지연 시간                    |  RW  |  250   |
+|  6   |     2      | [CW Angle Limit](#cwccw-angle-limit6-8)           | 시계 방향 한계 각도               |  RW  |   0    |
+|  8   |     2      | [CCW Angle Limit](#cwccw-angle-limit6-8)         | 반시계 방향 한계 각도             |  RW  |  1023  |
+|  11  |     1      | [Temperature Limit](#temperature-limit-11)     | 내부 한계 온도                    |  RW  |   80   |
+|  12  |     1      | [Min Voltage Limit](#minmax-voltage-limit-12-13)     | 최저 한계 전압                    |  RW  |   60   |
+|  13  |     1      | [Max Voltage Limit](#minmax-voltage-limit-12-13)     | 최고 한계 전압                    |  RW  |  190   |
+|  14  |     2      | [Max Torque](#max-torque-14)                   | 토크 한계                         |  RW  |  1023  |
+|  16  |     1      | [Status Return Level](#status-return-level-16) | 응답 레벨                         |  RW  |   2    |
+|  17  |     1      | [Alarm LED](#alarm-led17-shutdown18)                     | 알람용 LED 기능                   |  RW  |   36   |
+|  18  |     1      | [Shutdown](#alarm-led17-shutdown18)                       | 알람용 셧 다운(Shut down) 기능    |  RW  |   36   |
 
 
 ### RAM 영역
 
 | 주소 | 크기(Byte) | 명칭                                            | 의미                    | 접근 |   기본값   |
 |:----:|:----------:|:------------------------------------------------|:------------------------|:----:|:----------:|
-|  24  |     1      | [Torque Enable](#torque-enable)                 | 토크 켜기               |  RW  |     0      |
-|  25  |     1      | [LED](#led)                                     | LED On/Off              |  RW  |     0      |
-|  26  |     1      | [CW Compliance Margin](#cw-compliance-margin)   | CW Compliance Margin    |  RW  |     1      |
-|  27  |     1      | [CCW Compliance Margin](#ccw-compliance-margin) | CCW Compliance Margin   |  RW  |     1      |
-|  28  |     1      | [CW Compliance Slope](#cw-compliance-slope)     | CW Compliance Slope     |  RW  |     32     |
-|  29  |     1      | [CCW Compliance Slope](#ccw-compliance-alope)   | CCW Compliance Slope    |  RW  |     32     |
-|  30  |     2      | [Goal Position](#goal-position)                 | 목표 위치               |  RW  |     -      |
-|  32  |     2      | [Moving Speed](#moving-speed)                   | 목표 속도               |  RW  |     -      |
-|  34  |     2      | [Torque Limit](#torque-limit)                   | 토크 한계               |  RW  | Max Torque |
-|  36  |     2      | [Present Position](#present-position)           | 현재 위치               |  R   |     -      |
-|  38  |     2      | [Present Speed](#present-speed)                 | 현재 속도               |  R   |     -      |
-|  40  |     2      | [Present Load](#present-load)                   | 현재 하중               |  R   |     -      |
-|  42  |     1      | [Present Voltage](#present-voltage)             | 현재 전압               |  R   |     -      |
-|  43  |     1      | [Present Temperature](#present-temperature)     | 현재 온도               |  R   |     -      |
-|  44  |     1      | [Registered](#registered)                       | Instruction의 등록 여부 |  R   |     0      |
-|  46  |     1      | [Moving](#moving)                               | 움직임 유무             |  R   |     0      |
-|  47  |     1      | [Lock](#lock)                                   | EEPROM 잠금             |  RW  |     0      |
-|  48  |     2      | [Punch](#punch)                                 | Punch                   |  RW  |     32     |
+|  24  |     1      | [Torque Enable](#torque-enable-24)                 | 토크 켜기               |  RW  |     0      |
+|  25  |     1      | [LED](#led-25)                                     | LED On/Off              |  RW  |     0      |
+|  26  |     1      | [CW Compliance Margin](#compliance-margin-26-27)   | CW Compliance Margin    |  RW  |     1      |
+|  27  |     1      | [CCW Compliance Margin](#compliance-margin-26-27) | CCW Compliance Margin   |  RW  |     1      |
+|  28  |     1      | [CW Compliance Slope](#compliance-slope-28-29)     | CW Compliance Slope     |  RW  |     32     |
+|  29  |     1      | [CCW Compliance Slope](#compliance-slope-28-29)   | CCW Compliance Slope    |  RW  |     32     |
+|  30  |     2      | [Goal Position](#goal-position-30)                 | 목표 위치               |  RW  |     -      |
+|  32  |     2      | [Moving Speed](#moving-speed-32)                   | 목표 속도               |  RW  |     -      |
+|  34  |     2      | [Torque Limit](#torque-limit-34)                   | 토크 한계               |  RW  | Max Torque |
+|  36  |     2      | [Present Position](#present-position-36)           | 현재 위치               |  R   |     -      |
+|  38  |     2      | [Present Speed](#present-speed-38)                 | 현재 속도               |  R   |     -      |
+|  40  |     2      | [Present Load](#present-load-40)                   | 현재 하중               |  R   |     -      |
+|  42  |     1      | [Present Voltage](#present-voltage-42)             | 현재 전압               |  R   |     -      |
+|  43  |     1      | [Present Temperature](#present-temperature-43)     | 현재 온도               |  R   |     -      |
+|  44  |     1      | [Registered](#registered-instruction-44)                       | Instruction의 등록 여부 |  R   |     0      |
+|  46  |     1      | [Moving](#moving-46)                               | 움직임 유무             |  R   |     0      |
+|  47  |     1      | [Lock](#lock-47)                                   | EEPROM 잠금             |  RW  |     0      |
+|  48  |     2      | [Punch](#punch-48)                                 | Punch                   |  RW  |     32     |
 
 
 ### 컨트롤 테이블 설명
-
-<a id="model-number"></a>
 #### Model Number (0)
 다이나믹셀의 모델 번호입니다.
-
-<a id="firmware-version"></a>
 #### Firmware Version (2)
 다이나믹셀 펌웨어 버전입니다.
-
-<a id="id"></a>
 #### ID (3)
 
 <ControlTableId />
-
-<a id="baud-rate"></a>
 #### Baud Rate (4)
 
 제어기와 통신하기 위한 통신 속도 입니다. 0 ~ 254 (0xFE) 까지 사용 가능하며 산출 공식은 다음과 같습니다.
@@ -161,123 +153,72 @@ import CommonLink from '@site/docs/_partials/dxl/ax/common_link.mdx';
 **참고**: U2D2을 이용 시, 높은 통신 Baud rate에서 안정적인 통신을 위해서는 [USB 포트의 응답지연시간(Latency)](/docs/software/dynamixel_wizard_2_0#포트-응답-속도-설정) 을 낮춰주세요.
 
 :::
-
-<a id="return-delay-time"></a>
 #### Return Delay Time (5)
 
 <ControlTableReturnDelayTime />
-
-<a id="cw-angle-limit"></a>
-<a id="ccw-angle-limit"></a>
 #### CW/CCW Angle Limit(6, 8)
 
 <ControlTableAngleLimit />
-
-<a id="temperature-limit"></a>
 #### Temperature Limit (11)
 
 <ControlTableTempLimit />
-
-<a id="min-voltage-limit"></a>
-<a id="max-voltage-limit"></a>
 #### Min/Max Voltage Limit (12, 13)
 
 <ControlTableVoltLimitRx />
-
-<a id="max-torque"></a>
 #### Max Torque (14)
 
 <ControlTableMaxTorque />
-
-<a id="status-return-level"></a>
 #### Status Return Level (16)
 
 <ControlTableStatusReturnLv />
-
-<a id="alarm-led"></a>
-<a id="shutdown"></a>
 #### Alarm LED(17), Shutdown(18)
 
 <ControlTableShutdown />
-
-<a id="torque-enable"></a>
 #### Torque Enable (24)
 
 <ControlTableTorqueEnable />
-
-<a id="led"></a>
 #### LED (25)
 
 <ControlTableLed />
-
-<a id="cw-compliance-margin"></a>
-<a id="ccw-compliance-margin"></a>
 #### Compliance Margin (26, 27)
 
 <ControlTableComplianceMargin />
-
-<a id="cw-compliance-slope"></a>
-<a id="ccw-compliance-slope"></a>
 #### Compliance Slope (28, 29)
 
 <ControlTableComplianceSlope />
-
-<a id="goal-position"></a>
 #### Goal Position (30)
 
 <ControlTableDxGoalPosition />
-
-<a id="moving-speed"></a>
 #### Moving Speed (32)
 
 <ControlTableMovingSpeed />
-
-<a id="torque-limit"></a>
 #### Torque Limit (34)
 
 <ControlTableTorqueLimit />
-
-<a id="present-position"></a>
 #### Present Position (36)
 
 <ControlTablePotentioPresentPosition />
-
-<a id="present-speed"></a>
 #### Present Speed (38)
 
 <ControlTablePresentSpeed />
-
-<a id="present-load"></a>
 #### Present Load (40)
 
 <ControlTablePresentLoad />
-
-<a id="present-voltage"></a>
 #### Present Voltage (42)
 
 <ControlTablePresentVolt />
-
-<a id="present-temperature"></a>
 #### Present Temperature (43)
 
 <ControlTablePresentTemp />
-
-<a id="registered-instruction"></a>
 #### Registered Instruction (44)
 
 <ControlTableRegInstruction />
-
-<a id="moving"></a>
 #### Moving (46)
 
 <ControlTableMoving />
-
-<a id="lock"></a>
 #### Lock (47)
 
 <ControlTableLock />
-
-<a id="punch"></a>
 #### Punch (48)
 
 <ControlTablePunch />
