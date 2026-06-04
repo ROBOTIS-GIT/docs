@@ -113,7 +113,7 @@ sudo nano ~/ros2_ws/src/open_manipulator/open_manipulator_bringup/launch/omx_l_l
 <pre class="language-python"><code># omx_l_leader_ai.launch.py
 DeclareLaunchArgument(
     'port_name',
-    default_value='<mark style={{backgroundColor: '#fff176', color: '#000'}}>/dev/serial/by-id/</mark><mark style={{backgroundColor: '#90caf9', color: '#000'}}>&#123;your_leader_serial_id&#125;</mark>',
+    default_value='<mark style={{backgroundColor: '#fff176', color: '#000'}}>/dev/serial/by-id/</mark><mark style={{backgroundColor: '#90caf9', color: '#000'}}>{'{'}your_leader_serial_id{'}'}</mark>',
     description='Port name for hardware connection.',
 )</code></pre>
 :::
@@ -140,7 +140,7 @@ sudo nano ~/ros2_ws/src/open_manipulator/open_manipulator_bringup/launch/omx_f_f
 <pre class="language-python"><code># omx_f_follower_ai.launch.py
 DeclareLaunchArgument(
     'port_name',
-    default_value='<mark style={{backgroundColor: '#fff176', color: '#000'}}>/dev/serial/by-id/</mark><mark style={{backgroundColor: '#90caf9', color: '#000'}}>&#123;your_follower_serial_id&#125;</mark>',
+    default_value='<mark style={{backgroundColor: '#fff176', color: '#000'}}>/dev/serial/by-id/</mark><mark style={{backgroundColor: '#90caf9', color: '#000'}}>{'{'}your_follower_serial_id{'}'}</mark>',
     description='Port name for hardware connection.',
 )</code></pre>
 

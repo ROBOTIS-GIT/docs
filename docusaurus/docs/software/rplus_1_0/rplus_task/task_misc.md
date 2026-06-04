@@ -229,10 +229,10 @@ The following table provides a list of errors you may see while writing codes an
 
 |Error Code|Description|Output Example|
 | :---: | :--- | :--- |
-|8100|Trying to communicate with an unconnected DYNAMIXEL ID.&lt;br&gt;If it is connected, please check the cable again.|**&#123;[ERROR:8100:0005:03]&#125;**&lt;br&gt;8100 : Error Code&lt;br&gt;0005 : The DYNAMIXEL ID&lt;br&gt;03 : Confidential Information|
-|0009|Too many consecutive function calls. (More than 6 times)|**&#123;[ERROR:0009:0033:06]&#125;**&lt;br&gt;0009 : Error Code&lt;br&gt;0033 :Confidential Information&lt;br&gt;06 : Confidential Information|
-|8001|Attempting to read an address of the controller designated as "write only".|**&#123;[ERROR:8001:000C:02]&#125;**&lt;br&gt;8001 : Error Code&lt;br&gt;000C : Confidential Information&lt;br&gt;02 : Confidential Information|
-|8002|Attempting to write at an address of the controller designated as "read only".|**&#123;[ERROR:8002:0009:02]&#125;**&lt;br&gt;8002 : Error Code&lt;br&gt;0009 : Confidential Information&lt;br&gt;02 :  Confidential Information|
+|8100|Trying to communicate with an unconnected DYNAMIXEL ID.&lt;br&gt;If it is connected, please check the cable again.|**{'{'}[ERROR:8100:0005:03]{'}'}**&lt;br&gt;8100 : Error Code&lt;br&gt;0005 : The DYNAMIXEL ID&lt;br&gt;03 : Confidential Information|
+|0009|Too many consecutive function calls. (More than 6 times)|**{'{'}[ERROR:0009:0033:06]{'}'}**&lt;br&gt;0009 : Error Code&lt;br&gt;0033 :Confidential Information&lt;br&gt;06 : Confidential Information|
+|8001|Attempting to read an address of the controller designated as "write only".|**{'{'}[ERROR:8001:000C:02]{'}'}**&lt;br&gt;8001 : Error Code&lt;br&gt;000C : Confidential Information&lt;br&gt;02 : Confidential Information|
+|8002|Attempting to write at an address of the controller designated as "read only".|**{'{'}[ERROR:8002:0009:02]{'}'}**&lt;br&gt;8002 : Error Code&lt;br&gt;0009 : Confidential Information&lt;br&gt;02 :  Confidential Information|
 |None|Motion page to execute does not exist.|**[Invalid Page Read:00FE]**&lt;br&gt;00FE : Motion page number (hexadecimal)|
 
 [select_controller]: /img/software/rplus1/task/task_select_controller.png

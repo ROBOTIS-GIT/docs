@@ -65,7 +65,7 @@ unsigned short update_crc(unsigned short crc_accum, unsigned char *data_blk_ptr,
   - **Packet Length** = (LEN_H &lt;&lt; 8 ) + LEN_L;  //Little-endian
 - Packet 분석 및 CRC 계산
   - Packet 예제(장치의 시작 주소 0x0000에서 2 byte 데이터를 읽기 위한 Read Instruction Packet)
-  - unsigned char TxPacket[] = &#123;0xFF, 0xFF, 0xFD, 0x00, 0x01, 0x07, 0x00, 0x02, 0x00, 0x00, 0x02, 0x00, CRC_L, CRC_H&#125;
+  - unsigned char TxPacket[] = {'{'}0xFF, 0xFF, 0xFD, 0x00, 0x01, 0x07, 0x00, 0x02, 0x00, 0x00, 0x02, 0x00, CRC_L, CRC_H{'}'}
   - CRC 계산 코드
     
     ```c

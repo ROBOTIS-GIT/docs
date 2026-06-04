@@ -1203,7 +1203,7 @@ Sets ID's in Joint Enable.
 ###### void SetEnableHeadOnly( bool enable )
 
 Sets ID's (the sample line below only enables the ID's for the head and neck).  
-Head ID = &#123; ID_HEAD_PAN, ID_HEAD_TILT &#125;
+Head ID = {'{'} ID_HEAD_PAN, ID_HEAD_TILT {'}'}
 
 - Arguments
 
@@ -1216,7 +1216,7 @@ Head ID = &#123; ID_HEAD_PAN, ID_HEAD_TILT &#125;
 ###### void SetEnableRightArmOnly( bool enable )
 
 Sets the ID (the sample line below only enables the ID's for the right arm).  
-Right Arm ID = &#123; ID_R_SHOULDER_PITCH, ID_R_SHOULDER_ROLL, ID_R_ELBOW &#125;
+Right Arm ID = {'{'} ID_R_SHOULDER_PITCH, ID_R_SHOULDER_ROLL, ID_R_ELBOW {'}'}
 
 - Arguments
 
@@ -1229,7 +1229,7 @@ Right Arm ID = &#123; ID_R_SHOULDER_PITCH, ID_R_SHOULDER_ROLL, ID_R_ELBOW &#125;
 ###### void SetEnableLeftArmOnly( bool enable )
 
 Sets the ID (the sample line below only enables the ID's for the left arm).  
-Left Arm ID = &#123; ID_L_SHOULDER_PITCH, ID_L_SHOULDER_ROLL, ID_L_ELBOW &#125;
+Left Arm ID = {'{'} ID_L_SHOULDER_PITCH, ID_L_SHOULDER_ROLL, ID_L_ELBOW {'}'}
 
 - Arguments
 
@@ -1242,7 +1242,7 @@ Left Arm ID = &#123; ID_L_SHOULDER_PITCH, ID_L_SHOULDER_ROLL, ID_L_ELBOW &#125;
 ###### void SetEnableRightLegOnly( bool enable )
 
 Sets the ID (the sample line below only enables the ID's for the right leg).  
-Right Leg ID = &#123; ID_R_HIP_YAW, ID_R_HIP_ROLL, ID_R_HIP_PITCH, ID_R_KNEE, ID_R_ANKLE_PITCH, ID_R_ANKLE_ROLL &#125;
+Right Leg ID = {'{'} ID_R_HIP_YAW, ID_R_HIP_ROLL, ID_R_HIP_PITCH, ID_R_KNEE, ID_R_ANKLE_PITCH, ID_R_ANKLE_ROLL {'}'}
 
 - Arguments
 
@@ -1255,7 +1255,7 @@ Right Leg ID = &#123; ID_R_HIP_YAW, ID_R_HIP_ROLL, ID_R_HIP_PITCH, ID_R_KNEE, ID
 ###### void SetEnableLeftLegOnly( bool enable )
 
 Sets the ID (the sample line below only enables the ID's for the left leg).  
-Left Leg ID = &#123; ID_L_HIP_YAW, ID_L_HIP_ROLL, ID_L_HIP_PITCH, ID_L_KNEE, ID_L_ANKLE_PITCH, ID_L_ANKLE_ROLL &#125;
+Left Leg ID = {'{'} ID_L_HIP_YAW, ID_L_HIP_ROLL, ID_L_HIP_PITCH, ID_L_KNEE, ID_L_ANKLE_PITCH, ID_L_ANKLE_ROLL {'}'}
 
 - Arguments
 
@@ -1268,8 +1268,8 @@ Left Leg ID = &#123; ID_L_HIP_YAW, ID_L_HIP_ROLL, ID_L_HIP_PITCH, ID_L_KNEE, ID_
 ###### void SetEnableUpperBodyWithoutHead( bool enable )
 
 Sets the ID (the sample lines below only enables the ID's for the upper body without the head).  
-Right Arm ID = &#123; ID_R_SHOULDER_PITCH, ID_R_SHOULDER_ROLL, ID_R_ELBOW &#125;  
-Left Arm ID = &#123; ID_L_SHOULDER_PITCH, ID_L_SHOULDER_ROLL, ID_L_ELBOW &#125;
+Right Arm ID = {'{'} ID_R_SHOULDER_PITCH, ID_R_SHOULDER_ROLL, ID_R_ELBOW {'}'}  
+Left Arm ID = {'{'} ID_L_SHOULDER_PITCH, ID_L_SHOULDER_ROLL, ID_L_ELBOW {'}'}
 
 - Arguments
 
@@ -1282,8 +1282,8 @@ Left Arm ID = &#123; ID_L_SHOULDER_PITCH, ID_L_SHOULDER_ROLL, ID_L_ELBOW &#125;
 ###### void SetEnableLowerBody( bool enable )
 
 Sets the ID (the sample lines below only enables the ID's for the lower body).  
-Right Leg ID = &#123; ID_R_HIP_YAW, ID_R_HIP_ROLL, ID_R_HIP_PITCH, ID_R_KNEE, ID_R_ANKLE_PITCH, ID_R_ANKLE_ROLL &#125;  
-Left Leg ID = &#123; ID_L_HIP_YAW, ID_L_HIP_ROLL, ID_L_HIP_PITCH, ID_L_KNEE, ID_L_ANKLE_PITCH, ID_L_ANKLE_ROLL &#125;
+Right Leg ID = {'{'} ID_R_HIP_YAW, ID_R_HIP_ROLL, ID_R_HIP_PITCH, ID_R_KNEE, ID_R_ANKLE_PITCH, ID_R_ANKLE_ROLL {'}'}  
+Left Leg ID = {'{'} ID_L_HIP_YAW, ID_L_HIP_ROLL, ID_L_HIP_PITCH, ID_L_KNEE, ID_L_ANKLE_PITCH, ID_L_ANKLE_ROLL {'}'}
 
 - Arguments
 
@@ -1296,10 +1296,10 @@ Left Leg ID = &#123; ID_L_HIP_YAW, ID_L_HIP_ROLL, ID_L_HIP_PITCH, ID_L_KNEE, ID_
 ###### void SetEnableBodyWithoutHead( bool enable )
 
 Sets the ID (the sample lines below only enable the body's ID without the head and neck).  
-Right Arm ID = &#123; ID_R_SHOULDER_PITCH, ID_R_SHOULDER_ROLL, ID_R_ELBOW &#125;  
-Left Arm ID = &#123; ID_L_SHOULDER_PITCH, ID_L_SHOULDER_ROLL, ID_L_ELBOW &#125;  
-Right Leg ID = &#123; ID_R_HIP_YAW, ID_R_HIP_ROLL, ID_R_HIP_PITCH, ID_R_KNEE, ID_R_ANKLE_PITCH, ID_R_ANKLE_ROLL &#125;  
-Left Leg ID = &#123; ID_L_HIP_YAW, ID_L_HIP_ROLL, ID_L_HIP_PITCH, ID_L_KNEE, ID_L_ANKLE_PITCH, ID_L_ANKLE_ROLL &#125;
+Right Arm ID = {'{'} ID_R_SHOULDER_PITCH, ID_R_SHOULDER_ROLL, ID_R_ELBOW {'}'}  
+Left Arm ID = {'{'} ID_L_SHOULDER_PITCH, ID_L_SHOULDER_ROLL, ID_L_ELBOW {'}'}  
+Right Leg ID = {'{'} ID_R_HIP_YAW, ID_R_HIP_ROLL, ID_R_HIP_PITCH, ID_R_KNEE, ID_R_ANKLE_PITCH, ID_R_ANKLE_ROLL {'}'}  
+Left Leg ID = {'{'} ID_L_HIP_YAW, ID_L_HIP_ROLL, ID_L_HIP_PITCH, ID_L_KNEE, ID_L_ANKLE_PITCH, ID_L_ANKLE_ROLL {'}'}
 
 - Arguments
 
@@ -1312,11 +1312,11 @@ Left Leg ID = &#123; ID_L_HIP_YAW, ID_L_HIP_ROLL, ID_L_HIP_PITCH, ID_L_KNEE, ID_
 ###### void SetEnableBody( bool enable )
 
 Sets the ID (the sample lines below set all ID's in use individually).  
-Head ID = &#123; ID_HEAD_PAN, ID_HEAD_TILT &#125;  
-Right Arm ID = &#123; ID_R_SHOULDER_PITCH, ID_R_SHOULDER_ROLL, ID_R_ELBOW &#125;  
-Left Arm ID = &#123; ID_L_SHOULDER_PITCH, ID_L_SHOULDER_ROLL, ID_L_ELBOW &#125;  
-Right Leg ID = &#123; ID_R_HIP_YAW, ID_R_HIP_ROLL, ID_R_HIP_PITCH, ID_R_KNEE, ID_R_ANKLE_PITCH, ID_R_ANKLE_ROLL &#125;  
-Left Leg ID = &#123; ID_L_HIP_YAW, ID_L_HIP_ROLL, ID_L_HIP_PITCH, ID_L_KNEE, ID_L_ANKLE_PITCH, ID_L_ANKLE_ROLL &#125;
+Head ID = {'{'} ID_HEAD_PAN, ID_HEAD_TILT {'}'}  
+Right Arm ID = {'{'} ID_R_SHOULDER_PITCH, ID_R_SHOULDER_ROLL, ID_R_ELBOW {'}'}  
+Left Arm ID = {'{'} ID_L_SHOULDER_PITCH, ID_L_SHOULDER_ROLL, ID_L_ELBOW {'}'}  
+Right Leg ID = {'{'} ID_R_HIP_YAW, ID_R_HIP_ROLL, ID_R_HIP_PITCH, ID_R_KNEE, ID_R_ANKLE_PITCH, ID_R_ANKLE_ROLL {'}'}  
+Left Leg ID = {'{'} ID_L_HIP_YAW, ID_L_HIP_ROLL, ID_L_HIP_PITCH, ID_L_KNEE, ID_L_ANKLE_PITCH, ID_L_ANKLE_ROLL {'}'}
 
 - Arguments
 
@@ -3227,7 +3227,7 @@ root@darwin:/darwin/Linux/project/tutorial/read_write# ./read_write
 
   ```
   if(cm730.Connect() == false)
-  &#123;
+  {
   printf("Fail to connect CM-730!\n");
   return 0;
   }
@@ -3248,7 +3248,7 @@ root@darwin:/darwin/Linux/project/tutorial/read_write# ./read_write
   ```
   printf(" ID[%d]:", JointData::ID_R_SHOULDER_PITCH);
   if(cm730.ReadWord(JointData::ID_R_SHOULDER_PITCH, RX28M::P_PRESENT_POSITION_L, &value, 0) == CM730::SUCCESS)
-  &#123;
+  {
   printf("%4d", value);
   cm730.WriteWord(JointData::ID_L_SHOULDER_PITCH, RX28M::P_GOAL_POSITION_L, RX28M::GetMirrorValue(value), 0);
   }

@@ -1368,7 +1368,7 @@ The voice control system consists of two core nodes that communicate organically
                             prop_decrease=0.8
                         )
                 except Exception as e:
-                    self.get_logger().warn(f"Advanced noise reduction failed: &#123;e&#125;")
+                    self.get_logger().warn(f"Advanced noise reduction failed: {e}")
                 
                 # Convert back to int16
                 return (filtered_audio * 32768.0).astype(np.int16)

@@ -1155,7 +1155,7 @@ $ ros2 launch op3_read_write_demo op3_read_write.launch.xml
   void torqueOff(const std::string& body_side);
 
   enum ControlModule
-  &#123;
+  {
     None = 0,
     DirectControlModule = 1,
     Framework = 2,
@@ -1181,7 +1181,7 @@ $ ros2 launch op3_read_write_demo op3_read_write.launch.xml
 
   //node main
   int main(int argc, char **argv)
-  &#123;
+  {
     //init ros
     rclcpp::init(argc, argv);
 
@@ -1204,11 +1204,11 @@ $ ros2 launch op3_read_write_demo op3_read_write.launch.xml
     // wait for starting of op3_manager
     std::string manager_name = "/op3_manager";
     while (rclcpp::ok())
-    &#123;
+    {
       rclcpp::sleep_for(std::chrono::seconds(1));
 
       if (checkManagerRunning(manager_name) == true)
-      &#123;
+      {
         RCLCPP_INFO(node->get_logger(), "Succeed to connect");
         break;
       }
@@ -1219,7 +1219,7 @@ $ ros2 launch op3_read_write_demo op3_read_write.launch.xml
 
     //node loop
     while (rclcpp::ok())
-    &#123;
+    {
       // process
 
       //execute pending callbacks
@@ -1235,31 +1235,31 @@ $ ros2 launch op3_read_write_demo op3_read_write.launch.xml
   }
 
   void buttonHandlerCallback(const std_msgs::msg::String::SharedPtr msg)
-  &#123;
+  {
     // starting demo using robotis_controller
     if (msg->data == "mode")
-    &#123;
+    {
       control_module = Framework;
       RCLCPP_INFO(node->get_logger(), "Button : mode | Framework");
       readyToDemo();
     }
     // starting demo using direct_control_module
     else if (msg->data == "start")
-    &#123;
+    {
       control_module = DirectControlModule;
       RCLCPP_INFO(node->get_logger(), "Button : start | Direct control module");
       readyToDemo();
     }
     // torque on all joints of ROBOTIS-OP3
     else if (msg->data == "user")
-    &#123;
+    {
       torqueOnAll();
       control_module = None;
     }
   }
 
   void jointstatesCallback(const sensor_msgs::msg::JointState::SharedPtr msg)
-  &#123;
+  {
     if(control_module == None)
       return;
 
@@ -1267,27 +1267,27 @@ $ ros2 launch op3_read_write_demo op3_read_write.launch.xml
     write_msg.header = msg->header;
 
     for(int ix = 0; ix < msg->name.size(); ix++)
-    &#123;
+    {
       std::string joint_name = msg->name[ix];
       double joint_position = msg->position[ix];
 
       // mirror and copy joint angles from right to left
       if(joint_name == "r_sho_pitch")
-      &#123;
+      {
         write_msg.name.push_back("r_sho_pitch");
         write_msg.position.push_back(joint_position);
         write_msg.name.push_back("l_sho_pitch");
         write_msg.position.push_back(-joint_position);
       }
       if(joint_name == "r_sho_roll")
-      &#123;
+      {
         write_msg.name.push_back("r_sho_roll");
         write_msg.position.push_back(joint_position);
         write_msg.name.push_back("l_sho_roll");
         write_msg.position.push_back(-joint_position);
       }
       if(joint_name == "r_el")
-      &#123;
+      {
         write_msg.name.push_back("r_el");
         write_msg.position.push_back(joint_position);
         write_msg.name.push_back("l_el");
@@ -1303,7 +1303,7 @@ $ ros2 launch op3_read_write_demo op3_read_write.launch.xml
   }
 
   void readyToDemo()
-  &#123;
+  {
     RCLCPP_INFO(node->get_logger(), "Start Read-Write Demo");
     // turn off LED
     setLED(0x04);
@@ -1323,17 +1323,17 @@ $ ros2 launch op3_read_write_demo op3_read_write.launch.xml
 
     // change the module for demo
     if(control_module == Framework)
-    &#123;
+    {
       setModule("none");
       RCLCPP_INFO(node->get_logger(), "Change module to none");
     }
     else if(control_module == DirectControlModule)
-    &#123;
+    {
       setModule("direct_control_module");
       RCLCPP_INFO(node->get_logger(), "Change module to direct_control_module");
     }
     else
-    &#123;
+    {
       RCLCPP_ERROR(node->get_logger(), "Invalid control module : %d", control_module);
       return;
     }
@@ -1344,7 +1344,7 @@ $ ros2 launch op3_read_write_demo op3_read_write.launch.xml
   }
 
   void goInitPose()
-  &#123;
+  {
     std_msgs::msg::String init_msg;
     init_msg.data = "ini_pose";
 
@@ -1352,7 +1352,7 @@ $ ros2 launch op3_read_write_demo op3_read_write.launch.xml
   }
 
   void setLED(int led)
-  &#123;
+  {
     robotis_controller_msgs::msg::SyncWriteItem syncwrite_msg;
     syncwrite_msg.item_name = "LED";
     syncwrite_msg.joint_name.push_back("open-cr");
@@ -1362,11 +1362,11 @@ $ ros2 launch op3_read_write_demo op3_read_write.launch.xml
   }
 
   bool checkManagerRunning(std::string& manager_name)
-  &#123;
+  {
     auto node_list = node->get_node_names();
 
     for (const auto& node_name : node_list)
-    &#123;
+    {
       if (node_name == manager_name)
         return true;
     }
@@ -1376,25 +1376,25 @@ $ ros2 launch op3_read_write_demo op3_read_write.launch.xml
   }
 
   void setModule(const std::string& module_name)
-  &#123;
+  {
     auto request = std::make_shared<robotis_controller_msgs::srv::SetModule::Request>();
     request->module_name = module_name;
 
     if (!set_joint_module_client->wait_for_service(std::chrono::seconds(1)))
-    &#123;
+    {
       RCLCPP_ERROR(node->get_logger(), "Service not available");
       return;
     }
 
     auto future = set_joint_module_client->async_send_request(request,
         [module_name](rclcpp::Client<robotis_controller_msgs::srv::SetModule>::SharedFuture result)
-        &#123;
+        {
           RCLCPP_INFO(node->get_logger(), "read_write setModule(%s) : result : %d", module_name.c_str(), result.get()->result);
         });
   }
 
   void torqueOnAll()
-  &#123;
+  {
     std_msgs::msg::String check_msg;
     check_msg.data = "check";
 
@@ -1402,13 +1402,13 @@ $ ros2 launch op3_read_write_demo op3_read_write.launch.xml
   }
 
   void torqueOff(const std::string& body_side)
-  &#123;
+  {
     robotis_controller_msgs::msg::SyncWriteItem syncwrite_msg;
     int torque_value = 0;
     syncwrite_msg.item_name = "torque_enable";
 
     if(body_side == "right")
-    &#123;
+    {
       syncwrite_msg.joint_name.push_back("r_sho_pitch");
       syncwrite_msg.value.push_back(torque_value);
       syncwrite_msg.joint_name.push_back("r_sho_roll");
@@ -1417,7 +1417,7 @@ $ ros2 launch op3_read_write_demo op3_read_write.launch.xml
       syncwrite_msg.value.push_back(torque_value);
     }
     else if(body_side == "left")
-    &#123;
+    {
       syncwrite_msg.joint_name.push_back("l_sho_pitch");
       syncwrite_msg.value.push_back(torque_value);
       syncwrite_msg.joint_name.push_back("l_sho_roll");
@@ -1439,11 +1439,11 @@ $ ros2 launch op3_read_write_demo op3_read_write.launch.xml
   // wait for starting of op3_manager
   std::string manager_name = "/op3_manager";
   while (ros::ok())
-  &#123;
+  {
     ros::Duration(1.0).sleep();
 
     if (checkManagerRunning(manager_name) == true)
-    &#123;
+    {
       break;
       ROS_INFO_COND(DEBUG_PRINT, "Succeed to connect");
     }
@@ -1458,7 +1458,7 @@ $ ros2 launch op3_read_write_demo op3_read_write.launch.xml
 
   //node loop
   while (ros::ok())
-  &#123;
+  {
     // process
 
     //execute pending callbacks
@@ -1475,24 +1475,24 @@ $ ros2 launch op3_read_write_demo op3_read_write.launch.xml
 
   ```cpp
   void buttonHandlerCallback(const std_msgs::String::ConstPtr& msg)
-  &#123;
+  {
     // starting demo using robotis_controller
     if (msg->data == "mode")
-    &#123;
+    {
       control_module = Framework;
       ROS_INFO("Button : mode | Framework");
       readyToDemo();
     }
     // starting demo using direct_control_module
     else if (msg->data == "start")
-    &#123;
+    {
       control_module = DirectControlModule;
       ROS_INFO("Button : start | Direct control module");
       readyToDemo();
     }
     // torque on all joints of ROBOTIS-OP3
     else if (msg->data == "user")
-    &#123;
+    {
       torqueOnAll();
       control_module = None;
     }
@@ -1504,7 +1504,7 @@ $ ros2 launch op3_read_write_demo op3_read_write.launch.xml
 
   ```cpp
   void jointstatesCallback(const sensor_msgs::JointState::ConstPtr& msg)
-  &#123;
+  {
     if(control_module == None)
       return;
 
@@ -1512,27 +1512,27 @@ $ ros2 launch op3_read_write_demo op3_read_write.launch.xml
     write_msg.header = msg->header;
 
     for(int ix = 0; ix < msg->name.size(); ix++)
-    &#123;
+    {
       std::string joint_name = msg->name[ix];
       double joint_position = msg->position[ix];
 
       // mirror and copy joint angles from right to left
       if(joint_name == "r_sho_pitch")
-      &#123;
+      {
         write_msg.name.push_back("r_sho_pitch");
         write_msg.position.push_back(joint_position);
         write_msg.name.push_back("l_sho_pitch");
         write_msg.position.push_back(-joint_position);
       }
       if(joint_name == "r_sho_roll")
-      &#123;
+      {
         write_msg.name.push_back("r_sho_roll");
         write_msg.position.push_back(joint_position);
         write_msg.name.push_back("l_sho_roll");
         write_msg.position.push_back(-joint_position);
       }
       if(joint_name == "r_el")
-      &#123;
+      {
         write_msg.name.push_back("r_el");
         write_msg.position.push_back(joint_position);
         write_msg.name.push_back("l_el");

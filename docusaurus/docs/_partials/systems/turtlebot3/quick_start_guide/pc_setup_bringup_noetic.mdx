@@ -11,13 +11,13 @@ $ roscore
 The default password is **turtlebot**.  
   **[Remote PC]**  
   ```bash  
-$ ssh ubuntu@&#123;IP_ADDRESS_OF_RASPBERRY_PI&#125;  
+$ ssh ubuntu@{IP_ADDRESS_OF_RASPBERRY_PI}  
   ```  
 
 2. Bring up basic packages to start the required TurtleBot3 applications.  
 **[Turtlebot3 SBC]**  
   ```bash
-$ export TURTLEBOT3_MODEL=$&#123;TB3_MODEL&#125;
+$ export TURTLEBOT3_MODEL=${TB3_MODEL}
 $ roslaunch turtlebot3_bringup turtlebot3_robot.launch
   ```
 
@@ -97,7 +97,7 @@ $ rosrun rviz rviz -d `rospack find turtlebot3_description`/rviz/model.rviz
 - If you used `git clone` for to install the TurtleBot3 packages, enter the command below. You will need to specify the model of your TurtleBot3  
 **[Remote PC]**    
   ```bash
-$ rosrun rviz rviz -d `rospack find turtlebot3_description`/rviz/&#123;burger, waffle_pi&#125;.rviz
+$ rosrun rviz rviz -d `rospack find turtlebot3_description`/rviz/{burger, waffle_pi}.rviz
   ```  
   ![](/img/systems/turtlebot3/quick_start/bringup/2022_run_rviz.webp)
 

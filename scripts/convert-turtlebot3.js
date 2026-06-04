@@ -223,7 +223,7 @@ function escapeMdxBraces(src) {
   let inFence = false;
   for (let li = 0; li < lines.length; li++) {
     const line = lines[li];
-    if (/^```/.test(line)) { inFence = !inFence; continue; }
+    if (/^\s*```/.test(line)) { inFence = !inFence; continue; }
     if (inFence) continue;
     const out = [];
     let i = 0;

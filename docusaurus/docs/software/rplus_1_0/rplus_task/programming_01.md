@@ -101,7 +101,7 @@ RoboPlus Task provides a function to search for used elements.
 - "Start Program" is executed regardless of its line number.
 - A program cannot have more than one "Start Program" command.
 - The body of the command must be enclosed by brackets.
-- The program will end when the closing bracket( &#125; ) is reached.
+- The program will end when the closing bracket( {'}'} ) is reached.
 
 #### Example
 
@@ -131,11 +131,11 @@ In this sample code, the program will end when the touch connected to Port3 is p
 ![end example][end_example]
 
 ### Start/End of Section
-A block or a section (identified by "&#123;" and "&#125;") is a group of commands. All commands in a block have the same scope. The concept of  a block is the same as in the C language.
+A block or a section (identified by "{'{'}" and "{'}'}") is a group of commands. All commands in a block have the same scope. The concept of  a block is the same as in the C language.
 
 #### Usage
 
-Each block has an opening bracket (&#123;) and a closing bracket (&#125;). RoboPlus Task performs automatic indentation to show whether the brackets have been paired properly. If there are missing brackets, they must be added before the program can run indentation. If they were not arranged properly, you have to revise them by yourself.
+Each block has an opening bracket ({'{'}) and a closing bracket ({'}'}). RoboPlus Task performs automatic indentation to show whether the brackets have been paired properly. If there are missing brackets, they must be added before the program can run indentation. If they were not arranged properly, you have to revise them by yourself.
 
 ![section][section]
 

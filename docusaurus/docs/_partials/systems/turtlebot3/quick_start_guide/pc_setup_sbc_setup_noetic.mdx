@@ -148,8 +148,8 @@ $ nano ~/.bashrc
 3. Find the `ROS_MASTER_URI` and `ROS_HOSTNAME` setting section, then modify the IP addresses to the correct addresses for your devices.
 **[Turtlebot3 SBC]**  
   ```bash  
-export ROS_MASTER_URI=http://&#123;IP_ADDRESS_OF_REMOTE_PC&#125;:11311  
-export ROS_HOSTNAME=&#123;IP_ADDRESS_OF_RASPBERRY_PI_3&#125;  
+export ROS_MASTER_URI=http://{IP_ADDRESS_OF_REMOTE_PC}:11311  
+export ROS_HOSTNAME={IP_ADDRESS_OF_RASPBERRY_PI_3}  
   ```  
   
 4. Save the file with `Ctrl` + `S` and exit the nano editor with `Ctrl` + `X`.  
@@ -254,7 +254,7 @@ $ sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.
 
 12. After rebooting the Raspberry Pi, if you wish to work from the Remote PC using SSH, use the below command to log in from the remote PC terminal. The default password is **ubuntu**.
   ```bash
-$ ssh ubuntu@&#123;IP Address of Raspberry PI&#125;
+$ ssh ubuntu@{IP Address of Raspberry PI}
   ```
 
 13. Install ROS Noetic Ninjemys

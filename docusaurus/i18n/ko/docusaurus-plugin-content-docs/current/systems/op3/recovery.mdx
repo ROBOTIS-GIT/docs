@@ -60,7 +60,7 @@ This chapter explains how to manually install and configure the main software of
             ```   
         - add the following rule to the file
             ```sh
-            ACTION=="add", SUBSYSTEM=="usb-serial", DRIVER=="ftdi_sio", ATTR&#123;latency_timer&#125;="1"
+            ACTION=="add", SUBSYSTEM=="usb-serial", DRIVER=="ftdi_sio", ATTR{latency_timer}="1"
             ```
         - reload udev rules
             ```sh

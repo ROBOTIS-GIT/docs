@@ -115,7 +115,7 @@ Use the following commands during Home Service Challenge.
 **Individual actions**
 - Park in front of the ArUco marker: Put the marker's ID for integer to `$MARKER_ID`.
   ```bash
-  $ ros2 topic pub -1 /target_marker_id std_msgs/msg/Int32 "&#123;data: $MARKER_ID&#125;"
+  $ ros2 topic pub -1 /target_marker_id std_msgs/msg/Int32 "{data: $MARKER_ID}"
   ```
 
     **NOTE**: When using this command, be sure to include one of the ArUco marker's ID from a `scenario.yaml` file. In the provided map, IDs 0 through 7 exist. For detailed information on the scenario, see [Configuration](#configuration) description below at this section.
