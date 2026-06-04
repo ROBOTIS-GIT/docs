@@ -43,7 +43,7 @@ const config: Config = {
     defaultLocale: 'en',
     locales: ['en'],
     localeConfigs: {
-      en: {label: 'English', htmlLang: 'en-US'},
+      en: {label: 'en', htmlLang: 'en-US'},
     },
   },
 

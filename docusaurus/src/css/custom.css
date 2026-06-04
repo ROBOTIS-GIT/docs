@@ -74,9 +74,10 @@
 .theme-layout-navbar-left > .navbar__item,
 .theme-layout-navbar-left > .dropdown {
   position: relative;
-  flex: 0 0 7.5rem;
+  flex: 0 0 auto;
   display: flex;
   justify-content: center;
+  padding-inline: 0.9rem;
   text-align: center;
 }
 
@@ -100,7 +101,6 @@
 }
 
 .theme-layout-navbar-left > .dropdown > .navbar__link {
-  width: 100%;
   justify-content: center;
 }
 
