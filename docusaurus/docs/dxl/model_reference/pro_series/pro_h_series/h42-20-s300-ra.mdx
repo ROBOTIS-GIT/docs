@@ -189,26 +189,35 @@ import CommonLink from '@site/docs/_partials/dxl/pro/common_link.mdx';
 **NOTE** : DYNAMIXEL PRO(A) stands for the Advanced firmware of Dynmaxiel PRO. Please be aware of the changes of Control Table such as Addresses and additional features.
 
 :::
+<a id="model-number"></a>
 ### Model Number(0)
 This address stores model number of the device.
 
 |    Model Name    |  Model Number   |
 |:----------------:|:---------------:|
 | H42-20-S300-R(A) | 51,201 (0xC801) |
+<a id="firmware-version"></a>
 ### Firmware Version(6)
 <PControlTable6FirmwareVersion />
+<a id="id"></a>
 ### ID(7)
 <PControlTable7Id />
+<a id="baud-rate"></a>
 ### Baud Rate(8)
 <PControlTable8BaudRate />
+<a id="return-delay-time"></a>
 ### Return Delay Time(9)
 <PControlTable9ReturnDelayTime />
+<a id="drive-mode"></a>
 ### Drive Mode(10)
 <PControlTable10DriveMode />
+<a id="operating-mode"></a>
 ### Operating Mode(11)
 <PControlTable11OperatingMode />
+<a id="secondary-id"></a>
 ### Secondary ID(12)
 <PControlTable12SecondaryId />
+<a id="homing-offset"></a>
 ### Homing Offset(20)
 <PControlTable20HomingOffset />
 
@@ -221,6 +230,7 @@ In Position Control Mode(Joint Mode), Homing Offset(13) value that exceeds (-90 
 ![](/img/dxl/pro/pro_42_homming.webp)
 
 :::
+<a id="moving-threshold"></a>
 ### Moving Threshold(24)
 <PControlTable24MovingThreshold />
 
@@ -228,12 +238,16 @@ In Position Control Mode(Joint Mode), Homing Offset(13) value that exceeds (-90 
 |      Unit      | Value Range |
 |:--------------:|:-----------:|
 | 0.01 [rev/min] |  0 ~ 2,920  |
+<a id="temperature-limit"></a>
 ### Temperature Limit(31)
 <PControlTable31TemperatureLimit />
+<a id="maxmin-voltage-limit"></a>
 ### Max/Min Voltage Limit(32, 34)
 <PControlTable32VoltageLimit />
+<a id="pwm-limit"></a>
 ### PWM Limit(36)
 <PControlTable36PwmLimit />
+<a id="current-limit"></a>
 ### Current Limit(38)
 This value indicates the maximum current(torque) output limit.  
 Goal Current(550) cannot be configured with any values exceeding Current Limit(38). Attempting to write an invalid value will fail and set the Limit Error Bit in the error field of the Status Packet.
@@ -241,6 +255,7 @@ Goal Current(550) cannot be configured with any values exceeding Current Limit(3
 |  Unit  | Value Range |
 |:------:|:-----------:|
 | 1 [mA] |  0 ~ 4,500  |
+<a id="acceleration-limit"></a>
 ### Acceleration Limit(40)
 This value indicates the maximum acceleration limit.
 Profile Acceleration(556) cannot be configured with any values exceeding Acceleration Limit(40). Attempting to write an invalid value will fail and set the Limit Error Bit in the error field of the Status Packet.
@@ -248,6 +263,7 @@ Profile Acceleration(556) cannot be configured with any values exceeding Acceler
 |          Unit           |  Value Range  |
 |:-----------------------:|:-------------:|
 | 1 [rev/min<sup>2</sup>] | 0 ~ 4,306,173 |
+<a id="velocity-limit"></a>
 ### Velocity Limit(44)
 This value indicates maximum velocity of Goal Velocity(552) and Profile Velocity(562).
 Goal Velocity(552) and Profile Velocity(562) cannot be configured with any values exceeding Velocity Limit(44). Attempting to write an invalid value will fail and set the Limit Error Bit in the error field of the Status Packet.
@@ -255,6 +271,7 @@ Goal Velocity(552) and Profile Velocity(562) cannot be configured with any value
 |      Unit      | Value Range |
 |:--------------:|:-----------:|
 | 0.01 [rev/min] |  0 ~ 2,920  |
+<a id="maxmin-position-limit"></a>
 ### Max/Min Position Limit(48, 52)
 These values limit maximum and minimum positions for Position Control Mode within the range of 1 rotation(-303,750 ~ 303,750). Therefore, Goal Position(564) should not exceed the limit range. Attempting to write an invalid value will fail and set the Limit Error Bit in the error field of the Status Packet.
 
@@ -270,10 +287,12 @@ These values limit maximum and minimum positions for Position Control Mode withi
 :::
 ### External Port Mode, External Port Data
 <PControlTable56ExternalPort />
+<a id="shutdown"></a>
 ### Shutdown(63)
 <ControlTableShutdown />
 ### Indirect Address, Indirect Data
 <PControlTable168Indirect />
+<a id="torque-enable"></a>
 ### Torque Enable(512)
 <ControlTableTorqueEnableProa />
 ### RGB LED
@@ -281,28 +300,40 @@ These values limit maximum and minimum positions for Position Control Mode withi
 
 
 <LedPolicyProa />
+<a id="status-return-level"></a>
 ### Status Return Level(516)
 <PControlTable516StatusReturnLevel />
+<a id="registered-instruction"></a>
 ### Registered Instruction(517)
 <PControlTable517RegisteredInstruction />
+<a id="hardware-error-status"></a>
 ### Hardware Error Status(518)
 <PControlTable518HardwareErrorStatus />
+<a id="velocity-pi-gain-feedforward-2nd-gains"></a>
 ### Velocity PI Gain(524, 526), Feedforward 2nd Gains(536)
 <PControlTable524VelocityGain />
+<a id="position-pid-gain-feedforward-1st-gains"></a>
 ### Position PID Gain(528,530,532), Feedforward 1st Gains(538)
 <PControlTable528PositionGain />
+<a id="bus-watchdog"></a>
 ### Bus Watchdog(546)
 <PControlTable546BusWatchdog />
+<a id="goal-pwm"></a>
 ### Goal PWM(548)
 <PControlTable548GoalPwm />
+<a id="goal-current"></a>
 ### Goal Current(550)
 <PControlTable550GoalCurrent />
+<a id="goal-velocity"></a>
 ### Goal Velocity(552)
 <PControlTable552GoalVelocity />
+<a id="profile-acceleration"></a>
 ### Profile Acceleration(556)
 <PControlTable556ProfileAcceleration />
+<a id="profile-velocity"></a>
 ### Profile Velocity(560)
 <PControlTable560ProfileVelocity />
+<a id="goal-position"></a>
 ### Goal Position(564)
 Desired position can be set with Goal Position(564).  
 This value must be inbetween Min Position Limit(52) and Max Position Limit(48) in Position Control Mode, while ranging -2,147,483,648 ~ 2,147,483,647 in other modes.
@@ -313,26 +344,37 @@ This value must be inbetween Min Position Limit(52) and Max Position Limit(48) i
 
 
 <ControlTableOpmodeNote />
+<a id="realtime-tick"></a>
 ### Realtime Tick(568)
 <PControlTable568RealtimeTick />
+<a id="moving"></a>
 ### Moving(570)
 <PControlTable570Moving />
+<a id="moving-status"></a>
 ### Moving Status(571)
 <PControlTable571MovingStatus />
+<a id="present-pwm"></a>
 ### Present PWM(572)
 <PControlTable572PresentPwm />
+<a id="present-current"></a>
 ### Present Current(574)
 <PControlTable574PresentCurrent />
+<a id="present-velocity"></a>
 ### Present Velocity(576)
 <PControlTable576PresentVelocity />
+<a id="present-position"></a>
 ### Present Position(580)
 <PControlTable580PresentPosition />
+<a id="velocity-trajectory"></a>
 ### Velocity Trajectory(584)
 <PControlTable584VelocityTrajectory />
+<a id="position-trajectory"></a>
 ### Position Trajectory(588)
 <PControlTable588PositionTrajectory />
+<a id="present-input-voltage"></a>
 ### Present Input Voltage(592)
 <PControlTable592PresentInputVoltage />
+<a id="present-temperature"></a>
 ### Present Temperature(594)
 <PControlTable594PresentTemperature />
 

@@ -202,34 +202,50 @@ import ProfileDescription from '@site/docs/_partials/dxl/mx2/profile_description
 **CAUTION** : Data in the EEPROM Area can only be written when the value of Torque Enable(64) is cleared to '0'.
 
 :::
+<a id="model-number"></a>
 #### Model Number(0)
 This address stores model number of DYNAMIXEL.
+<a id="firmware-version"></a>
 #### Firmware Version(6)
 This address stores firmware version of DYNAMIXEL.
+<a id="id"></a>
 #### ID(7)
 <ControlTableId />
+<a id="baud-rate"></a>
 #### Baud Rate(8)
 <ControlTableBaudrate2 />
+<a id="return-delay-time"></a>
 #### Return Delay Time(9)
 <ControlTableReturnDelayTime />
+<a id="drive-mode"></a>
 #### Drive Mode(10)
 <ControlTableDriveModeMx106_2 />
+<a id="operating-mode"></a>
 #### Operating Mode(11)
 <ControlTableOpmodeSix2 />
+<a id="secondary-id"></a>
 #### Secondary(Shadow) ID(12)
 <ControlTableShadowId />
+<a id="protocol-type"></a>
 #### Protocol Type(13)
 <ControlTableProtocolVersion />
+<a id="homing-offset"></a>
 #### Homing Offset(20)
 <ControlTableHomingOffset />
+<a id="moving-threshold"></a>
 #### Moving Threshold(24)
 <ControlTableMovingThreshold />
+<a id="temperature-limit"></a>
 #### Temperature Limit(31)
 <ControlTableTempLimit2 />
+<a id="minmax-voltage-limit"></a>
+<a id="max-voltage-limit"></a>
 #### Min/Max Voltage Limit(32, 34)
 <ControlTableVoltLimit2 />
+<a id="pwm-limit"></a>
 #### PWM Limit(36)
 <ControlTablePwmLimit />
+<a id="current-limit"></a>
 #### Current Limit(38)
 <ControlTableCurrentLimit />
 
@@ -242,34 +258,49 @@ This address stores firmware version of DYNAMIXEL.
 **NOTE** : Current Limit(38) could be differ by each DYNAMIXEL so please check the Control Table.
 
 :::
+<a id="acceleration-limit"></a>
 #### Acceleration Limit(40)
 <ControlTableAccLimit />
+<a id="velocity-limit"></a>
 #### Velocity Limit(44)
 <ControlTableVelLimit />
+<a id="minmax-position-limit"></a>
 #### Min/Max Position Limit(48, 52)
 <ControlTablePositionLimit />
+<a id="shutdown"></a>
 #### Shutdown(63)
 <ControlTableShutdown />
+<a id="torque-enable"></a>
 #### Torque Enable(64)
 <ControlTableTorqueEnable />
+<a id="led"></a>
 #### LED(65)
 <ControlTableLed />
+<a id="status-return-level"></a>
 #### Status Return Level(68)
 <ControlTableStatusReturnLv />
+<a id="registered-instruction"></a>
 #### Registered Instruction(69)
 <ControlTableRegInstruction />
+<a id="hardware-error-status"></a>
 #### Hardware Error Status(70)
 This value indicates hardware error status.
 <ControlTableShutdown />
+<a id="velocity-pi-gain"></a>
 #### Velocity PI Gain(76, 78)
 <ControlTableVelocityPiGain />
+<a id="position-pid-gain-feedforward-1st2nd-gains"></a>
+<a id="position-pid-gain80-82-84"></a>
 #### Position PID Gain(80, 82, 84), Feedforward 1st/2nd Gains(88, 90)
 <ControlTablePositionPidGain />
 <ControlTableCurrentPositionPidGain />
+<a id="bus-watchdog"></a>
 #### BUS Watchdog(98)
 <ControlTableBusWatchdog />
+<a id="goal-pwm"></a>
 #### Goal PWM(100)
 <ControlTableGoalPwm />
+<a id="goal-current"></a>
 #### Goal Current(102)
 <ControlTableGoalCurrent />
 
@@ -282,34 +313,49 @@ This value indicates hardware error status.
 **NOTE** : Applying high current to the motor for long period of time might damage the motor.
 
 :::
+<a id="goal-velocity"></a>
 #### Goal Velocity(104)
 <ControlTableGoalVelocity />
+<a id="profile-acceleration"></a>
 #### Profile Acceleration(108)
 <ControlTableProfileAcceleration />
+<a id="profile-velocity"></a>
 #### Profile Velocity(112)
 <ControlTableProfileVelocity />
+<a id="goal-position"></a>
 #### Goal Position(116)
 <ControlTableGoalPosition2 />
+<a id="realtime-tick"></a>
 #### Realtime Tick(120)
 <ControlTableRealtimeTick />
+<a id="moving"></a>
 #### Moving(122)
 <ControlTableMoving2 />
+<a id="moving-status"></a>
 #### Moving Status(123)
 <ControlTableMovingStatus />
+<a id="present-pwm"></a>
 #### Present PWM(124)
 This value indicates present PWM. For more details, please refer to the [Goal PWM(100)](#goal-pwm100).
+<a id="present-current"></a>
 #### Present Current(126)
 This value indicates current Current. For more details, please refer to the [Goal Current(102)](#goal-current102).
+<a id="present-velocity"></a>
 #### Present Velocity(128)
 This value indicates present Velocity. For more details, please refer to the [Goal Velocity(104)](#goal-velocity104).
+<a id="present-position"></a>
 #### Present Position(132)
 <ControlTablePresentPosition />
+<a id="velocity-trajectory"></a>
 #### Velocity Trajectory(136)
 <ControlTableVelocityTrajectory />
+<a id="position-trajectory"></a>
 #### Position Trajectory(140)
 <ControlTablePositionTrajectory />
+<a id="present-input-voltage"></a>
 #### Present Input Voltage(144)
 <ControlTablePresentVolt2 />
+<a id="present-temperature"></a>
 #### Present Temperature(146)
 <ControlTablePresentTemp2 />
 #### Indirect Address, Indirect Data

@@ -238,52 +238,76 @@ import CommonLink from '@site/docs/_partials/dxl/y/common_link.mdx';
 **Caution**: All data present in the EEPROM Area can only be modified when the value of Torque Enable (512) is '0'.
 
 :::
+<a id="model-number"></a>
 ### Model Number(0)
 <YControlTable0ModelNumber />
+<a id="model-information"></a>
 ### Model Information(2)
 <YControlTable2ModelInformation />
+<a id="firmware-version"></a>
 ### Firmware Version(6)
 <YControlTable6FirmwareVersion />
+<a id="id"></a>
 ### ID(7)
 <YControlTable7Id />
+<a id="bus-watchdog"></a>
 ### Bus Watchdog(8)
 <YControlTable8BusWatchdog />
+<a id="secondary-id"></a>
 ### Secondary(Shadow) ID(10)
 <YControlTable10SecondaryId />
+<a id="protocol-type"></a>
 ### Protocol Type(11)
 <YControlTable11ProtocolType />
+<a id="baud-rate"></a>
 ### Baud Rate (Bus)(12)
 <YControlTable12BaudRate />
+<a id="return-delay-time"></a>
 ### Return Delay Time(13)
 <YControlTable13ReturnDelayTime />
+<a id="status-return-level"></a>
 ### Status Return Level(15)
 <YControlTable15StatusReturnLevel />
+<a id="registered-instruction"></a>
 ### Registered Instruction(16)
 <YControlTable16RegisteredInstruction />
+<a id="drive-mode"></a>
 ### Drive Mode(32)
 <YControlTable32DriveMode />
+<a id="operating-mode"></a>
 ### Operating Mode(33)
 <YControlTable33OperatingMode />
+<a id="startup-configuration"></a>
 ### Startup Configuration(34)
 <YControlTable34StartupConfiguration />
+<a id="position-limit-threshold"></a>
 ### Position Limit Threshold(38)
 <YControlTable38PositionLimitThreshold />
+<a id="in-position-threshold"></a>
 ### In-Position Threshold(40)
 <YControlTable40InPositionThreshold />
+<a id="following-error-threshold"></a>
 ### Following Error Threshold(44)
 <YControlTable44FollowingErrorThreshold />
+<a id="moving-threshold"></a>
 ### Moving Threshold(48)
 <YControlTable48MovingThreshold />
+<a id="homing-offset"></a>
 ### Homing Offset(52)
 <YControlTable52HomingOffset />
+<a id="invertermotor-temperature-limit"></a>
 ### Inverter/Motor Temperature Limit(56, 57)
 <YControlTable56TemperatureLimit />
+<a id="maxmin-voltage-limit"></a>
 ### Max/Min Voltage Limit(60, 62)
 <YControlTable60VoltageLimit />
+<a id="pwm-limit"></a>
 ### PWM Limit(64)
 <YControlTable64PwmLimit />
+<a id="current-limit"></a>
 ### Current Limit(66)
 <YControlTable66CurrentLimit70 />
+<a id="acceleration-limit"></a>
 ### Acceleration Limit(68)
 <YControlTable68AccelerationLimit />
 
@@ -291,6 +315,7 @@ import CommonLink from '@site/docs/_partials/dxl/y/common_link.mdx';
 |     Unit      |     Range      |
 | :-----------: | :------------: |
 | 10 [rev/min²] | 0 ~ 38,748,000 |
+<a id="velocity-limit"></a>
 ### Velocity Limit(72)
 <YControlTable72VelocityLimit />
 
@@ -298,82 +323,118 @@ import CommonLink from '@site/docs/_partials/dxl/y/common_link.mdx';
 |   Unit    |    Range    |                                           Description                                            |
 | :-------: | :---------: | :----------------------------------------------------------------------------------------------: |
 | 0.01[RPM] | 0 ~ 642,200 | 100,000 = Maximum speed limited to 1,000[RPM]<br />642,200 = Maximum speed limited to 6,422[RPM] |
+<a id="maxmin-position-limit"></a>
 ### Max/Min Position Limit(76, 84)
 <YControlTable76PositionLimit />
+<a id="electronic-gear-ratio-numeratordenominator"></a>
 ### Electronic Gear Ratio Numerator/Denominator(96, 100)
 <YControlTable96ElectronicGearRatioNumerator />
 ### Torque ON-OFF Timing Chart
 <YControlTableTorqueOnOffTimingChart />
+<a id="safe-stop-time"></a>
 ### Safe Stop Time(104)
 <YControlTable104SafeStopTime />
+<a id="brake-delay-goal-update-delay"></a>
 ### Brake Delay(106), Goal Update Delay(108)
 <YControlTable106BrakeDelay />
+<a id="overexcitation-voltage-normal-excitation-voltage-overexcitation-time"></a>
 ### Overexcitation Voltage(110), Normal Excitation Voltage(111), Overexcitation Time(112)
 <YControlTable110OverexcitationVoltage />
+<a id="present-velocity-lpf-frequency"></a>
 ### Present Velocity LPF Frequency(132)
 <YControlTable132PresentVelocityLpfFrequency />
+<a id="goal-current-lpf-frequency"></a>
 ### Goal Current LPF Frequency(134)
 <YControlTable134GoalCurrentLpfFrequency />
+<a id="position-ff-lpf-time"></a>
 ### Position FF LPF Time(136)
 <YControlTable136PositionFfLpfTime />
+<a id="velocity-ff-lpf-time"></a>
 ### Velocity FF LPF Time(138)
 <YControlTable138VelocityFfLpfTime />
+<a id="controller-state"></a>
 ### Controller State(152)
 <YControlTable152ControllerState />
+<a id="error-code"></a>
 ### Error Code(153)
 <YControlTable153ErrorCode />
 ### Error Code History
 <YControlTableErrorCodeHistory />
+<a id="hybrid-save"></a>
 ### Hybrid Save(170)
 <YControlTable170HybridSave />
+<a id="velocity-i-gain-velocity-p-gain-velocity-ff-gain"></a>
 ### Velocity I Gain(212), Velocity P Gain(216), Velocity FF Gain(220)
 <YControlTable212VelocityGain />
+<a id="position-d-gain-position-i-gain-position-p-gain-position-ff-gain"></a>
 ### Position D Gain(224), Position I Gain(228), Position P Gain(232), Position FF Gain(236)
 <YControlTable224PositionGain />
+<a id="profile-acceleration-profile-velocity"></a>
 ### Profile Acceleration(240), Profile Velocity(244)
 <YControlTable240ProfileAcceleration />
+<a id="profile-acceleration-time-profile-time"></a>
 ### Profile Acceleration Time(248), Profile Time(252)
 <YControlTable248ProfileAccelerationTime />
 ### Indirect Address, Indirect Data
 <YControlTable168Indirect />
+<a id="torque-enable"></a>
 ### Torque Enable(512)
 <YControlTable512TorqueEnableM />
+<a id="led"></a>
 ### LED(513)
 <YControlTable513Led />
+<a id="pwmcurrentvelocity-offset"></a>
 ### PWM/Current/Velocity Offset(516, 518, 520)
 <YControlTable516PwmCurrentVeloctiyOffset />
+<a id="goal-pwm"></a>
 ### Goal PWM(524)
 <YControlTable524GoalPwm />
+<a id="goal-current"></a>
 ### Goal Current(526)
 <YControlTable526GoalCurrent />
+<a id="goal-velocity"></a>
 ### Goal Velocity(528)
 <YControlTable528GoalVelocity />
+<a id="goal-position"></a>
 ### Goal Position(532)
 <YControlTable532GoalPosition />
+<a id="moving-status"></a>
 ### Moving Status(541)
 <YControlTable541MovingStatus />
+<a id="realtime-tick"></a>
 ### Realtime Tick(542)
 <YControlTable542RealtimeTick />
+<a id="present-pwm"></a>
 ### Present PWM(544)
 <YControlTable544PresentPwm />
+<a id="present-current"></a>
 ### Present Current(546)
 <YControlTable546PresentCurrent />
+<a id="present-velocity"></a>
 ### Present Velocity(548)
 <YControlTable548PresentVelocity />
+<a id="present-position"></a>
 ### Present Position(552)
 <YControlTable552PresentPosition />
+<a id="position-trajectory"></a>
 ### Position Trajectory(560)
 <YControlTable560PositionTrajectory />
+<a id="velocity-trajectory"></a>
 ### Velocity Trajectory(564)
 <YControlTable564VelocityTrajectory />
+<a id="present-input-voltage"></a>
 ### Present Input Voltage(568)
 <YControlTable568PresentInputVoltage />
+<a id="present-inverter-temperature"></a>
 ### Present Inverter Temperature(570)
 <YControlTable570PresentInverterTemperature />
+<a id="present-motor-temperature"></a>
 ### Present Motor Temperature(571)
 <YControlTable571PresentMotorTemperature />
+<a id="backup-ready"></a>
 ### Backup Ready(919)
 <YControlTable919BackupReady />
+<a id="factory-reset-reboot-clear-instruction"></a>
 ### Factory Reset, Reboot, Clear Instruction (Modbus)
 <YFactoryResetRebootClearInstruction />
 

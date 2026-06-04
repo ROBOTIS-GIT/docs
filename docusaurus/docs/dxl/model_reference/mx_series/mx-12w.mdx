@@ -114,12 +114,16 @@ import CommonLink from '@site/docs/_partials/dxl/ax/common_link.mdx';
 
 
 ### Control Table Description
+<a id="model-number"></a>
 #### Model Number (0)
 This address stores model number of DYNAMIXEL.
+<a id="firmware-version"></a>
 #### Firmware Version (2)
 This address stores firmware version of DYNAMIXEL.
+<a id="id"></a>
 #### ID (3)
 <ControlTableId />
+<a id="baud-rate"></a>
 #### Baud Rate (4)
 <ControlTableMxBaudrate />
 
@@ -130,32 +134,46 @@ For BPS over 250 values :
 |  250  | 2,250,000 |     0.000%      |
 |  251  | 2,500,000 |     0.000%      |
 |  252  | 3,000,000 |     0.000%      |
+<a id="return-delay-time"></a>
 #### Return Delay Time (5)
 <ControlTableReturnDelayTime />
+<a id="cwccw-angle-limit"></a>
 #### CW/CCW Angle Limit(6, 8)
 <ControlTableMxAngleLimit />
+<a id="temperature-limit"></a>
 #### Temperature Limit (11)
 <ControlTableTempLimit />
+<a id="minmax-voltage-limit"></a>
 #### Min/Max Voltage Limit (12, 13)
 <ControlTableVoltLimit />
+<a id="max-torque"></a>
 #### Max Torque (14)
 <ControlTableMaxTorque />
+<a id="status-return-level"></a>
 #### Status Return Level (16)
 <ControlTableStatusReturnLv />
+<a id="alarm-led-shutdown"></a>
 #### Alarm LED(17), Shutdown(18)
 <ControlTableShutdown />
+<a id="multi-turn-offset"></a>
 #### Multi Turn Offset (20)
 <ControlTableMultiturnOffset />
+<a id="resolution-divider"></a>
 #### Resolution Divider (22)
 <ControlTableResolutionDivider />
+<a id="torque-enable"></a>
 #### Torque Enable (24)
 <ControlTableTorqueEnable />
+<a id="led"></a>
 #### LED (25)
 <ControlTableLed />
+<a id="pid-gains"></a>
 #### PID Gains (26, 27, 28)
 <ControlTableMxPid />
+<a id="goal-position"></a>
 #### Goal Position (30)
 <ControlTableMxGoalPosition />
+<a id="moving-speed"></a>
 #### Moving Speed (32)
 
 - Join Mode, Multi-Turn mode
@@ -180,10 +198,13 @@ For BPS over 250 values :
   **NOTE** : Wheel mode allows to check max rpm. Any values higher than max rpm will not take effect.
 
   :::
+<a id="torque-limit"></a>
 #### Torque Limit (34)
 <ControlTableTorqueLimit />
+<a id="present-position"></a>
 #### Present Position (36)
 <ControlTableMagnetPresentPosition />
+<a id="present-speed"></a>
 #### Present Speed (38)
 Is the current moving speed.
 0~2047 (0x000 ~ 0x7FF) can be used.
@@ -192,20 +213,28 @@ If a value is in the rage of 1024~2047 then the motor rotates to the CW directio
 The 10th bit becomes the direction bit to control the direction; 0 and 1024 are equal.
 The value unit is about 0.916rpm.
 For example, if it is set to 300 then the motor is moving to the CCW direction at a rate of about 274.8rpm.
+<a id="present-load"></a>
 #### Present Load (40)
 <ControlTablePresentLoad />
+<a id="present-voltage"></a>
 #### Present Voltage (42)
 <ControlTablePresentVolt />
+<a id="present-temperature"></a>
 #### Present Temperature (43)
 <ControlTablePresentTemp />
+<a id="registered-instruction"></a>
 #### Registered Instruction (44)
 <ControlTableRegInstruction />
+<a id="moving"></a>
 #### Moving (46)
 <ControlTableMoving />
+<a id="lock"></a>
 #### Lock (47)
 <ControlTableLock />
+<a id="punch"></a>
 #### Punch (48)
 <ControlTablePunch />
+<a id="realtime-tick"></a>
 #### Realtime-Tick (50)
 <ControlTableRealtimeTick />
 
@@ -214,6 +243,7 @@ For example, if it is set to 300 then the motor is moving to the CCW direction a
 **NOTE** : This feature is available from Firmware v41.
 
 :::
+<a id="goal-acceleration"></a>
 #### Goal Acceleration (73)
 <ControlTableGoalAcceleration />
 

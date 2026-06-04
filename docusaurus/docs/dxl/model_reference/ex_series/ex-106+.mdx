@@ -118,10 +118,13 @@ import CommonLink from '@site/docs/_partials/dxl/ax/common_link.mdx';
 
 
 ### Control Table Description
+<a id="model-number"></a>
 #### Model Number (0)
 This address stores model number of DYNAMIXEL.
+<a id="firmware-version"></a>
 #### Firmware Version (2)
 This address stores firmware version of DYNAMIXEL.
+<a id="id"></a>
 #### ID (3)
 The ID is a unique value in the network to identify each DYNAMIXEL with an Instruction Packet.
 0~253 (0xFD) values can be used as an ID, and 254(0xFE) is occupied as a broadcast ID. The Broadcast ID(254, 0xFE) can send an Instruction Packet to all connected DYNAMIXEL's simultaneously.
@@ -131,6 +134,7 @@ The ID is a unique value in the network to identify each DYNAMIXEL with an Instr
 **NOTE** : Please avoid using an identical ID for multiple DYNAMIXEL's. You may face communication failure or may not be able to detect DYNAMIXEL's with an identical ID.
 
 :::
+<a id="baud-rate"></a>
 #### Baud Rate (4)
 Baud Rate determines serial communication speed between a controller and DYNAMIXEL's.
 
@@ -158,9 +162,12 @@ Baud Rate determines serial communication speed between a controller and DYNAMIX
 [USB Latency Setting](/docs/software/dynamixel_wizard_2_0#usb-latency-setting)
 
 :::
+<a id="return-delay-time"></a>
 #### Return Delay Time (5)
 
 <ControlTableReturnDelayTime />
+<a id="cwccw-angle-limit"></a>
+<a id="cw-angle-limit"></a>
 #### CW/CCW Angle Limit (6, 8)
 The angle limit allows the motion to be restrained.
 The range and the unit of the value is the same as Goal Position(Address 30, 31).
@@ -174,9 +181,11 @@ The following two modes can be set pursuant to the value of CW and CCW.
 |   Joint Mode   | neither are 0 |
 
 The wheel mode can be used to wheel-type operation robots since motors of the robots spin infinitely. The joint mode can be used to multi-joints robot since the robots can be controlled with specific angles.
+<a id="drive-mode"></a>
 #### Drive Mode (10)
 
 <ControlTableDriveMode />
+<a id="temperature-limit"></a>
 #### Temperature Limit (11)
 
 :::warning
@@ -184,6 +193,7 @@ The wheel mode can be used to wheel-type operation robots since motors of the ro
 **CAUTION** : Do not set the temperature lower/higher than the default value. When the temperature alarm shutdown occurs, wait 20 minutes to cool the temperature before re-use. Using the product when the temperature is high may and can cause damage.
 
 :::
+<a id="minmax-voltage-limit"></a>
 #### Min/Max Voltage Limit (12, 13)
 It is the operation range of voltage.
 
@@ -195,9 +205,11 @@ For example, if the value is 80, the voltage is 8V.
 If [Present Voltage(42)] is out of the range, Voltage Range Error Bit (Bit0) of Status Packet is returned as '1' and Alarm is triggered as set in the addresses 17 and 18.
 
 [Present Voltage(42)]: #present-voltage-42
+<a id="max-torque"></a>
 #### Max Torque (14)
 It is the torque value of maximum output. 0 to 1023 (0x3FF) can be used, and the unit is about 0.1%.
 For example, Data 1023 (0x3FF) means that DYNAMIXEL will use 100% of the maximum torque it can produce while Data 512 (0x200) means that DYNAMIXEL will use 50% of the maximum torque. When the power is turned on, Torque Limit (Addresses 34 and 35) uses the value as the initial value.
+<a id="status-return-level"></a>
 #### Status Return Level (16)
 It decides how to return Status Packet. There are three ways like the below table.
 
@@ -208,25 +220,30 @@ It decides how to return Status Packet. There are three ways like the below tabl
 |   2   | Return for all commands                              |
 
 When Instruction Packet is Broadcast ID, Status Packet is not returned regardless of Status Return Level.
+<a id="alarm-led-shutdown"></a>
 #### Alarm LED(17), Shutdown(18)
 
 <ControlTableShutdown />
+<a id="torque-enable"></a>
 #### Torque Enable (24)
 
 | Value | Description                                                     |
 |:-----:|:----------------------------------------------------------------|
 |   0   | Keeps Torque from generating by interrupting the power of motor |
 |   1   | Generates Torque by impressing the power to the motor.          |
+<a id="led"></a>
 #### LED (25)
 
 | Bit | Description      |
 |:---:|:-----------------|
 |  0  | Turn OFF the LED |
 |  1  | Turn ON the LED  |
+<a id="compliance-margin"></a>
 #### Compliance Margin (26, 27)
 It exists in each direction of CW/CCW and means the error between goal position and present position.
 The range of the value is 0~255, and the unit is the same as Goal Position.(Address 30,31)
 The greater the value, the more difference occurs.
+<a id="compliance-slope"></a>
 #### Compliance Slope (28, 29)
 It exists in each direction of CW/CCW and sets the level of Torque near the goal position.
 Compliance Slope is set in 7 steps, the higher the value, the more flexibility is obtained.
@@ -246,6 +263,7 @@ Compliance is to set the control flexibility of the motor.
 The following diagram shows the relationship between output torque and position of the motor.
 
 ![](/img/dxl/dxl_compliance.webp)
+<a id="goal-position"></a>
 #### Goal Position (30)
 Set the DYNAMIXEL's goal position through the Goal Position(30).
 0 to 1023 (0x3FF) is available.  The unit is 0.29 degree.
@@ -259,6 +277,7 @@ The picture above is the front view of DYNAMIXEL
 **NOTE** : If it is set to Wheel Mode, this value is not used.
 
 :::
+<a id="moving-speed"></a>
 #### Moving Speed (32)
 It is a moving speed to Goal Position.
 The range and the unit of the value may vary depending on the operation mode.
@@ -282,6 +301,7 @@ The range and the unit of the value may vary depending on the operation mode.
 **NOTE** : Please check the maximum rpm of DYNAMIXEL. The motor cannot exceed the maximum rpm with the higher Moving Speed value.
 
 :::
+<a id="torque-limit"></a>
 #### Torque Limit (34)
 It is the value of the maximum torque limit.
 0 to 1023 (0x3FF) is available, and the unit is about 0.1%.
@@ -293,6 +313,7 @@ If the power is turned on, the value of Max Torque (Address 14, 15) is used as t
 **NOTE** : If the function of Alarm Shutdown is triggered, the motor loses its torque because the value becomes 0. At this moment, if the value is changed to the value other than 0, the motor can be used again.
 
 :::
+<a id="present-position"></a>
 #### Present Position (36)
 It is the current position value of DYNAMIXEL.
 The range of the value is 0~1023 (0x3FF), and the unit is 0.29 degree.
@@ -306,6 +327,7 @@ The picture above is the front view of DYNAMIXEL.
   **Total Moved Angle = (The value currently measured - The value measured in the past) x 0.06**
   According to the formula above, if the total moved angle is greater than 0, it is turned to the direction of CCW; if it is less than 0, it is turned to the direction of CW.
   For example, The value is changed from 5000 to 10000, (10000 - 5000) x 0.06 = 300, and the total moved angle becomes 300 degrees.
+<a id="present-speed"></a>
 #### Present Speed (38)
 It is the current moving speed.
 0~2047 (0X7FF) can be used.
@@ -321,6 +343,7 @@ The unit of this value varies depending on operation mode.
 + Wheel Mode
   The unit is about 0.1%.
   For example, if it is set to 512, it means that the torque is controlled by 50% of the maximum torque to the CCW direction.
+<a id="present-load"></a>
 #### Present Load (40)
 It means currently applied load.
 The range of the value is 0~2047, and the unit is about 0.1%.
@@ -344,12 +367,15 @@ For example, the value is 512, it means the load is detected in the direction of
 **NOTE** : Present load is an inferred value based on the internal output value; not a measured value using torque sensor, etc. Therefore, it may be inaccurate for measuring weight or torque. It is recommended to use it for predicting the direction and size of the force being applied to the joint.
 
 :::
+<a id="present-voltage"></a>
 #### Present Voltage (42)
 It is the size of the current voltage supplied.
 This value is 10 times larger than the actual voltage. For example, when 10V is supplied, the data value is 100 (0x64)
+<a id="present-temperature"></a>
 #### Present Temperature (43)
 It is the internal temperature of DYNAMIXEL in Celsius.
 Data value is identical to the actual temperature in Celsius. For example, if the data value is 85 (0x55), the current internal temperature is 85&deg;C.
+<a id="registered-instruction"></a>
 #### Registered Instruction (44)
 
 | Value | Description                                    |
@@ -362,12 +388,14 @@ Data value is identical to the actual temperature in Celsius. For example, if th
 **NOTE** : If ACTION command is executed, the value is changed into 0.
 
 :::
+<a id="moving"></a>
 #### Moving (46)
 
 | Value | Description                                    |
 |:-----:|:-----------------------------------------------|
 |   0   | Goal position command execution is completed   |
 |   1   | Goal position command execution is in progress |
+<a id="lock"></a>
 #### Lock (47)
 
 | Value | Description                    |
@@ -380,9 +408,11 @@ Data value is identical to the actual temperature in Celsius. For example, if th
 **CAUTION** : If Lock is set to 1, the power must be turned off and then turned on again to change into 0.
 
 :::
+<a id="punch"></a>
 #### Punch (48)
 Current to drive motor is at minimum.
 Can choose vales from 0x20 to 0x3FF.
+<a id="sensed-current"></a>
 #### Sensed Current (56)
 It is the amount of current in use. The range from 0 to 1023 is used, and the unit is 10mA. The value less than 512 means the motor consumes the current and torques to the direction of CCW. The value greater than 512 means the motor consumes the current and torques to the direction of CW. 512 is equal to 0mA, and it means there is no torque from the motor.
 

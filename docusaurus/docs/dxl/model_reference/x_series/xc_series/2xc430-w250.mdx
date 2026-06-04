@@ -203,10 +203,13 @@ import Compatible2x430 from '@site/docs/_partials/dxl/x/compatible_dxl/compatibl
 
 ## Control Table Description
 <ControlTable2xWarning />
+<a id="model-number"></a>
 ### Model Number(0)
  This address stores model number of DYNAMIXEL.
+<a id="firmware-version"></a>
 ### Firmware Version(6)
  This address stores firmware version of DYNAMIXEL.
+<a id="id"></a>
 ### ID(7)
 <ControlTableId />
 
@@ -216,6 +219,7 @@ import Compatible2x430 from '@site/docs/_partials/dxl/x/compatible_dxl/compatibl
 **CAUTION** : Assign two different IDs for the 2XC430-W250. Attempting to assign an identical ID for each joint will result in Data Limit Error(0x06) of the status packet.
 
 :::
+<a id="baud-rate"></a>
 ### Baud Rate(8)
 <ControlTableBaudrate2 />
 
@@ -225,14 +229,19 @@ import Compatible2x430 from '@site/docs/_partials/dxl/x/compatible_dxl/compatibl
 **CAUTION** : Only one Baud Rate can be used for the 2XC430-W250. Attempting to change the Baud Rate of one joint will also affect to the other joint.
 
 :::
+<a id="return-delay-time"></a>
 ### Return Delay Time(9)
 <ControlTableReturnDelayTime />
+<a id="drive-mode"></a>
 ### Drive Mode(10)
 <ControlTableDrivemode />
+<a id="operating-mode"></a>
 ### Operating Mode(11)
 <ControlTableMxOpmode2 />
+<a id="secondary-id"></a>
 ### Secondary(Shadow) ID(12)
 <ControlTableShadowid />
+<a id="protocol-type"></a>
 ### Protocol type(13)
 <ControlTableProtocolversion />
 
@@ -242,12 +251,17 @@ import Compatible2x430 from '@site/docs/_partials/dxl/x/compatible_dxl/compatibl
 **CAUTION** : Only one Protocol Type can be used for the 2XC430-W250. Attempting to change the Protocol Type of one joint will also affect to the other joint.
 
 :::
+<a id="homing-offset"></a>
 ### Homing Offset(20)
 <ControlTableHomingoffset />
+<a id="moving-threshold"></a>
 ### Moving Threshold(24)
 <ControlTableMovingthreshold />
+<a id="temperature-limit"></a>
 ### Temperature Limit(31)
 <ControlTableTempLimit2 />
+<a id="minmax-voltage-limit"></a>
+<a id="max-voltage-limit"></a>
 ### Min/Max Voltage Limit(34, 32)
 The Min Voltage Limit(34) and Max Voltage Limit(32) determine the maximum and minimum operating voltages.  
 When the [Present Input Voltage(144)] indicating the present input voltage to the device exceeds the range of Max Voltage Limit(32) and Min Voltage Limit(34), the Input Voltage error Bit(0x10) in the [Hardware Error Status(70)](#hardware-error-status70) will be set, and the Status Packet will send Alert Bit(0x80) via the Error field.  
@@ -258,66 +272,99 @@ For more details, please refer to the [Shutdown(63)] section.
 |    Unit    | Value Range | Description |
 |:----------:|:-----------:|:-----------:|
 | About 0.1V |  60 ~ 140   | 6.0 ~ 14.0V |
+<a id="pwm-limit"></a>
 ### PWM Limit(36)
 <ControlTablePwmLimit />
+<a id="velocity-limit"></a>
 ### Velocity Limit(44)
 <ControlTableVellimit />
+<a id="minmax-position-limit"></a>
 ### Min/Max Position Limit(52, 48)
 <ControlTablePositionlimit />
+<a id="startup-configuration"></a>
 ### Startup Configuration(60)
 <ControlTable60StartupConfiguration />
+<a id="shutdown"></a>
 ### Shutdown(63)
 <ControlTableShutdown />
+<a id="torque-enable"></a>
 ### Torque Enable(64)
 <ControlTableTorqueEnable />
+<a id="led"></a>
 ### LED(65)
 <ControlTableLed />
+<a id="status-return-level"></a>
 ### Status Return Level(68)
 <ControlTableStatusReturnLv />
+<a id="registered-instruction"></a>
 ### Registered Instruction(69)
 <ControlTableRegInstruction />
+<a id="hardware-error-status"></a>
 ### Hardware Error Status(70)
 The Hardware Error Status(70) indicates hardware error status.  
 
 <ControlTableShutdown />
+<a id="velocity-pi-gain"></a>
 ### Velocity PI Gain(76, 78)
 <ControlTableVelocityPiGain />
+<a id="position-pid-gain-feedforward-1st2nd-gains"></a>
+<a id="position-pid-gain80-82-84"></a>
 ### Position PID Gain(80, 82, 84), Feedforward 1st/2nd Gains(88, 90)
 <ControlTablePositionPidGain />
+<a id="bus-watchdog"></a>
 ### Bus Watchdog(98)
 <ControlTableBuswatchdog />
+<a id="goal-pwm"></a>
 ### Goal PWM(100)
 <ControlTableGoalPwm />
+<a id="goal-velocity"></a>
 ### Goal Velocity(104)
 <ControlTableGoalVelocity />
+<a id="profile-acceleration"></a>
 ### Profile Acceleration(108)
 <ControlTableProfileAcceleration />
+<a id="profile-velocity"></a>
+<a id="profile-verlocity112"></a>
 ### Profile Velocity(112)
 <ControlTableProfileVelocity />
+<a id="goal-position"></a>
 ### Goal Position(116)
 <ControlTableGoalPosition2 />
+<a id="realtime-tick"></a>
 ### Realtime Tick(120)
 <ControlTableRealtimeTick />
+<a id="moving"></a>
 ### Moving(122)
 <ControlTableMoving2 />
+<a id="moving-status"></a>
 ### Moving Status(123)
 <ControlTableMovingStatus />
+<a id="present-pwm"></a>
 ### Present PWM(124)
 The Present PWM(124) indicates current PWM. For more details, please refer to the [Goal PWM(100)](#goal-pwm100).
+<a id="present-load"></a>
 ### Present Load(126)
 <ControlTablePresentLoad2 />
+<a id="present-velocity"></a>
+<a id="present_velocity128"></a>
 ### Present Velocity(128)
 This value indicates current Velocity. For more details, please refer to the [Goal Velocity(104)](#goal-velocity104).
+<a id="present-position"></a>
 ### Present Position(132)
 <ControlTablePresentPosition />
+<a id="velocity-trajectory"></a>
 ### Velocity Trajectory(136)
 <ControlTableVelocityTrajectory />
+<a id="position-trajectory"></a>
 ### Position Trajectory(140)
 <ControlTablePositionTrajectory />
+<a id="present-input-voltage"></a>
 ### Present Input Voltage(144)
 <ControlTablePresentVolt2 />
+<a id="present-temperature"></a>
 ### Present Temperature(146)
 <ControlTablePresentTemp2 />
+<a id="backup-ready"></a>
 ### Backup Ready(147)
 <ControlTableBackupReady />
 ### Indirect Address, Indirect Data

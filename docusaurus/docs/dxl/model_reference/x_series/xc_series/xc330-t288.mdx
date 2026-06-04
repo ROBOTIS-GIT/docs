@@ -197,34 +197,50 @@ import CompatibleX330 from '@site/docs/_partials/dxl/x/compatible_dxl/compatible
 **CAUTION** : Data in the EEPROM Area can only be written when the value of Torque Enable(64) is cleared to ‘0’.
 
 :::
+<a id="model-number"></a>
 ### Model Number(0)
  This address stores model number of DYNAMIXEL.
+<a id="firmware-version"></a>
 ### Firmware Version(6)
  This address stores firmware version of DYNAMIXEL.
+<a id="id"></a>
 ### ID(7)
 <ControlTableId />
+<a id="baud-rate"></a>
 ### Baud Rate(8)
 <ControlTableBaudrate2 />
+<a id="return-delay-time"></a>
 ### Return Delay Time(9)
 <ControlTableReturnDelayTime />
+<a id="drive-mode"></a>
 ### Drive Mode(10)
 <ControlTableDrivemode />
+<a id="operating-mode"></a>
 ### Operating Mode(11)
 <ControlTableOpmodeSix2 />
+<a id="secondary-id"></a>
 ### Secondary(Shadow) ID(12)
 <ControlTableShadowid />
+<a id="protocol-type"></a>
 ### Protocol Type(13)
 <ControlTableProtocolversion />
+<a id="homing-offset"></a>
 ### Homing Offset(20)
 <ControlTableHomingoffset />
+<a id="moving-threshold"></a>
 ### Moving Threshold(24)
 <ControlTableMovingthreshold />
+<a id="temperature-limit"></a>
 ### Temperature Limit(31)
 <ControlTableTempLimit2 />
+<a id="minmax-voltage-limit"></a>
+<a id="max-voltage-limit"></a>
 ### Min/Max Voltage Limit(34, 32)
 <ControlTableVoltLimit2 />
+<a id="pwm-limit"></a>
 ### PWM Limit(36)
 <ControlTablePwmLimit />
+<a id="current-limit"></a>
 ### Current Limit(38)
 <ControlTableCurrentLimit />
 
@@ -241,12 +257,16 @@ import CompatibleX330 from '@site/docs/_partials/dxl/x/compatible_dxl/compatible
 - XC330 series measures curret at its input power source unlike other DYNAMIXE-X series supporting a current control. Therefore, you may have a different results in measuring current of XC330 series comparing with measuring phase current which quickly changes of a motor.
 
 :::
+<a id="velocity-limit"></a>
 ### Velocity Limit(44)
 <ControlTableVellimit />
+<a id="minmax-position-limit"></a>
 ### Min/Max Position Limit(52, 48)
 <ControlTablePositionlimit />
+<a id="startup-configuration"></a>
 ### Startup Configuration(60)
 <ControlTable60StartupConfiguration />
+<a id="pwm-slope"></a>
 ### PWM Slope(62)
 The PWM duty will be linearly interpolated with a set slope by PWM Slope(62) and be forwarded to the motor's inverter.
 
@@ -261,31 +281,43 @@ If the set value of PWM Slope(62) is '255' (equal to 1,008.47 [mV/msec]), and th
 ![](/img/dxl/x/x330/xc330_12v_pwm_slope_example.webp)
 
 > PWM Slope Example
+<a id="shutdown"></a>
 ### Shutdown(63)
 <ControlTableShutdown />
+<a id="torque-enable"></a>
 ### Torque Enable(64)
 <ControlTableTorqueEnable />
+<a id="led"></a>
 ### LED(65)
 <ControlTableLed />
+<a id="status-return-level"></a>
 ### Status Return Level(68)
 <ControlTableStatusReturnLv />
+<a id="registered-instruction"></a>
 ### Registered Instruction(69)
 <ControlTableRegInstruction />
+<a id="hardware-error-status"></a>
 ### Hardware Error Status(70)
 The Hardware Error Status(70) indicates hardware error status.  
 
 <ControlTableShutdown />
+<a id="velocity-pi-gain"></a>
 ### Velocity PI Gain(76, 78)
 <ControlTableVelocityPiGain />
+<a id="position-pid-gain-feedforward-1st2nd-gains"></a>
+<a id="position-pid-gain80-82-84"></a>
 ### Position PID Gain(80, 82, 84), Feedforward 1st/2nd Gains(88, 90)
 <ControlTablePositionPidGain />
 
 
 <ControlTableCurrentPositionPidGain />
+<a id="bus-watchdog"></a>
 ### Bus Watchdog(98)
 <ControlTableBuswatchdog />
+<a id="goal-pwm"></a>
 ### Goal PWM(100)
 <ControlTableGoalPwm />
+<a id="goal-current"></a>
 ### Goal Current(102)
 <ControlTableGoalCurrent />
 
@@ -316,36 +348,54 @@ The Hardware Error Status(70) indicates hardware error status.
 **WARNING** : Applying high current to the motor for long period of time might damage the motor.
 
 :::
+<a id="goal-velocity"></a>
 ### Goal Velocity(104)
 <ControlTableGoalVelocity />
+<a id="profile-acceleration"></a>
 ### Profile Acceleration(108)
 <ControlTableProfileAcceleration />
+<a id="profile-velocity"></a>
+<a id="profile-verlocity112"></a>
 ### Profile Velocity(112)
 <ControlTableProfileVelocity />
+<a id="goal-position"></a>
 ### Goal Position(116)
 <ControlTableGoalPosition2 />
+<a id="realtime-tick"></a>
 ### Realtime Tick(120)
 <ControlTableRealtimeTick />
+<a id="moving"></a>
 ### Moving(122)
 <ControlTableMoving2 />
+<a id="moving-status"></a>
 ### Moving Status(123)
 <ControlTableMovingStatus />
+<a id="present-pwm"></a>
 ### Present PWM(124)
 The Present PWM(124) indicates current PWM. For more details, see the [Goal PWM(100)](#goal-pwm100).
+<a id="present-current"></a>
 ### Present Current(126)
 The Present Current(126) indicates current Current. For more details, see the [Goal Current(102)](#goal-current102).
+<a id="present-velocity"></a>
+<a id="present_velocity128"></a>
 ### Present Velocity(128)
 The Present Velocity(128) indicates current Velocity. For more details, see the [Goal Velocity(104)](#goal-velocity104).
+<a id="present-position"></a>
 ### Present Position(132)
 <ControlTablePresentPosition />
+<a id="velocity-trajectory"></a>
 ### Velocity Trajectory(136)
 <ControlTableVelocityTrajectory />
+<a id="position-trajectory"></a>
 ### Position Trajectory(140)
 <ControlTablePositionTrajectory />
+<a id="present-input-voltage"></a>
 ### Present Input Voltage(144)
 <ControlTablePresentVolt2 />
+<a id="present-temperature"></a>
 ### Present Temperature(146)
 <ControlTablePresentTemp2 />
+<a id="backup-ready"></a>
 ### Backup Ready(147)
 <ControlTableBackupReady />
 ### Indirect Address, Indirect Data
