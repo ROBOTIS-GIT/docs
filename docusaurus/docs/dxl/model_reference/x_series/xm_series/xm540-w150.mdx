@@ -61,11 +61,33 @@ import CompatibleX540 from '@site/docs/_partials/dxl/x/compatible_dxl/compatible
 > XM540-W150-T/R
 
 # Specifications
-:::info
 
-Refer to the [official specification page](/docs/dxl/model_reference/x_series/xm_series/xm540-w150#specifications) for detailed specifications.
-
-:::
+| Item                    | Specifications                                                     |
+|:------------------------|:-------------------------------------------------------------------|
+| MCU                     | ARM CORTEX-M3 (72 [MHz], 32Bit) |
+| Position Sensor         | Contactless absolute encoder (12Bit, 360 [&deg;])<br />Maker : ams(www.ams.com), Part No : AS5045 |
+| Motor                   | Coreless |
+| Baud Rate               | 9,600 [bps] ~ 4.5 [Mbps] |
+| Control Algorithm       | PID control |
+| Resolution              | 4096 [pulse/rev] |
+| Backlash                | 15 [arcmin] (0.25 [&deg;]) |
+| Operating Modes         | Current Control Mode<br />Velocity Control Mode<br />Position Control Mode (0 ~ 360 [&deg;])<br />Extended Position Control Mode (Multi-turn)<br />Current-based Position Control Mode<br />PWM Control Mode (Voltage Control Mode) |
+| Weight                  | 165 [g] |
+| Dimensions (W x H x D)  | 33.5 x 58.5 x 44 [mm] |
+| Gear Ratio              | 152.3 : 1 |
+| Stall Torque            | 6.9 [N.m] (at 11.1 [V], 4.2 [A], 1.643 [Nm/A])<br />7.3 [N.m] (at 12.0 [V], 4.4 [A], 1.659 [Nm/A])<br />8.9 [N.m] (at 14.8 [V], 5.5 [A], 1.618 [Nm/A]) |
+| No Load Speed           | 50 [rev/min] (at 11.1 [V])<br />53 [rev/min] (at 12.0 [V])<br />66 [rev/min] (at 14.8) |
+| Radial Load             | 40 [N] (10 [mm] away from the horn) |
+| Axial Load              | 20 [N] |
+| Operating Temperature   | -5 ~ +80 [&deg;C] |
+| Input Voltage           | 10.0 ~ 14.8 [V] (**Recommended : 12.0 [V]**) |
+| Command Signal          | Digital Packet |
+| Physical Connection     | RS-485 / TTL Multidrop Bus <br /> TTL Half Duplex Asynchronous Serial Communication with 8bit, 1stop, No Parity<br />RS-485 Asynchronous Serial Communication with 8bit, 1stop, No Parity |
+| ID                      | 253 ID (0 ~ 252) |
+| Feedback                | Position, Velocity, Current, Realtime tick, Trajectory, Temperature, Input Voltage, etc |
+| Case Material           | Metal (Front, Middle), Engineering Plastic (Back) |
+| Gear Material           | Full Metal Gear |
+| Standby Current         | 40 [mA] |
 
 
 <Warning />

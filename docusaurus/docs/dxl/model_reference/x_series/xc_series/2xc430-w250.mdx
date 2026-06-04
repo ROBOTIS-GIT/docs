@@ -59,12 +59,29 @@ import Compatible2x430 from '@site/docs/_partials/dxl/x/compatible_dxl/compatibl
 # Specifications
 <X2xIntro />
 
-
-:::info
-
-Refer to the [official specification page](/docs/dxl/model_reference/x_series/xc_series/2xc430-w250#specifications) for detailed specifications.
-
-:::
+| Item                    | Specifications                                                     |
+|:------------------------|:-------------------------------------------------------------------|
+| MCU                     | ARM CORTEX-M3 (72 [MHz], 32Bit) |
+| Position Sensor         | Contactless absolute encoder (12Bit, 360 [&deg;])<br />Maker : ams(www.ams.com), Part No : AS5601 |
+| Motor                   | Coreless |
+| Baud Rate               | 9,600 [bps] ~ 4.5 [Mbps] |
+| Control Algorithm       | PID control |
+| Resolution              | 4096 [pulse/rev] |
+| Operating Modes         | Velocity Control Mode<br />Position Control Mode (0 ~ 360 [&deg;])<br />Extended Position Control Mode (Multi-turn)<br />PWM Control Mode (Voltage Control Mode) |
+| Weight                  | 102 [g] |
+| Dimensions (W x H x D)  | 36 x 46.5 x 36 [mm] |
+| Gear Ratio              | 257.4 : 1 |
+| Stall Torque            | 1.3 [N.m] (at 9.0 [V], 1.1 [A], 1.182 [Nm/A])<br />1.6 [N.m] (at 11.1 [V], 1.3 [A], 1.231 [Nm/A])<br />**1.8 [N.m] (at 12.0 [V], 1.4 [A], 1.286 [Nm/A])** |
+| No Load Speed           | 48 [rev/min] (at 9.0 [V])<br />59 [rev/min] (at 11.1 [V])<br />**64 [rev/min] (at 12.0 [V])** |
+| Operating Temperature   | -5 ~ +72 [&deg;C] |
+| Input Voltage           | 6.5 ~ 14.8 [V] (**Recommended : 12.0 [V]**) |
+| Command Signal          | Digital Packet |
+| Physical Connection     | TTL Multidrop Bus (5V Logic) <br /> TTL Half Duplex Asynchronous Serial Communication<br />(8bit, 1stop, No Parity) |
+| ID                      | 253 ID (0 ~ 252) |
+| Feedback                | Position, Velocity, Load, Realtime tick, Trajectory, Temperature, Input Voltage, etc |
+| Case Material           | Engineering Plastic(Front, Middle, Back) |
+| Gear Material           | Full Metal Gear |
+| Standby Current         | 49 [mA] |
 
 
 <Warning />

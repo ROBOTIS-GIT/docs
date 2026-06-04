@@ -54,6 +54,31 @@ import CompatibleX430 from '@site/docs/_partials/dxl/x/compatible_dxl/compatible
 > XC430-T150BB-T
 
 # Specifications
+
+| Item                    | Specifications                                                     |
+|:------------------------|:-------------------------------------------------------------------|
+| MCU                     | ARM CORTEX-M3 (72 [MHz], 32Bit) |
+| Position Sensor         | Contactless absolute encoder (12Bit, 360 [&deg;])<br />Maker : ams(www.ams.com), Part No : AS5601 |
+| Motor                   | Coreless |
+| Baud Rate               | 9,600 [bps] ~ 4.5 [Mbps] |
+| Control Algorithm       | PID control |
+| Resolution              | 4096 [pulse/rev] |
+| Operating Modes         | Velocity Control Mode<br />Position Control Mode (0 ~ 360 [&deg;])<br />Extended Position Control Mode (Multi-turn)<br />PWM Control Mode (Voltage Control Mode) |
+| Weight                  | 65 [g] |
+| Dimensions (W x H x D)  | 28.5 x 46.5 x 34 [mm] |
+| Gear Ratio              | 159.59 : 1 |
+| Stall Torque            | 1.2 [N.m] (at 9.0 [V], 1.1 [A], 1.091 [Nm/A])<br />1.4 [N.m] (at 11.1 [V], 1.3 [A], 1.077 [Nm/A])<br />**1.6 [N.m] (at 12.0 [V], 1.4 [A], 1.143 [Nm/A])** |
+| No Load Speed           | 80 [rev/min] (at 9.0 [V])<br />99 [rev/min] (at 11.1 [V])<br />**106 [rev/min] (at 12.0 [V])** |
+| Operating Temperature   | -5 ~ +80 [&deg;C] |
+| Input Voltage           | 6.5 ~ 14.8 [V] (**Recommended : 12.0 [V]**) |
+| Command Signal          | Digital Packet |
+| Physical Connection     | TTL Level Multidrop Bus <br /> Half Duplex Asynchronous Serial Communication<br />(8bit, 1stop, No Parity) |
+| ID                      | 253 ID (0 ~ 252) |
+| Feedback                | Position, Velocity, Load, Realtime tick, Trajectory, Temperature, Input Voltage, etc |
+| Case Material           | Engineering Plastic (Body) |
+| Gear Material           | Full Metal Gear |
+| Standby Current         | 46 [mA] |
+
 :::info
 
 ![](/img/dxl/x/whatis_bb.webp)

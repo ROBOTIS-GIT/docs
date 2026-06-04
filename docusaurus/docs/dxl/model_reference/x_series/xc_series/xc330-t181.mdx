@@ -59,11 +59,30 @@ import CompatibleX330 from '@site/docs/_partials/dxl/x/compatible_dxl/compatible
 ![](/img/dxl/x/x330/x330_new_information_en.webp)
 
 # Specifications
-:::info
 
-Refer to the [official specification page](/docs/dxl/model_reference/x_series/xc_series/xc330-t181#specifications) for detailed specifications.
-
-:::
+| Item                    | Specifications                                                     |
+|:------------------------|:-------------------------------------------------------------------|
+| MCU                     | ARM CORTEX-M0+ (64 [MHz], 32Bit) |
+| Position Sensor         | Contactless absolute encoder (12Bit, 360 [&deg;])<br />Maker : ams(www.ams.com), Part No : AS5601 |
+| Motor                   | Coreless DC |
+| Baud Rate               | 9,600 [bps] ~ 4 [Mbps] |
+| Control Algorithm       | PID control |
+| Resolution              | 4096 [pulse/rev] |
+| Operating Modes         | Current Control Mode<br />Velocity Control Mode<br />Position Control Mode (0 ~ 360 [&deg;])<br />Extended Position Control Mode (Multi-turn)<br />Current-based Position Control Mode<br />PWM Control Mode (Voltage Control Mode) |
+| Weight                  | 23 [g] |
+| Dimensions (W x H x D)  | 20.0 x 34.0 x 26.0 [mm] |
+| Gear Ratio              | 180.62 : 1 |
+| Stall Torque            | 0.65 [N.m] (at 9.0 [V], 0.61 [A], 1.066 [Nm/A]) <br /> **0.76 [N.m] (at 11.1 [V], 0.80 [A], 0.950 [Nm/A])** <br /> 0.80 [N.m] (at 12.0 [V], 0.88 [A], 0.909 [Nm/A]) |
+| No Load Speed           | 83 [rev/min] (at 9.0 [V]) <br /> **104 [rev/min] (at 11.1 [V])** <br /> 113 [rev/min] (at 12.0 [V]) |
+| Operating Temperature   | -5 ~ +70 [&deg;C] |
+| Input Voltage           | 6.5 ~ 12.0 [V] (**Recommended : 11.1 [V]**) |
+| Command Signal          | Digital Packet |
+| Physical Connection     | TTL Multidrop Bus (5V Logic) <br /> TTL Half Duplex Asynchronous Serial Communication<br />(8bit, 1stop, No Parity) |
+| ID                      | 253 ID (0 ~ 252) |
+| Feedback                | Position, Velocity, Current, Realtime tick, Trajectory, Temperature, Input Voltage, etc |
+| Case Material           | Engineering Plastic |
+| Gear Material           | Full Metal Gear, 2 Bearing |
+| Standby Current         | 17 [mA] |
 
 
 <Warning />

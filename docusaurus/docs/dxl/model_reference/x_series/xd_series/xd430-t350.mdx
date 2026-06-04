@@ -72,11 +72,33 @@ The lifespan has more than doubled while the control tables are identical, which
 
 
 # Specifications
-:::info
 
-Refer to the [official specification page](/docs/dxl/model_reference/x_series/xd_series/xd430-t350#specifications) for detailed specifications.
-
-:::
+| Item                    | Specifications                                                     |
+|:------------------------|:-------------------------------------------------------------------|
+| MCU                     | ARM CORTEX-M3 (72 [MHz], 32Bit) |
+| Position Sensor         | Contactless absolute encoder (12Bit, 360 [&deg;])<br />Maker : ams(www.ams.com), Part No : AS5045 |
+| Motor                   | Coreless(Maxon) |
+| Baud Rate               | 9,600 [bps] ~ 4.5 [Mbps] |
+| Control Algorithm       | PID control |
+| Resolution              | 4096 [pulse/rev] |
+| Backlash                | 15 [arcmin] (0.25 [&deg;]) |
+| Operating Modes         | Current Control Mode<br />Velocity Control Mode<br />Position Control Mode (0 ~ 360 [&deg;])<br />Extended Position Control Mode (Multi-turn)<br />Current-based Position Control Mode<br />PWM Control Mode (Voltage Control Mode) |
+| Weight                  | 85g |
+| Dimensions (W x H x D)  | 28.5 x 46.5 x 34 [mm] |
+| Gear Ratio              | 353.5 : 1 |
+| Stall Torque            | 3.1 [N.m] (at 11.1 [V], 1.2 [A], 2.583 [Nm/A])<br />**3.4 [N.m] (at 12.0 [V], 1.3 [A], 2.615 [Nm/A])**<br />4.2 [N.m] (at 14.8 [V], 1.5 [A], 2.800 [Nm/A]) |
+| No Load Speed           | 27 [rev/min] (at 11.1 [V])<br />**30 [rev/min] (at 12.0 [V])**<br />37 [rev/min] (at 14.8 [V]) |
+| Radial Load             | 40 [N] (10 [mm] away from the horn) |
+| Axial Load              | 20 [N] |
+| Operating Temperature   | -5 ~ +80 [&deg;C] |
+| Input Voltage           | 10.0 ~ 14.8 [V] (**Recommended : 12.0 [V]**) |
+| Command Signal          | Digital Packet |
+| Physical Connection     | RS-485 Multidrop Bus <br /> RS-485 Asynchronous Serial Communication<br />(8bit, 1stop, No Parity) |
+| ID                      | 253 ID (0 ~ 252) |
+| Feedback                | Position, Velocity, Current, Realtime tick, Trajectory, Temperature, Input Voltage, etc |
+| Case Material           | Metal (Front, Middle), Engineering Plastic (Back) |
+| Gear Material           | Full Metal Gear |
+| Standby Current         | 40 [mA] |
 
 
 <Warning />
