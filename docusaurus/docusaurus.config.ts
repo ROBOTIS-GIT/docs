@@ -343,7 +343,7 @@ const config: Config = {
                         <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/software/dynamixel_sdk">
                           <span>DYNAMIXEL SDK</span>
                         </a>
-                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/software/dynamixel_wizard_2_0">
+                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/software/dynamixel_wizard_2_0/introduction">
                           <span>DYNAMIXEL Wizard 2.0</span>
                         </a>
                         <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/software/dynamixel_easy_sdk">

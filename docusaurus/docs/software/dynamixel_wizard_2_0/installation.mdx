@@ -1,0 +1,81 @@
+# Installation
+
+## Software Installation
+### Install: Windows
+1. Download the package file.
+- [Windows Software Download](http://www.robotis.com/service/download.php?no=1670)  
+2. Execute downloaded installation file.  
+3. Click on `Next` button to proceed installation.
+
+    ![](/img/software/dynamixel/wizard2/new_wizard2_setup_win_01.webp)  
+
+    ![](/img/software/dynamixel/wizard2/new_wizard2_setup_win_02.webp)
+
+### Install: Linux
+1. Download the package file.  
+- [Linux Software Download](http://www.robotis.com/service/download.php?no=1671)  
+2. Enter the following command to change the permission.
+
+```bash
+$ sudo chmod 775 DynamixelWizard2Setup_x64
+```
+
+3. Run the install program.
+
+```bash
+$ ./DynamixelWizard2Setup_x64
+```
+
+4. Click on `Next` button to proceed installation.
+
+5. After completing the installation, please add account id to dialout group in order to access the USB port. Replace the &lt;your_account_id&gt; in the command below to your actual user id.
+```bash
+$ sudo usermod -aG dialout <your_account_id>
+```
+
+6. Reboot in order the changes to be effective.
+```bash
+$ reboot
+```
+
+### Install: Mac
+**NOTE**: Modern Mac OS supports app store installation only. 
+
+
+1. Download the package file.  
+- [Mac Software Download](http://www.robotis.com/service/download.php?no=1760)
+2. Right click on the downloaded dmg file and select `Open` from the mene.  
+  ![](/img/software/dynamixel/wizard2/wizard2_setup_mac_01.webp)
+3. Launch the `DynamixelWizard2Setup_x64` file.  
+  ![](/img/software/dynamixel/wizard2/wizard2_setup_mac_02.webp)
+4. If a warning message pops up, select `Open` to proceed installation.  
+  ![](/img/software/dynamixel/wizard2/wizard2_setup_mac_03.webp)
+5. Click `Next` to continue and follow the setup instruction.  
+  ![](/img/software/dynamixel/wizard2/wizard2_setup_mac_04.webp)
+
+## Uninstall Software
+### Uninstall: Windows
+1. From Windows Settings, select Apps.
+
+    ![](/img/software/dynamixel/wizard2/wizard2_setup_win_02.webp)
+
+2. In the Apps & features tab, find `Dynamixel Wizard 2` and select `Uninstall`.
+
+    ![](/img/software/dynamixel/wizard2/wizard2_setup_win_03.webp)
+
+3. Select `Remove all components` and proceed by clicking `Next` button.
+
+    ![](/img/software/dynamixel/wizard2/wizard2_setup_win_04.webp)
+
+### Uninstall: Linux
+1. From the folder where DYNAMIXEL Wizard is installed, execute `maintenancetool`.
+
+2. Select `Remove all components` and click `Next` to proceed.
+
+    ![](/img/software/dynamixel/wizard2/wizard2_setup_linux_03.webp)
+
+### Uninstall: Mac
+1. Go to `DYNAMIXEL2Wizard` from `Applications`.
+2. Execute `maintenancetool` in DYNAMIXEL2Wizard folder.
+3. Select `Remove all components` and click `Next` to proceed.
+

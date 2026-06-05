@@ -826,6 +826,10 @@
   min-width: 0;
 }
 
+.ai-sapiens-at-a-glance-spec thead {
+  display: none;
+}
+
 .ai-sapiens-page hr {
   margin: 3rem 0 2rem;
 }
