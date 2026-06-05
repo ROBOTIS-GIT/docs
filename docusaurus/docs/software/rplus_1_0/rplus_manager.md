@@ -26,7 +26,7 @@ RoboPlus is a software to create a customized programme for every ROBOTIS produc
 
 ### RoboPlus Install Failure
 
-Most reason for installation failure is caused by .NET Framework install error. Please manually intsall Windows Installer 3.1 and .NET Framework 3.5
+Most reason for installation failure is caused by .NET Framework install error. Please manually install Windows Installer 3.1 and .NET Framework 3.5
 
 Windows installer and .NET Framework can be downloaded from [Microsoft Download Center].
 
