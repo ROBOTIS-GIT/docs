@@ -1,15 +1,8 @@
 import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
 
 const hx5d20Sidebar: SidebarsConfig[string] = [
-  {
-    type: 'category',
-    label: 'HX5-D20',
-    collapsed: true,
-    items: [
-      {type: 'doc', id: 'systems/hx5_d20/hx5_d20/introduction', label: 'Introduction'},
-      {type: 'doc', id: 'systems/hx5_d20/hx5_d20/video_gallery', label: 'Video Gallery'},
-    ],
-  },
+  {type: 'doc', id: 'systems/hx5_d20/introduction', label: 'Introduction'},
+  {type: 'doc', id: 'systems/hx5_d20/video_gallery', label: 'Video Gallery'},
   {
     type: 'category',
     label: 'Specifications',

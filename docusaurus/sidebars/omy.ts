@@ -1,15 +1,8 @@
 import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
 
 const omySidebar: SidebarsConfig[string] = [
-  {
-    type: 'category',
-    label: 'OMY',
-    collapsed: true,
-    items: [
-      {type: 'doc', id: 'systems/omy/omy/introduction', label: 'Introduction'},
-      {type: 'doc', id: 'systems/omy/omy/video_gallery', label: 'Video Gallery'},
-    ],
-  },
+  {type: 'doc', id: 'systems/omy/introduction', label: 'Introduction'},
+  {type: 'doc', id: 'systems/omy/video_gallery', label: 'Video Gallery'},
   {
     type: 'category',
     label: 'Specifications',

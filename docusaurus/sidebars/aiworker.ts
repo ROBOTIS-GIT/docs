@@ -1,15 +1,8 @@
 import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
 
 const aiworkerSidebar: SidebarsConfig[string] = [
-  {
-    type: 'category',
-    label: 'AI Worker',
-    collapsed: true,
-    items: [
-      {type: 'doc', id: 'systems/aiworker/ai_worker/introduction', label: 'Introduction'},
-      {type: 'doc', id: 'systems/aiworker/ai_worker/video_gallery', label: 'Video Gallery'},
-    ],
-  },
+  {type: 'doc', id: 'systems/aiworker/introduction', label: 'Introduction'},
+  {type: 'doc', id: 'systems/aiworker/video_gallery', label: 'Video Gallery'},
   {
     type: 'category',
     label: 'Specifications',

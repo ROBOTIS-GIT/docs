@@ -215,7 +215,7 @@ const config: Config = {
                   <div class="mega-menu__right">
                     <div class="mega-menu__panel" data-panel="humanoid">
                       <div class="mega-menu__grid">
-                        <a class="mega-menu__product" href="/docs/systems/aiworker/ai_worker/introduction">
+                        <a class="mega-menu__product" href="/docs/systems/aiworker/introduction">
                           <div class="mega-menu__product-thumb"><img src="/img/mega-menu/ai-worker.webp" alt="AI Worker" /></div>
                           <span>AI Worker</span>
                         </a>
@@ -235,7 +235,7 @@ const config: Config = {
                     </div>
                     <div class="mega-menu__panel" data-panel="hand">
                       <div class="mega-menu__grid">
-                        <a class="mega-menu__product" href="/docs/systems/hx5_d20/hx5_d20/introduction">
+                        <a class="mega-menu__product" href="/docs/systems/hx5_d20/introduction">
                           <div class="mega-menu__product-thumb"><img src="/img/mega-menu/hx5-d20.webp" alt="HX5-D20" /></div>
                           <span>HX5-D20</span>
                         </a>
@@ -254,11 +254,11 @@ const config: Config = {
                         <h5 class="mega-menu__group-title">AI Manipulator</h5>
                         <p class="mega-menu__group-desc">designed for physical AI research</p>
                         <div class="mega-menu__grid">
-                          <a class="mega-menu__product" href="/docs/systems/omy/omy/introduction">
+                          <a class="mega-menu__product" href="/docs/systems/omy/introduction">
                             <div class="mega-menu__product-thumb"><img src="/img/mega-menu/omy.webp" alt="OMY" /></div>
                             <span>OMY</span>
                           </a>
-                          <a class="mega-menu__product" href="/docs/systems/omx/omx/introduction">
+                          <a class="mega-menu__product" href="/docs/systems/omx/introduction">
                             <div class="mega-menu__product-thumb"><img src="/img/mega-menu/omx.webp" alt="OMX" /></div>
                             <span>OMX</span>
                           </a>

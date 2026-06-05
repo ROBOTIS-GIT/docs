@@ -1,7 +1,6 @@
 import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
 
 const systemsSidebar: SidebarsConfig[string] = [
-  'systems/index',
   {
     type: 'category',
     label: 'Common',

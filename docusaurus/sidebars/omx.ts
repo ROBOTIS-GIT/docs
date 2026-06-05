@@ -1,15 +1,8 @@
 import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
 
 const omxSidebar: SidebarsConfig[string] = [
-  {
-    type: 'category',
-    label: 'OMX',
-    collapsed: true,
-    items: [
-      {type: 'doc', id: 'systems/omx/omx/introduction', label: 'Introduction'},
-      {type: 'doc', id: 'systems/omx/omx/video_gallery', label: 'Video Gallery'},
-    ],
-  },
+  {type: 'doc', id: 'systems/omx/introduction', label: 'Introduction'},
+  {type: 'doc', id: 'systems/omx/video_gallery', label: 'Video Gallery'},
   {
     type: 'category',
     label: 'Specifications',
