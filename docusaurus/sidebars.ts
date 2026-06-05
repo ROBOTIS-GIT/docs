@@ -24,7 +24,6 @@ import rplus1Sidebar from './sidebars/rplus1';
 import rplusManager2Sidebar from './sidebars/rplusManager2';
 import rplusTask3Sidebar from './sidebars/rplusTask3';
 import softwareSidebar from './sidebars/software';
-import systemsSidebar from './sidebars/systems';
 import thormang3Sidebar from './sidebars/thormang3';
 import turtlebot3Sidebar from './sidebars/turtlebot3';
 
@@ -45,7 +44,6 @@ const sidebars: SidebarsConfig = {
   openmanipulatorPSidebar,
   openmanipulatorXSidebar,
   turtlebot3Sidebar,
-  systemsSidebar,
   arduinoIdeSidebar,
   dynamixelSdkSidebar,
   dynamixelWizardSidebar,
