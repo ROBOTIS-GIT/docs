@@ -50,9 +50,9 @@ import CommonLink from '@site/docs/_partials/dxl/pro/common_link.mdx';
 
 ![](/img/dxl/pro/m42-10-s260-r_product.webp)
 
-> M42-10-S260-R(A)
+# M42-10-S260-R(A)
 
-# 주요 사양
+### 주요 사양
 | 항목                      | 내용                                                       |
 |:--------------------------|:---------------------------------------------------------|
 | MCU                       | ARM CORTEX-M4 (168 [MHz], 32Bit)              |
@@ -82,7 +82,7 @@ import CommonLink from '@site/docs/_partials/dxl/pro/common_link.mdx';
 <WarningProa />
 
 
-## 성능 그래프
+### 성능 그래프
 ![](/img/dxl/pro/m42-10-s260-r_performance_graph_2.webp)
 
 
@@ -92,7 +92,7 @@ import CommonLink from '@site/docs/_partials/dxl/pro/common_link.mdx';
 <ControlTableProa />
 
 
-## EEPROM 영역
+### EEPROM 영역
 | 주소 | 크기(Byte) | 명칭                                        | 접근 |  기본값  |                범위                |          단위           |
 |:----:|:--------------:|:--------------------------------------------|:----:|:--------:|:----------------------------------:|:-----------------------:|
 |  0   |       2        | [Model Number](#model-number0)               |  R   |  43,289  |                 -                  |            -            |
@@ -126,7 +126,7 @@ import CommonLink from '@site/docs/_partials/dxl/pro/common_link.mdx';
 | ...  |      ...       | ...                                         | ...  |   ...    |                ...                 |           ...           |
 | 422  |       2        | [Indirect Address 128](#indirect-address-indirect-data)   |  RW  |   761    |            512 ~ 1,023             |            -            |
 
-## RAM 영역
+### RAM 영역
 | 주소 | 크기<br />(Byte) | 명칭                                              | 접근 | 기본값 |                        범위                         |          단위           |
 |:----:|:----------------:|:--------------------------------------------------|:----:|:------:|:---------------------------------------------------:|:-----------------------:|
 | 512  |        1         | [Torque Enable](#torque-enable512)                   |  RW  |   0    |                        0 ~ 1                        |            -            |
@@ -172,7 +172,7 @@ import CommonLink from '@site/docs/_partials/dxl/pro/common_link.mdx';
 | 761  |        1         | [Indirect Data 128](#indirect-address-indirect-data)               |  RW  |   0    |                       0 ~ 255                       |            -            |
 
 
-## 컨트롤 테이블 설명
+### 컨트롤 테이블 설명
 :::warning
 
 **주의**: EEPROM Area에 존재하는 모든 Data는 [Torque Enable(512)]의 값이 ‘0’일 때만 변경할 수 있습니다.
@@ -332,14 +332,14 @@ Goal Position(564)을 통해 목표 위치를 설정 할 수 있습니다.
 <PControlTable594PresentTemperature />
 
 
-# 조립 예시
-## 옵션프레임 조립
+### 조립 예시
+### 옵션프레임 조립
 + FRP42-H110K, FRP42-H120K Set
 
   ![](/img/dxl/pro/frp42-h110k-h120k.webp)
 
-# 유지보수
-# 참고자료
+### 유지보수
+### 참고자료
 :::note
 
 **참고** 
@@ -349,22 +349,22 @@ Goal Position(564)을 통해 목표 위치를 설정 할 수 있습니다.
 :::
 
 
-## 인증 획득
+### 인증 획득
 표기되지 않은 인증에 대해서는 별도 문의하시기 바랍니다.
 
-### FCC
+#### FCC
 <FccClassA />
 
 
-## 커넥터 정보
+### 커넥터 정보
 <Molex485Pro />
 
 
-## 통신 회로
+### 통신 회로
 <CommunicationCircuitPro />
 
 
-## 도면
+### 도면
 `다운로드` [PDF], [DWG], [STEP], [IGES]
 
 

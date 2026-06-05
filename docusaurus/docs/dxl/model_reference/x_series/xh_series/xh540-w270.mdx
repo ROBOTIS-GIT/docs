@@ -58,9 +58,9 @@ import CompatibleX540 from '@site/docs/_partials/dxl/x/compatible_dxl/compatible
 
 ![](/img/dxl/x/x540-series_product.webp)
 
-> XH540-W270-T/R
+# XH540-W270-T/R
 
-# Specifications
+## Specifications
 
 | Item                    | Specifications                                                     |
 |:------------------------|:-------------------------------------------------------------------|
@@ -93,7 +93,7 @@ import CompatibleX540 from '@site/docs/_partials/dxl/x/compatible_dxl/compatible
 <Warning />
 
 
-## Performance Graph
+### Performance Graph
 ![](/img/dxl/x/xh540_w270_performance_graph.webp)
 
 
@@ -113,7 +113,8 @@ import CompatibleX540 from '@site/docs/_partials/dxl/x/compatible_dxl/compatible
 <ControlTable />
 
 
-## Control Table of EEPROM Area
+
+### Control Table of EEPROM Area
 | Address | Size(Byte) | Data Name                                       | Access | Initial<br />Value |           Range            |      Unit       |
 |:-------:|:----------:|:------------------------------------------------|:------:|:------------------:|:--------------------------:|:---------------:|
 |    0    |     2      | [Model Number](#model-number0)                   |   R    |       1,100        |             -              |        -        |
@@ -142,7 +143,7 @@ import CompatibleX540 from '@site/docs/_partials/dxl/x/compatible_dxl/compatible
 |   60    |     1      | [Startup Configuration](#startup-configuration60) |   RW   |         0          |             3              |        -        |
 |   63    |     1      | [Shutdown](#shutdown63)                           |   RW   |         52         |             -              |        -        |
 
-## Control Table of RAM Area
+### Control Table of RAM Area
 | Address | Size(Byte) | Data Name                                         | Access | Initial<br />Value |                        Range                        |                   Unit                   |
 |:-------:|:----------:|:--------------------------------------------------|:------:|:------------------:|:---------------------------------------------------:|:----------------------------------------:|
 |   64    |     1      | [Torque Enable](#torque-enable64)                   |   RW   |         0          |                        0 ~ 1                        |                    -                     |
@@ -216,57 +217,57 @@ import CompatibleX540 from '@site/docs/_partials/dxl/x/compatible_dxl/compatible
 :::
 
 
-## Control Table Description
+### Control Table Description
 :::warning
 
 **CAUTION** : Data in the EEPROM Area can only be written when the value of Torque Enable(64) is cleared to ‘0’.
 
 :::
 <a id="model-number"></a>
-### Model Number(0)
+#### Model Number(0)
 This address stores model number of DYNAMIXEL.
 <a id="firmware-version"></a>
-### Firmware Version(6)
+#### Firmware Version(6)
 This address stores firmware version of DYNAMIXEL.
 <a id="id"></a>
-### ID(7)
+#### ID(7)
 <ControlTableId />
 <a id="baud-rate"></a>
-### Baud Rate(8)
+#### Baud Rate(8)
 <ControlTableBaudrate2 />
 <a id="return-delay-time"></a>
-### Return Delay Time(9)
+#### Return Delay Time(9)
 <ControlTableReturnDelayTime />
 <a id="drive-mode"></a>
-### Drive Mode(10)
+#### Drive Mode(10)
 <ControlTableDrivemode />
 <a id="operating-mode"></a>
-### Operating Mode(11)
+#### Operating Mode(11)
 <ControlTableOpmodeSix2 />
 <a id="secondary-id"></a>
-### Secondary(Shadow) ID(12)
+#### Secondary(Shadow) ID(12)
 <ControlTableShadowid />
 <a id="protocol-type"></a>
-### Protocol Type(13)
+#### Protocol Type(13)
 <ControlTableProtocolversion />
 <a id="homing-offset"></a>
-### Homing Offset(20)
+#### Homing Offset(20)
 <ControlTableHomingoffset />
 <a id="moving-threshold"></a>
-### Moving Threshold(24)
+#### Moving Threshold(24)
 <ControlTableMovingthreshold />
 <a id="temperature-limit"></a>
-### Temperature Limit(31)
+#### Temperature Limit(31)
 <ControlTableTempLimit2 />
 <a id="minmax-voltage-limit"></a>
 <a id="max-voltage-limit"></a>
-### Min/Max Voltage Limit(34, 32)
+#### Min/Max Voltage Limit(34, 32)
 <ControlTableVoltLimit2 />
 <a id="pwm-limit"></a>
-### PWM Limit(36)
+#### PWM Limit(36)
 <ControlTablePwmLimit />
 <a id="current-limit"></a>
-### Current Limit(38)
+#### Current Limit(38)
 <ControlTableCurrentLimit />
 
 
@@ -281,55 +282,55 @@ This address stores firmware version of DYNAMIXEL.
 
 :::
 <a id="velocity-limit"></a>
-### Velocity Limit(44)
+#### Velocity Limit(44)
 <ControlTableVellimit />
 <a id="minmax-position-limit"></a>
-### Min/Max Position Limit(52, 48)
+#### Min/Max Position Limit(52, 48)
 <ControlTablePositionlimit />
 <a id="external-port-mode-1-2-3"></a>
-### External Port Mode 1,2,3(56,57,58)
+#### External Port Mode 1,2,3(56,57,58)
 <ControlTableExternalportX />
 <a id="startup-configuration"></a>
-### Startup Configuration(60)
+#### Startup Configuration(60)
 <ControlTable60StartupConfiguration />
 <a id="shutdown"></a>
-### Shutdown(63)
+#### Shutdown(63)
 <ControlTableShutdown />
 <a id="torque-enable"></a>
-### Torque Enable(64)
+#### Torque Enable(64)
 <ControlTableTorqueEnable />
 <a id="led"></a>
-### LED(65)
+#### LED(65)
 <ControlTableLed />
 <a id="status-return-level"></a>
-### Status Return Level(68)
+#### Status Return Level(68)
 <ControlTableStatusReturnLv />
 <a id="registered-instruction"></a>
-### Registered Instruction(69)
+#### Registered Instruction(69)
 <ControlTableRegInstruction />
 <a id="hardware-error-status"></a>
-### Hardware Error Status(70)
+#### Hardware Error Status(70)
 The Hardware Error Status(70) indicates hardware error status.  
 
 <ControlTableShutdown />
 <a id="velocity-pi-gain"></a>
-### Velocity PI Gain(76, 78)
+#### Velocity PI Gain(76, 78)
 <ControlTableVelocityPiGain />
 <a id="position-pid-gain-feedforward-1st2nd-gains"></a>
 <a id="position-pid-gain80-82-84"></a>
-### Position PID Gain(80, 82, 84), Feedforward 1st/2nd Gains(88, 90)
+#### Position PID Gain(80, 82, 84), Feedforward 1st/2nd Gains(88, 90)
 <ControlTablePositionPidGain />
 
 
 <ControlTableCurrentPositionPidGain />
 <a id="bus-watchdog"></a>
-### Bus Watchdog(98)
+#### Bus Watchdog(98)
 <ControlTableBuswatchdog />
 <a id="goal-pwm"></a>
-### Goal PWM(100)
+#### Goal PWM(100)
 <ControlTableGoalPwm />
 <a id="goal-current"></a>
-### Goal Current(102)
+#### Goal Current(102)
 <ControlTableGoalCurrent />
 
 
@@ -351,78 +352,78 @@ The Hardware Error Status(70) indicates hardware error status.
 
 :::
 <a id="goal-velocity"></a>
-### Goal Velocity(104)
+#### Goal Velocity(104)
 <ControlTableGoalVelocity />
 <a id="profile-acceleration"></a>
-### Profile Acceleration(108)
+#### Profile Acceleration(108)
 <ControlTableProfileAcceleration />
 <a id="profile-velocity"></a>
 <a id="profile-verlocity112"></a>
-### Profile Velocity(112)
+#### Profile Velocity(112)
 <ControlTableProfileVelocity />
 <a id="goal-position"></a>
-### Goal Position(116)
+#### Goal Position(116)
 <ControlTableGoalPosition2 />
 <a id="realtime-tick"></a>
-### Realtime Tick(120)
+#### Realtime Tick(120)
 <ControlTableRealtimeTick />
 <a id="moving"></a>
-### Moving(122)
+#### Moving(122)
 <ControlTableMoving2 />
 <a id="moving-status"></a>
-### Moving Status(123)
+#### Moving Status(123)
 <ControlTableMovingStatus />
 <a id="present-pwm"></a>
-### Present PWM(124)
+#### Present PWM(124)
 The Present PWM(124) indicates current PWM. For more details, please refer to the [Goal PWM(100)].
 <a id="present-current"></a>
-### Present Current(126)
+#### Present Current(126)
 This value indicates current Current. For more details, please refer to the [Goal Current(102)].
 <a id="present-velocity"></a>
 <a id="present_velocity128"></a>
-### Present Velocity(128)
+#### Present Velocity(128)
 This value indicates current Velocity. For more details, please refer to the [Goal Velocity(104)].
 <a id="present-position"></a>
-### Present Position(132)
+#### Present Position(132)
 <ControlTablePresentPosition />
 <a id="velocity-trajectory"></a>
-### Velocity Trajectory(136)
+#### Velocity Trajectory(136)
 <ControlTableVelocityTrajectory />
 <a id="position-trajectory"></a>
-### Position Trajectory(140)
+#### Position Trajectory(140)
 <ControlTablePositionTrajectory />
 <a id="present-input-voltage"></a>
-### Present Input Voltage(144)
+#### Present Input Voltage(144)
 <ControlTablePresentVolt2 />
 <a id="present-temperature"></a>
-### Present Temperature(146)
+#### Present Temperature(146)
 <ControlTablePresentTemp2 />
 <a id="backup-ready"></a>
-### Backup Ready(147)
+#### Backup Ready(147)
 <ControlTableBackupReady />
 <a id="external-port-data-1-2-3"></a>
-### External Port Data 1,2,3
+#### External Port Data 1,2,3
 <ControlTableExternalportdataX />
-### Indirect Address, Indirect Data
+#### Indirect Address, Indirect Data
 <ControlTableIndirectData />
 
 
-# How to Assemble
+## How to Assemble
 Describes how to assemble the horn (Normal / Idler) and Frame (for Hinge / Side) of DYNAMIXEL, and how to replace the gears in DYNAMIXEL.
 
-## Horn Assembly
+### Horn Assembly
 <Assembly540HornAssembly />
 
 
-## Frame Assembly
+### Frame Assembly
 <Assembly540FrameAssembly />
 
 
-## Gear Replacement
+### Gear Replacement
 <Assembly430540GearReplacement />
 
 
-# Reference
+## Reference
 :::note
 
 **NOTE**:  
@@ -432,33 +433,33 @@ Describes how to assemble the horn (Normal / Idler) and Frame (for Hinge / Side)
 :::
 
 
-## What is the Profile
+### What is the Profile
 <ProfileDescription />
 
 
-## Certifications
+### Certifications
 Please inquire us for information regarding unlisted certifications.
 
-### FCC
+#### FCC
 <FccClassA />
 
 
-## Quick Start
+### Quick Start
 <QuickStart />
 
 
-## Connector Information
+### Connector Information
 <Jst485TtlExtDual />
 
 
 <X485TtlConnectionX />
 
 
-## Drawings
+### Drawings
 <DrawingX540Drawing />
 
 
-## Moment of Inertia
+### Moment of Inertia
 - `Download` [xm540,xh540 moment of inertia.pdf]
 
 

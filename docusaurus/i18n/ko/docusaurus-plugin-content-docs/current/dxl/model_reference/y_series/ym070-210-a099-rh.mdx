@@ -77,13 +77,13 @@ import CommonLink from '@site/docs/_partials/dxl/y/common_link.mdx';
 
 ![](/img/dxl/y/ym070-210-a-rh_porduct.webp)
 
-> YM070-210-A099-RH
+# YM070-210-A099-RH
 
 
 <YFirstWarning />
 
 
-# 주요 사양
+### 주요 사양
 | 항목                      | 내용                                                           |
 |:--------------------------|:---------------------------------------------------------------|
 | MCU                       | ARM Cortex-M4 (168 [Mhz], 32 [bit])                |
@@ -125,7 +125,7 @@ import CommonLink from '@site/docs/_partials/dxl/y/common_link.mdx';
 <YYWarningRa />
 
 
-## 성능 그래프
+### 성능 그래프
 ![](/img/dxl/y/ym070_210_r099_performance_graph.webp)
 
 
@@ -135,7 +135,7 @@ import CommonLink from '@site/docs/_partials/dxl/y/common_link.mdx';
 <YYControlTable />
 
 
-## 컨트롤 테이블 구성
+### 컨트롤 테이블 구성
 | 주소 | 크기(Byte) | 모드버스 주소    |영역    | 명칭                                                                     | 접근 | 기본값     | 범위                           | 단위              |
 |:----:|:---------:|:---------------:|:-------|:------------------------------------------------------------------------|:----:|:---------:|:------------------------------:|:-----------------:|
 | 0    | 2         | 40001           | EEPROM | [Model Number](#model-number0)                                           | R    | 4,050<br />4,051<sup>1)</sup> | 4,050 **(Dynamixel Protocol 2.0)**<br />4,051 **(Modbus)** | - |
@@ -234,7 +234,7 @@ import CommonLink from '@site/docs/_partials/dxl/y/common_link.mdx';
 | N/A  | 2         | 41003           | RAM    | [Clear Instruction](#factory-reset-reboot-clear-instruction-modbus)                                 | W    | -         | -                              | -                 |
 
 
-## 컨트롤 테이블 설명
+### 컨트롤 테이블 설명
 :::warning
 
 **주의** : EEPROM Area에 존재하는 모든 Data는 Torque Enable(512)의 값이 ‘0’일 때만 변경할 수 있습니다.
@@ -380,52 +380,52 @@ import CommonLink from '@site/docs/_partials/dxl/y/common_link.mdx';
 <YFactoryResetRebootClearInstruction />
 
 
-# 조립 예시
-## 조립가이드
+### 조립 예시
+### 조립가이드
 ![](/img/dxl/y/ym070_r_assembly.webp)
 
-# 유지 보수
-# 참고자료
-## Profile
+### 유지 보수
+### 참고자료
+### Profile
 <YYProfileDescription />
 
 
-## 인증 획득
+### 인증 획득
 표기되지 않은 인증에 대해서는 별도 문의하시기 바랍니다.
 
-### FCC
+#### FCC
 <FccClassB />
 
 
-## 커넥터 정보
+### 커넥터 정보
 <YConnectorY070 />
 
 
-## 통신 회로
+### 통신 회로
 <YUartConnectionY />
 
 
-## 케이블 연결
+### 케이블 연결
 DYNAMIXEL-Y 커넥터의 핀 배열은 아래 그림과 같습니다.
 
 ![](/img/dxl/y/70_connect_cable_1.webp)  
 ![](/img/dxl/y/70_connect_cable_2.webp)
 
-## 도면
+### 도면
 - `다운로드` [PDF], [DWG], [STEP], [IGES]
 
-## Moment of Inertia
+### Moment of Inertia
 TBD
 
 
 <DownloadCenterNotice />
 
 
-# Clear Packet
+## Clear Packet
 <YClearPacket />
 
 
-# 출력 베어링
+### 출력 베어링
 <YOutputBearingYA />
 
 

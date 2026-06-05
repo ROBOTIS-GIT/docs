@@ -57,9 +57,9 @@ import CommonLink from '@site/docs/_partials/dxl/x/common_link.mdx';
 
 ![](/img/dxl/x/x540-series_product.webp)
 
-> XH540-W150-T/R
+# XH540-W150-T/R
 
-# 주요 사양
+### 주요 사양
 
 | 항목                    | 내용                                                               |
 |:------------------------|:-------------------------------------------------------------------|
@@ -92,7 +92,7 @@ import CommonLink from '@site/docs/_partials/dxl/x/common_link.mdx';
 <Warning />
 
 
-## 성능 그래프
+### 성능 그래프
 ![](/img/dxl/x/xh540_w150_performance_graph.webp)
 
 
@@ -112,7 +112,7 @@ import CommonLink from '@site/docs/_partials/dxl/x/common_link.mdx';
 <ControlTable />
 
 
-## EEPROM 영역
+### EEPROM 영역
 | 주소 | 크기(Byte) | 명칭                                            | 접근 | 기본값 |            범위            |      단위       |
 |:----:|:----------:|:------------------------------------------------|:----:|:------:|:--------------------------:|:---------------:|
 |  0   |     2      | [Model Number](#model-number0)                   |  R   | 1,110  |             -              |        -        |
@@ -142,7 +142,7 @@ import CommonLink from '@site/docs/_partials/dxl/x/common_link.mdx';
 |  63  |     1      | [Shutdown](#shutdown63)                           |  RW  |   52   |             -              |        -        |
 
 
-## RAM 영역
+### RAM 영역
 | 주소 | 크기(Byte) | 명칭                                              | 접근 | 기본값 |                        범위                         |                   단위                   |
 |:----:|:----------:|:--------------------------------------------------|:----:|:------:|:---------------------------------------------------:|:----------------------------------------:|
 |  64  |     1      | [Torque Enable](#torque-enable64)                   |  RW  |   0    |                        0 ~ 1                        |                    -                     |
@@ -216,7 +216,7 @@ import CommonLink from '@site/docs/_partials/dxl/x/common_link.mdx';
 :::
 
 
-## 컨트롤 테이블 설명
+### 컨트롤 테이블 설명
 :::warning
 
 **주의** : EEPROM Area에 존재하는 모든 Data는 Torque Enable(64)의 값이 ‘0’일 때만 변경할 수 있습니다
@@ -347,22 +347,22 @@ import CommonLink from '@site/docs/_partials/dxl/x/common_link.mdx';
 <ControlTableIndirectData />
 
 
-# 조립 예시
+### 조립 예시
 다이나믹셀에 장착되는 혼 (노멀 혼 및 아이들러), 프레임 (힌지 및 사이드) 조립 예시 및 기어를 교체하는 방법을 설명합니다. 
 
-## 혼 조립하기
+### 혼 조립하기
 <Assembly540HornAssembly />
 
 
-## 프레임 조립하기
+### 프레임 조립하기
 <Assembly540FrameAssembly />
 
    
-## 기어 교체하기
+### 기어 교체하기
 <Assembly430540GearReplacement />
 
 
-# 참고자료
+### 참고자료
 :::note
 
 **참고** 
@@ -372,33 +372,33 @@ import CommonLink from '@site/docs/_partials/dxl/x/common_link.mdx';
 :::
 
 
-## Profile
+### Profile
 <ProfileDescription />
 
 
-## 인증 획득
+### 인증 획득
 표기되지 않은 인증에 대해서는 별도 문의하시기 바랍니다.
 
-### FCC
+#### FCC
 <FccClassA />
 
 
-## 퀵스타트
+### 퀵스타트
 <QuickStart />
 
 
-## 커넥터 정보
+### 커넥터 정보
 <Jst485TtlExtDual />
 
 
 <X485TtlConnectionX />
 
 
-## 도면
+### 도면
 <DrawingX540Drawing />
 
 
-## Moment of Inertia
+### Moment of Inertia
 - `다운로드` [xm540,xh540 moment of inertia.pdf]
 
 

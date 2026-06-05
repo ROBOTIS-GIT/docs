@@ -35,7 +35,7 @@ import CommonLink from '@site/docs/_partials/dxl/ax/common_link.mdx';
 ![](/img/dxl/ax/ax-18f_product.webp)
 ![](/img/dxl/ax/ax-18a_product.webp)
 
-> AX-18F, AX-18A
+# AX-18F, AX-18A
 
 :::warning
 
@@ -43,7 +43,7 @@ import CommonLink from '@site/docs/_partials/dxl/ax/common_link.mdx';
 
 :::
 
-## 주요 사양
+### 주요 사양
 
 | 항목         | 내용                                                                                                      |
 |:-------------|:----------------------------------------------------------------------------------------------------------|
@@ -118,13 +118,13 @@ import CommonLink from '@site/docs/_partials/dxl/ax/common_link.mdx';
 | 48   | 2          | [Punch](#punch-48)                                 | Punch                      | RW   | 32         |
 
 ### 컨트롤 테이블 설명
-#### Model Number (0)
+### Model Number (0)
 다이나믹셀의 모델 번호입니다.
-#### Firmware Version (2)
+### Firmware Version (2)
 다이나믹셀 펌웨어 버전입니다.
-#### ID (3)
+### ID (3)
 <ControlTableId />
-#### Baud Rate (4)
+### Baud Rate (4)
 제어기와 통신하기 위한 통신 속도 입니다. 0~254 (0xFE) 까지 사용 가능하며 산출 공식은 다음과 같습니다.
 Baudrate(BPS) = 2,000,000 / (Value + 1)
 
@@ -151,55 +151,55 @@ Baudrate(BPS) = 2,000,000 / (Value + 1)
 **참고**: U2D2을 이용 시, 높은 통신 Baud rate에서 안정적인 통신을 위해서는 [USB 포트의 응답지연시간(Latency)](/docs/software/dynamixel_wizard_2_0#포트-응답-속도-설정) 을 낮춰주세요.
 
 :::
-#### Return Delay Time (5)
+### Return Delay Time (5)
 <ControlTableReturnDelayTime />
-#### CW/CCW Angle Limit(6, 8)
+### CW/CCW Angle Limit(6, 8)
 <ControlTableAngleLimit />
-#### Temperature Limit (11)
+### Temperature Limit (11)
 <ControlTableTempLimit />
-#### Min/Max Voltage Limit (12, 13)
+### Min/Max Voltage Limit (12, 13)
 <ControlTableVoltLimit />
-#### Max Torque (14)
+### Max Torque (14)
 <ControlTableMaxTorque />
-#### Status Return Level (16)
+### Status Return Level (16)
 <ControlTableStatusReturnLv />
-#### Alarm LED(17), Shutdown(18)
+### Alarm LED(17), Shutdown(18)
 <ControlTableShutdown />
-#### Torque Enable (24)
+### Torque Enable (24)
 <ControlTableTorqueEnable />
-#### LED (25)
+### LED (25)
 <ControlTableLed />
-#### Compliance Margin (26, 27)
+### Compliance Margin (26, 27)
 <ControlTableComplianceMargin />
-#### Compliance Slope (28, 29)
+### Compliance Slope (28, 29)
 <ControlTableComplianceSlope />
-#### Goal Position (30)
+### Goal Position (30)
 <ControlTableDxGoalPosition />
-#### Moving Speed (32)
+### Moving Speed (32)
 <ControlTableMovingSpeed />
-#### Torque Limit (34)
+### Torque Limit (34)
 <ControlTableTorqueLimit />
-#### Present Position (36)
+### Present Position (36)
 <ControlTablePotentioPresentPosition />
-#### Present Speed (38)
+### Present Speed (38)
 <ControlTablePresentSpeed />
-#### Present Load (40)
+### Present Load (40)
 <ControlTablePresentLoad />
-#### Present Voltage (42)
+### Present Voltage (42)
 <ControlTablePresentVolt />
-#### Present Temperature (43)
+### Present Temperature (43)
 <ControlTablePresentTemp />
-#### Registered Instruction (44)
+### Registered Instruction (44)
 <ControlTableRegInstruction />
-#### Moving (46)
+### Moving (46)
 <ControlTableMoving />
-#### Lock (47)
+### Lock (47)
 <ControlTableLock />
-#### Punch (48)
+### Punch (48)
 <ControlTablePunch />
 
 
-## 조립 예시
+### 조립 예시
 
 ![](/img/dxl/ax/ax_12a_frame_assembly_02.webp)
 
@@ -207,11 +207,11 @@ Baudrate(BPS) = 2,000,000 / (Value + 1)
 
 ![](/img/dxl/ax/ax_series_frame_assembly_02.webp)
 
-## 유지보수
+### 유지보수
 
 <HornBearingReplacement />
 
-## 참고자료
+### 참고자료
 
 :::note
 

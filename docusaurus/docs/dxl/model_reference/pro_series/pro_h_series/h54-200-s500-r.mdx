@@ -36,9 +36,9 @@ import CommonLink from '@site/docs/_partials/dxl/pro/common_link.mdx';
 
 ![](/img/dxl/pro/h54-200-s500-r_product.webp)
 
-> H54-200-S500-R
+# H54-200-S500-R
 
-# Specifications
+## Specifications
 | Item                    | Specifications                                            |
 |:------------------------|:----------------------------------------------------------|
 | MCU                     | ARM CORTEX-M4 (168 [MHz], 32Bit)                 |
@@ -78,7 +78,7 @@ Please consult ROBOTIS for the long term use or special use, or else refer to th
 <Warning />
 
 
-## Performance Graph
+### Performance Graph
 ![](/img/dxl/pro/h54-200-s500-r_performance_graph_2.webp)  
 
 > <a href="/img/dxl/pro/h54-200-s500-r_performance_graph_max.webp" target="_blank">Show Enlarged Graph</a>
@@ -90,7 +90,8 @@ Please consult ROBOTIS for the long term use or special use, or else refer to th
 <ControlTable />
 
 
-## Control Table of EEPROM Area
+
+### Control Table of EEPROM Area
 | Address | Size(Byte) | Data Name                                   | Access | Initial<br />Value |               Range                |             Unit             |
 |:-------:|:--------------:|:--------------------------------------------|:------:|:------------------:|:----------------------------------:|:----------------------------:|
 |    0    |       2        | [Model Number](#model-number0)               |   R    |       54,024       |                 -                  |              -               |
@@ -121,7 +122,7 @@ Please consult ROBOTIS for the long term use or special use, or else refer to th
 |   ...   |       2        | [Indirect Address N](#indirect-address-indirect-data)     |   RW   |        ...         |             562 ~ 949              |              -               |
 |   559   |       2        | [Indirect Address 256](#indirect-address-indirect-data)   |   RW   |        889         |             562 ~ 949              |              -               |
 
-## Control Table of RAM Area
+### Control Table of RAM Area
 | Address | Size(Byte) | Data Name                                         | Access | Initial<br />Value |                        Range                        |             Unit             |
 |:-------:|:--------------:|:--------------------------------------------------|:------:|:------------------:|:---------------------------------------------------:|:----------------------------:|
 |   562   |       1        | [Torque Enable](#torque-enable562)                   |   RW   |         0          |                        0 ~ 1                        |              -               |
@@ -154,117 +155,117 @@ Please consult ROBOTIS for the long term use or special use, or else refer to th
 |   891   |       1        | [Status Return Level](#status-return-level891)       |   RW   |         2          |                        0 ~ 2                        |              -               |
 |   892   |       1        | [Hardware Error Status](#hardware-error-status892)   |   R    |         0          |                          -                          |              -               |
 
-## Control Table Description
+### Control Table Description
 :::warning
 
 **CAUTION** : Data in the EEPROM Area can only be written when the value of [Torque Enable(562)] is cleared to ‘0’.
 
 :::
 <a id="model-number"></a>
-### Model Number(0)
+#### Model Number(0)
 This address stores model number of DYNAMIXEL.
 
 |   Model Name   |  Model Number  |
 |:--------------:|:--------------:|
 | H54-200-S500-R | 54024 (0xD308) |
 <a id="firmware-version"></a>
-### Firmware Version(6)
+#### Firmware Version(6)
 This address stores firmware version of DYNAMIXEL.
 <a id="id"></a>
-### ID(7)
+#### ID(7)
 <ControlTableId />
 <a id="baud-rate"></a>
-### Baud Rate(8)
+#### Baud Rate(8)
 <ControlTable8BaudratePro />
 <a id="return-delay-time"></a>
-### Return Delay Time(9)
+#### Return Delay Time(9)
 <ControlTableReturnDelayTime />
 <a id="operating-mode"></a>
-### Operating Mode(11)
+#### Operating Mode(11)
 <ControlTable11OpmodePro />
 <a id="homing-offset"></a>
-### Homing Offset(13)
+#### Homing Offset(13)
 <ControlTable13HomingoffsetPro />
 <a id="moving-threshold"></a>
-### Moving Threshold(17)
+#### Moving Threshold(17)
 <ControlTable17MovingthresholdPro />
 <a id="temperature-limit"></a>
-### Temperature Limit(21)
+#### Temperature Limit(21)
 <ControlTable21TemplimitPro />
 <a id="minmax-voltage-limit"></a>
-### Min/Max Voltage Limit(22, 24)
+#### Min/Max Voltage Limit(22, 24)
 <ControlTable22VoltlimitPro />
 <a id="acceleration-limit"></a>
-### Acceleration Limit(26)
+#### Acceleration Limit(26)
 <ControlTable26AcclimitPro />
 <a id="torque-limit"></a>
-### Torque Limit(30)
+#### Torque Limit(30)
 <ControlTable30TorquelimitPro />
 <a id="velocity-limit"></a>
-### Velocity Limit(32)
+#### Velocity Limit(32)
 <ControlTable32VellimitPro />
 <a id="minmax-position-limit"></a>
-### Min/Max Position Limit(36, 40)
+#### Min/Max Position Limit(36, 40)
 <ControlTable36PositionlimitPro />
-### External Port Mode, External Port Data
+#### External Port Mode, External Port Data
 <ControlTable44ExternalportPro />
 <a id="shutdown"></a>
-### Shutdown(48)
+#### Shutdown(48)
 <ControlTableShutdown />
-### Indirect Address, Indirect Data
+#### Indirect Address, Indirect Data
 <ControlTable49IndirectdataPro />
 <a id="torque-enable"></a>
-### Torque Enable(562)
+#### Torque Enable(562)
 <ControlTableTorqueEnable />
 <a id="rgb-led"></a>
-### RGB LED(563)
+#### RGB LED(563)
 <ControlTable563LedPro />
 <a id="velocity-pi-gain"></a>
-### Velocity PI Gain(586, 588)
+#### Velocity PI Gain(586, 588)
 <ControlTable586VelocitypigainPro />
 <a id="position-p-gain"></a>
-### Position P Gain(594)
+#### Position P Gain(594)
 <ControlTable594PositionpidgainPro />
 <a id="goal-position-present-position"></a>
-### Goal Position(596), Present Position(611)
+#### Goal Position(596), Present Position(611)
 <ControlTable596GoalpositionPro />
 <a id="goal-velocity"></a>
-### Goal Velocity(600)
+#### Goal Velocity(600)
 <ControlTable600GoalvelocityPro />
 <a id="goal-torque"></a>
-### Goal Torque(604)
+#### Goal Torque(604)
 <ControlTable604GoaltorquePro />
 <a id="goal-acceleration"></a>
-### Goal Acceleration(606)
+#### Goal Acceleration(606)
 <ControlTable606GoalaccelPro />
 <a id="moving"></a>
-### Moving(610)
+#### Moving(610)
 <ControlTable610MovingPro />
 <a id="present-velocity"></a>
-### Present Velocity(615)
+#### Present Velocity(615)
 This value indicates present Velocity. For more details, please refer to the [Goal Velocity(600)](#goal-velocity600).
 <a id="present-current"></a>
-### Present Current(621)
+#### Present Current(621)
 This value indicates present Current. For more details, please refer to the [Goal Torque(604)](#goal-torque604).
 <a id="present-input-voltage"></a>
-### Present Input Voltage(623)
+#### Present Input Voltage(623)
 This value indicates present voltage that is being supplied. For more details, please refer to the [Min/Max Voltage Limit(24, 22)](#minmax-voltage-limit22-24).
 <a id="present-temperature"></a>
-### Present Temperature(625)
+#### Present Temperature(625)
 This value indicates present internal Temperature. For more details, please refer to the [Temperature Limit(21)](#temperature-limit21).
 <a id="registered-instruction"></a>
-### Registered Instruction(890)
+#### Registered Instruction(890)
 <ControlTableRegInstruction />
 <a id="status-return-level"></a>
-### Status Return Level(891)
+#### Status Return Level(891)
 <ControlTableStatusReturnLv />
 <a id="hardware-error-status"></a>
-### Hardware Error Status(892)
+#### Hardware Error Status(892)
 <ControlTableHardwareErrorStatus />
 
 
-# How to Assemble
-## Option Frame Assembly
+## How to Assemble
+### Option Frame Assembly
 + FRP54-H110K, FRP54-H120K Set
 
   ![](/img/dxl/pro/frp54-h110k-h120k.webp)
@@ -277,8 +278,8 @@ This value indicates present internal Temperature. For more details, please refe
 
   ![](/img/dxl/pro/frp54-h210k-assy.webp)
 
-# Maintenance
-# Reference
+## Maintenance
+## Reference
 :::note
 
 **NOTE**  
@@ -288,22 +289,22 @@ This value indicates present internal Temperature. For more details, please refe
 :::
 
 
-## Certifications
+### Certifications
 Please inquire us for information regarding unlisted certifications.
 
-### FCC
+#### FCC
 <FccClassB />
 
 
-## Connector Information
+### Connector Information
 <Molex485Pro />
 
 
-## Communication Circuit
+### Communication Circuit
 <CommunicationCircuitPro />
 
 
-## Drawings
+### Drawings
 `Download` [PDF], [DWG], [STEP], [IGES]
 
 

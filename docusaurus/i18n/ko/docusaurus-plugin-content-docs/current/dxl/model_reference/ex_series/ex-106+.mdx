@@ -31,7 +31,7 @@ import CommonLink from '@site/docs/_partials/dxl/ax/common_link.mdx';
 
 ![](/img/dxl/ex/ex-106_product.webp)
 
-> EX-106+
+# EX-106+
 
 :::warning
 
@@ -39,7 +39,7 @@ import CommonLink from '@site/docs/_partials/dxl/ax/common_link.mdx';
 
 :::
 
-## 주요 사양
+### 주요 사양
 
 | 항목          | 내용                                                                  |
 |:--------------|:----------------------------------------------------------------------|
@@ -119,11 +119,11 @@ import CommonLink from '@site/docs/_partials/dxl/ax/common_link.mdx';
 
 
 ### 컨트롤 테이블 설명
-#### Model Number (0)
+### Model Number (0)
 다이나믹셀의 모델 번호입니다.
-#### Firmware Version (2)
+### Firmware Version (2)
 다이나믹셀 펌웨어 버전입니다.
-#### ID (3)
+### ID (3)
 
 <ControlTableId />
 
@@ -132,7 +132,7 @@ import CommonLink from '@site/docs/_partials/dxl/ax/common_link.mdx';
 **주의**: 슬레이브 모드시에는 슬레이브 모터의 아이디는 ID영역(0~26) 이외의 영역을 지정하는것을 권장 합니다.
 
 :::
-#### Baud Rate (4)
+### Baud Rate (4)
 
 제어기와 통신하기 위한 통신 속도 입니다. 0 ~ 254 (0xFE) 까지 사용 가능하며 산출 공식은 다음과 같습니다.
 **Baudrate(BPS) = 2,000,000 / (Value + 1)**
@@ -160,43 +160,43 @@ import CommonLink from '@site/docs/_partials/dxl/ax/common_link.mdx';
 **참고**: U2D2을 이용 시, 높은 통신 Baud rate에서 안정적인 통신을 위해서는 [USB 포트의 응답지연시간(Latency)](/docs/software/dynamixel_wizard_2_0#포트-응답-속도-설정) 을 낮춰주세요.
 
 :::
-#### Return Delay Time (5)
+### Return Delay Time (5)
 
 <ControlTableReturnDelayTime />
-#### CW/CCW Angle Limit (6, 8)
+### CW/CCW Angle Limit (6, 8)
 
 <ControlTableAngleLimit />
-#### Drive Mode (10)
+### Drive Mode (10)
 
 <ControlTableDriveMode />
-#### Temperature Limit (11)
+### Temperature Limit (11)
 
 <ControlTableTempLimit />
-#### Min/Max Voltage Limit (12, 13)
+### Min/Max Voltage Limit (12, 13)
 
 <ControlTableVoltLimitRx />
-#### Max Torque (14)
+### Max Torque (14)
 
 <ControlTableMaxTorque />
-#### Status Return Level (16)
+### Status Return Level (16)
 
 <ControlTableStatusReturnLv />
-#### Alarm LED(17), Shutdown(18)
+### Alarm LED(17), Shutdown(18)
 
 <ControlTableShutdown />
-#### Torque Enable (24)
+### Torque Enable (24)
 
 <ControlTableTorqueEnable />
-#### LED (25)
+### LED (25)
 
 <ControlTableLed />
-#### Compliance Margin (26, 27)
+### Compliance Margin (26, 27)
 
 <ControlTableComplianceMargin />
-#### Compliance Slope (28, 29)
+### Compliance Slope (28, 29)
 
 <ControlTableComplianceSlope />
-#### Goal Position (30)
+### Goal Position (30)
 
 Goal Position(30)을 통해 목표위치를 설정할 수 있습니다.
 0 ~ 4,095 (0xFFF)까지 사용 가능하며 단위는 0.06&deg; 입니다.
@@ -211,13 +211,13 @@ CW/CCW Angle Limit의 범위를 벗어난 목표위치를 지령을 할 경우, 
 **주의**: 바퀴 모드로 설정되어 있는 경우 이 값은 사용되지 않습니다.
 
 :::
-#### Moving Speed (32)
+### Moving Speed (32)
 
 <ControlTableMovingSpeed />
-#### Torque Limit (34)
+### Torque Limit (34)
 
 <ControlTableTorqueLimit />
-#### Present Position (36)
+### Present Position (36)
 
 다이나믹셀의 현재 위치 값입니다. 값의 범위와 단위는 동작 모드에 따라 다릅니다.
 
@@ -237,10 +237,10 @@ CW/CCW Angle Limit의 범위를 벗어난 목표위치를 지령을 할 경우, 
 **움직인 총 각도 = (현재 측정한 값 - 과거에 측정한 값) x 0.06**
 위 공식에 의해서 움직인 총 각도가 0보다 크면 CCW방향으로 회전한 것이고, 0보다 작다면 CW방향으로 회전했다는 뜻입니다.
 예를 들어, 값이 5,000에서 10,000으로 변했다면 (10,000 - 5,000) x 0.06 = 300이고 CCW방향으로 총 300&deg;를 움직인 것입니다.
-#### Present Speed (38)
+### Present Speed (38)
 
 <ControlTablePresentSpeed />
-#### Present Load (40)
+### Present Load (40)
 
 <ControlTablePresentLoad />
 
@@ -249,25 +249,25 @@ CW/CCW Angle Limit의 범위를 벗어난 목표위치를 지령을 할 경우, 
 **주의**: 보다 정확한 하중을 측정하려면 Sensed Current(Address 56, 57)의 값을 사용해야 합니다.
 
 :::
-#### Present Voltage (42)
+### Present Voltage (42)
 
 <ControlTablePresentVolt />
-#### Present Temperature (43)
+### Present Temperature (43)
 
 <ControlTablePresentTemp />
-#### Registered Instruction (44)
+### Registered Instruction (44)
 
 <ControlTableRegInstruction />
-#### Moving (46)
+### Moving (46)
 
 <ControlTableMoving />
-#### Lock (47)
+### Lock (47)
 
 <ControlTableLock />
-#### Punch (48)
+### Punch (48)
 
 <ControlTablePunch />
-#### Sensed Current (56)
+### Sensed Current (56)
 현재 사용 중인 전류의 양입니다. 이 값은 0 ~ 1,023범위를 사용하며 단위는 10mA입니다.
 512보다 작은 값은 CCW방향으로 모터가 출력을 내며 전류를 사용한다는 의미입니다.
 512보다 큰 값은 CW방향으로 모터가 출력을 내며 전류를 사용한다는 의미입니다.
@@ -276,7 +276,7 @@ CW/CCW Angle Limit의 범위를 벗어난 목표위치를 지령을 할 경우, 
 값이 312인 경우는 CW방향으로 모터가 출력을 내며 2000mA(512-312= -200 => 200x10mA=2,000mA)를 소모한다는 뜻입니다.
 
 
-## 조립 예시
+### 조립 예시
 
 
 ### 옵션프레임
@@ -335,11 +335,11 @@ CW/CCW Angle Limit의 범위를 벗어난 목표위치를 지령을 할 경우, 
 
   ![](/img/dxl/ex/ex-106+_combination.webp)
 
-## 유지보수
+### 유지보수
 
 <HornBearingReplacement />
 
-## 참고자료
+### 참고자료
 
 :::note
 

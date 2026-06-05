@@ -36,9 +36,9 @@ import CommonLink from '@site/docs/_partials/dxl/pro/common_link.mdx';
 
 ![](/img/dxl/pro/h54-100-s500-r_product.webp)
 
-> M54-40-S250-R
+# M54-40-S250-R
 
-# 주요 사양
+### 주요 사양
 | 항목                    | 내용                                                       |
 |:-----------------------|:----------------------------------------------------------|
 | MCU                    | ARM CORTEX-M4 (168 [MHz], 32Bit)                |
@@ -77,7 +77,7 @@ import CommonLink from '@site/docs/_partials/dxl/pro/common_link.mdx';
 <Warning />
 
 
-## 성능 그래프
+### 성능 그래프
 ![](/img/dxl/pro/m54-40-s250-r_performance_graph_2.webp)
 
 
@@ -87,7 +87,7 @@ import CommonLink from '@site/docs/_partials/dxl/pro/common_link.mdx';
 <ControlTable />
 
 
-## EEPROM 영역
+### EEPROM 영역
 | 주소 | 크기(Byte) | 명칭                                        | 접근 |  기본값  |                범위                |             단위             |
 |:----:|:--------------:|:--------------------------------------------|:----:|:--------:|:----------------------------------:|:----------------------------:|
 |  0   |       2        | [Model Number](#model-number0)               |  R   |  46,096  |                 -                  |              -               |
@@ -118,7 +118,7 @@ import CommonLink from '@site/docs/_partials/dxl/pro/common_link.mdx';
 | ...  |       2        | [Indirect Address N](#indirect-address-indirect-data)     |  RW  |   ...    |             562 ~ 949              |              -               |
 | 559  |       2        | [Indirect Address 256](#indirect-address-indirect-data)   |  RW  |   889    |             562 ~ 949              |              -               |
 
-## RAM 영역
+### RAM 영역
 | 주소 | 크기(Byte) | 명칭                                              | 접근 | 기본값 |                        범위                         |             단위             |
 |:----:|:--------------:|:--------------------------------------------------|:----:|:------:|:---------------------------------------------------:|:----------------------------:|
 | 562  |       1        | [Torque Enable](#torque-enable562)                   |  RW  |   0    |                        0 ~ 1                        |              -               |
@@ -151,7 +151,7 @@ import CommonLink from '@site/docs/_partials/dxl/pro/common_link.mdx';
 | 891  |       1        | [Status Return Level](#status-return-level891)       |  RW  |   2    |                        0 ~ 2                        |              -               |
 | 892  |       1        | [Hardware Error Status](#hardware-error-status892)   |  R   |   0    |                          -                          |              -               |
 
-## 컨트롤 테이블 설명
+### 컨트롤 테이블 설명
 :::warning
 
 **주의**: EEPROM Area에 존재하는 모든 Data는 Torque Enable(562)의 값이 ‘0’일 때만 변경할 수 있습니다.
@@ -229,8 +229,8 @@ import CommonLink from '@site/docs/_partials/dxl/pro/common_link.mdx';
 <ControlTableHardwareErrorStatus />
 
 
-# 조립 예시
-## 옵션프레임 조립
+### 조립 예시
+### 옵션프레임 조립
 + FRP54-H110K, FRP54-H120K Set
 
   ![](/img/dxl/pro/frp54-h110k-h120k.webp)
@@ -243,8 +243,8 @@ import CommonLink from '@site/docs/_partials/dxl/pro/common_link.mdx';
 
   ![](/img/dxl/pro/frp54-h210k-assy.webp)
 
-# 유지보수
-# 참고자료
+### 유지보수
+### 참고자료
 :::note
 
 **참고**   
@@ -254,22 +254,22 @@ import CommonLink from '@site/docs/_partials/dxl/pro/common_link.mdx';
 :::
 
 
-## 인증 획득
+### 인증 획득
 표기되지 않은 인증에 대해서는 별도 문의하시기 바랍니다.
 
-### FCC
+#### FCC
 <FccClassA />
 
 
-## 커넥터 정보
+### 커넥터 정보
 <Molex485Pro />
 
 
-## 통신 회로
+### 통신 회로
 <CommunicationCircuitPro />
 
 
-## 도면
+### 도면
 `다운로드` [PDF], [DWG], [STEP], [IGES]
 
 
