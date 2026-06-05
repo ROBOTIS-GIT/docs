@@ -4,8 +4,8 @@ const aisapiensSidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'AI Sapiens',
-    link: {type: 'doc', id: 'systems/aisapiens/introduction_ai_sapiens'},
-    items: ['systems/aisapiens/introduction_ai_sapiens'],
+    link: {type: 'doc', id: 'systems/aisapiens/introduction'},
+    items: ['systems/aisapiens/introduction'],
   },
 ];
 

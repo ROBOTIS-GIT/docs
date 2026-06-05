@@ -219,7 +219,7 @@ const config: Config = {
                           <div class="mega-menu__product-thumb"><img src="/img/mega-menu/ai-worker.webp" alt="AI Worker" /></div>
                           <span>AI Worker</span>
                         </a>
-                        <a class="mega-menu__product" href="/docs/systems/aisapiens/introduction_ai_sapiens">
+                        <a class="mega-menu__product" href="/docs/systems/aisapiens/introduction">
                           <div class="mega-menu__product-thumb"><img src="/img/mega-menu/ai-sapiens.webp" alt="AI Sapiens" /></div>
                           <span>AI Sapiens</span>
                         </a>
