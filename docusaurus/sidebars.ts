@@ -10,8 +10,6 @@ import {dxlSidebar, protocolSidebar} from './sidebars/dxl';
 import eduSidebar from './sidebars/edu';
 import faqSidebar from './sidebars/faq';
 import hx5d20Sidebar from './sidebars/hx5d20';
-import opSidebar from './sidebars/op';
-import op2Sidebar from './sidebars/op2';
 import op3Sidebar from './sidebars/op3';
 import omySidebar from './sidebars/omy';
 import omxSidebar from './sidebars/omx';
@@ -32,8 +30,6 @@ const sidebars: SidebarsConfig = {
   protocolSidebar,
   aiworkerSidebar,
   aisapiensSidebar,
-  opSidebar,
-  op2Sidebar,
   op3Sidebar,
   thormang3Sidebar,
   hx5d20Sidebar,
