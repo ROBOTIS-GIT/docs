@@ -69,7 +69,7 @@ function ProductGrid(): ReactNode {
             }
           />
           <ProductCard
-            to="/docs/systems/aiworker/ai_worker/introduction"
+            to="/docs/systems/aiworker/introduction"
             imageSrc="/img/mega-menu/ai-worker.webp"
             imageAlt="AI Worker"
             title={<Translate id="home.card.aiworker.title">AI Worker</Translate>}
@@ -80,7 +80,7 @@ function ProductGrid(): ReactNode {
             }
           />
           <ProductCard
-            to="/docs/systems/hx5_d20/hx5_d20/introduction"
+            to="/docs/systems/hx5_d20/introduction"
             imageSrc="/img/mega-menu/hx5-d20.webp"
             imageAlt="Robot Hand"
             title={<Translate id="home.card.hand.title">Hand</Translate>}
@@ -91,7 +91,7 @@ function ProductGrid(): ReactNode {
             }
           />
           <ProductCard
-            to="/docs/systems/omy/omy/introduction"
+            to="/docs/systems/omy/introduction"
             imageSrc="/img/mega-menu/omy.webp"
             imageAlt="OMY"
             title={<Translate id="home.card.omy.title">OMY</Translate>}
