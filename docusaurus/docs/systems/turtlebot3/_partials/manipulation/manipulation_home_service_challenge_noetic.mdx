@@ -51,7 +51,7 @@ $ roslaunch turtlebot3_manipulation_description turtlebot3_manipulation_view.lau
     **NOTE**: Specify `${TB3_MODEL}`: `waffle`, `waffle_pi` before excuting the command. Set the permanent export setting by following [Export TURTLEBOT3_MODEL](/docs/systems/turtlebot3/quick_start_guide/export_turtlebot3_model) instruction.
     
 
-    !<a href="/img/systems/turtlebot3/manipulation/home_service_challenge/TurtleBot3_with_Open_Manipulator.webp" target="_blank">turtlebot3_manipulation_view</a>
+    ![turtlebot3_manipulation_view](/img/systems/turtlebot3/manipulation/home_service_challenge/TurtleBot3_with_Open_Manipulator.webp)
 
     > Rviz View. Specify ${'{'}TB3_MODEL{'}'} : waffle_pi
 
@@ -75,7 +75,7 @@ $ roslaunch turtlebot3_home_service_challenge_simulation competition.launch
 $ roslaunch turtlebot3_home_service_challenge_tools turtlebot3_home_service_challenge_demo_simulation.launch
 ```
 
-    !<a href="/img/systems/turtlebot3/manipulation/home_service_challenge/simulation_rviz.webp" target="_blank">simulation_rviz</a>
+    ![simulation_rviz](/img/systems/turtlebot3/manipulation/home_service_challenge/simulation_rviz.webp)
 
 2. **[Remote PC]** Run the manager package used to carry out Home Service Challenge's mission.
 ```bash
@@ -217,7 +217,7 @@ Using the demo package, the process of moving objects in Home Service Challenge 
 3. Picking the target with OpenMANIPULATOR-X's gripper.
   - Pick the target object using the moveit package (Joint space control, Task space control and Gripper control)
 
-    !<a href="/img/systems/turtlebot3/manipulation/home_service_challenge/manipulation_diagram.webp" target="_blank">manipulation_diagram</a>
+    ![manipulation_diagram](/img/systems/turtlebot3/manipulation/home_service_challenge/manipulation_diagram.webp)
     > MoveIt Diagram
 
 4. Leaving for the next room to place the object (Used Topic : `/tb3_hsc/cmd_vel`)
@@ -245,14 +245,14 @@ Simulate TurtleBot3 with OpenMANIPULATOR-X in Gazebo.
 $ roslaunch turtlebot3_home_service_challenge_simulation competition.launch
 ```
 
-   !<a href="/img/systems/turtlebot3/manipulation/home_service_challenge/simulation_gazebo.webp" target="_blank">gazebo</a>
+   ![gazebo](/img/systems/turtlebot3/manipulation/home_service_challenge/simulation_gazebo.webp)
 
 2. **[Remote PC]** Run a simulation demo for Gazebo.
 ```bash
 $ roslaunch turtlebot3_home_service_challenge_tools turtlebot3_home_service_challenge_demo_simulation.launch
 ```
 
-   !<a href="/img/systems/turtlebot3/manipulation/home_service_challenge/simulation_rviz.webp" target="_blank">simulation_rviz</a>
+   ![simulation_rviz](/img/systems/turtlebot3/manipulation/home_service_challenge/simulation_rviz.webp)
 
 3. **[Remote PC]** Run Home Service Manager.
 ```bash
