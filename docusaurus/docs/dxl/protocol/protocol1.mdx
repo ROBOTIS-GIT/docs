@@ -35,7 +35,7 @@ If DYNAMIXEL with the same ID is connected, packet will collide and network prob
 ### Half Duplex
 Half duplex UART is a serial communication protocol where both TxD and RxD cannot be used at the same time. This method is generally used when many devices need to be connected to a single bus. Since more than one device are connected to the same bus, all the other devices need to be in input mode while one device is transmitting. The Main Controller that controllers DYNAMIXEL actuators sets the communication direction to input mode, and only when it is transmitting an Instruction Packet, it changes the direction to output mode.
 
-![](/img/dxl/halfduplex.webp)
+![](/img/dxl/protocol/halfduplex.webp)
 
 ### Tx, Rx Direction
 For Half Duplex UART, the transmission ending timing is important to change the direction to receiving mode. The bit definitions within the register that indicates UART_STATUS are as the following
@@ -81,7 +81,7 @@ EnableInterrupt(); // enable interrupt again
 ### Byte to Byte Time
 The delay time between bytes when sending an instruction packet. If the delay time is over 100ms, then DYNAMIXEL actuator recognizes this as a communication problem and waits for the next header (0xff 0xff) of a packet again.
 
-![](/img/dxl/byte2bytetime.webp)
+![](/img/dxl/protocol/protocol1/byte2bytetime.webp)
 
 ## Instruction Packet
 Instruction Packet is the command data sent to the Device.
@@ -472,35 +472,35 @@ When Bulk Read instruction is received, DYNAMIXEL with ID 2 monitors the status 
 | 0xFF | 0xFF |   0x02    | 0x04 | 0x00 | 0x00 | 0x80 | 0x79 |
 
 ## More Packet Examples
-![](/img/dxl/protocol1/protocol1_example_06.webp)
+![](/img/dxl/protocol/protocol1/protocol1_example_06.webp)
 
-![](/img/dxl/protocol1/protocol1_example_07.webp)
+![](/img/dxl/protocol/protocol1/protocol1_example_07.webp)
 
-![](/img/dxl/protocol1/protocol1_example_08.webp)
+![](/img/dxl/protocol/protocol1/protocol1_example_08.webp)
 
-![](/img/dxl/protocol1/protocol1_example_09.webp)
+![](/img/dxl/protocol/protocol1/protocol1_example_09.webp)
 
-![](/img/dxl/protocol1/protocol1_example_10.webp)
+![](/img/dxl/protocol/protocol1/protocol1_example_10.webp)
 
-![](/img/dxl/protocol1/protocol1_example_11.webp)
+![](/img/dxl/protocol/protocol1/protocol1_example_11.webp)
 
-![](/img/dxl/protocol1/protocol1_example_12.webp)
+![](/img/dxl/protocol/protocol1/protocol1_example_12.webp)
 
-![](/img/dxl/protocol1/protocol1_example_13.webp)
+![](/img/dxl/protocol/protocol1/protocol1_example_13.webp)
 
-![](/img/dxl/protocol1/protocol1_example_15.webp)
+![](/img/dxl/protocol/protocol1/protocol1_example_15.webp)
 
-![](/img/dxl/protocol1/protocol1_example_16.webp)
+![](/img/dxl/protocol/protocol1/protocol1_example_16.webp)
 
-![](/img/dxl/protocol1/protocol1_example_17.webp)
+![](/img/dxl/protocol/protocol1/protocol1_example_17.webp)
 
-![](/img/dxl/protocol1/protocol1_example_18.webp)
+![](/img/dxl/protocol/protocol1/protocol1_example_18.webp)
 
-![](/img/dxl/protocol1/protocol1_example_19.webp)
+![](/img/dxl/protocol/protocol1/protocol1_example_19.webp)
 
-![](/img/dxl/protocol1/protocol1_example_20.webp)
+![](/img/dxl/protocol/protocol1/protocol1_example_20.webp)
 
-![](/img/dxl/protocol1/protocol1_example_21.webp)
+![](/img/dxl/protocol/protocol1/protocol1_example_21.webp)
 
 
 [Ping]: #ping

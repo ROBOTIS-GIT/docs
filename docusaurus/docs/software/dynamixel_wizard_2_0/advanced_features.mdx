@@ -24,44 +24,44 @@ The `ID Inspection` resolves the overlapping ID although they remain wired. For 
 
 1. Go to `Tool` > `ID Inspection`
 
-    ![](/img/software/dynamixel/wizard2/id_inspection/id_inspection_step1_01.webp)   
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/id_inspection_step1_01.webp)   
 
 2. Select your right USB port and Baud rates, and click on `Scan`
 
-    ![](/img/software/dynamixel/wizard2/id_inspection/id_inspection_step1_02.webp)  
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/id_inspection_step1_02.webp)  
 
 3. Once DYNAMIXEL scan is started, state of scanning DYNAMIXEL is displayed.
 
-    ![](/img/software/dynamixel/wizard2/id_inspection/id_inspection_step2_01.webp)  
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/id_inspection_step2_01.webp)  
 
     **Note**: Perform [Firmware Recovery](#firmware-recovery) if you fail to scan any DYNAMIXEL.
     
 
 4. Click on `Next` for "ID Setting"
 
-    ![](/img/software/dynamixel/wizard2/id_inspection/id_inspection_step2_02.webp)  
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/id_inspection_step2_02.webp)  
 
-    ![](/img/software/dynamixel/wizard2/id_inspection/id_inspection_step3_01.webp)  
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/id_inspection_step3_01.webp)  
 
 
 5. Select an item (colored red) and assign new ID from the right box to resolve ID overlapping.
 
-    ![](/img/software/dynamixel/wizard2/id_inspection/id_inspection_step3_02.webp)  
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/id_inspection_step3_02.webp)  
 
     **Note** : If you select any item in the list, the DYNAMIXEL will blink once.
     
 
 6. If new ID are saved to the items of DYNAMIXEL, it will be colored green. Once completed, click on `Apply`.
 
-    ![](/img/software/dynamixel/wizard2/id_inspection/id_inspection_step4_01.webp)  
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/id_inspection_step4_01.webp)  
 
 7. Click on `Finish` to exit the `ID Inspection` window.
 
-    ![](/img/software/dynamixel/wizard2/id_inspection/id_inspection_step4_02.webp)  
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/id_inspection_step4_02.webp)  
 
 8. Confirm the DYNAMIXEL Wizard 2.0 scans DYNAMIXELs successfully.
 
-    ![](/img/software/dynamixel/wizard2/id_inspection/id_inspection_done.webp)  
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/id_inspection_done.webp)  
 
 
 ## Backup and Restore
@@ -102,27 +102,27 @@ See the available items in Control Table for data backup,
 
 2. Make sure to turn off the Torque of DYNAMIXEL. Otherwise, backup will fail.
 
-    ![](/img/software/dynamixel/wizard2/backup/backup_torque_off.webp)
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/backup_torque_off.webp)
     
 3. Select `Tool` > `Control Table` > `Backup` 
 
-    ![](/img/software/dynamixel/wizard2/backup/backup_click_backup.webp)
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/backup_click_backup.webp)
     
 4. Check if the `Backup Ready(147)` address is set to `1` after backup.  
 
-    ![](/img/software/dynamixel/wizard2/backup/backup_backup_enabled.webp)
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/backup_backup_enabled.webp)
 
 ### Restoring EEPROM Area
 1. Go to `Tool` > `Control Table` > `Restore EEPROM`
 
-    ![](/img/software/dynamixel/wizard2/backup/backup_click_restore.webp)
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/backup_click_restore.webp)
 
 2. DYNAMIXEL will be rebooted and restore the EEPROM settings.
 
 ### Restoring RAM Area
 1. Set the **Restore RAM** bit of the `Startup Configuration` as below.
 
-   ![](/img/software/dynamixel/wizard2/backup/backup_enable_restore_ram.webp)
+   ![](/img/software/dynamixel_wizard_2_0/advanced_features/backup_enable_restore_ram.webp)
        
 2. The data in specific RAM area(listed below) will be restored when DYNAMIXEL is rebooted.
     - Velocity P.I Gains
@@ -138,53 +138,53 @@ Save and Load backup data of EEPROM field as .ctd file. Utilizing "Save and Load
 **NOTE**: Saved backup file(.cd) can be used between the same DYNAMIXEL models.
 
 
-![](/img/software/dynamixel/wizard2/backup/backup_save_ctd.webp)
+![](/img/software/dynamixel_wizard_2_0/advanced_features/backup_save_ctd.webp)
 
 When loading backup data from .ctd file, it provides restoring options to ignore restoring particular data at EEPROM field. 
 
-![](/img/software/dynamixel/wizard2/backup/backup_load_01.webp)
+![](/img/software/dynamixel_wizard_2_0/advanced_features/backup_load_01.webp)
 
 The resulting log shows the restored item. 
 
-![](/img/software/dynamixel/wizard2/backup/backup_load_02.webp)   
+![](/img/software/dynamixel_wizard_2_0/advanced_features/backup_load_02.webp)   
    
 ## Modifying Control Values
 1. Drag or slide the interface (Moderately changes values)
 
-    ![](/img/software/dynamixel/wizard2/wizard2_005.webp)
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/wizard2_005.webp)
 
 2. Mouse wheel scroll (Slightly changes value)
 
-    ![](/img/software/dynamixel/wizard2/wizard2_006.webp)
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/wizard2_006.webp)
 
 3. Directional keys (Finely changes value)
 
-    ![](/img/software/dynamixel/wizard2/wizard2_007.webp)
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/wizard2_007.webp)
 
 4. Enter the value
 
     **NOTE** : Press `Enter` key to apply the value.
     
 
-    ![](/img/software/dynamixel/wizard2/wizard2_008.webp)
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/wizard2_008.webp)
 
 ## Firmware Information
 Firmware version, release date, update note can be found here.
 
 1. Go to `Help` > `About Dynamixel Firmware`
 
-    ![](/img/software/dynamixel/wizard2/wizard2_009.webp)
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/wizard2_009.webp)
 
 2. Firmware version, release date, update note of the selected DYNAMIXEL can be found.
 
-    ![](/img/software/dynamixel/wizard2/wizard2_010.webp)
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/wizard2_010.webp)
 
 ## Calibration
 If the horn is misaligned after gear set replacement or reassembly, please perform calibration.
 
 1. Go to `Tool` > `Calibration`
 
-    ![](/img/software/dynamixel/wizard2/new_wizard2_cali_001.webp)
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/new_wizard2_cali_001.webp)
 
     
     
@@ -196,37 +196,37 @@ If the horn is misaligned after gear set replacement or reassembly, please perfo
 
 2. Calibration will begin with a brief instruction.
 
-    ![](/img/software/dynamixel/wizard2/wizard2_cali_002.webp)
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/wizard2_cali_002.webp)
 
 3. Toggle the power of DYNAMIXEL to be detected from DYNAMIXEL Wizard 2.0.
 
-    ![](/img/software/dynamixel/wizard2/wizard2_cali_005.webp)
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/wizard2_cali_005.webp)
 
 4. If DYNAMIXEL is successfully detected, calibration firmware will start being installed. Please do NOT disconnect or turn off DYNAMIXEL.
 
-    ![](/img/software/dynamixel/wizard2/wizard2_cali_006.webp)
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/wizard2_cali_006.webp)
 
-    ![](/img/software/dynamixel/wizard2/wizard2_cali_007.webp)
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/wizard2_cali_007.webp)
 
 5. Calibrate the first position.
 
-    ![](/img/software/dynamixel/wizard2/wizard2_cali_008.webp)
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/wizard2_cali_008.webp)
 
 6. Calibrate the second position.
 
-    ![](/img/software/dynamixel/wizard2/wizard2_cali_009.webp)
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/wizard2_cali_009.webp)
 
 7. Calibrate the third position.
 
-    ![](/img/software/dynamixel/wizard2/wizard2_cali_010.webp)
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/wizard2_cali_010.webp)
 
 8. Calibrate the fourth position.
 
-    ![](/img/software/dynamixel/wizard2/wizard2_cali_011.webp)
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/wizard2_cali_011.webp)
 
 9. Clibration is completed.
 
-    ![](/img/software/dynamixel/wizard2/wizard2_cali_012.webp)
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/wizard2_cali_012.webp)
 
 ## Self Diagnosis
 In order to find error in DYNAMIXEL, self diagnosis can be performed.
@@ -236,50 +236,50 @@ In order to find error in DYNAMIXEL, self diagnosis can be performed.
     **NOTE** : `Self-Diagnosis` item will be disabled at the menu for non-suppored DYNAMIXEL such as [RX Series](/docs/dxl/model_reference/#rx-series)
     
 
-    ![](/img/software/dynamixel/wizard2/wizard2_self_001.webp)
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/wizard2_self_001.webp)
 
 2. Self diagnosis will begin with a brief instruction.
 
     **WARNING** : DYNAMIXEL will be factory reset during self diagnosis.
     
 
-    ![](/img/software/dynamixel/wizard2/wizard2_self_002.webp)
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/wizard2_self_002.webp)
 
 3. Confirm the model name and firmware version of DYNAMIXEL to perform diagnosis.
 
-    ![](/img/software/dynamixel/wizard2/wizard2_self_003.webp)
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/wizard2_self_003.webp)
 
 4. Check the hardware error status of DYNAMIXEL.
 
-    ![](/img/software/dynamixel/wizard2/wizard2_self_004.webp)
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/wizard2_self_004.webp)
 
 5. Check the operating temperature of DYNAMIXEL.
 
-    ![](/img/software/dynamixel/wizard2/wizard2_self_005.webp)
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/wizard2_self_005.webp)
 
 6. Check the input voltage of DYNAMIXEL.
 
-    ![](/img/software/dynamixel/wizard2/wizard2_self_006.webp)
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/wizard2_self_006.webp)
 
 7. Check if the LED on DYNAMIXEL is blinking.
 
-    ![](/img/software/dynamixel/wizard2/wizard2_self_007.webp)
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/wizard2_self_007.webp)
 
 8. Check if DYNAMIXEL horn is at the center.
 
-    ![](/img/software/dynamixel/wizard2/wizard2_self_008.webp)
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/wizard2_self_008.webp)
 
 9. Proceed to performance test. 
 
-    <img src="/img/software/dynamixel/wizard2/wizard2_self_009_position.webp" width="400px" alt="" />
+    <img src="/img/software/dynamixel_wizard_2_0/advanced_features/wizard2_self_009_position.webp" width="400px" alt="" />
     > **Position Test** : Goal Position represents red line and Present Position represents green line.
 
-    <img src="/img/software/dynamixel/wizard2/wizard2_self_009_velocity.webp" width="400px" alt="" />
+    <img src="/img/software/dynamixel_wizard_2_0/advanced_features/wizard2_self_009_velocity.webp" width="400px" alt="" />
     > **Velocity Test** : Safe area represents a green zone. 
 
 10. Confirm the self diagnosis result.
 
-    ![](/img/software/dynamixel/wizard2/wizard2_self_010.webp)
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/wizard2_self_010.webp)
 
 ## Graph Optimization
 In order to use the minimum communication interval(1 [ms]), please follow the instruction below.
@@ -289,15 +289,15 @@ In order to use the minimum communication interval(1 [ms]), please follow the in
 
 1. Open `Device Manager`. Go to `Ports` item and right click on the relative serial port to select `Properties`.
 
-    ![](/img/software/dynamixel/wizard2/wizard2_graph_008_en.webp)
+    ![](/img/common/wizard2_graph_008_en.webp)
 
 2. In the Properties window, go to `Port Settings` tab and click `Advanced` button.
 
-    ![](/img/software/dynamixel/wizard2/wizard2_graph_009_en.webp)
+    ![](/img/common/wizard2_graph_009_en.webp)
 
 3. Set the `Latency Timer (msec)` to `1ms` and click `OK` to confirm the change.
 
-    ![](/img/software/dynamixel/wizard2/wizard2_graph_010_en.webp)
+    ![](/img/common/wizard2_graph_010_en.webp)
 
 #### Linux
 
@@ -314,13 +314,13 @@ In order to use the minimum communication interval(1 [ms]), please follow the in
 ### DYNAMIXEL Setting
 1. Open the graph options window to set `Interval` to `1ms`. Then, mark on the `Read only selected item for Speed` option.
 
-    ![](/img/software/dynamixel/wizard2/new_wizard2_graph_005.webp)
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/new_wizard2_graph_005.webp)
 
     
 
 2. Set the baudrate of DYNAMIXEL to maximum and set `Return Delay Time` to `0`.
     
-    ![](/img/software/dynamixel/wizard2/new_wizard2_graph_007.webp)
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/new_wizard2_graph_007.webp)
     
     
 
@@ -330,21 +330,21 @@ Save a log file of a packet information in DYNAMIXEL Wizard 2.0.
 - In case of Graph, it saves the most nearest, the minimum, the maximum and the average value at your set interval.  
 - In case of Packet, it saves every monitored packets.  
 
-    ![](/img/software/dynamixel/wizard2/logging/wizard2_logging.webp)
+    ![](/img/software/dynamixel_wizard_2_0/advanced_features/wizard2_logging.webp)
 
 #### Graph Logging
 Once starting the graph, the logging file is saved under _Documents/DYNAMIXEL Wizard2/graph/_
 
 The whole path to save can be found at a title bar. 
 
-![](/img/software/dynamixel/wizard2/logging/wizard2_graph_logging.webp)
+![](/img/software/dynamixel_wizard_2_0/advanced_features/wizard2_graph_logging.webp)
 
 #### Packet Logging
 Once opening the communication port, the logging file is saved under _Documents/DYNAMIXEL Wizard2/packet/_
 
 The whole path to save can be found at a title bar. 
 
-![](/img/software/dynamixel/wizard2/logging/wizard2_packet_logging.webp)
+![](/img/software/dynamixel_wizard_2_0/advanced_features/wizard2_packet_logging.webp)
 
 [Basic Features > Graph]: #graph
 [Protocol 1.0]: /docs/dxl/protocol/protocol1

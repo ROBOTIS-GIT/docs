@@ -35,7 +35,7 @@ In order to upload the OpenCR firmware using Arduino IDE, please follow the belo
 
 <details>
 <summary>
-![](/img/icon_unfold.webp) Click here to expand more details about the firmware upload using **Arduino IDE**
+![](/img/common/icon_unfold.webp) Click here to expand more details about the firmware upload using **Arduino IDE**
 </summary>
 
 1. If you are using Linux, please configure the USB port for the OpenCR. For other OS(OSX or Windows), you can skip to the step 2 "Install Arduino IDE".
@@ -57,13 +57,13 @@ $ sudo apt install libncurses5-dev:i386
   ```bash
 https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCR/master/arduino/opencr_release/package_opencr_index.json
   ```  
-  ![](/img/systems/turtlebot3/preparation/ide1.webp)
+  ![](/img/common/ide1.webp)
 
 6. Select `Sketch > Include Library > Manage Libraries...` to install the DYNAMIXEL2Arduino library.
-  ![](/img/parts/interface/dynamixel_shield/library_manager_01.webp)
+  ![](/img/common/library_manager_01.webp)
 
 7. Search for `DYNAMIXEL2Arduino` from the Library Manager and install the library.
-  ![](/img/parts/interface/dynamixel_shield/library_manager_02.webp)
+  ![](/img/common/library_manager_02.webp)
 
 8. Open the `TurtleBot3 Manipulation` example.
   - ***File > Examples > turtlebot3 > turtlebot3_manipulation > turtlebot3_manipulation***
@@ -73,7 +73,7 @@ https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCR/master/arduino/opencr_relea
 10. Select the port connected to the OpenCR from the ***Tools > Port*** menu.
 
 11. Upload the TurtleBot3 firmware sketch with `Ctrl` + `U` or the upload icon.  
-  ![](/img/systems/turtlebot3/quick_start/opencr_setup/o3.webp)
+  ![](/img/systems/turtlebot3/o3.webp)
 
 12. If firmware upload fails, try uploading the firmware in recovery mode. the following sequence activates the recovery mode of the OpenCR. When in recovery mode, the `STATUS` led of the OpenCR will blink periodically.
   - Hold down the `PUSH SW2` button.
@@ -81,5 +81,5 @@ https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCR/master/arduino/opencr_relea
   - Release the `Reset` button.
   - Release the `PUSH SW2` button.
 
-  ![](/img/parts/controller/opencr10/bootloader_19.webp)
+  ![](/img/common/bootloader_19.webp)
 </details>

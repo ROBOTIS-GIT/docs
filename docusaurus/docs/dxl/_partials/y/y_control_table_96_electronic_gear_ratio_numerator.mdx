@@ -1,8 +1,8 @@
 The Electronic Gear Ratio allows the configuration of the number of motor pulses to your desired output scale, to ensure accurate position control even when the actuator is paired with an external reduction. The Electronic Gear Ratio is applied during the calculation of [Present Velocity(548)], [Present Position(552)], [Goal Velocity(528)], [Goal Position(532)], [Position Trajectory(560)] and [Velocity Trajectory(564)] calculation. The Electronic Gear Ratio is applied as follows when used in Position Control Mode:
 
-![](/img/dxl/y/dy_equation_1_en.webp)
+![](/img/dxl/model_reference/y_series/dy_equation_1_en.webp)
 
-![](/img/dxl/y/electronic_gear.webp)
+![](/img/dxl/model_reference/y_series/electronic_gear.webp)
 
 Here is an example of electronic gear ratio configuration:
 
@@ -10,6 +10,6 @@ Re: Electronic Gear Ratio   R: Actual Gear Ratio  L: Ball Screw Lead
 
 | System Form                        | Setting Unit  | Description                             |
 |:----------------------------------:|:-------------:|:----------------------------------------|
-| Direct Drive System                | 0.01 [deg]    | DYNAMIXEL-Y Resolution: 524,288 [pulse/rev]<br />![](/img/dxl/y/dy_equation_2.webp)  |
-| Gearbox Attachment<br />R = 100:1  | 0.01 [deg]    | DYNAMIXEL-Y Resolution: 524,288 [pulse/rev]<br />![](/img/dxl/y/dy_equation_3.webp)  |
-| Ball Screw System<br />L: 10mm/rev | 0.01 [mm]     | DYNAMIXEL-Y Pulse per 1Rev = 524,288<br />Resolution of DYNAMIXEL-Y: 524,288 [pulse/rev]<br />![](/img/dxl/y/dy_equation_4.webp)        |
+| Direct Drive System                | 0.01 [deg]    | DYNAMIXEL-Y Resolution: 524,288 [pulse/rev]<br />![](/img/dxl/model_reference/y_series/dy_equation_2.webp)  |
+| Gearbox Attachment<br />R = 100:1  | 0.01 [deg]    | DYNAMIXEL-Y Resolution: 524,288 [pulse/rev]<br />![](/img/dxl/model_reference/y_series/dy_equation_3.webp)  |
+| Ball Screw System<br />L: 10mm/rev | 0.01 [mm]     | DYNAMIXEL-Y Pulse per 1Rev = 524,288<br />Resolution of DYNAMIXEL-Y: 524,288 [pulse/rev]<br />![](/img/dxl/model_reference/y_series/dy_equation_4.webp)        |

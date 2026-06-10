@@ -30,7 +30,7 @@ $ code my_sync_read_write.py
 # Make python file
 - Open the Visual Studio Code and create a python file in your workspace.
 
-  ![](/img/software/dynamixel/dynamixel_sdk/basic_read_write_tutorial/vscodepython.webp)
+  ![](/img/software/dynamixel_sdk/vscodepython.webp)
 
 
 # Source Code Description
@@ -77,7 +77,7 @@ $ code my_sync_read_write.py
 ```
 <details>
 <summary>
-  ![](/img/icon_unfold.webp) **ERROR LOGGING**
+  ![](/img/common/icon_unfold.webp) **ERROR LOGGING**
 </summary>
 
 `openPort()` and `setBaudRate()` functions return a boolean value indicating success or failure. If you want to check for failure, you can write like below to print an error message and exit the program.
@@ -111,7 +111,7 @@ else:
   - `data` : The data you want to write to the specified address.
 <details>
 <summary>
-  ![](/img/icon_unfold.webp) **ERROR LOGGING**
+  ![](/img/common/icon_unfold.webp) **ERROR LOGGING**
 </summary>
 
 `write1ByteTxRx()` returns a communication result. If you want to check the communication result and error, you can write the code as shown below.  
@@ -142,7 +142,7 @@ else:
 ```
 <details>
 <summary>
-  ![](/img/icon_unfold.webp) **ERROR LOGGING**
+  ![](/img/common/icon_unfold.webp) **ERROR LOGGING**
 </summary>
 
 `addParam()` returns a communication result as boolean. If you want to check the communication result and error, you can write the code as shown below.  
@@ -196,7 +196,7 @@ if dxl_addparam_result != True:
 ```
 <details>
 <summary>
-  ![](/img/icon_unfold.webp) **ERROR LOGGING**
+  ![](/img/common/icon_unfold.webp) **ERROR LOGGING**
 </summary>
 
  `txPacket()` and `addParam()` returns a communication result. If you want to check the communication result and error, you can write the code as shown below.  
@@ -231,7 +231,7 @@ if dxl_addparam_result != True:
 ```
 <details>
 <summary>
-  ![](/img/icon_unfold.webp) **ERROR LOGGING**
+  ![](/img/common/icon_unfold.webp) **ERROR LOGGING**
 </summary>
 
 `txRxPacket()` and `isAvailable()` returns a communication result . If you want to check the communication result and error, you can write the code as shown below.  
@@ -263,7 +263,7 @@ $ python3 my_sync_read_write.py
 
 - Run the code through Visual Studio Code.
 
-  ![](/img/software/dynamixel/dynamixel_sdk/basic_read_write_tutorial/runbutton.webp)
+  ![](/img/software/dynamixel_sdk/runbutton.webp)
 
 
 # Full Source Code

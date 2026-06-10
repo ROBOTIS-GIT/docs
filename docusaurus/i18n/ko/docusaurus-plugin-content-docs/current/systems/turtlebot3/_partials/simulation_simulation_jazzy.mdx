@@ -9,7 +9,7 @@
 
 <details>
 <summary>
-![](/img/icon_unfold.webp) Read more about **TurtleBot3 Simulation**
+![](/img/common/icon_unfold.webp) Read more about **TurtleBot3 Simulation**
 </summary>
 TurtleBot3 supports simulation development environments that can allow for development with a virtual robot. There are two development environments to do this, one using **fake node with 3D visualization in RViz**, and the other is the **3D robot simulator Gazebo**.
 
@@ -46,21 +46,21 @@ Three simulation environments are prepared for TurtleBot3. Please select one of 
 $ export TURTLEBOT3_MODEL=burger
 $ ros2 launch turtlebot3_gazebo empty_world.launch.py
 ```
-![](/img/systems/turtlebot3/simulation/turtlebot3_empty_world_sim.webp)
+![](/img/systems/turtlebot3/simulation/gazebo_simulation/turtlebot3_empty_world_sim.webp)
 
 2. TurtleBot3 World  
 ```bash
 $ export TURTLEBOT3_MODEL=waffle
 $ ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
 ```
-![](/img/systems/turtlebot3/simulation/turtlebot3_world_sim.webp)
+![](/img/systems/turtlebot3/simulation/gazebo_simulation/turtlebot3_world_sim.webp)
 
 3. TurtleBot3 House  
 ```bash
 $ export TURTLEBOT3_MODEL=waffle_pi
 $ ros2 launch turtlebot3_gazebo turtlebot3_house.launch.py
 ```
-![](/img/systems/turtlebot3/simulation/turtlebot3_house_sim.webp)
+![](/img/systems/turtlebot3/simulation/gazebo_simulation/turtlebot3_house_sim.webp)
 
 **NOTE**: If TurtleBot3 House is launched for the first time, downloading the map may take more than a few minutes depending on network status.
 
@@ -74,7 +74,7 @@ $ ros2 run turtlebot3_teleop teleop_keyboard
 
 <details>
 <summary>
-![](/img/icon_unfold.webp) Read more about **How to visualize Simulation data(RViz2)**
+![](/img/common/icon_unfold.webp) Read more about **How to visualize Simulation data(RViz2)**
 </summary>
 RViz2 visualizes published topics while simulation is running. You can launch RViz2 in a new terminal window with the following command.
 
@@ -82,5 +82,5 @@ RViz2 visualizes published topics while simulation is running. You can launch RV
 $ ros2 launch turtlebot3_bringup rviz2.launch.py
 ```
 
-![](/img/systems/turtlebot3/simulation/turtlebot3_gazebo_rviz.webp)
+![](/img/systems/turtlebot3/simulation/gazebo_simulation/turtlebot3_gazebo_rviz.webp)
 </details>

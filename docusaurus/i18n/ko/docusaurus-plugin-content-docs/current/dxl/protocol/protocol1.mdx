@@ -33,7 +33,7 @@ Half Duplex란 TxD, RxD를 하나의 선으로 공유하는 통신 방식으로 
 여러 개의 장치가 송신하는 동안 그 외의 다른 모든 장치들은 입력 상태이어야 하기 때문에 통신 방향을 제어하는 Direction Port가 필요합니다.
 다이나믹셀을 제어하는 Main Controller는 통신 방향을 입력으로 설정해 놓고 있다가 Instructon Packet을 전송하는 동안만 통신 방향을 출력으로 설정해야 합니다.
 
-![](/img/dxl/halfduplex.webp)
+![](/img/dxl/protocol/halfduplex.webp)
 
 ### Tx, Rx Direction
 Half Duplex 통신 방식을 사용하기 위해 필요한 제어 방법입니다.
@@ -82,7 +82,7 @@ EnableInterrupt(); // enable interrupt again
 ### Byte to Byte Time
 Instruction Packet을 전송할 때 Byte와 Byte사이의 Delay Time을 의미하는데, 이 시간이 100msec가 넘을 경우 RX-64는 전송 장애가 발생한 것으로 간주하고, 다시 Packet의 header(0xff 0xff)를 기다립니다.
 
-![](/img/dxl/byte2bytetime.webp)
+![](/img/dxl/protocol/protocol1/byte2bytetime.webp)
 
 ## Instruction Packet
 Instruction Packet은 제어기가 다이나믹셀에게 보내는 명령 데이터입니다. Instruction Packet의 구조는 아래와 같습니다.
@@ -500,35 +500,35 @@ Control Table의 Data를 공장 출하 값 상태로 되돌려 놓습니다.
 | 0xFF | 0xFF |   0x02    | 0x04 | 0x00 | 0x00 | 0x80 | 0x79 |
 
 ## 추가 예제
-![](/img/dxl/protocol1/protocol1_example_06.webp)
+![](/img/dxl/protocol/protocol1/protocol1_example_06.webp)
 
-![](/img/dxl/protocol1/protocol1_example_07.webp)
+![](/img/dxl/protocol/protocol1/protocol1_example_07.webp)
 
-![](/img/dxl/protocol1/protocol1_example_08.webp)
+![](/img/dxl/protocol/protocol1/protocol1_example_08.webp)
 
-![](/img/dxl/protocol1/protocol1_example_09.webp)
+![](/img/dxl/protocol/protocol1/protocol1_example_09.webp)
 
-![](/img/dxl/protocol1/protocol1_example_10.webp)
+![](/img/dxl/protocol/protocol1/protocol1_example_10.webp)
 
-![](/img/dxl/protocol1/protocol1_example_11.webp)
+![](/img/dxl/protocol/protocol1/protocol1_example_11.webp)
 
-![](/img/dxl/protocol1/protocol1_example_12.webp)
+![](/img/dxl/protocol/protocol1/protocol1_example_12.webp)
 
-![](/img/dxl/protocol1/protocol1_example_13.webp)
+![](/img/dxl/protocol/protocol1/protocol1_example_13.webp)
 
-![](/img/dxl/protocol1/protocol1_example_15.webp)
+![](/img/dxl/protocol/protocol1/protocol1_example_15.webp)
 
-![](/img/dxl/protocol1/protocol1_example_16.webp)
+![](/img/dxl/protocol/protocol1/protocol1_example_16.webp)
 
-![](/img/dxl/protocol1/protocol1_example_17.webp)
+![](/img/dxl/protocol/protocol1/protocol1_example_17.webp)
 
-![](/img/dxl/protocol1/protocol1_example_18.webp)
+![](/img/dxl/protocol/protocol1/protocol1_example_18.webp)
 
-![](/img/dxl/protocol1/protocol1_example_19.webp)
+![](/img/dxl/protocol/protocol1/protocol1_example_19.webp)
 
-![](/img/dxl/protocol1/protocol1_example_20.webp)
+![](/img/dxl/protocol/protocol1/protocol1_example_20.webp)
 
-![](/img/dxl/protocol1/protocol1_example_21.webp)
+![](/img/dxl/protocol/protocol1/protocol1_example_21.webp)
 
 
 [다이나믹셀 ID설정]: https://emanual.robotis.com/docs/en/software/rplus1/manager#id-설정

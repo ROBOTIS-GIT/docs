@@ -19,7 +19,7 @@ $ sudo udevadm control --reload-rules
 $ sudo udevadm trigger
 ```
 
-![](/img/systems/turtlebot3/preparation/7_1_1_usb_port_setting.webp)
+![](/img/common/7_1_1_usb_port_setting.webp)
 
 #### For OpenCM9.04
 Make the OpenCM9.04 USB port be able to upload the Arduino IDE program without root permission.
@@ -37,7 +37,7 @@ Since the OpenCR and OpenCM9.04 libraries are built for 32 bit platform, 64 bit 
 $ sudo apt-get install libncurses5-dev:i386
 ```
 
-![](/img/systems/turtlebot3/preparation/7_1_2_compiler_settings.webp)
+![](/img/common/7_1_2_compiler_settings.webp)
 
 ### Install Arduino IDE(Linux)
 Download the latest version of Arduino IDE from the official arduino homepage, and install it. Currently, OpenCR and OpenCM9.04 will be compatible with the version 1.6.4 or later.
@@ -66,7 +66,7 @@ To run the Arduino IDE on Linux platform, type into the terminal as follows.
 $ arduino
 ```
 
-![](/img/systems/turtlebot3/preparation/ide0.webp)
+![](/img/common/ide0.webp)
 
 ### Porting to Arduino IDE(Linux)
 #### Preferences
@@ -79,7 +79,7 @@ Please select the appropriate file URL based on your board.
 https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCR/master/arduino/opencr_release/package_opencr_index.json
 ```
 
-![](/img/systems/turtlebot3/preparation/ide1.webp)
+![](/img/common/ide1.webp)
 
 ##### For OpenCM9.04
 
@@ -87,40 +87,40 @@ https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCR/master/arduino/opencr_relea
 https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCM9.04/master/arduino/opencm_release/package_opencm9.04_index.json
 ```
 
-![](/img/parts/controller/opencm904/opencm9.04_linux_1.webp)
+![](/img/software/arduino_ide/arduino_ide/opencm9.04_linux_1.webp)
 
 #### Install the board package via Boards Manager
 Click Tools → Board → Boards Manager. This step may take more than 20 minutes depending on the network status.
 
-![](/img/systems/turtlebot3/preparation/ide2.webp)
+![](/img/common/ide2.webp)
 
 ##### For OpenCR
 
 Type OpenCR into the textbox to find the OpenCR by ROBOTIS package. After it finds out, click Install.
 
-![](/img/systems/turtlebot3/preparation/ide3.webp)
+![](/img/common/ide3.webp)
 
 After the installation, “INSTALLED” will be appeared.
 
-![](/img/systems/turtlebot3/preparation/ide4.webp)
+![](/img/common/ide4.webp)
 
 See if OpenCR Board is now on the list of Tools → Board. Click this to import the OpenCR Board source.
 
-![](/img/systems/turtlebot3/preparation/ide5.webp)
+![](/img/common/ide5.webp)
 
 ##### For OpenCM9.04
 
 Type OpenCM9.04 into the textbox to find the OpenCM9.04 by ROBOTIS package. After it finds out, click Install.
 
-![](/img/parts/controller/opencm904/opencm9.04_linux_3.webp)
+![](/img/software/arduino_ide/arduino_ide/opencm9.04_linux_3.webp)
 
 After the installation, “INSTALLED” will be appeared.
 
-![](/img/parts/controller/opencm904/opencm9.04_linux_4.webp)
+![](/img/software/arduino_ide/arduino_ide/opencm9.04_linux_4.webp)
 
 See if OpenCM9.04 Board is now on the list of Tools → Board. Click this to import the OpenCM9.04 Board source.
 
-![](/img/parts/controller/opencm904/opencm9.04_linux_5.webp)
+![](/img/software/arduino_ide/arduino_ide/opencm9.04_linux_5.webp)
 
 #### Port Setting
 This step shows the port setting for the program uploads. The OpenCR/OpenCM9.04 should be connected to the PC via micro USB port.
@@ -130,7 +130,7 @@ Select Tools → Port → /dev/ttyACM0.
 **WARNING** : The last digit value **0** in the string **/dev/ttyACM0** might be different depend on the USB connection environment.
 
 
-![](/img/systems/turtlebot3/preparation/ide6.webp)
+![](/img/common/ide6.webp)
 
 ### Remove Modemmanager
 Only **OpenCR** requires this process. If you are using OpenCM9.04, please skip this section.
@@ -154,9 +154,9 @@ Download the latest version of Arduino IDE from the official arduino homepage, a
 ### Run Arduino IDE(Mac)
 To run the Arduino IDE on Mac platform, click the Arduino IDE icon as follows.
 
-![](/img/parts/controller/opencr10/arduino_mac_01.webp)
+![](/img/common/arduino_mac_01.webp)
 
-![](/img/parts/controller/opencr10/arduino_mac_02.webp)
+![](/img/common/arduino_mac_02.webp)
 
 ### Porting to Arduino IDE(Mac)
 #### Preferences
@@ -170,7 +170,7 @@ Please select the appropriate file URL based on your board.
 https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCR/master/arduino/opencr_release/package_opencr_index.json
 ```
 
-![](/img/parts/controller/opencr10/arduino_mac_03.webp)
+![](/img/common/arduino_mac_03.webp)
 
 ##### For OpenCM9.04
 
@@ -178,12 +178,12 @@ https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCR/master/arduino/opencr_relea
 https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCM9.04/master/arduino/opencm_release/package_opencm9.04_index.json
 ```
 
-![](/img/parts/controller/opencm904/opencm9.04_mac_1.webp)
+![](/img/software/arduino_ide/arduino_ide/opencm9.04_mac_1.webp)
 
 #### Install the board package via Boards Manager
 Click Tools → Board → Boards Manager. This step may take more than 20 minutes depending on the network status.
 
-![](/img/parts/controller/opencr10/arduino_mac_04.webp)
+![](/img/common/arduino_mac_04.webp)
 
 ##### For OpenCR
 
@@ -192,17 +192,17 @@ After the installation, “INSTALLED” will be appeared.
 
 See if OpenCR Board is now on the list of Tools → Board. Click this to import the OpenCR Board source.
 
-![](/img/parts/controller/opencr10/arduino_mac_05.webp)
+![](/img/common/arduino_mac_05.webp)
 
 ##### For OpenCM9.04
 
 Type OpenCM9.04 into the textbox to find the OpenCM9.04 by ROBOTIS package. After it finds out, click Install.
 
-![](/img/parts/controller/opencm904/opencm9.04_mac_3.webp)
+![](/img/software/arduino_ide/arduino_ide/opencm9.04_mac_3.webp)
 
 After the installation, “INSTALLED” will be appeared.
 
-![](/img/parts/controller/opencm904/opencm9.04_mac_4.webp)
+![](/img/software/arduino_ide/arduino_ide/opencm9.04_mac_4.webp)
 
 See if OpenCM9.04 Board is now on the list of Tools → Board. Click this to import the OpenCM9.04 Board source.
 
@@ -213,7 +213,7 @@ Select Tools → Port → /dev/cu.usbmodem1411
 **CAUTION** : The value of **/dev/cu.usbmodem1411** may be different depending on the environment connected to the PC.
 
 
-![](/img/parts/controller/opencr10/arduino_mac_06.webp)
+![](/img/common/arduino_mac_06.webp)
 
 ## Install on Windows
 ### Install Driver
@@ -253,15 +253,15 @@ This step may take more than 20 minutes depending on the network status.
 
 Click Tools → Board → Boards Manager.
 
-![](/img/parts/controller/opencm904/opencm904_win_2.webp)
+![](/img/software/arduino_ide/arduino_ide/opencm904_win_2.webp)
 
 Type OpenCR into the textbox to find the OpenCR by ROBOTIS package. After it finds out, click Install.
 
-![](/img/parts/controller/opencr10/arduino_win_01.webp)
+![](/img/software/arduino_ide/arduino_ide/arduino_win_01.webp)
 
 After the installation, “INSTALLED” will be appeared.
 
-![](/img/parts/controller/opencr10/arduino_win_02.webp)
+![](/img/software/arduino_ide/arduino_ide/arduino_win_02.webp)
 
 See if OpenCR Board is now on the list of Tools → Board. Click this to import the OpenCR Board source.
 
@@ -270,15 +270,15 @@ See if OpenCR Board is now on the list of Tools → Board. Click this to import 
 
 Type OpenCM9.04 into the textbox to find the OpenCM9.04 by ROBOTIS package. After it finds out, click Install.
 
-![](/img/parts/controller/opencm904/opencm904_win_3.webp)
+![](/img/software/arduino_ide/arduino_ide/opencm904_win_3.webp)
 
 After the installation, “INSTALLED” will be appeared.
 
-![](/img/parts/controller/opencm904/opencm904_win_4.webp)
+![](/img/software/arduino_ide/arduino_ide/opencm904_win_4.webp)
 
 See if OpenCM9.04 Board is now on the list of Tools → Board. Click this to import the OpenCM9.04 Board source.
 
-![](/img/parts/controller/opencm904/opencm904_win_5.webp)
+![](/img/software/arduino_ide/arduino_ide/opencm904_win_5.webp)
 
 #### Port setting
 This step shows the port setting for the program uploads. The OpenCR/OpenCM9.04 should be connected to the PC via micro USB port.  
@@ -297,11 +297,11 @@ There are three ways to add libraries to the Arduino IDE.
 Each way is described in detail in the [Arduino Official Guide], so please refer to it if necessary.  
 Below is an example of using the Library Manager.
 
-![](/img/parts/interface/dynamixel_shield/library_manager_01.webp)
+![](/img/common/library_manager_01.webp)
 
 Search for `DYNAMIXEL2Arduino` from the Library Manager and install the library.
 
-![](/img/parts/interface/dynamixel_shield/library_manager_02.webp)
+![](/img/common/library_manager_02.webp)
 
 If the DYNAMIXEL2Arduino library has been successfully installed, useful examples to control DYNAMIXEL can be found under the DYNAMIXEL2Arduino category.
 
@@ -399,7 +399,7 @@ The STM32F7xx, which is used for the main MCU on the OpenCR board, supports DFU(
 ### Programmer Setting
 Select `Tools` > `DFU-UTIL`.
 
-![](/img/parts/controller/opencr10/bootloader_19.webp)
+![](/img/common/bootloader_19.webp)
 
 ### Run DFU mode.
 Press the `Reset Button` while the `Boot Button` is being pushed. This activates the DFU mode.  
@@ -407,19 +407,19 @@ Press the `Reset Button` while the `Boot Button` is being pushed. This activates
 #### For Linux
 If you successfully entered to DFU mode, you will be able to find `STMicroelectronics STM Device in DFU Mode` text string when *lsusb* is entered in the terminal.
 
-![](/img/systems/turtlebot3/preparation/ide10.webp)
+![](/img/common/ide10.webp)
 
 #### For Windows
 
 If you successfully entered to DFU mode, you will be able to find `STM32 BOOTLOADER` under the **Universal Serial Bus devices** in Device Manager.
 
-![](/img/parts/controller/opencr10/dfu_mode_win.webp)
+![](/img/software/arduino_ide/arduino_ide/dfu_mode_win.webp)
 
 ### Burn Bootloader
 
 Click `Tools` > `Burn Bootloader` to burn the bootloader.
 
-![](/img/systems/turtlebot3/preparation/ide9.webp)
+![](/img/common/ide9.webp)
 
 [Arduino IDE]: https://www.arduino.cc/en/Main/Software
 [OpenCR]: /docs/parts/controller/opencr10

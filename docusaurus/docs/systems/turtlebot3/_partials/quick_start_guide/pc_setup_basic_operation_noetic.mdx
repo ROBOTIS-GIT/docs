@@ -31,7 +31,7 @@ CTRL-C to quit
 
 <details>
 <summary>
-![](/img/icon_unfold.webp) **Read more about How to predefine the TURTLEBOT3_MODEL**
+![](/img/common/icon_unfold.webp) **Read more about How to predefine the TURTLEBOT3_MODEL**
 </summary>
 The `export TURTLEBOT3_MODEL=${TB3_MODEL}` command can be omitted if the **TURTLEBOT3_MODEL** parameter is predefined in your system's `.bashrc` file. The `.bashrc` file is automatically loaded when a terminal window is created.  
 
@@ -51,7 +51,7 @@ $ source ~/.bashrc
 #### RC100
 Settings for the [ROBOTIS RC-100B][rc100] controller are included in the OpenCR firmware for TurtleBot3 Burger, Waffle and Waffle Pi. This controller can be used with the [BT410][bt410] Bluetooth module. The TurtleBot3 Waffle Pi includes the RC-100 controller and Bluetooth modules. When using the RC-100, it is not necessary to execute a specific node because `turtlebot_core` node creates the required `/cmd_vel`.
 
-![](/img/systems/turtlebot3/quick_start/basic_operation/rc100b_with_bt410.webp)
+![](/img/systems/turtlebot3/quick_start_guide/rc100b_with_bt410.webp)
 
 1. Connect BT-410 to the OpenCR UART1 port (as described [here][appendix_opencr1_0]).
 
@@ -112,7 +112,7 @@ $ rosrun wiimote teleop_wiimote
 ### Topic Monitor
 <details>
 <summary>
-![](/img/icon_unfold.webp) **Read more about Topic Monitor**
+![](/img/common/icon_unfold.webp) **Read more about Topic Monitor**
 </summary>
 In order to check the topics of our TurtleBot3, we will use [rqt][rqt].rqt is a Qt-based framework for GUI development in ROS. rqt allows users to easily see topic status by displaying all topics in a single topic list, along with additional information like topic types, bandwidth, and value in the GUI.
 </details>
@@ -121,28 +121,28 @@ In order to check the topics of our TurtleBot3, we will use [rqt][rqt].rqt is a 
   ```bash
 $ rqt
   ```  
-  ![](/img/systems/turtlebot3/quick_start/basic_operation/legacy/rqt_1.webp)
+  ![](/img/systems/turtlebot3/quick_start_guide/basic_operation/noetic/rqt_1.webp)
 
 2. When the topic monitor is opened, the topic values are not monitored by default. Click the checkbox next to each topic to monitor the topic.  
-  ![](/img/systems/turtlebot3/quick_start/basic_operation/legacy/rqt_2.webp)
+  ![](/img/systems/turtlebot3/quick_start_guide/basic_operation/noetic/rqt_2.webp)
 
 3. To see more detailed topic messages, click the `▶` icon next to the checkbox.  
-  ![](/img/systems/turtlebot3/quick_start/basic_operation/legacy/rqt_3.webp)
+  ![](/img/systems/turtlebot3/quick_start_guide/basic_operation/noetic/rqt_3.webp)
 
   - `/battery_state` indicates a message relating to battery condition, such as the current battery voltage and remaining capacity.  
-  ![](/img/systems/turtlebot3/quick_start/basic_operation/legacy/rqt_4.webp)
+  ![](/img/systems/turtlebot3/quick_start_guide/basic_operation/noetic/rqt_4.webp)
 
   - `/diagnostics` indicates a message reporting the status of the components connected to the TurtleBot3, such as a MPU9250, DYNAMIXEL-X, HLS-LFCD-LDS, battery or an OpenCR.  
-  ![](/img/systems/turtlebot3/quick_start/basic_operation/legacy/rqt_5.webp)
+  ![](/img/systems/turtlebot3/quick_start_guide/basic_operation/noetic/rqt_5.webp)
 
   - `/odom` indicates a message containing the odometry of the TurtleBot3. This topic contains orientation and position encoder data.  
-  ![](/img/systems/turtlebot3/quick_start/basic_operation/legacy/rqt_6.webp)
+  ![](/img/systems/turtlebot3/quick_start_guide/basic_operation/noetic/rqt_6.webp)
 
   - `/sensor_state` indicates a message containing encoder values, battery and torque.  
-  ![](/img/systems/turtlebot3/quick_start/basic_operation/legacy/rqt_7.webp)
+  ![](/img/systems/turtlebot3/quick_start_guide/basic_operation/noetic/rqt_7.webp)
 
   - `/scan` indicates a message with LDS data.  
-  ![](/img/systems/turtlebot3/quick_start/basic_operation/legacy/rqt_8.webp)
+  ![](/img/systems/turtlebot3/quick_start_guide/basic_operation/rqt_8.webp)
 
 
 [teleoperation]: /docs/systems/turtlebot3/quick_start_guide/teleoperation

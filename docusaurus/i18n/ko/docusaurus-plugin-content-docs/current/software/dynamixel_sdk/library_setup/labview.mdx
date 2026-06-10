@@ -7,11 +7,11 @@
 
 
 # Compiler and Builder
-![](/img/software/dynamixel/dynamixel_sdk/library_setup/labview/labview_logo.webp)
+![](/img/software/dynamixel_sdk/library_setup/labview/labview_logo.webp)
 
 * [Download LabVIEW for Windows](http://www.ni.com/download-labview/)
 
-  ![](/img/software/dynamixel/dynamixel_sdk/library_setup/labview/windows/library_file/a1.webp)
+  ![](/img/software/dynamixel_sdk/library_setup/labview/a1.webp)
 
 # Building the Library
 Note that if following procedure imports the DYNAMIXEL SDK c ver. 32bit library, the built library for LabVIEW only can be used by LabVIEW 32bit. Choose the platform target to either 32bit or 64bit, at first.
@@ -20,15 +20,15 @@ Besides, when some error that are related with `.dll file version is higher than
 
 * Run LabVIEW, then click <kbd>Tools</kbd> → <kbd>Import</kbd> → <kbd>Shared Library (.dll)...</kbd>.
 
-  ![](/img/software/dynamixel/dynamixel_sdk/library_setup/labview/windows/library_file/b1.webp)
+  ![](/img/software/dynamixel_sdk/library_setup/labview/b1.webp)
 
 * Select <kbd>Create VIs for a shared library</kbd>, then click <kbd>Next</kbd>.
 
-  ![](/img/software/dynamixel/dynamixel_sdk/library_setup/labview/windows/library_file/b2.webp)
+  ![](/img/software/dynamixel_sdk/library_setup/labview/b2.webp)
 
 * Set paths to where the `.dll` and `.h` of DYNAMIXEL SDK c version is located, then click <kbd>Next</kbd>.
 
-  ![](/img/software/dynamixel/dynamixel_sdk/library_setup/labview/windows/library_file/b3.webp)
+  ![](/img/software/dynamixel_sdk/library_setup/labview/b3.webp)
 
 * Put some definitions used in DYNAMIXEL SDK c version into the Textbox, then click <kbd>Next</kbd>.
 
@@ -36,48 +36,48 @@ Besides, when some error that are related with `.dll file version is higher than
 _WIN32;_WIN64;_cplusplus;size_t=unsigned __int64;size_t=unsigned in
 ```
 
-  ![](/img/software/dynamixel/dynamixel_sdk/library_setup/labview/windows/library_file/b4.webp)
+  ![](/img/software/dynamixel_sdk/library_setup/labview/b4.webp)
 
 * Check whether all the functions are successfully listed for the import, then click <kbd>Next</kbd>.
 
-  ![](/img/software/dynamixel/dynamixel_sdk/library_setup/labview/windows/library_file/b5.webp)
+  ![](/img/software/dynamixel_sdk/library_setup/labview/b5.webp)
 
 * Change `Project Library Name` and `Project Library Path` properly. Then click <kbd>Next</kbd>.
 
-  ![](/img/software/dynamixel/dynamixel_sdk/library_setup/labview/windows/library_file/b6.webp)
+  ![](/img/software/dynamixel_sdk/library_setup/labview/b6.webp)
 
 * The DYNAMIXEL SDK functions for the LabVIEW will be structed as the blocks shows. Click <kbd>Next</kbd>.
 
-  ![](/img/software/dynamixel/dynamixel_sdk/library_setup/labview/windows/library_file/b7.webp)
+  ![](/img/software/dynamixel_sdk/library_setup/labview/b7.webp)
 
 * Here doesn't have any items that should be edited. Click <kbd>Next</kbd>.
 
-  ![](/img/software/dynamixel/dynamixel_sdk/library_setup/labview/windows/library_file/b8.webp)
+  ![](/img/software/dynamixel_sdk/library_setup/labview/b8.webp)
 
 * The list shows what kind of files should be built during the import. Click <kbd>Next</kbd>.
 
-  ![](/img/software/dynamixel/dynamixel_sdk/library_setup/labview/windows/library_file/b9.webp)
+  ![](/img/software/dynamixel_sdk/library_setup/labview/b9.webp)
 
 * Wait for the progress. When it finishes importing, click <kbd>Next</kbd>.
 
-  ![](/img/software/dynamixel/dynamixel_sdk/library_setup/labview/windows/library_file/b10.webp)
+  ![](/img/software/dynamixel_sdk/library_setup/labview/b10.webp)
 
 * Click <kbd>Finish</kbd> and see the list of generated libraries.
 
-  ![](/img/software/dynamixel/dynamixel_sdk/library_setup/labview/windows/library_file/b11.webp)
+  ![](/img/software/dynamixel_sdk/library_setup/labview/b11.webp)
 
 * Now, make the sources by using the generated LabVIEW libraries.
 
-  ![](/img/software/dynamixel/dynamixel_sdk/library_setup/labview/windows/library_file/b12.webp)
+  ![](/img/software/dynamixel_sdk/library_setup/labview/b12.webp)
 
 # Function Reference
 * The function reference file is located in `[DynamixelSDK folder]/labview/dxl_x86_c.lvlib/dxl_x86_c.lvlib`
 
-  ![](/img/software/dynamixel/dynamixel_sdk/library_setup/labview/windows/library_file/2.webp)
+  ![](/img/software/dynamixel_sdk/library_setup/labview/2.webp)
 
-  ![](/img/software/dynamixel/dynamixel_sdk/library_setup/labview/windows/library_file/4.webp)
+  ![](/img/software/dynamixel_sdk/library_setup/labview/4.webp)
 
-  ![](/img/software/dynamixel/dynamixel_sdk/library_setup/labview/windows/library_file/1.webp)
+  ![](/img/software/dynamixel_sdk/library_setup/labview/1.webp)
 
 # Building and Running the Sample Code
 DYNAMIXEL SDK example code for LabVIEW uses the library files(.dll for Windows) built in C language.

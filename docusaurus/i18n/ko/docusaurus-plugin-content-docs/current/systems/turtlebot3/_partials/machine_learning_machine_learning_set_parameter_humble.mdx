@@ -33,7 +33,7 @@ gedit ~/turtlebot3_ws/src/turtlebot3_simulations/turtlebot3_gazebo/models/turtle
 More lidar points can be used, but they require more computing resources. To use a different number of lidar points, replace `state_size` in **Hyper parameter**.
 
 
-| ![](/img/systems/turtlebot3/machine_learning/sample_360.webp) | ![](/img/systems/turtlebot3/machine_learning/sample_24.webp) |
+| ![](/img/systems/turtlebot3/machine_learning/machine_learning/sample_360.webp) | ![](/img/systems/turtlebot3/machine_learning/machine_learning/sample_24.webp) |
 |:-----------------------------------------------------------------------:|:----------------------------------------------------------------------:|
 |                            **sample = 360**                             |                            **sample = 24**                             |
 
@@ -77,7 +77,7 @@ Yaw reward uses a square root based reward function. This has the following adva
 ```python
 yaw_reward = 1 - (2 * abs(self.goal_angle) / math.pi)
 ```  
-<img src="/img/systems/turtlebot3/machine_learning/yaw_reward.webp" width="700" />
+<img src="/img/systems/turtlebot3/machine_learning/machine_learning/yaw_reward.webp" width="700" />
 
 1. **Obstacle reward**  
 Obstacle reward is a function that calculates a penalty based on the distance and angle of obstacles within 0.5 meters in front of the robot, quantitatively assessing the degree of risk.  

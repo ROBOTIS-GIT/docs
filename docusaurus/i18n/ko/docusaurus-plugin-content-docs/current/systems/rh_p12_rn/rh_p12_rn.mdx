@@ -30,7 +30,7 @@ import DxlFccClassB from '@site/docs/dxl/_partials/pro/fcc_class_b.mdx';
 import DxlCommonLink from '@site/docs/dxl/_partials/pro/common_link.mdx';
 
 # 개요
-![](/img/systems/rh_p12_rn/rh-p12-rn_product_new.webp)
+![](/img/systems/rh_p12_rn/rh_p12_rn/rh-p12-rn_product_new.webp)
 
 >  RH-P12-RN(A) 
 
@@ -55,8 +55,8 @@ import DxlCommonLink from '@site/docs/dxl/_partials/pro/common_link.mdx';
 ## 하드웨어 변경이력
 | Rev |                             이미지                              |  스트로크  |  변경날짜  |
 |:---:|:---------------------------------------------------------------:|:----------:|:----------:|
-|  0  | ![](/img/systems/rh_p12_rn/rh-p12-rn_finger_old.webp) | 0 ~ 109 mm |     .      |
-|  1  | ![](/img/systems/rh_p12_rn/rh-p12-rn_finger_new.webp) | 0 ~ 106 mm | 2019.11.04 |
+|  0  | ![](/img/systems/rh_p12_rn/rh_p12_rn/rh-p12-rn_finger_old.webp) | 0 ~ 109 mm |     .      |
+|  1  | ![](/img/systems/rh_p12_rn/rh_p12_rn/rh-p12-rn_finger_new.webp) | 0 ~ 106 mm | 2019.11.04 |
 
 
 # 주요 사양
@@ -370,7 +370,7 @@ Present Position = 실제 위치 + Homing offset(20) 이 됩니다.
 6. 최종 PWM값은 Inverter를 통해 모터에 적용되고 장치의 Horn이 구동됩니다.
 7. 구동 결과는 Present Position(580), Present Velocity(576), Present PWM(572), Present Current(574)에 표기됩니다.
 
-![](/img/systems/rh_p12_rn/rh_p12_rn_a_position.webp)
+![](/img/systems/rh_p12_rn/rh_p12_rn/rh_p12_rn_a_position.webp)
 
 
 :::info
@@ -429,7 +429,7 @@ Profile이란 모터 구동 시 급격하게 변하는 속도와 가속도를 �
 기본적으로 Profile의 선택은 Profile Velocity(560)와 Profile Acceleration(556)의 조합에 의해서 결정됩니다.  
 예외적으로 Trapezoidal Profile은 총 이동거리(ΔPos, 목표위치와 현재위치의 차이)가 추가로 고려되어 선택됩니다.  
 
-![](/img/dxl/p/profile_types.webp)
+![](/img/common/profile_types.webp)
 
 
 장치의 Profile은 Goal Position(564)이 주어졌을 때, 현재 속도(Profile의 시작속도)를 기반으로 목표 속도 궤적을 생성합니다.  
@@ -453,7 +453,7 @@ Profile이란 모터 구동 시 급격하게 변하는 속도와 가속도를 �
 | (Profile Velocity(560) ≠ 0) & (Profile Acceleration(556) = 0) | 사각 프로파일              |
 | (Profile Velocity(560) ≠ 0) & (Profile Acceleration(556) ≠ 0) | 사다리꼴 프로파일          |
 
-![](/img/dxl/p/velocity_profile.webp)
+![](/img/common/velocity_profile.webp)
 
 
 :::info
@@ -473,7 +473,7 @@ Velocity Override 기능은 동일하게 동작합니다.
 
 |  모델명   |                         Goal Position = 0                          |                         Goal Position = 740                         |
 |:---------:|:------------------------------------------------------------------:|:-------------------------------------------------------------------:|
-| RH-P12-RN | ![](/img/systems/rh_p12_rn/rh_p12_rn_position_open.webp) | ![](/img/systems/rh_p12_rn/rh_p12_rn_position_close.webp) |
+| RH-P12-RN | ![](/img/systems/rh_p12_rn/rh_p12_rn/rh_p12_rn_position_open.webp) | ![](/img/systems/rh_p12_rn/rh_p12_rn/rh_p12_rn_position_close.webp) |
 
 <a id="realtime-tick"></a>
 ### Realtime Tick(568)
@@ -521,7 +521,7 @@ Velocity Override 기능은 동일하게 동작합니다.
 
 |  모델명   |                         Goal Position = 0                          |                         Goal Position = 740                         |
 |:---------:|:------------------------------------------------------------------:|:-------------------------------------------------------------------:|
-| RH-P12-RN | ![](/img/systems/rh_p12_rn/rh_p12_rn_position_open.webp) | ![](/img/systems/rh_p12_rn/rh_p12_rn_position_close.webp) |
+| RH-P12-RN | ![](/img/systems/rh_p12_rn/rh_p12_rn/rh_p12_rn_position_open.webp) | ![](/img/systems/rh_p12_rn/rh_p12_rn/rh_p12_rn_position_close.webp) |
 
 <a id="velocity-trajectory"></a>
 ### Velocity Trajectory(584)
@@ -547,16 +547,16 @@ Profile에 의해 생성된 목표 위치 궤적입니다. 전류기반 위치 �
 
 # 조립 예시
 ## 옵션프레임 조립
-![](/img/systems/rh_p12_rn/rh-p12-rn_assembly.webp)
+![](/img/systems/rh_p12_rn/rh_p12_rn/rh-p12-rn_assembly.webp)
 
 # 참고자료
 ## 커넥터 정보
 |     항목     |                           RS-485                           |                                  외부포트                                  |
 |:------------:|:----------------------------------------------------------:|:--------------------------------------------------------------------------:|
 |   핀 번호    |        `1` GND<br />`2` VDD<br />`3` DATA+<br />`4` DATA-        | `1` GND<br />`2` VDD<br />`3` PORT 1<br />`4` PORT 2<br />`5` PORT 3<br />`6` PORT 4 |
-|  다이어그램  |       ![](/img/dxl/jst_b4beha_diagram.webp)       |             ![](/img/dxl/molex_5304706_diagram.webp)              |
-|    하우징    |                        [JST EHR-04]                        |    ![](/img/dxl/molex_510210600.webp)<br />[MOLEX 51021-0600]     |
-|   PCB 헤더   | ![](/img/dxl/jst_b4beha.webp)<br />[JST B4B-EH-A] |    ![](/img/dxl/molex_530470610.webp)<br />[MOLEX 53047-0610]     |
+|  다이어그램  |       ![](/img/common/jst_b4beha_diagram.webp)       |             ![](/img/common/molex_5304706_diagram.webp)              |
+|    하우징    |                        [JST EHR-04]                        |    ![](/img/common/molex_510210600.webp)<br />[MOLEX 51021-0600]     |
+|   PCB 헤더   | ![](/img/systems/rh_p12_rn/rh_p12_rn/jst_b4beha.webp)<br />[JST B4B-EH-A] |    ![](/img/common/molex_530470610.webp)<br />[MOLEX 53047-0610]     |
 | Crimp 터미널 |                    [JST SEH-001T-P0.6]                     |                             [MOLEX 50079-8100]                             |
 |  다이나믹셀 전선규격  |                           21 AWG                           |                                   21 AWG                                   |
 

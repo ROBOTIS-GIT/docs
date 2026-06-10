@@ -33,7 +33,7 @@ CTRL-C to quit
 #### RC-100
 The settings for the [ROBOTIS RC-100B][rc100] are included in the OpenCR firmware for TurtleBot3. It can be used with the [BT410][bt410] Bluetooth module .TurtleBot3 Waffle Pi includes this controller and Bluetooth modules. When using the RC-100B, it is not necessary to execute a specific node because `turtlebot_core` node creates a `/cmd_vel` topic in the firmware directly connected to OpeCR.
 
-![](/img/systems/turtlebot3/quick_start/basic_operation/rc100b_with_bt410.webp)
+![](/img/systems/turtlebot3/quick_start_guide/rc100b_with_bt410.webp)
 
 1. Connect BT-410 to any of the OpenCR UART ports.
 
@@ -44,7 +44,7 @@ The settings for the [ROBOTIS RC-100B][rc100] are included in the OpenCR firmwar
 ### Topic Monitor
 <details>
 <summary>
-![](/img/icon_unfold.webp) **Read more about Topic Monitor**
+![](/img/common/icon_unfold.webp) **Read more about Topic Monitor**
 </summary>
 In order to monitor the TurtleBot3 topics use [rqt][rqt], a Qt-based framework for GUI development for ROS. It is a tool that allows for the display all topics of the TurtleBot3.
 </details>
@@ -54,25 +54,25 @@ In order to monitor the TurtleBot3 topics use [rqt][rqt], a Qt-based framework f
   ```bash
 $ rqt
   ```  
-  ![](/img/systems/turtlebot3/quick_start/basic_operation/rqt_1.webp)
+  ![](/img/systems/turtlebot3/quick_start_guide/basic_operation/humble-jazzy/rqt_1.webp)
 
 2. When the topic monitor is loaded, the topic values are not monitored by default. Click the checkbox next to each topic to monitor the topic.  
-  ![](/img/systems/turtlebot3/quick_start/basic_operation/rqt_2.webp)
+  ![](/img/systems/turtlebot3/quick_start_guide/basic_operation/humble-jazzy/rqt_2.webp)
 
 3. To see more detailed topic messages, click the `▶` icon next to the checkbox.  
-  ![](/img/systems/turtlebot3/quick_start/basic_operation/rqt_3.webp)
+  ![](/img/systems/turtlebot3/quick_start_guide/basic_operation/humble-jazzy/rqt_3.webp)
 
   - `/battery_state` indicates a message relating to the battery condition, such as the current battery voltage and remaining capacity.  
-  ![](/img/systems/turtlebot3/quick_start/basic_operation/rqt_4.webp)
+  ![](/img/systems/turtlebot3/quick_start_guide/basic_operation/humble-jazzy/rqt_4.webp)
 
   - `/odom` indicates a message containing the odometry of the TurtleBot3. This topic has orientation and position encoder data.  
-  ![](/img/systems/turtlebot3/quick_start/basic_operation/rqt_5.webp)
+  ![](/img/systems/turtlebot3/quick_start_guide/basic_operation/humble-jazzy/rqt_5.webp)
 
   - `/sensor_state` indicates a message containing encoder values, battery and torque status.  
-  ![](/img/systems/turtlebot3/quick_start/basic_operation/rqt_6.webp)
+  ![](/img/systems/turtlebot3/quick_start_guide/basic_operation/humble-jazzy/rqt_6.webp)
 
   - `/scan` indicates a message containing LDS data, such as angle_max and min, and range_max and min.  
-  ![](/img/systems/turtlebot3/quick_start/basic_operation/rqt_7.webp)
+  ![](/img/systems/turtlebot3/quick_start_guide/basic_operation/humble-jazzy/rqt_7.webp)
 
 [topic_monitor]: /docs/systems/turtlebot3/quick_start_guide/basic_operation#topic-monitor
 [teleoperation]: /docs/systems/turtlebot3/quick_start_guide/teleoperation

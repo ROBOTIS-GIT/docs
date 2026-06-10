@@ -4,7 +4,7 @@ import DxlPNotice from '@site/docs/systems/thormang3/_partials/dxl_p_notice.mdx'
 ## MPC Packages
 :::warning
 
-![](/img/icon_warning.webp)  
+![](/img/common/icon_warning.webp)  
 **CAUTION** : There are two versions of thormang3 manager depending on the version of THORMANG3.  
  - DXL PRO version : thormang3_manager in ROBOTIS-THORMANG-MPC  
  - DXL PRO+ version : thormang3_p_manager in ROBOTIS-THORMANG-P-MPC
@@ -342,7 +342,7 @@ THORMANG3 manipulation module for the upper body.
     A service that reads the pose of end effector from a specific kinematics group.
 
 ### thormang3_walking_module
-![](/img/systems/thormang3/thormang3_walking_module_diagram.webp)
+![](/img/systems/thormang3/thormang3_ros_packages/thormang3_walking_module_diagram.webp)
 
 As seen from the above figure, thormang3_walking_module is one of the MotionModules from ROS Framework.
 THROMANG3 can be controlled with Topics and Services.
@@ -352,12 +352,12 @@ Users can designate almost all Step Parameters.([thormang3_walking_module_msgs/S
 
     thormang3_walking_module includes online walking pattern generator.
     The pattern is generated from Foot Step Data input.
-    ![](/img/systems/thormang3/thormang3_walking_module_algorithm_diagram.webp)
+    ![](/img/systems/thormang3/thormang3_ros_packages/thormang3_walking_module_algorithm_diagram.webp)
 
 2. Balance Algorithm
 
     The balance algorithm is included as shown below.([thormang3_walking_module_msgs/BalanceParam])
-    ![](/img/systems/thormang3/thormang3_walking_module_balance_diagram.webp)
+    ![](/img/systems/thormang3/thormang3_ros_packages/thormang3_walking_module_balance_diagram.webp)
 
 #### Download & Build
 
@@ -1675,7 +1675,7 @@ The package for THORMANG3 demonstration.
 Initial posture, walking, manipulation, head control are available with this package.  
 Feet ft calibration, Pointcloud conversion are available with this package.
 
-![](/img/systems/thormang3/thormang3_037.webp)
+![](/img/systems/thormang3/thormang3_ros_packages/thormang3_037.webp)
 
 #### Download & Build
 
@@ -2074,7 +2074,7 @@ $ roslaunch thormang3_action_editor thormang3_action_editor.launch
 
 #### UI
 
-![](/img/systems/thormang3/thormang3_038.webp)
+![](/img/systems/thormang3/thormang3_ros_packages/thormang3_038.webp)
 
 - **Page number**: Page number is the listed page number. If user wants to create a new action poses, user can use any empty page.  
 - **Page title**: We'd like to recommend to user that they use a page title, if they will make a new action on an empty page.  
@@ -2114,7 +2114,7 @@ The below table shows the contents of the default action file.
 #### Basic Command of Action Editor
 After typing "help", the commend list will appear as shown below.  
 
-![](/img/systems/thormang3/thormang3_039.webp)
+![](/img/systems/thormang3/thormang3_ros_packages/thormang3_039.webp)
 
 - **exit**: exits the program.  
 - **re**: refreshes the screen.  
@@ -2139,28 +2139,28 @@ After typing "help", the commend list will appear as shown below.
 1. Run the thormang3_action_editor on MPC  
 2. Find the page where the "walking_init page" is by typing "list"  
 
-    ![](/img/systems/thormang3/thormang3_040.webp)
+    ![](/img/systems/thormang3/thormang3_ros_packages/thormang3_040.webp)
 
 3. Exit the list and go to any blank page by typing "page [x]"(for example, page 15).
 
-    ![](/img/systems/thormang3/thormang3_041.webp)
+    ![](/img/systems/thormang3/thormang3_ros_packages/thormang3_041.webp)
 
 4. And copy the page 1 to page [x].  
 
-    ![](/img/systems/thormang3/thormang3_042.webp)
+    ![](/img/systems/thormang3/thormang3_ros_packages/thormang3_042.webp)
 
 5. Go to "walking_init" pose by typing "play"  
 6. Turn off the torque of ID 2, 4 and 8 by typing "off 2 4 8"  
 
-    ![](/img/systems/thormang3/thormang3_043.webp)
+    ![](/img/systems/thormang3/thormang3_ros_packages/thormang3_043.webp)
 
 7. After getting the desired pose turn torque on again by simple typing on. And insert the pose to step 1 by typing "i 1"  
 
-    ![](/img/systems/thormang3/thormang3_044.webp)
+    ![](/img/systems/thormang3/thormang3_ros_packages/thormang3_044.webp)
 
 8. Edit "Pause Time", "Time" of STP1 and "Page Step" as shown below.  
 
-    ![](/img/systems/thormang3/thormang3_045.webp)
+    ![](/img/systems/thormang3/thormang3_ros_packages/thormang3_045.webp)
 
 9. Type "play" and check the THORMANG3's action  
 

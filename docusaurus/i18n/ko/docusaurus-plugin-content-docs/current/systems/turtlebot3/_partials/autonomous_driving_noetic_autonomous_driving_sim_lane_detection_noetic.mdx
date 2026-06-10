@@ -36,11 +36,11 @@ $ rqt
 
 8. Display three topics at each image viewer
   - `/detect/image_lane/compressed`  
-  ![](/img/systems/turtlebot3/autonomous_driving/noetic_detect_image_lane.webp)
+  ![](/img/systems/turtlebot3/autonomous_driving/autonomous_driving/noetic_detect_image_lane.webp)
   - `/detect/image_yellow_lane_marker/compressed` : a yellow range color filtered image.  
-  ![](/img/systems/turtlebot3/autonomous_driving/noetic_detect_yellow_lane.webp)
+  ![](/img/systems/turtlebot3/autonomous_driving/autonomous_driving/noetic_detect_yellow_lane.webp)
   - `/detect/image_white_lane_marker/compressed` : a white range color filtered image.  
-  ![](/img/systems/turtlebot3/autonomous_driving/noetic_detect_white_lane.webp)
+  ![](/img/systems/turtlebot3/autonomous_driving/autonomous_driving/noetic_detect_white_lane.webp)
 
 9. Open a new terminal and execute rqt_reconfigure.
 ```bash
@@ -49,7 +49,7 @@ $ rosrun rqt_reconfigure rqt_reconfigure
 
 10. Click **detect_lane** then adjust parameters so that yellow and white colors can be filtered properly.
 
-    ![](/img/systems/turtlebot3/autonomous_driving/noetic_lane_reconfigure.webp)
+    ![](/img/systems/turtlebot3/autonomous_driving/autonomous_driving/noetic_lane_reconfigure.webp)
 
     **TIP**: Calibration for line color filtering is sometimes difficult due to the surrounding physical environment, such as the luminance of light in the room etc.  
     To get started quickly, use the values from the **lane.yaml** file located in **turtlebot3_auatorace_detect/param/lane/** as the reconfiguration parameters, then start calibration.  
@@ -61,7 +61,7 @@ $ rosrun rqt_reconfigure rqt_reconfigure
 
 11. Open **lane.yaml** file located in **turtlebot3_autorace_detect/param/lane/**. Writing modified values to this file will allow the camera to load the set parameters on future launches.
 
-    ![](/img/systems/turtlebot3/autonomous_driving/noetic_lane_yaml.webp)
+    ![](/img/systems/turtlebot3/autonomous_driving/autonomous_driving/noetic_lane_yaml.webp)
 
     > Modified lane.yaml file
 
@@ -79,7 +79,7 @@ $ roslaunch turtlebot3_autorace_driving turtlebot3_autorace_control_lane.launch
 
 <details>
 <summary>
-![](/img/icon_unfold.webp) **Click to expand : How to Perform Lane Detection with Actual TurtleBot3?**
+![](/img/common/icon_unfold.webp) **Click to expand : How to Perform Lane Detection with Actual TurtleBot3?**
 </summary>
 
 Lane detection package allows Turtlebot3 to automatically drive between two lanes without external influence.
@@ -126,7 +126,7 @@ $ rqt
 5. Select three topics at each image view: `/detect/image_yellow_lane_marker/compressed`, `/detect/image_lane/compressed`, `/detect/image_white_lane_marker/compressed`
 
    - Left (Yellow line) and Right (White line) screen show a filtered image.  Center screen is the view of the camera from TurtleBot3.
-     ![](/img/systems/turtlebot3/autonomous_driving/noetic_rpi_before_detect_lane.webp)
+     ![](/img/systems/turtlebot3/autonomous_driving/autonomous_driving/noetic_rpi_before_detect_lane.webp)
      > Image view of `/detect/image_yellow_lane_marker/compressed` topic , `/detect/image_white_lane_marker/compressed` topic , `/detect/image_lane/compressed` topic
 
 
@@ -137,11 +137,11 @@ $ rosrun rqt_reconfigure rqt_reconfigure
 
 6. Click **Detect Lane** then adjust parameters to do line color filtering.
 
-   ![](/img/systems/turtlebot3/autonomous_driving/noetic_rpi_detect_lane_param.webp)
+   ![](/img/systems/turtlebot3/autonomous_driving/autonomous_driving/noetic_rpi_detect_lane_param.webp)
 
    > List of Detect Lane Parameters
 
-   ![](/img/systems/turtlebot3/autonomous_driving/noetic_rpi_after_detect_lane.webp)
+   ![](/img/systems/turtlebot3/autonomous_driving/autonomous_driving/noetic_rpi_after_detect_lane.webp)
 
    > Filtered Image after adjusting parameters at rqt_reconfigure
 
@@ -155,7 +155,7 @@ $ rosrun rqt_reconfigure rqt_reconfigure
 
 7. Open **lane.yaml** file located in **turtlebot3_autorace_detect/param/lane/**. Writing modified values to this file will allow the camera to load the set parameters on future launches.
 
-   ![](/img/systems/turtlebot3/autonomous_driving/noetic_rpi_lane_yaml.webp)
+   ![](/img/systems/turtlebot3/autonomous_driving/autonomous_driving/noetic_rpi_lane_yaml.webp)
 
 8. Close both **rqt_rconfigure** and **turtlebot3_autorace_detect_lane**.
 

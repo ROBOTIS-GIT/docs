@@ -4,7 +4,7 @@ This device provides the following 3 types of profile.
 Profiles are usually selected by the combination of [Profile Velocity(560)] and [Profile Acceleration(556)].  
 Trapezoidal Profile is exceptionally chosen with additional factor: travel distance(&Delta;Pos, the distance between desired position and present position).
 
-![](/img/dxl/p/profile_types.webp)
+![](/img/common/profile_types.webp)
 
 When given [Goal Position(564)], the device’s profile creates desired velocity trajectory based on present velocity(initial velocity of the Profile).  
 When the device receives updated desired position via [Goal Position(564)] while it is moving toward the previous desired position, velocity will smoothly changed for the new desired velocity trajectory.  
@@ -29,7 +29,7 @@ The following explains how Profile processes [Goal Position(564)] when the [Oper
 | (Profile Velocity(560) ≠ 0) & (Profile Acceleration(556) = 0) | Rectangular Profile                    |
 | (Profile Velocity(560) ≠ 0) & (Profile Acceleration(556) ≠ 0) | Trapezoidal Profile                    |
 
-![](/img/dxl/p/velocity_profile.webp)
+![](/img/common/velocity_profile.webp)
 
 
 :::note

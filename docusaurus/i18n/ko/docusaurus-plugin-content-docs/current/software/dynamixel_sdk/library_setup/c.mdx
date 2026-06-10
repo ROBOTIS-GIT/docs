@@ -88,7 +88,7 @@ $ cd [DynamixelSDK folder]/c/example/protocol1.0/read_write/linux32
 $ cd [DynamixelSDK folder]/c/example/protocol1.0/read_write/linux64
 ```
 
-  ![](/img/software/dynamixel/dynamixel_sdk/library_setup/c/linux/sample_code/exc4.webp)
+  ![](/img/software/dynamixel_sdk/library_setup/c/exc4.webp)
 
 * Build the executable file: 
 
@@ -96,13 +96,13 @@ $ cd [DynamixelSDK folder]/c/example/protocol1.0/read_write/linux64
 $ make
 ```
 
-  ![](/img/software/dynamixel/dynamixel_sdk/library_setup/c/linux/sample_code/exc1.webp)
+  ![](/img/software/dynamixel_sdk/library_setup/c/exc1.webp)
 
 * If there is an error, `$ make clean` then `$ make` again.
 
 * To delete the executable file, `$ make clean`.
 
-  ![](/img/software/dynamixel/dynamixel_sdk/library_setup/c/linux/sample_code/exc2.webp)
+  ![](/img/software/dynamixel_sdk/library_setup/c/exc2.webp)
 
 * Access the port you will be using to communicate with DYNAMIXEL: 
 
@@ -110,7 +110,7 @@ $ make
 $ sudo chmod a+rw /dev/ttyUSB0
 ```
 
-  ![](/img/software/dynamixel/dynamixel_sdk/library_setup/c/linux/sample_code/exc3.webp)
+  ![](/img/software/dynamixel_sdk/library_setup/c/exc3.webp)
 
 * Run the executable file: 
 
@@ -118,7 +118,7 @@ $ sudo chmod a+rw /dev/ttyUSB0
 $ ./read_write
 ```
 
-  ![](/img/software/dynamixel/dynamixel_sdk/library_setup/c/linux/sample_code/exc5.webp)
+  ![](/img/software/dynamixel_sdk/library_setup/c/exc5.webp)
 
 # CMake Build
 - Latest DYNAMIXEL SDK supports CMake build. 
@@ -171,16 +171,16 @@ $ ./broadcast_ping
 # Install requirements
 - [Download Visual Studio Community for Windows Desktop](https://www.visualstudio.com/en-us/products/visual-studio-express-vs.aspx)
 
-  ![](/img/software/dynamixel/dynamixel_sdk/library_setup/c/vs.webp)
+  ![](/img/software/dynamixel_sdk/library_setup/c/vs.webp)
 
 # Build the SDK
 - Open the project solution file (.sln) located in the `[DynamixelSDK folder]/c/build/win32` directory OR `[DynamixelSDK folder]/c/build/win64` directory).
 
-  ![](/img/software/dynamixel/dynamixel_sdk/library_setup/c/windows/library_file/1.webp)
+  ![](/img/software/dynamixel_sdk/library_setup/c/library_file/1.webp)
 
 - In the Solution Explorer, right click on the project and select Properties.
 
-  ![](/img/software/dynamixel/dynamixel_sdk/library_setup/c/windows/library_file/2.webp)
+  ![](/img/software/dynamixel_sdk/library_setup/c/library_file/2.webp)
 
 - Under General Configuration Properties, confirm that the paths and file extensions are set to the following:
 
@@ -198,17 +198,17 @@ If the library file needs to be built in a lower or higher version of Visual Stu
 :::
 
 
-![](/img/software/dynamixel/dynamixel_sdk/library_setup/c/windows/library_file/3.webp)
+![](/img/software/dynamixel_sdk/library_setup/c/library_file/3.webp)
 
 - Confirm that the Additional Include Directories path under the General C/C++ Configuration Properties tree is as follows:  
 
   `..\..\..\include\dynamixel_sdk`
 
-  ![](/img/software/dynamixel/dynamixel_sdk/library_setup/c/windows/library_file/4.webp)
+  ![](/img/software/dynamixel_sdk/library_setup/c/library_file/4.webp)
 
 - Right click on the project and select Build to build the library.
 
-  ![](/img/software/dynamixel/dynamixel_sdk/library_setup/c/windows/library_file/5.webp)
+  ![](/img/software/dynamixel_sdk/library_setup/c/library_file/5.webp)
 
 - The built library file will be saved to `[DynamixelSDK folder]/c/build/[winXX]/output/dxl_xYY_c.dll`.
 
@@ -219,11 +219,11 @@ By following the instructions above, The compiled .dll files are output to `[Dyn
 
 - Run the .sln file located in the `[DynamixelSDK folder]/c/example/protocol2.0/read_write/win32` folder if you have a 32-bit platform OR the `[DynamixelSDK folder]/c/example/protocol2.0/read_write/win64` folder if you have a 64-bit platform.
 
-  ![](/img/software/dynamixel/dynamixel_sdk/library_setup/c/windows/sample_code/1.webp)
+  ![](/img/software/dynamixel_sdk/library_setup/c/sample_code/1.webp)
 
 - Right click on the project and select Properties.
 
-  ![](/img/software/dynamixel/dynamixel_sdk/library_setup/c/windows/sample_code/2.webp)
+  ![](/img/software/dynamixel_sdk/library_setup/c/sample_code/2.webp)
 
 - In the resulting Property Pages window, under Configuration Properties --> General, check that the directories and file extensions are set as follows:
 
@@ -232,36 +232,36 @@ By following the instructions above, The compiled .dll files are output to `[Dyn
   - Target Extension: `.exe`
   - Configuration Type: `Application (.exe)`
 
-    ![](/img/software/dynamixel/dynamixel_sdk/library_setup/c/windows/sample_code/3.webp)
+    ![](/img/software/dynamixel_sdk/library_setup/c/sample_code/3.webp)
 
 - Under Configuration Properties --> Debugging add the following path to your Environment:
   - win32: `PATH=%PATH%;..\..\..\..\..\build\win32\output;`
   - win64: `PATH=%PATH%;..\..\..\..\..\build\win64\output;`
 
-    ![](/img/software/dynamixel/dynamixel_sdk/library_setup/c/windows/sample_code/4.webp)
+    ![](/img/software/dynamixel_sdk/library_setup/c/sample_code/4.webp)
 
 - Under Configuration Properties --> VC++ Directories, add the following path to Library Directories:
   - win32: `..\..\..\..\..\build\win32\output;`
   - win64: `..\..\..\..\..\build\win64\output;`
 
-    ![](/img/software/dynamixel/dynamixel_sdk/library_setup/c/windows/sample_code/5.webp)
+    ![](/img/software/dynamixel_sdk/library_setup/c/sample_code/5.webp)
 
 - Under Configuration Properties --> C/C++ --> General, add the following path to Additional Include Directories:
 
   `..\..\..\..\..\include\dynamixel_sdk`
 
-    ![](/img/software/dynamixel/dynamixel_sdk/library_setup/c/windows/sample_code/6.webp)
+    ![](/img/software/dynamixel_sdk/library_setup/c/6.webp)
 
 - Under Configuration Properties --> Linker --> Input, add the following file to Additional Dependencies:
 
   - win32: `dxl_x86_c.lib;`
   - win64: `dxl_x64_c.lib;`
 
-    ![](/img/software/dynamixel/dynamixel_sdk/library_setup/c/windows/sample_code/7.webp)
+    ![](/img/software/dynamixel_sdk/library_setup/c/7.webp)
 
 - Click on the Local Windows Debugger button to run the program.
 
-  ![](/img/software/dynamixel/dynamixel_sdk/library_setup/c/windows/sample_code/8.webp)
+  ![](/img/software/dynamixel_sdk/library_setup/c/8.webp)
 
 # CMake Build
 - Latest DYNAMIXEL SDK supports CMake build. 
@@ -281,12 +281,12 @@ The existing OS-specific `make` build system has been unified into a single `CMa
 Install cmake from [cmake download](https://cmake.org/download/).  
 Download the msi file and install it.
 
-![cmake_install](/img/software/dynamixel/dynamixel_sdk/library_setup/c/windows/cmake_build/cmake_install.webp)  
+![cmake_install](/img/software/dynamixel_sdk/library_setup/cmake_install.webp)  
 
 Install Visual Studio build tools from [Visual Studio download](https://visualstudio.microsoft.com/downloads/).  
 Start Visual Studio Installer and install the build tools.  
 
-![vs_build_tool_install](/img/software/dynamixel/dynamixel_sdk/library_setup/c/windows/cmake_build/vs_build_tool_install.webp)  
+![vs_build_tool_install](/img/software/dynamixel_sdk/library_setup/vs_build_tool_install.webp)  
 
 After installation, open the `x64 Native Tools Command Prompt for VS` as **administrator** and navigate to the DynamixelSDK/c directory.  
 Build the SDK. `--target install` option makes the library files installed to the system.  

@@ -9,7 +9,7 @@
 
 <details>
 <summary>
-![](/img/icon_unfold.webp) Read more about **TurtleBot3 Simulation**
+![](/img/common/icon_unfold.webp) Read more about **TurtleBot3 Simulation**
 </summary>
 TurtleBot3 supports simulation development environments that can allow for development with a virtual robot. There are two development environments to do this, one using **fake node with 3D visualization in RViz**, and the other is the **3D robot simulator Gazebo**.
 
@@ -45,21 +45,21 @@ Three simulation environments are prepared for TurtleBot3. Please select one of 
 
 
 1. Empty World  
-![](/img/systems/turtlebot3/simulation/turtlebot3_empty_world.webp)
+![](/img/systems/turtlebot3/simulation/gazebo_simulation/turtlebot3_empty_world.webp)
 ```bash
 $ export TURTLEBOT3_MODEL=burger
 $ ros2 launch turtlebot3_gazebo empty_world.launch.py
 ```
 
 2. TurtleBot3 World  
-![](/img/systems/turtlebot3/simulation/gazebo_world.webp)
+![](/img/systems/turtlebot3/simulation/gazebo_simulation/gazebo_world.webp)
 ```bash
 $ export TURTLEBOT3_MODEL=waffle
 $ ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
 ```
 
 3. TurtleBot3 House  
-![](/img/systems/turtlebot3/simulation/turtlebot3_house.webp)
+![](/img/systems/turtlebot3/simulation/gazebo_simulation/turtlebot3_house.webp)
 ```bash
 $ export TURTLEBOT3_MODEL=waffle_pi
 $ ros2 launch turtlebot3_gazebo turtlebot3_house.launch.py
@@ -77,7 +77,7 @@ $ ros2 run turtlebot3_teleop teleop_keyboard
 
 <details>
 <summary>
-![](/img/icon_unfold.webp) Read more about **How to run Autonomous Collision Avoidance**
+![](/img/common/icon_unfold.webp) Read more about **How to run Autonomous Collision Avoidance**
 </summary>
 A simple collision avoidance node which keeps a safe distance from obstacles and makes turns to avoid collisions is provided with the TurtleBot3 simulation packages.  
 In order to autonomously drive a TurtleBot3 in the **TurtleBot3 world**, please follow the instructions below.
@@ -92,7 +92,7 @@ $ ros2 run turtlebot3_gazebo turtlebot3_drive
 
 <details>
 <summary>
-![](/img/icon_unfold.webp) Read more about **How to visualize Simulation data(RViz2)**
+![](/img/common/icon_unfold.webp) Read more about **How to visualize Simulation data(RViz2)**
 </summary>
 RViz2 visualizes published topics while simulation is running. You can launch RViz2 in a new terminal window with the following command.
 
@@ -100,5 +100,5 @@ RViz2 visualizes published topics while simulation is running. You can launch RV
 $ ros2 launch turtlebot3_bringup rviz2.launch.py
 ```
 
-![](/img/systems/turtlebot3/simulation/turtlebot3_gazebo_rviz.webp)
+![](/img/systems/turtlebot3/simulation/gazebo_simulation/turtlebot3_gazebo_rviz.webp)
 </details>

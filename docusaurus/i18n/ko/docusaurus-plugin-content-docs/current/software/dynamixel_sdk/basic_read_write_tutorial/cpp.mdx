@@ -26,7 +26,7 @@ $ code my_read_write.cpp
 
 
 - Open Visual Studio and create a new project as a Console Application.
-  ![](/img/software/dynamixel/dynamixel_sdk/basic_read_write_tutorial/makeproject.webp)
+  ![](/img/software/dynamixel_sdk/makeproject.webp)
 
 
 # Source Code Description
@@ -62,7 +62,7 @@ $ code my_read_write.cpp
 ```
 <details>
 <summary>
-  ![](/img/icon_unfold.webp) **ERROR LOGGING**
+  ![](/img/common/icon_unfold.webp) **ERROR LOGGING**
 </summary>
 
 `openPort()` and `setBaudRate()` functions return a boolean value indicating success or failure. If you want to check for failure, you can write like below to print an error message and exit the program.
@@ -96,7 +96,7 @@ $ code my_read_write.cpp
   - `data` : The data you want to write to the specified address.
 <details>
 <summary>
-  ![](/img/icon_unfold.webp) **ERROR LOGGING**
+  ![](/img/common/icon_unfold.webp) **ERROR LOGGING**
 </summary>
 
 `write1ByteTxRx()` returns a communication result. If you want to check the communication result and error, you can write the code as shown below.  
@@ -142,7 +142,7 @@ The `dxl_comm_result`, `dxl_error` variable should be declared beforehand.
 ```
 <details>
 <summary>
-  ![](/img/icon_unfold.webp) **ERROR LOGGING**
+  ![](/img/common/icon_unfold.webp) **ERROR LOGGING**
 </summary>
 
 `write4ByteTxRx()` returns a communication result. If you want to check the communication result and error, you can write the code as shown below.  
@@ -175,7 +175,7 @@ The `dxl_comm_result`, `dxl_error` variable should be declared beforehand.
 ```
 <details>
 <summary>
-  ![](/img/icon_unfold.webp) **ERROR LOGGING**
+  ![](/img/common/icon_unfold.webp) **ERROR LOGGING**
 </summary>
 
 `read4ByteTxRx()` returns a communication result. If you want to check the communication result and error, you can write the code as shown below.  
@@ -215,11 +215,11 @@ $ ./my_read_write
 
 - Set build properties.
 
-  ![](/img/software/dynamixel/dynamixel_sdk/basic_read_write_tutorial/buildproperties.webp)
+  ![](/img/software/dynamixel_sdk/buildproperties.webp)
   - `C/C++ → Additional Include Directories` : `{$Dynamixel_SDK_PATH\c++\include}`
   - `Debugging → Environment` : `PATH=%PATH%;{$Dynamixel_SDK_PATH\c++\build\win64\output}` (if you use 32bit architecture, use `{$Dynamixel_SDK_PATH\c++\build\win32\output}`)
 
-  ![](/img/software/dynamixel/dynamixel_sdk/basic_read_write_tutorial/buildproperties2.webp)
+  ![](/img/software/dynamixel_sdk/buildproperties2.webp)
   - `Linker` → `Additional Library Directories` : `{$Dynamixel_SDK_PATH\c++\build\win64\output}` (if you use 32bit architecture, use `{$Dynamixel_SDK_PATH\c++\build\win32\output}`)
   - `Linker` → `Input` → `Additional Dependencies` : `dxl_x64_cpp.lib`
 
@@ -227,7 +227,7 @@ $ ./my_read_write
 
 - **Build properties setup is complete. You can now build and run the project.**
 
-  ![](/img/software/dynamixel/dynamixel_sdk/basic_read_write_tutorial/buildandrun.webp)
+  ![](/img/software/dynamixel_sdk/buildandrun.webp)
 - **After building, you can find the executable file( .exe ) in the output directory :** `{$YOUR_SLN_DIR\x64\}`
 
 

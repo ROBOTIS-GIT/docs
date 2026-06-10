@@ -324,7 +324,7 @@ Operating PC is used to control the robot from the outside.
   $ roslaunch thormang3_description thormang3_opc.launch
   ```
 
-    ![](/img/systems/thormang3/thormang3_047.webp)
+    ![](/img/systems/thormang3/thormang3_operation/thormang3_047.webp)
 
 ### Remote Control(GUI Demo)
 Demo program for remote control is provided.  
@@ -344,15 +344,15 @@ Walking, manipulation, head control are provided.
 4. Move to `Mode` tab  
 5. Click the mode at the top to activate  
 6. Check all joints are switched to selected mode.  
-    ![](/img/systems/thormang3/thormang3_048.webp)
+    ![](/img/systems/thormang3/thormang3_operation/thormang3_048.webp)
 
 7. Initial Posture  
   In order to operate the robot safely, the robot should be operated from the initial posture.  
   Click `Robot Init Pose` button at the top of demo program(Effective regardless of current mode)  
 
-    ![](/img/systems/thormang3/thormang3_049.webp)
+    ![](/img/systems/thormang3/thormang3_operation/thormang3_049.webp)
 
-    ![](/img/systems/thormang3/thormang3_050.webp)
+    ![](/img/systems/thormang3/thormang3_operation/thormang3_050.webp)
 
 ### Calibrate FT Sensors
 Instructions about how to calibrate FT Sensors on THORMANG3's feet. Balance Algorithm for walking works well when FT Sensors are calibrated.   
@@ -369,19 +369,19 @@ Instructions about how to calibrate FT Sensors on THORMANG3's feet. Balance Algo
 1. Move to Robot Init Pose
   - Click `Robot Init Pose` button on the top.  
 
-    ![](/img/systems/thormang3/thormang3_051.webp)
+    ![](/img/systems/thormang3/thormang3_operation/thormang3_051.webp)
 
 2. Measure FT Air  
   - After reaching to Robot Init Pose, click `FT Air` button to measure the Force Torque value in the air.
   - **THORMANG3 must be hanging on the lift for this procedure.**
 
-    ![](/img/systems/thormang3/thormang3_052.webp)
+    ![](/img/systems/thormang3/thormang3_operation/thormang3_052.webp)
 
 3. Measure FT Ground  
     - After completing previous procedure, click `FT Ground` button to measure the Force Torque on the ground.
     - **THORMANG3 must be standing on the ground for this procedure.**
 
-    ![](/img/systems/thormang3/thormang3_053.webp)
+    ![](/img/systems/thormang3/thormang3_operation/thormang3_053.webp)
 
     - **Measured values are displayed on the left of GUID.**
     - **If measured Fz value on the ground is greater than the measured value in the air by more than around 210N, it is normal.**
@@ -391,12 +391,12 @@ Instructions about how to calibrate FT Sensors on THORMANG3's feet. Balance Algo
   - After completing above procedures, click `Apply Init FT` button.
   - Measured Force Torque values in the air and on the ground are transmitted to [thormang3_feet_ft_module] and FT Sensor calibration is completed.
 
-    ![](/img/systems/thormang3/thormang3_054.webp)
+    ![](/img/systems/thormang3/thormang3_operation/thormang3_054.webp)
 
 5. Save FT Calibration
   - If you want to save current calibration, click `Save FT calibration` button.
 
-    ![](/img/systems/thormang3/thormang3_055.webp)
+    ![](/img/systems/thormang3/thormang3_operation/thormang3_055.webp)
 
 ### Operate Head Module
 Instructions about controlling head of THORMANG3.  
@@ -411,7 +411,7 @@ User can manipulate head joints to move the sensor attached head.
   2. Assemble  
   Click `Make PointCloud` button in the `Basic Control` of the demo program.  
 
-      ![](/img/systems/thormang3/thormang3_056.webp)
+      ![](/img/systems/thormang3/thormang3_operation/thormang3_056.webp)
 
   3. Check the pointcloud  
     Assembled pointcloud can be seen on the RViz screen.  
@@ -423,7 +423,7 @@ User can manipulate head joints to move the sensor attached head.
         - Select `/robotis/sensor/assembled_scan/PointCloud2`  
       - Check PointCloud on the 3D screen  
 
-        ![](/img/systems/thormang3/thormang3_057.webp)
+        ![](/img/systems/thormang3/thormang3_operation/thormang3_057.webp)
 
 - Head Joint Control  
   1. Change the Mode  
@@ -432,7 +432,7 @@ User can manipulate head joints to move the sensor attached head.
 
   3. Change the value for specific joint.  
 
-  ![](/img/systems/thormang3/thormang3_058.webp)
+  ![](/img/systems/thormang3/thormang3_operation/thormang3_058.webp)
 
 ### Operate Manipulation Module
 Instructions about how to operate the manipulation module on the OPC GUI program.
@@ -440,7 +440,7 @@ Instructions about how to operate the manipulation module on the OPC GUI program
 #### How to operate the Manipulation module
 Manipulation Control Mode can control and receive feedback of the upper body.
 
-![](/img/systems/thormang3/thormang3_059.webp)
+![](/img/systems/thormang3/thormang3_operation/thormang3_059.webp)
 
 ##### Joint Space Control
 
@@ -493,7 +493,7 @@ Manipulation Control Mode can control and receive feedback of the upper body.
 Examples to control walking by using [thormang3_demo] and [thormang3_foot_step_generator].   
 Structure looks like the below figure.  
 
-![](/img/systems/thormang3/thormang3_060.webp)
+![](/img/systems/thormang3/thormang3_operation/thormang3_060.webp)
 
 ##### Install & Build
 
@@ -508,7 +508,7 @@ Structure looks like the below figure.
 1. Move to Robot Init Pose
   - Click the `Robot Init Pose` button.  
 
-    ![](/img/systems/thormang3/thormang3_061.webp)
+    ![](/img/systems/thormang3/thormang3_operation/thormang3_061.webp)
 
 2. FT Sensor Calibration
   - FT sensor calibration is important for the walking operation.
@@ -520,34 +520,34 @@ Structure looks like the below figure.
 3. Set Mode
   - Click the `Walking Module` button to switch to Walking Mode.
 
-    ![](/img/systems/thormang3/thormang3_062.webp)
+    ![](/img/systems/thormang3/thormang3_operation/thormang3_062.webp)
 
 4. Balance On
   - Select the `Walking` tab from the demo program.
   - Click `On` button in the `Balance Control`.
 
-    ![](/img/systems/thormang3/thormang3_063.webp)
+    ![](/img/systems/thormang3/thormang3_operation/thormang3_063.webp)
 
     - Balance is turned on by configuring [Balance Parameter] with the `/robotis/walking/set_balance_param` service.
     - Balance Parameter is updated with the saved value in the [thormang3_foot_step_generator/data/balance_param.yaml].
 
-    ![](/img/systems/thormang3/thormang3_064.webp)
+    ![](/img/systems/thormang3/thormang3_operation/thormang3_064.webp)
 
 5. Walking Control
   - Configure Walking Parameters on the right of the `Direction Walking` panel.
   - After configuring parameters, clicking one of Walking Directions will initiate walking of THORMANG3.
 
-    ![](/img/systems/thormang3/thormang3_065.webp)
+    ![](/img/systems/thormang3/thormang3_operation/thormang3_065.webp)
 
     - The procedure flows as below.
 
-    ![](/img/systems/thormang3/thormang3_066.webp)
+    ![](/img/systems/thormang3/thormang3_operation/thormang3_066.webp)
 
 
 #### Walking with [thormang3_demo] and [footstep_planner]
 A walking example that follows StepData using [footstep_planner].
 
-![](/img/systems/thormang3/thormang3_067.webp)
+![](/img/systems/thormang3/thormang3_operation/thormang3_067.webp)
 
 ##### Install & Build
 
@@ -569,37 +569,37 @@ A walking example that follows StepData using [footstep_planner].
   - Click the `Add` button on the Rviz window.
   - Select the `By Topic` tab and select the `/demo/foot_step_marker/MarkerArray`, then click `OK`.
 
-    ![](/img/systems/thormang3/thormang3_068.webp)
+    ![](/img/systems/thormang3/thormang3_operation/thormang3_068.webp)
 
 3. Interactive Marker
   - Click the `Publish Point` button on the Rviz window.
   - Click one of the THORMANG's feet on the Rviz window.
 
-    ![](/img/systems/thormang3/thormang3_069.webp)
+    ![](/img/systems/thormang3/thormang3_operation/thormang3_069.webp)
 
     - Click `Set Marker` button.
     - The Interactive Marker is activated on the Rviz window as below figure.
 
-    ![](/img/systems/thormang3/thormang3_070.webp)
+    ![](/img/systems/thormang3/thormang3_operation/thormang3_070.webp)
 
 4. StepData Planning
   - Move the Interative Marker and click `Publish Pose` button.  
   - `Walking` tab of the [thormang3_demo] GUI should be selected ahead.  
 
-    ![](/img/systems/thormang3/thormang3_071.webp)
+    ![](/img/systems/thormang3/thormang3_operation/thormang3_071.webp)
 
     - After checking "Get Pose for Step" message from the GUI and activated `Plan` button, click `Plan` button.  
 
-    ![](/img/systems/thormang3/thormang3_072.webp)
+    ![](/img/systems/thormang3/thormang3_operation/thormang3_072.webp)
 
     - When planning is completed, planned StepData can be seen on the Rviz GUI window.  
 
-    ![](/img/systems/thormang3/thormang3_073.webp)
+    ![](/img/systems/thormang3/thormang3_operation/thormang3_073.webp)
 
 5. Start Walking
   - Confirm planned StepData from the [thormang3_demo] GUI and click `GO!` button.
 
-    ![](/img/systems/thormang3/thormang3_074.webp)
+    ![](/img/systems/thormang3/thormang3_operation/thormang3_074.webp)
 
 
 ## Offset Tuner
@@ -620,7 +620,7 @@ $ rosrun thormang3_offset_tuner_client thormang3_offset_tuner_client
 ```
 
 ### How to use GUI program
-![](/img/systems/thormang3/thormang3_075.webp)
+![](/img/systems/thormang3/thormang3_operation/thormang3_075.webp)
 
 
 ## Tuner Client
@@ -642,12 +642,12 @@ $ rosrun thormang3_tuner_client thormang3_tuner_client
 ![](/img/systems/thormang3/thormang3_tuner_client.webp)   
 
 ### How to use GUI program
-![](/img/systems/thormang3/thormang3_tuner_client_01.webp)    
+![](/img/systems/thormang3/thormang3_operation/thormang3_tuner_client_01.webp)    
 
 
 :::warning
 
-![](/img/icon_warning.webp)  
+![](/img/common/icon_warning.webp)  
 **CAUTION** : When you click `initial pose` or change module to the others, THORMANG3 may jump.  
 This should be done with THORMANG in the air.
 

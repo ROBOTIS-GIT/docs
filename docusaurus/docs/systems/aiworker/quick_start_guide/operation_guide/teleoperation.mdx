@@ -12,7 +12,7 @@ Before starting teleoperation, make sure:
 
 ### Steps for Teleoperation Setup (Leader)
 (*The term `Leader` refers to the control device in the AI WORKER system)
-![Back of the LG2 Leader](/img/systems/aiworker/quick_start_guide/back_of_the_LG2_leader.png)
+![Back of the LG2 Leader](/img/systems/aiworker/quick_start_guide/operation_guide/teleoperation/back_of_the_LG2_leader.png)
 1. `Power Cable`: Connect the power adapter to supply power to the U2D2 device.
 2. `U2D2 ON/OFF`: This switch is located inside a small recessed hole. The device is turned on when the inner white-dotted button is pressed.
 3. `USB Cable`: Connect a USB cable from the U2D2 to one of the USB ports on the back of the `Follower`.
@@ -20,7 +20,7 @@ Before starting teleoperation, make sure:
 
 ### How to Wear the Leader
 **First Leader Version**
-![Leader's wearing appearance](/img/systems/aiworker/quick_start_guide/leader_wearing_appearance.png)
+![Leader's wearing appearance](/img/systems/aiworker/quick_start_guide/operation_guide/teleoperation/leader_wearing_appearance.png)
 
 1. Put both arms through the `Leader`'s `shoulder straps`.
 2. Fasten the chest belt buckle and `hip belt buckle`.
@@ -29,7 +29,7 @@ Before starting teleoperation, make sure:
 **Second Leader Version**
 It can be worn more easily by users with different body types.
 
-<img src="/img/systems/aiworker/quick_start_guide/new_fixed_belt.png" alt="Web UI" className="doc-img-40" />
+<img src="/img/systems/aiworker/quick_start_guide/operation_guide/teleoperation/new_fixed_belt.png" alt="Web UI" className="doc-img-40" />
 
 1. First, pull the inner belt tightly and fasten it around the waist.
 2. Then, pull the outer belt and attach it over the inner belt using the Velcro.
@@ -167,7 +167,7 @@ ros2 launch ffw_bringup ffw_bg2_follower_ai.launch.py launch_cameras:=false init
 :::tip
 You must push **both hand triggers** for more than 2 seconds for the follower to start moving. When you push both triggers forward, the follower will slowly move to the leader's position, and once it comes within a certain error range, it will move quickly.
 
-<img src="/img/systems/aiworker/quick_start_guide/push_trigger_ai_worker.gif" alt="Push Trigger" className="doc-img-50" />
+<img src="/img/systems/aiworker/quick_start_guide/operation_guide/teleoperation/push_trigger_ai_worker.gif" alt="Push Trigger" className="doc-img-50" />
 :::
 
 ### FFW_BG2
@@ -186,7 +186,7 @@ while the `left joystick` controls the`head` section of the robot.
 5. Pressing both switches simultaneously switches to `SWERVE DRIVE MODE`.
 6. In `SWERVE DRIVE MODE`, the left joystick controls: X-axis: Linear x, Y-axis: Linear y
    The right joystick controls: Y-axis: Angular z
-![Swerve joystick Control](/img/systems/aiworker/quick_start_guide/LG2_Joystick.png)
+![Swerve joystick Control](/img/systems/aiworker/quick_start_guide/operation_guide/teleoperation/LG2_Joystick.png)
 
 :::warning
 In swerve mode, the arms continue to move. Please be careful.

@@ -42,7 +42,7 @@ $ rqt
 3. Select the `/camera/image_extrinsic_calib` topic in one window and `/camera/image_projected` in the other.
    - The first topic shows an image with a red trapezoidal shape and the latter shows the ground projected view (Bird's eye view).
 
-      ![](/img/systems/turtlebot3/autonomous_driving/humble_extrinsic_calibration.webp)
+      ![](/img/systems/turtlebot3/autonomous_driving/autonomous_driving/humble_extrinsic_calibration.webp)
       > `/camera/image_extrinsic_calib` (Left) and `/camera/image_projected` (Right)
 
 4. Navigate to **Plugins** > **Configuration** > **Dynamic Reconfigure**.
@@ -52,7 +52,7 @@ $ rqt
    - Intrinsic camera calibration modifies the perspective of the image in the red trapezoid.
    - Adjust `/camera/image_compensation` to fine-tune the `/camera/image_projected` bird’s-eye view.
 
-      ![](/img/systems/turtlebot3/autonomous_driving/humble_extrinsic_calibration_reconfigure.webp)
+      ![](/img/systems/turtlebot3/autonomous_driving/autonomous_driving/humble_extrinsic_calibration_reconfigure.webp)
       > rqt_reconfigure
 
 **Saving Calibration Data**
@@ -73,8 +73,8 @@ $ gedit projection.yaml
 This method ensures that the extrinsic calibration parameters are correctly saved for future runs.
 
 <p align="center">
-  <img src="/img/systems/turtlebot3/autonomous_driving/humble_projection_yaml.webp" width="700"/>
-  <img src="/img/systems/turtlebot3/autonomous_driving/humble_compensation_yaml.webp" width="700"/>
+  <img src="/img/systems/turtlebot3/autonomous_driving/autonomous_driving/humble_projection_yaml.webp" width="700"/>
+  <img src="/img/systems/turtlebot3/autonomous_driving/autonomous_driving/humble_compensation_yaml.webp" width="700"/>
 </p>
 
 <p align="center">
@@ -100,4 +100,4 @@ $ rqt
 ```
 
 1. With successful calibration settings, the bird-eye view image should appear like below when the `/camera/image_projected` topic is selected.
-![](/img/systems/turtlebot3/autonomous_driving/humble_camera_calibration_rqt_image_view.webp)
+![](/img/systems/turtlebot3/autonomous_driving/autonomous_driving/humble_camera_calibration_rqt_image_view.webp)

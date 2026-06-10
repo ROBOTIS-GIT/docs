@@ -78,7 +78,7 @@ tags: [parts, controller]
 
 :::danger
 
-![](/img/icon_warning.webp)  
+![](/img/common/icon_warning.webp)  
 **위험**  
 (심각한 상해 또는 사망에 이르게 할 수 있습니다.)
 -  제품 주위에 가연성 물질, 계면활성제, 음료수, 물을 분사하거나 흡입시키지 마세요. 
@@ -92,7 +92,7 @@ tags: [parts, controller]
 
 :::warning
 
-![](/img/icon_warning.webp)  
+![](/img/common/icon_warning.webp)  
 **경고**  
 (상해나 제품 손상의 원인이 됩니다.)
 -  제품의 사용 환경을 준수하세요. 
@@ -103,7 +103,7 @@ tags: [parts, controller]
 
 :::warning
 
-![](/img/icon_warning.webp)  
+![](/img/common/icon_warning.webp)  
 **주의**  
 (상해나 제품 손상의 원인이 됩니다.)
 - 제품을 사용자 임의로 분해 또는 개조하지 마세요.
@@ -219,7 +219,7 @@ OpenCM9.04의 컨트롤 테이블은 기본 펌웨어를 사용해서 접근이 
 
 # 하드웨어
 ## 메모리 맵
-![](/img/parts/controller/opencm904/memory_map.webp)
+![](/img/software/arduino_ide/opencm904_ex_eeprom/memory_map.webp)
 
 ## 블럭 다이어그램
 OpenCM9.04의 전체 블럭 다이어그램은 아래와 같습니다. OpenCM9.04는 32비트 Cortex-M3 코어를 가진 STM32F103CB 마이크로컨트롤러를 중심으로 회로가 구성되어 있습니다.  
@@ -348,7 +348,7 @@ OpenCM9.04의 CPU인 STM32F103CB의 GPIO 핀들이 외부로 인터페이스 되
 OpenCM9.04의 모든 GPIO핀들은 내부적으로 pull-up 또는 pull-down이 지원되고 소프트웨어로 변경할 수 있습니다. 참고로 pull-up 또는 pull-down 저항은 40Kohm(Typical)입니다.  
 기타 궁금한 사항은 OpenCM9.04의 CPU인 STM32F103CB의 데이터시트를 참고하세요.
 
-![](/img/parts/controller/opencm904/opencm904_14.webp)
+![](/img/faq/dxl-selection-guide/opencm904_14.webp)
 
 > OpenCM9.04 GPIO 핀맵
 
@@ -648,7 +648,7 @@ arduino
 
 [https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCM9.04/master/arduino/opencm_release/package_opencm9.04_index.json](https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCM9.04/master/arduino/opencm_release/package_opencm9.04_index.json)
 
-![](/img/parts/controller/opencm904/opencm9.04_linux_1.webp)
+![](/img/software/arduino_ide/arduino_ide/opencm9.04_linux_1.webp)
 
 
 ##### 보드 매니저를 통해 OpenCM9.04 패키지 설치하기 (리눅스)
@@ -658,15 +658,15 @@ Tools > Board > Boards Manager를 선택하고 아래와 같이 설치하십시�
 
 텍스트상자에 "OpenCM9.04"를 입력하고 검색된 패키지 중 ROBOTIS에서 제작된 패키지를 선택하고 설치하십시오.
 
-![](/img/parts/controller/opencm904/opencm9.04_linux_3.webp)
+![](/img/software/arduino_ide/arduino_ide/opencm9.04_linux_3.webp)
 
 설치가 완료되면 “INSTALLED” 라는 문구가 표시됩니다.
 
-![](/img/parts/controller/opencm904/opencm9.04_linux_4.webp)
+![](/img/software/arduino_ide/arduino_ide/opencm9.04_linux_4.webp)
 
 Tools > Board에서 OpenCM9.04 보드가 보이는지 확인하십시오. OpenCM9.04 관련 소스를 불러오기 위해서는 OpenCM9.04 보드를 선택해야 합니다.
 
-![](/img/parts/controller/opencm904/opencm9.04_linux_5.webp)
+![](/img/software/arduino_ide/arduino_ide/opencm9.04_linux_5.webp)
 
 ##### 포트 설정 (리눅스)
 여기에서는 프로그램을 업로드하기 위한 포트 설정을 합니다.  
@@ -704,7 +704,7 @@ OpenCM9.04는 1.6.4 이상의 아두이노 IDE에서 동작을 확인했습니�
 
 [https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCM9.04/master/arduino/opencm_release/package_opencm9.04_index.json](https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCM9.04/master/arduino/opencm_release/package_opencm9.04_index.json)
 
-![](/img/parts/controller/opencm904/opencm9.04_mac_1.webp)
+![](/img/software/arduino_ide/arduino_ide/opencm9.04_mac_1.webp)
 
 ##### 보드 매니저를 통해 OpenCM9.04 패키지 설치하기 (맥)
 Tools > Board > Boards Manager를 선택하고 아래와 같이 설치하십시오. (네트워크 사정에 따라 다르지만 20분정도 걸립니다.)
@@ -713,11 +713,11 @@ Tools > Board > Boards Manager를 선택하고 아래와 같이 설치하십시�
 
 텍스트상자에 "OpenCM9.04"를 입력하고 검색된 패키지 중 ROBOTIS에서 제작된 패키지를 선택하고 설치하십시오.
 
-![](/img/parts/controller/opencm904/opencm9.04_mac_3.webp)
+![](/img/software/arduino_ide/arduino_ide/opencm9.04_mac_3.webp)
 
 설치가 완료되면 “INSTALLED” 라는 문구가 표시됩니다.
 
-![](/img/parts/controller/opencm904/opencm9.04_mac_4.webp)
+![](/img/software/arduino_ide/arduino_ide/opencm9.04_mac_4.webp)
 
 Tools > Board에서 OpenCM9.04 보드가 보이는지 확인하십시오. OpenCM9.04 관련 소스를 불러오기 위해서는 OpenCM9.04 보드를 선택해야 합니다.
 
@@ -762,19 +762,19 @@ OpenCM9.04는 1.6.4 이상의 아두이노 IDE에서 동작을 확인했습니�
 ##### 보드 매니저를 통해 OpenCM9.04 패키지 설치하기 (윈도우즈)
 Tools > Board > Boards Manager를 선택하고 아래와 같이 설치하십시오. (네트워크 사정에 따라 다르지만 20분정도 걸립니다.)
 
-![](/img/parts/controller/opencm904/opencm904_win_2.webp)
+![](/img/software/arduino_ide/arduino_ide/opencm904_win_2.webp)
 
 텍스트상자에 "OpenCM9.04"를 입력하고 검색된 패키지 중 ROBOTIS에서 제작된 패키지를 선택하고 설치하십시오.
 
-![](/img/parts/controller/opencm904/opencm904_win_3.webp)
+![](/img/software/arduino_ide/arduino_ide/opencm904_win_3.webp)
 
 설치가 완료되면 “INSTALLED” 라는 문구가 표시됩니다.
 
-![](/img/parts/controller/opencm904/opencm904_win_4.webp)
+![](/img/software/arduino_ide/arduino_ide/opencm904_win_4.webp)
 
 Tools > Board에서 OpenCM9.04 보드가 보이는지 확인하십시오. OpenCM9.04 관련 소스를 불러오기 위해서는 OpenCM9.04 보드를 선택해야 합니다.
 
-![](/img/parts/controller/opencm904/opencm904_win_5.webp)
+![](/img/software/arduino_ide/arduino_ide/opencm904_win_5.webp)
 
 ##### 포트 설정 (윈도우즈)
 여기에서는 프로그램을 업로드하기 위한 포트 설정을 합니다.  
@@ -795,7 +795,7 @@ OpenCM9.04에 코드를 업로드 하는 방법은, 일반 아두이노 보드 (
 
 USB를 통해, PC와 OpenCM9.04를 연결한 후, 업로드 버튼을 클릭하세요. 업로드를 시작할때, 보드가 아래처럼 부트로터 (Bootloader)에 진입하는지, 콘솔/메시지 창에서 확인해주세요. 부트로더에 진입하지 못하는 경우, 코드 업로드가 정상적으로 되지 않을수 있습니다. 
 
-![](/img/parts/controller/opencm904/oencm904_upload_01.webp)
+![](/img/parts/controller/openrb-150/oencm904_upload_01.webp)
 
 
 :::note
@@ -815,11 +815,11 @@ USB를 통해, PC와 OpenCM9.04를 연결한 후, 업로드 버튼을 클릭하�
 각각의 방법에 대한 자세한 설명은 [Arduino Official Guide]에서 찾을 수 있습니다.  
 다음은 라이브러리 매니저를 활용하는 방법입니다.
 
-![](/img/parts/interface/dynamixel_shield/library_manager_01.webp)
+![](/img/common/library_manager_01.webp)
 
 라이브러리 매니저에서 `DYNAMIXEL2Arduino`를 검색하고 설치합니다.
 
-![](/img/parts/interface/dynamixel_shield/library_manager_02.webp)
+![](/img/common/library_manager_02.webp)
 
 DYNAMIXEL2Arduino 라이브러리가 성공적으로 설치되었다면, DYNAMIXEL2Arduino 항목에서 다이나믹셀을 제어하는 유용한 예제를 찾을 수 있습니다.
 

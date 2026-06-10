@@ -8,7 +8,7 @@ tags: [parts, controller]
 
 # 개요
 ![](/img/parts/controller/openrb-150/openrb_fonts.webp)  
-![](/img/parts/controller/openrb-150/openrb_overview_01.webp)
+![](/img/common/openrb_overview_01.webp)
 
 OpenRB-150은 아두이노와 호환되는 오픈소스 제어기입니다. 
 
@@ -88,7 +88,7 @@ OpenRB-150은 아두이노와 호환되는 오픈소스 제어기입니다.
 
 :::danger
 
-![](/img/icon_warning.webp)  
+![](/img/common/icon_warning.webp)  
 **위험**  
 (심각한 상해 또는 사망에 이르게 할 수 있습니다.)
 -  제품 주위에 가연성 물질, 계면활성제, 음료수, 물을 분사하거나 흡입시키지 마세요. 
@@ -102,7 +102,7 @@ OpenRB-150은 아두이노와 호환되는 오픈소스 제어기입니다.
 
 :::warning
 
-![](/img/icon_warning.webp)  
+![](/img/common/icon_warning.webp)  
 **경고**  
 (상해나 제품 손상의 원인이 됩니다.)
 -  제품의 사용 환경을 준수하세요. 
@@ -113,7 +113,7 @@ OpenRB-150은 아두이노와 호환되는 오픈소스 제어기입니다.
 
 :::warning
 
-![](/img/icon_warning.webp)  
+![](/img/common/icon_warning.webp)  
 **주의**  
 (상해나 제품 손상의 원인이 됩니다.)
 - 제품을 사용자 임의로 분해 또는 개조하지 마세요.
@@ -124,7 +124,7 @@ OpenRB-150은 아두이노와 호환되는 오픈소스 제어기입니다.
 
 # 하드웨어 레이아웃
 ## 핀아웃
-![](/img/parts/controller/openrb-150/openrb-150_pinout.webp)
+![](/img/common/openrb-150_pinout.webp)
 
 ## 리셋 버튼
 `RESET` 버튼을 눌러, 제어기를 재부팅할 수 있습니다. 
@@ -193,9 +193,9 @@ OpenRB-150은 4개의 TTL 다이나믹셀 포트를 제공합니다.
 |        항목         |                             TTL                              |
 |:-------------------:|:------------------------------------------------------------:|
 |       핀번호        |                `1` GND<br />`2` VDD<br />`3` DATA                |
-|     다이어그램      |        ![](/img/dxl/jst_b3beha_diagram.webp)        |
-|       하우징        |   ![](/img/dxl/JST_EHR-3.webp)<br />[JST EHR-03]    |
-|      PCB 헤더       | ![](/img/dxl/JST_B3B_EH-A.webp)<br />[JST B3B-EH-A] |
+|     다이어그램      |        ![](/img/common/jst_b3beha_diagram.webp)        |
+|       하우징        |   ![](/img/common/JST_EHR-3.webp)<br />[JST EHR-03]    |
+|      PCB 헤더       | ![](/img/common/JST_B3B_EH-A.webp)<br />[JST B3B-EH-A] |
 |    크림프 터미널    |                     [JST SEH-001T-P0.6]                      |
 | 다이나믹셀 전선규격 |                            21 AWG                            |
 
@@ -204,7 +204,7 @@ OpenRB-150은 4개의 TTL 다이나믹셀 포트를 제공합니다.
 [JST SEH-001T-P0.6]: http://www.jst-mfg.com/product/pdf/eng/eEH.pdf
 
 
-![](/img/dxl/x/x_series_ttl_pin.webp)
+![](/img/common/x_series_ttl_pin.webp)
 
 
 :::note
@@ -216,7 +216,7 @@ OpenRB-150은 4개의 TTL 다이나믹셀 포트를 제공합니다.
 
 RS-485 다이나믹셀 모델을 OpenRB-150과 사용하기 위해서는, [다이나믹셀 커뮤니케이션 브릿지]를 연결해서 사용할 수 있습니다.
 
-![](/img/parts/interface/dxl_bridge/dxl_bridge_product_front.webp)
+![](/img/parts/dxl_bridge_product_front.webp)
 > 다이나믹셀 커뮤니케이션 브릿지
 
 ## 시리얼 포트
@@ -270,7 +270,7 @@ OpenRB-150은 다음의 3가지 전원 입력 방법을 통해 구동할 수 있
 
 ## 연결 예시
 ### [USB 전용] 5V 다이나믹셀 연결하기
-![](/img/parts/controller/openrb-150/openrb-150_connection_example01.webp)
+![](/img/common/openrb-150_connection_example01.webp)
 
 
 :::danger
@@ -287,7 +287,7 @@ USB를 통해 다이나믹셀을 구동할 경우, 연결 가능한 다이나믹
 
 
 ### [외부 전원] 12V 다이나믹셀 연결하기 (TTL)
-![](/img/parts/controller/openrb-150/openrb-150_connection_example02.webp)
+![](/img/common/openrb-150_connection_example02.webp)
 
 ### [외부 전원] 12V 다이나믹셀 연결하기 (RS485)
 ![](/img/parts/controller/openrb-150/openrb-150_connection_example03.webp)
@@ -326,7 +326,7 @@ OpenRB-150은 다이나믹셀 위자드 2.0의 대부분의 기능을 사용할 
 ## 아두이노 IDE 설치
 ### 리눅스에 설치하기
 1. 아두이노 공식 홈페이지에서, `Linux 64 bit` 버전을 다운로드 하세요.  
-  ![](/img/icon_download.webp) [https://www.arduino.cc/en/software](https://www.arduino.cc/en/software)
+  ![](/img/common/icon_download.webp) [https://www.arduino.cc/en/software](https://www.arduino.cc/en/software)
 
 2. 원하는 경로에서 다운로드한 파일을 압축 해제한 뒤, 터미널창에서 설치 스크립트를 실행하세요. 
 ```text
@@ -340,7 +340,7 @@ $ arduino
 
 ### 맥에 설치하기
 1. 아두이노 공식 홈페이지에서, `Mac OS X version`을 다운로드 하세요.  
-  ![](/img/icon_download.webp) [https://www.arduino.cc/en/software](https://www.arduino.cc/en/software)
+  ![](/img/common/icon_download.webp) [https://www.arduino.cc/en/software](https://www.arduino.cc/en/software)
 
 2. 다운로드한 아두이노 파일을 `Application`으로 드래그 하세요.
 
@@ -350,7 +350,7 @@ $ arduino
 [Arduino Software Installation instruction video](https://youtu.be/1Y7FLG1n-9k?t=136)에서, 아두이노 설치영상을 참고하실수 있습니다. 
 
 1. 아두이노 공식 홈페이지에서, `Windows Installer version`을 다운로드 하세요.  
-  ![](/img/icon_download.webp) [https://www.arduino.cc/en/software](https://www.arduino.cc/en/software)
+  ![](/img/common/icon_download.webp) [https://www.arduino.cc/en/software](https://www.arduino.cc/en/software)
 
 2. 다운로드한 파일을 설치하세요. 
 
@@ -398,11 +398,11 @@ OpenRB-150에 예제를 빌드하고 업로드하기 위해서는, Arduino SAMD 
 
 다음은 라이브러리 매니저를 활용하는 방법입니다.
 
-![](/img/parts/interface/dynamixel_shield/library_manager_01.webp)
+![](/img/common/library_manager_01.webp)
 
 라이브러리 매니저에서 `DYNAMIXEL2Arduino`를 검색하고 설치합니다.
 
-![](/img/parts/interface/dynamixel_shield/library_manager_02.webp)
+![](/img/common/library_manager_02.webp)
 
 DYNAMIXEL2Arduino 라이브러리가 성공적으로 설치되었다면, DYNAMIXEL2Arduino 항목에서 다이나믹셀을 제어하는 유용한 예제를 찾을 수 있습니다.
 
@@ -446,7 +446,7 @@ USB 케이블로 OpenRB-150과 PC를 연결 후, OpenRB-150 보드를 선택하�
 
 OpenRB-150이 연결된 Port를 선택 후, `업로드` 버튼을 클릭하면 스케치가 업로드 됩니다. 
 
-![](/img/parts/controller/opencm904/oencm904_upload_01.webp)
+![](/img/parts/controller/openrb-150/oencm904_upload_01.webp)
 
 
 :::note

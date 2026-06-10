@@ -31,10 +31,10 @@ tags: [faq]
 ## 모델
 다이나믹셀은 모델별로 다양한 특성(성능, 폼팩터, 기어비, 전압범위, 통신 인터페이스)을 가지고 있습니다. 아래의 네이밍 규칙에서, 각 모델이 가지는 특성을 간편하게 확인 하세요. 
 
-![](/img/dxl/x/dxl_x_productline.webp)
+![](/img/common/dxl_x_productline.webp)
 > 다이나믹셀-X 네이밍 규칙
 
-![](/img/dxl/p/dynamixel_pro_plus_lineup_table.webp)
+![](/img/common/dynamixel_pro_plus_lineup_table.webp)
 > 다이나믹셀-P 네이밍 규칙
 
 
@@ -43,7 +43,7 @@ tags: [faq]
 
 시스템의 요구 조건에 따라, 적합한 성능 그래프(N-T 그래프)를 가지는 다이나믹셀을 선택하세요.  
 
-![](/img/dxl/pro/h54-100-s500-r_performance_graph_2.webp)
+![](/img/common/h54-100-s500-r_performance_graph_2.webp)
 > 성능 그래프 (N-T 그래프)
 
 
@@ -67,26 +67,26 @@ tags: [faq]
 
 <details>
 <summary>
-![](/img/icon_unfold.webp) **팁**: **TTL과 RS-485를 같이 사용할 수 있는 방법이 있나요?**
+![](/img/common/icon_unfold.webp) **팁**: **TTL과 RS-485를 같이 사용할 수 있는 방법이 있나요?**
 </summary>
 
 일반적으로 서로 다른 통신 인터페이스를 지원하는 다이나믹셀은, 동일한 통신 버스를 사용할 수 없습니다. 서로 간의 통신을 해석 하기위해서는 통신변환 인터페이스인 [다인나믹셀 커뮤니케이션 브릿지](/docs/parts/interface/dxl_bridge)를 사용하세요.
 
-![](/img/parts/interface/dxl_bridge/u2d2_bridge_ttl_485.webp)
+![](/img/common/u2d2_bridge_ttl_485.webp)
 </details>
 
 ### TTL
 0 ~ 5V 논리레벨을 가지는 TTL은 다이나믹셀의 기본 통신 방식 중 하나입니다. TTL 인터페이스를 사용하는 다이나믹셀은 연결 커넥터가 3핀으로 되어있으며, [네이밍 규칙](#모델)에 따라 모델 이름이 "-T"로 끝이 납니다. 예를 들어, XL330-M288-T는 TTL 기반의 통신 인터페이스를 사용하여 통신해야 합니다.
 
-![](/img/dxl/x/x_series_ttl_pin.webp)  
+![](/img/common/x_series_ttl_pin.webp)  
 > 다이나믹셀 커넥터 (3핀 JST, -T 모델)
 
 <details>
 <summary>
-![](/img/icon_unfold.webp) **팁**: **다이나믹셀 통신회로 (TTL)**
+![](/img/common/icon_unfold.webp) **팁**: **다이나믹셀 통신회로 (TTL)**
 </summary>
 다이나믹셀을 제어하기 위해서는, 메인 제어기의 UART 신호를 Half-Duplex 타입으로 변환해야합니다. 다음은 그 권장 회로도입니다.
-![](/img/dxl/ttl_circuit.webp)  
+![](/img/common/ttl_circuit.webp)  
 
 
 :::note
@@ -107,16 +107,16 @@ tags: [faq]
 ### RS-485
 장거리 통신을 위해서는 RS-485 모델을 선택하는 것이 좋습니다. RS-485을 사용하는 모델은 커넥터가 4핀으로 이루어져 있으며, [네이밍 규칙](#모델)에 따라 이름이 "-R"로 끝이 납니다. 예를 들어, XD40-T150-R은 RS-485 기반의 통신 인터페이스를 사용하여 통신해야 합니다.  
 
-![](/img/dxl/x/x_series_485_pin.webp)   
+![](/img/common/x_series_485_pin.webp)   
 > 다이나믹벨 커넥터 (4핀 JST, -R 모델)
 
 <details>
 <summary>
-![](/img/icon_unfold.webp) **팁**: **다이나믹셀 통신 회로 (RS-485)**
+![](/img/common/icon_unfold.webp) **팁**: **다이나믹셀 통신 회로 (RS-485)**
 </summary>
 
 다이나믹셀을 제어하기 위해서는, 메인 제어기의 UART 신호를 Half-Duplex 타입으로 변환해야합니다. 다음은 그 권장 회로도입니다.
-![](/img/dxl/x/x_series_485_circuit.webp)  
+![](/img/common/x_series_485_circuit.webp)  
 
 
 :::note
@@ -166,13 +166,13 @@ tags: [faq]
 ### SMPS
 SMPS는 인터페이스 또는 제어기를 통해 다이나믹셀에 전압을 공급하는 안정적인 전원 솔루션입니다. 로보티즈에서 제공되는 제어기와 인터페이스는 2.5mm ID / 5.5 mm OD, Center Positive 규격의 SMPS 호환 커넥터를 지원합니다. 
   
-![](/img/reference/selection_guide/selection_guide_smps.webp)
+![](/img/faq/dxl-selection-guide/selection_guide_smps.webp)
 > SMPS 12V, 5A
 
 ### 배터리
 배터리는 시스템의 자유로운 이동에 필요한 전원 솔루션입니다. 방전율이 높고, 용량이 큰 LiPo 배터리를 사용하게 된다면 전체 시스템에 장시간 충분한 전류를 제공할 수도 있습니다. 시스템의 안전을 위해 PCM(Protection Circuit Modules)이 내장되어있는 배터리를 선택하는 것이 권장됩니다. 
   
-![](/img/reference/selection_guide/selection_guide_lipo.webp)
+![](/img/faq/dxl-selection-guide/selection_guide_lipo.webp)
 > LiPo 배터리 (LB-012) 11.1V 1800mAh 
 
 ### PSU
@@ -193,11 +193,11 @@ SMPS는 인터페이스 또는 제어기를 통해 다이나믹셀에 전압을 
 ### U2D2
 U2D2는 USB 신호를 TTL 또는 RS-485 신호로 변환해주는 통신 변환 인터페이스입니다. PC에 U2D2와 같은 통신 인터페이스를 연결하여, [다이나믹셀 위자드 2.0] 및 [다이나믹셀 SDK](#다이나믹셀-sdk)등을 활용하세요.
  
-![](/img/parts/interface/u2d2_01.webp)
+![](/img/common/u2d2_01.webp)
 
 아래의 다이나믹셀 스타터세트는, 다이나믹셀 개발(다이나믹셀 SDK) 및 테스트 (다이나믹셀 위자드 2.0)을 시작할 수 있도록 준비된 패키지입니다: [U2D2], [U2D2 Power Hub Board], SMPS 12V 5A AC Adapter 
 
-  ![](/img/dxl/dxl_quick_start_insert/dxl_control_01.webp) 
+  ![](/img/faq/dxl-selection-guide/dxl_control_01.webp) 
 
   > 다이나믹셀 스타터 세트 연결 예시
 
@@ -205,14 +205,14 @@ U2D2는 USB 신호를 TTL 또는 RS-485 신호로 변환해주는 통신 변환 
 ### 다이나믹셀 쉴드
 [다이나믹셀 쉴드] 및 [다이나믹셀 쉴드 MKR]은 아두이노 보드를 가지고 있는 유저들을 위한, 쉴드 인터페이스입니다. [DynamixelShield](#dynamixelshield) 라이브러리를 사용하여, 아두이노 환경에서 다이나믹셀을 사용해보세요. 
 
-![](/img/dxl/dxl_quick_start_insert/dxl_control_05.webp) 
+![](/img/faq/dxl-selection-guide/dxl_control_05.webp) 
 > 다이나믹셀 쉴드 연결 예시
 
 ## 임베디드 제어기
 로보티즈에서 제공하는 임베디드 제어기는 아두이노 환경을 지원합니다. 
 
 ### OpenRB-150
-![](/img/parts/controller/openrb-150/openrb_overview_01.webp)
+![](/img/common/openrb_overview_01.webp)
 
 [OpenRB-150]은 아두이노와 호환되는 오픈소스 제어기입니다.  
 아두이노 MKR 보드와 동일한 폼팩터를 특징으로, MKR 악세사리와 호환 및 프로그래밍 할 수 있습니다.  
@@ -223,13 +223,13 @@ U2D2는 USB 신호를 TTL 또는 RS-485 신호로 변환해주는 통신 변환 
 - 4개의 다이나믹셀 TTL 전용 커넥터
 - 다이나믹셀의 손쉬운 사용과 관리를 위한 [다이나믹셀 위자드 2.0] 지원
 
-![](/img/parts/controller/openrb-150/openrb-150_pinout.webp)
+![](/img/common/openrb-150_pinout.webp)
 > OpenRB-150 핀맵 및 레이아웃
 
-![](/img/parts/controller/openrb-150/openrb-150_connection_example01.webp)
+![](/img/common/openrb-150_connection_example01.webp)
 > USB 전원공급 연결 예시
 
-![](/img/parts/controller/openrb-150/openrb-150_connection_example02.webp)
+![](/img/common/openrb-150_connection_example02.webp)
 > SMPS 전원공급 연결 예시
 
 ### OpenCR1.0
@@ -237,22 +237,22 @@ U2D2는 USB 신호를 TTL 또는 RS-485 신호로 변환해주는 통신 변환 
 PCB Gerber, BOM, 펌웨어 및 소스 코드 등 개발에 필요한 자료가 공개되어있으며, 아두이노 환경에서 [다이나믹셀 SDK](#다이나믹셀-sdk-arduino)와 전용 [아두이노 라이브러리](#아두이노-라이브러리)를 사용하여 다이나믹셀을 제어합니다.  
 ROS 공식 플랫폼인 [TurtleBot3](/docs/systems/turtlebot3/overview)의 제어기로 사용되었습니다. 
 
-![](/img/parts/controller/opencr10/opencr_pinout.webp) 
+![](/img/common/opencr_pinout.webp) 
 > OpenCR 1.0 핀맵 및 레이아웃
 
-![](/img/dxl/dxl_quick_start_insert/dxl_control_03.webp) 
+![](/img/faq/dxl-selection-guide/dxl_control_03.webp) 
 > OpenCR 1.0 연결 예시
 
 ### OpenCM9.04
 [OpenCM9.04]은 ARM Cortex-M3을 사용한 제어기입니다. 아두이노 환경에서, [다이나믹셀 SDK](#다이나믹셀-sdk-arduino)와 전용 [아두이노 라이브러리](#아두이노-라이브러리)를 사용할 수 있습니다.
 
-![](/img/parts/controller/opencm904/opencm904_14.webp)
+![](/img/faq/dxl-selection-guide/opencm904_14.webp)
 
 
 :::note
 
 **참고**: OpenCM485 확장 보드를 사용하여, TTL 및 RS-485 다이나믹셀까지 폭넓게 사용 가능합니다.  
-![](/img/parts/controller/opencm904/opencm485exp_product.webp)
+![](/img/faq/dxl-selection-guide/opencm485exp_product.webp)
 
 :::
 
@@ -263,10 +263,10 @@ ROS 공식 플랫폼인 [TurtleBot3](/docs/systems/turtlebot3/overview)의 제�
 
 CM 시리즈는 로보티즈가 제공하는 전용 센서를 사용할 수 있도록 올로 포트를 제공하며, 교육용 소프트웨어를 통해 쉽게 센서의 값을 읽고 제어할 수 있습니다. 
 
-![](/img/dxl/dxl_quick_start_insert/dxl_control_04.webp)
+![](/img/faq/dxl-selection-guide/dxl_control_04.webp)
 > CM시리즈와 다이나믹셀 연결 예시
 
-![](/img/parts/controller/cm-150/cm-150_002.webp)
+![](/img/faq/dxl-selection-guide/cm-150_002.webp)
 > CM-150의 올로 포트를 사용한 센서 연결 예시
 
 다음 제어기들은, 로보티즈에서 사랑받는 교육용 제어기입니다. 제공된 링크에서 자세한 내용을 확인하세요. 
@@ -310,13 +310,13 @@ DYNAMIXEL Wizard 2.0은 다음 특징이 있습니다.
 - 실시간 데이터 플로팅 모니터링 (그래프)
 - 패킷 송/수신 및 모니터링
 
-![](/img/software/dynamixel/wizard2/wizard2_main_001.webp)
+![](/img/common/wizard2_main_001.webp)
 
 ### R+ Manager 2.0
 [R+ Manager 2.0](/docs/software/dynamixel_wizard_2_0/introduction)은 로보플러스 소프트웨어 중 하나입니다.  
 R+Manager 2.0은 CM 시리즈 및 교육용 키트에서 제공되는 [CM 시리즈](#cm-시리즈)의 유지보수(펌웨어 복구 및 업데이트) 및 CM 시리즈에 연결된 다이나믹셀의 테스트를 위해서 사용될 수 있습니다. 
 
-![](/img/software/rplus2/manager/roboplus_manager2_07.webp)
+![](/img/faq/dxl-selection-guide/roboplus_manager2_07.webp)
 
 
 :::note
@@ -357,19 +357,19 @@ R+Manager 2.0은 CM 시리즈 및 교육용 키트에서 제공되는 [CM 시리
 - [Dynamixel2Arduino](#dynamixel2arduino)
 - [DynamixelShield](#dynamixelshield)
 
-![](/img/parts/interface/dynamixel_shield/examples.webp)
+![](/img/common/examples.webp)
 > DynamixelShield Library: 제공 예제
 
 #### Dynamixel2Arduino
 [Dynamixel2Arduino]는 [다이나믹셀 SDK](#다이나믹셀-sdk-arduino)를 기반으로 설계된 라이브러리입니다. 유저 친화적인 API를 제공하며, 다이나믹셀 SDK보다 쉬운 코드 환경 제공합니다. 
 - [API 확인하기](/docs/software/arduino_ide#dynamixel2arduino-library)
 
-![](/img/parts/interface/dynamixel_shield/library_manager_02.webp)
+![](/img/common/library_manager_02.webp)
 
 #### DynamixelShield
 [DynamixelShield] 라이브러리는 [Dynamixel2Arduino](#dynamixel2arduino)의 기능을 상속받은 [다이나믹셀 쉴드](#다이나믹셀-쉴드) 전용 라이브러리입니다. 
 
-![](/img/parts/interface/dynamixel_shield/library_manager_03.webp)
+![](/img/common/library_manager_03.webp)
 
 ## 교육용 소프트웨어
 교육용 소프트웨어는, 교육용 키트와 [CM 시리즈](#cm-시리즈)와 호환되는 전용 소프트웨어입니다.
@@ -379,7 +379,7 @@ R+Manager 2.0은 CM 시리즈 및 교육용 키트에서 제공되는 [CM 시리
 ### 로보플러스
 CM 시리즈와 교육용 키트에서 사용할 수 있는 소프트웨어인, R+ (로보플러스)는 유저 친화적 프로그래밍 환경을 지원합니다. 더 많은 정보는 [로보플러스](/docs/software/overview#로보플러스)를 참고하세요. 
 
-![](/img/software/rplus_task3/task3_001.webp)
+![](/img/common/task3_001.webp)
 > R+Task 3.0
 
 [다이나믹셀 위자드 2.0]: /docs/software/dynamixel_wizard_2_0/introduction

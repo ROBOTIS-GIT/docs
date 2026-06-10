@@ -43,7 +43,7 @@ When `op3_bringup` runs, robot moves to initial posture.
 
 1. execution result screen  
 
-    ![](/img/systems/op3/op3_manager_01.webp)  
+    ![](/img/systems/op3/tutorials/op3_manager_01.webp)  
 
 
 :::note
@@ -55,7 +55,7 @@ If you get an error for offset.yaml, run op3_offset_tuner(server and client) and
 
 2. execution result of ROBOTIS-OP3(Init pose in RVIZ)  
 
-    ![](/img/systems/op3/op3_manager_02.webp)
+    ![](/img/systems/op3/tutorials/op3_manager_02.webp)
 
 3. It's ready to move, now user can control ROBOTIS-OP3 using a program such as [op3_gui_demo].  
 
@@ -95,11 +95,11 @@ $ roslaunch op3_bringup op3_bringup_visualization.launch
 ```  
 - rviz screen  
 
-  ![](/img/systems/op3/op3_bringup_visualization_01.webp)  
+  ![](/img/systems/op3/tutorials/op3_bringup_visualization_01.webp)  
 
   - TF Tree  
 
-    ![](/img/systems/op3/op3_bringup_visualization_04.webp)  
+    ![](/img/systems/op3/tutorials/op3_bringup_visualization_04.webp)  
 
 
 :::note
@@ -400,7 +400,7 @@ There are three options to run the GUI program.
 ### How to take the initial pose of ROBOTIS-OP3
 Clicking the button surrounded by the red dashed rectangle will let the `base_module` control each joint of ROBOTIS-OP3 and take the initial posture.
 
-![](/img/systems/op3/op3_gui_initial_pose.webp)
+![](/img/systems/op3/tutorials/op3_gui_initial_pose.webp)
 
 ### How to set the Module
 - Follow the below procedure to configure modules that control corresponding joint of ROBOTIS-OP3.  
@@ -411,11 +411,11 @@ Clicking the button surrounded by the red dashed rectangle will let the `base_mo
       - `walking_module`  
 
     2. Confirm from the joint status table below the module buttons that corresponding joints are set correctly.  
-      ![](/img/systems/op3/op3_gui_set_module.webp)
+      ![](/img/systems/op3/tutorials/op3_gui_set_module.webp)
 
 - `Get Mode` button will report which module is assigned for each joint.  
 
-  ![](/img/systems/op3/op3_gui_get_module.webp)
+  ![](/img/systems/op3/tutorials/op3_gui_get_module.webp)
 
 ### How to use walking tuner
 #### Overview
@@ -429,22 +429,22 @@ Activate `walking_module` on the lower body part of ROBOTIS-OP3 for walking test
 Confirm that the joints used for walking are set as `walking_module`, then move to `Walking` tab.  
 (When the walking module is activated, ROBOTIS-OP3 will take the initial posture for walking.)    
 
-![](/img/systems/op3/op3_gui_walking_tuner_01.webp)
+![](/img/systems/op3/tutorials/op3_gui_walking_tuner_01.webp)
 
-![](/img/systems/op3/op3_gui_walking_tuner_02.webp)
+![](/img/systems/op3/tutorials/op3_gui_walking_tuner_02.webp)
 
 ##### Start / Stop Walking
 1. `start` button : Initiate walking  
 2. `stop` button : Stop walking. When stopped, walking related parameters will be reset.  
 
-  ![](/img/systems/op3/op3_gui_walking_tuner_03.webp)
+  ![](/img/systems/op3/tutorials/op3_gui_walking_tuner_03.webp)
 
 ##### Apply Parameters
 1. `Refresh` button : Acquire all parameter currently applied on `walking_module`.  
 2. `Save` button : Save all parameter currently applied on `walking_module` as default parameter and use it for other program such as `op3_demo`.  
 3. `Apply` button : Apply modified parameters from the GUI to `walking_module`.  
 
-  ![](/img/systems/op3/op3_gui_walking_tuner_04.webp)
+  ![](/img/systems/op3/tutorials/op3_gui_walking_tuner_04.webp)
 
 ### How to play the motions
 #### Overview
@@ -458,11 +458,11 @@ The `action_module` controls each joint of ROBOTIS-OP3.
 1. Set the module : Press the `action_module` button.  
 2. Select `Motion` tab of the gui demo program.
 
-    ![](/img/systems/op3/op3_gui_action_01.webp)
+    ![](/img/systems/op3/tutorials/op3_gui_action_01.webp)
 
 3. Click the action button to play  
 
-    ![](/img/systems/op3/op3_gui_action_02.webp)
+    ![](/img/systems/op3/tutorials/op3_gui_action_02.webp)
 
 ##### Creating and editing actions for `action_module`
 
@@ -479,14 +479,14 @@ Operator can get different camera view angle by controlling head joints.
 
 1. Setting the Module : Click `head_control_module` button  
 2. Select `Head Control` tab of the gui demo program.  
-  ![](/img/systems/op3/op3_gui_control_head_01.webp)
+  ![](/img/systems/op3/tutorials/op3_gui_control_head_01.webp)
 
 3. Change the value for the specific joint.  
    1. Use the slide bar to control the head joint.  
    2. Enter desired values in the text box to control the head joint.  
    3. Bring the head joint to center position.  
-  ![](/img/systems/op3/op3_gui_control_head_02.webp)  
-  ![](/img/systems/op3/op3_gui_control_head_03.webp)  
+  ![](/img/systems/op3/tutorials/op3_gui_control_head_02.webp)  
+  ![](/img/systems/op3/tutorials/op3_gui_control_head_03.webp)  
 
 ### How to control upgraded walking(online walking)
 #### Overview
@@ -501,7 +501,7 @@ This page explains how to control upgraded walking(online walking).
   1. Setting the module : Click `online_walking_module` button
   2. Select `Online Walking` tab of the gui demo program.
 
-    ![](/img/systems/op3/op3_online_walking_01.webp)
+    ![](/img/systems/op3/tutorials/op3_online_walking_01.webp)
 
 - Controlling walking of ROBOTIS-OP3
   1. Go to initial pose : click `Go to Initial Pose` button
@@ -509,7 +509,7 @@ This page explains how to control upgraded walking(online walking).
   3. Set the walking parameters    
   4. Send a walking command to `op3_manager`
 
-    ![](/img/systems/op3/op3_online_walking_02.webp)
+    ![](/img/systems/op3/tutorials/op3_online_walking_02.webp)
 
 
   - Walking parameters
@@ -539,7 +539,7 @@ This chapter has been merged into [How to use tuner client](#how-to-use-tuner-cl
 > Reference : [op3_offset_tuner_server]  
 > Reference : [op3_offset_tuner_client]
 
-![](/img/systems/op3/op3_offset_tuner_diagram.webp)  
+![](/img/systems/op3/tutorials/op3_offset_tuner_diagram.webp)  
   
 ## How to use tuner client
 ### Overview
@@ -550,9 +550,9 @@ In the past, we were able to adjust the offset by using op3_offset_server and op
 > Reference : [op3_tuner_client]
 
 - Before  
-![](/img/systems/op3/op3_offset_tuner_diagram.webp)  
+![](/img/systems/op3/tutorials/op3_offset_tuner_diagram.webp)  
 - After   
-![](/img/systems/op3/op3_tuner_diagram.webp)  
+![](/img/systems/op3/tutorials/op3_tuner_diagram.webp)  
 
 ### Run Tuner Program
 
@@ -581,7 +581,7 @@ Enter the following commands in the terminal window.
 $ roslaunch op3_tuner_client op3_tuner.launch 
 ```
 
-!<a href="/img/systems/op3/op3_tuner_execution.webp" target="_blank">launch image</a>
+!<a href="/img/systems/op3/tutorials/op3_tuner_execution.webp" target="_blank">launch image</a>
 
 ### Configuration Files
 #### `op3_manager` configuration files
@@ -623,7 +623,7 @@ $ roslaunch op3_tuner_client op3_tuner.launch
 
 ### How to use tuner client GUI program
 #### How to tune the offset
-![](/img/systems/op3/op3_tuner_offset_01.webp)  
+![](/img/systems/op3/tutorials/op3_tuner_offset_01.webp)  
 1. go `Initial Pose`   
 2. Select tab of `Kinematics Group`  
 3. Click the `Refresh` Button for getting current states of joints  
@@ -631,7 +631,7 @@ $ roslaunch op3_tuner_client op3_tuner.launch
 5. Click the `Save Offset` button for saving to file.  
 
 #### How to tune the gain
-![](/img/systems/op3/op3_tuner_gain_01.webp)  
+![](/img/systems/op3/tutorials/op3_tuner_gain_01.webp)  
 1. go `Initial Pose`   
 2. Select tab of `Kinematics Group`  
 3. Click the `Refresh` Button for getting current states of joints  
@@ -816,7 +816,7 @@ $ roslaunch op3_demo demo.launch
     - Open `Dynamic Reconfigure`   
       Select `Plugins -> Configuration -> Dynamic Reconfigure`
 
-      ![](/img/systems/op3/ball_detector_node_01.webp)
+      ![](/img/systems/op3/tutorials/ball_detector_node_01.webp)
 
     - Open `Image View`  
       Select `Plugins -> Visualization -> Image View`  
@@ -826,7 +826,7 @@ $ roslaunch op3_demo demo.launch
 2. Parameters    
   The description for each parameter will pop up when hovering the mouse cursor over each parameter.  
 
-    ![](/img/systems/op3/ball_detector_node_03.webp)
+    ![](/img/systems/op3/tutorials/ball_detector_node_03.webp)
 
     - gaussian_blur_size: Size of Gaussian Blur Kernel (odd value)  
     - gaussian_blur_sigma: Std deviation of Gaussian Blur  
@@ -862,11 +862,11 @@ $ roslaunch op3_demo demo.launch
 
         - If you check the `use_second_filter` you can get an image which is detected with two HSV variations.   
 
-          ![](/img/systems/op3/ball_detector_node_04.webp)
+          ![](/img/systems/op3/tutorials/ball_detector_node_04.webp)
 
         - If you check the `debug_image` you can check the HSV filtered, binary image.   
 
-          ![](/img/systems/op3/ball_detector_node_05.webp)
+          ![](/img/systems/op3/tutorials/ball_detector_node_05.webp)
 
         - After you set the HSV range, you could calibrate the threshold value to detect the edge better.  
 
@@ -921,26 +921,26 @@ This chapter explains upgraded walking and footstep planner.
 1. Setting the module : Click `online_walking_module` button
 2. Select `Online Walking` tab of the gui demo program.
 
-    ![](/img/systems/op3/op3_online_walking_01.webp)
+    ![](/img/systems/op3/tutorials/op3_online_walking_01.webp)
 
 ##### Controlling walking of ROBOTIS-OP3
 1. Go to initial pose : click `Go to Initial Pose` button
 2. Balance On   
 3. Set the walking parameters     
 
-    ![](/img/systems/op3/op3_online_walking_footstep_01.webp)
+    ![](/img/systems/op3/tutorials/op3_online_walking_footstep_01.webp)
 
 4. Set a interactive marker in rviz 3d screen and Move the marker to the target pose of feet.   
 
-    ![](/img/systems/op3/op3_online_walking_footstep_02.webp)
+    ![](/img/systems/op3/tutorials/op3_online_walking_footstep_02.webp)
 
-    ![](/img/systems/op3/op3_online_walking_footstep_04.webp)
+    ![](/img/systems/op3/tutorials/op3_online_walking_footstep_04.webp)
 
 5. plan the path and send a walking message to ROBOTIS-OP3     
 
-    ![](/img/systems/op3/op3_online_walking_footstep_03.webp)
+    ![](/img/systems/op3/tutorials/op3_online_walking_footstep_03.webp)
 
-    ![](/img/systems/op3/op3_online_walking_footstep_05.webp)
+    ![](/img/systems/op3/tutorials/op3_online_walking_footstep_05.webp)
 
 ## How to use Web Setting Tool
 ### Overview
@@ -1027,7 +1027,7 @@ Connect to ROBOTIS-OP3 WiFi with below information
 5. Camera : Change the parameters of ROBOTIS-OP3 camera.  
 
 ##### Ball Detector parameters
-  ![](/img/systems/op3/op3_web_setting_02.webp)
+  ![](/img/systems/op3/tutorials/op3_web_setting_02.webp)
   > Modified parameter values will be saved automatically.  
 
   - gaussian blur size: Size of Gaussian Blur Kernel (odd value)  
@@ -1052,7 +1052,7 @@ Connect to ROBOTIS-OP3 WiFi with below information
   > Reference : [detail of parameter]  
 
 ##### Camera Setting parameters
-  ![](/img/systems/op3/op3_web_setting_06.webp)
+  ![](/img/systems/op3/tutorials/op3_web_setting_06.webp)
   > Modified parameter values will be saved automatically.  
 
 
@@ -1064,7 +1064,7 @@ This chapter explains to user how to get joint angles of ROBOTIS-OP3 and how to 
 
 #### Framework Diagram
 
-![](/img/systems/op3/op3_manager_03.webp)  
+![](/img/systems/op3/tutorials/op3_manager_03.webp)  
 
 This is a framework diagram. The framework(op3_manager) works in the following way.
 
@@ -1180,7 +1180,7 @@ $ roslaunch op3_read_write_demo op3_read_write.launch
    - `op3_localization` : simple localization node for op3_online_walking
    - `op3_read_write` : read-write demo, described in this chapter  
  - rqt_graph  
-   ![](/img/systems/op3/op3_read_write_graph.webp)
+   ![](/img/systems/op3/tutorials/op3_read_write_graph.webp)
 
 #### How to Operate
 

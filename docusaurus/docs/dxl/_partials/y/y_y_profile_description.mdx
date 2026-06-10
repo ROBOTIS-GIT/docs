@@ -2,7 +2,7 @@ Profiles are control methods used in motor operation to reduce rapid changes in 
 These profiles are often called Velocity Profiles as they directly control acceleration and deceleration based on target velocities.
 The device offers three types of profiles. Generally, the profile selection is determined by the combined settings of [Profile Velocity(244)] and [Profile Acceleration(240)]. The trapezoidal profile specifically is additionally considers the total planned movement distance (ΔPos, the difference between the target position and the current position). 
 
-![](/img/dxl/y//profile_1.webp)
+![](/img/dxl/model_reference/y_series/profile_1.webp)
 
 When the device's controller receives an updated [Goal Position(532)], it generates a target velocity trajectory based on the actuator's current movement speed. 
 Even if the target position changes to a new [Goal Position(532)] while the device is in transit, the speed trajectory is adjusted to ensure smooth speed transition. 
@@ -29,7 +29,7 @@ The following outlines the profile generation process for the [Goal Position(532
 | ([Profile Velocity(244)] ≠ 0) & ([Profile Acceleration(240)] = 0)  | Rectangular profile               |
 | ([Profile Velocity(244)] ≠ 0) & ([Profile Acceleration(240)] ≠ 0)  | Trapezoidal profile               |
 
-![](/img/dxl/y//profile_2.webp)
+![](/img/dxl/model_reference/y_series/profile_2.webp)
 
 
 :::note

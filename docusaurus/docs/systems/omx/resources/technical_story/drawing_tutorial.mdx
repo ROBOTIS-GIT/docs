@@ -33,7 +33,7 @@ The pipeline utilizes Cyclo Control, a numerical Inverse Kinematics solver based
 *   `scripts/omx_trajectory_controller_node.py`: Handles trajectory reception and real-time motion control.
 *   `launch/omx_drawing.launch.py`: The launch file that integrates and runs the entire system.
 
-![System Architecture](/img/systems/omx/technical_story/system_architecture.png)
+![System Architecture](/img/systems/omx/resources/technical_story/drawing_tutorial/system_architecture.png)
 
 ---
 
@@ -157,7 +157,7 @@ Standard robot models generally define the center of the gripper as the end-effe
 
 | Physical Pen Setup | RViz Pen Link Visualization |
 | :---: | :---: |
-| <img src="/img/systems/omx/technical_story/pen_link.png" alt="Physical Pen Setup" width="550" /> | <img src="/img/systems/omx/technical_story/TCP.jpg" alt="Pen Link Visualization" width="350" /> |
+| <img src="/img/systems/omx/resources/technical_story/drawing_tutorial/pen_link.png" alt="Physical Pen Setup" width="550" /> | <img src="/img/systems/omx/resources/technical_story/drawing_tutorial/TCP.jpg" alt="Pen Link Visualization" width="350" /> |
 
 
 ```xml
@@ -203,7 +203,7 @@ With this modification, the IK solver now computes joint angles targeting the **
     ```bash
     ros2 launch cyclo_motion_controller_models view_omx_f.launch.py
     ```
-![TCP Calibration Result](/img/systems/omx/technical_story/pen_point.png)
+![TCP Calibration Result](/img/systems/omx/resources/technical_story/drawing_tutorial/pen_point.png)
 
 #### Stable Real-Time Control Based on QP Optimization
 To ensure stability in a real-time execution environment, the inverse kinematics problem is solved using a **QP (Quadratic Programming) optimization** approach. By directly reflecting joint limits as constraints, it ensures the physical safety of the hardware while enabling smooth and reliable drawing trajectory tracking.
@@ -311,12 +311,12 @@ These are the detailed technical specifications of the vision processing and mot
 <details>
 <summary><b>▼ Click to view detailed Step-by-Step Vision Pipeline</b></summary>
 
-![Original Image](/img/systems/omx/technical_story/person.jpeg)
+![Original Image](/img/systems/omx/resources/technical_story/drawing_tutorial/person.jpeg)
 [Image Designed by Freepik](https://www.freepik.com/)
 
 1.  **Step 1 (Image Analysis and Preprocessing)**:
     *   **Bilateral Filter**: Unlike simple Gaussian blur, it effectively removes only noise while preserving edge information.
-        ![Bilateral Filter](/img/systems/omx/technical_story/bilateral_filter.jpg)
+        ![Bilateral Filter](/img/systems/omx/resources/technical_story/drawing_tutorial/bilateral_filter.jpg)
     *   **Adaptive Thresholding**: Performs robust binarization against lighting changes, and uses **Morphological Closing** operations to fill broken lines or tiny gaps in text, ensuring structural integrity.
 
     ![Adaptive Thresholding](/img/systems/omx/technical_story/threshold_&_closing.jpg)
@@ -324,19 +324,19 @@ These are the detailed technical specifications of the vision processing and mot
 2.  **Step 2 (Skeletonization and Single Line Extraction)**:
     *   **Skeletonization**: Converts the binarized outline into a 1-pixel thick centerline, extracting only the geometric skeleton.
 
-![Skeletonization Result](/img/systems/omx/technical_story/skeletonization.jpg)
+![Skeletonization Result](/img/systems/omx/resources/technical_story/drawing_tutorial/skeletonization.jpg)
 
   *   **Line Extraction (Pixel Sorting)**: To extract valid point cloud data that the robot can follow without interruption, it applies a sorting algorithm (`extract_single_line`) based on **Nearest Neighbor** to the skeletonized pixels. By calculating the Euclidean distance between pixels, it sequentially connects the closest unvisited pixel within a threshold (50px²) from the current position.
   *   **Segment Generation**: The connected pixels are grouped into a single valid stroke sector that the robot can follow without stopping. If there are no neighboring pixels within the threshold, a new segment is created to prevent sudden jumps or discontinuities.
 
-![Line Extraction Flow](/img/systems/omx/technical_story/stage_2_line_extraction.jpg)
+![Line Extraction Flow](/img/systems/omx/resources/technical_story/drawing_tutorial/stage_2_line_extraction.jpg)
 
 3.  **Step 3 (Adaptive Smoothing & Optimization)**:
     *   **Douglas-Peucker Algorithm**: Detects vertices with sharp curvature across the entire trajectory. This preserves straight sections and selectively applies smoothing only to curved sections, preventing them from becoming blunt.
     *   **Trajectory Stitching**: If the distance between two adjacent trajectories is within 25mm, they are forcibly merged into one continuous path, minimizing unnecessary pen-lift counts.
     *   **WMA (Weighted Moving Average)**: Finally, a weighted moving average filter corrects trajectory jitter and publishes it to the `/drawing_trajectory` topic.
 
-  ![Robotic Trajectory](/img/systems/omx/technical_story/trajectory.jpg)
+  ![Robotic Trajectory](/img/systems/omx/resources/technical_story/drawing_tutorial/trajectory.jpg)
 
 </details>
 
@@ -356,7 +356,7 @@ Before applying the trajectory to actual hardware, it is critical to verify its 
    # Launch simulation bringup and drawing node
    ros2 launch open_manipulator_playground omx_drawing.launch.py start_rviz:=true use_mock_hardware:=true
    ```
-   ![RViz Monitoring](/img/systems/omx/technical_story/drawing_circle.gif)
+   ![RViz Monitoring](/img/systems/omx/resources/technical_story/drawing_tutorial/drawing_circle.gif)
 
 ---
 
@@ -446,12 +446,12 @@ This final stage demonstrates the integrated success of the drawing pipeline.
 
 This is the trajectory generated from the detected contours. It represents the final path the robot will follow after completing all image processing, skeletal extraction, and adaptive smoothing stages, ensuring a kinematically feasible route for the manipulator.
 
-![Generated Trajectories](/img/systems/omx/technical_story/trajectories.gif)
+![Generated Trajectories](/img/systems/omx/resources/technical_story/drawing_tutorial/trajectories.gif)
 
 #### Actual Robot Drawing along the Trajectory
 
 Controlled by the QP-based IK solver and optimized Dynamixel PID gains, the robot reproduces the complex contours of the input image
 
-![Real Robot Drawing](/img/systems/omx/technical_story/drawing_person.gif)
+![Real Robot Drawing](/img/systems/omx/resources/technical_story/drawing_tutorial/drawing_person.gif)
 
 ---

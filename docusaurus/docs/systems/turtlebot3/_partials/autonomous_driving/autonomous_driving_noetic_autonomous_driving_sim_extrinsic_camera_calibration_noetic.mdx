@@ -23,7 +23,7 @@ $ rqt
 6. Select the `/camera/image_extrinsic_calib/compressed` topic in one window and `/camera/image_projected_compensated` in the other.
    - The first topic shows an image with a red trapezoidal shape and the latter shows the ground projected view (Bird's eye view).
 
-      ![](/img/systems/turtlebot3/autonomous_driving/noetic_extrinsic_calibration.webp)
+      ![](/img/systems/turtlebot3/autonomous_driving/autonomous_driving/noetic_extrinsic_calibration.webp)
       > `/camera/image_extrinsic_calib/compressed` (Left) and `/camera/image_projected_compensated` (Right)
 
 7. Excute rqt_reconfigure on `Remote PC`.
@@ -35,20 +35,20 @@ $ rosrun rqt_reconfigure rqt_reconfigure
    - Changing `/camera/image_projection` affects the `/camera/image_extrinsic_calib/compressed` topic.
    - Intrinsic camera calibration modifies the perspective of the image in the red trapezoid.
 
-      ![](/img/systems/turtlebot3/autonomous_driving/noetic_extrinsic_calibration_reconfigure.webp)
+      ![](/img/systems/turtlebot3/autonomous_driving/autonomous_driving/noetic_extrinsic_calibration_reconfigure.webp)
       > rqt_reconfigure
 
 9. After that, overwrite the updated values to the yaml files in **turtlebot3_autorace_camera/calibration/extrinsic_calibration/.** This will save the current calibration parameters so that they can be loaded later.  
 
-      ![](/img/systems/turtlebot3/autonomous_driving/noetic_compensation_yaml.webp)
+      ![](/img/systems/turtlebot3/autonomous_driving/autonomous_driving/noetic_compensation_yaml.webp)
       > turtlebot3_autorace_camera/calibration/extrinsic_calibration/`compensation.yaml`
 
-      ![](/img/systems/turtlebot3/autonomous_driving/noetic_projection_yaml.webp)  
+      ![](/img/systems/turtlebot3/autonomous_driving/autonomous_driving/noetic_projection_yaml.webp)  
       > turtlebot3_autorace_camera/calibration/extrinsic_calibration/`projection.yaml`
 
 <details>
 <summary>
-![](/img/icon_unfold.webp) **Click to expand : Extrinsic Camera Calibration with an actual TurtleBot3**
+![](/img/common/icon_unfold.webp) **Click to expand : Extrinsic Camera Calibration with an actual TurtleBot3**
 </summary>
 
 
@@ -83,7 +83,7 @@ $ rqt
 
 - One of two screens will show an image with a red rectangular box. The other one shows the ground projected view (Bird's eye view).
 
-  ![](/img/systems/turtlebot3/autonomous_driving/noetic_rpi_before_extrinsic_calibration.webp)
+  ![](/img/systems/turtlebot3/autonomous_driving/autonomous_driving/noetic_rpi_before_extrinsic_calibration.webp)
 
   > `/camera/image_extrinsic_calib/compressed` topic `/camera/image_projected_compensated` topic
 
@@ -98,11 +98,11 @@ $ rosrun rqt_reconfigure rqt_reconfigure
 - Changing the `/camera/image_projection` parameter will alter the `/camera/image_extrinsic_calib/compressed` topic.
 - Intrinsic camera calibration will transform the image surrounded by the red rectangle, and will show the image that looks from over the lane.
 
-  ![](/img/systems/turtlebot3/autonomous_driving/noetic_rpi_extrinsic_calibration_param.webp)
+  ![](/img/systems/turtlebot3/autonomous_driving/autonomous_driving/noetic_rpi_extrinsic_calibration_param.webp)
 
   > rqt_reconfigure
 
-  ![](/img/systems/turtlebot3/autonomous_driving/noetic_rpi_after_extrinsic_calibration.webp)
+  ![](/img/systems/turtlebot3/autonomous_driving/autonomous_driving/noetic_rpi_after_extrinsic_calibration.webp)
 
   > Result from parameter modification.
 

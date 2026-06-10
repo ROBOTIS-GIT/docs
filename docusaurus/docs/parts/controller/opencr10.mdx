@@ -55,7 +55,7 @@ The development environment for OpenCR1.0 is wide open from Arduino IDE and Scra
 
 :::danger
 
-![](/img/icon_warning.webp)  
+![](/img/common/icon_warning.webp)  
 **DANGER**  
 (Ignoring these warnings may cause serious injury or death)
 
@@ -70,7 +70,7 @@ The development environment for OpenCR1.0 is wide open from Arduino IDE and Scra
 
 :::warning
 
-![](/img/icon_warning.webp)  
+![](/img/common/icon_warning.webp)  
 **CAUTION**  
 (Ignoring these warnings may cause mild injury or damage to the product)
  - Always comply with the product's official operating environment specifications including input voltage, current, and operating temperature. 
@@ -81,7 +81,7 @@ The development environment for OpenCR1.0 is wide open from Arduino IDE and Scra
 
 :::warning
 
-![](/img/icon_warning.webp)  
+![](/img/common/icon_warning.webp)  
 **ATTENTION**  
 (Ignoring these warnings may cause minor injury or damage to the product)
 - Do not disassemble or modify the product.
@@ -92,7 +92,7 @@ The development environment for OpenCR1.0 is wide open from Arduino IDE and Scra
 
 
 # Layout/Pin Map
-![](/img/parts/controller/opencr10/opencr_pinout.webp)
+![](/img/common/opencr_pinout.webp)
 
 
 :::danger
@@ -363,7 +363,7 @@ $ sudo udevadm control --reload-rules
 $ sudo udevadm trigger
 ```
 
-![](/img/systems/turtlebot3/preparation/7_1_1_usb_port_setting.webp)
+![](/img/common/7_1_1_usb_port_setting.webp)
 
 ### Compiler Settings
 Since the OpenCR libraries is built for 32 bit platform, 64 bit PC needs the 32 bit compiler relevants for the ArduinoIDE.
@@ -372,7 +372,7 @@ Since the OpenCR libraries is built for 32 bit platform, 64 bit PC needs the 32 
 $ sudo apt-get install libncurses5-dev:i386
 ```
 
-![](/img/systems/turtlebot3/preparation/7_1_2_compiler_settings.webp)
+![](/img/common/7_1_2_compiler_settings.webp)
 
 ### Install Arduino IDE(Linux)
 Download the latest version of Arduino IDE from the official arduino homepage, and install it. Currently, the OpenCR will be on service in the version 1.6.4 or later.
@@ -401,7 +401,7 @@ To run the Arduino IDE on Linux platform, type into the terminal as follows.
 $ arduino
 ```
 
-![](/img/systems/turtlebot3/preparation/ide0.webp)
+![](/img/common/ide0.webp)
 
 ### Porting to Arduino IDE(Linux)
 #### Preferences
@@ -411,24 +411,24 @@ After Arduino IDE is run, click File → Preferences in the top menu of the IDE.
 https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCR/master/arduino/opencr_release/package_opencr_index.json
 ```
 
-![](/img/systems/turtlebot3/preparation/ide1.webp)
+![](/img/common/ide1.webp)
 
 #### Install the OpenCR package via Boards Manager
 Click Tools → Board → Boards Manager.
 
-![](/img/systems/turtlebot3/preparation/ide2.webp)
+![](/img/common/ide2.webp)
 
 Type OpenCR into the textbox to find the OpenCR by ROBOTIS package. After it finds out, click Install.
 
-![](/img/systems/turtlebot3/preparation/ide3.webp)
+![](/img/common/ide3.webp)
 
 After the installation, “INSTALLED” will be appeared.
 
-![](/img/systems/turtlebot3/preparation/ide4.webp)
+![](/img/common/ide4.webp)
 
 See if OpenCR Board is now on the list of Tools → Board. Click this to import the OpenCR Board source.
 
-![](/img/systems/turtlebot3/preparation/ide5.webp)
+![](/img/common/ide5.webp)
 
 #### Port setting
 This step shows the port setting for the program uploads. The OpenCR should be connected to the PC and the OpenCR via the USB ports.
@@ -443,7 +443,7 @@ Select Tools → Port → /dev/ttyACM0.
 :::
 
 
-![](/img/systems/turtlebot3/preparation/ide6.webp)
+![](/img/common/ide6.webp)
 
 ### Remove ModemManager
 After programming with the Arduino IDE and uploading the program to the OpenCR, the OpenCR will be restarted and be reconnected. At the same moment, the modem-related packages of the Linux will send the AT command to manage the device. Thus indicates an connection error on the OpenCR, so this step should be done previously.
@@ -461,9 +461,9 @@ Download the latest version of Arduino IDE from the official arduino homepage, a
 ### Run Arduino IDE(Mac)
 To run the Arduino IDE on Mac platform, click the Arduino IDE icon as follows.
 
-![](/img/parts/controller/opencr10/arduino_mac_01.webp)
+![](/img/common/arduino_mac_01.webp)
 
-![](/img/parts/controller/opencr10/arduino_mac_02.webp)
+![](/img/common/arduino_mac_02.webp)
 
 ### Porting to Arduino IDE(Mac)
 #### Preferences
@@ -473,19 +473,19 @@ After Arduino IDE is run, click File → Preferences in the top menu of the IDE.
 https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCR/master/arduino/opencr_release/package_opencr_index.json
 ```
 
-![](/img/parts/controller/opencr10/arduino_mac_03.webp)
+![](/img/common/arduino_mac_03.webp)
 
 #### Install the OpenCR package via Boards Manager
 Click Tools → Board → Boards Manager.
 
-![](/img/parts/controller/opencr10/arduino_mac_04.webp)
+![](/img/common/arduino_mac_04.webp)
 
 Type OpenCR into the textbox to find the OpenCR by ROBOTIS package. Install of the OpenCR package.  
 After the installation, “INSTALLED” will be appeared.
 
 See if OpenCR Board is now on the list of Tools → Board. Click this to import the OpenCR Board source.
 
-![](/img/parts/controller/opencr10/arduino_mac_05.webp)
+![](/img/common/arduino_mac_05.webp)
 
 #### Port setting
 This step shows the port setting for the program uploads. The OpenCR should be connected to the PC and the OpenCR via the USB ports.  
@@ -499,7 +499,7 @@ Select Tools → Port → /dev/cu.usbmodem1411
 :::
 
 
-![](/img/parts/controller/opencr10/arduino_mac_06.webp)
+![](/img/common/arduino_mac_06.webp)
 
 
 :::warning
@@ -1250,7 +1250,7 @@ Write the firmware by using the DFU mode which is embedded in MCU without writin
 | Supported OS | Windows, Linux, Mac |
 |   Compiler   | gcc arm 5.4 2016q2  |
 
-![](/img/parts/controller/opencr10/bootloader_19.webp)
+![](/img/common/bootloader_19.webp)
 
 - USB Port
   - Connected to PC and recognized as serial port
@@ -1463,7 +1463,7 @@ To run OpenCR in DFU mode, please follow the instruction below.
 
 OpenCR will enter the DFU mode after reset by the built-in boot loader.
 
-![](/img/parts/controller/opencr10/bootloader_19.webp)
+![](/img/common/bootloader_19.webp)
 
 ### Check Boot Mode
 #### For Linux
@@ -1494,19 +1494,19 @@ If not, please refer to [Driver Install(Optional)](#driver-installoptional) sect
 ##### Programmer Setting
 Select Tools → DFU-UTIL
 
-![](/img/parts/controller/opencr10/bootloader_19.webp)
+![](/img/common/bootloader_19.webp)
 
 ##### Run DFU mode.
 Press the `Reset Button` while the `Boot Button` is being pushed. This activates the DFU mode.  
 If you successfully entered to DFU mode, you will be able to find `STMicroelectronics STM Device in DFU Mode` text string when *lsusb* is entered in the terminal.
 
-![](/img/systems/turtlebot3/preparation/ide10.webp)
+![](/img/common/ide10.webp)
 
 ##### Download Bootloader.
 
 Click Tools → Burn Bootloader to download the bootloader.
 
-![](/img/systems/turtlebot3/preparation/ide9.webp)
+![](/img/common/ide9.webp)
 
 
 :::warning
@@ -1526,7 +1526,7 @@ Select Tools → DFU-UTIL
 ##### Run DFU Mode
 Press the `Reset Button` while the `Boot Button` is being pushed. This activates the DFU mode.
 
-![](/img/parts/controller/opencr10/bootloader_19.webp)
+![](/img/common/bootloader_19.webp)
 
 ##### Download Bootloader
 
@@ -1546,7 +1546,7 @@ Click Tools → Burn Bootloader to download the bootloader.
 ##### Run DFU Mode
 Press the `Reset Button` while the `Boot Button` is being pushed. This activates the DFU mode.
 
-![](/img/parts/controller/opencr10/bootloader_19.webp)
+![](/img/common/bootloader_19.webp)
 
 ##### Download Bootloader
 After setting up the Arduino IDE, run Arduino IDE and go to `Tools` > `Burn Bootloader` to download the bootloader.
@@ -1662,7 +1662,7 @@ opencr_ld.exe COM1 115200 ./opencrfw.bin 1
 - 1
 
 ## Execution Result
-![](/img/parts/controller/opencr10/downloader_01.webp)
+![](/img/common/downloader_01.webp)
 
 ## Download Executable File
 Executable file can be downloaded at the provided link.
@@ -1683,7 +1683,7 @@ To execute the boot loader, please follow the instruction below.
 
 OpenCR will enter the boot loader after reset. When the boot loader is running, the STATUS LED blinks every 100ms.
 
-![](/img/parts/controller/opencr10/bootloader_19.webp)
+![](/img/common/bootloader_19.webp)
 
 You can download the normal firmware while the boot loader is running.
 
@@ -1695,9 +1695,9 @@ Following table refers the pinout of DYNAMIXEL.
 |           Item           |                             TTL                              |                            RS-485                            |
 |:------------------------:|:------------------------------------------------------------:|:------------------------------------------------------------:|
 |          Pinout          |                `1` GND<br />`2` VDD<br />`3` DATA                |         `1` GND<br />`2` VDD<br />`3` DATA+<br />`4` DATA-         |
-|         Diagram          |        ![](/img/dxl/jst_b3beha_diagram.webp)        |        ![](/img/dxl/jst_b4beha_diagram.webp)        |
-|         Housing          |   ![](/img/dxl/JST_EHR-3.webp)<br />[JST EHR-03]    |   ![](/img/dxl/JST_EHR-4.webp)<br />[JST EHR-04]    |
-|        PCB Header        | ![](/img/dxl/JST_B3B_EH-A.webp)<br />[JST B3B-EH-A] | ![](/img/dxl/JST_B4B-EH-A.webp)<br />[JST B4B-EH-A] |
+|         Diagram          |        ![](/img/common/jst_b3beha_diagram.webp)        |        ![](/img/common/jst_b4beha_diagram.webp)        |
+|         Housing          |   ![](/img/common/JST_EHR-3.webp)<br />[JST EHR-03]    |   ![](/img/common/JST_EHR-4.webp)<br />[JST EHR-04]    |
+|        PCB Header        | ![](/img/common/JST_B3B_EH-A.webp)<br />[JST B3B-EH-A] | ![](/img/common/JST_B4B-EH-A.webp)<br />[JST B4B-EH-A] |
 |      Crimp Terminal      |                     [JST SEH-001T-P0.6]                      |                     [JST SEH-001T-P0.6]                      |
 | Wire Gauge for DYNAMIXEL |                            21 AWG                            |                            21 AWG                            |
 
@@ -1717,7 +1717,7 @@ To control the DYNAMIXEL actuators, the main controller needs to convert its UAR
 
 
 ### TTL Communication
-![](/img/dxl/ttl_circuit.webp)
+![](/img/common/ttl_circuit.webp)
 
 > TTL Circuit
 
@@ -1729,11 +1729,11 @@ To control the DYNAMIXEL actuators, the main controller needs to convert its UAR
 :::
 
 
-![](/img/dxl/x/x_series_ttl_pin.webp)
+![](/img/common/x_series_ttl_pin.webp)
 
 
 ### RS-485 Communication
-![](/img/dxl/x/x_series_485_circuit.webp)  
+![](/img/common/x_series_485_circuit.webp)  
 > RS-485 Circuit 
 
 
@@ -1744,7 +1744,7 @@ To control the DYNAMIXEL actuators, the main controller needs to convert its UAR
 :::
 
 
-![](/img/dxl/x/x_series_485_pin.webp)
+![](/img/common/x_series_485_pin.webp)
 
 
 The power of DYNAMIXEL is supplied via Pin1(-), Pin2(+).  

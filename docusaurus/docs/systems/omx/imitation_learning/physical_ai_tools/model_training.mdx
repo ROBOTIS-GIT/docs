@@ -82,17 +82,17 @@ Open your web browser and navigate to the Web UI (Physical AI Manager).
 
 On the **Home** page, select the type of robot you are using.
 
-  <img src="/img/systems/omx/imitation_learning/web_ui/home/robot_type_selection.png" alt="Web UI" style={{width: '40%'}} />
+  <img src="/img/systems/omx/imitation_learning/physical_ai_tools/robot_type_selection.png" alt="Web UI" style={{width: '40%'}} />
 
 #### c. Train the Policy
 
 Go to the `Training` page and follow the steps below:
 
-<img src="/img/systems/omx/imitation_learning/web_ui/training/page.png" alt="Web UI" style={{width: '100%'}} />
+<img src="/img/systems/omx/imitation_learning/physical_ai_tools/model_training/page.png" alt="Web UI" style={{width: '100%'}} />
 
 At the bottom of the page, select either **New Training** or **Resume Training**.
 
-  <img src="/img/systems/omx/imitation_learning/web_ui/training/training_mode.png" alt="Web UI" style={{width: '50%'}} />
+  <img src="/img/systems/omx/imitation_learning/physical_ai_tools/model_training/training_mode.png" alt="Web UI" style={{width: '50%'}} />
 
 | Training Type | Description | When to Use |
 |---------------|-------------|-------------|
@@ -120,9 +120,9 @@ For resuming training, follow these steps:
 - **Step 1**: Select the **checkpoint path to resume** with file browsing(📁) and click the **`Load`** button to load the training information(Dataset, Policy, Device, Output Folder Name, and Additional Options) automatically.
   - The checkpoint path should be the folder containing the `train_config.json` file.
 
-<img src="/img/systems/omx/imitation_learning/web_ui/training/checkpoint_path_to_resume.png" alt="Web UI" style={{width: '60%'}} />
+<img src="/img/systems/omx/imitation_learning/physical_ai_tools/model_training/checkpoint_path_to_resume.png" alt="Web UI" style={{width: '60%'}} />
 
-<img src="/img/systems/omx/imitation_learning/web_ui/training/select_checkpoint_path.png" alt="Web UI" style={{width: '80%'}} />
+<img src="/img/systems/omx/imitation_learning/physical_ai_tools/model_training/select_checkpoint_path.png" alt="Web UI" style={{width: '80%'}} />
 
 - **Step 2**: (Optional) Change the training `Dataset` if needed.
 - **Step 3**: (Optional) Modify `Additional Options` if needed.
@@ -135,7 +135,7 @@ For resuming training, follow these steps:
 <TabItem value="dataset" label="Dataset">
 
 The datasets stored in the `~/.cache/huggingface/` directory on the host (or `/root/.cache/huggingface/` inside the Docker container) will be listed automatically.
-<img src="/img/systems/omx/imitation_learning/web_ui/training/dataset_selection.png" alt="Web UI" style={{width: '50%'}} />
+<img src="/img/systems/omx/imitation_learning/physical_ai_tools/model_training/dataset_selection.png" alt="Web UI" style={{width: '50%'}} />
 
 </TabItem>
 <TabItem value="policy-type-and-device" label="Policy Type and Device">
@@ -144,7 +144,7 @@ Select the policy and computation device for training your model.
 - **Policy Type**: Choose the imitation learning algorithm (e.g., act, pi0, etc.).
 - **Device**: Select the hardware to be used for training (e.g. cuda, cpu, etc.)
 
-<img src="/img/systems/omx/imitation_learning/web_ui/training/policy_selection.png" alt="Web UI" style={{width: '50%'}} />
+<img src="/img/systems/omx/imitation_learning/physical_ai_tools/model_training/policy_selection.png" alt="Web UI" style={{width: '50%'}} />
 
 </TabItem>
 <TabItem value="output-folder-name" label="Output Folder Name">
@@ -153,12 +153,12 @@ Specify the name of the folder where your trained model will be saved. Then, che
 This folder will be created in the default output directory (`<your_workspace>/physical_ai_tools/lerobot/outputs/`).
 Choose a descriptive and meaningful name so you can easily identify the trained model later.
 
-<img src="/img/systems/omx/imitation_learning/web_ui/training/output_folder_input.png" alt="Web UI" style={{width: '50%'}} />
+<img src="/img/systems/omx/imitation_learning/physical_ai_tools/model_training/output_folder_input.png" alt="Web UI" style={{width: '50%'}} />
 
 </TabItem>
 <TabItem value="additional-options" label="Additional Options">
 
-<img src="/img/systems/omx/imitation_learning/web_ui/training/additional_options.png" alt="Web UI" style={{width: '50%'}} />
+<img src="/img/systems/omx/imitation_learning/physical_ai_tools/model_training/additional_options.png" alt="Web UI" style={{width: '50%'}} />
 
 - Descriptions of additional options
 
@@ -180,14 +180,14 @@ Choose a descriptive and meaningful name so you can easily identify the trained 
 
 Click `Start Training` to begin training the policy.
 
-<img src="/img/systems/omx/imitation_learning/web_ui/training/button_start_training.png" alt="Web UI" style={{width: '30%'}} />
+<img src="/img/systems/omx/imitation_learning/physical_ai_tools/model_training/button_start_training.png" alt="Web UI" style={{width: '30%'}} />
 
 </TabItem>
 <TabItem value="resume-training" label="Resume Training">
 
 Click `Resume Training` to continue training from the checkpoint.
 
-<img src="/img/systems/omx/imitation_learning/web_ui/training/button_resume_training.png" alt="Web UI" style={{width: '35%'}} />
+<img src="/img/systems/omx/imitation_learning/physical_ai_tools/model_training/button_resume_training.png" alt="Web UI" style={{width: '35%'}} />
 
 </TabItem>
 </Tabs>

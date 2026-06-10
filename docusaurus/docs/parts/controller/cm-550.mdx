@@ -27,7 +27,7 @@
 
 :::danger
 
-![](/img/icon_warning.webp)  
+![](/img/common/icon_warning.webp)  
 **DANGER**  
 (Ignoring these warnings may cause serious injury or death)
 
@@ -42,7 +42,7 @@
 
 :::warning
 
-![](/img/icon_warning.webp)  
+![](/img/common/icon_warning.webp)  
 **CAUTION**  
 (Ignoring these warnings may cause mild injury or damage to the product)
  - Always comply with the product's official operating environment specifications including input voltage, current, and operating temperature. 
@@ -53,7 +53,7 @@
 
 :::warning
 
-![](/img/icon_warning.webp)  
+![](/img/common/icon_warning.webp)  
 **ATTENTION**  
 (Ignoring these warnings may cause minor injury or damage to the product)
 - Do not disassemble or modify the product.
@@ -220,9 +220,9 @@ Control Table consists of data regarding the current status and operation of con
 |  RAM   |   500   |      1       |   Port 2 BLUE Brightness    |   RW   |       0       |          0 ~ 100          |         %         | \-                                                                                                                                                                                                                                                                                                                                                                                                                                   | Adjust the level of the brightness in the red LED for #2 port (5 Pin Red / Blue LED module)                                                                                                                                                               |
 
 # Layout
-![](/img/edu/engineer/kit1/cm550_1.webp)
+![](/img/common/cm550_1.webp)
 
-![](/img/edu/engineer/kit1/cm550_2.webp)
+![](/img/common/cm550_2.webp)
 
 > CM-550 Layout
 
@@ -286,9 +286,9 @@ The pinout of DYNAMIXEL TTL connector is shown below.
 |           Item           |                             TTL                              |
 |:------------------------:|:------------------------------------------------------------:|
 |          Pinout          |                `1` GND<br />`2` VDD<br />`3` DATA                |
-|         Diagram          |        ![](/img/dxl/jst_b3beha_diagram.webp)        |
-|         Housing          |   ![](/img/dxl/JST_EHR-3.webp)<br />[JST EHR-03]    |
-|        PCB Header        | ![](/img/dxl/JST_B3B_EH-A.webp)<br />[JST B3B-EH-A] |
+|         Diagram          |        ![](/img/common/jst_b3beha_diagram.webp)        |
+|         Housing          |   ![](/img/common/JST_EHR-3.webp)<br />[JST EHR-03]    |
+|        PCB Header        | ![](/img/common/JST_B3B_EH-A.webp)<br />[JST B3B-EH-A] |
 |      Crimp Terminal      |                     [JST SEH-001T-P0.6]                      |
 | Wire Gauge for DYNAMIXEL |                            21 AWG                            |
 
@@ -302,7 +302,7 @@ To control the DYNAMIXEL actuators, the main controller needs to convert its UAR
 
 
 ### TTL Communication
-![](/img/dxl/ttl_circuit.webp)
+![](/img/common/ttl_circuit.webp)
 
 
 :::note
@@ -312,7 +312,7 @@ To control the DYNAMIXEL actuators, the main controller needs to convert its UAR
 :::
 
 
-![](/img/dxl/x/x_series_ttl_pin.webp)
+![](/img/common/x_series_ttl_pin.webp)
 
  
 
@@ -348,7 +348,7 @@ Set the `POWER` switch to **ON** and the Status LED will be turned on.
 :::
 
 
-![](/img/edu/engineer/kit1/battery_charging_4_kr.webp)
+![](/img/common/battery_charging_4_kr.webp)
 
 # How to Operate
 ## Power Up
@@ -414,13 +414,13 @@ It is strongly recommended to use `USB` port for the firmware recovery.
 ## R+ Manager 2.0
 RoboPlus Manager 2.0 is able to connect to CM-550 and configure supported peripheral devices such as X series DYNAMIXEL, Touch Sensor, LED Module, and IR Sensor.
 
-![](/img/software/rplus2/manager/roboplus_manager2_39.webp)
+![](/img/parts/controller/cm-550/roboplus_manager2_39.webp)
 
 ## R+ Task 3.0
 R+ Task 3.0 is an integrated software tool that combines R+ Task 2.0 and R+ Motion 2.0.  
 Task codes and Motions can be created and modified with R+ Task 3.0.
 
-![](/img/software/rplus_task3/task3_001.webp)
+![](/img/common/task3_001.webp)
 
 # Connect to PC
 There are three available options to connect PC and CM-550.
@@ -436,31 +436,31 @@ CM-550 includes BLE bluetooth slave module.
 Smart devices or PC with BT-410 Dongle can be paired with CM-550 wirelessly.
 
 1. Turn on the CM-550 controller.  
-  ![](/img/edu/engineer/kit1/bluetooth_connection_1.webp)
+  ![](/img/common/bluetooth_connection_1.webp)
 
 2. Launch the smart device app and select the bluetooth icon on the top right corner.  
 
     - In case of **R+ ENGINEER**  
-    ![](/img/edu/engineer/kit1/bluetooth_connection_4.webp)
+    ![](/img/common/bluetooth_connection_4.webp)
 
     - In case of **R+ Task 3.0**  
-    ![](/img/edu/engineer/kit1/bluetooth_connection_6_1.webp)
+    ![](/img/parts/controller/cm-550/bluetooth_connection_6_1.webp)
 
 3. Find the address on the CM-550 controller.  
-  ![](/img/edu/engineer/kit1/bluetooth_connection_5.webp)
+  ![](/img/common/bluetooth_connection_5.webp)
 
 4. Enter the last two characters of CM-550 BLE address in the left box and press `Search` icon.  
 
     - In case of **R+ ENGINEER**  
-    ![](/img/edu/engineer/kit1/bluetooth_connection_6.webp)
+    ![](/img/common/bluetooth_connection_6.webp)
 
     - In case of **R+ Task 3.0**  
-    ![](/img/edu/engineer/kit1/bluetooth_connection_6_2.webp)  
-    ![](/img/edu/engineer/kit1/bluetooth_connection_6_3.webp)  
-    ![](/img/edu/engineer/kit1/bluetooth_connection_6_4.webp)  
+    ![](/img/common/bluetooth_connection_6_2.webp)  
+    ![](/img/common/bluetooth_connection_6_3.webp)  
+    ![](/img/common/bluetooth_connection_6_4.webp)  
 
 5. Select the CM-550 BLE address from the search list(R+ ENGINEER).  
-  ![](/img/edu/engineer/kit1/bluetooth_connection_7.webp)
+  ![](/img/common/bluetooth_connection_7.webp)
 
 # Charging Battery
 
@@ -475,23 +475,23 @@ Smart devices or PC with BT-410 Dongle can be paired with CM-550 wirelessly.
 
 
 1. Get the rechargeable battery in the kit.  
-  ![](/img/edu/engineer/kit1/battery_charging_1_kr.webp)
+  ![](/img/common/battery_charging_1_kr.webp)
 
 2. Connect the battery to the charger as shown below.  
-  ![](/img/edu/engineer/kit1/battery_charging_2.webp)
+  ![](/img/common/battery_charging_2.webp)
 
 3. When fully charged, the LED will emit a solid green light.  
-  ![](/img/edu/engineer/kit1/battery_charging_3.webp)
+  ![](/img/common/battery_charging_3.webp)
 
 4. The robot and controller can also be powered by the SMPS without the battery.  
-  ![](/img/edu/engineer/kit1/battery_charging_4_kr.webp)
+  ![](/img/common/battery_charging_4_kr.webp)
 
 5. The battery has separate connectors for the charger and the robot. Please disconnect the `Robot Connector` from the robot when charging the battery.  
-  ![](/img/edu/engineer/kit1/battery_charging_5.webp)
+  ![](/img/common/battery_charging_5.webp)
 
 
 # Battery Level Check
-![](/img/edu/engineer/kit1/battery_check.webp)
+![](/img/common/battery_check.webp)
 
 Current battery life can be verified by the color of the LED located on the CM-550.
 
@@ -528,9 +528,9 @@ If CM-550 can be turned on with the SMPS, but not with the battery, please check
 
 Disconnect power source from CM-550 and replace the fuse on the bottom of CM-550.
 
-![](/img/edu/engineer/kit1/charger_fuse_1.webp)
+![](/img/common/charger_fuse_1.webp)
 
-![](/img/edu/engineer/kit1/charger_fuse_2.webp)
+![](/img/common/charger_fuse_2.webp)
 
 
 [R+ Manager 2.0]: /docs/software/rplus_manager_2_0

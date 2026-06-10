@@ -20,7 +20,7 @@ DYNAMIXEL Shield  was created to use [RC-100] and DYNAMIXEL on arduino board. We
 
 :::danger
 
-![](/img/icon_warning.webp)  
+![](/img/common/icon_warning.webp)  
 **DANGER**  
 (Ignoring these warnings may cause serious injury or death)
 
@@ -35,7 +35,7 @@ DYNAMIXEL Shield  was created to use [RC-100] and DYNAMIXEL on arduino board. We
 
 :::warning
 
-![](/img/icon_warning.webp)  
+![](/img/common/icon_warning.webp)  
 **CAUTION**  
 (Ignoring these warnings may cause mild injury or damage to the product)
  
@@ -46,7 +46,7 @@ DYNAMIXEL Shield  was created to use [RC-100] and DYNAMIXEL on arduino board. We
 
 :::warning
 
-![](/img/icon_warning.webp)  
+![](/img/common/icon_warning.webp)  
 **ATTENTION**  
 (Ignoring these warnings may cause minor injury or damage to the product)
 - Do not disassemble or modify the product.
@@ -200,19 +200,19 @@ There are three ways to add libraries to the Arduino IDE.
 Each way is described in detail in the [Arduino Official Guide], so please refer to it if necessary.  
 Below is an example of using the Library Manager.
 
-![](/img/parts/interface/dynamixel_shield/library_manager_01.webp)
+![](/img/common/library_manager_01.webp)
 
 Search for `dynamixel shield` from the Library Manager and install the latest version.
 
-![](/img/parts/interface/dynamixel_shield/library_manager_03.webp)
+![](/img/common/library_manager_03.webp)
 
 Click `Install all` to install the dependent library `Dynamixel2Arduino`.
 
-![](/img/parts/interface/dynamixel_shield/library_manager_04.webp)
+![](/img/parts/interface/library_manager_04.webp)
 
 If you have successfully installed both libraries, you'll be able to find several examples of DynamixelShield in the examples.
 
-![](/img/parts/interface/dynamixel_shield/examples.webp)
+![](/img/common/examples.webp)
 
 
 :::warning
@@ -331,9 +331,9 @@ bool syncWriteEnd(void);
 |           Item           |                             TTL                              |                            RS-485                            |                            XL-320 (TTL)                             |
 |:------------------------:|:------------------------------------------------------------:|:------------------------------------------------------------:|:-------------------------------------------------------------------:|
 |          Pinout          |                `1` GND<br />`2` VDD<br />`3` DATA                |         `1` GND<br />`2` VDD<br />`3` DATA+<br />`4` DATA-         |                   `1` GND<br />`2` VDD<br />`3` DATA                    |
-|         Diagram          |        ![](/img/dxl/jst_b3beha_diagram.webp)        |        ![](/img/dxl/jst_b4beha_diagram.webp)        |         ![](/img/dxl/molex_532530370_diagram.webp)         |
-|         Housing          |   ![](/img/dxl/JST_EHR-3.webp)<br />[JST EHR-03]    |   ![](/img/dxl/JST_EHR-4.webp)<br />[JST EHR-04]    | ![](/img/dxl/molex_510650300.webp)<br />[MOLEX 51065-0300] |
-|        PCB Header        | ![](/img/dxl/JST_B3B_EH-A.webp)<br />[JST B3B-EH-A] | ![](/img/dxl/JST_B4B-EH-A.webp)<br />[JST B4B-EH-A] | ![](/img/dxl/molex_532530370.webp)<br />[MOLEX 53253-0370] |
+|         Diagram          |        ![](/img/common/jst_b3beha_diagram.webp)        |        ![](/img/common/jst_b4beha_diagram.webp)        |         ![](/img/common/molex_532530370_diagram.webp)         |
+|         Housing          |   ![](/img/common/JST_EHR-3.webp)<br />[JST EHR-03]    |   ![](/img/common/JST_EHR-4.webp)<br />[JST EHR-04]    | ![](/img/common/molex_510650300.webp)<br />[MOLEX 51065-0300] |
+|        PCB Header        | ![](/img/common/JST_B3B_EH-A.webp)<br />[JST B3B-EH-A] | ![](/img/common/JST_B4B-EH-A.webp)<br />[JST B4B-EH-A] | ![](/img/common/molex_532530370.webp)<br />[MOLEX 53253-0370] |
 |      Crimp Terminal      |                     [JST SEH-001T-P0.6]                      |                     [JST SEH-001T-P0.6]                      |                         [MOLEX 50212-8000]                          |
 | Wire Gauge for DYNAMIXEL |                            21 AWG                            |                            21 AWG                            |                               24 AWG                                |
 
@@ -342,7 +342,7 @@ To control the DYNAMIXEL actuators, the main controller needs to convert its UAR
 
 
 ### TTL Communication
-![](/img/dxl/ttl_circuit.webp)
+![](/img/common/ttl_circuit.webp)
 
 > TTL Circuit
 
@@ -354,11 +354,11 @@ To control the DYNAMIXEL actuators, the main controller needs to convert its UAR
 :::
 
 
-![](/img/dxl/x/x_series_ttl_pin.webp)
+![](/img/common/x_series_ttl_pin.webp)
 
 
 ### RS-485 Communication
-![](/img/dxl/x/x_series_485_circuit.webp)  
+![](/img/common/x_series_485_circuit.webp)  
 > RS-485 Circuit 
 
 
@@ -369,7 +369,7 @@ To control the DYNAMIXEL actuators, the main controller needs to convert its UAR
 :::
 
 
-![](/img/dxl/x/x_series_485_pin.webp)
+![](/img/common/x_series_485_pin.webp)
 
 
 The power of DYNAMIXEL is supplied via Pin1(-), Pin2(+).  
