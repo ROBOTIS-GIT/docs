@@ -1153,3 +1153,15 @@
 .markdown h1 {
   --ifm-h1-font-size: 2.5rem;
 }
+
+/* sidebar EN/KR section divider label */
+.sidebar-section-label {
+  padding: 0.5rem 0.75rem 0.2rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--robotis-muted);
+  pointer-events: none;
+  margin-top: 0.75rem;
+}
