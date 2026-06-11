@@ -59,10 +59,6 @@ jobs:
           NODE_OPTIONS: --max_old_space_size=4096
         run: npm run build
 
-      - name: Dedupe i18n static assets
-        working-directory: ./
-        run: bash scripts/dedupe-i18n-static.sh
-
       - name: Check build output
         working-directory: ./
         run: |

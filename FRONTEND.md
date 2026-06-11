@@ -173,7 +173,6 @@ mega-menu 의 각 제품 링크가 진입할 때 그 **제품 전용 사이드�
 
 - **변환 (1회성, 보존용)**: `convert-*.js` (16개) — 마이그레이션 당시 Jekyll md → Docusaurus mdx 일괄 변환에 쓰임. 새 콘텐츠에는 사용하지 않지만 향후 추가 마이그레이션 발생 시 패턴 참고용으로 보존.
 - **자산 압축 (반복 운영)**: `png-to-webp.js`, `jpg-to-webp.js`, `rewrite-png-references.js`, `rewrite-jpg-references.js`, `measure-png-compression.js`
-- **빌드 후처리**: `dedupe-i18n-static.sh` (CI에서 자동 실행)
 - **redirect**: `build-redirects.js`
 - **헤딩 anchor**: `inject-heading-anchors.js`, `inject-anchors-rna.js`, `fix-heading-anchors.js`, `hide-popup-sidebar.js`
 - **링크/자산 복원**: `restore-internal-links.js`, `recover-missing-images.js`
@@ -206,17 +205,7 @@ node scripts/rewrite-jpg-references.js
 
 실측 효과: PNG 630 MB → 147 MB (77% 절약), JPG 192 MB → 62 MB (68% 절약).
 
-### 3.2 i18n 빌드 중복 제거 (`scripts/dedupe-i18n-static.sh`)
-
-Docusaurus i18n 빌드는 `build/<locale>/img/` 에 root `build/img/` 와 동일한 자산을 중복 복사한다. CI 후처리로 제거.
-
-- `build/ko/img/` 삭제
-- ko HTML 의 `/ko/img/` → `/img/` 일괄 sed
-- `build/ko/search-index.json` 도 동일 치환
-
-`.github/workflows/deploy.yml` 의 build job 마지막 step에 등록되어 있으니 수동 실행은 보통 불필요.
-
-### 3.3 redirect 자동 생성 (`scripts/build-redirects.js`)
+### 3.2 redirect 자동 생성 (`scripts/build-redirects.js`)
 
 원본 Jekyll 의 모든 `permalink:` 값을 스캔해 Docusaurus client-redirects 가 사용할 `redirects.generated.json` 생성.
 
@@ -249,9 +238,7 @@ GitHub Pages artifact 한계는 **1 GB**. 운영 중 빌드 결과 사이즈를 
 
 ```
 빌드 단계별 사이즈 (raw)
-3.7 GB (원본 PNG/JPG, 3 locale)
-↓ dedupe-i18n-static
-2.3 GB
+3.7 GB (원본 PNG/JPG)
 ↓ PNG → WebP q=85
 1.54 GB
 ↓ JPG → WebP q=85
@@ -328,7 +315,6 @@ npx docusaurus write-translations --locale ko
 - 트리거: master push (paths `docusaurus/**` 또는 `.github/workflows/deploy.yml`), workflow_dispatch
 - 환경: Ubuntu, Node 20, npm ci
 - 빌드 환경변수: `DOCUSAURUS_IGNORE_SSG_WARNINGS=true` (cosmetic SSG 워닝의 빌드 차단 방지)
-- 빌드 후처리: `bash scripts/dedupe-i18n-static.sh` (1.4 GB 절약)
 - 업로드: `actions/upload-pages-artifact@v3` (path: `docusaurus/build`)
 - 배포: `actions/deploy-pages@v4`
 
