@@ -80,7 +80,7 @@ c:/Data/emanual/
 
 - **언어**: en (default) + ko + ja (원본 jp/ → Docusaurus ja locale)
 - **검색**: `@easyops-cn/docusaurus-search-local` (다국어 인덱스, 오프라인 빌드 가능)
-- **호스팅**: GitHub repository 기반 (Luke-K-robotis 계정, repo 이름 미정). `emanual.robotis.com` 도메인 보존 가능성 있음 — repo 결정 시 확인.
+- **호스팅**: GitHub repository 기반 (Luke-K-robotis 계정, repo 이름 미정). `docs.robotis.com` 도메인 보존 가능성 있음 — repo 결정 시 확인.
 - **Redirect**: `@docusaurus/plugin-client-redirects` (빌드 시 정적 HTML redirect 페이지 생성). GitHub Pages 환경에서도 동작. `scripts/build-redirects.js` 가 원본 `permalink:` 전부를 추출해 `redirects.generated.json` 으로 출력 → config가 import.
 - **`tabs:` 시스템**: 단일 `<Tabs>`/`<TabItem>` (Docusaurus 기본 `@theme/Tabs`) 으로 통합. 변형(Revision, ROS 버전, OS 버전 등)은 모두 같은 컴포넌트 인터페이스, content-migrator가 본문 변환 시 import 추가.
 - **`product_group`**: frontmatter `tags: [<product_group>]` 으로 보존. Docusaurus 기본 태그 페이지(`/docs/tags/<group>`)가 자동 생성됨. 별도 카탈로그/필터 UI는 추후 필요시.
@@ -89,7 +89,7 @@ c:/Data/emanual/
 ## 6. 미정 항목 (작업 시 확인 필요)
 
 - Luke-K-robotis 계정의 신규 repo 이름 (예: `emanual-docusaurus`, `emanual-v2`)
-- `emanual.robotis.com` 도메인을 신규 repo로 그대로 옮길지 (CNAME 이전)
+- `docs.robotis.com` 도메인을 신규 repo로 그대로 옮길지 (CNAME 이전)
 - Git commit 작성자 — 글로벌은 `gooddeng/gooddeng@naver.com`. 이 repo만 local config로 Luke-K-robotis 계정으로 변경할지
 
 ## 7. 호출 패턴 예시
