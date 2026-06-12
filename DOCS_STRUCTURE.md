@@ -45,7 +45,7 @@ docusaurus/
 | docs 경로 | 사이드바 카테고리 | img 경로 |
 |-----------|-----------------|----------|
 | `dxl/model_reference/ax_series/` | AX Series | `img/dxl/model_reference/ax_series/` |
-| `dxl/model_reference/x_series/xl_series/` | XL Series | `img/dxl/model_reference/x_series/` |
+| `dxl/model_reference/x_series/xl_series/` | XL Series | `img/dxl/model_reference/x_series/xl_series/` |
 | `parts/controller/` | Parts › Controller | `img/parts/controller/` |
 | `software/rplus_1_0/` | R+ 1.0 | `img/software/rplus_1_0/` |
 
