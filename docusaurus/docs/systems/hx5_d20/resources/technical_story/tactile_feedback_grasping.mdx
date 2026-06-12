@@ -47,7 +47,7 @@ The force-based grasping path mainly uses:
 
 The tactile grasping system is organized around the following main components:
 
-![System Architecture](/img/systems/hx5_d20/technical_story/hx5d20_system_architecture.png)
+![System Architecture](/img/systems/hx5_d20/resources/technical_story/tactile_feedback_grasping/hx5d20_system_architecture.png)
 
 *   **User/App Layer**: Sends the /grasp_start command to start or reset the tactile grasping sequence.
 *   **Pressure Broadcaster**: Collects raw tactile sensor data from the HX5-D20 and publishes each finger’s 3×3 pressure array to the /right_hand/finger_pressures topic.
@@ -164,12 +164,12 @@ robotis_hand_playground/config/param.yaml
   <div>
     <h4 style={{marginTop: '0', fontSize: '16px'}}>state: HOLD</h4>
     <p style={{marginTop: '0'}}>After contact is detected, the controller maintains the contact force.</p>
-    <img src="/img/systems/hx5_d20/technical_story/tactile_param_hold.gif" alt="Force-based grasping HOLD mode" style={{width: '100%', borderRadius: '8px'}} />
+    <img src="/img/systems/hx5_d20/resources/technical_story/tactile_feedback_grasping/tactile_param_hold.gif" alt="Force-based grasping HOLD mode" style={{width: '100%', borderRadius: '8px'}} />
   </div>
   <div>
     <h4 style={{marginTop: '0', fontSize: '16px'}}>state: IDLE</h4>
     <p style={{marginTop: '0'}}>After contact is detected, the controller stops immediately.</p>
-    <img src="/img/systems/hx5_d20/technical_story/tactile_param_idle.gif" alt="Force-based grasping IDLE mode" style={{width: '100%', borderRadius: '8px'}} />
+    <img src="/img/systems/hx5_d20/resources/technical_story/tactile_feedback_grasping/tactile_param_idle.gif" alt="Force-based grasping IDLE mode" style={{width: '100%', borderRadius: '8px'}} />
   </div>
 </div>
 
@@ -235,7 +235,7 @@ This tool is useful for checking the raw distribution of tactile pressure. Each 
 
 <div style={{textAlign: 'center', margin: '20px 0'}}>
   <img
-    src="/img/systems/hx5_d20/technical_story/tactile_visualization.gif"
+    src="/img/systems/hx5_d20/resources/technical_story/tactile_feedback_grasping/tactile_visualization.gif"
     alt="3x3 Tactile Visualization"
     style={{width: '100%', maxWidth: '900px', height: 'auto', borderRadius: '8px'}}
   />
@@ -371,14 +371,14 @@ The region-based correction result can be visualized separately for X-axis and Y
     <p>
       X correction moves left- or right-biased contact back toward the center region.
     </p>
-    <img src="/img/systems/hx5_d20/technical_story/tactile_grasp_x_corr.gif" alt="X-axis tactile grasp correction" style={{width: '100%', borderRadius: '8px'}} />
+    <img src="/img/systems/hx5_d20/resources/technical_story/tactile_feedback_grasping/tactile_grasp_x_corr.gif" alt="X-axis tactile grasp correction" style={{width: '100%', borderRadius: '8px'}} />
   </div>
   <div>
     <h4 style={{marginTop: '0'}}>Y-Axis Correction</h4>
     <p>
       Y correction moves top- or bottom-biased contact back toward the center region.
     </p>
-    <img src="/img/systems/hx5_d20/technical_story/tactile_grasp_y_corr.gif" alt="Y-axis tactile grasp correction" style={{width: '100%', borderRadius: '8px'}} />
+    <img src="/img/systems/hx5_d20/resources/technical_story/tactile_feedback_grasping/tactile_grasp_y_corr.gif" alt="Y-axis tactile grasp correction" style={{width: '100%', borderRadius: '8px'}} />
   </div>
 </div>
 

@@ -25,7 +25,7 @@ import CommunicationCircuitPro from '@site/docs/dxl/_partials/pro/communication_
 import DownloadCenterNotice from '@site/docs/dxl/_partials/pro/download_center_notice.mdx';
 import CommonLink from '@site/docs/dxl/_partials/pro/common_link.mdx';
 
-![](/img/dxl/pro/m42-10-s260-r_product.webp)
+![](/img/dxl/model_reference/pro_series/m42-10-s260-r_product.webp)
 
 # L42-10-S300-R
 
@@ -41,8 +41,8 @@ import CommonLink from '@site/docs/dxl/_partials/pro/common_link.mdx';
 | Resolution              | 4,096 [pulse/rev]         |
 | Gear Ratio              | 303.75 : 1          |
 | Backlash                | < 6 [arcmin], 0.1 [&deg;]           |
-| <a href="/img/dxl/axial_radial_load_pro.webp" target="_blank">Radial Load</a> | 280 [N] (10 [mm] away from the horn)      |
-| <a href="/img/dxl/axial_radial_load_pro.webp" target="_blank">Axial Load</a>  | 100 [N]          |
+| <a href="/img/dxl/model_reference/pro_series/axial_radial_load_pro.webp" target="_blank">Radial Load</a> | 280 [N] (10 [mm] away from the horn)      |
+| <a href="/img/dxl/model_reference/pro_series/axial_radial_load_pro.webp" target="_blank">Axial Load</a>  | 100 [N]          |
 | No Load Speed           | 29.7 [rev/min]        |
 | No Load Current         | 0.72 [A]      |
 | `1` Continuous Speed    | 27.9 [rev/min]          |
@@ -70,7 +70,7 @@ Please consult ROBOTIS for the long term use or special use, or else refer to th
 
 
 ### Performance Graph
-![](/img/dxl/pro/l42-10-s300-r_performance_graph.webp)
+![](/img/dxl/model_reference/pro_series/pro_l_series/l42-10-s300-r/l42-10-s300-r_performance_graph.webp)
 
 
 <NotePerformanceGraph />
@@ -234,7 +234,7 @@ These Gains are used in Position Control Mode. Below figure is a block diagram d
 |:----------------:|
 |    0 ~ 32,767    |
 
-![](/img/dxl/pro/l42_position_controller.webp)
+![](/img/dxl/model_reference/pro_series/pro_l_series/l42-10-s300-r/l42_position_controller.webp)
 <a id="goal-position"></a>
 #### Goal Position(596)
 Desired position can be set with Goal Position(596). This value can't be smaller than the Min Position Limit(40) or larger than Max Position Limit(36).
@@ -242,7 +242,7 @@ When CW/CCW Angle Limit are exceeded the status packet sends an Angle limit erro
 
 |     Model     |    Angle Range     | Position Range |                                                  Description                                                   |
 |:-------------:|:------------------:|:--------------:|:--------------------------------------------------------------------------------------------------------------:|
-| L42-10-S300-R | 0&deg; ~ 360 &deg; |   0 ~ 4,095    | ![](/img/dxl/pro/l42_angle_position.webp)<br />![](/img/dxl/pro/l42_goal_angle_formula.webp) |
+| L42-10-S300-R | 0&deg; ~ 360 &deg; |   0 ~ 4,095    | ![](/img/dxl/model_reference/pro_series/pro_l_series/l42-10-s300-r/l42_angle_position.webp)<br />![](/img/dxl/model_reference/pro_series/pro_l_series/l42-10-s300-r/l42_goal_angle_formula.webp) |
 <a id="goal-velocity"></a>
 #### Goal Velocity(600)
 - Position Control Mode
@@ -313,7 +313,7 @@ This value indicates present internal Temperature. For more details, please refe
 ### Option Frame Assembly
 + FRP42-H110K, FRP42-H120K Set
 
-  ![](/img/dxl/pro/frp42-h110k-h120k.webp)
+  ![](/img/dxl/model_reference/pro_series/frp42-h110k-h120k.webp)
 
 ## Maintenance
 ## Reference
@@ -356,3 +356,8 @@ Please inquire us for information regarding unlisted certifications.
 
 
 <CommonLink />
+
+[Torque Enable(562)]: #torque-enable562
+[Goal Acceleration(606)]: #goal-acceleration606
+[Harness Compatibility]: /docs/dxl/cable_compatibility
+[Goal Velocity(600)]: #goal-velocity600

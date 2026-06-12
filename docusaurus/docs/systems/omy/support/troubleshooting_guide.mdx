@@ -73,17 +73,17 @@ In **Dynamixel Wizard 2.0**, set the following and run **Scan**:
 
 1. In the **OMY-HAT** control table, turn on **`DXL Power Enable (512)`**.
 
-![search dynamixelY 1](/img/systems/omy/specifications/search_dynamixel_y_1.png)
+![search dynamixelY 1](/img/systems/omy/support/search_dynamixel_y_1.png)
 
 2. In Wizard 2.0, open **Settings → Search**. Enable the **6 Mbps** baud rate and select the port to scan `/dev/ttyAMA4`, then set the ID search range from **1** to **10**.
 
-![search dynamixelY 2](/img/systems/omy/specifications/search_dynamixel_y_2.png)
+![search dynamixelY 2](/img/systems/omy/support/search_dynamixel_y_2.png)
 
 3. Click the **DYNAMIXEL search** button in Wizard 2.0.
 
 4. Confirm that six **DYNAMIXEL-Y** actuators (IDs **1**–**6**) are detected.
 
-![search dynamixelY 3](/img/systems/omy/specifications/search_dynamixel_y_3.png)
+![search dynamixelY 3](/img/systems/omy/support/search_dynamixel_y_3.png)
 
 ### 6. Manually move joints toward the home position
 
@@ -94,7 +94,7 @@ In **Dynamixel Wizard 2.0**, set the following and run **Scan**:
 The robot may move or fall under gravity. **Support the robot by hand** while torque is enabled.
 :::
 
-![OMY manual operation 1](/img/systems/omy/specifications/omy_manual_operation_1.png)
+![OMY manual operation 1](/img/systems/omy/support/omy_manual_operation_1.png)
 
 3. Move the joint toward the marked home position.
 4. Turn **torque off**.
@@ -105,29 +105,29 @@ The robot may move or fall under gravity. **Support the robot by hand** while to
 1. Select the Dynamixel that reported the error.
 2. In the top menu, choose **Tools → Encoder battery change**.
 
-![Encoder battery change](/img/systems/omy/troubleshooting_guide/tools_clear.png)
+![Encoder battery change](/img/systems/omy/support/troubleshooting_guide/tools_clear.png)
 
 3. Set **Multi-turn encoder power mode** to **High**, then run **Clear**.
 
-![Multi-turn encoder power mode](/img/systems/omy/troubleshooting_guide/multi_turn_encoder_power_mode.png)
+![Multi-turn encoder power mode](/img/systems/omy/support/troubleshooting_guide/multi_turn_encoder_power_mode.png)
 
 ### 8. Initialize the home position
 
 1. Move the robot to the home position.
 2. In Wizard 2.0, open the **Packet Monitoring** window, open the COM port, and send the **`Clear`** command to IDs **1** through **6**.
 
-![Initialize home position — packet monitoring](/img/systems/omy/specifications/reset_multiturn_1.png)
+![Initialize home position — packet monitoring](/img/systems/omy/support/reset_multiturn_1.png)
 
 3. Check that each joint’s present position is within **1** degrees of the target.
 4. For any joint outside that range, return to **step 6**, adjust the joint manually, then repeat step 2.
 
-![Initialize home position reference](/img/systems/omy/specifications/initialize_home_position.png)
+![Initialize home position reference](/img/systems/omy/support/initialize_home_position.png)
 
 ### 9. OMY home position (slit alignment)
 
 Align the robot to the home position using the **home-position slits** as shown.
 
-![OMY home position slit](/img/systems/omy/specifications/home_position_slit_omy.png)
+![OMY home position slit](/img/systems/omy/support/home_position_slit_omy.png)
 
 ### 10. Verify with bringup
 
@@ -147,46 +147,46 @@ Install [Dynamixel Wizard 2.0](/docs/software/dynamixel_wizard_2_0/introduction)
 2. Power on OMY.
 3. On the PC, confirm the serial port appears (Windows: `COM*`, Ubuntu: `/dev/ttyACM*`).
 
-![Connect OMY to Wizard](/img/systems/omy/specifications/connect_omy_wizard.png)
+![Connect OMY to Wizard](/img/systems/omy/support/connect_omy_wizard.png)
 
 ### 3. Search for OMY (OMY-HAT)
 
 1. In Wizard 2.0, open **Settings** and select the COM port the PC recognized.
 
-![Search OMY on Wizard 1](/img/systems/omy/specifications/search_omy_on_wizard_1.png)
+![Search OMY on Wizard 1](/img/systems/omy/support/search_omy_on_wizard_1.png)
 
 2. Click **DYNAMIXEL search**.
 
 3. Confirm **OMY-HAT (ID 200)** is found.
 
-![Search OMY on Wizard 2](/img/systems/omy/specifications/search_omy_on_wizard_2.png)
+![Search OMY on Wizard 2](/img/systems/omy/support/search_omy_on_wizard_2.png)
 
 ### 4. Search for DYNAMIXEL-Y actuators
 
 1. In the **OMY-HAT** control table, turn on **`DXL Power Enable (512)`**.
 
-![search dynamixelY 1 — USB path](/img/systems/omy/specifications/search_dynamixel_y_1.png)
+![search dynamixelY 1 — USB path](/img/systems/omy/support/search_dynamixel_y_1.png)
 
 2. In **Settings → Search**, enable **6 Mbps** and set the ID range from **1** to **10**.
 
-![search dynamixelY 2 — USB path](/img/systems/omy/specifications/search_dynamixel_y_2.png)
+![search dynamixelY 2 — USB path](/img/systems/omy/support/search_dynamixel_y_2.png)
 
 3. Click **DYNAMIXEL search**.
 
 4. Confirm six **DYNAMIXEL-Y** actuators (IDs **1**–**6**) are detected.
 
-![search dynamixelY 3 — USB path](/img/systems/omy/specifications/search_dynamixel_y_3.png)
+![search dynamixelY 3 — USB path](/img/systems/omy/support/search_dynamixel_y_3.png)
 
 ### 5. Reset the DYNAMIXEL-Y multi-turn alarm
 
 1. Note the **ID** of the **DYNAMIXEL-Y** that reported the alarm.
 2. In **Packet Monitoring**, open the COM port and send the **`Clear`** command to that actuator.
 
-![Reset multi-turn alarm 1](/img/systems/omy/specifications/reset_multiturn_1.png)
+![Reset multi-turn alarm 1](/img/systems/omy/support/reset_multiturn_1.png)
 
 3. Confirm the multi-turn alarm is cleared.
 
-![Reset multi-turn alarm 2](/img/systems/omy/specifications/reset_multiturn_2.png)
+![Reset multi-turn alarm 2](/img/systems/omy/support/reset_multiturn_2.png)
 
 ### 6. Manually move joints toward the home position
 
@@ -197,31 +197,31 @@ Install [Dynamixel Wizard 2.0](/docs/software/dynamixel_wizard_2_0/introduction)
 The robot may move or fall under gravity. **Support the robot by hand** while torque is enabled.
 :::
 
-![OMY manual operation 1 — USB path](/img/systems/omy/specifications/omy_manual_operation_1.png)
+![OMY manual operation 1 — USB path](/img/systems/omy/support/omy_manual_operation_1.png)
 
 3. Move the joint toward the marked home position.
 4. Turn **torque off**.
 5. Repeat substeps 1–4 for each axis until the arm is at the home or packing position.
 
-![OMY manual operation 2](/img/systems/omy/specifications/omy_manual_operation_2.png)
+![OMY manual operation 2](/img/systems/omy/support/omy_manual_operation_2.png)
 
 ### 7. Initialize the home position
 
 1. Move the robot to the home position.
 2. In **Packet Monitoring**, open the COM port and send **`Clear`** to IDs **1** through **6**.
 
-![Initialize home position — USB path](/img/systems/omy/specifications/reset_multiturn_1.png)
+![Initialize home position — USB path](/img/systems/omy/support/reset_multiturn_1.png)
 
 3. Check that each joint is within **1** degree.
 4. If not, return to **step 6**, adjust manually, then repeat step 2.
 
-![Initialize home position reference — USB path](/img/systems/omy/specifications/initialize_home_position.png)
+![Initialize home position reference — USB path](/img/systems/omy/support/initialize_home_position.png)
 
 ### 8. OMY home position (slit alignment)
 
 Align the robot using the **home-position slits**.
 
-![OMY home position slit — USB path](/img/systems/omy/specifications/home_position_slit_omy.png)
+![OMY home position slit — USB path](/img/systems/omy/support/home_position_slit_omy.png)
 
 ### 9. Verify with bringup
 

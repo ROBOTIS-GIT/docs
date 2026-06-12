@@ -16,7 +16,7 @@ $ ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
 
 <details>
 <summary>
-![](/img/icon_unfold.webp) Read more about **How to load TurtleBot3 House**
+![](/img/common/icon_unfold.webp) Read more about **How to load TurtleBot3 House**
 Specify your TurtleBot3 model (`burger`, `waffle`, `waffle_pi`) using the `TURTLEBOT3_MODEL` parameter.
 </summary>
 ```bash
@@ -59,13 +59,13 @@ $ ros2 run turtlebot3_teleop teleop_keyboard
 ### Save Map
 When the map is has been created, open a new terminal on the Remote PC with `Ctrl` + `Alt` + `T` and save the map.
 
-![](/img/systems/turtlebot3/simulation/virtual_slam.webp)
+![](/img/systems/turtlebot3/simulation/slam_simulation/virtual_slam.webp)
 
 ```bash
 $ ros2 run nav2_map_server map_saver_cli -f ~/map
 ```
 
-![](/img/systems/turtlebot3/simulation/map.webp)
+![](/img/systems/turtlebot3/simulation/slam_simulation/map.webp)
 
 > The saved map.pgm file
 

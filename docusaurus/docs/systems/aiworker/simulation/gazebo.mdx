@@ -75,12 +75,12 @@ You can launch Gazebo and RViz (Moveit) individually, launch RViz together with 
 
 ### FFW_BG2
 
-![FFW BG2 Simulation](/img/systems/aiworker/simulation/ffw_bg2_gazebo.png)
+![FFW BG2 Simulation](/img/systems/aiworker/simulation/gazebo/ffw_bg2_gazebo.png)
 
 
 ### FFW_SG2
 
-![FFW SG2 Simulation](/img/systems/aiworker/simulation/ffw_sg2_gazebo.png)
+![FFW SG2 Simulation](/img/systems/aiworker/simulation/gazebo/ffw_sg2_gazebo.png)
 
 ## Launch Moveit
 *   **Launch Moveit:**
@@ -95,7 +95,7 @@ You can launch Gazebo and RViz (Moveit) individually, launch RViz together with 
     ros2 launch ffw_moveit_config moveit.launch.py use_sim:=true
     # Launch Moveit in simulation mode
     ```
-<img src="/img/systems/aiworker/release_note/ai_worker/1.1.10/ffw_moveit.gif" alt="AI Worker MoveIt" />
+<img src="/img/systems/aiworker/simulation/gazebo/ffw_moveit.gif" alt="AI Worker MoveIt" />
 
 
 ## Launch Nav2 in Gazebo
@@ -122,7 +122,7 @@ Use Nav2 with the Gazebo simulation to test autonomous navigation before running
     </Tabs>
 
 #### Gazebo View in the default world
-![Gazebo Nav2 View](/img/systems/aiworker/simulation/gazebo_view1.png)
+![Gazebo Nav2 View](/img/systems/aiworker/simulation/gazebo/gazebo_view1.png)
 
 2. **Launch Nav2:**
 
@@ -136,7 +136,7 @@ Use Nav2 with the Gazebo simulation to test autonomous navigation before running
      Nav2 starts with SLAM enabled so you can map while driving. In RViz, send goals with `2D Goal Pose` to explore and expand the map.
 
    #### SLAM Mapping Example  
-   ![Nav2 SLAM Mapping](/img/systems/aiworker/simulation/nav2_slamtoolbox1.gif)
+   ![Nav2 SLAM Mapping](/img/systems/aiworker/simulation/gazebo/nav2_slamtoolbox1.gif)
 
    #### Save a generated map
     If you ran SLAM and want to reuse the map, save it with:
@@ -149,7 +149,7 @@ Use Nav2 with the Gazebo simulation to test autonomous navigation before running
    #### Saved Map Example
    Example of a saved occupancy grid generated with `map_saver_cli`:
 
-   ![Saved map example](/img/systems/aiworker/simulation/my_map.png)
+   ![Saved map example](/img/systems/aiworker/simulation/gazebo/my_map.png)
    The map uses a two-dimensional Occupancy Grid Map (OGM). White is free space, black is occupied, and gray is unknown.
 
 ## Navigation Using a Saved Map

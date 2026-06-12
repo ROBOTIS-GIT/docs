@@ -1,8 +1,3 @@
-# --- 원본 Jekyll repo (별도 git, 참고용) ---
-# 1GB 자산 + 자체 .git이 있으므로 새 repo에 포함하지 않음.
-# 원본은 별도로 source/에서 git pull로 갱신.
-source/
-
 # --- Docusaurus 빌드 산출물 ---
 docusaurus/build/
 docusaurus/.docusaurus/

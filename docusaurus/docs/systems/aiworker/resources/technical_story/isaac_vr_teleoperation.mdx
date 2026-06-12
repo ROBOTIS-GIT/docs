@@ -46,7 +46,7 @@ The SH5 DDS bringup path mainly uses:
 
 The SH5 DDS bringup system is organized around the following main components:
 
-![System Architecture](/img/systems/aiworker/technical_story/sh5_dds_bridge_system_architecture.jpg)
+![System Architecture](/img/systems/aiworker/resources/technical_story/isaac_vr_teleoperation/sh5_dds_bridge_system_architecture.jpg)
 
 * **VR Device**: Provides operator pose input to the external ROS 2 teleoperation stack.
 * **ROS 2 Controllers**: `cyclo_motion_controller` retargets the VR pose and publishes SH5 `JointTrajectory` commands for the arms, hands, and lift, while `ffw_teleop/mobile_teleop` publishes `/cmd_vel` for the swerve mobile base.

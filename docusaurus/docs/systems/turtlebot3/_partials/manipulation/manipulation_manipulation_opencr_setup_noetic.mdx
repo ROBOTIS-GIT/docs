@@ -38,7 +38,7 @@ $ ./update.sh $OPENCR_PORT $OPENCR_MODEL.opencr
 When the firmware is successfully uploaded, the OpenCR board will reboot and **the OpenMANIPULATOR-X will move to it's initial pose**.  
 It is recommended to put the OpenMANIPULATOR-X in a similar pose as the below image to avoid any physical damage during the initial movement.
 
-![](/img/systems/turtlebot3/manipulation/open_manipulator_gazebo_1.webp)
+![](/img/systems/turtlebot3/manipulation/manipulation/open_manipulator_gazebo_1.webp)
 
 :::
 
@@ -50,7 +50,7 @@ In order to upload the OpenCR firmware using Arduino IDE, please follow the belo
 
 <details>
 <summary>
-![](/img/icon_unfold.webp) Click here to expand more details about the firmware upload using **Arduino IDE**
+![](/img/common/icon_unfold.webp) Click here to expand more details about the firmware upload using **Arduino IDE**
 </summary>
 
 1. If you are using Linux, please configure the USB port for OpenCR. For other OS(OSX or Windows), you can skip this step.
@@ -72,7 +72,7 @@ $ sudo apt install libncurses5-dev:i386
   ```bash
 https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCR/master/arduino/opencr_release/package_opencr_index.json
   ```  
-  ![](/img/systems/turtlebot3/preparation/ide1.webp)
+  ![](/img/common/ide1.webp)
 
 6. Open the TurtleBot3 with OpenMANIPULATOR firmware.
   - TurtleBot3 with OpenMANIPULATOR : ***File > Examples > turtlebot3 > turtlebot3_with_open_manipulator > turtlebot3_with_open_manipulator_core***
@@ -84,13 +84,13 @@ https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCR/master/arduino/opencr_relea
 9. Select the OpenCR's USB port from ***Tools > Port*** menu.
 
 10. Upload the TurtleBot3 firmware sketch with `Ctrl` + `U` or the upload icon.  
-  ![](/img/systems/turtlebot3/quick_start/opencr_setup/o2.webp)  
-  ![](/img/systems/turtlebot3/quick_start/opencr_setup/o3.webp)
+  ![](/img/systems/turtlebot3/o2.webp)  
+  ![](/img/systems/turtlebot3/o3.webp)
 
 11. If firmware upload fails, try uploading through recovery mode. The following sequence activates the recovery mode of OpenCR. When in recovery mode, the `STATUS` led of the OpenCR will blink periodically.
   - Hold down the `PUSH SW2` button.
   - Press the `Reset` button.
   - Release the `Reset` button.
   - Release the `PUSH SW2` button.
-  ![](/img/parts/controller/opencr10/bootloader_19.webp)
+  ![](/img/common/bootloader_19.webp)
 </details>

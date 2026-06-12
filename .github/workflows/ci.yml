@@ -3,16 +3,10 @@ name: CI
 on:
   pull_request:
     branches: [main]
-    paths:
-      - 'docusaurus/**'
-      - 'scripts/**'
-      - '.github/workflows/ci.yml'
-      - '.github/workflows/deploy.yml'
   push:
     branches: [main]
     paths:
       - 'docusaurus/**'
-      - 'scripts/**'
       - '.github/workflows/ci.yml'
       - '.github/workflows/deploy.yml'
 
@@ -26,7 +20,7 @@ concurrency:
 
 jobs:
   build:
-    name: Build and Test
+    name: docs_ci
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -58,10 +52,6 @@ jobs:
           DOCUSAURUS_ON_BROKEN_LINKS: 'warn'
           NODE_OPTIONS: --max_old_space_size=4096
         run: npm run build
-
-      - name: Dedupe i18n static assets
-        working-directory: ./
-        run: bash scripts/dedupe-i18n-static.sh
 
       - name: Check build output
         working-directory: ./

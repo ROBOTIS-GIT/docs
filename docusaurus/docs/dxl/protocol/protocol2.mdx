@@ -58,7 +58,7 @@ DYNAMIXEL servos utilize half-duplex 8 bit Asynchronous Serial Communication wit
 ### Half Duplex
 Half duplex UART is a serial communication protocol where both TxD and RxD cannot be used at the same time. This method is generally used when many devices need to be connected to a single bus. Since multiple devices are connected to the same bus, all the other devices need to be in input mode while one device is transmitting. The Main Controller that controls DYNAMIXEL actuators  also controls the switch between input and output communications modes.
 
-![](/img/dxl/halfduplex.webp)
+![](/img/dxl/protocol/halfduplex.webp)
 
 ### Tx, Rx Direction
 For Half Duplex UART, the transmission ending timing is important to change the direction between sending and receiving mode. The bit definitions within the UART_STATUS register are as follows:
@@ -108,7 +108,7 @@ Before changing the communication direction, the **TXD_SHIFT_REGISTER_EMPTY_BIT*
 ### Byte to Byte Time
 The allowed delay time between bytes when sending an instruction packet is 1.5ms. If the delay time is over 1.5ms, then DYNAMIXEL actuator recognizes this as a communication problem and waits for the next header (0xff 0xff 0xfd) before continuing to process packets.
 
-![](/img/dxl/protocol2/protocol20_BytetoByteTime.webp)
+![](/img/dxl/protocol/protocol2/protocol20_BytetoByteTime.webp)
 
 
 ## Instruction Packet
@@ -124,7 +124,7 @@ This field is used to indicate the start of a status packet.
 ### Reserved
 An additional 0x00 byte included in the header field.
 
-![](/img/dxl/protocol2/protocol20_packet_example_02.webp)
+![](/img/dxl/protocol/protocol2/protocol20_packet_example_02.webp)
 > Example DYNAMIXEL packet
 
 ### Packet ID

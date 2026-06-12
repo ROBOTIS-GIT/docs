@@ -39,14 +39,6 @@ const config: Config = {
     },
   },
 
-  i18n: {
-    defaultLocale: 'en',
-    locales: ['en'],
-    localeConfigs: {
-      en: {label: 'en', htmlLang: 'en-US'},
-    },
-  },
-
   presets: [
     [
       'classic',
@@ -73,7 +65,7 @@ const config: Config = {
       require.resolve('@easyops-cn/docusaurus-search-local'),
       {
         hashed: true,
-        language: ['en', 'ko'],
+        language: ['en'],
         indexBlog: false,
         docsRouteBasePath,
         highlightSearchTermsOnTargetPage: true,
@@ -609,10 +601,6 @@ const config: Config = {
           to: '/docs/common/contact',
           position: 'left',
           label: 'Contact',
-        },
-        {
-          type: 'localeDropdown',
-          position: 'right',
         },
       ],
     },

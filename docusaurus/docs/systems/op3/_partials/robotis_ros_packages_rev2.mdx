@@ -176,7 +176,7 @@ This module is compiled to a library to be used in [op3_manager].
 
    - foot_height: foot elevation during walk [m]  
 
-     ![](/img/systems/op3/op3_walking_module_image152.webp)
+     ![](/img/systems/op3_walking_module_image152.webp)
 
    - swing_right_left: swing to either left or right during walk [m]
 
@@ -184,7 +184,7 @@ This module is compiled to a library to be used in [op3_manager].
 
    - swing_top_down: up and down body swing during walk [m]  
 
-     ![](/img/systems/op3/op3_walking_module_image154.webp)
+     ![](/img/systems/op3_walking_module_image154.webp)
 
    - pelvis_offset: roll offset (x-coordinate) at the pelvis level. Values are for DYNAMIXEL position values for hip roll joints [degree]  
 
@@ -794,7 +794,7 @@ OP3 will play sequence of pre-defined actions while speaking.
 #### Overview
 ROBOTIS OP3 URDF Model  
 
-![](/img/systems/op3/op3_urdf_rviz.webp)
+![](/img/systems/op3/robotis_ros_packages/op3_urdf_rviz.webp)
 
 #### Make a URDF Model
 [URDF-ROS Wiki]
@@ -1156,7 +1156,7 @@ $ roslaunch op3_walking_tuner op3_walking_tuner.launch
 
 ##### UI
 
-![](/img/systems/op3/op3_walk_tuner.webp)
+![](/img/systems/op3/robotis_ros_packages/op3_walk_tuner.webp)
 
 ##### Usage
 Please refer to [How to use walking tuner].
@@ -1229,3 +1229,33 @@ Please refer to [How to use walking tuner].
 [KinematicsPose.msg]: /docs/systems/op3/msgs/op3_KinematicsPose_msg
 [Step2D.msg]: /docs/systems/op3/msgs/op3_Step2D_msg
 [Step2DArray.msg]: /docs/systems/op3/msgs/op3_Step2DArray_msg
+
+[How to use ball detector]: /docs/systems/op3/tutorials#how-to-use-ball-detector
+[op3_direct_control_module]: /docs/systems/op3/robotis_ros_packages#op3_direct_control_module
+[/op3_base_module/data/ini_pose.yaml]: /docs/systems/op3/op3_base_module_ini_pose_yaml
+[op3_online_walking_module]: /docs/systems/op3/robotis_ros_packages#op3-online-walking-module
+[robotis_controller_msgs/SyncWriteItem]: /docs/systems/msgs/SyncWriteItem_msg
+[open_cr_module]: /docs/systems/op3/robotis_ros_packages#open_cr_module
+[OPENCR]: /docs/systems/op3/arduino_examples_op3#opencr-op3
+[op3_head_control_module]: /docs/systems/op3/robotis_ros_packages#op3-head-control-module
+[op3_gui_demo]: /docs/systems/op3/robotis_ros_packages#op3-gui-demo
+[How to execute GUI program]: /docs/systems/op3/tutorials#how-to-exectue-gui-program
+[How to use walking tuner]: /docs/systems/op3/tutorials#how-to-use-walking-tuner
+[Connect to ROS]: http://gazebosim.org/tutorials?cat=connect_ros
+[op3_base_module]: /docs/systems/op3/robotis_ros_packages#op3_base_module
+[op3_manager]: /docs/systems/op3/robotis_ros_packages#op3-manager
+[op3_offset_tuner_client]: /docs/systems/op3/robotis_ros_packages#op3-offset-tuner-client
+[op3_action_module]: /docs/systems/op3/robotis_ros_packages#op3-action-module
+[op3_walking_module]: /docs/systems/op3/robotis_ros_packages#op3_walking_module
+[HSV color]: https://en.wikipedia.org/wiki/HSL_and_HSV
+[`usb_cam`]: http://wiki.ros.org/usb_cam
+[ball_detector_params.yaml]: https://raw.githubusercontent.com/ROBOTIS-GIT/ROBOTIS-OP3-Demo/master/op3_ball_detector/config/ball_detector_params.yaml
+[URDF-ROS Wiki]: http://wiki.ros.org/urdf
+[How to execute Default Demo]: /docs/systems/op3/tutorials#how-to-exectue-default-demo
+[How to use tuner client]: /docs/systems/op3/tutorials#how-to-use-tuner-client
+[op3_offset_tuner_server]: /docs/systems/op3/robotis_ros_packages#op3-offset-tuner-server
+[/op3_walking_module/config/param.yaml]: /docs/systems/op3/op3_walking_module_param_yaml
+[op3_tuning_module]: /docs/systems/op3/robotis_ros_packages#op3-tuning-module
+[Installing ROBOTIS ROS Package]: /docs/systems/op3/recovery#installing-robotis-ros-packages
+[Introduction to Humanoid Robotics]: http://www.springer.com/gp/book/9783642545351
+[How to use offset tuner]: /docs/systems/op3/tutorials#how-to-use-offset-tuner

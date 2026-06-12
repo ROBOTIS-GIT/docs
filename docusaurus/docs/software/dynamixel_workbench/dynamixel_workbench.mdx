@@ -4,7 +4,7 @@
 
 
 ## Introduction
-![](/img/software/dynamixel/dynamixel_workbench/DYNAMIXEL_WORKBENCH_LOGO.webp)
+![](/img/software/dynamixel_workbench/dynamixel_workbench/DYNAMIXEL_WORKBENCH_LOGO.webp)
 
 The purpose of DYNAMIXEL Workbench is **to use more simple and easy to use any DYNAMIXEL**. This library is based on [DYNAMIXEL SDK] and supports ROS, Linux, macOS and Arduino. However, this library is not magic stick to operate DYNAMIXEL with any setup. It has some restriction compared with DYNAMIXEL SDK but we are continue to upgrade this library for almost everyone loves DYNAMIXEL.
 
@@ -41,7 +41,7 @@ If have any questions or issues, please get a ticket in [github issue](https://g
 ## ROS
 ### Install ROS on PC
 
-![](/img/systems/turtlebot3/logo/logo_ros.webp)
+![](/img/common/logo_ros.webp)
 
 The following script will allow you to simplify the ROS installation procedure. Run the following command in a terminal window. The terminal application can be found with the Ubuntu search icon on the top left corner of the screen, or you can use shortcut key for terminal is `Ctrl`+`Alt`+`T`. After install ROS, please reboot PC.
 
@@ -80,7 +80,7 @@ $ git clone https://github.com/ROBOTIS-GIT/DynamixelSDK.git
 
 #### OpenCR Arduino IDE
 
-![](/img/software/dynamixel/dynamixel_workbench/opencr_arduino_setup.webp)
+![](/img/software/dynamixel_workbench/dynamixel_workbench/opencr_arduino_setup.webp)
 
 In order to use Exameples for OpenCM 9.04 in Arduino, Porting OpenCM9.04 Board to Arduino IDE is required.  
 
@@ -88,7 +88,7 @@ In order to use Exameples for OpenCM 9.04 in Arduino, Porting OpenCM9.04 Board t
 
 #### OpenCM Arduino IDE
 
-![](/img/software/dynamixel/dynamixel_workbench/opencm_arduino_setup.webp)
+![](/img/software/dynamixel_workbench/dynamixel_workbench/opencm_arduino_setup.webp)
 
 In order to use Exameples for OpenCM 9.04 in Arduino, Porting OpenCM9.04 Board to Arduino IDE is required.  
 
@@ -159,7 +159,7 @@ Then you can find `/dev/ttyUSB0` (The number of port may be different depending 
 ## OpenCR
 ### Connect power(12v) and TTL or RS485
 
-![](/img/parts/controller/opencr10/opencr_pinout.webp)
+![](/img/common/opencr_pinout.webp)
 
 **TIP**:  
 If you want to use OpenCR as U2D2, please upload `usb_to_dxl` firmware (`File` -> `Examples` -> `OpenCR` -> `10.Etc` -> `usb_to_dxl`)
@@ -172,7 +172,7 @@ Then you can use `/dev/ttyACM0` port (The number of port may be different depend
 **TIP**: Please follow a link for getting more information about pin
 
 
-![](/img/parts/controller/opencm904/opencm485exp_01.webp)
+![](/img/software/dynamixel_workbench/dynamixel_workbench/opencm485exp_01.webp)
 
 # Tutorials
 - [ROS](/docs/software/dynamixel_workbench#ros-tutorials)
@@ -333,7 +333,7 @@ After initialization, DYNAMIXEL will be torque on. If you want to write value to
 
 Open rqt and `Plugins` -> `Services` -> `Service Caller`
 
-![](/img/software/dynamixel/dynamixel_workbench/controller_service_call.webp)
+![](/img/software/dynamixel_workbench/dynamixel_workbench/controller_service_call.webp)
 
 Or use command line
 
@@ -556,72 +556,72 @@ DYNAMIXEL Workbench firmware in OpenCR and OpenCM is completely same. You can se
 ### o_Find_Dynamixel
 1. Open `o_Find_Dynamixel`
 
-    ![](/img/software/dynamixel/dynamixel_workbench/opencr_example_1.webp)  
+    ![](/img/software/dynamixel_workbench/dynamixel_workbench/opencr_example_1.webp)  
 
 1. Select Port
 
-    ![](/img/software/dynamixel/dynamixel_workbench/opencr_example_2.webp)  
+    ![](/img/software/dynamixel_workbench/dynamixel_workbench/opencr_example_2.webp)  
 
 1. Push `Upload` button or `CTRL+U`
 
-    ![](/img/software/dynamixel/dynamixel_workbench/opencr_example_3.webp)  
+    ![](/img/software/dynamixel_workbench/dynamixel_workbench/opencr_example_3.webp)  
 
 1. You can show if the firmware upload successfully
 
-    ![](/img/software/dynamixel/dynamixel_workbench/opencr_example_4.webp)  
+    ![](/img/software/dynamixel_workbench/dynamixel_workbench/opencr_example_4.webp)  
 
 1. Push `Serial Monitor` button
 
-    ![](/img/software/dynamixel/dynamixel_workbench/opencr_example_5.webp)  
+    ![](/img/software/dynamixel_workbench/dynamixel_workbench/opencr_example_5.webp)  
 
 1. Serial monitor starts to scan and find DYNAMIXEL
 
-    ![](/img/software/dynamixel/dynamixel_workbench/opencr_example_6.webp)  
+    ![](/img/software/dynamixel_workbench/dynamixel_workbench/opencr_example_6.webp)  
 
 ### p_Monitor
 1. Open `p_Monitor`
 
-    ![](/img/software/dynamixel/dynamixel_workbench/opencr_arduino_setup.webp)  
+    ![](/img/software/dynamixel_workbench/dynamixel_workbench/opencr_arduino_setup.webp)  
 
 1. Select Port
 
-    ![](/img/software/dynamixel/dynamixel_workbench/opencr_example_2.webp)  
+    ![](/img/software/dynamixel_workbench/dynamixel_workbench/opencr_example_2.webp)  
 
 1. Push `Upload` button or `CTRL+U`
 
-    ![](/img/software/dynamixel/dynamixel_workbench/opencr_example_3.webp)  
+    ![](/img/software/dynamixel_workbench/dynamixel_workbench/opencr_example_3.webp)  
 
 1. You can show if the firmware upload successfully
 
-    ![](/img/software/dynamixel/dynamixel_workbench/opencr_example_4.webp)  
+    ![](/img/software/dynamixel_workbench/dynamixel_workbench/opencr_example_4.webp)  
 
 1. Push `Serial Monitor` button
 
-    ![](/img/software/dynamixel/dynamixel_workbench/opencr_example_5.webp)  
+    ![](/img/software/dynamixel_workbench/dynamixel_workbench/opencr_example_5.webp)  
 
 1. Serial monitor shows dynamixel monitor
 
-    ![](/img/software/dynamixel/dynamixel_workbench/opencr_example_7.webp)  
+    ![](/img/software/dynamixel_workbench/dynamixel_workbench/opencr_example_7.webp)  
 
 1. Type `begin 57600`
 
-    ![](/img/software/dynamixel/dynamixel_workbench/opencr_example_8.webp)  
+    ![](/img/software/dynamixel_workbench/dynamixel_workbench/opencr_example_8.webp)  
 
 1. Type `scan 10`
 
-    ![](/img/software/dynamixel/dynamixel_workbench/opencr_example_9.webp)  
+    ![](/img/software/dynamixel_workbench/dynamixel_workbench/opencr_example_9.webp)  
 
 1. Type `torque_on 1` and `torque_on 2`
 
-    ![](/img/software/dynamixel/dynamixel_workbench/opencr_example_10.webp)  
+    ![](/img/software/dynamixel_workbench/dynamixel_workbench/opencr_example_10.webp)  
 
 1. Type `sync_write_handler 1 Goal_Position`
 
-    ![](/img/software/dynamixel/dynamixel_workbench/opencr_example_11.webp)  
+    ![](/img/software/dynamixel_workbench/dynamixel_workbench/opencr_example_11.webp)  
 
 1. Type `sync_write 1 2 0 2048 2048` then DYNAMIXEL will rotate
 
-    ![](/img/software/dynamixel/dynamixel_workbench/opencr_example_12.webp)  
+    ![](/img/software/dynamixel_workbench/dynamixel_workbench/opencr_example_12.webp)  
 
 ## Linux and macOS Tutorials
 You can select any example what you want and excute it.
@@ -2001,3 +2001,6 @@ Return load. Unit is %
 [PM54-060-S250-R]: /docs/dxl/model_reference/p_series/pm54-060-s250-r
 [PM54-040-S250-R]: /docs/dxl/model_reference/p_series/pm54-040-s250-r
 [PM42-010-S260-R]: /docs/dxl/model_reference/p_series/pm42-010-s260-r
+
+[XC430-T240BB]: /docs/dxl/model_reference/x_series/xc_series/xc430-t240bb
+[XC430-T150BB]: /docs/dxl/model_reference/x_series/xc_series/xc430-t150bb

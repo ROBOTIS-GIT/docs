@@ -17,7 +17,7 @@ Below figure is a block diagram describing the position controller in Position C
 6. The final PWM value is applied to the motor through an Inverter, and the horn of DYNAMIXEL is driven.
 7. Results are stored at [Present Position(132)], [Present Velocity(128)], [Present PWM(124)] and [Present Load(126)].
 
-![](/img/dxl/position_controller_pid_gain.webp)
+![](/img/dxl/model_reference/common/position_controller_pid_gain.webp)
 
 
 :::note
@@ -28,3 +28,13 @@ Below figure is a block diagram describing the position controller in Position C
 For more details about the PID controller and Feedforward controller, please refer to the [PID Controller](http://en.wikipedia.org/wiki/PID_controller) and [Feed Forward](https://en.wikipedia.org/wiki/Feed_forward_(control)).
 
 :::
+
+[Present PWM(124)]: #present-pwm124
+[Velocity Trajectory(136)]: #velocity-trajectory136
+[Profile Acceleration(108)]: #profile-acceleration108
+[Profile Velocity(112)]: #profile-velocity112
+[Goal PWM(100)]: #goal-pwm100
+[Present Velocity(128)]: #present-velocity128
+[Goal Position(116)]: #goal-position116
+[Position Trajectory(140)]: #position-trajectory140
+[Present Position(132)]: #present-position132

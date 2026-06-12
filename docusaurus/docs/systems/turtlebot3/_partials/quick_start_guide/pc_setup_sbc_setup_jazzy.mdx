@@ -11,7 +11,7 @@
 
 ### Prepare microSD Card and Reader
 If your PC does not have a microSD slot, please use a microSD card reader to burn the recovery image.  
-![](/img/systems/turtlebot3/quick_start/sbc_setup/micro_sd_reader.webp)
+![](/img/systems/turtlebot3/quick_start_guide/sbc_setup/jazzy-noetic/micro_sd_reader.webp)
 
 The microSD card reader is not included in the TurtleBot3 package.
 
@@ -24,7 +24,7 @@ Please refer to [this article](https://www.raspberrypi.org/blog/raspberry-pi-ima
 
 :::tip
 
-[![](/img/icon_download.webp) **Download** Raspberry Pi Imager from raspberrypi.org](https://www.raspberrypi.org/software/)
+[![](/img/common/icon_download.webp) **Download** Raspberry Pi Imager from raspberrypi.org](https://www.raspberrypi.org/software/)
 
 :::
 
@@ -32,13 +32,13 @@ Please refer to [this article](https://www.raspberrypi.org/blog/raspberry-pi-ima
 <details>
 <summary>
 
-![](/img/icon_unfold.webp) **Click here to expand more details about How to install Raspberry Pi Imager.**
+![](/img/common/icon_unfold.webp) **Click here to expand more details about How to install Raspberry Pi Imager.**
 </summary>  
 Install either the `deb` or `apt` rpi-imager release.
 
 1. `deb`  
 Download deb file  
-![](/img/systems/turtlebot3/quick_start/sbc_setup/sbc_setup1.webp)  
+![](/img/systems/turtlebot3/quick_start_guide/sbc_setup/sbc_setup1.webp)  
   ```bash
 $ cd Downloads
 $ sudo dpkg -i imager_[you_rversion]_amd64.deb #check the file name downloaded
@@ -64,14 +64,14 @@ $ rpi-imager
 4. Select `Ubuntu`.  
 5. Select `Ubuntu Server 24.04.2 LTS (64-bit)` that support RPi 3/4/400.  
 (Choose Server OS, not desktop OS)  
-![](/img/systems/turtlebot3/quick_start/sbc_setup/sbc_setup_jazzy.webp)  
+![](/img/systems/turtlebot3/quick_start_guide/sbc_setup/sbc_setup_jazzy.webp)  
 6. Click `CHOOSE STORAGE` and select the micro SD card.
 7. Click `Next` to install Ubuntu.  
 8. Click `Edit Setting` for wifi and ssh setting.  
-![](/img/systems/turtlebot3/quick_start/sbc_setup/sbc_config_set.webp)  
+![](/img/systems/turtlebot3/quick_start_guide/sbc_setup/sbc_config_set.webp)  
 9. Set `username and password`, `Configure wireless LAN`, `Wireless LAN country`. And activate `Enable SSH` with `Use password authenication` in SERVIES tab.  
-![](/img/systems/turtlebot3/quick_start/sbc_setup/sbc_config_set2.webp)
-![](/img/systems/turtlebot3/quick_start/sbc_setup/sbc_config_set3.webp)  
+![](/img/systems/turtlebot3/quick_start_guide/sbc_setup/sbc_config_set2.webp)
+![](/img/systems/turtlebot3/quick_start_guide/sbc_setup/sbc_config_set3.webp)  
 10. By completing this configuring setup process, the following Wi-Fi configuration steps (up to step 4) can be skipped.  
 
 ### Configure the Raspberry Pi
@@ -86,7 +86,7 @@ The HDMI cable must be connected before powering on the Raspberry Pi, or the HDM
   c. Insert the microSD card into Raspberry Pi.  
   d. Connect the power (either USB or OpenCR) to turn on the Raspberry Pi.  
   e. Login with ID `ubuntu` and PASSWORD `ubuntu`. Once logged in, you'll be asked to change the password.  
-  ![](/img/systems/turtlebot3/quick_start/sbc_setup/sbc_setup3.webp)  
+  ![](/img/systems/turtlebot3/quick_start_guide/sbc_setup/sbc_setup3.webp)  
 
 2. Open the network configuration file with the command below.  
 **[TurtleBot3 SBC]**  
@@ -95,7 +95,7 @@ $ sudo nano /etc/netplan/50-cloud-init.yaml
 ```  
 
 3. Edit the content to match the image below while replacing `WIFI_SSID` and `WIFI_PASSWORD` with your actual wifi SSID and password.  
-![](/img/systems/turtlebot3/quick_start/sbc_setup/ros2_sbc_netcfg.webp)  
+![](/img/systems/turtlebot3/quick_start_guide/sbc_setup/jazzy-noetic/ros2_sbc_netcfg.webp)  
 
 4. Save the file with `Ctrl`+`S` and exit with `Ctrl`+`X`.  
 
@@ -141,7 +141,7 @@ $ ssh ubuntu@{IP Address of Raspberry PI}
 
 <details>
 <summary>
-![](/img/icon_unfold.webp) **Click here to expand more details about how to connect through ssh**
+![](/img/common/icon_unfold.webp) **Click here to expand more details about how to connect through ssh**
 </summary>
 
 1. Edit the SSH configuration files  
@@ -149,7 +149,7 @@ $ ssh ubuntu@{IP Address of Raspberry PI}
 ```bash
 $ sudo nano /etc/ssh/sshd_config.d/50-cloud-init.conf
 ```  
-![](/img/systems/turtlebot3/quick_start/sbc_setup/sshd_config2.webp)  
+![](/img/systems/turtlebot3/quick_start_guide/sbc_setup/sshd_config2.webp)  
 2. Install net-tools and check your ip.  
 **[TurtleBot3 SBC]**  
 ```bash
@@ -158,7 +158,7 @@ $ sudo apt update
 $ sudo apt install net-tools
 $ ifconfig
 ```  
-![](/img/systems/turtlebot3/quick_start/sbc_setup/sshd_config3.webp)  
+![](/img/systems/turtlebot3/quick_start_guide/sbc_setup/sshd_config3.webp)  
 3. Enter the command below on the `remote PC` and use your `password` for the Ubuntu system.  
 **[Remote PC]**  
 ```bash
@@ -170,7 +170,7 @@ $ ssh ubuntu@{IP Address of Raspberry PI}
 
 <details>
 <summary>
-![](/img/icon_unfold.webp) **If you are using the TurtleBot3 2GB, make sure to create swap memory for building packages.** Otherwise, you may run out of memory and package building may fail.
+![](/img/common/icon_unfold.webp) **If you are using the TurtleBot3 2GB, make sure to create swap memory for building packages.** Otherwise, you may run out of memory and package building may fail.
 </summary>
 - Create 2GB swap memory.
 **[TurtleBot3 SBC]**  
@@ -188,7 +188,7 @@ $ echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 ```bash
 $ free -h
 ```  
-![](/img/systems/turtlebot3/quick_start/sbc_setup/swap.webp)
+![](/img/systems/turtlebot3/quick_start_guide/sbc_setup/swap.webp)
 </details>
 
 1. Install ROS 2 Jazzy Jalisco  
@@ -244,7 +244,7 @@ $ source ~/.bashrc
 
 |LDS-01|LDS-02|LDS-03|
 |:---:|:---:|:---:|
-|![](/img/systems/turtlebot3/more_info/appendix_lds/lds_small.webp)|![](/img/systems/turtlebot3/more_info/appendix_lds/lds_ld08_small.webp)|![](/img/systems/turtlebot3/more_info/appendix_lds/lds_coind4_small.webp)|  
+|![](/img/systems/turtlebot3/lds_small.webp)|![](/img/systems/turtlebot3/lds_ld08_small.webp)|![](/img/systems/turtlebot3/lds_coind4_small.webp)|  
 
 
 Depending on your LDS model, use the appropriate model: LDS-01, LDS-02, or LDS-03.  
@@ -263,14 +263,14 @@ $ source ~/.bashrc
 ```
 
 ### Raspberry Pi Camera
-![](/img/systems/turtlebot3/more_info/appendix_raspi_cam/Pi-Camera-front.webp)
+![](/img/systems/Pi-Camera-front.webp)
 
 Introducing how to use the RPi camera with TurtleBot3 running Ubuntu 24.04 on a Raspberry Pi. There are various ways to publish the output of a RPi camera as a topic.  
 One method is to use the `camera-ros` package, which relies on the libcamera stack, and another method is to use the `v4l2-camera` package, which uses the V4L2 (Video4Linux2) framework. In Ubuntu 24.04, and using libcamera for camera management is highly recommended. The shift away from V4L2 is in line with the overall trend to use libcamera for better performance and compatibility with modern hardware.
 
 <details>
 <summary>
-![](/img/icon_unfold.webp) **Method 1. Using the camera-ros package**  
+![](/img/common/icon_unfold.webp) **Method 1. Using the camera-ros package**  
 </summary>
 
 This method is suitable for Raspberry Pi cameras using the libcamera stack. It is ideal for projects that demand high-quality imaging and fine-tuned control over camera settings. For more information about camera_ros, see the [camera_ros documentation](https://docs.ros.org/en/ros2_packages/jazzy/api/camera_ros/).
@@ -331,7 +331,7 @@ $ rqt_image_view
 
 <details>
 <summary>
-![](/img/icon_unfold.webp) **Method 2. Using the v4l2-camera package**
+![](/img/common/icon_unfold.webp) **Method 2. Using the v4l2-camera package**
 </summary>
 
 This method is better suited for USB cameras and legacy Raspberry Pi camera setups. It relies on the V4L2 (Video4Linux2) framework, making it simpler to set up and compatible with a broader range of devices. For more information about v4l2_camera, see the [v4l2_camera documentation](https://docs.ros.org/en/jazzy/p/v4l2_camera/).
@@ -353,9 +353,9 @@ $ sudo apt-get install ros-jazzy-v4l2-camera raspi-config ros-jazzy-image-transp
 $ sudo raspi-config
 ```
 Select `Interface Options`.  
-![](/img/systems/turtlebot3/quick_start/sbc_setup/rpi_config1.webp)  
+![](/img/systems/turtlebot3/quick_start_guide/sbc_setup/rpi_config1.webp)  
 Select  `I1` and set enable legacy camera support. This allows the use of the legacy driver, `bcm2835 MMAL`. Then, reboot the system to apply the changes.  
-![](/img/systems/turtlebot3/quick_start/sbc_setup/rpi_config2.webp)  
+![](/img/systems/turtlebot3/quick_start_guide/sbc_setup/rpi_config2.webp)  
 
 
 **3. You can check camera_name by this command.**  
@@ -364,7 +364,7 @@ Select  `I1` and set enable legacy camera support. This allows the use of the le
 $ v4l2-ctl --list-devices
 ```
 In this case, camera name is **mmal_service_16.1**.  
-![](/img/systems/turtlebot3/quick_start/sbc_setup/camera_name.webp)  
+![](/img/systems/turtlebot3/quick_start_guide/sbc_setup/camera_name.webp)  
 
 **4. Run v4l2_camera_node**  
 **[TurtleBot3 SBC]**  

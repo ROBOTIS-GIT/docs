@@ -16,7 +16,7 @@ This post is a practical guide for engineers building autonomous navigation on R
 
 - **Architecture Overview**  
   <div style={{textAlign: 'center', margin: '20px 0 16px 0'}}>
-    <img src="/img/systems/aiworker/technical_story/nav2_architecture.png" alt="Nav2 stack architecture overview" style={{maxWidth: '100%', borderRadius: '8px', border: '2px solid #667eea'}} />
+    <img src="/img/systems/aiworker/resources/technical_story/nav2/nav2_architecture.png" alt="Nav2 stack architecture overview" style={{maxWidth: '100%', borderRadius: '8px', border: '2px solid #667eea'}} />
     <p style={{marginTop: '8px', fontSize: '14px', color: '#bfc4e6', fontStyle: 'italic'}}>Nav2 stack with planning, control, smoothing, recovery, and BT-based coordination.</p>
   </div>
 
@@ -48,8 +48,8 @@ To provide fundamental and stable driving capabilities, we start with the Regula
 You can see the robot smoothly following curved paths and moving stably toward the goal.
 
 <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px', margin: '12px 0 6px 0'}}>
-  <img src="/img/systems/aiworker/simulation/navigation_curve.gif" alt="Navigation curve execution" style={{width: '100%', borderRadius: '8px', border: '2px solid #667eea', background: '#0f0f13'}} />
-  <img src="/img/systems/aiworker/simulation/aiw_rviz2.gif" alt="RViz navigation visualization" style={{width: '100%', borderRadius: '8px', border: '2px solid #667eea', background: '#0f0f13'}} />
+  <img src="/img/systems/aiworker/navigation_curve.gif" alt="Navigation curve execution" style={{width: '100%', borderRadius: '8px', border: '2px solid #667eea', background: '#0f0f13'}} />
+  <img src="/img/systems/aiworker/aiw_rviz2.gif" alt="RViz navigation visualization" style={{width: '100%', borderRadius: '8px', border: '2px solid #667eea', background: '#0f0f13'}} />
 </div>
 
 ---
@@ -120,11 +120,11 @@ RPP is a great default for stability, but if your robot has mecanum or swerve dr
 
 <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '14px', margin: '12px 0 10px 0', alignItems: 'start'}}>
   <div>
-    <img src="/img/systems/aiworker/technical_story/RPP%20running.gif" alt="RPP controller run" style={{width: '100%', borderRadius: '10px', border: '2px solid #667eea', background: '#0f0f13'}} />
+    <img src="/img/systems/aiworker/technical_story/RPP-running.gif" alt="RPP controller run" style={{width: '100%', borderRadius: '10px', border: '2px solid #667eea', background: '#0f0f13'}} />
     <p style={{margin: '6px 0 0', fontSize: '14px', color: '#c9ceda'}}>RPP (Ackermann style) must yaw first before edging sideways, so tight approaches add extra arc distance.</p>
   </div>
   <div>
-    <img src="/img/systems/aiworker/technical_story/MPPI%20running.gif" alt="MPPI holonomic run" style={{width: '100%', borderRadius: '10px', border: '2px solid #667eea', background: '#0f0f13'}} />
+    <img src="/img/systems/aiworker/technical_story/MPPI-running.gif" alt="MPPI holonomic run" style={{width: '100%', borderRadius: '10px', border: '2px solid #667eea', background: '#0f0f13'}} />
     <p style={{margin: '6px 0 0', fontSize: '14px', color: '#c9ceda'}}>MPPI Holonomic keeps heading independent from translation, using crab slides for short hops to the goal with fewer corrections.</p>
   </div>
 </div>
@@ -327,7 +327,7 @@ The blackboard is shared memory inside the BT where nodes read and write shared 
 
 **Visual representation of the Hybrid Strategy BT logic flow**
 <div style={{textAlign: 'center', margin: '14px 0 10px 0'}}>
-  <img src="/img/systems/aiworker/technical_story/flow.svg" alt="BT decision flow for controller switching" style={{maxWidth: '100%', borderRadius: '8px', border: '2px solid #667eea', background: '#0f0f13'}} />
+  <img src="/img/systems/aiworker/resources/technical_story/nav2/flow.svg" alt="BT decision flow for controller switching" style={{maxWidth: '100%', borderRadius: '8px', border: '2px solid #667eea', background: '#0f0f13'}} />
 </div>
 
 

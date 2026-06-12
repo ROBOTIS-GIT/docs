@@ -54,7 +54,7 @@ Please refer to [DYNAMIXEL Shield Libraries](#dynamixel-shield-libraries) sectio
 
 :::danger
 
-![](/img/icon_warning.webp)  
+![](/img/common/icon_warning.webp)  
 **DANGER**  
 (Ignoring these warnings may cause serious injury or death)
 
@@ -69,7 +69,7 @@ Please refer to [DYNAMIXEL Shield Libraries](#dynamixel-shield-libraries) sectio
 
 :::warning
 
-![](/img/icon_warning.webp)  
+![](/img/common/icon_warning.webp)  
 **CAUTION**  
 (Ignoring these warnings may cause mild injury or damage to the product)
  - Always comply with the product's offical operating environment specifications including input voltage, current, and operating temperature. 
@@ -80,7 +80,7 @@ Please refer to [DYNAMIXEL Shield Libraries](#dynamixel-shield-libraries) sectio
 
 :::warning
 
-![](/img/icon_warning.webp)  
+![](/img/common/icon_warning.webp)  
 **ATTENTION**  
 (Ignoring these warnings may cause minor injury or damage to the product)
 - Do not disassemble or modify the product.
@@ -227,19 +227,19 @@ There are three ways to add libraries to the Arduino IDE.
 Each way is described in detail in the [Arduino Official Guide], so please refer to it if necessary.  
 Below is an example of **using the Library Manager** from Arduino IDE.
 
-![](/img/parts/interface/dynamixel_shield/library_manager_01.webp)
+![](/img/common/library_manager_01.webp)
 
 Search for `dynamixel shield` from the Library Manager and install the latest version.
 
-![](/img/parts/interface/dynamixel_shield/library_manager_03.webp)
+![](/img/common/library_manager_03.webp)
 
 Click `Install all` to install the dependent library `Dynamixel2Arduino`.
 
-![](/img/parts/interface/dynamixel_shield/library_manager_04.webp)
+![](/img/parts/interface/library_manager_04.webp)
 
 If you have successfully installed both libraries, you'll be able to find several examples of DynamixelShield in the examples.
 
-![](/img/parts/interface/dynamixel_shield/examples.webp)
+![](/img/common/examples.webp)
 
 
 :::warning
@@ -499,3 +499,48 @@ The RC receiver and the DYNAMIXEL Shield MKR can be connected as below.
 [peek()]: /docs/software/arduino_ide/arduino_api/peek
 [flush()]: /docs/software/arduino_ide/arduino_api/flush
 [write()]: /docs/software/arduino_ide/arduino_api/write
+
+[setGoalCurrent()]: /docs/software/arduino_ide/arduino_api/setGoalCurrent
+[getPresentCurrent()]: /docs/software/arduino_ide/arduino_api/getPresentCurrent
+[flushRx()]: /docs/software/arduino_ide/arduino_api/flushRx
+[AX-12+/12A]: /docs/dxl/model_reference/ax_series/ax-12a
+[setBaudrate()]: /docs/software/arduino_ide/arduino_api/setBaudrate
+[getPresentPWM()]: /docs/software/arduino_ide/arduino_api/getPresentPWM
+[readData()]: /docs/software/arduino_ide/arduino_api/readData
+[setGoalPWM()]: /docs/software/arduino_ide/arduino_api/setGoalPWM
+[torqueOff()]: /docs/software/arduino_ide/arduino_api/torqueOff
+[SMW250-02]: http://www.alldatasheet.com/datasheet-pdf/pdf/148144/YEONHO/SMW250-02P.html
+[availableData()]: /docs/software/arduino_ide/arduino_api/availableData
+[setOperatingMode()]: /docs/software/arduino_ide/arduino_api/setOperatingMode
+[syncRead()]: /docs/software/arduino_ide/arduino_api/syncRead
+[2XL430-W250-T]: /docs/dxl/model_reference/x_series/xl_series/2xl430-w250
+[XC430-T240BB-T]: /docs/dxl/model_reference/x_series/xc_series/xc430-t240bb
+[ledOff()]: /docs/software/arduino_ide/arduino_api/ledOff
+[setGoalVelocity()]: /docs/software/arduino_ide/arduino_api/setGoalVelocity
+[AX-18F/18A]: /docs/dxl/model_reference/ax_series/ax-18a
+[getModelNumber()]: /docs/software/arduino_ide/arduino_api/getModelNumber
+[setGoalPosition()]: /docs/software/arduino_ide/arduino_api/setGoalPosition
+[XC430-W240-T]: /docs/dxl/model_reference/x_series/xc_series/xc430-w240
+[getPresentVelocity()]: /docs/software/arduino_ide/arduino_api/getPresentVelocity
+[XC430-T150BB-T]: /docs/dxl/model_reference/x_series/xc_series/xc430-t150bb
+[readEvent()]: /docs/software/arduino_ide/arduino_api/readEvent
+[bulkWrite()]: /docs/software/arduino_ide/arduino_api/bulkWrite
+[MX-12W]: /docs/dxl/model_reference/mx_series/mx-12w
+[getPortBaud()]: /docs/software/arduino_ide/arduino_api/getPortBaud
+[Arduino Official Guide]: https://www.arduino.cc/en/Guide/Libraries
+[readControlTableItem()]: /docs/software/arduino_ide/arduino_api/readControlTableItem
+[torqueOn()]: /docs/software/arduino_ide/arduino_api/torqueOn
+[XL430-W250-T]: /docs/dxl/model_reference/x_series/xl_series/xl430-w250
+[setProtocol()]: /docs/software/arduino_ide/arduino_api/setProtocol
+[getPresentPosition()]: /docs/software/arduino_ide/arduino_api/getPresentPosition
+[ledOn()]: /docs/software/arduino_ide/arduino_api/ledOn
+[getLastLibErrCode()]: /docs/software/arduino_ide/arduino_api/getLastLibErrCode
+[AX-12W]: /docs/dxl/model_reference/ax_series/ax-12w
+[XL-320]: /docs/dxl/model_reference/x_series/xl_series/xl320
+[bulkRead()]: /docs/software/arduino_ide/arduino_api/bulkRead
+[writeControlTableItem()]: /docs/software/arduino_ide/arduino_api/writeControlTableItem
+[XC430-W150-T]: /docs/dxl/model_reference/x_series/xc_series/xc430-w150
+[availableEvent()]: /docs/software/arduino_ide/arduino_api/availableEvent
+[XM430-W210-T]: /docs/dxl/model_reference/x_series/xm_series/xm430-w210
+[syncWrite()]: /docs/software/arduino_ide/arduino_api/syncWrite
+[setID()]: /docs/software/arduino_ide/arduino_api/setID

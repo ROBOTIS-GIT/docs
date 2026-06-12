@@ -120,7 +120,7 @@ This section provides instructions on building the SDK.
 
   [Download Visual Studio Community for Windows Desktop](https://www.visualstudio.com/en-us/products/visual-studio-express-vs.aspx)
 
-  ![](/img/software/dynamixel/dynamixel_sdk/library_setup/cpp/windows/library_file/visualstudio.webp)
+  ![](/img/software/dynamixel_sdk/library_setup/cpp/visualstudio.webp)
 
 
 :::info
@@ -132,41 +132,41 @@ This section provides instructions on building the SDK.
 
 - Open the project solution file (`dxl_x64_cpp.sln`) located in the `[DynamixelSDK folder]/c++/build/win64` directory.
 
-  ![](/img/software/dynamixel/dynamixel_sdk/library_setup/cpp/windows/library_file/visualstudio1.webp)
+  ![](/img/software/dynamixel_sdk/library_setup/cpp/visualstudio1.webp)
 
 - If below dialog appears, select `OK`. This will adjust the toolset settings depending on your version of Visual Studio and Windows.
 
-  ![](/img/software/dynamixel/dynamixel_sdk/library_setup/cpp/windows/library_file/upgradetoolset.webp)
+  ![](/img/software/dynamixel_sdk/library_setup/cpp/upgradetoolset.webp)
 
 
 - In the Solution Explorer on the right side, right-click the dxl_x64_cpp solution and select Build.
 
-  ![](/img/software/dynamixel/dynamixel_sdk/library_setup/cpp/windows/library_file/buildprocess.webp)
+  ![](/img/software/dynamixel_sdk/library_setup/cpp/buildprocess.webp)
 
 <br/>
 
 - **The SDK build is complete.**
 - **If the build was successful, the compiled library file will be saved at :** `[DynamixelSDK folder]/c++/build/[win64]/output/dxl_x64_cpp.dll`
-  ![](/img/software/dynamixel/dynamixel_sdk/library_setup/cpp/windows/library_file/buildoutput.webp)
+  ![](/img/software/dynamixel_sdk/library_setup/cpp/buildoutput.webp)
 
 <details>
 <summary>
-![](/img/icon_unfold.webp) **Check Build Properties**
+![](/img/common/icon_unfold.webp) **Check Build Properties**
 </summary>
 
 - You can check or change the build properties through right-clicking on the project in the Solution Explorer and selecting Properties.
 
-  ![](/img/software/dynamixel/dynamixel_sdk/library_setup/cpp/windows/library_file/buildproperties1.webp)
+  ![](/img/software/dynamixel_sdk/library_setup/cpp/buildproperties1.webp)
 
 - Build properties is shown as below
 
-  ![](/img/software/dynamixel/dynamixel_sdk/library_setup/cpp/windows/library_file/buildproperties2.webp)
+  ![](/img/software/dynamixel_sdk/library_setup/cpp/buildproperties2.webp)
   - Output Directory: `$(SolutionDir)output\`
   - Intermediate Directory: `$(Configuration)\`
   - Platform Toolset: `Visual Studio 20XX (v000)`
   - Configuration Type: `Dynamic Library (.dll)`
 
-  ![](/img/software/dynamixel/dynamixel_sdk/library_setup/cpp/windows/library_file/buildproperties3.webp)
+  ![](/img/software/dynamixel_sdk/library_setup/cpp/buildproperties3.webp)
   - Additional Include Directories: `..\..\..\include\dynamixel_sdk`
 </details>
 
@@ -197,12 +197,12 @@ The existing OS-specific `make` build system has been unified into a single `CMa
 Install cmake from [cmake download](https://cmake.org/download/).  
 Download the msi file and install it.
 
-![cmake_install](/img/software/dynamixel/dynamixel_sdk/library_setup/c/windows/cmake_build/cmake_install.webp)  
+![cmake_install](/img/software/dynamixel_sdk/library_setup/cmake_install.webp)  
 
 Install Visual Studio build tools from [Visual Studio download](https://visualstudio.microsoft.com/downloads/).  
 Start Visual Studio Installer and install the build tools.  
 
-![vs_build_tool_install](/img/software/dynamixel/dynamixel_sdk/library_setup/c/windows/cmake_build/vs_build_tool_install.webp)
+![vs_build_tool_install](/img/software/dynamixel_sdk/library_setup/vs_build_tool_install.webp)
 
 After installation, open the `x64 Native Tools Command Prompt for VS` as **administrator** and navigate to the DynamixelSDK/c++ directory.  
 Build the SDK. `--target install` option makes the library files installed to the system.  

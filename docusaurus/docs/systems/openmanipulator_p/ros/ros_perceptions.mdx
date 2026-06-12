@@ -14,7 +14,7 @@ The OpenMAIPULATOR-X can work with some cameras to recognize a front object. Use
 
 ### Install Camera Package
 #### Astra Pro
-![](/img/systems/openmanipulator_x/OpenManipulator_camera_Astra_pro.webp)  
+![](/img/systems/openmanipulator_p/ros/ros_perceptions/OpenManipulator_camera_Astra_pro.webp)  
 
 The [Astra Series](https://orbbec3d.com/product-astra/) was designed to further improve on the attributes that set Orbbec 3D cameras apart from existing 3D cameras on the market. Astra 3D cameras provide computer vision that enables dozens of functions such as face recognition, gesture recognition, human body tracking, three-dimensional measurement, environment perception, and three-dimensional map reconstruction.
 
@@ -61,7 +61,7 @@ You can use RViz or image_view to verify driver. You can select data topic name 
 - [Astra Pro ROS package](https://github.com/orbbec/ros_astra_camera)
 
 #### Realsense D435
-![](/img/systems/openmanipulator_x/OpenManipulator_camera_Realsense_D435.webp)  
+![](/img/systems/OpenManipulator_camera_Realsense_D435.webp)  
 
 The [Intel® RealSense™ Depth Camera D435](https://realsense.intel.com/depth-camera/#D415_D435) is a USB-powered depth camera and consists of a pair of depth sensors, RGB sensor, and infrared projector. It is ideal for makers and developers to add depth perception capability to their prototype development. The D435 is designed to best fit your prototype.
 
@@ -108,7 +108,7 @@ You can use RViz or image_view to verify driver. You can select data topic name 
 - [Realsense ROS package](https://github.com/intel-ros/realsense)
 
 #### Raspberry Pi Camera V2
-![](/img/systems/turtlebot3/more_info/appendix_raspi_cam/Pi-Camera-front.webp)
+![](/img/systems/Pi-Camera-front.webp)
 
 - See more details about [Raspberry Pi Camera V2](/docs/systems/turtlebot3/more_info/raspberry_pi_camera#overview)
 
@@ -128,21 +128,21 @@ You can use RViz or image_view to verify driver. You can select data topic name 
     $ sudo raspi-config
     ```
 
-    ![](/img/systems/turtlebot3/more_info/appendix_raspi_cam/pi-cam-hardware-setting-1.webp)
+    ![](/img/systems/openmanipulator_p/ros/ros_perceptions/pi-cam-hardware-setting-1.webp)
 
 2. Select **3 Interfacing Options**.
 
-    ![](/img/systems/turtlebot3/more_info/appendix_raspi_cam/pi-cam-hardware-setting-2.webp)
+    ![](/img/systems/openmanipulator_p/ros/ros_perceptions/pi-cam-hardware-setting-2.webp)
 
 3. Select **P1 Camera**.
     
-    ![](/img/systems/turtlebot3/more_info/appendix_raspi_cam/pi-cam-hardware-setting-3.webp)
+    ![](/img/systems/openmanipulator_p/ros/ros_perceptions/pi-cam-hardware-setting-3.webp)
 
 4. Enable camera interface.
 
-    ![](/img/systems/turtlebot3/more_info/appendix_raspi_cam/pi-cam-hardware-setting-4.webp)    
+    ![](/img/systems/openmanipulator_p/ros/ros_perceptions/pi-cam-hardware-setting-4.webp)    
     
-    ![](/img/systems/turtlebot3/more_info/appendix_raspi_cam/pi-cam-hardware-setting-5.webp)
+    ![](/img/systems/openmanipulator_p/ros/ros_perceptions/pi-cam-hardware-setting-5.webp)
 
 5. After **reboot Raspberry Pi**, to test that the system is installed and working, try the following command:
 
@@ -257,7 +257,7 @@ $ roslaunch open_manipulator_ar_markers ar_pose.launch camera_model:=raspicam
 #### AR Marker displayed on RViz
 When the camera recognizes the object with the AR marker, the pose of the AR marker will be displayed on a RViz screen.  
 
-![](/img/systems/openmanipulator_x/OpenManipulator_AR_Marker.webp)
+![](/img/systems/openmanipulator_p/ros/ros_perceptions/OpenManipulator_AR_Marker.webp)
 
 ### Control OpenMANIPULATOR-P with Camera
 ```bash

@@ -12,7 +12,7 @@ import QuickStartRosGpgKeyExpirationIncident from '@site/docs/systems/turtlebot3
 
 ### Prepare microSD Card and Reader
 If your PC do not have a microSD slot, use a microSD card reader to burn the required recovery image to the SD card.
-![](/img/systems/turtlebot3/quick_start/sbc_setup/micro_sd_reader.webp)
+![](/img/systems/turtlebot3/quick_start_guide/sbc_setup/jazzy-noetic/micro_sd_reader.webp)
 
 ### Download TurtleBot3 SBC Image
 Download the correct image file for your hardware and ROS version.  
@@ -21,7 +21,7 @@ Noetic version images are created based on Ubuntu 20.04.
 
 :::tip
 
-[![](/img/icon_download.webp) **Download** `Raspberry Pi 3B+` ROS Noetic image](https://www.robotis.com/service/download.php?no=2008)
+[![](/img/common/icon_download.webp) **Download** `Raspberry Pi 3B+` ROS Noetic image](https://www.robotis.com/service/download.php?no=2008)
 
 **SHA256** : a7c57e20f2ee4204c95315866f4a274886094f7c63ed390b6d06d95074830309
 
@@ -30,7 +30,7 @@ Noetic version images are created based on Ubuntu 20.04.
 
 :::tip
 
-[![](/img/icon_download.webp) **Download** `Raspberry Pi 4B (2GB or 4GB)` ROS Noetic image](https://www.robotis.com/service/download.php?no=2066)
+[![](/img/common/icon_download.webp) **Download** `Raspberry Pi 4B (2GB or 4GB)` ROS Noetic image](https://www.robotis.com/service/download.php?no=2066)
 
 **SHA256** : 9d48925a78381885916a6f3bb77891adbfae2b271b05fe2ae9a9b7ebd12c46cc
 - Please note that this image may not compatible with the Raspberry Pi 4B with 8GB RAM.
@@ -54,7 +54,7 @@ Please refer to [this article](https://www.raspberrypi.org/blog/raspberry-pi-ima
 
 :::tip
 
-[![](/img/icon_download.webp) **Download** Raspberry Pi Imager from raspberrypi.org](https://www.raspberrypi.org/software/)
+[![](/img/common/icon_download.webp) **Download** Raspberry Pi Imager from raspberrypi.org](https://www.raspberrypi.org/software/)
 
 :::
   
@@ -66,7 +66,7 @@ $ sudo snap install rpi-imager
 $ rpi-imager  
 ```  
 
-![](/img/systems/turtlebot3/quick_start/sbc_setup/rpi_imager.gif)  
+![](/img/systems/turtlebot3/quick_start_guide/sbc_setup/rpi_imager.gif)  
 1. Click `CHOOSE OS`.  
 2. Click `Use custom` and select the extracted `.img` file from local disk.  
 3. Click `CHOOSE STORAGE` and select the microSD card.
@@ -75,7 +75,7 @@ $ rpi-imager
 #### Disks Utility
 `Disks` utility is included in the recent Ubuntu Desktop. Search for "Disks" and launch the app.  
 
-![](/img/systems/turtlebot3/quick_start/sbc_setup/disks.gif)  
+![](/img/systems/turtlebot3/quick_start_guide/sbc_setup/disks.gif)  
 1. Select the microSD card in the left panel.  
 2. Select `Restore Disk Image` option.  
 3. Open the `.img` file from local disk.  
@@ -88,9 +88,9 @@ Please resize the partition to use any available unallocated space.
 **Be careful not to select an incorrect disk or partition. Partitioning a system disk of your PC may cause serious system malfunctions.**
 
 
-[![](/img/icon_download.webp) Download or install GParted GUI tool](https://gparted.org/download.php)
+[![](/img/common/icon_download.webp) Download or install GParted GUI tool](https://gparted.org/download.php)
 
-![](/img/systems/turtlebot3/quick_start/sbc_setup/gparted.gif)  
+![](/img/systems/turtlebot3/quick_start_guide/sbc_setup/gparted.gif)  
 1. Select the microSD card from the menu (mounted location may vary by system).  
 2. Right click on the yellow partition.  
 3. Select `Resize/Move` option.  
@@ -107,9 +107,9 @@ $ cd /media/$USER/writable/etc/netplan
 $ sudoedit 50-cloud-init.yaml
 ```  
 Replace the `WIFI_SSID` and `WIFI_PASSWORD` with your wifi SSID and password.  
-![](/img/systems/turtlebot3/quick_start/sbc_setup/ros2_sbc_netcfg.webp)  
+![](/img/systems/turtlebot3/quick_start_guide/sbc_setup/jazzy-noetic/ros2_sbc_netcfg.webp)  
 Save the file with `Ctrl`+`S` and exit with `Ctrl`+`X`.  
-![](/img/systems/turtlebot3/quick_start/sbc_setup/network_setup.gif)  
+![](/img/systems/turtlebot3/quick_start_guide/sbc_setup/network_setup.gif)  
   
 If "No such file or directory" is returned, make sure the microSD is mounted correctly
   
@@ -120,7 +120,7 @@ If "No such file or directory" is returned, make sure the microSD is mounted cor
   c. Insert the microSD card.  
   d. Connect power (either with USB or the OpenCR) to turn on the Raspberry Pi.  
   e. Login with ID `ubuntu` and PASSWORD `turtlebot`.`  
-  ![](/img/systems/turtlebot3/quick_start/sbc_setup/sbc_setup3.webp)  
+  ![](/img/systems/turtlebot3/quick_start_guide/sbc_setup/sbc_setup3.webp)  
 
 The HDMI cable has to be connected before powering on the Raspberry Pi, or else the HDMI port of the Raspberry Pi will be disabled.
 
@@ -159,13 +159,13 @@ export ROS_HOSTNAME={IP_ADDRESS_OF_RASPBERRY_PI_3}
   ```bash  
 $ source ~/.bashrc  
   ```  
-![](/img/systems/turtlebot3/quick_start/sbc_setup/ros1_sbc_netcfg.gif)  
+![](/img/systems/turtlebot3/quick_start_guide/sbc_setup/ros1_sbc_netcfg.gif)  
 
 ### NEW LDS-02 Configuration
 
 |LDS-01|LDS-02|
 |:---:|:---:|
-|![](/img/systems/turtlebot3/more_info/appendix_lds/lds_small.webp)|![](/img/systems/turtlebot3/more_info/appendix_lds/lds_ld08_small.webp)|
+|![](/img/systems/turtlebot3/lds_small.webp)|![](/img/systems/turtlebot3/lds_ld08_small.webp)|
 
 The TurtleBot3 LDS has been updated to LDS-02 since 2022 models.  
 Please follow the instructions below on the **SBC (Raspberry Pi)** of TurtleBot3.
@@ -195,17 +195,17 @@ Next Step : [OpenCR Setup](/docs/systems/turtlebot3/quick_start_guide/opencr_set
 
 <details>
 <summary>
-![](/img/icon_unfold.webp) **Click to expand : Manual SBC Setup Instructions**
+![](/img/common/icon_unfold.webp) **Click to expand : Manual SBC Setup Instructions**
 </summary>
 Please be aware that this manual setup takes a lot more time than burning the recovery image file, but allows flexible choice of package installation. **This instruction is not recommended for beginners**.
 
-1. ![](/img/icon_download.webp) Download the proper `Ubuntu 20.04.1(Focal) Preinstalled Server` image on your PC.
+1. ![](/img/common/icon_download.webp) Download the proper `Ubuntu 20.04.1(Focal) Preinstalled Server` image on your PC.
   - [Ubuntu 20.04.1(Focal) Preinstalled Server for Raspberry Pi3(arm64)](http://cdimage.ubuntu.com/ubuntu-server/focal/daily-preinstalled/current/)
 
 2. Extract the downloaded file.
 
 3. Burn the `.img` file to the microSD card.
-  ![](/img/systems/turtlebot3/quick_start/sbc_setup/rpi_imager.gif)  
+  ![](/img/systems/turtlebot3/quick_start_guide/sbc_setup/rpi_imager.gif)  
 
 4. Boot Up the Raspberry Pi  
   a. Connect the HDMI cable of the monitor to the HDMI port of Raspberry Pi.  
@@ -234,7 +234,7 @@ $ sudoedit /etc/netplan/50-cloud-init.yaml
 
 8. When the editor is opened, append below contents at the end of the file.  
   Replace the `WIFI_SSID` and `WIFI_PASSWORD` with your wifi SSID and password.  
-  ![](/img/systems/turtlebot3/quick_start/sbc_setup/ros2_sbc_netcfg.webp)  
+  ![](/img/systems/turtlebot3/quick_start_guide/sbc_setup/jazzy-noetic/ros2_sbc_netcfg.webp)  
   Save the file with `Ctrl`+`S` and exit with `Ctrl`+`X`.
 
 9. Reboot the Raspberry Pi.
