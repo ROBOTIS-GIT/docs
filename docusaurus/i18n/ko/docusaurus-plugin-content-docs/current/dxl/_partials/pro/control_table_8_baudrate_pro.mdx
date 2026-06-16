@@ -1,0 +1,28 @@
+Baud Rate는 컨트롤러와 DYNAMIXEL 사이의 시리얼 통신 속도를 결정합니다.
+
+| 값     | Baud Rate     |
+| :-------: | :-----------: |
+|8|10.5M|
+|7|4.5M|
+|6|4M|
+|5|3M|
+|4|2M|
+|3|1M|
+|2|115,200|
+|1(Default)|57,600|
+|0|9,600|
+
+
+:::note
+
+**참고** : Baud Rate 오차율이 3% 미만이면 UART 통신에 영향을 주지 않습니다.
+
+:::
+
+
+:::note
+
+**참고** : 높은 Baud Rate에서 안정적으로 통신하려면 USB Latency 값을 낮게 설정하세요.
+[USB Latency Setting](/docs/software/dynamixel_wizard_2_0/advanced_features#usb-latency-setting)
+
+:::

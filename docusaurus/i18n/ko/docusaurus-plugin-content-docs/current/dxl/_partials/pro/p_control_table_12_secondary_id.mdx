@@ -1,0 +1,34 @@
+DYNAMIXEL 서보의 Secondary ID를 설정합니다.
+
+Primary ID(7)와 달리 Secondary ID(12)는 중복 설정이 가능하므로 여러 DYNAMIXEL 액추에이터를 간단히 동기화할 수 있습니다.
+
+Primary ID와 Secondary ID는 다음과 같은 차이가 있습니다.
+1. Secondary ID(12)는 고유할 필요가 없으며, 원하는 수의 DYNAMIXEL 서보가 같은 값을 공유할 수 있습니다.
+2. Primary ID(7)는 Secondary ID(12)보다 우선순위가 높습니다. Secondary ID(12)와 Primary ID(7)가 같으면 해당 서보는 Instruction이 Primary ID로만 전송된 것처럼 동작합니다.
+3. Secondary ID(12)를 사용해서는 컨트롤 테이블의 EEPROM Area를 변경할 수 없으며, Secondary ID로 지정했을 때는 RAM Area만 변경할 수 있습니다.
+4. Secondary ID로 전송된 Instruction에는 Status Packet이 반환되지 않습니다.
+5. Secondary ID 값을 253보다 크게 설정하면 Secondary ID 기능이 완전히 비활성화됩니다.
+
+|  값   |                                      설명                                     |
+|:---------:|:------------------------------------------------------------------------------------:|
+|  0 ~ 252  |            설정한 ID 값으로 Secondary ID 기능을 활성화합니다.             |
+| 253 ~ 255 |  Secondary ID 기능을 비활성화합니다. 기본값은 `255`입니다.   |
+
+다음 예제는 Primary ID가 1 ~ 5인 DYNAMIXEL을 사용해 Secondary ID 기능을 설명합니다.
+
+<div class="notice--success">
+1. 다섯 장치의 Secondary ID(12)를 모두 `5`로 설정합니다.
+2. ID 1에 LED를 켜는 Write Instruction Packet을 전송합니다: LED Red(513) = 255.
+3. DYNAMIXEL ID 1의 LED가 켜지고 Status Packet이 반환됩니다.
+4. ID 5에 LED를 켜는 Write Instruction Packet을 전송합니다: LED Red(513) = 255.
+5. 다섯 장치의 LED가 모두 켜지지만, Status Packet은 DYNAMIXEL ID 5에서만 반환됩니다.
+6. 다섯 장치의 Secondary ID(12)를 모두 `100`으로 설정합니다.
+7. ID 100으로 Write Instruction Packet을 전송합니다: LED Red(513) = 0.
+8. 다섯 장치의 LED가 모두 꺼지지만, Primary ID 100을 가진 장치가 없으므로 Status Packet은 반환되지 않습니다.
+</div>
+
+:::warning
+
+**경고** : Modbus-RTU 통신은 Secondary ID(12) 기능을 지원하지 않습니다.
+
+:::

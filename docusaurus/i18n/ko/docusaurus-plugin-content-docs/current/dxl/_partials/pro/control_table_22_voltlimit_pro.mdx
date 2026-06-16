@@ -1,0 +1,15 @@
+이 값들은 최대 및 최소 동작 전압입니다.
+[Present Input Voltage(623)]에서 얻은 현재 입력 전압이 [Max Voltage Limit(36)] 및 [Min Voltage Limit(40)] 범위를 벗어나면 Hardware [Error Status(892)]의 Input Voltage Error Bit(Bit 0)가 `1`로 설정됩니다.
+Input Voltage Error Bit(Bit 0)가 [Shutdown(48)]에 설정되어 있고 Input Voltage Error가 발생하면 [Torque Enable(562)]이 `0`으로 해제되어 Torque가 꺼집니다.
+자세한 내용은 [Shutdown(48)] 섹션을 참고하세요.
+
+|    단위    | 값 범위 | 설명 |
+|:----------:|:-----------:|:-----------:|
+| About 0.1V |   0 ~ 400   |  0 ~ 40.0V  |
+
+[Shutdown(48)]: #shutdown
+[Present Input Voltage(623)]: #present-input-voltage623
+[Max Voltage Limit(36)]: #minmax-voltage-limit22-24
+[Min Voltage Limit(40)]: #minmax-voltage-limit22-24
+[Error Status(892)]: #error-status892
+[Torque Enable(562)]: #torque-enable562

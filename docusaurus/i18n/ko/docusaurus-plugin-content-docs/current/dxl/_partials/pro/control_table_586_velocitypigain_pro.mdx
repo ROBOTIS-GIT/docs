@@ -1,0 +1,13 @@
+이 값들은 Velocity Control Mode의 P Gain과 I Gain을 나타냅니다. I Gain에는 샘플링 시간이 포함됩니다. DYNAMIXEL 내부 제어기의 Velocity P Gain은 K<sub>V</sub>P, Velocity I Gain은 K<sub>V</sub>I로 표기합니다.
+
+|Gain 값 범위|
+| :---: |
+|0 ~ 32,767|
+
+![](/img/dxl/model_reference/pro_series/pro_velocity_controller.webp)
+
+:::note
+
+**참고** : K<sub>P</sub>A는 사용자가 변경할 수 없는 Anti-windup Gain입니다. PID Controller에 대한 자세한 내용은 Wikipedia의 [PID Controller](http://en.wikipedia.org/wiki/PID_controller)를 참고하세요.
+
+:::
