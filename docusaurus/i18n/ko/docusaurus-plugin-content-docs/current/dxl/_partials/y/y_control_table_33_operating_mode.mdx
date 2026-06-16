@@ -1,0 +1,26 @@
+Operating Mode는 DYNAMIXEL에서 사용할 활성 동작 모드를 설정합니다.
+
+DYNAMIXEL-Y 액추에이터는 3가지 제어 모드를 지원합니다.
+
+| 값      | Operating Mode        | 설명 |
+|:--------|:----------------------|:-----|
+| 0       | Current Control Mode  | 전류를 제어합니다. 속도와 위치는 제어하지 않습니다. |
+| 1       | Velocity Control Mode | 속도와 전류를 제어합니다. 위치는 제어하지 않습니다. |
+| 3(Default) | Position Control Mode | 위치, 속도, 전류를 제어합니다.<br />동작 범위는 Max/Min [Position Limit(84)]에서 정의한 범위로 제한됩니다. |
+
+각 제어 모드별 제어기 블록 다이어그램은 아래와 같습니다.
+
+#### Current Control Mode
+![](/img/dxl/model_reference/y_series/operating_mode_1_en.webp)
+
+#### Velocity Control Mode
+![](/img/dxl/model_reference/y_series/operating_mode_2_en.webp)
+
+#### Position Control Mode
+![](/img/dxl/model_reference/y_series/operating_mode_3_en.webp)
+
+:::note
+
+**참고** : DYNAMIXEL-Y는 Multi-turn 정보를 저장합니다. 전원을 껐다 켜거나 Reboot Instruction을 사용해도, 전원이 꺼진 상태에서 외력으로 회전한 경우까지 현재 Multi-turn 위치가 정확히 추적되고 절대 위치값이 갱신됩니다. Multi-turn 위치는 Clear Instruction을 사용해 `0`으로 초기화할 수 있습니다.
+
+:::
