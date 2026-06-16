@@ -1,0 +1,506 @@
+import Warning from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/warning.mdx';
+import ControlTable from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table.mdx';
+import ControlTableId from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_id.mdx';
+import ControlTableReturnDelayTime from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_return_delay_time.mdx';
+import ControlTableAngleLimit from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_angle_limit.mdx';
+import ControlTableDriveMode from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ex/control_table_drivemode.mdx';
+import ControlTableTempLimit from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_temp_limit.mdx';
+import ControlTableVoltLimitRx from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/dx/control_table_volt_limit_rx.mdx';
+import ControlTableMaxTorque from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_max_torque.mdx';
+import ControlTableStatusReturnLv from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_status_return_lv.mdx';
+import ControlTableShutdown from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_shutdown.mdx';
+import ControlTableTorqueEnable from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_torque_enable.mdx';
+import ControlTableLed from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_led.mdx';
+import ControlTableComplianceMargin from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_compliance_margin.mdx';
+import ControlTableComplianceSlope from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_compliance_slope.mdx';
+import ControlTableMovingSpeed from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_moving_speed.mdx';
+import ControlTableTorqueLimit from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_torque_limit.mdx';
+import ControlTablePresentSpeed from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_present_speed.mdx';
+import ControlTablePresentLoad from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_present_load.mdx';
+import ControlTablePresentVolt from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_present_volt.mdx';
+import ControlTablePresentTemp from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_present_temp.mdx';
+import ControlTableRegInstruction from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_reg_instruction.mdx';
+import ControlTableMoving from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_moving.mdx';
+import ControlTableLock from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_lock.mdx';
+import ControlTablePunch from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_punch.mdx';
+import HornBearingReplacement from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/horn_bearing_replacement.mdx';
+import Molex485 from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/dx/molex_485.mdx';
+import DownloadCenterNotice from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/download_center_notice.mdx';
+import TtlConnection from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/dx/485_ttl_connection.mdx';
+import CommonLink from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/common_link.mdx';
+
+![](/img/dxl/model_reference/ex_series/ex-106_product.webp)
+
+# EX-106+
+
+:::warning
+
+**경고** : EX-106+은 현재 단종되어 더 이상 판매되지 않습니다.
+
+:::
+
+## 주요 사양
+
+| 항목                   | 사양                                                        |
+|:-----------------------|:----------------------------------------------------------------------|
+| 통신 속도              | 7843 bps ~ 1 Mbps                                                     |
+| 해상도             | 0.06&deg;                                                             |
+| 동작 각도         | 0&deg; ~ 251&deg;<br />Endless Turn                                   |
+| 무게                 | 154g                                                                  |
+| 크기 (W x H x D) | 40.2mm x 65.1mm x 46mm                                                |
+| 기어비             | 184 : 1                                                               |
+| 정지 Torque           | 10.9 [N.m] (at 18.5V, 7A)                                             |
+| 무부하 속도          | 91rpm (at 18.5V)                                                      |
+| 동작 온도  | -5&deg;C ~ +80&deg;C                                                  |
+| 입력 전압          | 12 ~ 18.5V (**권장 : 14.8V**)                                  |
+| 제어 명령         | Digital Packet                                                        |
+| 프로토콜 타입          | RS485 Asynchronous Serial Communication<br />(8bit, 1stop, No Parity) |
+| 물리적 연결    | RS485 Multi Drop Bus(Daisy Chain Type Connector)                      |
+| ID                     | 0 ~ 253                                                               |
+| 피드백               | Position, Temperature, Load, Input Voltage 등                       |
+| 재질               | Full Metal Gear, Aluminium Front Case,<br />Engineering Plastic Body  |
+| 대기 전류        | 55mA                                                                  |
+
+:::note
+
+**참고** : Stall Torque는 순간적으로 낼 수 있는 최대 정지 Torque를 의미합니다. 안정적인 동작을 위해서는 Stall Torque의 1/5 이하의 부하가 걸리도록 로봇을 설계하는 것이 좋습니다.
+
+:::
+
+<Warning />
+
+<ControlTable />
+
+
+### EEPROM 영역 컨트롤 테이블
+
+| Address | Size(Byte) | Data Name                                   | 설명                        | Access | 초기<br />값 |
+|:-------:|:----------:|:--------------------------------------------|:-----------------------------------|:------:|:------------------:|
+|    0    |     2      | [Model Number](#model-number-0)               | 모델 번호                       |   R    |        107         |
+|    2    |     1      | [Firmware Version](#firmware-version-2)       | 펌웨어 버전                   |   R    |         -          |
+|    3    |     1      | [ID](#id-3)                                   | 다이나믹셀 ID                       |   RW   |         1          |
+|    4    |     1      | [Baud Rate](#baud-rate-4)                     | 통신 속도                |   RW   |         34         |
+|    5    |     1      | [Return Delay Time](#return-delay-time-5)     | 응답 지연 시간                |   RW   |        250         |
+|    6    |     2      | [CW Angle Limit](#cwccw-angle-limit-6-8)           | 시계 방향 한계 각도              |   RW   |         0          |
+|    8    |     2      | [CCW Angle Limit](#cwccw-angle-limit-6-8)         | 반시계 방향 한계 각도      |   RW   |       4,095        |
+|   10    |     1      | [Drive Mode](#drive-mode-10)                   | Dual Mode 설정                  |   RW   |         0          |
+|   11    |     1      | [Temperature Limit](#temperature-limit-11)     | 최대 내부 온도 제한 |   RW   |         80         |
+|   12    |     1      | [Min Voltage Limit](#minmax-voltage-limit-12-13)     | 최소 입력 전압 제한        |   RW   |         60         |
+|   13    |     1      | [Max Voltage Limit](#minmax-voltage-limit-12-13)     | 최대 입력 전압 제한        |   RW   |        240         |
+|   14    |     2      | [Max Torque](#max-torque-14)                   | 최대 Torque                     |   RW   |        1023        |
+|   16    |     1      | [Status Return Level](#status-return-level-16) | Status Return 방식 선택      |   RW   |         2          |
+|   17    |     1      | [Alarm LED](#alarm-led17-shutdown18)                     | Alarm LED                      |   RW   |         36         |
+|   18    |     1      | [Shutdown](#alarm-led17-shutdown18)                       | Shutdown 오류 정보         |   RW   |         36         |
+
+
+### RAM 영역 컨트롤 테이블
+
+| Address | Size(Byte) | Data Name                                       | 설명                  | Access | 초기<br />값 |
+|:-------:|:----------:|:------------------------------------------------|:-----------------------------|:------:|:------------------:|
+|   24    |     1      | [Torque Enable](#torque-enable-24)                 | 모터 Torque On/Off          |   RW   |         0          |
+|   25    |     1      | [LED](#led-25)                                     | Status LED On/Off            |   RW   |         0          |
+|   26    |     1      | [CW Compliance Margin](#compliance-margin-26-27)   | CW Compliance Margin         |   RW   |         1          |
+|   27    |     1      | [CCW Compliance Margin](#compliance-margin-26-27) | CCW Compliance Margin        |   RW   |         1          |
+|   28    |     1      | [CW Compliance Slope](#compliance-slope-28-29)     | CW Compliance Slope          |   RW   |         32         |
+|   29    |     1      | [CCW Compliance Slope](#compliance-slope-28-29)   | CCW Compliance Slope         |   RW   |         32         |
+|   30    |     2      | [Goal Position](#goal-position-30)                 | 목표 위치              |   RW   |         -          |
+|   32    |     2      | [Moving Speed](#moving-speed-32)                   | 이동 속도                 |   RW   |         -          |
+|   34    |     2      | [Torque Limit](#torque-limit-34)                   | Torque 제한                 |   RW   |     Max Torque     |
+|   36    |     2      | [Present Position](#present-position-36)           | 현재 위치             |   R    |         -          |
+|   38    |     2      | [Present Speed](#present-speed-38)                 | 현재 속도                |   R    |         -          |
+|   40    |     2      | [Present Load](#present-load-40)                   | 현재 Load                 |   R    |         -          |
+|   42    |     1      | [Present Voltage](#present-voltage-42)             | 현재 전압              |   R    |         -          |
+|   43    |     1      | [Present Temperature](#present-temperature-43)     | 현재 온도          |   R    |         -          |
+|   44    |     1      | [Registered](#registered-instruction-44)                       | Instruction 등록 여부 |   R    |         0          |
+|   46    |     1      | [Moving](#moving-46)                               | 이동 상태              |   R    |         0          |
+|   47    |     1      | [Lock](#lock-47)                                   | EEPROM 잠금               |   RW   |         0          |
+|   48    |     2      | [Punch](#punch-48)                                 | 최소 전류 임계값    |   RW   |         0          |
+|   56    |     2      | [Sensed Current](#sensed-current-56)               | 소모 전류            |   R    |         -          |
+
+
+### 컨트롤 테이블 설명
+<a id="model-number"></a>
+#### Model Number (0)
+다이나믹셀의 모델 번호를 저장합니다.
+<a id="firmware-version"></a>
+#### Firmware Version (2)
+다이나믹셀의 펌웨어 버전을 저장합니다.
+<a id="id"></a>
+#### ID (3)
+ID는 네트워크에서 각 다이나믹셀을 Instruction Packet으로 식별하기 위한 고유 값입니다.
+0~253 (0xFD) 값을 ID로 사용할 수 있으며, 254(0xFE)는 Broadcast ID로 사용됩니다. Broadcast ID(254, 0xFE)는 연결된 모든 다이나믹셀에 Instruction Packet을 동시에 전송할 수 있습니다.
+
+:::note
+
+**참고** : 여러 다이나믹셀에 동일한 ID를 사용하지 마세요. 동일한 ID를 사용하면 통신 오류가 발생하거나 다이나믹셀을 감지하지 못할 수 있습니다.
+
+:::
+<a id="baud-rate"></a>
+#### Baud Rate (4)
+Baud Rate는 제어기와 다이나믹셀 사이의 시리얼 통신 속도를 결정합니다.
+
+|    Value    | 통신 속도 | 오차율 |
+|:-----------:|:---------:|:---------------:|
+|      1      |    1M     |     0.000%      |
+|      3      |  500,000  |     0.000%      |
+|      4      |  400,000  |     0.000%      |
+|      7      |  250,000  |     0.000%      |
+|      9      |  200,000  |     0.000%      |
+|     16      |  115200   |     -2.124%     |
+| 34(Default) |   57600   |     0.794%      |
+|     103     |   19200   |     -0.160%     |
+|     207     |   9600    |     -0.160%     |
+
+:::note
+
+**참고** : Baud Rate 오차가 3 [%] 이내이면 UART 통신에 영향을 주지 않습니다.
+
+:::
+
+:::note
+
+**참고** : 높은 Baud Rate에서 안정적으로 통신하려면 USB Latency 값을 낮게 설정하세요.
+[USB Latency 설정](/docs/software/dynamixel_wizard_2_0/advanced_features#usb-latency-setting)
+
+:::
+<a id="return-delay-time"></a>
+#### Return Delay Time (5)
+
+<ControlTableReturnDelayTime />
+<a id="cwccw-angle-limit"></a>
+<a id="cw-angle-limit"></a>
+#### CW/CCW Angle Limit (6, 8)
+Angle Limit은 동작 범위를 제한하는 값입니다.
+값의 범위와 단위는 Goal Position(Address 30, 31)과 같습니다.
+CW Angle Limit: Goal Position(Address 30, 31)의 최소값
+CCW Angle Limit: Goal Position(Address 30, 31)의 최대값
+CW와 CCW 값에 따라 다음 두 가지 모드를 설정할 수 있습니다.
+
+| Operation Type |   CW / CCW    |
+|:--------------:|:-------------:|
+|   Wheel Mode   |  둘 다 0      |
+|   Joint Mode   | 둘 다 0이 아님 |
+
+Wheel Mode는 모터가 무한 회전하므로 바퀴형 로봇에 사용할 수 있습니다. Joint Mode는 특정 각도로 제어할 수 있으므로 다관절 로봇에 사용할 수 있습니다.
+<a id="drive-mode"></a>
+#### Drive Mode (10)
+
+<ControlTableDriveMode />
+<a id="temperature-limit"></a>
+#### Temperature Limit (11)
+
+:::warning
+
+**주의** : 온도 값을 기본값보다 낮거나 높게 설정하지 마십시오. 온도 알람 Shutdown이 발생하면 재사용 전에 20분 이상 기다려 온도를 낮추세요. 온도가 높은 상태에서 제품을 사용하면 손상될 수 있습니다.
+
+:::
+<a id="minmax-voltage-limit"></a>
+#### Min/Max Voltage Limit (12, 13)
+동작 전압 범위입니다.
+
+| 단위 | 값의 범위 | 설명 |
+|:----------:|:-----------:|:-----------:|
+| 약 0.1V |  50 ~ 250   | 5.0 ~ 25.0V |
+
+예를 들어 값이 80이면 전압은 8V입니다.
+[Present Voltage(42)]가 범위를 벗어나면 Status Packet의 Voltage Range Error Bit(Bit0)가 '1'로 반환되고, Address 17과 18의 설정에 따라 Alarm이 발생합니다.
+
+[Present Voltage(42)]: #present-voltage-42
+<a id="max-torque"></a>
+#### Max Torque (14)
+최대 출력 Torque 값입니다. 0 ~ 1023(0x3FF)을 사용할 수 있으며 단위는 약 0.1%입니다.
+예를 들어 Data 1023(0x3FF)은 DYNAMIXEL이 낼 수 있는 최대 Torque의 100%를 사용한다는 의미이고, Data 512(0x200)는 최대 Torque의 50%를 사용한다는 의미입니다. 전원이 켜지면 Torque Limit(Address 34, 35)는 이 값을 초기값으로 사용합니다.
+<a id="status-return-level"></a>
+#### Status Return Level (16)
+Status Packet을 반환하는 방식을 설정합니다. 아래 표와 같이 세 가지 방식이 있습니다.
+
+| Value | Status Packet 반환                                   |
+|:-----:|:-----------------------------------------------------|
+|   0   | 모든 Command에 대해 반환하지 않음(PING Command 제외) |
+|   1   | READ Command에 대해서만 반환                         |
+|   2   | 모든 Command에 대해 반환                             |
+
+Instruction Packet이 Broadcast ID인 경우 Status Return Level과 관계없이 Status Packet은 반환되지 않습니다.
+<a id="alarm-led-shutdown"></a>
+#### Alarm LED(17), Shutdown(18)
+
+<ControlTableShutdown />
+<a id="torque-enable"></a>
+#### Torque Enable (24)
+
+| 값 | 설명                                                     |
+|:-----:|:----------------------------------------------------------------|
+|   0   | 모터 전원을 차단하여 Torque가 발생하지 않도록 합니다 |
+|   1   | 모터에 전원을 인가하여 Torque를 발생시킵니다         |
+<a id="led"></a>
+#### LED (25)
+
+| Bit | 설명      |
+|:---:|:-----------------|
+|  0  | LED 끄기 |
+|  1  | LED 켜기 |
+<a id="compliance-margin"></a>
+#### Compliance Margin (26, 27)
+CW/CCW 각 방향에 존재하며, 목표 위치와 현재 위치 사이의 오차를 의미합니다.
+값의 범위는 0~255이며 단위는 Goal Position(Address 30, 31)과 같습니다.
+값이 클수록 더 큰 차이가 발생합니다.
+<a id="compliance-slope"></a>
+#### Compliance Slope (28, 29)
+CW/CCW 각 방향에 존재하며, 목표 위치 근처에서의 Torque 수준을 설정합니다.
+Compliance Slope는 7단계로 설정되며 값이 클수록 더 유연하게 동작합니다.
+Data Representative Value는 실제로 사용되는 값입니다. 즉, 값을 25로 설정해도 내부에서는 Representative Value인 16이 사용됩니다.
+
+| Step |     Data Value      | Data Representative Value |
+|:----:|:-------------------:|:-------------------------:|
+|  1   |  0(0x00) ~ 3(0x03)  |          2(0x02)          |
+|  2   |  4(0x04) ~ 7(0x07)  |          4(0x04)          |
+|  3   |  8(0x08)~15(0x0F)   |          8(0x08)          |
+|  4   |  16(0x10)~31(0x1F)  |         16(0x10)          |
+|  5   |  32(0x20)~63(0x3F)  |         32(0x20)          |
+|  6   | 64(0x40)~127(0x7F)  |         64(0x40)          |
+|  7   | 128(0x80)~254(0xFE) |         128(0x80)         |
+
+Compliance는 모터 제어의 유연성을 설정하는 기능입니다.
+아래 그림은 모터의 출력 Torque와 위치의 관계를 보여줍니다.
+
+![](/img/dxl/model_reference/common/dxl_compliance.webp)
+<a id="goal-position"></a>
+#### Goal Position (30)
+Goal Position(30)을 통해 DYNAMIXEL의 목표 위치를 설정합니다.
+0 ~ 1023(0x3FF)까지 사용할 수 있으며 단위는 0.29 degree입니다.
+Goal Position이 범위를 벗어나면 Status Packet의 Angle Limit Error Bit(Bit1)가 '1'로 반환되고, Alarm LED/Shutdown 설정에 따라 Alarm이 발생합니다.
+
+![](/img/dxl/model_reference/ex_series/ex-106+/ex-106_goal_position.webp)
+위 그림은 DYNAMIXEL을 정면에서 본 모습입니다.
+
+:::note
+
+**참고** : Wheel Mode로 설정된 경우 이 값은 사용되지 않습니다.
+
+:::
+<a id="moving-speed"></a>
+#### Moving Speed (32)
+Goal Position으로 이동하는 속도입니다.
+값의 범위와 단위는 동작 모드에 따라 다릅니다.
+
++ Join Mode
+  0~1023 (0x3FF)까지 사용할 수 있으며, 단위는 약 0.111rpm입니다.
+  0으로 설정하면 속도 제어를 하지 않고 모터의 최대 rpm을 사용한다는 의미입니다.
+  1023은 약 114rpm입니다.
+  예를 들어, 300으로 설정하면 약 33.3rpm입니다.
+
++ Wheel Mode
+  0~2047(0X7FF)까지 사용할 수 있으며, 단위는 약 0.1%입니다.
+  0~1023 범위의 값을 사용하면 CCW 방향으로 회전하며, 0으로 설정하면 정지합니다.
+  1024~2047 범위의 값을 사용하면 CW 방향으로 회전하며, 1024로 설정하면 정지합니다.
+  즉, 10번째 bit가 방향을 제어하는 Direction bit입니다.
+  Wheel Mode에서는 속도가 아니라 출력 제어만 가능합니다.
+  예를 들어 512로 설정하면 최대 출력의 50%로 제어한다는 의미입니다.
+
+:::note
+
+**참고** : DYNAMIXEL의 최대 rpm을 확인하세요. Moving Speed 값을 더 높게 설정해도 모터는 최대 rpm을 초과할 수 없습니다.
+
+:::
+<a id="torque-limit"></a>
+#### Torque Limit (34)
+최대 Torque 제한 값입니다.
+0 ~ 1023(0x3FF)까지 사용할 수 있으며 단위는 약 0.1%입니다.
+예를 들어 값이 512이면 약 50%이며, 최대 Torque의 50%만 사용한다는 의미입니다.
+전원이 켜지면 Max Torque(Address 14, 15)의 값이 초기값으로 사용됩니다.
+
+:::note
+
+**참고** : Alarm Shutdown 기능이 동작하면 이 값이 0이 되어 모터 Torque가 사라집니다. 이때 값을 0이 아닌 값으로 변경하면 모터를 다시 사용할 수 있습니다.
+
+:::
+<a id="present-position"></a>
+#### Present Position (36)
+DYNAMIXEL의 현재 위치 값입니다.
+값의 범위는 0~1023(0x3FF)이며 단위는 0.29 degree입니다.
+
+![](/img/dxl/model_reference/ex_series/ex-106+/ex-106_goal_position.webp)
+위 그림은 DYNAMIXEL을 정면에서 본 모습입니다.
+
++ Wheel Mode
+  값의 범위는 0~65535(0XFFFF)이며 단위는 0.06 degree입니다. Wheel Mode에서는 현재 위치가 Encoder 값을 출력하므로 이동 거리만 측정할 수 있습니다. Wheel의 이동 방향에 따라 1씩 증가하거나 감소합니다. 값이 0일 때 감소하면 65535가 되고, 65535일 때 증가하면 0이 됩니다.
+
+  **총 이동 각도 = (현재 측정값 - 이전 측정값) x 0.06**
+  위 공식에서 총 이동 각도가 0보다 크면 CCW 방향으로 회전한 것이고, 0보다 작으면 CW 방향으로 회전한 것입니다.
+  예를 들어 값이 5000에서 10000으로 변경되면 (10000 - 5000) x 0.06 = 300이므로 총 이동 각도는 300 degree입니다.
+<a id="present-speed"></a>
+#### Present Speed (38)
+현재 이동 속도입니다.
+0~2047 (0x7FF)까지 사용할 수 있습니다.
+값이 0~1023 범위이면 모터가 CCW 방향으로 회전한다는 의미입니다.
+값이 1024~2047 범위이면 모터가 CW 방향으로 회전한다는 의미입니다.
+즉, 10번째 bit가 방향을 제어하는 direction bit가 되며 0과 1024는 같습니다.
+이 값의 단위는 동작 모드에 따라 다릅니다.
+
++ Joint Mode
+  단위는 약 0.111rpm입니다.
+  예를 들어, 300으로 설정하면 모터가 CCW 방향으로 약 33.3rpm의 속도로 이동 중이라는 의미입니다.
+
++ Wheel Mode
+  단위는 약 0.1%입니다.
+  예를 들어 512로 설정하면 CCW 방향으로 최대 Torque의 50%가 제어되고 있다는 의미입니다.
+<a id="present-load"></a>
+#### Present Load (40)
+현재 적용되는 하중을 의미합니다.
+값의 범위는 0~2047이며 단위는 약 0.1%입니다.
+값이 0~1023이면 하중이 CCW 방향으로 작용한다는 의미입니다.
+값이 1024~2047이면 하중이 CW 방향으로 작용한다는 의미입니다.
+즉, 10번째 bit가 방향을 제어하는 Direction bit이며, 1024는 0과 같습니다.
+예를 들어 값이 512이면 최대 Torque의 약 50% 하중이 CCW 방향으로 감지되었다는 의미입니다.
+
+|  Bit  | 15 ~ 11 |       10       |       9 ~ 0       |
+|:-----:|:-------:|:--------------:|:-----------------:|
+| Value |    0    | Load Direction | Data (Load Ratio) |
+
+:::note
+
+**참고** : CCW Load : Load Direction = 0, CW Load : Load Direction = 1
+
+:::
+
+:::note
+
+**참고** : Present Load는 토크 센서 등으로 측정한 값이 아니라 내부 출력 값을 기반으로 추정한 값입니다. 따라서 무게나 Torque를 측정하는 용도로는 부정확할 수 있습니다. 관절에 가해지는 힘의 방향과 크기를 예측하는 용도로 사용하는 것을 권장합니다.
+
+:::
+<a id="present-voltage"></a>
+#### Present Voltage (42)
+현재 공급되는 전압의 크기입니다.
+이 값은 실제 전압보다 10배 큰 값입니다. 예를 들어 10V가 공급되면 Data 값은 100(0x64)입니다.
+<a id="present-temperature"></a>
+#### Present Temperature (43)
+DYNAMIXEL의 내부 온도이며 단위는 Celsius입니다.
+Data 값은 실제 섭씨 온도와 같습니다. 예를 들어 Data 값이 85(0x55)이면 현재 내부 온도는 85&deg;C입니다.
+<a id="registered-instruction"></a>
+#### Registered Instruction (44)
+
+| 값 | 설명                                    |
+|:-----:|:-----------------------------------------------|
+|   0   | REG_WRITE로 전송된 Command가 없습니다 |
+|   1   | REG_WRITE로 전송된 Command가 있습니다 |
+
+:::note
+
+**참고** : ACTION Command가 실행되면 값은 0으로 변경됩니다.
+
+:::
+<a id="moving"></a>
+#### Moving (46)
+
+| 값 | 설명                                    |
+|:-----:|:-----------------------------------------------|
+|   0   | Goal Position Command 실행 완료   |
+|   1   | Goal Position Command 실행 중     |
+<a id="lock"></a>
+#### Lock (47)
+
+| 값 | 설명                    |
+|:-----:|:-------------------------------|
+|   0   | EEPROM 영역 수정 가능    |
+|   1   | EEPROM 영역 수정 불가    |
+
+:::warning
+
+**주의** : Lock이 1로 설정되면 0으로 변경하려면 전원을 껐다가 다시 켜야 합니다.
+
+:::
+<a id="punch"></a>
+#### Punch (48)
+모터를 구동하기 위한 최소 전류입니다.
+0x20 ~ 0x3FF 값을 선택할 수 있습니다.
+<a id="sensed-current"></a>
+#### Sensed Current (56)
+현재 사용 중인 전류량입니다. 범위는 0 ~ 1023이며 단위는 10mA입니다. 512보다 작은 값은 모터가 전류를 소모하며 CCW 방향으로 Torque를 낸다는 의미입니다. 512보다 큰 값은 모터가 전류를 소모하며 CW 방향으로 Torque를 낸다는 의미입니다. 512는 0mA와 같으며 모터에서 Torque가 발생하지 않는다는 뜻입니다.
+
+예를 들어 값이 612이면 모터가 CW 방향으로 Torque를 내며 1000mA(612-512=100 => 100x10mA = 1,000mA)를 소모한다는 의미입니다.
+
+값이 312이면 모터가 CCW 방향으로 Torque를 내며 2000mA(512-312=200 => 200x10mA=2,000mA)를 소모한다는 의미입니다.
+
+
+## 조립 방법
+
+### Optional Frames
+
++ FR05-F101 and FR08-X101
+
+  ![](/img/dxl/model_reference/mx_series/mx-106+_fr05-f101_fr08-x101.webp)
+
++ FR05-S101
+
+  ![](/img/dxl/model_reference/mx_series/mx-106+_fr05-s101.webp)
+
++ FR08-B101
+
+  ![](/img/dxl/model_reference/mx_series/mx-106+_fr08-b101.webp)
+
++ FR08-H101
+
+  ![](/img/dxl/model_reference/mx_series/mx-106+_fr08-h101.webp)
+
++ FR08-H110 and FR08-D101
+
+  ![](/img/dxl/model_reference/mx_series/mx-106+_fr08-h110_fr08-d101.webp)
+
++ FR05-S1 Option Frame
+
+  ![](/img/dxl/model_reference/rx_series/rx-64_of-fr05-s1.webp)
+
+### Horns
+
++ HN05-N102
+
+  ![](/img/dxl/model_reference/mx_series/mx-106+_hn05-t101.webp)
+
++ HN05-I101
+
+  ![](/img/dxl/model_reference/rx_series/rx-64_hn05-i101.webp)
+
++ HN05-T101 Horn
+
+  ![](/img/dxl/model_reference/rx_series/rx-64_hn05-t101.webp)
+
++ HN05-N1 Horn
+
+  ![](/img/dxl/model_reference/rx_series/rx-64_hn05-n1.webp)
+
++ HN05-T1 Horn
+
+  ![](/img/dxl/model_reference/rx_series/rx-64_hn05-t1.webp)
+
++ HN05-I1 Horn
+
+  ![](/img/dxl/model_reference/rx_series/rx-64_hn05-i1.webp)
+
+
+### Combination Structures
+
+  ![](/img/dxl/model_reference/ex_series/ex-106+_combination.webp)
+
+## 유지보수
+
+<HornBearingReplacement />
+
+## 참고자료
+
+:::note
+
+**참고** : [호환성 가이드](http://en.robotis.com/service/compatibility_table.php?cate=d)
+
+:::
+
+### 커넥터 정보
+
+<Molex485 />
+
+### 도면
+
+<DownloadCenterNotice />
+
+<TtlConnection />
+
+<CommonLink />

@@ -1,0 +1,20 @@
+DYNAMIXEL의 현재 위치 값입니다.
+값의 범위는 0~4095(0xFFF)이며 단위는 0.088 [&deg;]입니다.
+
+![](/img/dxl/model_reference/mx_series/mx_position.webp)
+
+- 위 그림은 DYNAMIXEL을 정면에서 본 모습입니다.
+
+Multi-turn Mode에서는 범위가 -28,672 ~ 28,672이며, 단위 값은 Resolution Divider에 따라 달라집니다. (0.088 * Resolution Divider)
+
+:::note
+
+**참고** : Multi-turn Mode에서 Present Position은 Resolution Divider와 Multi-turn Offset 값에 따라 달라질 수 있습니다. 자세한 내용은 Multi-turn Offset과 Resolution Divider 항목을 참고하세요.
+
+:::
+
+:::note
+
+**참고** : Multi-turn Mode에서 음수 값은 2의 보수(Two's complement) 규칙을 따릅니다. 자세한 내용은 Wikipedia의 [Two's complement](https://en.wikipedia.org/wiki/Two%27s_complement)를 참고하세요.
+
+:::

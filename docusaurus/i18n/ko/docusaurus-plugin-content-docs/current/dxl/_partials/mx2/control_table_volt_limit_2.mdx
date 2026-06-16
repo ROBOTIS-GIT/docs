@@ -1,0 +1,12 @@
+Min Voltage Limit(32)과 Max Voltage Limit(34)는 동작 전압의 하한 값과 상한 값을 설정합니다.
+DYNAMIXEL에 현재 인가된 전압을 나타내는 [Present Input Voltage(144)]가 Max Voltage Limit(32)와 Min Voltage Limit(34)의 범위를 벗어나면 [Hardware Error Status(70)](#hardware-error-status70)의 Input Voltage Error Bit(0x10)이 설정되고, Status Packet은 Error 필드를 통해 Alert Bit(0x80)을 전송합니다.
+[Shutdown(63)]에 Input Voltage Error Bit(0x10)이 설정된 경우 [Torque Enable(64)]은 '0'(Torque OFF)으로 변경됩니다.
+자세한 내용은 [Shutdown(63)] 항목을 참고하세요.
+
+|     단위      |    범위     |      설명      |
+|:-------------:|:-----------:|:--------------:|
+| 약 0.1 [V] |  95 ~ 160   | 9.5 ~ 16.0 [V] |
+
+[Present Input Voltage(144)]: #present-input-voltage144
+[Shutdown(63)]: #shutdown63
+[Torque Enable(64)]: #torque-enable64

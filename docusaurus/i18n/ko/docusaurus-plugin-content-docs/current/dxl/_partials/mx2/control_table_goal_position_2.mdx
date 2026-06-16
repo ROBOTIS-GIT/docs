@@ -1,0 +1,47 @@
+{/*
+mx2 공용 Goal Position(116) 설명입니다. mx-28-2는 "Current-based Position Control Mode"
+행이 빠지므로, 부모 페이지에서 이 partial 대신
+`control_table_goal_position_2_mx28.mdx` 변형을 렌더링합니다.
+*/}
+
+Goal Position(116)은 목표 위치를 설정합니다. DYNAMIXEL을 정면에서 바라봤을 때 CCW 방향은 값이 증가하는 방향이고, CW 방향은 값이 감소하는 방향입니다. Goal Position(116)에 도달하는 방식은 DYNAMIXEL이 제공하는 Profile에 따라 달라질 수 있습니다. 자세한 내용은 [Profile이란?]을 참고하세요.
+
+![](/img/dxl/model_reference/common/dxl_goal_position.webp)
+
+| Mode                                   | Values                                          | 설명                                                 |
+|:--------------------------------------:|:-----------------------------------------------:|:----------------------------------------------------:|
+| Position Control Mode                  | Min Position Limit(52) ~ Max Position Limit(48) | 초기값 : 0 ~ 4,095                                   |
+| Extended Position Control Mode         | -1,048,575 ~ 1,048,575                          | -256[rev] ~ 256[rev]                                 |
+| Current-based Position Control Mode    | -1,048,575 ~ 1,048,575                          | -256[rev] ~ 256[rev]                                 |
+
+| Unit                  | 설명                                                              |
+|:---------------------:|:-----------------------------------------------------------------:|
+| 0.088 [deg/pulse]     | 1[rev] : 0 ~ 4,095 (1회전 0 ~ 4,095, 총 4,096 counts)            |
+
+:::note
+
+**참고** : [Profile Velocity(112)](#profile-velocity112)와 [Profile Acceleration(108)](#profile-acceleration108)은 아래 경우에 적용됩니다.
+- [Operating Mode(11)](#operating-mode11)가 **Position Control Mode**일 때 [Goal Position(116)](#goal-position116)이 업데이트되면 [Profile Velocity(112)](#profile-velocity112)와 [Profile Acceleration(108)](#profile-acceleration108)을 사용해 새 Profile을 생성합니다.
+- [Operating Mode(11)](#operating-mode11)가 **Velocity Control Mode**일 때 [Goal Velocity(104)](#goal-velocity104)가 업데이트되면 [Profile Acceleration(108)](#profile-acceleration108)을 사용해 새 Profile을 생성합니다.
+
+:::
+
+:::note
+
+**참고** : Extended Position Control Mode에서 전원을 끄거나 Operating Mode를 변경하면 Present Position 값은 1회전 범위의 절대 위치값으로 초기화됩니다.
+
+:::
+
+:::note
+
+**참고** : Torque가 꺼진 상태에서는 Operating Mode(11)와 관계없이 [Present Position(132)](#present-position)이 -2,147,483,648 ~ 2,147,483,647의 4 byte 연속 범위로 표시됩니다.
+다만 아래 경우에는 [Present Position(132)](#present-position)이 1회전 범위의 절대 위치값으로 초기화됩니다.
+1. Operating Mode(11)가 **Position Control Mode**로 변경된 경우
+2. **Position Control Mode**에서 Torque가 켜진 경우
+3. Actuator의 전원이 켜지거나 [Reboot Instruction](/docs/dxl/protocol/protocol2#reboot)으로 reboot된 경우
+
+1회전 범위의 절대 위치값으로 초기화된 [Present Position(132)](#present-position)도 설정된 [Homing Offset(20)](#homing-offset) 값의 영향을 받습니다.
+
+:::
+
+[Profile이란?]: #what-is-the-profile

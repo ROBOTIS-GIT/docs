@@ -1,0 +1,37 @@
+{/*
+mx2(mx-64-2 / mx-106-2)는 Current-based Position Control Mode를 포함합니다.
+mx-28-2는 "Current-based Position Control Mode" 언급을 생략하므로
+해당 페이지에서 이 내용을 inline으로 렌더링합니다. (Current 행 없음)
+*/}
+
+Moving Status(123)는 1 byte 데이터로 움직임에 대한 추가 정보를 제공합니다.
+Following Error(0x08)와 In-Position(0x01)은 **Position Control Mode**, **Extended Position Control Mode**, **Current-based Position Control Mode**에서 사용할 수 있습니다.
+
+Mode에 대한 자세한 내용은 [Operating Mode(11)]를 참고하세요.
+
+|      Bit       |        Value         |   Information    | 설명                                                                                                                       |
+|:--------------:|:--------------------:|:----------------:|:---------------------------------------------------------------------------------------------------------------------------|
+|     Bit 7      |          X           |        -         | 예약됨                                                                                                                     |
+|     Bit 6      |          X           |        -         | 예약됨                                                                                                                     |
+| Bit 4<br />Bit 5 | 11<br />10<br />01<br />00 | Velocity Profile | 11 : [Trapezoidal Profile]<br />10 : Triangular Profile<br />01 : [Rectangular Profile]<br />00 : Profile 미사용([Step]) |
+|     Bit 3      |        0 or 1        | Following Error  | DYNAMIXEL이 목표 위치 궤적을 추종하는지 여부<br />0 : 추종함<br />1 : 추종하지 못함                           |
+|     Bit 2      |          X           |        -         | 예약됨                                                                                                                     |
+|     Bit 1      |        0 or 1        | Profile Ongoing  | [Goal Position(116)](#goal-position116) 명령에 따라 Profile 진행 중인지 여부<br />0 : Profile 완료<br />1 : Profile 진행 중 |
+|     Bit 0      |        0 or 1        |   In-Position    | DYNAMIXEL이 목표 위치에 도달했는지 여부<br />0 : 도달하지 못함<br />1 : 도달함                                        |
+
+:::note
+
+**참고** : Triangular velocity profile은 Rectangular velocity profile이 [Profile Velocity(112)](#profile-velocity112)에 도달할 수 없을 때 설정됩니다.
+
+:::
+
+:::note
+
+**참고** : In-Position bit는 위치 관련 제어 모드에서 위치 편차가 펌웨어에 정의된 값보다 작을 때 설정됩니다.
+
+:::
+
+[Operating Mode(11)]: #operating-mode11
+[Trapezoidal Profile]: #what-is-the-profile
+[Step]: #what-is-the-profile
+[Rectangular Profile]: #what-is-the-profile

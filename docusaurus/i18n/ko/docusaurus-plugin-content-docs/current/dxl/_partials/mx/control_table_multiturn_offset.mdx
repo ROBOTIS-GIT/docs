@@ -1,0 +1,11 @@
+Offset 위치를 조정합니다. 이 Offset 값은 [Present Position(36)](#present-position)에 더해집니다.
+초기값은 0이며 범위는 -24,576 ~ 24,576입니다.
+Present Position이 2,048인 DYNAMIXEL에 Offset 1,024를 적용하면 조정된 Present Position은 3,072가 됩니다.
+
+![](/img/dxl/model_reference/mx_series/mx-12_multiturn_offset.webp)
+
+:::note
+
+**참고** : [Multiturn Offset(20)](#multi-turn-offset)과 [Resolution Divider(22)](#resolution-divider)은 Multi-turn Mode(CW와 CCW가 모두 0인 조건, 동작 모드는 [CW/CCW Angle Limit(6, 8)](#cwccw-angle-limit6-8) 참고)에서만 적용됩니다. 다른 동작 모드에서는 Multiturn Offset(20)과 Resolution Divider(22)의 설정값이 무시됩니다.
+
+:::

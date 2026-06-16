@@ -1,0 +1,32 @@
+PID 제어기의 블록 다이어그램은 다음과 같습니다.
+- `P gain` : 비례 대역 값입니다.
+- `I gain` : 적분 동작 값입니다.
+- `D Gain` : 미분 동작 값입니다.
+
+Gain 값의 범위는 0 ~ 254입니다.
+
+![](/img/dxl/model_reference/mx_series/mx-12_pid_control.webp)
+
+- **K<sub>p</sub>** : P Gain / 8
+- **K<sub>i</sub>** : I Gain * 1,000 / 2,048
+- **K<sub>d</sub>** : D Gain * 4 / 1,000
+
+**Compliance Slope와 PID의 관계**
+
+| Slope | P Gain |
+|:-----:|:------:|
+|   8   |  128   |
+|  16   |   64   |
+|  32   |   32   |
+|  64   |   16   |
+|  128  |   8    |
+
+P Gain이 작을수록 유격이 커지고 목표 위치 근처에서의 출력이 약해집니다.
+어느 정도는 Margin과 Slope를 합친 개념과 유사합니다.
+다만 기존 Compliance 개념과 정확히 일치하지는 않으므로 동작 차이를 통해 확인할 수 있습니다.
+
+:::note
+
+**참고** : PID 제어 이론은 모터(Actuator) 제어에만 국한되지 않고 다양한 제어에 적용할 수 있는 일반 이론입니다. PID 제어기에 대한 자세한 내용은 [PID Controller](http://en.wikipedia.org/wiki/PID_controller)를 참고하세요.
+
+:::

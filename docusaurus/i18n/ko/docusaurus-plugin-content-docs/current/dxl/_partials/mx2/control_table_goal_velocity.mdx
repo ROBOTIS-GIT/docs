@@ -1,0 +1,30 @@
+Goal Velocity(104)는 [Operating Mode(11)]가 **Velocity Control Mode**일 때 목표 속도를 설정합니다.
+
+Goal Velocity(104)는 이동 속도를 제한하는 값으로는 사용되지 않습니다.
+
+|   단위    |                    범위                      |
+|:---------:|:--------------------------------------------:|
+| 0.229 rpm | -[Velocity Limit(44)] ~ [Velocity Limit(44)] |
+
+:::note
+
+**참고** : Goal Velocity(104)는 [Velocity Limit(44)]를 초과할 수 없습니다.
+
+:::
+
+:::note
+
+**참고** : DYNAMIXEL의 최대 속도와 최대 토크는 공급 전압의 영향을 받습니다.
+따라서 공급 전압이 변경되면 최대 속도도 달라집니다. 이 매뉴얼은 권장 공급 전압을 기준으로 설명합니다.
+
+:::
+
+:::note
+
+**참고** : [Profile Acceleration(108)]과 Goal Velocity(104)를 동시에 변경하면, 변경된 [Profile Acceleration(108)]이 Goal Velocity(104)를 처리하는 데 사용됩니다.
+
+:::
+
+[Operating Mode(11)]: #operating-mode11
+[Velocity Limit(44)]: #velocity-limit44
+[Profile Acceleration(108)]: #profile-acceleration108
