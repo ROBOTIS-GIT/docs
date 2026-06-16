@@ -1,0 +1,33 @@
+
+Velocity PI Gain(76, 78)은 Velocity Control Mode에서 사용하는 Gain입니다.
+DYNAMIXEL 내부 제어기의 Velocity P Gain은 K<sub>V</sub>P로, 컨트롤 테이블의 Gain은 K<sub>V</sub>P<sub>(TBL)</sub>로 표기합니다.
+
+|                     | Controller Gain |                   Conversion Equations                   |   Range    | 설명 |
+|:-------------------:|:---------------:|:--------------------------------------------------------:|:----------:|:-----------:|
+| Velocity I Gain(76) | K<sub>V</sub>I  | K<sub>V</sub>I = K<sub>V</sub>I<sub>(TBL)</sub> / 65,536 | 0 ~ 16,383 |   I Gain    |
+| Velocity P Gain(78) | K<sub>V</sub>P  |  K<sub>V</sub>P = K<sub>V</sub>P<sub>(TBL)</sub> / 128   | 0 ~ 16,383 |   P Gain    |
+
+아래 그림은 Velocity Control Mode에서 동작하는 속도 제어기의 블록 다이어그램입니다. 사용자의 Instruction이 DYNAMIXEL에 전달되면 Horn이 구동되기까지 다음 과정을 거칩니다.
+1. 사용자의 Instruction이 DYNAMIXEL bus를 통해 전송되어 [Goal Velocity(104)]에 등록됩니다.
+2. [Goal Velocity(104)]는 [Profile Acceleration(108)]에 의해 목표 속도 궤적으로 변환됩니다.
+3. 목표 속도 궤적은 [Velocity Trajectory(136)]에 저장됩니다.
+4. PI 제어기는 목표 속도 궤적을 기반으로 모터에 인가할 PWM 출력을 계산합니다.
+5. [Goal PWM(100)]은 계산된 PWM 출력을 제한하여 최종 PWM 값을 결정합니다.
+6. 최종 PWM 값은 Inverter를 통해 모터에 적용되고 DYNAMIXEL의 Horn이 구동됩니다.
+7. 구동 결과는 [Present Position(132)], [Present Velocity(128)], [Present PWM(124)], [Present Load(126)]에 저장됩니다.
+
+![](/img/dxl/model_reference/x_series/velocity_controller_pi_gain.webp)
+
+:::note
+
+**참고** : K<sub>a</sub>는 Anti-windup Gain이며, &beta;는 사용자가 변경할 수 없는 위치와 속도의 변환 계수입니다. PID 제어기에 대한 자세한 내용은 [PID Controller at wikipedia](http://en.wikipedia.org/wiki/PID_controller)를 참고하세요.
+
+:::
+
+[Present PWM(124)]: #present-pwm124
+[Velocity Trajectory(136)]: #velocity-trajectory136
+[Profile Acceleration(108)]: #profile-acceleration108
+[Present Velocity(128)]: #present-velocity128
+[Goal PWM(100)]: #goal-pwm100
+[Goal Velocity(104)]: #goal-velocity104
+[Present Position(132)]: #present-position132

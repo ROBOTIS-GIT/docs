@@ -1,0 +1,63 @@
+
+### 사전 준비
+
+- DYNAMIXEL 전원 공급 장치(12V SMPS 또는 호환되는 12V 배터리)
+  - [Compatibility Table] 참고
+
+- Windows, Linux 또는 MacOS가 설치된 PC
+- PC와 DYNAMIXEL 간 통신을 위한 시리얼 컨버터([U2D2], [OpenRB-150])
+- [DYNAMIXEL Control Software](#compatible-software-with-dynamixel)
+
+:::warning
+
+**주의**:
+- 일부 소프트웨어는 모든 OS 옵션을 지원하지 않을 수 있습니다. 사용하려는 소프트웨어의 eManual 페이지를 확인해 호환성을 확인하세요.
+
+:::
+
+:::note
+
+**참고**:
+- U2D2는 연결된 PC에서 DYNAMIXEL 서보를 직접 제어하고 동작시킬 수 있는 소형 USB to Serial 통신 컨버터입니다.
+- [U2D2 Power Hub](/docs/parts/interface/u2d2_power_hub)를 사용하면 DYNAMIXEL에 전원을 공급하기 위해 외부 전원을 U2D2에 연결하는 과정이 간단해집니다.
+
+:::
+
+### Compatible Software with DYNAMIXEL
+#### DYNAMIXEL Wizard 2.0
+[DYNAMIXEL Wizard 2.0]은 DYNAMIXEL 서보의 설정, 구성, 관리를 쉽게 할 수 있도록 설계된 설정 도구입니다.
+
+DYNAMIXEL Wizard 2.0은 다음 기능을 제공합니다.
+
+- DYNAMIXEL Firmware Update
+- DYNAMIXEL Error Diagnosis
+- DYNAMIXEL Configuration and Testing
+- DYNAMIXEL Real-time Data Plotting
+- Generate & Monitor DYNAMIXEL Packets
+
+#### DYNAMIXEL SDK
+[DYNAMIXEL SDK]는 다양한 주요 프로그래밍 언어에서 DYNAMIXEL 제어 기능을 제공하는 소프트웨어 개발 키트입니다.
+
+**지원 프로그래밍 언어 및 기능**:
+- C, C++, C#, Python, Java, MATLAB, LabVIEW
+- Windows, Mac, Linux
+- ROS
+- Arduino
+
+:::note
+
+**참고** : 더 다양한 소프트웨어도 사용할 수 있습니다. ROBOTIS에서 제공하는 소프트웨어 정보는 다음 호환표를 확인하세요.
+- DYNAMIXEL to software Compatibility Table
+- Controller to software Compatibility Table
+
+:::
+
+[U2D2]: /docs/parts/interface/u2d2
+[OpenRB-150]: /docs/parts/controller/openrb-150
+[R+ Manager]: /docs/software/rplus_1_0/rplus_manager
+[R+ Manager 2.0]: /docs/software/dynamixel_wizard_2_0/introduction
+[DYNAMIXEL SDK]: /docs/software/dynamixel_sdk/overview
+[DYNAMIXEL Workbench]: /docs/software/dynamixel_workbench
+
+[Compatibility Table]: /docs/dxl/protocol/faq_protocol_compatibility_table
+[DYNAMIXEL Wizard 2.0]: /docs/software/dynamixel_wizard_2_0/introduction

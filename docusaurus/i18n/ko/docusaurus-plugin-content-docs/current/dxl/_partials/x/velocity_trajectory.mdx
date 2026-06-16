@@ -1,0 +1,8 @@
+이 레지스터는 현재 Profile이 생성한 활성 궤적의 목표 속도를 저장합니다. 이 레지스터의 값과 동작은 활성 Operating Mode에 따라 달라질 수 있습니다. 자세한 내용은 [Profile Velocity(112)]를 참고하세요.
+1. **Velocity Control Mode** : 생성된 Profile이 끝점에 도달하면 [Velocity Trajectory(136)]는 [Goal Velocity(104)]와 같아집니다.
+2. **Position Control Mode, Extended Position Control Mode** : Velocity Trajectory는 이동에 사용되는 [Position Trajectory(140)]를 생성하는 데 사용됩니다. Profile이 끝점에 도달하면 [Velocity Trajectory(136)]는 `0`으로 설정됩니다.
+
+[Position Trajectory(140)]: #position-trajectory140
+[Profile Velocity(112)]: #profile-velocity112
+[Goal Velocity(104)]: #goal-velocity104
+[Velocity Trajectory(136)]: #velocity-trajectory136

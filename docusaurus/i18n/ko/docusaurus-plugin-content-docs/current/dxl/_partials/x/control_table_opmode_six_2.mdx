@@ -1,0 +1,42 @@
+{/*
+mx-64-2 / mx-106-2 — 6 operating modes (includes Current Control Mode and
+Current-based Position Control Mode).
+*/}
+
+| 값      | 동작 모드                             | 설명                                                                                                                                                                                                                                                                                                                |
+|:-----------|:-------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 0          | Current Control Mode                       | 속도와 위치에 관계없이 전류(Torque)만 제어합니다. 전류(Torque) 제어만 사용하는 시스템, 그리퍼, 또는 별도의 속도/위치 제어기를 갖춘 시스템에 적합합니다.                                                                                              |
+| 1          | Velocity Control Mode                      | 속도를 제어하는 모드입니다. 기존 다이나믹셀의 Wheel Mode(endless)와 동일하며, 바퀴형 로봇에 적합합니다.                                                                                                                                                                          |
+| 3(Default) | Position Control Mode                      | 위치를 제어하는 모드입니다. 기존 다이나믹셀의 Joint Mode와 동일합니다. 동작 위치 범위는 [Max Position Limit(48)]과 [Min Position Limit(52)]에 의해 제한됩니다. 각 관절이 360도 미만으로 회전하는 다관절 로봇에 적합합니다.                              |
+| 4          | Extended Position Control Mode(Multi-turn) | 위치를 제어하는 모드입니다. 기존 다이나믹셀의 Multi-turn Position Control과 동일합니다. 총 512회전(-256[rev] ~ 256[rev])을 지원합니다. 여러 회전이 필요한 손목 관절, 컨베이어 시스템, 추가 감속기가 필요한 시스템에 적합합니다. Extended Position Control Mode에서는 [Max Position Limit(48)], [Min Position Limit(52)]가 사용되지 않습니다. |
+| 5          | Current-based Position Control Mode        | 위치와 전류(Torque)를 함께 제어합니다. 최대 512회전(-256[rev] ~ 256[rev])을 지원합니다. 다관절 로봇이나 그리퍼처럼 위치와 전류를 함께 제어해야 하는 시스템에 적합합니다.                                                                                        |
+| 16         | PWM Control Mode  (Voltage Control Mode)   | PWM 출력을 직접 제어합니다. (Voltage Control Mode)                                                                                                                                                                                                                                                              |
+
+:::note
+
+**참고** : Operating Mode(11)가 다른 모드로 변경되면 [Velocity PI(76, 78)](#velocity-pi-gain76-78), [Position PID(80, 82, 84)](#position-pid-gain80-82-84), [Feedforward(88, 90)](#position-pid-gain80-82-84)와 같은 Gain 값은 선택된 Operating Mode(11)에 맞게 재설정됩니다. 또한 profile generator와 제한값을 결정하는 Data도 재설정됩니다. 자세한 내용은 아래 설명을 참고하세요.
+
+1. [Profile Velocity(112)](#profile-velocity112), [Profile Acceleration(108)](#profile-acceleration108): `0`으로 재설정
+2. [Goal PWM(100)](#goal-pwm100)과 [Goal Current(102)](#goal-current102): 각각 [PWM Limit(36)](#pwm-limit36), [Current Limit(38)](#current-limit38) 값으로 재설정
+3. Operating Mode(11)가 **Current-based Position Control Mode**인 경우 [Position PID(80, 82, 84)](#position-pid-gain80-82-84)와 [PWM Limit(36)](#pwm-limit36) 값이 재설정됩니다.
+
+변경된 [Position PID(80, 82, 84)](#position-pid-gain80-82-84)와 [PWM Limit(36)](#pwm-limit36) 값은 컨트롤 테이블에서 읽을 수 있습니다.
+
+:::
+
+:::note
+
+**참고** : PWM은 **Pulse Width Modulation**의 약자로, PWM Duty를 변조해 모터를 제어하는 방식입니다. 펄스 폭을 변경해 모터에 공급되는 평균 전압을 제어하며, 모터 제어 분야에서 널리 사용됩니다.
+1. PWM Control Mode는 [AX](/docs/dxl/model_reference/ax_series/ax-12w#cw-compliance-margin) 및 [RX](/docs/dxl/model_reference/rx_series/rx-10#moving-speed-32) 시리즈의 Wheel Mode와 유사합니다.
+2. **PWM Control Mode**에서 다이나믹셀 공급 전압을 제어하려면 [Goal PWM(100)](#goal-pwm) 값을 입력합니다.
+
+:::
+
+:::note
+
+**참고** : Operating Mode(11)가 다른 모드로 변경되면 Gain과 기타 Mode 관련 값이 선택된 Operating Mode(11)에 맞게 재설정됩니다.
+
+:::
+
+[Max Position Limit(48)]: #minmax-position-limit48-52
+[Min Position Limit(52)]: #minmax-position-limit48-52

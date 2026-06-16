@@ -1,0 +1,470 @@
+import Warning from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/warning.mdx';
+import NotePerformanceGraph from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/note_performance_graph.mdx';
+import ControlTable from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table.mdx';
+import ControlTableId from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_id.mdx';
+import ControlTableBaudrate2 from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_baudrate_2.mdx';
+import ControlTableReturnDelayTime from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_return_delay_time.mdx';
+import ControlTableDrivemode from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_drivemode.mdx';
+import ControlTableOpmodeSix2 from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_opmode_six_2.mdx';
+import ControlTableShadowid from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_shadowid.mdx';
+import ControlTableProtocolversion from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_protocolversion.mdx';
+import ControlTableHomingoffset from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_homingoffset.mdx';
+import ControlTableMovingthreshold from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_movingthreshold.mdx';
+import ControlTableTempLimit2 from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_temp_limit_2.mdx';
+import ControlTableVoltLimit2 from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_volt_limit_2.mdx';
+import ControlTablePwmLimit from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_pwm_limit.mdx';
+import ControlTableCurrentLimit from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_current_limit.mdx';
+import ControlTableVellimit from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_vellimit.mdx';
+import ControlTablePositionlimit from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_positionlimit.mdx';
+import ControlTable60StartupConfiguration from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_60_startup_configuration.mdx';
+import ControlTableShutdown from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_shutdown.mdx';
+import ControlTableTorqueEnable from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_torque_enable.mdx';
+import ControlTableLed from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_led.mdx';
+import ControlTableStatusReturnLv from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_status_return_lv.mdx';
+import ControlTableRegInstruction from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_reg_instruction.mdx';
+import ControlTableVelocityPiGain from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_velocity_pi_gain.mdx';
+import ControlTablePositionPidGain from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_position_pid_gain.mdx';
+import ControlTableCurrentPositionPidGain from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_current_position_pid_gain.mdx';
+import ControlTableBuswatchdog from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_buswatchdog.mdx';
+import ControlTableGoalPwm from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_goal_pwm.mdx';
+import ControlTableGoalCurrent from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_goal_current.mdx';
+import ControlTableGoalVelocity from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_goal_velocity.mdx';
+import ControlTableProfileAcceleration from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_profile_acceleration.mdx';
+import ControlTableProfileVelocity from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_profile_velocity.mdx';
+import ControlTableGoalPosition2 from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_goal_position_2.mdx';
+import ControlTableRealtimeTick from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_realtime_tick.mdx';
+import ControlTableMoving2 from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_moving_2.mdx';
+import ControlTableMovingStatus from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_moving_status.mdx';
+import ControlTablePresentPosition from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_present_position.mdx';
+import ControlTableVelocityTrajectory from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_velocity_trajectory.mdx';
+import ControlTablePositionTrajectory from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_position_trajectory.mdx';
+import ControlTablePresentVolt2 from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_present_volt_2.mdx';
+import ControlTablePresentTemp2 from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_present_temp_2.mdx';
+import ControlTableBackupReady from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_backup_ready.mdx';
+import ControlTableIndirectData from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_indirect_data.mdx';
+import DrawingX330Drawing from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/drawing_x330_drawing.mdx';
+import ProfileDescription from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/profile_description.mdx';
+import FccClassA from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/fcc_class_a.mdx';
+import QuickStart from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/quick_start.mdx';
+import JstTtl from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/jst_ttl.mdx';
+import TtlConnectionX from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/ttl_connection_x.mdx';
+import DownloadCenterNotice from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/download_center_notice.mdx';
+import CommonLink from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/common_link.mdx';
+import CompatibleX330 from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/compatible_dxl/compatible_x330.mdx';
+
+![](/img/dxl/model_reference/x_series/xl330-series_product.webp)
+
+# XC330-T181-T
+
+![](/img/dxl/model_reference/x_series/x330_new_information_en.webp)
+
+## 사양
+
+| 항목                    | 사양                                                     |
+|:------------------------|:-------------------------------------------------------------------|
+| MCU                     | ARM CORTEX-M0+ (64 [MHz], 32Bit) |
+| 위치 센서               | Contactless absolute encoder (12Bit, 360 [&deg;])<br />Maker : ams(www.ams.com), Part No : AS5601 |
+| 모터                    | Coreless DC |
+| 통신 속도               | 9,600 [bps] ~ 4 [Mbps] |
+| 제어 알고리즘           | PID control |
+| 해상도                  | 4096 [pulse/rev] |
+| 동작 모드               | Current Control Mode<br />Velocity Control Mode<br />Position Control Mode (0 ~ 360 [&deg;])<br />Extended Position Control Mode (Multi-turn)<br />Current-based Position Control Mode<br />PWM Control Mode (Voltage Control Mode) |
+| 무게                    | 23 [g] |
+| 크기 (W x H x D)       | 20.0 x 34.0 x 26.0 [mm] |
+| 감속비                  | 180.62 : 1 |
+| Stall Torque            | 0.65 [N.m] (at 9.0 [V], 0.61 [A], 1.066 [Nm/A]) <br /> **0.76 [N.m] (at 11.1 [V], 0.80 [A], 0.950 [Nm/A])** <br /> 0.80 [N.m] (at 12.0 [V], 0.88 [A], 0.909 [Nm/A]) |
+| 무부하 속도           | 83 [rev/min] (at 9.0 [V]) <br /> **104 [rev/min] (at 11.1 [V])** <br /> 113 [rev/min] (at 12.0 [V]) |
+| 동작 온도               | -5 ~ +70 [&deg;C] |
+| 입력 전압               | 6.5 ~ 12.0 [V] (**권장 : 11.1 [V]**) |
+| 명령 신호               | Digital Packet |
+| 물리적 연결             | TTL Multidrop Bus (5V Logic) <br /> TTL Half Duplex Asynchronous Serial Communication<br />(8bit, 1stop, No Parity) |
+| ID                      | 253 ID (0 ~ 252) |
+| 피드백                  | Position, Velocity, Current, Realtime tick, Trajectory, Temperature, Input Voltage, etc |
+| 케이스 재질             | Engineering Plastic |
+| 기어 재질               | Full Metal Gear, 2 Bearing |
+| 대기 전류               | 17 [mA] |
+
+
+<Warning />
+
+
+### 성능 그래프
+![](/img/dxl/model_reference/x_series/xc_series/xc330-t181/xc330-t181_performance_graph.webp)
+
+<details>
+<summary>
+![](/img/common/icon_unfold.webp) **같은 폼팩터를 찾고 있나요?**
+</summary>
+
+<CompatibleX330 />
+
+</details>
+
+
+<NotePerformanceGraph />
+
+
+<ControlTable />
+
+
+
+### EEPROM Area 컨트롤 테이블
+| Address | Size<br />(Byte) | Data Name                                       | Access | 초기<br />값 | Range                     | Unit            |
+|:-------:|:--------------:|:------------------------------------------------|:-------|:-------------------|:--------------------------|:----------------|
+|    0    |       2        | [Model Number](#model-number0)                   | R      | 1,210              | -                         | -               |
+|    2    |       4        | Model Information         | R      | -                  | -                         | -               |
+|    6    |       1        | [Firmware Version](#firmware-version6)           | R      | -                  | -                         | -               |
+|    7    |       1        | [ID](#id7)                                       | RW     | 1                  | 0 ~ 252                   |                 |
+|    8    |       1        | [Baud Rate](#baud-rate8)                         | RW     | 1                  | 0 ~ 6                     |                 |
+|    9    |       1        | [Return Delay Time](#return-delay-time9)         | RW     | 250                | 0 ~ 254                   | 2 [μsec]        |
+|   10    |       1        | [Drive Mode](#drive-mode10)                       | RW     | 0                  | 0 ~ 13                    | -               |
+|   11    |       1        | [Operating Mode](#operating-mode11)               | RW     | 3                  | 0 ~ 16                    | -               |
+|   12    |       1        | [Secondary(Shadow) ID](#secondaryshadow-id12)   | RW     | 255                | 0 ~ 252                   | -               |
+|   13    |       1        | [Protocol Type](#protocol-type13)               | RW     | 2                  | 2 ~ 22                    | -               |
+|   20    |       4        | [Homing Offset](#homing-offset20)                 | RW     | 0                  | -1,044,479 ~<br />1,044,479 | 1 [pulse]       |
+|   24    |       4        | [Moving Threshold](#moving-threshold24)           | RW     | 10                 | 0 ~ 1,023                 | 0.229 [rev/min] |
+|   31    |       1        | [Temperature Limit](#temperature-limit31)         | RW     | 70                 | 0 ~ 100                   | 1 [℃]           |
+|   32    |       2        | [Max Voltage Limit](#minmax-voltage-limit34-32)         | RW     | 140                | 55 ~ 140                  | 0.1 [V]         |
+|   34    |       2        | [Min Voltage Limit](#minmax-voltage-limit34-32)         | RW     | 55                 | 55 ~ 140                  | 0.1 [V]         |
+|   36    |       2        | [PWM Limit](#pwm-limit36)                         | RW     | 885                | 0 ~ 885                   | 0.113 [%]       |
+|   38    |       2        | [Current Limit](#current-limit38)                 | RW     | 910                | 0 ~ 910                   | 1.0 [mA]        |
+|   44    |       4        | [Velocity Limit](#velocity-limit44)               | RW     | 510                | 0 ~ 2,047                 | 0.229 [rev/min] |
+|   48    |       4        | [Max Position Limit](#minmax-position-limit52-48)       | RW     | 4,095              | 0 ~ 4,095                 | 1 [pulse]       |
+|   52    |       4        | [Min Position Limit](#minmax-position-limit52-48)       | RW     | 0                  | 0 ~ 4,095                 | 1 [pulse]       |
+|   60    |       1        | [Startup Configuration](#startup-configuration60) | RW     | 0                  | 3                         | -               |
+|   62    |       1        | [PWM Slope](#pwm-slope62)                         | RW     | 255                | 1 ~ 255                   | 3.955 [mV/msec] |
+|   63    |       1        | [Shutdown](#shutdown63)                           | RW     | 52                 | -                         | -               |
+
+### RAM Area 컨트롤 테이블
+| Address | Size<br />(Byte) | Data Name                                         | Access | 초기<br />값 | Range                                              | Unit                           |
+|:-------:|:--------------:|:--------------------------------------------------|:-------|:-------------------|:---------------------------------------------------|:-------------------------------|
+|   64    |       1        | [Torque Enable](#torque-enable64)                   | RW     | 0                  | 0 ~ 1                                              | -                              |
+|   65    |       1        | [LED](#led65)                                       | RW     | 0                  | 0 ~ 1                                              | -                              |
+|   68    |       1        | [Status Return Level](#status-return-level68)       | RW     | 2                  | 0 ~ 2                                              | -                              |
+|   69    |       1        | [Registered Instruction](#registered-instruction69) | R      | 0                  | 0 ~ 1                                              | -                              |
+|   70    |       1        | [Hardware Error Status](#hardware-error-status70)   | R      | 0                  | -                                                  | -                              |
+|   76    |       2        | [Velocity I Gain](#velocity-pi-gain76-78)               | RW     | 1,200              | 0 ~ 16,383                                         | -                              |
+|   78    |       2        | [Velocity P Gain](#velocity-pi-gain76-78)               | RW     | 40                 | 0 ~ 16,383                                         | -                              |
+|   80    |       2        | [Position D Gain](#position-pid-gain80-82-84-feedforward-1st2nd-gains88-90)               | RW     | 0                  | 0 ~ 16,383                                         |                                |
+|   82    |       2        | [Position I Gain](#position-pid-gain80-82-84-feedforward-1st2nd-gains88-90)               | RW     | 0                  | 0 ~ 16,383                                         |                                |
+|   84    |       2        | [Position P Gain](#position-pid-gain80-82-84-feedforward-1st2nd-gains88-90)               | RW     | 900                | 0 ~ 16,383                                         |                                |
+|   88    |       2        | [Feedforward 2nd Gain](#position-pid-gain80-82-84-feedforward-1st2nd-gains88-90)     | RW     | 0                  | 0 ~ 16,383                                         |                                |
+|   90    |       2        | [Feedforward 1st Gain](#position-pid-gain80-82-84-feedforward-1st2nd-gains88-90)     | RW     | 0                  | 0 ~ 16,383                                         |                                |
+|   98    |       1        | [Bus Watchdog](#bus-watchdog98)                     | RW     | 0                  | 1 ~ 127                                            | 20 [msec]                      |
+|   100   |       2        | [Goal PWM](#goal-pwm100)                             | RW     | -                  | -PWM Limit(36) ~<br />PWM Limit(36)                  | 0.113 [%]                      |
+|   102   |       2        | [Goal Current](#goal-current102)                     | RW     | -                  | -Current Limit(38) ~<br />Current Limit(38)          | 1.0 [mA]                       |
+|   104   |       4        | [Goal Velocity](#goal-velocity104)                   | RW     | -                  | -Velocity Limit(44) ~<br />Velocity Limit(44)        | 0.229 [rev/min]                |
+|   108   |       4        | [Profile Acceleration](#profile-acceleration108)     | RW     | 0                  | 0 ~ 32,767                                         | 214.577 [rev/min2]<br />1 [msec] |
+|   112   |       4        | [Profile Velocity](#profile-velocity112)             | RW     | 0                  | 0 ~ 32,767                                         | 0.229 [rev/min]                |
+|   116   |       4        | [Goal Position](#goal-position116)                   | RW     | -                  | Min Position Limit(52) ~<br />Max Position Limit(48) | 1 [pulse]                      |
+|   120   |       2        | [Realtime Tick](#realtime-tick120)                   | R      | -                  | 0 ~ 32,767                                         | 1 [msec]                       |
+|   122   |       1        | [Moving](#moving122)                                 | R      | 0                  | 0 ~ 1                                              | -                              |
+|   123   |       1        | [Moving Status](#moving-status123)                   | R      | 0                  | -                                                  | -                              |
+|   124   |       2        | [Present PWM](#present-pwm124)                       | R      | -                  | -                                                  | 0.113 [%]                      |
+|   126   |       2        | [Present Current](#present-current126)               | R      | -                  | -                                                  | 1.0 [mA]                       |
+|   128   |       4        | [Present Velocity](#present-velocity128)             | R      | -                  | -                                                  | 0.229 [rev/min]                |
+|   132   |       4        | [Present Position](#present-position132)             | R      | -                  | -                                                  | 1 [pulse]                      |
+|   136   |       4        | [Velocity Trajectory](#velocity-trajectory136)       | R      | -                  | -                                                  | 0.229 [rev/min]                |
+|   140   |       4        | [Position Trajectory](#position-trajectory140)       | R      | -                  | -                                                  | 1 [pulse]                      |
+|   144   |       2        | [Present Input Voltage](#present-input-voltage144)   | R      | -                  | -                                                  | 0.1 [V]                        |
+|   146   |       1        | [Present Temperature](#present-temperature146)       | R      | -                  | -                                                  | 1 [℃]                          |
+|   147   |       1        | [Backup Ready](#backup-ready147)                     | R      | -                  | 0 ~ 1                                              | -                              |
+|   168   |       2        | [Indirect Address 1](#indirect-address-indirect-data)           | RW     | 224                | 64 ~ 251                                           | -                              |
+|   170   |       2        | [Indirect Address 2](#indirect-address-indirect-data)           | RW     | 225                | 64 ~ 251                                           | -                              |
+|   172   |       2        | [Indirect Address 3](#indirect-address-indirect-data)           | RW     | 226                | 64 ~ 251                                           | -                              |
+|    …    |       …        | …                                                 | …      | ···                | ···                                                | ···                            |
+|   218   |       2        | [Indirect Address 26](#indirect-address-indirect-data)          | RW     | 249                | 64 ~ 251                                           | -                              |
+|   220   |       2        | [Indirect Address 27](#indirect-address-indirect-data)          | RW     | 250                | 64 ~ 251                                           | -                              |
+|   222   |       2        | [Indirect Address 28](#indirect-address-indirect-data)          | RW     | 251                | 64 ~ 251                                           | -                              |
+|   224   |       1        | [Indirect Data 1](#indirect-address-indirect-data)                 | RW     | 0                  | 0 ~ 255                                            | -                              |
+|   225   |       1        | [Indirect Data 2](#indirect-address-indirect-data)                 | RW     | 0                  | 0 ~ 255                                            | -                              |
+|   226   |       1        | [Indirect Data 3](#indirect-address-indirect-data)                 | RW     | 0                  | 0 ~ 255                                            | -                              |
+|    …    |       …        | …                                                 | …      | ···                | ···                                                | ···                            |
+|   249   |       1        | [Indirect Data 26](#indirect-address-indirect-data)                | RW     | 0                  | 0 ~ 255                                            | -                              |
+|   250   |       1        | [Indirect Data 27](#indirect-address-indirect-data)                | RW     | 0                  | 0 ~ 255                                            | -                              |
+|   251   |       1        | [Indirect Data 28](#indirect-address-indirect-data)                | RW     | 0                  | 0 ~ 255                                            | -                              |
+
+
+:::note
+
+**참고** : V53 이전 펌웨어는 최대 20개의 Indirect Address/Data 항목을 지원합니다. Indirect Address의 범위는 168 ~ 207이며, Indirect Data의 범위는 208 ~ 227입니다.
+
+:::
+
+
+### 컨트롤 테이블 설명
+:::warning
+
+**주의** : EEPROM Area의 Data는 Torque Enable(64) 값이 `0`으로 해제된 경우에만 쓸 수 있습니다.
+
+:::
+<a id="model-number"></a>
+#### Model Number(0)
+ 이 Address에는 DYNAMIXEL의 모델 번호가 저장됩니다.
+<a id="firmware-version"></a>
+#### Firmware Version(6)
+ 이 Address에는 DYNAMIXEL의 펌웨어 버전이 저장됩니다.
+<a id="id"></a>
+#### ID(7)
+<ControlTableId />
+<a id="baud-rate"></a>
+#### Baud Rate(8)
+<ControlTableBaudrate2 />
+<a id="return-delay-time"></a>
+#### Return Delay Time(9)
+<ControlTableReturnDelayTime />
+<a id="drive-mode"></a>
+#### Drive Mode(10)
+<ControlTableDrivemode />
+<a id="operating-mode"></a>
+#### Operating Mode(11)
+<ControlTableOpmodeSix2 />
+<a id="secondary-id"></a>
+#### Secondary(Shadow) ID(12)
+<ControlTableShadowid />
+<a id="protocol-type"></a>
+#### Protocol Type(13)
+<ControlTableProtocolversion />
+<a id="homing-offset"></a>
+#### Homing Offset(20)
+<ControlTableHomingoffset />
+<a id="moving-threshold"></a>
+#### Moving Threshold(24)
+<ControlTableMovingthreshold />
+<a id="temperature-limit"></a>
+#### Temperature Limit(31)
+<ControlTableTempLimit2 />
+<a id="minmax-voltage-limit"></a>
+<a id="max-voltage-limit"></a>
+#### Min/Max Voltage Limit(34, 32)
+<ControlTableVoltLimit2 />
+<a id="pwm-limit"></a>
+#### PWM Limit(36)
+<ControlTablePwmLimit />
+<a id="current-limit"></a>
+#### Current Limit(38)
+<ControlTableCurrentLimit />
+
+
+|     Unit     | 값 범위 |
+|:------------:|:-----------:|
+| about 1 [mA] |   0 ~ 910   |
+
+
+:::note
+
+**참고** :
+- Current Limit(38) may differ by each DYNAMIXEL so please check the Control Table.
+- XC330 series measures curret at its input power source unlike other DYNAMIXE-X series supporting a current control. Therefore, you may have a different results in measuring current of XC330 series comparing with measuring phase current which quickly changes of a motor.
+
+:::
+<a id="velocity-limit"></a>
+#### Velocity Limit(44)
+<ControlTableVellimit />
+<a id="minmax-position-limit"></a>
+#### Min/Max Position Limit(52, 48)
+<ControlTablePositionlimit />
+<a id="startup-configuration"></a>
+#### Startup Configuration(60)
+<ControlTable60StartupConfiguration />
+<a id="pwm-slope"></a>
+#### PWM Slope(62)
+PWM duty는 PWM Slope(62)에 설정된 기울기로 선형 보간되어 모터 인버터로 전달됩니다.
+
+|      단위       | 값 범위 |
+|:---------------:|:-----------:|
+| 3.955 [mV/msec] |   0 ~ 255   |
+
+#### PWM Slope Example
+
+PWM Slope(62)의 설정값이 '255' (equal to 1,008.47 [mV/msec]), and the value of [Goal PWM(100)] is changed from '0' to '885' on PWM Mode (at 12V), the reaching time when the [Present PWM(124)] value reaches to '885' from '0' is going to be 12 [msec] by the following calculation formula: 12,000 [mV]/1,008.47 [mV/msec] = 11.90 [msec].
+
+![](/img/dxl/model_reference/x_series/xc330_12v_pwm_slope_example.webp)
+
+> PWM Slope Example
+<a id="shutdown"></a>
+#### Shutdown(63)
+<ControlTableShutdown />
+<a id="torque-enable"></a>
+#### Torque Enable(64)
+<ControlTableTorqueEnable />
+<a id="led"></a>
+#### LED(65)
+<ControlTableLed />
+<a id="status-return-level"></a>
+#### Status Return Level(68)
+<ControlTableStatusReturnLv />
+<a id="registered-instruction"></a>
+#### Registered Instruction(69)
+<ControlTableRegInstruction />
+<a id="hardware-error-status"></a>
+#### Hardware Error Status(70)
+Hardware Error Status(70)는 하드웨어 오류 상태를 나타냅니다.
+
+<ControlTableShutdown />
+<a id="velocity-pi-gain"></a>
+#### Velocity PI Gain(76, 78)
+<ControlTableVelocityPiGain />
+<a id="position-pid-gain-feedforward-1st2nd-gains"></a>
+<a id="position-pid-gain80-82-84"></a>
+#### Position PID Gain(80, 82, 84), Feedforward 1st/2nd Gains(88, 90)
+<ControlTablePositionPidGain />
+
+
+<ControlTableCurrentPositionPidGain />
+<a id="bus-watchdog"></a>
+#### Bus Watchdog(98)
+<ControlTableBuswatchdog />
+<a id="goal-pwm"></a>
+#### Goal PWM(100)
+<ControlTableGoalPwm />
+<a id="goal-current"></a>
+#### Goal Current(102)
+<ControlTableGoalCurrent />
+
+
+|     단위      |              값 범위               |
+|:-------------:|:--------------------------------------:|
+| about  1 [mA] | -Current Limit(38) ~ Current Limit(38) |
+
+
+:::note
+
+**참고**: [Goal Current(102)] can not exceed [Current Limit(38)].
+
+:::
+
+
+:::note
+
+**참고** :
+- Current Limit(38) may differ by each DYNAMIXEL so please check the Control Table.
+- XC330 series measures curret at its input power source unlike other DYNAMIXE-X series supporting a current control. Therefore, you may have a different results in measuring current of XC330 series comparing with measuring phase current which quickly changes of a DC motor.
+
+:::
+
+
+:::warning
+
+**주의** : 모터에 장시간 높은 전류를 인가하면 모터가 손상될 수 있습니다.
+
+:::
+<a id="goal-velocity"></a>
+#### Goal Velocity(104)
+<ControlTableGoalVelocity />
+<a id="profile-acceleration"></a>
+#### Profile Acceleration(108)
+<ControlTableProfileAcceleration />
+<a id="profile-velocity"></a>
+<a id="profile-verlocity112"></a>
+#### Profile Velocity(112)
+<ControlTableProfileVelocity />
+<a id="goal-position"></a>
+#### Goal Position(116)
+<ControlTableGoalPosition2 />
+<a id="realtime-tick"></a>
+#### Realtime Tick(120)
+<ControlTableRealtimeTick />
+<a id="moving"></a>
+#### Moving(122)
+<ControlTableMoving2 />
+<a id="moving-status"></a>
+#### Moving Status(123)
+<ControlTableMovingStatus />
+<a id="present-pwm"></a>
+#### Present PWM(124)
+Present PWM(124)는 현재 PWM을 나타냅니다. 자세한 내용은 [Goal PWM(100)](#goal-pwm100)을 참고하세요.
+<a id="present-current"></a>
+#### Present Current(126)
+Present Current(126)는 현재 전류를 나타냅니다. 자세한 내용은 [Goal Current(102)](#goal-current102)를 참고하세요.
+<a id="present-velocity"></a>
+<a id="present_velocity128"></a>
+#### Present Velocity(128)
+Present Velocity(128)는 현재 속도를 나타냅니다. 자세한 내용은 [Goal Velocity(104)](#goal-velocity104)를 참고하세요.
+<a id="present-position"></a>
+#### Present Position(132)
+<ControlTablePresentPosition />
+<a id="velocity-trajectory"></a>
+#### Velocity Trajectory(136)
+<ControlTableVelocityTrajectory />
+<a id="position-trajectory"></a>
+#### Position Trajectory(140)
+<ControlTablePositionTrajectory />
+<a id="present-input-voltage"></a>
+#### Present Input Voltage(144)
+<ControlTablePresentVolt2 />
+<a id="present-temperature"></a>
+#### Present Temperature(146)
+<ControlTablePresentTemp2 />
+<a id="backup-ready"></a>
+#### Backup Ready(147)
+<ControlTableBackupReady />
+#### Indirect Address, Indirect Data
+<ControlTableIndirectData />
+
+
+## 조립 방법
+<DrawingX330Drawing />
+
+
+## 참고 자료
+:::note
+
+**참고**
+[Compatibility Guide]
+[Harness Compatibility]
+
+:::
+
+
+### Profile이란? {#what-is-the-profile}
+<ProfileDescription />
+
+
+### 인증
+목록에 없는 인증 정보는 별도로 문의하세요.
+
+#### FCC
+<FccClassA />
+
+
+### 빠른 시작
+<QuickStart />
+
+
+### 커넥터 정보
+<JstTtl />
+
+
+<TtlConnectionX />
+
+
+### 도면
+- `다운로드` [XC330.pdf]
+- `다운로드` [XC330.dwg]
+- `다운로드` [XC330.stp]
+
+
+<DownloadCenterNotice />
+
+
+[XC330.pdf]: https://www.robotis.com/service/download.php?no=1986
+[XC330.dwg]: https://www.robotis.com/service/download.php?no=1985
+[XC330.stp]: https://www.robotis.com/service/download.php?no=1987
+
+[Compatibility Guide]: http://en.robotis.com/service/compatibility_table.php?cate=dx
+
+
+<CommonLink />
+
+
+### Moment Of Inertia
+- `다운로드` [XL330,XC330 Moment of Inertia]
+
+[XL330,XC330 Moment of Inertia]: https://www.robotis.com/service/download.php?no=2136
+
+[Present PWM(124)]: #present-pwm124
+[Goal Current(102)]: #goal-current102
+[Goal PWM(100)]: #goal-pwm100
+[Current Limit(38)]: #current-limit38
+[Harness Compatibility]: /docs/dxl/cable_compatibility

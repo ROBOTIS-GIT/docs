@@ -1,0 +1,31 @@
+
+Goal Position(116)은 목표 위치를 설정합니다. DYNAMIXEL을 정면에서 보았을 때 CCW 방향은 증가 방향이고 CW 방향은 감소 방향입니다. Goal Position(116)에 도달하는 방식은 DYNAMIXEL에서 제공하는 Profile에 따라 달라질 수 있습니다. 자세한 내용은 [What is the Profile]을 참고하세요.
+
+![](/img/dxl/model_reference/common/dxl_goal_position.webp)
+
+| Mode     | 값     | 설명 |
+| :--------: | :--------: | :--------:|
+| Position Control Mode | Min Position Limit(52) ~ Max Position Limit(48)| 초기값 : 0 ~ 4,095|
+| Extended Position Control Mode|-1,048,575 ~ 1,048,575|-256[rev] ~ 256[rev] |
+
+| 단위 | 설명 |
+|:--------------------------:|:------------------:|
+|      0.088 [deg/pulse]      | 1[rev] : 0 ~ 4,095 (1회전 0 ~ 4,095, 총 4,096 count)|
+
+:::note
+
+**참고** : [Profile Velocity(112)](#profile-velocity112)와 [Profile Acceleration(108)](#profile-acceleration108)은 아래 경우에 적용됩니다.
+- [Operating Mode(11)](#operating-mode11)가 **Position Control Mode**일 때 [Goal Position(116)](#goal-position116)이 갱신되면 [Profile Velocity(112)](#profile-velocity112)와 [Profile Acceleration(108)](#profile-acceleration108)을 사용해 새 Profile을 생성합니다.
+- [Operating Mode(11)](#operating-mode11)가 **Velocity Control Mode**일 때 [Goal Velocity(104)](#goal-velocity104)가 갱신되면 [Profile Acceleration(108)](#profile-acceleration108)을 사용해 새 Profile을 생성합니다.
+
+:::
+
+:::note
+
+**참고** : Extended Position Control Mode에서 전원을 끄거나 Operation Mode를 변경하면 Present Position 값은 1회전 내 절대 위치값으로 초기화됩니다.
+
+:::
+
+{/* nested include: en/dxl/control_table_opmode_note.md */}
+
+[What is the Profile]: #what-is-the-profile

@@ -1,0 +1,16 @@
+ID는 네트워크에서 Instruction Packet으로 각 DYNAMIXEL을 식별하기 위한 고유 값입니다.
+ID는 0~252(0xFC) 값을 사용할 수 있으며, 254(0xFE)는 Broadcast ID로 사용됩니다. Broadcast ID(254, 0xFE)를 사용하면 연결된 모든 DYNAMIXEL에 Instruction Packet을 동시에 전송할 수 있습니다.
+
+:::note
+
+**참고** : 여러 DYNAMIXEL에 동일한 ID를 사용하지 마십시오. 동일한 ID를 사용하면 통신 오류가 발생하거나 해당 DYNAMIXEL을 검색하지 못할 수 있습니다.
+
+:::
+
+:::note
+
+**참고** : Instruction Packet ID가 Broadcast ID(0xFE)로 설정된 경우 Status Return Level(68) 설정값과 관계없이 READ 또는 WRITE Instruction에 대한 Status Packet은 반환되지 않습니다. 자세한 내용은 [DYNAMIXEL Protocol 2.0]의 `Status Packet` 항목을 참고하세요.
+
+:::
+
+[DYNAMIXEL Protocol 2.0]: /docs/dxl/protocol/protocol2

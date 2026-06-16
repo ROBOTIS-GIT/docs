@@ -1,0 +1,15 @@
+
+[Operating Mode(11)]가 **PWM Control Mode**로 설정되면 내부 PID 및 Feedforward 제어기는 비활성화되고, Goal PWM(100)이 서보 모터에 공급되는 출력 전압을 직접 제어합니다. 다른 [Operating Mode(11)]에서는 Goal PWM(100)이 최종 출력 PWM 값의 제한값으로만 사용됩니다. Gain 설정과 함께 Goal PWM(100)이 동작하는 방식은 [Position PID Gain(80, 82, 84), Feedforward 1st/2nd Gains(88, 90)](#position-pid-gain80-82-84) 또는 [Velocity PI Gain(76, 78)](#velocity-pi-gain76-78)을 참고하세요.
+
+|      단위       |               범위                |
+|:---------------:|:----------------------------------:|
+| about 0.113 [%] | -[PWM Limit(36)] ~ [PWM Limit(36)] |
+
+:::note
+
+**참고** : Goal PWM(100)은 설정된 [PWM Limit(36)]을 초과할 수 없습니다.
+
+:::
+
+[PWM Limit(36)]: #pwm-limit36
+[Operating Mode(11)]: #operating-mode11
