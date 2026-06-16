@@ -1,0 +1,11 @@
+다이나믹셀 동작 전압의 상한값과 하한값입니다.
+
+|    단위    | 값 범위 | 설명 |
+|:----------:|:-----------:|:-----------:|
+| About 0.1V |  50 ~ 160   | 5.0 ~ 16.0V |
+
+
+값의 범위는 50 ~ 160이며 단위는 0.1 [V]입니다. 예를 들어 Max Voltage Limit(13) 값이 '80'으로 설정되어 있으면 8 V를 의미합니다.
+장치(다이나믹셀)에 입력되는 전압을 나타내는 [Present Voltage(42)]가 Min Voltage Limit(12)보다 낮거나 Max Voltage Limit(13)보다 높으면 Status Packet은 ERROR 필드를 통해 Input Voltage Error Bit(0x01)를 전송합니다. [Alarm LED(17)/Shutdown(18)](#alarm-led17-shutdown18)에 Input Voltage Error Bit(0x01) flag가 설정되어 있으면 Alarm LED가 점멸하고 모터 출력은 0 [%]가 됩니다.
+
+[Present Voltage(42)]: #present-voltage-42

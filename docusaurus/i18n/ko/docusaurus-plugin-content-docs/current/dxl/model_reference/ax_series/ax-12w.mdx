@@ -1,0 +1,271 @@
+import Warning from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/warning.mdx';
+import ControlTable from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table.mdx';
+import ControlTableId from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_id.mdx';
+import ControlTableReturnDelayTime from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_return_delay_time.mdx';
+import ControlTableAngleLimit from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_angle_limit.mdx';
+import ControlTableVoltLimit from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_volt_limit.mdx';
+import ControlTableMaxTorque from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_max_torque.mdx';
+import ControlTableStatusReturnLv from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_status_return_lv.mdx';
+import ControlTableShutdown from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_shutdown.mdx';
+import ControlTableTorqueEnable from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_torque_enable.mdx';
+import ControlTableLed from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_led.mdx';
+import ControlTableComplianceMargin from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_compliance_margin.mdx';
+import ControlTableComplianceSlope from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_compliance_slope.mdx';
+import ControlTableDxGoalPosition from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_dx_goal_position.mdx';
+import ControlTableMovingSpeed from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_moving_speed.mdx';
+import ControlTableTorqueLimit from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_torque_limit.mdx';
+import ControlTablePotentioPresentPosition from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_potentio_present_position.mdx';
+import ControlTablePresentSpeed from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_present_speed.mdx';
+import ControlTablePresentLoad from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_present_load.mdx';
+import ControlTablePresentVolt from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_present_volt.mdx';
+import ControlTablePresentTemp from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_present_temp.mdx';
+import ControlTableRegInstruction from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_reg_instruction.mdx';
+import ControlTableMoving from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_moving.mdx';
+import ControlTableLock from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_lock.mdx';
+import ControlTablePunch from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_punch.mdx';
+import HornBearingReplacement from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/horn_bearing_replacement.mdx';
+import FccClassA from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/fcc_class_a.mdx';
+import MolexTtl from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/molex_ttl.mdx';
+import DownloadCenterNotice from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/download_center_notice.mdx';
+import TtlConnection from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/485_ttl_connection.mdx';
+import CommonLink from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/common_link.mdx';
+
+![](/img/dxl/model_reference/ax_series/ax-12w_product.webp)
+
+# AX-12W
+
+:::warning
+
+**참고** : XL430-W250은 AX-12를 직접 대체할 수 있는 X 시리즈 다이나믹셀입니다. X 시리즈 서보는 향상된 성능과 추가 기능을 제공하며 DYNAMIXEL Protocol 2.0도 지원합니다. ROBOTIS는 신규 및 기존 AX-12 사용자가 XL430-W250으로 전환하는 것을 권장합니다.
+
+:::
+
+## 주요 사양
+
+| 항목                   | 사양                                                                                                      |
+|:-----------------------|:----------------------------------------------------------------------------------------------------------|
+| 통신 속도              | 7843 [bps] ~ 1 [Mbps]                                                                                     |
+| 무게                 | 52.9 [g]                                                                                                  |
+| 크기 (W x H x D) | 32 X 50 X 40 [mm] <br />1.26 X 1.97 X 1.57 [inch]                                                         |
+| 해상도             | 0.29 [&deg;]                                                                                              |
+| 모터                  | Cored                                                                                                     |
+| 동작 각도         | 0 ~ 300 [&deg;]<br />무한 회전                                                                         |
+| 기어비             | 32 : 1                                                                                                    |
+| 정지 Torque           | 0.2 [N.m] (at 12 [V], 1.4 [A])                                                                            |
+| 무부하 속도          | 470 [rev/min] (at 12.0 [V], Wheel Mode)<br />54 [rev/min] (at 12.0 [V], Joint Mode)                       |
+| 동작 온도  | -5~ +70 [&deg;C]                                                                                          |
+| 입력 전압          | 9.0 ~ 12.0 [V] (**권장 : 11.1V**)                                                                  |
+| 제어 명령         | Digital Packet                                                                                            |
+| 통신 방식    | TTL Level Multi Drop Bus<br />Half Duplex Asynchronous Serial Communication<br />(8bit, 1stop, No Parity) |
+| ID                     | 254 ID (0~253)                                                                                            |
+| 피드백               | Position, Temperature, Load, Input Voltage 등                                                           |
+| 기어 재질          | Engineering Plastic(Full)                                                                                 |
+| 케이스 재질          | Engineering Plastic(Front, Middle, Back)                                                                  |
+
+
+<Warning />
+
+<ControlTable />
+
+
+### EEPROM 영역 컨트롤 테이블
+
+| Address | Size(Byte) | Data Name                                   | 설명                        | Access | 초기<br />값 |
+|:-------:|:----------:|:--------------------------------------------|:-----------------------------------|:------:|:------------------:|
+|    0    |     2      | [Model Number](#model-number-0)               | 모델 번호                       |   R    |        300         |
+|    2    |     1      | [Firmware Version](#firmware-version-2)       | 펌웨어 버전                   |   R    |         -          |
+|    3    |     1      | [ID](#id-3)                                   | 다이나믹셀 ID                       |   RW   |         1          |
+|    4    |     1      | [Baud Rate](#baud-rate-4)                     | 통신 속도                |   RW   |         1          |
+|    5    |     1      | [Return Delay Time](#return-delay-time-5)     | 응답 지연 시간                |   RW   |        250         |
+|    6    |     2      | [CW Angle Limit](#cwccw-angle-limit6-8)           | 시계 방향 한계 각도              |   RW   |         0          |
+|    8    |     2      | [CCW Angle Limit](#cwccw-angle-limit6-8)         | 반시계 방향 한계 각도      |   RW   |        1023        |
+|   11    |     1      | [Temperature Limit](#temperature-limit-11)     | 최대 내부 온도 제한 |   RW   |         70         |
+|   12    |     1      | [Min Voltage Limit](#minmax-voltage-limit-12-13)     | 최소 입력 전압 제한        |   RW   |         60         |
+|   13    |     1      | [Max Voltage Limit](#minmax-voltage-limit-12-13)     | 최대 입력 전압 제한        |   RW   |        140         |
+|   14    |     2      | [Max Torque](#max-torque-14)                   | 최대 Torque                     |   RW   |        1023        |
+|   16    |     1      | [Status Return Level](#status-return-level-16) | Status Return 방식 선택      |   RW   |         2          |
+|   17    |     1      | [Alarm LED](#alarm-led17-shutdown18)                     | Alarm LED                      |   RW   |         36         |
+|   18    |     1      | [Shutdown](#alarm-led17-shutdown18)                       | Shutdown 오류 정보         |   RW   |         36         |
+
+
+### RAM 영역 컨트롤 테이블
+
+| Address | Size(Byte) | Data Name                                       | 설명                  | Access | 초기<br />값 |
+|:-------:|:----------:|:------------------------------------------------|:-----------------------------|:------:|:------------------:|
+|   24    |     1      | [Torque Enable](#torque-enable-24)                 | 모터 Torque On/Off          |   RW   |         0          |
+|   25    |     1      | [LED](#led-25)                                     | Status LED On/Off            |   RW   |         0          |
+|   26    |     1      | [CW Compliance Margin](#compliance-margin-26-27)   | CW Compliance Margin         |   RW   |         4          |
+|   27    |     1      | [CCW Compliance Margin](#compliance-margin-26-27) | CCW Compliance Margin        |   RW   |         4          |
+|   28    |     1      | [CW Compliance Slope](#compliance-slope-28-29)     | CW Compliance Slope          |   RW   |         64         |
+|   29    |     1      | [CCW Compliance Slope](#compliance-slope-28-29)   | CCW Compliance Slope         |   RW   |         64         |
+|   30    |     2      | [Goal Position](#goal-position-30)                 | 목표 위치              |   RW   |         -          |
+|   32    |     2      | [Moving Speed](#moving-speed-32)                   | 이동 속도                 |   RW   |         -          |
+|   34    |     2      | [Torque Limit](#torque-limit-34)                   | Torque 제한                 |   RW   |     Max Torque     |
+|   36    |     2      | [Present Position](#present-position-36)           | 현재 위치             |   R    |         -          |
+|   38    |     2      | [Present Speed](#present-speed-38)                 | 현재 속도                |   R    |         -          |
+|   40    |     2      | [Present Load](#present-load-40)                   | 현재 Load                 |   R    |         -          |
+|   42    |     1      | [Present Voltage](#present-voltage-42)             | 현재 전압              |   R    |         -          |
+|   43    |     1      | [Present Temperature](#present-temperature-43)     | 현재 온도          |   R    |         -          |
+|   44    |     1      | [Registered](#registered-instruction44)                       | Instruction 등록 여부 |   R    |         0          |
+|   46    |     1      | [Moving](#moving46)                               | 이동 상태              |   R    |         0          |
+|   47    |     1      | [Lock](#lock47)                                   | EEPROM 잠금               |   RW   |         0          |
+|   48    |     2      | [Punch](#punch48)                                 | 최소 전류 임계값    |   RW   |         32         |
+
+
+### 컨트롤 테이블 설명
+<a id="model-number"></a>
+#### Model Number (0)
+다이나믹셀의 모델 번호를 저장합니다.
+<a id="firmware-version"></a>
+#### Firmware Version (2)
+다이나믹셀의 펌웨어 버전을 저장합니다.
+<a id="id"></a>
+#### ID (3)
+<ControlTableId />
+<a id="baud-rate"></a>
+#### Baud Rate (4)
+Baud Rate는 제어기와 다이나믹셀 사이의 시리얼 통신 속도를 결정합니다.
+
+|   값    | 통신 속도 | 오차율 |
+|:----------:|:---------:|:---------------:|
+| 1(Default) |    1M     |     0.000%      |
+|     3      |  500,000  |     0.000%      |
+|     4      |  400,000  |     0.000%      |
+|     7      |  250,000  |     0.000%      |
+|     9      |  200,000  |     0.000%      |
+|     16     |  115200   |     -2.124%     |
+|     34     |   57600   |     0.794%      |
+|    103     |   19200   |     -0.160%     |
+|    207     |   9600    |     -0.160%     |
+
+:::note
+
+**참고** : Baud Rate 오차가 3 [%] 이내이면 UART 통신에 영향을 주지 않습니다.
+
+:::
+
+:::note
+
+**참고** : 높은 Baud Rate에서 안정적으로 통신하려면 USB Latency 값을 낮게 설정하세요.
+[USB Latency 설정](/docs/software/dynamixel_wizard_2_0/advanced_features#usb-latency-setting)
+
+:::
+<a id="return-delay-time"></a>
+#### Return Delay Time (5)
+<ControlTableReturnDelayTime />
+<a id="cwccw-angle-limit"></a>
+#### CW/CCW Angle Limit(6, 8)
+<ControlTableAngleLimit />
+<a id="temperature-limit"></a>
+#### Temperature Limit (11)
+
+|     단위      | 값 범위 |  |
+|:-------------:|:-----------:|--|
+| 약 1&deg;C |   0 ~ 99    |  |
+
+:::warning
+
+**주의** : 온도를 기본값보다 낮거나 높게 설정하지 마세요. 온도 알람 Shutdown이 발생하면 재사용하기 전에 20분 정도 기다려 온도를 낮추세요. 온도가 높은 상태에서 제품을 계속 사용하면 심각한 손상이 발생할 수 있습니다.
+
+:::
+<a id="minmax-voltage-limit"></a>
+#### Min/Max Voltage Limit (12, 13)
+<ControlTableVoltLimit />
+<a id="max-torque"></a>
+#### Max Torque (14)
+<ControlTableMaxTorque />
+<a id="status-return-level"></a>
+#### Status Return Level (16)
+<ControlTableStatusReturnLv />
+<a id="alarm-led-shutdown"></a>
+#### Alarm LED(17), Shutdown(18)
+<ControlTableShutdown />
+<a id="torque-enable"></a>
+#### Torque Enable (24)
+<ControlTableTorqueEnable />
+<a id="led"></a>
+#### LED (25)
+<ControlTableLed />
+<a id="compliance-margin"></a>
+#### Compliance Margin (26, 27)
+<ControlTableComplianceMargin />
+<a id="compliance-slope"></a>
+#### Compliance Slope (28, 29)
+<ControlTableComplianceSlope />
+<a id="goal-position"></a>
+#### Goal Position (30)
+<ControlTableDxGoalPosition />
+<a id="moving-speed"></a>
+#### Moving Speed (32)
+<ControlTableMovingSpeed />
+<a id="torque-limit"></a>
+#### Torque Limit (34)
+<ControlTableTorqueLimit />
+<a id="present-position"></a>
+#### Present Position (36)
+<ControlTablePotentioPresentPosition />
+<a id="present-speed"></a>
+#### Present Speed (38)
+<ControlTablePresentSpeed />
+<a id="present-load"></a>
+#### Present Load (40)
+<ControlTablePresentLoad />
+<a id="present-voltage"></a>
+#### Present Voltage (42)
+<ControlTablePresentVolt />
+<a id="present-temperature"></a>
+#### Present Temperature (43)
+<ControlTablePresentTemp />
+<a id="registered-instruction"></a>
+#### Registered Instruction(44)
+<ControlTableRegInstruction />
+<a id="moving"></a>
+#### Moving(46)
+<ControlTableMoving />
+<a id="lock"></a>
+#### Lock(47)
+<ControlTableLock />
+<a id="punch"></a>
+#### Punch(48)
+<ControlTablePunch />
+
+
+## 조립 방법
+
+![](/img/dxl/model_reference/ax_series/ax_series_frame_assembly_01.webp)
+
+![](/img/dxl/model_reference/ax_series/ax_series_frame_assembly_02.webp)
+
+## 유지보수
+
+<HornBearingReplacement />
+
+## 참고자료
+
+:::note
+
+**참고**
+[호환성 가이드](http://en.robotis.com/service/compatibility_table.php?cate=d)
+케이블 호환성
+
+:::
+
+### 인증
+표기되지 않은 인증에 대해서는 별도로 문의하세요.
+
+#### FCC
+<FccClassA />
+
+### 커넥터 정보
+
+<MolexTtl />
+
+### 도면
+
+![](/img/dxl/model_reference/ax_series/ax-12w_dimension.webp)
+
+<DownloadCenterNotice />
+
+<TtlConnection />
+
+<CommonLink />

@@ -1,0 +1,15 @@
+Status Return Level (16)은 다이나믹셀이 Instruction Packet을 수신했을 때 Status Packet을 반환하는 방식을 결정합니다.
+
+| 값 |        응답하는 Instruction         |                       설명                       |
+|:-----:|:--------------------------------------:|:-------------------------------------------------------:|
+|   0   |            PING Instruction            |   PING Instruction에 대해서만 Status Packet 반환   |
+|   1   | PING Instruction<br />READ Instruction | PING 및 READ Instruction에 대해 Status Packet 반환 |
+|   2   |            All Instructions            |     모든 Instruction에 대해 Status Packet 반환      |
+
+:::note
+
+Instruction Packet ID가 Broadcast ID(0xFE)로 설정된 경우, Status Return Level (16)과 관계없이 READ 또는 WRITE Instruction에 대한 Status Packet은 반환되지 않습니다. 자세한 내용은 [DYNAMIXEL Protocol 1.0]의 `Status Packet` 항목을 참고하세요.
+
+:::
+
+[DYNAMIXEL Protocol 1.0]: /docs/dxl/protocol/protocol1
