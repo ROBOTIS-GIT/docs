@@ -1,0 +1,13 @@
+이 값들은 최대 및 최소 동작 전압입니다.
+[Present Input Voltage(592)]가 Max Voltage Limit(32)과 Min Voltage Limit(34)의 범위를 벗어나면 [Hardware Error Status(518)]에 Input Voltage Error Bit(0x01)가 설정되고 Status Packet의 Error 필드에 Alert Bit(0x80)가 설정됩니다.
+Input Voltage Error Bit(0x10)가 Shutdown(63)에 설정되어 있으면 [Torque Enable(512)]이 `0`(Torque OFF)으로 설정됩니다. 자세한 내용은 [Shutdown(63)] 섹션을 참고하세요.
+
+
+|     단위      | 값 범위 |
+|:-------------:|:-----------:|
+| 약 0.1 [V] |  150 ~ 350  |
+
+[Torque Enable(512)]: #torque-enable512
+[Present Input Voltage(592)]: #present-input-voltage592
+[Shutdown(63)]: #shutdown63
+[Hardware Error Status(518)]: #hardware-error-status

@@ -1,0 +1,43 @@
+DYNAMIXEL은 동작 중 발생할 수 있는 위험 상황을 감지하여 스스로를 보호할 수 있습니다.
+각 Bit는 OR 논리로 처리되므로 여러 옵션을 동시에 설정할 수 있습니다.
+예를 들어 Shutdown(48)에 `0x05`(binary: 00000101)를 설정하면 DYNAMIXEL은 Input Voltage Error(binary: 00000001)와 Overheating Error(binary: 00000100)를 모두 감지할 수 있습니다.
+해당 오류가 감지되면 [Torque Enable(562)]이 `0`으로 해제되고 모터 출력은 0 [%]가 됩니다.
+
+Shutdown 이후 [Torque Enable(562)]을 다시 `1`(Torque ON)로 설정하는 유일한 방법은 REBOOT입니다.
+
+Status Packet의 Error 필드에서 [Alert Bit(0x80)]를 확인하거나 [Hardware Error Status(892)]에서 현재 상태를 확인하세요. 감지 가능한 상황은 다음과 같습니다.
+
+|  Bit  |               항목               | 설명                                                                      |
+|:-----:|:--------------------------------:|:---------------------------------------------------------------------------------|
+| Bit 7 |                -                 | 사용하지 않음, 항상 `0`                                                             |
+| Bit 6 |                -                 | 사용하지 않음, 항상 `0`                                                             |
+| Bit 5 |     Overload Error(Default)      | 지속적인 부하가 최대 출력을 초과했음을 감지합니다.                              |
+| Bit 4 | Electrical Shock Error(Default)  | 회로의 전기적 충격 또는 모터 구동에 필요한 전원 부족을 감지합니다. |
+| Bit 3 |   Motor Encoder Error(Default)   | 모터 엔코더 이상을 감지합니다.                                         |
+| Bit 2 |        Overheating Error         | 내부 온도가 설정된 동작 온도를 초과했음을 감지합니다.   |
+| Bit 1 | Motor Hall Sensor Error(Default) | Motor Hall Sensor 값이 정상 범위를 벗어났음을 감지합니다.                        |
+| Bit 0 |       Input Voltage Error        | 입력 전압이 설정된 동작 전압 범위를 벗어났음을 감지합니다.              |
+
+:::note
+
+**참고** :
+1. Shutdown이 발생하면 **Dynamic Brake**가 동작합니다.
+2. Shutdown이 발생하면 **LED가 1초마다 깜박입니다**.
+3. Shutdown이 발생하면 **장치를 reboot**하세요.
+- H/W REBOOT : 전원을 껐다가 다시 켭니다.
+- S/W REBOOT : REBOOT Instruction을 전송합니다. 자세한 내용은 e-Manual의 [Reboot](/docs/dxl/protocol/protocol2#reboot) 섹션을 참고하세요.
+
+:::
+
+[Shutdown(18)]: #shutdown
+[Shutdown(48)]: #shutdown
+[Shutdown(63)]: #shutdown
+[Torque Enable(24)]: #torque-enable
+[Torque Enable(64)]: #torque-enable
+[Torque Enable(512)]: #torque-enable
+[Torque Enable(562)]: #torque-enable
+[Hardware Error Status(70)]: #hardware-error-status
+[Hardware Error Status(518)]: #hardware-error-status
+[Hardware Error Status(892)]: #hardware-error-status
+
+[Alert Bit(0x80)]: /docs/dxl/protocol/protocol2#error

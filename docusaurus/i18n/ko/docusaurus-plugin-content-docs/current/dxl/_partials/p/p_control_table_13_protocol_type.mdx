@@ -1,0 +1,31 @@
+DYNAMIXEL 액추에이터에서 사용할 통신 프로토콜을 선택합니다.
+Modbus-RTU를 사용하려면 펌웨어를 V11 이상으로 업데이트해야 합니다.
+
+
+| 값 | 설명                                                                                                |
+|:-----:|:-----------------------------------------------------------------------------------------------------------|
+|   2   | [DYNAMIXEL Protocol 2.0]                                                                                   |
+|  10   | [Modbus-RTU, Industrial Standard Protocol]<br />![](/img/common/protocol_mode_modbus.webp) |
+
+[DYNAMIXEL Protocol 2.0]: /docs/dxl/protocol/protocol2
+[Modbus-RTU, Industrial Standard Protocol]: http://modbus.org/docs/PI_MBUS_300.pdf
+
+
+:::warning
+
+**경고**: R+ Manager 2.0은 Modbus-RTU 통신을 지원하지 않으므로, DYNAMIXEL 서보의 통신 프로토콜을 변경하려면 [DYNAMIXEL Wizard 2.0](/docs/software/dynamixel_wizard_2_0/introduction)이 필요합니다.
+
+:::
+
+
+:::warning
+
+**경고** : Modbus-RTU 통신에서는 다음 컨트롤 테이블 항목을 지원하지 않습니다.
+[Return Delay Time(9)](#return-delay-time9)
+[Secondary ID(12)](#secondary-id12)
+[Status Return Level(516)](#status-return-level516)
+[Registered Instruction(517)](#registered-instruction517)
+[Indirect Address](#indirect-address)
+[Indirect Data](#indirect-data)
+
+:::

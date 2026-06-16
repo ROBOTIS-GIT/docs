@@ -1,0 +1,26 @@
+Startup Configuration(60)은 DYNAMIXEL이 시작될 때 적용할 특정 설정을 구성합니다.
+
+|     Bit     |       항목        | 설명                                                                                                                            |
+|:-----------:|:-----------------:|:---------------------------------------------------------------------------------------------------------------------------------------|
+| Bit 7(0x80) |         -         | 미사용, 항상 `0`                                                                                                                       |
+| Bit 6(0x40) |         -         | 미사용, 항상 `0`                                                                                                                       |
+| Bit 5(0x20) |         -         | 미사용, 항상 `0`                                                                                                                       |
+| Bit 4(0x10) |         -         | 미사용, 항상 `0`                                                                                                                       |
+| Bit 3(0x08) |         -         | 미사용, 항상 `0`                                                                                                                       |
+| Bit 2(0x04) |         -         | 미사용, 항상 `0`                                                                                                                       |
+| Bit 1(0x02) |    RAM Restore    | **[0]** 시작 시 RAM Area 복원 비활성화<br />**[1]** 시작 시 백업 데이터를 사용하여 RAM Area 복원                                      |
+| Bit 0(0x01) | Startup Torque On | **[0]** 시작 시 Torque Off (`Torque Enable(512)`가 `0`으로 설정됨)<br />**[1]** 시작 시 Torque On (`Torque Enable(512)`가 `1`로 설정됨) |
+
+
+:::note
+
+**참고**: Startup Configuration은 펌웨어 **V12**부터 사용할 수 있습니다.
+
+:::
+
+
+:::note
+
+**참고**: RAM Area 복원에 대한 자세한 내용은 [Restoring RAM Area](/docs/software/dynamixel_wizard_2_0/advanced_features#restoring-ram-area)를 참고하세요.
+
+:::
