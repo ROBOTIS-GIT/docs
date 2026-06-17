@@ -37,7 +37,7 @@ DYNAMIXEL은 고유 ID를 가지고, 제어기와 패킷을 사용하여 통신�
 
 :::note
 
-**참고**: DYNAMIXEL이 검색 되지않는다면, [펌웨어 복구](#펌웨어-복구) 또는 [펌웨어 업데이트](#펌웨어-업데이트)를 통해 최신펌웨어로 업데이트하세요.
+**참고**: DYNAMIXEL이 검색 되지않는다면, [펌웨어 복구](/docs/software/dynamixel_wizard_2_0/basic_features#펌웨어-복구) 또는 [펌웨어 업데이트](/docs/software/dynamixel_wizard_2_0/basic_features#펌웨어-업데이트)를 통해 최신펌웨어로 업데이트하세요.
 
 :::
     4. 검색이 끝나면, `다음` 버튼을 클릭하여, **ID 설정** 단계로 이동하세요.
@@ -67,6 +67,7 @@ DYNAMIXEL은 고유 ID를 가지고, 제어기와 패킷을 사용하여 통신�
 
     ![](/img/software/dynamixel_wizard_2_0/advanced_features/id_inspection_done_kr.png)
 
+<a id="backup-and-restore"></a>
 ## 백업 및 복구
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/CFinASETHiQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -103,7 +104,7 @@ DYNAMIXEL은 고유 ID를 가지고, 제어기와 패킷을 사용하여 통신�
 
 ## 컨트롤 테이블 백업
 
-1. DYNAMIXEL 연결 후 [검색하기](#DYNAMIXEL-검색하기)
+1. DYNAMIXEL 연결 후 [검색하기](/docs/software/dynamixel_wizard_2_0/basic_features#DYNAMIXEL-검색하기)
 
 2. 백업을 사용하기에 앞서, 아래와 같이 DYNAMIXEL이 **Torque Off** 상태인지 확인하세요. 그렇지 않으면, 백업에 실패합니다.
 
@@ -125,6 +126,7 @@ DYNAMIXEL은 고유 ID를 가지고, 제어기와 패킷을 사용하여 통신�
 
 2. DYNAMIXEL이 재부팅되며 EEPROM이 저장된 값으로 복구됩니다.
 
+<a id="restoring-ram-area"></a>
 ### RAM 영역 복구
 
 1. EEPROM에서 `StartUp Configuration` 주소의 **Restore RAM** 항목을 체크하세요.
@@ -157,6 +159,8 @@ EEPROM 영역의 특정 데이터 (ID, Baudrate, Protocol Type)의 복구 여부
 현재값과 다른 항목만 변경됩니다.
 
 ![](/img/software/dynamixel_wizard_2_0/advanced_features/backup_load_02_kr.png)
+
+<a id="컨트롤-아이템-값-변경"></a>
 
 ## 컨트롤 아이템 값 변경
 
@@ -193,11 +197,12 @@ EEPROM 영역의 특정 데이터 (ID, Baudrate, Protocol Type)의 복구 여부
 
     ![](/img/software/dynamixel_wizard_2_0/advanced_features/wizard2_010_kr.png)
 
+<a id="calibration"></a>
 ## 캘리브레이션
 
 기어교체등으로 인해 혼의 위치값이 틀여졌다면 캘리브레이션을 통해 위치를 다시 설정해 줄 수 있습니다.
 
-1. [DYNAMIXEL 검색하기](#DYNAMIXEL-검색하기)
+1. [DYNAMIXEL 검색하기](/docs/software/dynamixel_wizard_2_0/basic_features#DYNAMIXEL-검색하기)
 
 2. 메인 메뉴의 `도구` > `캘리브레이션` 메뉴를 클릭합니다.
 
@@ -318,6 +323,7 @@ DYNAMIXEL의 불량여부를 판단하기위해 자가진단을 실행할 수 �
 그래프 설정에서 통신주기(Interval)를 최소 1 [ms]로 설정할 수 있습니다.
 다음과 같이 설정하면 그래프를 최대한 빠르게 동작시킬 수 있습니다.
 
+<a id="usb-latency-setting"></a>
 ### 포트 응답 속도 설정
 
 #### Windows
@@ -338,13 +344,11 @@ DYNAMIXEL의 불량여부를 판단하기위해 자가진단을 실행할 수 �
 
 1. 다음의 명령어를 수행하여 `응답 시간`을 `1ms`로 설정합니다.
 
-    ```c
-    # cat /sys/bus/usb-serial/devices/ttyUSB0/latency_timer
-    16
-    # echo 1 > /sys/bus/usb-serial/devices/ttyUSB0/latency_timer
-    # cat /sys/bus/usb-serial/devices/ttyUSB0/latency_timer
-    1
-    ```
+# cat /sys/bus/usb-serial/devices/ttyUSB0/latency_timer
+16
+# echo 1 > /sys/bus/usb-serial/devices/ttyUSB0/latency_timer
+# cat /sys/bus/usb-serial/devices/ttyUSB0/latency_timer
+1
 
 ### DYNAMIXEL 설정
 

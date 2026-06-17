@@ -248,6 +248,13 @@ PC 의 USB 포트를 통해 하위 포트로 데이터를 보낼(Tx) 때는 하�
 [MOLEX 39-00-0038]: http://www.molex.com/molex/products/datasheet.jsp?part=active/0039000038_CRIMP_TERMINALS.xml
 
 
+## USB Latency Setting
+### Windows
+### Linux
+# cat /sys/bus/usb-serial/devices/ttyUSB0/latency_timer
+# echo 1 > /sys/bus/usb-serial/devices/ttyUSB0/latency_timer
+# cat /sys/bus/usb-serial/devices/ttyUSB0/latency_timer
+
 ## 인증 획득
 
 표기되지 않은 인증에 대해서는 별도 문의하시기 바랍니다.
