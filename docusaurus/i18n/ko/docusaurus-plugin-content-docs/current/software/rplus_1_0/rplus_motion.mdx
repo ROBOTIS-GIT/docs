@@ -192,8 +192,7 @@ Windows installer와 .NET Framework는 마이크로 소프트 다운로드 센�
 
 - `로봇의 포즈`: 연결된 로봇의 관절별 위치 값들을 로봇의 포즈라고 부릅니다. 로봇의 포즈는 수정하면 로봇이 움직입니다.
 
-### <a name="기본-포즈-편집기"></a>[기본 포즈 편집기](#기본-포즈-편집기)
-
+### 기본 포즈 편집기
 기본 포즈 편집기는 어떤 형태의 로봇도 사용할 수 있는 기본적인 편집기입니다. 만약, 스텝의 포즈에서 사용하는 ID 개수를 변경하거나  바꾸고 싶다면 [ID편집 기능](#전체-페이지-편집)을 사용할 수 있습니다.
 
 ![img](/img/sw/rplus1/motion/basic_motion_edit.png)
@@ -251,16 +250,14 @@ Windows installer와 .NET Framework는 마이크로 소프트 다운로드 센�
 ![img](/img/sw/rplus1/motion/basic_joint_value_1.png)
 
 
-#### <a name="포즈-실행"></a>[포즈 실행](#포즈-실행)
-
+#### 포즈 실행
 포즈 실행은 스텝의 포즈를 로봇의 포즈로 옮겨서 로봇이 해당 포즈를 취하게 합니다.
 
 ![img](/img/sw/rplus1/motion/stepwritebutton.png)
 
 ![img](/img/sw/rplus1/motion/basic_pose_1.png)
 
-#### <a name="포즈-캡쳐"></a>[포즈 캡쳐](#포즈-캡쳐)
-
+#### 포즈 캡쳐
 포즈 캡쳐(Capture)란, 로봇의 포즈를 스텝의 포즈로 옮겨서 데이터에 저장합니다.
 
 ![img](/img/sw/rplus1/motion/stepgobutton.png)
@@ -569,16 +566,14 @@ Origin은 X, Y, Z의 좌표가 (0, 0, 0)임을 의미합니다.
 
   ![img](/img/sw/rplus1/motion/step_paste.png)
 
-## <a name="페이지-편집"></a>[페이지 편집](#페이지-편집)
-
+## 페이지 편집
 모션 페이지란, 저장된 모션을 구분하기 위한 영역 단위입니다.
 외부에서 저장된 모션을 사용할때는 페이지 단위로 접근합니다.
 모션 데이터 안에는 255개의 페이지가 존재합니다. (일부 제어기는 127개만 지원합니다.)
 
 ![img](/img/sw/rplus1/motion/pageeditor.png)
 
-### <a name="페이지-선택"></a>[페이지 선택](#페이지-선택)
-
+### 페이지 선택
 마우스로 해당 페이지를 클릭하면 1개의 페이지를 선택할 수 있습니다. 여러 개의 페이지를 선택하는 방법은 다음과 같습니다.
 
 - 연속적으로 여러 페이지를 선택
@@ -599,8 +594,7 @@ Origin은 X, Y, Z의 좌표가 (0, 0, 0)임을 의미합니다.
 
     ![img](/img/sw/rplus1/motion/page_selection_3.png)
 
-### <a name="페이지-연결"></a>[페이지 연결](#페이지-연결)
-
+### 페이지 연결
 모션 페이지를 서로 연결시켜서 유기적인 관계를 갖게 만들 수 있습니다.
 
 #### 이어지는(Next) 페이지
@@ -760,8 +754,7 @@ Origin은 X, Y, Z의 좌표가 (0, 0, 0)임을 의미합니다.
 
   ![img](/img/sw/rplus1/motion/offset_download.png)
 
-## <a name="전체-페이지-편집"></a>[전체 페이지 편집](#전체-페이지-편집)
-
+## 전체 페이지 편집
 전체 페이지 편집은 모든 페이지에 수정 사항을 반영시킬 때 사용합니다. 전체 페이지 편집이 필요한 경우는 다음과 같습니다.
 
 - 모든 모터의 값을 한꺼번에 바꿉니다.
@@ -782,8 +775,7 @@ Origin은 X, Y, Z의 좌표가 (0, 0, 0)임을 의미합니다.
 
   ![img](/img/sw/rplus1/motion/motion_edit.png)
 
-### <a name="id-사용-유무-설정"></a>[ID 사용 유무 설정](#id-사용-유무-설정)
-
+### ID 사용 유무 설정
 - RoboPlus Motion은 최대 26개의 모터로 만들어진 로봇의 모션을 지원합니다. (다이나믹셀 ID로 0 ~ 25번까지).
 - ID 사용 유무를 설정하여 필요한 ID만 모션 편집시 사용할 수 있습니다.
 
@@ -1046,8 +1038,7 @@ RoboPlus Motion은 IGES(igs)포맷만 지원하며, 데이터 크기가 너무 �
 | AX-12 Horn  | ![img](/img/sw/rplus1/motion/ax12_horn.png)   | ax-12_horn.igs  |
 | AX-S1       | ![img](/img/sw/rplus1/motion/axs1.png)        | ax-s1.igs       |
 
-### <a name="plug-in-sdk-프로그래밍"></a>[Plug-In SDK 프로그래밍](#plug-in-sdk-프로그래밍)
-
+### Plug-In SDK 프로그래밍
 사용자는 Plug-In SDK를 이용해서 포즈 유틸리티의 역기구학 연산 모듈을 추가할 수 있습니다.
 설명은 Visual Studio 2005에서 C#으로 개발하는 것을 예로 들었습니다. (Sample 예제 첨부)
 
@@ -1135,4 +1126,4 @@ RoboPlus Motion을 실행시켜서 추가시킨 로봇이 잘 동작하는지 �
 
 [각 제어기 정보]: /docs/parts/controller/controller_compatibility/
 [ID 사용 유무 기능]: #id-사용-유무-설정
-[관절 오프셋 파라메터]: /docs/software/rplus_1_0/task/programming_02/#관절-오프셋
+[관절 오프셋 파라메터]: /docs/software/rplus_1_0/rplus_task/programming_02#관절-오프셋

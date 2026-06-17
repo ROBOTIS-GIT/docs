@@ -129,7 +129,7 @@ DYNAMIXEL X 시리즈의 사용 전압은 [모델](#모델)에 따라 달라질 
 | Symbol |                 사용 전압                 |               추천 전압               |
 |:------:|:-----------------------------------------:|:-------------------------------------:|
 |   M    |                 3.7 ~ 6.0                 |                **5.0**                |
-| T / W  | 10.0 ~ 14.8<br>(Max 12V for XL430, XC330) | **12.0** <br>(11.1V for XL430, XC330) |
+| T / W  | 10.0 ~ 14.8<br/>(Max 12V for XL430, XC330) | **12.0** <br/>(11.1V for XL430, XC330) |
 | H / V  |                   24.0                    |               **24.0V**               |
 
 :::note
@@ -140,15 +140,6 @@ DYNAMIXEL X 시리즈의 사용 전압은 [모델](#모델)에 따라 달라질 
 
 ### DYNAMIXEL P 시리즈
 DYNAMIXEL P 시리즈는 24V에서 동작합니다. DYNAMIXEL-X 시리즈의 24V 동작전압을 표현하는 `V`[모델](#모델)과 호환 가능합니다.
-
-<!--
-
-|  시리즈   | 사용 전압 | 추천 전압 |
-|:---------:|:---------:|:---------:|
-| PM Series |   24.0    | **24.0**  |
-| PH Series |   24.0    | **24.0**  |
-
--->
 
 ## 전원 솔루션
 ### SMPS
@@ -187,7 +178,7 @@ U2D2는 USB 신호를 TTL 또는 RS-485 신호로 변환해주는 통신 변환 
 
   > DYNAMIXEL 스타터 세트 연결 예시
 
-<!-- NOTE: DYNAMIXEL Quick Start Guide -->
+{/* NOTE: DYNAMIXEL Quick Start Guide */}
 
 ### DYNAMIXEL 쉴드
 [DYNAMIXEL 쉴드] 및 [DYNAMIXEL 쉴드 MKR]은 아두이노 보드를 가지고 있는 유저들을 위한, 쉴드 인터페이스입니다. [DynamixelShield](#dynamixelshield) 라이브러리를 사용하여, 아두이노 환경에서 DYNAMIXEL을 사용해보세요.
@@ -222,7 +213,7 @@ ROBOTIS에서 제공하는 임베디드 제어기는 아두이노 환경을 지�
 ### OpenCR1.0
 [OpenCR 1.0]은 ARM Cortex-M7 및 IMU 센서 / 다양한 포트가 내장된 사용한 강력한 성능의 오픈소스 로봇 제어기입니다.
 PCB Gerber, BOM, 펌웨어 및 소스 코드 등 개발에 필요한 자료가 공개되어있으며, 아두이노 환경에서 [DYNAMIXEL SDK](#dynamixel-sdk-arduino)와 전용 [Arduino 라이브러리](#아두이노-라이브러리)를 사용하여 DYNAMIXEL을 제어합니다.
-ROS 공식 플랫폼인 [TurtleBot3](/docs/systems/turtlebot3/overview)의 제어기로 사용되었습니다.
+ROS 공식 플랫폼인 [TurtleBot3](https://docs.robotis.com/docs/systems/turtlebot3/overview)의 제어기로 사용되었습니다.
 
 ![](/img/parts/controller/opencr10/opencr_pinout.png)
 > OpenCR 1.0 핀맵 및 레이아웃
@@ -237,14 +228,14 @@ ROS 공식 플랫폼인 [TurtleBot3](/docs/systems/turtlebot3/overview)의 제�
 
 :::note
 
-**참고**: [OpenCM485 확장 보드](/docs/parts/controller/opencm485exp)를 사용하여, TTL 및 RS-485 DYNAMIXEL까지 폭넓게 사용 가능합니다.
+**참고**: [OpenCM485 확장 보드](https://docs.robotis.com/docs/parts/controller/opencm485exp)를 사용하여, TTL 및 RS-485 DYNAMIXEL까지 폭넓게 사용 가능합니다.
 ![](/img/parts/controller/opencm904/opencm485exp_product.jpg)
 
 :::
 
 ## 교육용
 ### CM 시리즈
-[교육용 키트](/docs/edu/)에서 사용되는 CM 시리즈는 전용 [교육용 소프트웨어]를 지원하는, 고성능 레벨의 교육용 임베디드 제어기입니다.
+[교육용 키트](https://docs.robotis.com/docs/edu/)에서 사용되는 CM 시리즈는 전용 [교육용 소프트웨어]를 지원하는, 고성능 레벨의 교육용 임베디드 제어기입니다.
 
 CM 시리즈는 ROBOTIS가 제공하는 전용 센서를 사용할 수 있도록 올로 포트를 제공하며, 교육용 소프트웨어를 통해 쉽게 센서의 값을 읽고 제어할 수 있습니다.
 
@@ -272,7 +263,7 @@ CM 시리즈는 ROBOTIS가 제공하는 전용 센서를 사용할 수 있도록
 :::
 
 ## 기타 제어기
-ROBOTIS는 [DYNAMIXEL 시스템](/docs/systems/)과 [교육용 키트](/docs/edu/)에서 사용되는 다양한 제어기를 제공하고 있습니다. 자세한 내용은, [제어기](/docs/parts/controller/controller_compatibility) 페이지를 참고하세요.
+ROBOTIS는 [DYNAMIXEL 시스템](https://docs.robotis.com/docs/systems/)과 [교육용 키트](https://docs.robotis.com/docs/edu/)에서 사용되는 다양한 제어기를 제공하고 있습니다. 자세한 내용은, [제어기](/docs/parts/controller/controller_compatibility) 페이지를 참고하세요.
 
 # 소프트웨어와 도구
 DYNAMIXEL 제어를 위해, 제어기와 호환되는 적절한 소프트웨어를 사용해야 합니다.
@@ -310,7 +301,7 @@ R+Manager 2.0은 CM 시리즈 및 교육용 키트에서 제공되는 [CM 시리
 ### DYNAMIXEL SDK
 <iframe width="560" height="315" src="https://www.youtube.com/embed/F-sXbIAM0jc" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
 
-[DYNAMIXEL SDK](/docs/software/dynamixel_sdk)는 주요 OS(Windows, Mac, Linux)에서, 다양한 개발언어(C, C++, C#, Python, Java, Matlab and LabVIEW)를 지원하는 개발 키트 라이브러리입니다.
+[DYNAMIXEL SDK](https://docs.robotis.com/docs/software/dynamixel_sdk/)는 주요 OS(Windows, Mac, Linux)에서, 다양한 개발언어(C, C++, C#, Python, Java, Matlab and LabVIEW)를 지원하는 개발 키트 라이브러리입니다.
 제공되는 API를 사용하여, DYNAMIXEL의 데이터에 쉽게 접근하여 데이터를 쓰고 읽을 수 있습니다.
 
 :::note
@@ -320,7 +311,7 @@ R+Manager 2.0은 CM 시리즈 및 교육용 키트에서 제공되는 [CM 시리
 :::
 
 #### DYNAMIXEL SDK (Arduino)
-[임베디드 제어기](#임베디드-제어기)는 [Arduino IDE](/docs/software/arduino_ide)에서 DYNAMIXEL SDK를 사용 할 수 있습니다.
+[임베디드 제어기](#임베디드-제어기)는 [Arduino IDE](https://docs.robotis.com/docs/software/arduino_ide/)에서 DYNAMIXEL SDK를 사용 할 수 있습니다.
 
 :::note
 
@@ -338,7 +329,7 @@ ROBOTIS는 아두이노 환경에서 DYNAMIXEL 시스템 개발을 위한 라이
 
 #### Dynamixel2Arduino
 [Dynamixel2Arduino]는 [DYNAMIXEL SDK](#dynamixel-sdk-arduino)를 기반으로 설계된 라이브러리입니다. 유저 친화적인 API를 제공하며, DYNAMIXEL SDK보다 쉬운 코드 환경 제공합니다.
-- [API 확인하기](/docs/software/arduino_ide#dynamixel2arduino-library)
+- [API 확인하기](https://docs.robotis.com/docs/software/arduino_ide/#dynamixel2arduino-library)
 
 ![](/img/parts/interface/dynamixel_shield/library_manager_02.png)
 
@@ -348,32 +339,32 @@ ROBOTIS는 아두이노 환경에서 DYNAMIXEL 시스템 개발을 위한 라이
 ![](/img/parts/interface/dynamixel_shield/library_manager_03.png)
 
 ## 교육용 소프트웨어
-교육용 소프트웨어는, [교육용 키트](/docs/edu/)와 [CM 시리즈](#cm-시리즈)와 호환되는 전용 소프트웨어입니다.
+교육용 소프트웨어는, [교육용 키트](https://docs.robotis.com/docs/edu/)와 [CM 시리즈](#cm-시리즈)와 호환되는 전용 소프트웨어입니다.
 - 태스크와 모션 프로그래밍 도구는 교육용 키트에서 사용되는 기본 예제를 제공합니다.
 - CM 시리즈의 관리 및 테스트를 위한, 전용 관리 도구 [R+ Manager 2.0](#r-manager-20)를 사용할 수 있습니다.
 
 ### RoboPlus
-CM 시리즈와 교육용 키트에서 사용할 수 있는 소프트웨어인, R+ (RoboPlus)는 유저 친화적 프로그래밍 환경을 지원합니다. 더 많은 정보는 [RoboPlus](/docs/software/#roboplus-r)를 참고하세요.
+CM 시리즈와 교육용 키트에서 사용할 수 있는 소프트웨어인, R+ (RoboPlus)는 유저 친화적 프로그래밍 환경을 지원합니다. 더 많은 정보는 [RoboPlus](/docs/software/overview#roboplus-r)를 참고하세요.
 
 ![](/img/sw/rplus_task3/task3_001.png)
 > R+Task 3.0
 
 [DYNAMIXEL Wizard 2.0]: /docs/software/dynamixel_wizard_2_0/introduction
-[DYNAMIXEL SDK]: /docs/software/dynamixel_sdk
+[DYNAMIXEL SDK]: https://docs.robotis.com/docs/software/dynamixel_sdk/
 [U2D2]: /docs/parts/interface/u2d2/
 [U2D2 Power Hub Board]: /docs/parts/interface/u2d2_power_hub/
 [Software]: /docs/software/
-[OpenCM9.04]: /docs/parts/controller/opencm904/
-[The OpenCM 485 Expansion Board]: /docs/parts/controller/opencm485exp/
-[OpenRB-150]: /docs/parts/controller/openrb-150/
+[OpenCM9.04]: https://docs.robotis.com/docs/parts/controller/opencm904/
+[The OpenCM 485 Expansion Board]: https://docs.robotis.com/docs/parts/controller/opencm485exp/
+[OpenRB-150]: /docs/parts/controller/openrb-150
 [OpenCR 1.0]: /docs/parts/controller/opencr10/
-[CM-530]: /docs/parts/controller/cm-530/
-[CM-550]: /docs/parts/controller/cm-550/
+[CM-530]: /docs/parts/controller/cm-530
+[CM-550]: /docs/parts/controller/cm-550
 [R+ 3.0 software]: /docs/software/rplus_task_3_0
 [DYNAMIXEL 쉴드]: /docs/parts/interface/dynamixel_shield/
 [DYNAMIXEL 쉴드 MKR]: /docs/parts/interface/mkr_shield
-[RC-100]: /docs/parts/communication/rc-100/
-[LN-101]: /docs/parts/interface/ln-101/
+[RC-100]: https://docs.robotis.com/docs/parts/communication/rc-100/
+[LN-101]: https://docs.robotis.com/docs/parts/interface/ln-101/
 [Dynamixel2Arduino]: https://github.com/ROBOTIS-GIT/Dynamixel2Arduino
 [DynamixelShield]: https://github.com/ROBOTIS-GIT/DynamixelShield
 [DYNAMIXEL Protocol 1.0]: /docs/dxl/protocol/protocol1
