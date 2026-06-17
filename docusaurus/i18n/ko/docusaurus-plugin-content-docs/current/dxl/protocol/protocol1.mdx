@@ -119,17 +119,17 @@ Packet의 길이로서, Instruction, Parameter, Checksum 필드의 Byte Size를 
 
 DYNAMIXEL에 지시하는 명령으로 아래와 같은 종류가 있습니다.
 
-|  값  |     명령어      |                                        세부 설명                                         | 파라미터 개수 |
-|:----:|:---------------:|:----------------------------------------------------------------------------------------:|:--------------|
-| 0x01 |     [Ping]      |               수행 내용 없음. 제어기가 Status Packet을 받고자할 경우 사용                | 0             |
-| 0x02 |     [Read]      |                             DYNAMIXEL의 데이터를 읽는 명령                              | 2             |
-| 0x03 |     [Write]     |                             DYNAMIXEL의 데이터를 쓰는 명령                              | >2            |
-| 0x04 |   [Reg Write]   |        Write 와 내용은 유사하나, 대기상태로 있다가 Action 명령이 도착해야 수행됨         | >2            |
-| 0x05 |    [Action]     |                        Reg Write로 등록된 동작을 시작하라는 명령                         | 0             |
-| 0x06 | [Factory Reset] |                   DYNAMIXEL의 상태를 공장 출하 상태로 복귀시키는 명령                   | 0             |
-| 0x08 |    [Reboot]     |                    장치를 재부팅 시키는 명령 (지원모델을 참고하세요)                     | 0             |
-| 0x83 |  [Sync Write]   |            한번에 여러 개의 DYNAMIXEL을 동시에 제어하고자 할때 사용되는 명령            | >4            |
-| 0x92 |   [Bulk Read]   | 한번의 명령으로 여러 개의 DYNAMIXEL의 데이터를 순차적으로 읽음. (지원모델을 참고하세요) | >4            |
+|  값  |     명령어      |                                        설명                                         |
+|:----:|:---------------:|:-----------------------------------------------------------------------------------:|
+| 0x01 |     [Ping]      |               Packet ID와 동일한 ID를 가진 장치에 Packet이 도달했는지 확인하는 Instruction                |
+| 0x02 |     [Read]      |                             DYNAMIXEL의 데이터를 읽는 Instruction                              |
+| 0x03 |     [Write]     |                             DYNAMIXEL에 데이터를 쓰는 Instruction                              |
+| 0x04 |   [Reg Write]   |        Instruction Packet을 대기 상태로 등록하고, 이후 Action instruction으로 실행하는 Instruction         |
+| 0x05 |    [Action]     |                        Reg Write로 미리 등록한 Packet을 실행하는 Instruction                         |
+| 0x06 | [Factory Reset] |                   Control Table을 공장 출하 상태의 기본값으로 되돌리는 Instruction                   |
+| 0x08 |    [Reboot]     |                    DYNAMIXEL을 재부팅하는 Instruction (지원 모델은 설명을 참고하세요)                     |
+| 0x83 |  [Sync Write]   |            여러 장치의 동일한 Address에 동일한 길이의 데이터를 한 번에 쓰는 Instruction            |
+| 0x92 |   [Bulk Read]   | 여러 장치의 서로 다른 Address에서 서로 다른 길이의 데이터를 한 번에 읽는 Instruction (지원 모델은 설명을 참고하세요) |
 
 ### Parameters
 Instruction의 보조 데이터 필드로써, Instruction 별로 용도가 다릅니다. [Instruction](#instruction) 을 참고하세요.

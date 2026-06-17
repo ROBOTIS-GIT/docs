@@ -1,50 +1,57 @@
-| Packet 종류         | P1   | P2 ~ P5                          | 설명                                                                            |
-|:----------------:|:----:|:--------------------------------:|:--------------------------------------------------------------------------------|
-| Multi-turn Clear | 0x01 | 고정값<br />(0x44 0x58 0x4C 0x22) |현재 위치(Present Position) 값을 모터 기준 1회전 이내의 절대위치 값으로 초기화. 정지된 상태에서만 Clear 가능.<br />Torque Enable상태에서 Clear Inst Packet을 전송할 경우, Status Packet의 Error 필드에 Result Fail(0x01) 발생.  |
-| Error Clear      | 0x02 | 고정값<br />(0x45 0x52 0x43 0x4C) | DYNAMIXEL에 발생한 Error를 Clear.<br />Clear가 불가능한 Error가 있거나 Clear 조건이 아닌 경우 Error는 Clear 되지 않으며 Status Packet의 Error 필드에 Result Fail(0x01) 발생.  |
+### Multi-turn Clear Packet
+DYNAMIXEL-Y는 Multi-turn 위치 정보를 백업하므로 전원이 차단된 후에도 Multi-turn 위치가 보존됩니다. 이 값을 초기화하려면 Multi-turn Clear Packet이 필요합니다. Multi-turn Clear 후 DYNAMIXEL은 재부팅됩니다.
+Multi-turn Backup 배터리를 교체한 후에는 정상 동작을 위해 반드시 이 작업을 수행해야 합니다.
 
-## [Multi-turn Clear Packet](#multi-turn-clear-packet)
+| Packet 종류         | P1   | P2 ~ P5                            | 설명                                                                                                                                                                                                                 |
+|:-------------------:|:----:|:----------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Multi-turn Clear    | 0x01 | 고정값<br />(0x44 0x58 0x4C 0x22) | 현재 위치(Present Position) 값을 모터 기준 1회전 이내의 절대 위치 값으로 초기화합니다. 정지된 상태에서만 Clear할 수 있습니다.<br />Torque Enable 상태에서 Clear Instruction Packet을 전송할 경우 Status Packet의 Error 필드에 Result Fail(0x01)이 표시됩니다. |
+| Error Clear         | 0x02 | 고정값<br />(0x45 0x52 0x43 0x4C) | DYNAMIXEL에 발생한 Error를 Clear합니다.<br />Clear가 불가능한 Error가 있거나 Clear 조건이 아닌 경우 Error는 Clear되지 않으며, Status Packet의 Error 필드에 Result Fail(0x01)이 표시됩니다.                              |
 
-DYNAMIXEL-Y는 Multi-turn을 백업하고 있어 전원 차단 후에도 Multi-turn이 보존되며, Multi-turn Clear Packet을 사용하여 이 값을 초기화 할 수 있습니다. Multi-turn Clear 후 DYNAMIXEL은 재부팅됩니다.
-Multi-turn Backup 배터리를 교체한 후에 반드시 실행하여야 정상사용이 가능합니다.
 
-**참고**: Multi-turn Clear는 ‘모터’ 기준 1회전 이내의 절대 위치 값으로 초기화 됩니다. 감속기가 부착된 모델은 감속기 기준 절대위치를 잃어버릴 수 있습니다. 감속기 기준 절대위치를 0점에 맞추고 Multi-turn Clear를 진행하시기 바랍니다.
+:::note
 
-### [Multi-turn Clear 방법](#multi-turn-clear-방법)
+**참고**: Multi-turn Clear는 모터 기준 1회전 이내의 절대 위치 값으로 초기화합니다. 감속기가 장착된 모델은 감속기 기준 절대 위치를 잃을 수 있습니다. 이 문제를 방지하려면 감속기 기준 절대 위치를 0점에 맞춘 뒤 Multi-turn Clear를 진행하세요.
 
+:::
+
+
+#### Multi-turn Clear 방법
 ![](/img/dxl/model_reference/y_series/multi-turn_clear_guide.webp)
 
-1. DYNAMIXEL Wizard 2.0 상단 ‘Packet’ 버튼을 클릭하여, Packet 창을 엽니다. DYNAMIXEL과 연결되어 있다면 ‘연결 끊기’를 클릭하여 연결을 해제해줍니다.
-2. COM Port와 Baudrate를 설정하고 Open 버튼을 클릭합니다.
-3. Instruction 탭에서 Clear Instruction을 선택합니다.
-4. ID를 입력하고 Send 버튼을 클릭하여 Packet을 전송합니다.
-5. Status Packet이 수신될 때까지 대기합니다. 수신된 Packet에 Error가 있는지 확인합니다.
+1. DYNAMIXEL Wizard 2.0 상단의 'Packet' 버튼을 클릭하여 Packet 창을 엽니다. DYNAMIXEL과 연결되어 있다면 'Disconnect'를 클릭하여 연결을 해제합니다.
+2. 사용 중인 COM Port와 Baud Rate를 선택한 뒤 'Open' 버튼을 클릭합니다.
+3. Instruction 탭에서 'Clear Instruction'을 선택합니다.
+4. Clear할 DYNAMIXEL ID를 입력하고 'Send' 버튼을 클릭하여 Packet을 전송합니다.
+5. Status Packet이 수신될 때까지 대기합니다. 서보를 다시 동작시키기 전에 수신된 Packet에 Error가 있는지 확인합니다.
 
-**참고**: Packet 창에 대한 자세한 내용은 [DYNAMIXEL Wizard 2.0]과 [Dynamixel Protocol 2.0] E-Manual을 참고해주시기 바랍니다.
 
-## [Error Clear Packet](#error-clear-packet)
+:::note
 
-DYNAMIXEL-Y에서 Error가 발생한 경우 Clear가 가능합니다.
-[Error Code(153)]가 0이 아닌 경우 [Clear Instruction Packet]으로 초기화가 가능합니다. 초기화가 불가능한 경우 Status Packet의 Error 필드에 Result Fail(0x01) 발생합니다.
+**참고**: 자세한 내용은 [DYNAMIXEL Wizard 2.0]과 [DYNAMIXEL Protocol 2.0] eManual 페이지를 참고하세요.
 
-# [Multi-turn Backup 배터리 교체](#multi-turn-backup-배터리-교체)
+:::
 
-DYNAMIXEL-Y는 Multi-turn Backup을 위해 배터리가 내장되어 있습니다. 배터리 교체 후에는 Multi-turn Clear 작업을 진행하여 Multi-turn 설정을 초기화 해주어야 정상 동작이 가능합니다.
 
-## [배터리 교체 방법](#배터리-교체-방법)
+### Error Clear Packet
+Error Clear Packet은 DYNAMIXEL-Y 액추에이터를 재시작하지 않고 Error 상태를 해제할 때 사용할 수 있습니다. 장치에 활성 Error가 등록되어 있으면 [Clear Instruction Packet]으로 Clear할 수 있습니다. Error를 Clear할 수 없는 경우 반환되는 Status Packet에는 Failed result(0x01)가 표시됩니다.
 
+### Multi-turn Backup 배터리 교체
+DYNAMIXEL-Y에는 Multi-turn Position Backup을 위한 Multi-turn Backup 배터리가 내장되어 있습니다. 배터리를 교체한 후에는 정확한 동작을 위해 Multi-turn Clear 작업을 수행하여 Multi-turn 위치를 초기화해야 합니다.
+
+#### 배터리 교체 방법
 ![](/img/dxl/model_reference/y_series/brtterry_replacement_guide_en.webp)
 
-1. DYNAMIXEL-Y와 배터리를 준비합니다.
-2. 전원을 공급하고, DYNAMIXEL Wizard2.0(v2.1.5.7 이상)을 통해서 DYNAMIXEL-Y을 검색한 뒤,
-    도구 → 인코더 배터리 교체 메뉴를 클릭합니다.
-3. 감속기 모델인 경우는 원점 위치가 일치하는지 확인하고 다음 버튼을 클릭합니다.
-    (원점위치가 아닌 경우, 원점 위치로 맞춰주세요.)
-4. 배터리 커버를 열어서 새 배터리로 교체하고, 커버를 닫고 다음 버튼을 클릭합니다.
-5. 멀티턴 엔코더 모드를 설정합니다. 허용 각가속도가 커질수록 배터리 수명이 감소합니다. 시스템에 맞는 적절한 값으로 설정하시기 바랍니다.
-6. 작업이 완료되고 확인 버튼을 클릭하여 메뉴를 끝냅니다.
-7. [Multi-turn Clear Packet](#multi-turn-clear-packet)을 통하여 Multi-turn을 초기화 시켜줍니다.
+1. DYNAMIXEL-Y와 새 Multi-turn Backup 배터리를 준비합니다.
+2. 전원을 공급하고 DYNAMIXEL-Y를 DYNAMIXEL Wizard 2.0에 연결한 뒤 Tools → Encoder Battery Replacement 메뉴로 진입합니다.
+3. 감속기가 포함된 모델인 경우 감속기가 원점 위치(Position 0)에 있는지 확인합니다.
+4. 배터리 커버를 열고 새 Multi-turn Backup 배터리를 장착한 뒤, 커버를 닫고 Next 버튼을 클릭합니다.
+5. Multi-turn encoder mode를 설정합니다. 허용 각가속도가 커질수록 배터리 수명이 감소하므로 시스템에 맞는 적절한 값을 설정하세요.
+6. 작업이 완료되면 OK 버튼을 클릭하여 메뉴를 종료합니다.
+7. [Multi-turn Clear Packet](#multi-turn-clear-packet)을 전송하여 Multi-turn을 초기 상태로 재설정합니다.
+
 
 [DYNAMIXEL Wizard 2.0]: /docs/software/dynamixel_wizard_2_0/introduction
-[Dynamixel Protocol 2.0]: /docs/dxl/protocol/protocol2/
-[Clear Instruction Packet]: /docs/dxl/protocol/protocol2/#clear-0x10
+[Dynamixel Protocol 2.0]: /docs/dxl/protocol/protocol2
+[Clear Instruction Packet]: /docs/dxl/protocol/protocol2#clear-0x10
+
+[DYNAMIXEL Protocol 2.0]: /docs/dxl/protocol/protocol2
