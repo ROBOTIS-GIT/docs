@@ -1,0 +1,46 @@
+{
+  "title": {
+    "message": "ROBOTIS DOCS",
+    "description": "The title in the navbar"
+  },
+  "logo.alt": {
+    "message": "ROBOTIS",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.DYNAMIXEL": {
+    "message": "DYNAMIXEL",
+    "description": "Navbar item with label DYNAMIXEL"
+  },
+  "item.label.Systems": {
+    "message": "Systems",
+    "description": "Navbar item with label Systems"
+  },
+  "item.label.Software": {
+    "message": "Software",
+    "description": "Navbar item with label Software"
+  },
+  "item.label.Parts": {
+    "message": "Parts",
+    "description": "Navbar item with label Parts"
+  },
+  "item.label.Edu": {
+    "message": "Edu",
+    "description": "Navbar item with label Edu"
+  },
+  "item.label.FAQ": {
+    "message": "FAQ",
+    "description": "Navbar item with label FAQ"
+  },
+  "item.label.Ecosystem": {
+    "message": "Ecosystem",
+    "description": "Navbar item with label Ecosystem"
+  },
+  "item.label.Open Source": {
+    "message": "Open Source",
+    "description": "Navbar item with label Open Source"
+  },
+  "item.label.Contact": {
+    "message": "Contact",
+    "description": "Navbar item with label Contact"
+  }
+}

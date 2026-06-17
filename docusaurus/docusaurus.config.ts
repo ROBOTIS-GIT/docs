@@ -18,6 +18,15 @@ const config: Config = {
   url: process.env.DOCUSAURUS_URL ?? 'https://docs.robotis.com',
   baseUrl: process.env.DOCUSAURUS_BASE_URL ?? '/',
 
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'ko'],
+    localeConfigs: {
+      en: { label: 'English', htmlLang: 'en' },
+      ko: { label: '한국어', htmlLang: 'ko' },
+    },
+  },
+
   organizationName: 'ROBOTIS-GIT',
   projectName: 'docs',
 
@@ -46,7 +55,7 @@ const config: Config = {
         docs: {
           sidebarPath: './sidebars.ts',
           routeBasePath: docsRouteBasePath,
-          showLastUpdateTime: true,
+          showLastUpdateTime: false,
         },
         blog: false,
         theme: {
@@ -65,7 +74,7 @@ const config: Config = {
       require.resolve('@easyops-cn/docusaurus-search-local'),
       {
         hashed: true,
-        language: ['en'],
+        language: ['en', 'ko'],
         indexBlog: false,
         docsRouteBasePath,
         highlightSearchTermsOnTargetPage: true,
@@ -587,6 +596,7 @@ const config: Config = {
             },
           ],
         },
+        { type: 'localeDropdown', position: 'right' },
         {
           to: '/docs/common/ecosystem',
           position: 'left',

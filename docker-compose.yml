@@ -6,7 +6,7 @@ services:
       context: ./docusaurus
       dockerfile: ../Dockerfile
     volumes:
-      # 소스 전체를 마운트해 편집 시 즉시 hot reload
+      # 소스 전체를 마운트 (빌드 시 최신 소스 반영, i18n 포함)
       - ./docusaurus:/app
       # 호스트엔 node_modules 가 없으므로 이미지 안의 것을 보존
       - /app/node_modules
