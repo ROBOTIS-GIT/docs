@@ -14,31 +14,24 @@ Address는 Instruction Packet으로 컨트롤 테이블의 특정 데이터를 �
 ### [영역 (EEPROM, RAM, Hybrid)](#영역-eeprom-ram-hybrid)
 컨트롤 테이블은 EEPROM, RAM, Hybrid 영역으로 구분됩니다. 각 영역의 특징은 다음과 같습니다.
 
-<!-- 분홍 : #fef1e9, 파랑 : #deebf6, 초록 : #e2efd9 -->
+{/* 분홍 : #fef1e9, 파랑 : #deebf6, 초록 : #e2efd9 */}
 
 <table>
-    <tr bgcolor= "#f2f3f3">
+    <tr style={{ backgroundColor: '#f2f3f3', color: '#111827' }}>
         <td align="center"><b>영역</b></td>
         <td><b>상세 설명</b></td>
     </tr>
     <tr>
-        <td align="center" bgcolor= "#fef1e9" >EEPROM</td>
-        <td>EEPROM 영역 값을 변경하면 전원이 꺼져도 그 값이 보존 (Non-Volatile).<br />
-            이 영역의 값은 Torque Enable(512)의 값이 ‘0’(Torque OFF)일 때만 변경 가능.
-        </td>
+        <td align="center" style={{ backgroundColor: '#fef1e9', color: '#111827' }}>EEPROM</td>
+        <td>EEPROM 영역 값을 변경하면 전원이 꺼져도 그 값이 보존됩니다(Non-Volatile). 이 영역의 값은 Torque Enable(512)의 값이 ‘0’(Torque OFF)일 때만 변경할 수 있습니다.</td>
     </tr>
     <tr>
-        <td align="center" bgcolor= "#deebf6" >RAM</td>
-        <td>RAM 영역은 전원이 인가될 때마다 다시 기본값으로 설정됩니다(Volatile).<br />
-            이 영역의 값은 Torque Enable의 값에 상관 없이 변경 가능.
-        </td>
+        <td align="center" style={{ backgroundColor: '#deebf6', color: '#111827' }}>RAM</td>
+        <td>RAM 영역은 전원이 인가될 때마다 다시 기본값으로 설정됩니다(Volatile). 이 영역의 값은 Torque Enable 값에 상관없이 변경할 수 있습니다.</td>
     </tr>
     <tr>
-        <td align="center" bgcolor= "#e2efd9" >Hybrid</td>
-        <td>Hybrid 영역은 전원이 꺼져도 그 값이 보존되고, Torque Enable 값에 상관 없이 변경이 가능함.<br />
-            Torque Disable(Torque Enable = 0)인 경우 EEPROM영역과 같음. 값을 변경하면 즉시 저장.<br />
-            Torque Enable(Torque Enable = 1)인 경우 RAM 영역과 같음. 값 변경이 가능하지만 저장되지 않음. Torque Disable일 때 Hybrid Save(170)를 사용하여 변경 사항을 저장 가능.
-        </td>
+        <td align="center" style={{ backgroundColor: '#e2efd9', color: '#111827' }}>Hybrid</td>
+        <td>Hybrid 영역은 전원이 꺼져도 값이 보존되며, Torque Enable 값에 상관없이 변경할 수 있습니다.<br />Torque Disable(Torque Enable = 0)인 경우 EEPROM 영역과 같으며 값을 변경하면 즉시 저장됩니다.<br />Torque Enable(Torque Enable = 1)인 경우 RAM 영역과 같아 값 변경은 가능하지만 저장되지 않습니다. Torque Disable 상태에서 Hybrid Save(170)를 사용하여 변경 사항을 저장할 수 있습니다.</td>
     </tr>
 </table>
 
