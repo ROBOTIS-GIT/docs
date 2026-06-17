@@ -8,6 +8,8 @@
 
 본 매뉴얼의 [다이나믹셀 쉴드 라이브러리](#다이나믹셀-쉴드-라이브러리) 항목을 참고하세요.
 
+:::danger
+
 **주의**
 
 1. 본 제품은 아두이노 제어기를 포함하지 않습니다. **아두이노 제어기는 별도로 구매하시기 바랍니다.**
@@ -16,11 +18,17 @@
 3. 필요한 경우 동봉된 부품을 납땜해서 사용하시기 바랍니다.
 4. 일부 아두이노 MKR 쉴드는 사용하는 핀에 따라 다이나믹셀 쉴드 MKR과 완전하게 호환되지 않을 수 있습니다. 다이나믹셀 쉴드 MKR과 함께 사용할 경우 각 제품의 데이터시트를 참고하시기 바랍니다.
 
+:::
+
 # 시작하기
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/1Y7FLG1n-9k" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
+:::warning
+
 **사용하고자하는 다이나믹셀에 맞는 전원을 공급해주세요.**
+
+:::
 
 # 제품 사양
 
@@ -34,9 +42,13 @@
 |              크기              | 65 x 25 [mm]                                                                                                                                    |
 |              무게              | 11 [g]                                                                                                                                          |
 
-<sup>1</sup> 12V를 지원하는 다이나믹셀 사용시 [ROBOTIS SMPS 12V 5A PS-10] 전원공급 장치를 추천합니다.
-<sup>2</sup> 한개의 JST 헤더가 기본 조립되어 있습니다. 필요한 경우 동봉된 커넥터를 사용하세요.
+:::note
+
+<sup>1</sup> 12V를 지원하는 다이나믹셀 사용시 [ROBOTIS SMPS 12V 5A PS-10] 전원공급 장치를 추천합니다.  
+<sup>2</sup> 한개의 JST 헤더가 기본 조립되어 있습니다. 필요한 경우 동봉된 커넥터를 사용하세요.  
 <sup>3</sup> 배터리 커넥터는 다음의 로보티즈 배터리와 호환됩니다. [LB-010](https://www.robotis.com/shop/item.php?it_id=903-0143-000) 또는 [LB-020](https://www.robotis.com/shop/item.php?it_id=903-0277-000).
+
+:::
 
 :::danger
 
@@ -120,7 +132,11 @@
 |   +5V<sup>1</sup>    |         아두이노 MKR 제어기의 5V 전원을 다이나믹셀에 공급 (XL330 시리즈)          |
 |      Jumper Cap      |                 `VIN(DXL)` 과 `+5V` 중 다이나믹셀 전원 공급 선택                  |
 
+:::warning
+
 <sup>1</sup> 일부 아두이노 MKR 제어기는 연결된 USB 장치를 보호하기 위해 5V 전원 공급이 원활하지 않을 수 있습니다.
+
+:::
 
 ![](/img/parts/interface/mkr_shield/mkr_pinmap.webp)
 
@@ -155,7 +171,11 @@ AX와 MX 시리즈 다이나믹셀은 Molex 커넥터를 사용합니다.
 XL330 시리즈는 다이나믹셀 최초의 저전압 제품으로, 5V USB 전원에서 구동할 수 있습니다.
 다이나믹셀 쉴드 MKR의 [전원 선택 점퍼](#전원-선택-점퍼)를 `+5V`쪽으로 바꿔 꽂은 다음, 아두이노 MKR 제어기의 5V USB 전원을 다이나믹셀에 공급할 수 있습니다.
 
+:::warning
+
 일부 아두이노 MKR 제어기는 연결된 USB 장치를 보호하기 위해 5V 전원을 제한할 수 있습니다.
+
+:::
 
 ![](/img/parts/interface/mkr_shield/DXL_MKRShield_info03.webp)
 
@@ -169,7 +189,11 @@ XL330 시리즈는 다이나믹셀 최초의 저전압 제품으로, 5V USB 전�
 |                                                                      ![](/img/parts/interface/mkr_shield/select_vindxl.webp)                                                                       |                                                                                ![](/img/parts/interface/mkr_shield/select_5v.webp)                                                                                |
 | 외부의 전원 공급 장치로부터 `VIN(DXL)`를 통해 다이나믹셀의 전원을 공급할 경우, 터미널 블럭에 표시된 극성에 맞게 케이블을 연결하시기 바랍니다. **이때 아두이노 MKR 제어기의 전원을 별도로 공급해야 합니다.** | 아두이노 MKR 제어기의 `+5V` USB 전원을 다이나믹셀에 공급할 경우 **일부 아두이노 MKR 제어기의 내장된 퓨즈로 인해 충분한 5V 전원을 공급받지 못할 수 있습니다.** 사용하려는 아두이노 MKR 제어기의 자료를 참고하시기 바랍니다. |
 
+:::note
+
 다이나믹셀 쉴드 MKR에 전원을 공급할 때 **전원의 극성**을 다시 한 번 확인해주세요.
+
+:::
 
 # 다이나믹셀 쉴드 라이브러리
 
@@ -184,10 +208,13 @@ XL330 시리즈는 다이나믹셀 최초의 저전압 제품으로, 5V USB 전�
 - SyncWrite 기능 지원
 - DYNAMIXEL Shield 라이브러리(v0.1.0 이후 버전)에서는 DYNAMIXEL2Arduino 라이브러리가 반드시 필요함
 
-## 라이브러리 설치
+:::note
 
-**참고**
+## 라이브러리 설치
+**참고**  
 아두이노 MKR 제어기를 아두이노 IDE에서 프로그램할 때에는 `Arduino SAMD Boards manager`가 아두이노 보드 매니저에 설치되어 있어야 합니다.
+
+:::
 
 아두이노 IDE에 라이브러리를 설치하는 방법은 아래와 같이 세 가지가 있습니다.
 
@@ -212,12 +239,13 @@ XL330 시리즈는 다이나믹셀 최초의 저전압 제품으로, 5V USB 전�
 
 ![](/img/common/examples.webp)
 
+:::warning
+
 ## 라이브러리 API
-
 ### 다이나믹셀 쉴드(v0.1.0 이상))
+**주의** : 다이나믹셀 쉴드 라이브러리(v0.1.0 이상)를 사용하기 위해서는 [DYNAMIXEL2Arduino 라이브러리](#라이브러리-설치)를 설치해야 합니다.
 
-**주의**
-다이나믹셀 쉴드 라이브러리(v0.1.0 이상)를 사용하기 위해서는 [DYNAMIXEL2Arduino 라이브러리](#라이브러리-설치)를 설치해야 합니다.
+:::
 
 #### Dynamixel2Arduino 클래스
 
@@ -304,9 +332,13 @@ MCP2515를 사용하는 CAN shield board를 사용해야 하며, 107-Arduino-MCP
   - Arduino IDE
   - 다이나믹셀 쉴드 라이브러리
 
+:::warning
+
 **주의**
 - 예제에서 사용하는 Baudrate은 1,000,000 bps입니다. 다이나믹셀의 통신속도를 맞춰주세요.
 - 1,000,000 bps 이상의 통신속도를 사용할 경우 통신이 불안정할 수 있습니다.
+
+:::
 
 ### 구성도
 
@@ -323,7 +355,11 @@ MCP2515를 사용하는 CAN shield board를 사용해야 하며, 107-Arduino-MCP
 - **DLC** : Data의 크기(바이트)
 - **Data** : [Instruction](/docs/dxl/protocol/protocol2/#instruction)(1 Byte) + [Parameters](/docs/dxl/protocol/protocol2/#parameters)(0 ~ 7 Byte)
 
+:::note
+
 **참고** : CAN2DYNAMIXEL은 Data 필드의 크기 제한으로 인해 `Sync` 또는 `Bulk`를 지원하지 않습니다.
+
+:::
 
 IXXAT canAnalyser3 Mini 프로그램의 Transmit 부분에서는 아래와 같이 `ID (hex)`와 `Data (hex)`를 입력하면 나머지 필드가 자동으로 완성됩니다.
 
@@ -355,9 +391,18 @@ RC 수신기의 전원 인가시 갑작스러운 움직임으로 인한 사고�
   - Arduino IDE
   - 다이나믹셀 쉴드 라이브러리
 
+:::note
+
 **참고**: 사용가능한 다이나믹셀의 개수는 수신기와 아두이노 제어기의 입력 가능한 채널개수에 따라 달라질 수 있습니다.
 
+:::
+
+
+:::warning
+
 **주의**: 다이나믹셀 X 시리즈의 기본 통신속도는 57600 bps이며, 예제에서 사용하는 Baudrate은 1000000 bps입니다.  다이나믹셀과 예제의 통신속도를 동일하게 설정하시기 바랍니다.
+
+:::
 
 ### 구성도
 ![개요](/img/parts/interface/mkr_shield/examples_rcpwm2dynamixel_diagram.webp)

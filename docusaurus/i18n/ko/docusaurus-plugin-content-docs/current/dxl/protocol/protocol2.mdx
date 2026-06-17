@@ -181,7 +181,13 @@ Packet의 용도를 정의하는 필드
 ### Parameters
 
   1. Instruction의 보조 데이터 필드로써, Instruction 별로 용도가 다릅니다.
-  2. 음수 데이터의 표현 방법은 제품별로 차이가 있으므로 해당 제품의 e-Manual을 참고하세요.
+
+:::warning
+
+**주의**: 음수 데이터의 표현 방법은 제품별로 차이가 있으므로 해당 제품의 e-Manual을 참고하세요.
+
+:::
+
 
 ### CRC
 Packet이 통신 중에 파손되었는지를 점검하기 위한 필드 (16bit CRC)
@@ -224,12 +230,23 @@ Instruction Packet의 처리 결과를 나타내는 필드입니다.
 ### Parameters
 
 1. Instruction의 보조 데이터 필드로써, Instruction마다 용도가 다릅니다.
-2. 음수 데이터의 표현 방법은 제품별로 차이가 있으므로 해당 제품의 e-Manual을 참고하세요.
+
+:::warning
+
+**주의**: 음수 데이터의 표현 방법은 제품별로 차이가 있으므로 해당 제품의 e-Manual을 참고하세요.
+
+:::
+
 
 ### Response Policy
 
-1. Broadcast ID(254 (0xFE))는 [Ping], [Sync Read] 및 [Bulk Read] 에만 응답하며, 그 외 [Instruction](#instruction)에는 응답하지 않습니다. 예를 들어 [Sync Write] 및 [Bulk Write] Instruction에서는 응답 하지 않습니다.
-2. [Control Table]의 Status Return Level 값에 따라 응답 여부가 결정됩니다. 각 장치의 Status Return Level에서 설정 가능한 값을 참고하세요.
+[Control Table]의 Status Return Level 값에 따라 응답 여부가 결정됩니다. 각 장치의 Status Return Level에서 설정 가능한 값을 참고하세요.
+
+:::warning
+
+**주의**: Broadcast ID(254 (0xFE))는 [Ping], [Sync Read] 및 [Bulk Read] 에만 응답하며, 그 외 [Instruction](#instruction)에는 응답하지 않습니다. 예를 들어 [Sync Write] 및 [Bulk Write] Instruction에서는 응답 하지 않습니다.
+
+:::
 
 ## Packet 처리
 
@@ -247,6 +264,13 @@ Instruction Packet의 처리 결과를 나타내는 필드입니다.
 1. Header(0xFF 0xFF 0xFD) 검색 : Byte Stuffing(“0xFF 0xFF 0xFD 0xFD”)은 무시.
 2. Packet ID : Packet ID가 유효하면, Length 만큼 추가로 수신
 3. CRC : Byte Stuffing이 포함된 수신 Packet 상태에서 계산, CRC가 일치하면 Byte Stuffing을 제거
+
+:::note
+
+**알림**: Byte Stuffing은 Instruction Packet이 올바르게 처리될 수 있도록 추가 데이터를 삽입하는 방법입니다. Packet에 "0xFF 0xFF 0xFD" 패턴이 나타날 경우, 이 패턴이 다른 Packet의 Header로 해석되지 않도록 0xFD를 추가하여 "0xFF 0xFF 0xFD 0xFD"로 변환합니다.
+
+:::
+
 
 ## Instruction 상세
 
@@ -326,8 +350,14 @@ Instruction Packet의 처리 결과를 나타내는 필드입니다.
 
 #### 설명
   - [Control Table] 의 값을 읽어오기 위한 Instruction
-  - 음수 데이터의 표현 방법 : 제품별로 차이가 있으므로, 해당 제품의 e-Manual 을 참고 할 것.
   - Broadcast ID(254 (0xFE))에 대해서는 응답하지 않습니다.
+
+:::warning
+
+**주의**: 음수 데이터의 표현 방법은 제품별로 차이가 있으므로 해당 제품의 e-Manual을 참고하세요.
+
+:::
+
 
 :::note
 
@@ -372,7 +402,13 @@ Instruction Packet의 처리 결과를 나타내는 필드입니다.
 
 #### 설명
   - [Control Table] 에 값을 쓰기 위한 Instruction
-  - 음수 데이터의 표현 방법 : 제품별로 차이가 있으므로, 해당 제품의 e-Manual을 참고 할 것.
+
+:::warning
+
+**주의**: 음수 데이터의 표현 방법은 제품별로 차이가 있으므로 해당 제품의 e-Manual을 참고하세요.
+
+:::
+
 
 #### Packet Parameters
 
@@ -469,8 +505,12 @@ Instruction Packet의 처리 결과를 나타내는 필드입니다.
 #### 설명
 - [Control Table] 을 공장 출하 시의 기본값으로 되돌리는 Instruction.
 - Factory Reset (0x06) Instruction이 실행되면, 장치는 재부팅되고 LED가 4번 점멸
-- Packet ID가 Broadcast ID(0xFE)이고 Option이 Reset all value(0xFF)일 경우, Factory Reset Instruction (0x06)은 동작하지 않습니다
-  - MX(2.0) FW42, DYNAMIXEL-X 시리즈 FW42 이상부터 적용
+
+:::warning
+
+**주의**: Packet ID가 Broadcast ID(0xFE)이고 Option이 Reset all value(0xFF)일 경우, Factory Reset Instruction (0x06)은 동작하지 않습니다. MX(2.0) FW42, DYNAMIXEL-X 시리즈 FW42 이상부터 적용됩니다.
+
+:::
 
 #### Parameters
 
@@ -642,7 +682,11 @@ Instruction Packet의 처리 결과를 나타내는 필드입니다.
 |        ...         | ...                          |
 |   Parameter 4+X    | X번째 장치의 ID              |
 
+:::note
+
 **참고** : 각 장치는 Sync Read Instruction Packet에 대해 응답 시, Status Packet을 각각 반환. 아래 예제를 참고하세요.
+
+:::
 
 
 | Status Packet | 설명         |
@@ -730,7 +774,11 @@ Instruction Packet의 처리 결과를 나타내는 필드입니다.
 - Instruction Packet은 Sync Read (0x82) 패킷과 동일한 방식으로 구성된다.
 - 지원 DYNAMIXEL: X430/540 시리즈(2X 시리즈 제외, FW v45 이상), X330(FW v46 이상), P 시리즈(FW v12 이상), RH-P12-RN(A)(FW v13 이상)에서 지원.
 
+:::note
+
 **참고**: [DYNAMIXEL Tips \| Use Fast Sync and Fast Bulk Read Instruction for Speedy Communication](https://www.youtube.com/watch?v=claLIK8omIQ)
+
+:::
 
 
 #### Parameter
@@ -766,13 +814,25 @@ Instruction Packet의 처리 결과를 나타내는 필드입니다.
 |        ⋯         | ⋯                             |
 |  Parameter nX+4  | `n번째 장치` X번째 바이트     |
 
+:::note
+
 **참고**: 각 장치의 [CRC] 값은 DYNAMIXEL 간의 패킷 무결성 확인을 위하여 DYNAMIXEL 내부 연산에 이용되며, Main Controller는 Status Packet 마지막의 CRC만 확인하여도 무방합니다.
 
+:::
+
+
+:::note
 
 **참고**: 각 장치는 Fast Sync Read Instruction Packet에 대해 응답 시, Status Packet 하나의 부분을 각각 반환. 아래 예제를 참고하세요.
 
+:::
+
+
+:::note
 
 **참고**: Fast Sync Read Status Packet은 Byte Stuffing(0xFD) 처리를 하지 않습니다.
+
+:::
 
 
 #### 예제
@@ -842,7 +902,11 @@ Instruction Packet의 처리 결과를 나타내는 필드입니다.
 |      ...      |      ...      |
 |  Parameter X  | X번째 바이트  |
 
+:::note
+
 **참고** : 각 장치는 Bulk Read Instruction Packet에 대해 Status Packet을 각각 반환. 아래 예제를 참고하세요.
+
+:::
 
 
 #### 예제
@@ -931,7 +995,11 @@ Instruction Packet의 처리 결과를 나타내는 필드입니다.
 - Instruction Packet은 Bulk Read 패킷과 동일한 방식으로 구성된다.
 - 지원 DYNAMIXEL: X430/540 시리즈(2X 시리즈 제외, FW v45 이상), X330(FW v46 이상), P 시리즈(FW v12 이상), RH-P12-RN(A)(FW v13 이상)에서 지원.
 
+:::note
+
 **참고**: [DYNAMIXEL Tips \| Use Fast Sync and Fast Bulk Read Instruction for Speedy Communication](https://www.youtube.com/watch?v=claLIK8omIQ)
+
+:::
 
 
 #### Parameters
@@ -969,13 +1037,25 @@ Instruction Packet의 처리 결과를 나타내는 필드입니다.
 |               ⋯               | ⋯                             |
 | Parameter X1+4+X2+ <br />⋯ 4+Xn | `n번째 장치` Xn번째 바이트    |
 
+:::note
+
 **참고** : 각 장치의 [CRC] 값은 DYNAMIXEL 간의 패킷 무결성 확인을 위하여 DYNAMIXEL 내부 연산에 이용되며, Main Controller는 Status Packet 마지막의 CRC만 확인하여도 무방합니다.
 
+:::
+
+
+:::note
 
 **참고** : 각 장치는 Fast Bulk Read Instruction Packet에 대해 응답 시, Status Packet 하나의 부분을 각각 반환. 아래 예제를 참고하세요.
 
+:::
+
+
+:::note
 
 **참고** : Fast Bulk Read Status Packet은 Byte Stuffing(0xFD) 처리를 하지 않습니다.
+
+:::
 
 
 #### 예제

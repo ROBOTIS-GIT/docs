@@ -3,7 +3,11 @@
 
 아두이노 보드에서 다이나믹셀과 RC-100을 사용하기위한 쉴드 보드이며 다이나믹셀 제어를 위한 라이브러리를 제공함.
 
+:::warning
+
 **본 제품은 아두이노 보드를 포함하지 않습니다. 아두이노 관련 제품은 별도로 구매를 해야합니다.**
+
+:::
 
 # 제품 사양
 
@@ -81,7 +85,11 @@
 
 ![](/img/parts/interface/dynamixel_shield/pinmap.webp)
 
+:::warning
+
 다이나믹셀 쉴드의 핀 맵은 아두이노 UNO 보드의 핀 맵과 동일하다. 관련된 핀 정보는 [아두이노 공식 사이트](https://www.arduino.cc/en/Main/Products)에서 관련된 보드의 핀정보를 참고할것.
+
+:::
 
 | 핀 번호 |  핀 이름   |          설명          |
 |:-------:|:----------:|:----------------------:|
@@ -101,9 +109,13 @@
 -	DXL_DIR(2): 방향 제어를 위한 제어핀
 -	다이나믹셀 제어를 위해서 하드웨어 시리얼 포트를 사용하기 때문에 아두이노 핀 7/8번을 이용하여 소프트웨어 시리얼로 [RC-100] 혹은 [LN-101]을 연결하여 시리얼 통신 수행
 
-`주의1`: UART SW(SW_2)를 Upload로 세팅해야, 펌웨어를 USB 포트를 통해서 업로드 할 수 있다. 다이나믹셀로 세팅해야만, 다이나믹셀을 활용할 수 있다. 이 때는, USB 포트를 사용하지 못하므로, 펌웨어를 업로드 할 수 없다.
-`주의2`: SoftwareSerial을 지원하지 않는 보드를 사용한다면, 핀 7번과 8번을 UART 통신으로 사용하지 못한다.
+:::warning
+
+`주의1`: UART SW(SW_2)를 Upload로 세팅해야, 펌웨어를 USB 포트를 통해서 업로드 할 수 있다. 다이나믹셀로 세팅해야만, 다이나믹셀을 활용할 수 있다. 이 때는, USB 포트를 사용하지 못하므로, 펌웨어를 업로드 할 수 없다.  
+`주의2`: SoftwareSerial을 지원하지 않는 보드를 사용한다면, 핀 7번과 8번을 UART 통신으로 사용하지 못한다.  
 `주의3`: TTL, TTL (XL-430) and RS485 커넥터들은 병렬로 연결되어 하나의 serial을 사용한다.
+
+:::
 
 ## 시리얼 모니터 사용시 주의사항
 
@@ -121,7 +133,11 @@ UNO 및 Mega (8bit MCU)는 USB에서 사용하는 Serial핀이 다이나믹셀�
 2. **다이나믹셀 쉴드의 UART 포트 사용 (조건: UNO/Mega시리즈를 포함한 아두이노 AVR 8bit 보드)**
 - UNO와 Mega를 포함한 아두이노 AVR 8bit 보드는 다이나믹셀 쉴드의 UART라고 표기된 핀([각 부 명칭](#각-부-명칭) 참조)을 사용하여 Serial Monitor를 사용할 수 있다.
 
+    :::note
+
     **참고**: 이 포트는 Serial 핀이 아닌 일반 핀을 사용하기때문에, SoftwareSerial 라이브러리를 반드시 사용 해야 한다. UART포트에 사용하기 적합한 통신 모듈은 [BT-210](https://docs.robotis.com/docs/parts/communication/bt-210/), [BT-410](https://docs.robotis.com/docs/parts/communication/bt-410/), [LN-101](https://docs.robotis.com/docs/parts/interface/ln-101/)이 있다.
+
+    :::
 
 3. **USB포트 사용**
 - UNO 및 Mega 시리즈를 제외한 나머지 아두이노 보드에서는 USB포트를 통해 시리얼 모니터를 사용 할 것.
@@ -198,11 +214,13 @@ UNO 및 Mega (8bit MCU)는 USB에서 사용하는 Serial핀이 다이나믹셀�
 
 ![](/img/common/examples.webp)
 
+:::warning
+
 ## 라이브러리 API
-
 ### 다이나믹셀 쉴드(v0.1.0 이상)
-
 **주의** : 다이나믹셀 쉴드 라이브러리(v0.1.0 이상)를 사용하기 위해서는 [DYNAMIXEL2Arduino 라이브러리](#라이브러리-설치)를 설치해야 합니다.
+
+:::
 
 #### Dynamixel2Arduino 클래스
 
@@ -254,9 +272,12 @@ Dynamixel2Arduino 클래스는 Master 클래스로부터 다음의 함수를 상
 - [flush()]
 - [write()]
 
-### 다이나믹셀 쉴드(v0.0.5)
+:::warning
 
+### 다이나믹셀 쉴드(v0.0.5)
 **주의** : 이 버전의 API는 더이상 지원되지 않습니다.
+
+:::
 
 ```c
 bool begin(uint32_t baud_rate = 57600, uint8_t protocol_version = DXL_PACKET_VER_2_0);
@@ -326,7 +347,12 @@ bool syncWriteEnd(void);
 
 > TTL 통신회로
 
+:::note
+
 **참고**: 위 회로는 5V 전원을 사용하는 MCU를 사용하거나 IO가 5V tolerant한 경우 사용 가능합니다. 그 외의 경우, Level Shifter를 사용하세요.
+
+:::
+
 
 ![](/img/common/x_series_ttl_pin.webp)
 
@@ -336,7 +362,11 @@ bool syncWriteEnd(void);
 
 > RS-485 통신회로
 
+:::note
+
 **참고**: 위 회로는 5V 전원을 사용하는 MCU를 사용하거나 IO가 5V tolerant한 경우 사용 가능합니다. 그 외의 경우, Level Shifter를 사용하세요.
+
+:::
 
 ![](/img/common/x_series_485_pin.webp)
 > XW540-시리즈 커넥터
