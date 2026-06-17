@@ -39,7 +39,7 @@ The pipeline utilizes Cyclo Control, a numerical Inverse Kinematics solver based
 
 ## 2. Quick Start Guide
 
-This guide provides a streamlined path to setting up and running the OMX drawing pipeline. Follow these phases to prepare your workspace, configure parameters, and execute the motion control using the official **Cyclo Control** framework. 
+This guide provides a streamlined path to setting up and running the OMX drawing pipeline. Follow these phases to prepare your workspace, configure parameters, and execute the motion control using the official **Cyclo Control** framework.
 
 ### Phase 1: Environment Setup & Build
 
@@ -219,8 +219,8 @@ The QP (Quadratic Programming) optimization-based solver calculates joint limits
       <mesh filename="package://open_manipulator_description/meshes/omx_f/follower_01_base.stl" scale="0.001 0.001 0.001"/>
     </geometry>
   </visual>
-  
-  
+
+
 </link>
 ```
 
@@ -244,7 +244,7 @@ omx_movel_controller:
   ros__parameters:
     control_frequency: 100.0        # Control loop frequency (Hz)
     time_step: 0.01                 # Computation timestep (1/frequency)
-    
+
     kp_position: 50.0               # Task space position gain
     kp_orientation: 50.0            # Task space orientation gain
 
@@ -252,7 +252,7 @@ omx_movel_controller:
     weight_task_orientation: 1.0    # Orientation maintenance weight
     weight_damping: 0.001           # Damping weight to avoid singularities
     slack_penalty: 1000.0           # Constraint relaxation penalty (Optimization stability)
-    
+
     cbf_alpha: 5.0                  # CBF (Control Barrier Function) strength
     collision_buffer: 0.01          # Collision prevention buffer (m)
     collision_safe_distance: 0.005  # Collision safe distance (m)
@@ -320,7 +320,7 @@ These are the detailed technical specifications of the vision processing and mot
     *   **Adaptive Thresholding**: Performs robust binarization against lighting changes, and uses **Morphological Closing** operations to fill broken lines or tiny gaps in text, ensuring structural integrity.
 
     ![Adaptive Thresholding](/img/systems/omx/technical_story/threshold_&_closing.jpg)
-    
+
 2.  **Step 2 (Skeletonization and Single Line Extraction)**:
     *   **Skeletonization**: Converts the binarized outline into a 1-pixel thick centerline, extracting only the geometric skeleton.
 
@@ -371,7 +371,7 @@ To perform drawing using the actual OMX, execute the following commands in three
     ros2 launch open_manipulator_bringup omx_f.launch.py
     ```
 2. **Execute Cyclo Control**
-  
+
     For detailed execution instructions, please refer to the link below.
     [Cyclo Control](/docs/systems/omx/advanced_features/cyclo_control)
     ```bash
