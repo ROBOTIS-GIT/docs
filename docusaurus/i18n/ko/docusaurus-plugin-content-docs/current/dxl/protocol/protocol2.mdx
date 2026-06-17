@@ -39,10 +39,6 @@ Main Controller와 DYNAMIXEL은 Packet이라고 불리는 데이터를 주고 �
 ID는 한 개의 버스에 여러 개의 DYNAMIXEL이 연결되었을 때 각각의 DYNAMIXEL들을 구별하기 위해 만든 고유 번호입니다.
 Instruction Packet과 Status Packet에 ID를 넣음으로써 Main Controller는 제어하고자 하는 DYNAMIXEL만을 제어할 수 있습니다.
 
-### DYNAMIXEL Protocol
-
-DYNAMIXEL은 8 bit, 1 Stop bit, None Parity의 Asynchronous Serial 통신을 합니다.
-
 만약 같은 ID 를 가진 DYNAMIXEL이 연결되었을 경우 Packet 충돌이 일어나서 통신에 문제를 일으키게 됩니다.
 그러므로 ID가 같은 DYNAMIXEL이 존재하지 않도록 ID설정을 해야 합니다. ID 설정을 위해서는, DYNAMIXEL 위자드 2.0에서 [컨트롤 테이블](/docs/software/dynamixel_wizard_2_0/basic_features#dynamixel-control-table)을 참고 하세요.
 
@@ -51,6 +47,10 @@ DYNAMIXEL은 8 bit, 1 Stop bit, None Parity의 Asynchronous Serial 통신을 합
 **참고**: DYNAMIXEL은 공장 출하시 초기 ID가 1번입니다.
 
 :::
+
+### DYNAMIXEL Protocol
+
+DYNAMIXEL은 8 bit, 1 Stop bit, None Parity의 Asynchronous Serial 통신을 합니다.
 
 ### Half Duplex
 
@@ -252,24 +252,23 @@ Instruction Packet의 처리 결과를 나타내는 필드입니다.
 
 ### 전송 시 처리 순서
 
-1. Packet 기본 형태 생성 후, Byte Stuffing(0xFD)
-    - 검사 범위 : Instruction 필드부터 Parameter 필드 전체(CRC 제외)
-    - 처리 방법 : “0xFF 0xFF 0xFD” 패턴이 나타날 경우, Byte Stuffing (0xFD) 을 추가
-      (“0xFF 0xFF 0xFD” 가 존재하면, 0xFD를 추가해서 “0xFF 0xFF 0xFD 0xFD”로 변경)
-2. Length : Byte Stuffing이 적용된 Length로 수정
-3. CRC : Byte Stuffing이 적용된 상태에서 CRC 계산
-
-### 수신 시 처리 순서
-
-1. Header(0xFF 0xFF 0xFD) 검색 : Byte Stuffing(“0xFF 0xFF 0xFD 0xFD”)은 무시.
-2. Packet ID : Packet ID가 유효하면, Length 만큼 추가로 수신
-3. CRC : Byte Stuffing이 포함된 수신 Packet 상태에서 계산, CRC가 일치하면 Byte Stuffing을 제거
+1. 필요한 Parameter를 포함하여 Packet의 기본 구조를 생성합니다.
+2. Packet이 올바르게 처리될 수 있도록 Byte Stuffing을 적용합니다.
+3. 추가된 Byte Stuffing 데이터를 포함하도록 Packet Length를 갱신합니다.
+4. Byte Stuffing이 적용된 상태에서 최종 CRC를 계산합니다.
 
 :::note
 
-**알림**: Byte Stuffing은 Instruction Packet이 올바르게 처리될 수 있도록 추가 데이터를 삽입하는 방법입니다. Packet에 "0xFF 0xFF 0xFD" 패턴이 나타날 경우, 이 패턴이 다른 Packet의 Header로 해석되지 않도록 0xFD를 추가하여 "0xFF 0xFF 0xFD 0xFD"로 변환합니다.
+**알림**: Byte Stuffing은 생성된 Instruction Packet이 올바르게 처리될 수 있도록 추가 데이터를 삽입하는 방법입니다. Packet에 "0xFF 0xFF 0xFD" 패턴이 나타날 경우, 이 패턴이 다른 Packet의 Header로 해석되지 않도록 0xFD를 추가하여 "0xFF 0xFF 0xFD 0xFD"로 변환합니다.
 
 :::
+
+### 수신 시 처리 순서
+
+1. Header(0xFF 0xFF 0xFD)를 검색하며, Byte Stuffing(0xFF 0xFF 0xFD 0xFD)이 발견되면 무시합니다.
+2. Packet ID가 유효하면, Length 크기만큼 추가 전송 데이터를 수신할 준비를 합니다.
+3. Byte Stuffing이 포함된 수신 Packet으로 CRC를 계산하고, CRC가 일치하면 수신 Packet에서 Byte Stuffing을 제거합니다.
+4. 수신한 Packet을 실행합니다.
 
 
 ## Instruction 상세
@@ -682,19 +681,18 @@ Instruction Packet의 처리 결과를 나타내는 필드입니다.
 |        ...         | ...                          |
 |   Parameter 4+X    | X번째 장치의 ID              |
 
-:::note
-
-**참고** : 각 장치는 Sync Read Instruction Packet에 대해 응답 시, Status Packet을 각각 반환. 아래 예제를 참고하세요.
-
-:::
-
-
 | Status Packet | 설명         |
 |:-------------:|:-------------|
 |  Parameter 1  | 첫 번째 바이트   |
 |  Parameter 2  | 두 번째 바이트  |
 |      ...      | ...          |
 |  Parameter X  | X번째 바이트 |
+
+:::note
+
+**참고** : 각 장치는 Sync Read Instruction에 대해 Status Packet을 개별적으로 반환합니다.
+
+:::
 
 #### 예제
 

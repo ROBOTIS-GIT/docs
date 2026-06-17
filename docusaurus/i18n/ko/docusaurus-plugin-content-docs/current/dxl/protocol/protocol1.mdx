@@ -475,8 +475,8 @@ Control Table의 Data를 공장 출하 값 상태로 되돌려 놓습니다.
 
 #### 예제
 ##### 조건
-- ID 1(MX-64) : 2 바이트 Goal Position(30, 0x1E) 값을 읽어옵니다.
-- ID 2(MX-64) : 2 바이트 Present Position(36, 0x24) 값을 읽어옵니다.
+- ID 1(RX-64) : 2 바이트 Goal Position(30, 0x1E) 값을 읽어옵니다.
+- ID 2(RX-64) : 2 바이트 Present Position(36, 0x24) 값을 읽어옵니다.
 
 ##### Bulk Read Instruction Packet
 
@@ -484,20 +484,7 @@ Control Table의 Data를 공장 출하 값 상태로 되돌려 놓습니다.
 |:----:|:----:|:---------:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
 | 0xFF | 0xFF |   0xFE    | 0x09 | 0x92 | 0x00 | 0x02 | 0x01 | 0x1E | 0x02 | 0x02 | 0x24 | 0x1D |
 
-이러한 동작을 지시하기 위한 명령 패킷은 다음과 같이 이루어집니다.
-
-```
-0xFF 0xFF 0xFE 0x09 0x92 0x00 0x02 0x01 0x1E 0x02 0x02 0x24 0x1D
-```
-
-이 때 ID 2 인 모듈은 데이터 버스 상에 ID 1(바로 전 파라미터의 ID) 인 모듈의 상태 패킷이 전송되는 것을 감시하다가 ID 1 인 모듈의 상태 패킷이 전송 완료되는 즉시 자신의 상태 패킷을 전송하게 된다.
-리턴되는 상태 패킷은 아래와 같이 됩니다.
-
-```
-0xFF 0xFF 0x01 0x04 0x00 0x00 0x80 0x7A 0xFF 0xFF 0x02 0x04 0x00 0x00 0x80 0x79
-```
-
-각각 모듈 ID 1 과 ID 2 에서 보낸 상태 패킷이 연달아 들어오는 형식이 됩니다.
+Bulk Read Instruction을 수신하면, ID 2인 DYNAMIXEL은 데이터 버스에서 ID 1(앞선 장치 ID)의 Status Packet이 전송되는 것을 감시하다가, ID 1 장치의 Status Packet 전송이 완료되면 자신의 Status Packet을 전송합니다.
 
 ##### ID 1 Status Packet
 
