@@ -4,8 +4,11 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
+    "prestart": "node scripts/generate-ko-unsupported-routes.js",
     "start": "docusaurus start",
+    "prebuild": "node scripts/generate-ko-unsupported-routes.js",
     "build": "docusaurus build",
+    "generate-ko-unsupported-routes": "node scripts/generate-ko-unsupported-routes.js",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
