@@ -1,0 +1,459 @@
+![](/img/parts/interface/mkr_shield/mkr_shield_product.webp)
+
+# 개요
+
+**다이나믹셀 쉴드(아두이노 MKR 시리즈)**(이후 "다이나믹셀 쉴드 MKR"로 통칭)는 MKR ZERO, MKR1000 WIFI, MKR WiFi 1010, Portenta H7과 같은 아두이노의 MKR 폼팩터를 공유하는 제어기와 호환됩니다.
+
+아두이노 라이브러리(DYNAMIXEL2Arduino, DYNAMIXEL Shield)가 제공되어 아두이노 환경에서 다이나믹셀을 빠르고 편리하게 개발할 수 있습니다.
+
+본 매뉴얼의 [다이나믹셀 쉴드 라이브러리](#다이나믹셀-쉴드-라이브러리) 항목을 참고하세요.
+
+**주의**
+
+1. 본 제품은 아두이노 제어기를 포함하지 않습니다. **아두이노 제어기는 별도로 구매하시기 바랍니다.**
+2. **다이나믹셀 X 시리즈와 호환되는 TTL 헤더가 한 개 기본장착 되어있습니다.**
+   (제품 패키지에 AX, MX, X 시리즈에 사용할 수 있는 헤더가 동봉되어 있습니다)
+3. 필요한 경우 동봉된 부품을 납땜해서 사용하시기 바랍니다.
+4. 일부 아두이노 MKR 쉴드는 사용하는 핀에 따라 다이나믹셀 쉴드 MKR과 완전하게 호환되지 않을 수 있습니다. 다이나믹셀 쉴드 MKR과 함께 사용할 경우 각 제품의 데이터시트를 참고하시기 바랍니다.
+
+# 시작하기
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/1Y7FLG1n-9k" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+**사용하고자하는 다이나믹셀에 맞는 전원을 공급해주세요.**
+
+# 제품 사양
+
+|              항목              | 사양                                                                                                                                            |
+|:------------------------------:|:------------------------------------------------------------------------------------------------------------------------------------------------|
+| VIN(DXL) 입력 전압<sup>1</sup> | 3.5 ~ 24 [V]                                                                                                                                    |
+|           동작 온도            | -10 ~ +80 [&deg;C]                                                                                                                              |
+|       커넥터<sup>2</sup>       | JST([S3B-EH]), Molex([5268-02A])<br />배터리 커넥터<sup>3</sup>([SMW250-02])<br />터미널 블럭([DG350-3.5-02P-14])                                   |
+|           통신 연결            | TTL Multidrop Bus (5V Level)                                                                                                                    |
+|             케이블             | ![](/img/parts/interface/mkr_shield/dc_jack_polarity.webp)<br />DC 잭 케이블. Type A, O.D: 5.5 [mm], I.D: 2.5 [mm]<br />XL-320 변환 케이블 |
+|              크기              | 65 x 25 [mm]                                                                                                                                    |
+|              무게              | 11 [g]                                                                                                                                          |
+
+<sup>1</sup> 12V를 지원하는 다이나믹셀 사용시 [ROBOTIS SMPS 12V 5A PS-10] 전원공급 장치를 추천합니다.
+<sup>2</sup> 한개의 JST 헤더가 기본 조립되어 있습니다. 필요한 경우 동봉된 커넥터를 사용하세요.
+<sup>3</sup> 배터리 커넥터는 다음의 로보티즈 배터리와 호환됩니다. [LB-010](https://www.robotis.com/shop/item.php?it_id=903-0143-000) 또는 [LB-020](https://www.robotis.com/shop/item.php?it_id=903-0277-000).
+
+:::danger
+
+![](/img/common/icon_warning.webp)
+**위험**
+(지시사항을 준수하지 않으면 심각한 부상이나 사망에 이를 수 있습니다.)
+
+- 제품 주변에 물, 가연성 물질/화기, 용제 등이 담긴 물건을 두지 마세요.
+- 제품이 동작 중일 때 손가락, 팔, 발가락 등 신체 일부를 제품 가까이에 두지 마세요.
+- 제품에서 이상한 냄새, 소음 또는 연기가 발생하면 즉시 동작을 멈추고 전원을 분리하세요.
+- 제품을 어린이의 손이 닿지 않는 곳에 보관하세요.
+- 배선 또는 케이블을 설치하거나 전원을 공급하기 전에 입력 전원의 극성을 확인하세요.
+
+:::
+
+
+:::warning
+
+![](/img/common/icon_warning.webp)
+**경고**
+(지시사항을 준수하지 않으면 가벼운 부상이나 제품 손상이 발생할 수 있습니다.)
+
+- 입력 전압, 전류, 동작 온도 등 제품의 공식 동작 환경 사양을 준수하세요.
+- 제품 동작 중 칼날이나 날카로운 물체를 삽입하지 마세요.
+
+:::
+
+
+:::warning
+
+![](/img/common/icon_warning.webp)
+**주의**
+(지시사항을 준수하지 않으면 경미한 부상이나 제품 손상이 발생할 수 있습니다.)
+
+- 제품을 분해하거나 개조하지 마세요.
+- 제품을 떨어뜨리거나 강한 충격을 가하지 마세요.
+- 전원이 공급되는 동안 DYNAMIXEL 케이블을 연결하거나 분리하지 마세요.
+
+:::
+
+
+## 지원하는 다이나믹셀
+
+다이나믹셀 쉴드 MKR은 `TTL` 기반의 다이나믹셀 제품을 지원합니다.
+
+| 다이나믹셀 제품 |                                                                 |                                                        |                                     |
+|:---------------:|:----------------------------------------------------------------|:-------------------------------------------------------|:------------------------------------|
+|     **AX**      | [AX-12W]<br/>[AX-12+/12A]<br/>[AX-18F/18A]                      |                                                        |                                     |
+|     **MX**      | [MX-12W]<br/>[MX-28T/AT]<br/> [MX-28T/AT(2.0)]                  | [MX-64T/AT]<br/> [MX-64T/AT(2.0)]                      | [MX-106T/AT]<br/> [MX-106T/AT(2.0)] |
+|     **XL**      | [XL-320]<br/>[XL330-M077-T]<br/> [XL330-M288-T]                 | [XL430-W250-T]<br/>[2XL430-W250-T]                     |                                     |
+|     **XC**      | [XC330-T288]<br/>[XC330-T181]<br/>[XC330-M288]<br/>[XC330-M181] | [XC430-W150-T]<br/> [XC430-W240-T]<br/>[2XC430-W250-T]<br/>[XC430-T150BB-T]<br/> [XC430-T240BB-T] |                                     |
+|     **XM**      |                                                                 | [XM430-W210-T]<br/> [XM430-W350-T]                     | [XM540-W150-T]<br/> [XM540-W270-T]  |
+|     **XH**      |                                                                 | [XH430-W210-T]<br/> [XH430-W350-T]                     | [XH540-W150-T]<br/> [XH540-W270-T]  |
+
+## 부품 목록
+
+제품 패키지에는 다음과 같은 부품이 포함되어 있습니다.
+
+- 다이나믹셀 쉴드 MKR (1)
+- JST 헤더([S3B-EH]) (2)
+- Molex 헤더([5268-02A]) (2)
+- 터미널 블럭([DG350-3.5-02P-14]) (1)
+- DC 잭 케이블 (1)
+- 배터리 커넥터([SMW250-02]) (1)
+- XL-320 변환 케이블 (1)
+
+# 각 부 명칭
+
+다이나믹셀 쉴드 MKR의 회로 도면은 아래 링크를 통해 다운로드 받을 수 있습니다.
+
+- [다이나믹셀 쉴드 MKR 회로도](https://www.robotis.com/service/download.php?no=1988)
+
+![](/img/parts/interface/mkr_shield/pinmap.webp)
+
+> 다이나믹셀 쉴드 MKR의 헤더는 아두이노 MKR 제어기를 기반으로 호환됩니다.
+
+|         항목         |                                     세부 설명                                     |
+|:--------------------:|:---------------------------------------------------------------------------------:|
+| DYNAMIXEL Ports(TTL) |                            TTL 기반의 다이나믹셀 지원                             |
+|       VIN(DXL)       | 다이나믹셀 전용 외부 전원 공급 포트. 아두이노 MKR 제어기에 전원을 공급할 수 없음. |
+|   +5V<sup>1</sup>    |         아두이노 MKR 제어기의 5V 전원을 다이나믹셀에 공급 (XL330 시리즈)          |
+|      Jumper Cap      |                 `VIN(DXL)` 과 `+5V` 중 다이나믹셀 전원 공급 선택                  |
+
+<sup>1</sup> 일부 아두이노 MKR 제어기는 연결된 USB 장치를 보호하기 위해 5V 전원 공급이 원활하지 않을 수 있습니다.
+
+![](/img/parts/interface/mkr_shield/mkr_pinmap.webp)
+
+> 아두이노 MKR 제어기 핀아웃 예시. 자세한 내용은 [아두이노 제품](https://www.arduino.cc/en/Main/Products)을 참고하세요.
+
+| 핀 번호 | 핀 명칭 | 세부 설명                                                                            |
+|:-------:|:-------:|:-------------------------------------------------------------------------------------|
+|   13    |   RX    | 다이나믹셀로부터 데이터를 수신받는 하드웨어 시리얼 입력 핀                           |
+|   14    |   TX    | 다이나믹셀에 데이터를 전송하는 하드웨어 시리얼 출력 핀                               |
+| 21(A6)  |  TX_EN  | 다이나믹셀의 TTL BUS 흐름을 제어하는 핀<br />- **HIGH** : 송신<br />- **LOW** : 수신 |
+
+# 연결 방법
+
+다이나믹셀 쉴드 MKR은 아두이노 MKR 제어기의 상단 또는 하단에 조립될 수 있습니다.
+하나의 아두이노 MKR 제어기에 여러 쉴드를 사용할 경우 사용하는 핀에 따른 호환여부에 주의하시기 바랍니다.
+**아두이노 MKR 제어기는 다이나믹셀 쉴드 MKR의 VIN(DXL) 포트로부터 전원을 공급받을 수 없습니다.**
+
+## 12V X 시리즈 다이나믹셀
+
+12V 입력을 지원하는 대부분의 X 시리즈에는 다음과 같은 연결을 추천합니다 (XL-320과 XL330 제외).
+PC와 연결된 USB로부터 아두이노 MKR 제어기의 전원 공급 및 시리얼 통신이 이루어지며, 12V SMPS로부터 다이나믹셀 쉴드 MKR에 연결된 다이나믹셀에 전원이 공급됩니다.
+ ![](/img/parts/interface/mkr_shield/DXL_MKRShield_info01.webp)
+
+## AX / MX 시리즈 다이나믹셀
+
+AX와 MX 시리즈 다이나믹셀은 Molex 커넥터를 사용합니다.
+동봉된 AX / MX 전용 커넥터를 비어있는 다이나믹셀 쉴드 MKR의 포트에 납땜하여 사용하거나 [로봇 케이블-X3P 180mm (변환용)]을 사용하세요.
+ ![](/img/parts/interface/mkr_shield/DXL_MKRShield_info02.webp)
+
+## XL330 (USB 전원)
+
+XL330 시리즈는 다이나믹셀 최초의 저전압 제품으로, 5V USB 전원에서 구동할 수 있습니다.
+다이나믹셀 쉴드 MKR의 [전원 선택 점퍼](#전원-선택-점퍼)를 `+5V`쪽으로 바꿔 꽂은 다음, 아두이노 MKR 제어기의 5V USB 전원을 다이나믹셀에 공급할 수 있습니다.
+
+일부 아두이노 MKR 제어기는 연결된 USB 장치를 보호하기 위해 5V 전원을 제한할 수 있습니다.
+
+![](/img/parts/interface/mkr_shield/DXL_MKRShield_info03.webp)
+
+아두이노 제어기에 프로그램이 업로드 되고나면, 1셀 리튬 계열의 배터리(3.7V)를 사용하여 각각 아두이노 MKR 제어기와 XL330 다이나믹셀에 전원을 공급하여 사용할 수도 있습니다.
+ ![](/img/parts/interface/mkr_shield/DXL_MKRShield_info04.webp)
+
+# 전원 선택 점퍼
+
+|                                                                                     VIN(DXL)을 통해 외부의 전원 사용시                                                                                      |                                                                                          아두이노 MKR 제어기의 5V USB 전원 사용시                                                                                          |
+|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+|                                                                      ![](/img/parts/interface/mkr_shield/select_vindxl.webp)                                                                       |                                                                                ![](/img/parts/interface/mkr_shield/select_5v.webp)                                                                                |
+| 외부의 전원 공급 장치로부터 `VIN(DXL)`를 통해 다이나믹셀의 전원을 공급할 경우, 터미널 블럭에 표시된 극성에 맞게 케이블을 연결하시기 바랍니다. **이때 아두이노 MKR 제어기의 전원을 별도로 공급해야 합니다.** | 아두이노 MKR 제어기의 `+5V` USB 전원을 다이나믹셀에 공급할 경우 **일부 아두이노 MKR 제어기의 내장된 퓨즈로 인해 충분한 5V 전원을 공급받지 못할 수 있습니다.** 사용하려는 아두이노 MKR 제어기의 자료를 참고하시기 바랍니다. |
+
+다이나믹셀 쉴드 MKR에 전원을 공급할 때 **전원의 극성**을 다시 한 번 확인해주세요.
+
+# 다이나믹셀 쉴드 라이브러리
+
+1. DYNAMIXEL2Arduino 라이브러리 : [깃허브 저장소][dynamixel2arduino github repository]
+2. DYNAMIXEL Shield 라이브러리 : [깃허브 저장소][dynamixel shield github repository]
+
+## 특징
+
+- `아두이노 MKR`과 `Portenta H7` 제어기에 호환됨
+- 다이나믹셀 프로토콜 1.0과 2.0을 모두 지원
+- DYNAMIXEL2Arduino 라이브러리에서 기본적으로 16개의 다이나믹셀 연결을 지원함.([config.h](https://github.com/ROBOTIS-GIT/Dynamixel2Arduino/blob/master/src/utility/config.h#L62))
+- SyncWrite 기능 지원
+- DYNAMIXEL Shield 라이브러리(v0.1.0 이후 버전)에서는 DYNAMIXEL2Arduino 라이브러리가 반드시 필요함
+
+## 라이브러리 설치
+
+**참고**
+아두이노 MKR 제어기를 아두이노 IDE에서 프로그램할 때에는 `Arduino SAMD Boards manager`가 아두이노 보드 매니저에 설치되어 있어야 합니다.
+
+아두이노 IDE에 라이브러리를 설치하는 방법은 아래와 같이 세 가지가 있습니다.
+
+1. **라이브러리 매니저를 활용하는 방법**
+2. Zip파일로 압축된 라이브러리를 불러오는 방법
+3. 수동으로 설치하는 방법
+
+각각의 방법은 [아두이노 공식 가이드]에서 찾아볼 수 있습니다.
+여기에서는 **라이브러리 매니저를 활용하는 방법**을 안내합니다.
+
+![](/img/common/library_manager_01.webp)
+
+아두이노 라이브러리 매니저에서 `dynamixel shield`를 검색하고 최신 버전을 설치합니다.
+
+![](/img/common/library_manager_03.webp)
+
+`전부 설치`를 선택해서 `Dynamixel2Arduino`를 설치합니다.
+
+![](/img/parts/interface/library_manager_04.webp)
+
+라이브러리가 모두 설치되면, 아래와 같이 DynamixelShield 항목 아래의 예제를 사용할 수 있습니다.
+
+![](/img/common/examples.webp)
+
+## 라이브러리 API
+
+### 다이나믹셀 쉴드(v0.1.0 이상))
+
+**주의**
+다이나믹셀 쉴드 라이브러리(v0.1.0 이상)를 사용하기 위해서는 [DYNAMIXEL2Arduino 라이브러리](#라이브러리-설치)를 설치해야 합니다.
+
+#### Dynamixel2Arduino 클래스
+
+- [begin()]
+- [getPortBaud()]
+- [ping()]
+- [scan()]
+- [getModelNumber()]
+- [setID()]
+- [setProtocol()]
+- [setBaudrate()]
+- [torqueOn()]
+- [torqueOff()]
+- [ledOn()]
+- [ledOff()]
+- [setOperatingMode()]
+- [setGoalPosition()]
+- [getPresentPosition()]
+- [setGoalVelocity()]
+- [getPresentVelocity()]
+- [setGoalPWM()]
+- [getPresentPWM()]
+- [setGoalCurrent()]
+- [getPresentCurrent()]
+- [readControlTableItem()]
+- [writeControlTableItem()]
+
+#### Master 클래스
+
+Dynamixel2Arduino 클래스는 Master 클래스로부터 다음의 함수를 상속받습니다.
+
+- [read()]
+- [write()]
+- [syncRead()]
+- [syncWrite()]
+- [bulkRead()]
+- [bulkWrite()]
+- [getLastLibErrCode()]
+
+#### RobotisRemoteController 클래스
+
+Remote Controller 클래스는 아두이노 MKR 제어기의 SoftwareSerial 기능을 활성화 해서 사용할 수 있습니다.
+
+- [begin()][rc100_begin]
+- [availableData()]
+- [readData()]
+- [availableEvent()]
+- [readEvent()]
+- [flushRx()]
+- [available()]
+- [read()]
+- [peek()]
+- [flush()]
+- [write()]
+
+# 예제
+
+## CAN2DYNAMIXEL
+
+CAN2DYNAMIXEL는 CAN 기반의 다이나믹셀 프로토콜을 다이나믹셀 프로토콜 2.0으로 변환하는 예제입니다.
+
+MCP2515를 사용하는 CAN shield board를 사용해야 하며, 107-Arduino-MCP2515 라이브러리는 아두이노 IDE의 Library Manager에서 검색 후 설치할 수 있습니다.
+
+### 예제 다운로드
+본 예제는 `DYNAMIXEL Shield library`에 포함되어 있으며 Arduino IDE의 **File > Examples > DynamixelShield > advanced > can2dynamixel**에서 찾을 수 있습니다.
+
+### 테스트 환경
+예제 테스트에 사용된 환경은 아래와 같습니다.
+
+- DYNAMIXEL
+  - TTL 통신이 지원되는 X 시리즈 (XL-320 제외)
+  - ID = 1, Baudrate = 1000000bps, Protocol 2.0
+- Controller
+  - Arduino MKR WAN 1300
+  - DYNAMIXEL Shield for Arduino MKR
+  - MKR CAN Shield
+- CAN Interface
+  - IXXAT USB-to-CAN V2
+- CAN Library
+  - 107-Arduino-MCP2515
+- Software
+  - IXXAT canAnalyser3 Mini
+  - Bitrate = 1000CiA (1000 kbit/s)
+  - Arduino IDE
+  - 다이나믹셀 쉴드 라이브러리
+
+**주의**
+- 예제에서 사용하는 Baudrate은 1,000,000 bps입니다. 다이나믹셀의 통신속도를 맞춰주세요.
+- 1,000,000 bps 이상의 통신속도를 사용할 경우 통신이 불안정할 수 있습니다.
+
+### 구성도
+
+![](/img/parts/interface/mkr_shield/examples_can2dynamixel_diagram.webp)
+
+### 추가 정보
+이 예제에서는 아래와 같은 구조의 `CAN Standard Protocol 2.0`이 사용되었습니다.
+
+| 1 Bit | 11 Bit | 1 Bit | 1 Bit | 1 Bit |  4 Bit  |  8 Byte  | 2 Byte | 2 Bit | 7 Bit | 3 Bit |
+|:-----:|:------:|:-----:|:-----:|:-----:|:-------:|:--------:|:------:|:-----:|:-----:|:-----:|
+|  SOF  | **ID** |  RTR  |  IDE  |  r0   | **DLC** | **Data** |  CRC   |  ACK  |  EOF  |  IFS  |
+
+- **ID** : 다이나믹셀 ID
+- **DLC** : Data의 크기(바이트)
+- **Data** : [Instruction](/docs/dxl/protocol/protocol2/#instruction)(1 Byte) + [Parameters](/docs/dxl/protocol/protocol2/#parameters)(0 ~ 7 Byte)
+
+**참고** : CAN2DYNAMIXEL은 Data 필드의 크기 제한으로 인해 `Sync` 또는 `Bulk`를 지원하지 않습니다.
+
+IXXAT canAnalyser3 Mini 프로그램의 Transmit 부분에서는 아래와 같이 `ID (hex)`와 `Data (hex)`를 입력하면 나머지 필드가 자동으로 완성됩니다.
+
+![](/img/parts/interface/mkr_shield/can2dynamixel_ixxat_cananalyser3_mini_example.webp)
+
+## RCPWM2DYNAMIXEL
+
+RCPWM2DYNAMIXEL은 다이나믹셀을 RC로 제어하는 예제입니다.
+RC 조종기에서 송신된 명령어가 RC 수신기에서 PWM 신호로 출력되면 아두이노 MKR 제어기에서 이를 다이나믹셀 프로토콜 2.0으로 변환합니다.
+
+RC 수신기의 전원 인가시 갑작스러운 움직임으로 인한 사고를 방지하기 위한 `Soft Start` 기능과, RC 수신기의 전원이 차단되었을 때 안전한 위치로 다이나믹셀을 이동시키는 `Fail Safe` 기능이 구현되어 있습니다.
+
+### 예제 다운로드
+본 예제는 `DYNAMIXEL Shield library`에 포함되어 있으며 Arduino IDE의 **File > Examples > DynamixelShield > advanced > rc_pwm2dynamixel**에서 찾을 수 있습니다.
+
+### 테스트 환경
+예제 테스트에 사용된 환경은 아래와 같습니다.
+
+- DYNAMIXEL
+  - TTL 통신이 지원되는 X 시리즈 (XL-320 제외)
+  - ID = 1 ~ 7, Baudrate = 1000000bps, Protocol 2.0
+- Controller
+  - Arduino MKR Zero
+  - DYNAMIXEL Shield for Arduino MKR
+  - Futaba T10J 조종기
+- RC Interface
+  - Futaba R3008SB 수신기
+- Software
+  - Arduino IDE
+  - 다이나믹셀 쉴드 라이브러리
+
+**참고**: 사용가능한 다이나믹셀의 개수는 수신기와 아두이노 제어기의 입력 가능한 채널개수에 따라 달라질 수 있습니다.
+
+**주의**: 다이나믹셀 X 시리즈의 기본 통신속도는 57600 bps이며, 예제에서 사용하는 Baudrate은 1000000 bps입니다.  다이나믹셀과 예제의 통신속도를 동일하게 설정하시기 바랍니다.
+
+### 구성도
+![개요](/img/parts/interface/mkr_shield/examples_rcpwm2dynamixel_diagram.webp)
+
+### 배선도
+RC 수신기와 DYNAMIXEL Shield MKR은 아래와 같이 연결할 수 있습니다.
+
+![connection_diagram](/img/parts/interface/mkr_shield/connection_diagram.webp)
+
+# 다운로드
+
+- [다이나믹셀 쉴드 MKR 회로도(PDF)](https://www.robotis.com/service/download.php?no=1988)
+  ![](/img/parts/interface/mkr_shield/mkr_schematic.webp)
+
+
+[ax-12w]: /docs/dxl/ax/ax-12w/
+[ax-12+/12a]: /docs/dxl/ax/ax-12a/
+[ax-18f/18a]: /docs/dxl/ax/ax-18a/
+[mx-12w]: /docs/dxl/mx/mx-12w/
+[mx-28t/at]: /docs/dxl/mx/mx-28/
+[mx-28t/at(2.0)]: /docs/dxl/mx/mx-28-2/
+[mx-64t/at]: /docs/dxl/mx/mx-64/
+[mx-64t/at(2.0)]: /docs/dxl/mx/mx-64-2/
+[mx-106t/at]: /docs/dxl/mx/mx-106/
+[mx-106t/at(2.0)]: /docs/dxl/mx/mx-106-2/
+[xl-320]: /docs/dxl/x/xl320/
+[xl330-m077-t]: /docs/dxl/x/xl330-m077/
+[xl330-m288-t]: /docs/dxl/x/xl330-m288/
+[xl430-w250-t]: /docs/dxl/x/xl430-w250/
+[2xl430-w250-t]: /docs/dxl/x/2xl430-w250/
+[xc430-w150-t]: /docs/dxl/x/xc430-w150/
+[xc430-w240-t]: /docs/dxl/x/xc430-w240/
+[xc430-t150bb-t]: /docs/dxl/x/xc430-t150bb/
+[xc430-t240bb-t]: /docs/dxl/x/xc430-t240bb/
+[XC330-T288]: /docs/dxl/x/xc330-t288
+[XC330-T181]: /docs/dxl/x/xc330-t181
+[XC330-M288]: /docs/dxl/x/xc330-m288
+[XC330-M181]: /docs/dxl/x/xc330-m181
+[2xc430-w250-t]: /docs/dxl/x/2xc430-w250/
+[xm430-w210-t]: /docs/dxl/x/xm430-w210/
+[xm430-w350-t]: /docs/dxl/x/xm430-w350/
+[xh430-w210-t]: /docs/dxl/x/xh430-w210/
+[xm540-w150-t]: /docs/dxl/x/xm540-w150/
+[xm540-w270-t]: /docs/dxl/x/xm540-w270/
+[xh430-w350-t]: /docs/dxl/x/xh430-w350/
+[xh540-w150-t]: /docs/dxl/x/xh540-w150/
+[xh540-w270-t]: /docs/dxl/x/xh540-w270/
+[s3b-eh]: http://www.jst-mfg.com/product/pdf/eng/eEH.pdf
+[5268-02a]: https://www.molex.com/molex/products/part-detail/pcb_headers/0022057025
+[smw250-02]: http://product.ic114.com/PDF/S/SMW250-NN.pdf
+[dg350-3.5-02p-14]: http://www.degson.com/en/downpdf/id/542.html
+[robotis smps 12v 5a ps-10]: https://www.robotis.com/shop/item.php?it_id=903-0124-200
+[로봇 케이블-x3p 180mm (변환용)]: https://www.robotis.com/shop/item.php?it_id=903-0251-000
+[ln-101]: /docs/parts/interface/ln-101/
+[rc-100]: /docs/parts/communication/rc-100/
+[아두이노 공식 가이드]: https://www.arduino.cc/en/Guide/Libraries
+[dynamixel2arduino github repository]: https://github.com/ROBOTIS-GIT/Dynamixel2Arduino
+[dynamixel shield github repository]: https://github.com/ROBOTIS-GIT/DynamixelShield
+[begin()]: /docs/popup/arduino_api/begin/
+[getportbaud()]: /docs/popup/arduino_api/getPortBaud/
+[ping()]: /docs/popup/arduino_api/ping/
+[scan()]: /docs/popup/arduino_api/scan/
+[getmodelnumber()]: /docs/popup/arduino_api/getModelNumber/
+[setid()]: /docs/popup/arduino_api/setID/
+[setprotocol()]: /docs/popup/arduino_api/setProtocol/
+[setbaudrate()]: /docs/popup/arduino_api/setBaudrate/
+[torqueon()]: /docs/popup/arduino_api/torqueOn/
+[torqueoff()]: /docs/popup/arduino_api/torqueOff/
+[ledon()]: /docs/popup/arduino_api/ledOn/
+[ledoff()]: /docs/popup/arduino_api/ledOff/
+[setoperatingmode()]: /docs/popup/arduino_api/setOperatingMode/
+[setgoalposition()]: /docs/popup/arduino_api/setGoalPosition/
+[getpresentposition()]: /docs/popup/arduino_api/getPresentPosition/
+[setgoalvelocity()]: /docs/popup/arduino_api/setGoalVelocity/
+[getpresentvelocity()]: /docs/popup/arduino_api/getPresentVelocity/
+[setgoalpwm()]: /docs/popup/arduino_api/setGoalPWM/
+[getpresentpwm()]: /docs/popup/arduino_api/getPresentPWM/
+[setgoalcurrent()]: /docs/popup/arduino_api/setGoalCurrent/
+[getpresentcurrent()]: /docs/popup/arduino_api/getPresentCurrent/
+[readcontroltableitem()]: /docs/popup/arduino_api/readControlTableItem/
+[writecontroltableitem()]: /docs/popup/arduino_api/writeControlTableItem/
+[read()]: /docs/popup/arduino_api/read/
+[write()]: /docs/popup/arduino_api/write/
+[syncread()]: /docs/popup/arduino_api/syncRead/
+[syncwrite()]: /docs/popup/arduino_api/syncWrite/
+[bulkread()]: /docs/popup/arduino_api/bulkRead/
+[bulkwrite()]: /docs/popup/arduino_api/bulkWrite/
+[getlastliberrcode()]: /docs/popup/arduino_api/getLastLibErrCode/
+[rc100_begin]: /docs/popup/arduino_api/rc100_begin/
+[availabledata()]: /docs/popup/arduino_api/availableData/
+[readdata()]: /docs/popup/arduino_api/readData/
+[availableevent()]: /docs/popup/arduino_api/availableEvent/
+[readevent()]: /docs/popup/arduino_api/readEvent/
+[flushrx()]: /docs/popup/arduino_api/flushRx/
+[available()]: /docs/popup/arduino_api/available/
+[read()]: /docs/popup/arduino_api/read/
+[peek()]: /docs/popup/arduino_api/peek/
+[flush()]: /docs/popup/arduino_api/flush/
+[write()]: /docs/popup/arduino_api/write/
