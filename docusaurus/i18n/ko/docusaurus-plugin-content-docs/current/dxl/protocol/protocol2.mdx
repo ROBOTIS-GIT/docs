@@ -73,13 +73,13 @@ CPU 에서는 일반적으로 UART_STATUS 를 표시해주는 REGISTER 내에 �
 
 TXD_BUFFER_READY_BIT 의 경우는 Serial 통신에서 한 Byte 를 송신할 때 사용되며 그 예는 다음과 같습니다.
 
-```c
-TxDByte(byte bData)
-{
-  while(!TXD_BUFFER_READY_BIT); //wait until data can be loaded.
-  SerialTxDBuffer = bData; //data load to TxD buffer
-}
-```
+  ```c
+  TxDByte(byte bData)
+  {
+    while(!TXD_BUFFER_READY_BIT); //wait until data can be loaded.
+    SerialTxDBuffer = bData; //data load to TxD buffer
+  }
+  ```
 
 Direction을 전환하는 시점에서는 TXD_SHIFT_REGISTER_EMPTY_BIT를 확인해야 합니다. 다음은 Instruction packet을 전송하는 예제 프로그램입니다.
 
