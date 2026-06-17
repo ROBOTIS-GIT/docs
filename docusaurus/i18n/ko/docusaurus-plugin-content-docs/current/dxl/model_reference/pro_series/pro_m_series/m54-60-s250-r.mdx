@@ -94,9 +94,9 @@ import CommonLink from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl
 ### EEPROM Area 컨트롤 테이블
 | Address | Size(Byte) | Data Name                                   | Access | 초기<br />값 |               범위                |             단위             |
 |:-------:|:--------------:|:--------------------------------------------|:------:|:------------------:|:----------------------------------:|:----------------------------:|
-|    0    |       2        | [모델 번호](#model-number0)               |   R    |       46,352       |                 -                  |              -               |
+|    0    |       2        | [Model Number](#model-number0)               |   R    |       46,352       |                 -                  |              -               |
 |    2    |       4        | Model Information     |   R    |         -          |                 -                  |              -               |
-|    6    |       1        | [펌웨어 버전](#firmware-version6)       |   R    |         -          |                 -                  |              -               |
+|    6    |       1        | [Firmware Version](#firmware-version6)       |   R    |         -          |                 -                  |              -               |
 |    7    |       1        | [ID](#id7)                                   |   RW   |         1          |              0 ~ 252               |              -               |
 |    8    |       1        | [Baud Rate](#baud-rate8)                     |   RW   |         1          |               0 ~ 13               |              -               |
 |    9    |       1        | [Return Delay Time](#return-delay-time9)     |   RW   |        250         |              0 ~ 255               |              -               |
@@ -140,7 +140,7 @@ import CommonLink from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl
 |   611   |       4        | [Present Position](#goal-position596-present-position611)             |   R    |         -          |                          -                          |          1 [pulse]           |
 |   615   |       4        | [Present Velocity](#present-velocity615)             |   R    |         -          |                          -                          |     0.00397746 [rev/min]     |
 |   621   |       2        | [Present Current](#present-current621)               |   R    |         -          |                          -                          |        16.11328 [mA]         |
-|   623   |       2        | [Present 입력 전압](#present-input-voltage623)   |   R    |         -          |                          -                          |           0.1 [V]            |
+|   623   |       2        | [Present Input Voltage](#present-input-voltage623)   |   R    |         -          |                          -                          |           0.1 [V]            |
 |   625   |       1        | [Present Temperature](#present-temperature625)       |   R    |         -          |                          -                          |          1 [&deg;C]          |
 |   626   |       2        | [External Port Data 1](#external-port-mode-external-port-data)       |  R/RW  |         0          |                      0 ~ 4,095                      |              -               |
 |   628   |       2        | [External Port Data 2](#external-port-mode-external-port-data)       |  R/RW  |         0          |                      0 ~ 4,095                      |              -               |
@@ -162,14 +162,14 @@ import CommonLink from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl
 
 :::
 <a id="model-number"></a>
-#### 모델 번호(0)
+#### Model Number(0)
 이 Address에는 DYNAMIXEL의 모델 번호가 저장됩니다.
 
 |  모델명   |  모델 번호  |
 |:-------------:|:--------------:|
 | M54-60-S250-R | 46352 (0xB510) |
 <a id="firmware-version"></a>
-#### 펌웨어 버전(6)
+#### Firmware Version(6)
 이 Address에는 DYNAMIXEL의 펌웨어 버전이 저장됩니다.
 <a id="id"></a>
 #### ID(7)
@@ -248,7 +248,7 @@ import CommonLink from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl
 #### Present Current(621)
 이 값은 현재 전류를 나타냅니다. 자세한 내용은 [Goal Torque(604)](#goal-torque604)을 참고하세요.
 <a id="present-input-voltage"></a>
-#### Present 입력 전압(623)
+#### Present Input Voltage(623)
 이 값은 현재 공급되는 전압을 나타냅니다. 자세한 내용은 [Min/Max Voltage Limit(24, 22)](#minmax-voltage-limit22-24)을 참고하세요.
 <a id="present-temperature"></a>
 #### Present Temperature(625)
@@ -264,7 +264,7 @@ import CommonLink from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl
 <ControlTableHardwareErrorStatus />
 
 
-## How to Assemble
+## 조립 방법
 ### Option Frame Assembly
 + FRP54-H110K, FRP54-H120K Set
 
@@ -278,8 +278,8 @@ import CommonLink from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl
 
   ![](/img/dxl/model_reference/pro_series/frp54-h210k-assy.webp)
 
-## Maintenance
-## Reference
+## 유지보수
+## 참고자료
 :::note
 
 **참고**

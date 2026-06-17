@@ -47,7 +47,7 @@ import Molex485Ttl from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dx
 import DownloadCenterNotice from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/download_center_notice.mdx';
 import TtlConnection from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/485_ttl_connection.mdx';
 import CommonLink from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/common_link.mdx';
-import Profile설명 from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/profile_description.mdx';
+import ProfileDescription from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/profile_description.mdx';
 
 ![](/img/dxl/model_reference/mx_series/mx-64ar_product.webp)
 ![](/img/dxl/model_reference/mx_series/mx-64at_product.webp)
@@ -69,7 +69,7 @@ import Profile설명 from '@site/i18n/ko/docusaurus-plugin-content-docs/current/
 | 무게                 | MX-64AR/AT: 135 [g]<br /> MX-64R/T: 126 [g]                                                                                                                                                    |
 | 크기 (W x H x D) | 40.2 x 61.1 x 41 [mm]                                                                                                                                                                         |
 | 기어비             | 200 : 1                                                                                                                                                                                       |
-| 정지 Torque           | 5.5 [N.m] (at 11.1 [V], 3.9 [A], 1.410 [Nm/A])<br />6.0 [N.m] (at 12 [V], 4.1 [A], 1.463 [Nm/A])<br />7.3 [N.m] (at 14.8 [V], 5.2 [A], 1.404 [Nm/A])                                            |
+| Stall Torque           | 5.5 [N.m] (at 11.1 [V], 3.9 [A], 1.410 [Nm/A])<br />6.0 [N.m] (at 12 [V], 4.1 [A], 1.463 [Nm/A])<br />7.3 [N.m] (at 14.8 [V], 5.2 [A], 1.404 [Nm/A])                                            |
 | 무부하 속도          | 58 [rev/min] (at 11.1 [V])<br />63 [rev/min] (at 12 [V])<br />78 [rev/min] (at 14.8 [V])                                                                                                       |
 | Radial Load            | `1` 40 [N] (10 [mm] away from the horn)                                                                                                                                                       |
 | Axial Load             | `1` 20 [N]                                                                                                                                                                                    |
@@ -107,8 +107,8 @@ import Profile설명 from '@site/i18n/ko/docusaurus-plugin-content-docs/current/
 |    0    |     2      | [Model Number](#model-number0)                | 모델 번호                              |   R    |        311         |
 |    2    |     4      | Model Information      | Model Information                         |   R    |         -          |
 |    6    |     1      | [Firmware Version](#firmware-version6)        | 펌웨어 버전                          |   R    |         -          |
-|    7    |     1      | [ID](#id7)                                    | 다이나믹셀 ID                              |   RW   |         1          |
-|    8    |     1      | [Baud Rate](#baud-rate8)                      | Communication 통신 속도                   |   RW   |         1          |
+|    7    |     1      | [ID](#id7)                                    | DYNAMIXEL ID                              |   RW   |         1          |
+|    8    |     1      | [Baud Rate](#baud-rate8)                      | Communication Baud Rate                   |   RW   |         1          |
 |    9    |     1      | [Return Delay Time](#return-delay-time9)      | 응답 지연 시간                       |   RW   |        250         |
 |   10    |     1      | [Drive Mode](#drive-mode10)                    | Drive Mode                                |   RW   |         0          |
 |   11    |     1      | [Operating Mode](#operating-mode11)            | 동작 모드                            |   RW   |         3          |
@@ -125,15 +125,15 @@ import Profile설명 from '@site/i18n/ko/docusaurus-plugin-content-docs/current/
 |   44    |     4      | [Velocity Limit](#velocity-limit44)            | Maximum Velocity Limit                    |   RW   |        285         |
 |   48    |     4      | [Max Position Limit](#minmax-position-limit48-52)    | Maximum Position Limit                    |   RW   |       4,095        |
 |   52    |     4      | [Min Position Limit](#minmax-position-limit48-52)    | Minimum Position Limit                    |   RW   |         0          |
-|   63    |     1      | [Shutdown](#shutdown63)                        | Shutdown 오류 정보                |   RW   |         52         |
+|   63    |     1      | [Shutdown](#shutdown63)                        | Shutdown Error Information                |   RW   |         52         |
 
 ### RAM 영역 컨트롤 테이블
 
 | Address | Size(Byte) | Data Name                                         | 설명                              | Access | 초기<br />값 |
 |:-------:|:----------:|:--------------------------------------------------|:-----------------------------------------|:------:|:------------------:|
-|   64    |     1      | [Torque Enable](#torque-enable64)                   | 모터 Torque On/Off                      |   RW   |         0          |
+|   64    |     1      | [Torque Enable](#torque-enable64)                   | Motor Torque On/Off                      |   RW   |         0          |
 |   65    |     1      | [LED](#led65)                                       | Status LED On/Off                        |   RW   |         0          |
-|   68    |     1      | [Status Return Level](#status-return-level68)       | Status Return 방식 선택            |   RW   |         2          |
+|   68    |     1      | [Status Return Level](#status-return-level68)       | Select Types of Status Return            |   RW   |         2          |
 |   69    |     1      | [Registered Instruction](#registered-instruction69) | REG_WRITE Instruction Flag               |   R    |         0          |
 |   70    |     1      | [Hardware Error Status](#hardware-error-status70)   | Hardware Error Status                    |   R    |         0          |
 |   76    |     2      | [Velocity I Gain](#velocity-pi-gain76-78)               | I Gain of Velocity                       |   RW   |        1920        |
@@ -152,14 +152,14 @@ import Profile설명 from '@site/i18n/ko/docusaurus-plugin-content-docs/current/
 |   116   |     4      | [Goal Position](#goal-position116)                   | Desired Position                         |   RW   |         -          |
 |   120   |     2      | [Realtime Tick](#realtime-tick120)                   | Count Time in Millisecond                |   R    |         -          |
 |   122   |     1      | [Moving](#moving122)                                 | Movement Flag                            |   R    |         0          |
-|   123   |     1      | [Moving Status](#moving-status123)                   | Detailed Information of 이동 상태  |   R    |         0          |
+|   123   |     1      | [Moving Status](#moving-status123)                   | Detailed Information of Movement Status  |   R    |         0          |
 |   124   |     2      | [Present PWM](#present-pwm124)                       | Present PWM Value                        |   R    |         -          |
 |   126   |     2      | [Present Current](#present-current126)               | Present Current Value                    |   R    |         -          |
 |   128   |     4      | [Present Velocity](#present-velocity128)             | Present Velocity Value                   |   R    |         -          |
 |   132   |     4      | [Present Position](#present-position132)             | Present Position Value                   |   R    |         -          |
 |   136   |     4      | [Velocity Trajectory](#velocity-trajectory136)       | Desired Velocity Trajectory from Profile |   R    |         -          |
 |   140   |     4      | [Position Trajectory](#position-trajectory140)       | Desired Position Trajectory from Profile |   R    |         -          |
-|   144   |     2      | [Present Input Voltage](#present-input-voltage144)   | Present 입력 전압                    |   R    |         -          |
+|   144   |     2      | [Present Input Voltage](#present-input-voltage144)   | Present Input Voltage                    |   R    |         -          |
 |   146   |     1      | [Present Temperature](#present-temperature146)       | Present Internal Temperature             |   R    |         -          |
 |   168   |     2      | [Indirect Address 1](#indirect-address-indirect-data)           | Indirect Address 1                       |   RW   |        224         |
 |   170   |     2      | [Indirect Address 2](#indirect-address-indirect-data)           | Indirect Address 2                       |   RW   |        225         |
@@ -436,7 +436,7 @@ Hardware Error Status(70)는 하드웨어 오류 상태를 나타냅니다.
 
 ### Profile이란?
 
-<Profile설명 />
+<ProfileDescription />
 
 ### 인증
 표기되지 않은 인증에 대해서는 별도로 문의하세요.

@@ -2,10 +2,10 @@
 DYNAMIXEL-Y는 Multi-turn 위치 정보를 백업하므로 전원이 차단된 후에도 Multi-turn 위치가 보존됩니다. 이 값을 초기화하려면 Multi-turn Clear Packet이 필요합니다. Multi-turn Clear 후 DYNAMIXEL은 재부팅됩니다.
 Multi-turn Backup 배터리를 교체한 후에는 정상 동작을 위해 반드시 이 작업을 수행해야 합니다.
 
-| Packet 종류         | P1   | P2 ~ P5                            | 설명                                                                                                                                                                                                                 |
+| Packet Type         | P1   | P2 ~ P5                            | 설명                                                                                                                                                                                                                 |
 |:-------------------:|:----:|:----------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Multi-turn Clear    | 0x01 | 고정값<br />(0x44 0x58 0x4C 0x22) | 현재 위치(Present Position) 값을 모터 기준 1회전 이내의 절대 위치 값으로 초기화합니다. 정지된 상태에서만 Clear할 수 있습니다.<br />Torque Enable 상태에서 Clear Instruction Packet을 전송할 경우 Status Packet의 Error 필드에 Result Fail(0x01)이 표시됩니다. |
-| Error Clear         | 0x02 | 고정값<br />(0x45 0x52 0x43 0x4C) | DYNAMIXEL에 발생한 Error를 Clear합니다.<br />Clear가 불가능한 Error가 있거나 Clear 조건이 아닌 경우 Error는 Clear되지 않으며, Status Packet의 Error 필드에 Result Fail(0x01)이 표시됩니다.                              |
+| Multi-turn Clear    | 0x01 | Fixed value<br />(0x44 0x58 0x4C 0x22) | 현재 위치(Present Position) 값을 모터 기준 1회전 이내의 절대 위치 값으로 초기화합니다. 정지된 상태에서만 Clear할 수 있습니다.<br />Torque Enable 상태에서 Clear Instruction Packet을 전송할 경우 Status Packet의 Error 필드에 Result Fail(0x01)이 표시됩니다. |
+| Error Clear         | 0x02 | Fixed value<br />(0x45 0x52 0x43 0x4C) | DYNAMIXEL에 발생한 Error를 Clear합니다.<br />Clear가 불가능한 Error가 있거나 Clear 조건이 아닌 경우 Error는 Clear되지 않으며, Status Packet의 Error 필드에 Result Fail(0x01)이 표시됩니다.                              |
 
 
 :::note

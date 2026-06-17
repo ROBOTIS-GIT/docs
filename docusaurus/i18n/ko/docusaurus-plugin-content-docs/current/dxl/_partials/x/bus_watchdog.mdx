@@ -5,11 +5,11 @@ Bus Watchdog(98)은 특정할 수 없는 오류로 제어기와 DYNAMIXEL 간 �
 |:------|:-------:|:-----------------------------------------------------------|
 | 범위  |    0    | Bus Watchdog 기능 비활성화, Bus Watchdog Error 해제 |
 | 범위  | 1 ~ 127 | Bus Watchdog 활성화(단위: 20 [msec])                |
-| 범위  |   -1    | Bus Watchdog Error 상태                              |
+| 범위  |   -1    | Bus Watchdog Error Status                              |
 
 Bus Watchdog 기능은 [Torque Enable(64)]가 '1'(Torque ON)일 때 제어기와 DYNAMIXEL의 통신 간격(시간)을 감시합니다.
 측정된 통신 간격이 Bus Watchdog(98)의 설정값보다 크면 DYNAMIXEL은 정지하고, Bus Watchdog(98)은 '-1'(Bus Watchdog Error)로 변경됩니다.
-Bus Watchdog Error 상태가 되면 Goal Value([Goal PWM(100)], [Goal Current(102)], [Goal Velocity(104)], [Goal Position(116)])의 Access는 읽기 전용(Read Only)으로 변경됩니다.
+Bus Watchdog Error Status가 되면 Goal Value([Goal PWM(100)], [Goal Current(102)], [Goal Velocity(104)], [Goal Position(116)])의 Access는 읽기 전용(Read Only)으로 변경됩니다.
 따라서 Goal Value에 새 값을 쓰면 Status Packet은 Error 필드를 통해 Data Range Error를 전송합니다.
 Bus Watchdog(98)의 값을 '0'으로 변경하면 Bus Watchdog Error가 해제됩니다.
 

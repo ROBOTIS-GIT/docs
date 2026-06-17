@@ -1,6 +1,6 @@
 Profile은 모터 구동 시 급격하게 변하는 속도와 가속도를 제어하여 진동, 소음 및 모터의 부하를 줄이는 가감속 제어 방식입니다.
 속도를 기준으로 가속과 감속을 제어하기 때문에 Velocity Profile이라고도 합니다.
-이 장치는 아래의 3가지 Profile 형태를 제공합니다.
+이 장치는 아래의 3가지 Profile Type을 제공합니다.
 Profile은 일반적으로 [Profile Velocity(560)]와 [Profile Acceleration(556)]의 조합으로 선택됩니다.
 Trapezoidal Profile은 예외적으로 총 이동 거리(&Delta;Pos, 목표 위치와 현재 위치의 차이)를 추가로 고려하여 선택됩니다.
 
@@ -17,15 +17,15 @@ Trapezoidal Profile은 예외적으로 총 이동 거리(&Delta;Pos, 목표 위�
 <div class="notice--success">
 1. Instruction이 통신 버스를 통해 수신되어 [Goal Position(564)](#goal_position564)에 등록됩니다.
 2. [Profile Velocity(560)](#profile-velocity560)와 [Profile Acceleration(556)](#profile-acceleration556)을 기준으로 가속 시간(t<sub>1</sub>)이 계산됩니다.
-3. [Profile Velocity(560)](#profile-velocity560), [Profile Acceleration(556)](#profile-acceleration556), 총 이동 거리(&Delta;Pos, 목표 위치와 현재 위치의 차이)에 따라 Profile 형태가 결정됩니다.
-4. 선택된 Profile 형태는 [Moving Status(571)](#moving-status571)에 저장됩니다.
+3. [Profile Velocity(560)](#profile-velocity560), [Profile Acceleration(556)](#profile-acceleration556), 총 이동 거리(&Delta;Pos, 목표 위치와 현재 위치의 차이)에 따라 Profile Type이 결정됩니다.
+4. 선택된 Profile Type은 [Moving Status(571)](#moving-status571)에 저장됩니다.
 5. 장치는 Profile에서 계산된 목표 궤적에 따라 구동됩니다.
 6. Profile로 계산된 목표 속도 궤적과 목표 위치 궤적은 각각 [Velocity Trajectory(584)](#velocity-trajectory584)와 [Position Trajectory(588)](#position-trajectory588)에 저장됩니다.
 </div>
 
-| 조건                                                          | Profile 형태                            |
+| 조건                                                          | Profile Type                            |
 |:--------------------------------------------------------------|:---------------------------------------|
-| Profile Velocity(560) = 0                                     | Profile 미사용<br />(Step Instruction) |
+| Profile Velocity(560) = 0                                     | Profile Not Used<br />(Step Instruction) |
 | (Profile Velocity(560) ≠ 0) & (Profile Acceleration(556) = 0) | Rectangular Profile                    |
 | (Profile Velocity(560) ≠ 0) & (Profile Acceleration(556) ≠ 0) | Trapezoidal Profile                    |
 

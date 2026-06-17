@@ -83,9 +83,9 @@ import CommonLink from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl
 ### EEPROM Area 컨트롤 테이블
 | Address | Size(Byte) | Data Name                                   | Access | 초기<br />값 |               범위                |    단위    |
 |:-------:|:--------------:|:--------------------------------------------|:------:|:------------------:|:----------------------------------:|:----------:|
-|    0    |       2        | [모델 번호](#model-number0)               |   R    |       35,072       |                 -                  |     -      |
+|    0    |       2        | [Model Number](#model-number0)               |   R    |       35,072       |                 -                  |     -      |
 |    2    |       4        | Model Information     |   R    |         -          |                 -                  |     -      |
-|    6    |       1        | [펌웨어 버전](#firmware-version6)       |   R    |         -          |                 -                  |     -      |
+|    6    |       1        | [Firmware Version](#firmware-version6)       |   R    |         -          |                 -                  |     -      |
 |    7    |       1        | [ID](#id7)                                   |   RW   |         1          |              0 ~ 252               |     -      |
 |    8    |       1        | [Baud Rate](#baud-rate8)                     |   RW   |         1          |               0 ~ 13               |     -      |
 |    9    |       1        | [Return Delay Time](#return-delay-time9)     |   RW   |        250         |              0 ~ 255               |     -      |
@@ -129,7 +129,7 @@ import CommonLink from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl
 |   611   |       4        | [Present Position](#present-position611)             |   R    |         -          |                          -                          | 1 [pulse]  |
 |   615   |       4        | [Present Velocity](#present-velocity615)             |   R    |         -          |                          -                          |     -      |
 |   621   |       2        | [Present Current](#present-current621)               |   R    |         -          |                          -                          |     -      |
-|   623   |       2        | [Present 입력 전압](#present-input-voltage623)   |   R    |         -          |                          -                          |  0.1 [V]   |
+|   623   |       2        | [Present Input Voltage](#present-input-voltage623)   |   R    |         -          |                          -                          |  0.1 [V]   |
 |   625   |       1        | [Present Temperature](#present-temperature625)       |   R    |         -          |                          -                          | 1 [&deg;C] |
 |   626   |       2        | [External Port Data 1](#external-port-mode-external-port-data)       |  R/RW  |         0          |                      0 ~ 4,095                      |     -      |
 |   628   |       2        | [External Port Data 2](#external-port-mode-external-port-data)       |  R/RW  |         0          |                      0 ~ 4,095                      |     -      |
@@ -151,14 +151,14 @@ import CommonLink from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl
 
 :::
 <a id="model-number"></a>
-#### 모델 번호(0)
+#### Model Number(0)
 이 Address에는 DYNAMIXEL의 모델 번호가 저장됩니다.
 
 |  모델명   |  모델 번호  |
 |:-------------:|:--------------:|
 | L42-10-S300-R | 35072 (0x8900) |
 <a id="firmware-version"></a>
-#### 펌웨어 버전(6)
+#### Firmware Version(6)
 이 Address에는 DYNAMIXEL의 펌웨어 버전이 저장됩니다.
 <a id="id"></a>
 #### ID(7)
@@ -230,7 +230,7 @@ The DYNAMIXEL can protect itself by detecting dangerous situations that could oc
 #### Position PID Gain(594, 592, 590)
 These Gains are used in Position Control Mode. Below figure is a block diagram describing the Position Control Mode. K<sub>P</sub>D, K<sub>P</sub>I, K<sub>P</sub>P stands for Position D Gain, Position I Gain and Position P Gain respectively.
 
-| Gain 값 범위 |
+| Gain Value Range |
 |:----------------:|
 |    0 ~ 32,767    |
 
@@ -240,7 +240,7 @@ These Gains are used in Position Control Mode. Below figure is a block diagram d
 Desired position can be set with Goal Position(596). This value can't be smaller than the Min Position Limit(40) or larger than Max Position Limit(36).
 When CW/CCW Angle Limit are exceeded the status packet sends an Angle limit error bit (bit 1) to 1. The alarm LED is triggered and initiate shutdown.
 
-|     Model     |    Angle 범위     | Position 범위 |                                                  설명                                                   |
+|     Model     |    Angle Range     | Position Range |                                                  설명                                                   |
 |:-------------:|:------------------:|:--------------:|:--------------------------------------------------------------------------------------------------------------:|
 | L42-10-S300-R | 0&deg; ~ 360 &deg; |   0 ~ 4,095    | ![](/img/dxl/model_reference/pro_series/pro_l_series/l42-10-s300-r/l42_angle_position.webp)<br />![](/img/dxl/model_reference/pro_series/pro_l_series/l42-10-s300-r/l42_goal_angle_formula.webp) |
 <a id="goal-velocity"></a>
@@ -293,7 +293,7 @@ For more details, please refer to the [Goal Velocity(600)](#goal-velocity600).
 |:-------------------------------------------------------------------------------:|
 | A = V * 8,250 / 2,048<br />A : Current[mA]<br />V : Present Current/Goal Torque |
 <a id="present-input-voltage"></a>
-#### Present 입력 전압(623)
+#### Present Input Voltage(623)
 이 값은 현재 공급되는 전압을 나타냅니다. 자세한 내용은 [Min/Max Voltage Limit(24, 22)](#minmax-voltage-limit22-24)을 참고하세요.
 <a id="present-temperature"></a>
 #### Present Temperature(625)
@@ -309,14 +309,14 @@ For more details, please refer to the [Goal Velocity(600)](#goal-velocity600).
 <ControlTableHardwareErrorStatus />
 
 
-## How to Assemble
+## 조립 방법
 ### Option Frame Assembly
 + FRP42-H110K, FRP42-H120K Set
 
   ![](/img/dxl/model_reference/pro_series/frp42-h110k-h120k.webp)
 
-## Maintenance
-## Reference
+## 유지보수
+## 참고자료
 :::note
 
 **참고**

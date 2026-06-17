@@ -8,7 +8,7 @@ Following Error(0x08)와 In-Position(0x01)은 **Position Control Mode**, **Exten
 |:--------------:|:--------------------:|:----------------:|:-----|
 |     Bit 7      |          X           |        -         | 예약 영역입니다. |
 |     Bit 6      |          X           |        -         | 예약 영역입니다. |
-| Bit 4<br />Bit 5 | 11<br />10<br />01<br />00 | Velocity Profile | 11 : [Trapezoidal Profile]<br />10 : Triangular Profile<br />01 : [Rectangular Profile]<br />00 : Profile 미사용([Step]) |
+| Bit 4<br />Bit 5 | 11<br />10<br />01<br />00 | Velocity Profile | 11 : [Trapezoidal Profile]<br />10 : Triangular Profile<br />01 : [Rectangular Profile]<br />00 : Profile Not Used([Step]) |
 |     Bit 3      |        0 or 1        | Following Error  | DYNAMIXEL이 목표 위치 궤적을 추종하는지 나타냅니다.<br />0 : 추종 중<br />1 : 추종하지 않음 |
 |     Bit 2      |          X           |        -         | 예약 영역입니다. |
 |     Bit 1      |        0 or 1        | Profile Ongoing  | [Goal Position(116)](#goal-position116) Instruction에 따른 Profile이 진행 중인지 나타냅니다.<br />0 : Profile 완료<br />1 : Profile 진행 중 |

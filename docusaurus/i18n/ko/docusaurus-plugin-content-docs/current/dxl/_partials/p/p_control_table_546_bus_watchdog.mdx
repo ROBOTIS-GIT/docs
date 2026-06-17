@@ -5,7 +5,7 @@ Bus Watchdog(546)는 컨트롤러와 장치 사이의 통신(RS-485, TTL)이 알
 |:-----:|:-------:|:----------------------------------------------------------------|
 | 범위 |    0    | Bus Watchdog 기능을 비활성화하고 Bus Watchdog Error를 해제합니다. |
 | 범위 | 1 ~ 127 | Bus Watchdog을 활성화합니다. 단위: 20 [msec]                        |
-| 범위 |   -1    | Bus Watchdog Error 상태                                       |
+| 범위 |   -1    | Bus Watchdog Error Status                                       |
 
 Bus Watchdog은 Torque Enable(512)이 `1`(Torque ON)일 때 컨트롤러와 장치 사이의 통신 간격을 감시합니다.
 측정된 통신 간격이 Bus Watchdog(546)에 설정된 값보다 길면 장치가 정지하고 Bus Watchdog(546) 값은 `-1`(Bus Watchdog Error)로 설정됩니다.

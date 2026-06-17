@@ -14,24 +14,24 @@ Profile은 모터 구동 시 급격하게 변하는 속도와 가속도를 조�
 
 1. 사용자의 요청이 통신 bus를 통해 새로운 [Goal Position(532)](#goal-position532)으로 등록됩니다.
 2. [Profile Velocity(244)](#profile-acceleration240-profile-velocity244)와 [Profile Acceleration(240)](#profile-acceleration240-profile-velocity244)에 의해 가속 시간(t1)이 결정됩니다.
-3. [Profile Velocity(244)](#profile-acceleration240-profile-velocity244), [Profile Acceleration(240)](#profile-acceleration240-profile-velocity244), 총 이동거리(ΔPos, 목표 위치와 현재 위치의 차이)에 의해 다음 표와 같이 Profile 형태가 결정됩니다.
-4. 최종 선택된 Profile 형태는 [Moving Status(541)](#moving-status541) 레지스터에 기록됩니다.
+3. [Profile Velocity(244)](#profile-acceleration240-profile-velocity244), [Profile Acceleration(240)](#profile-acceleration240-profile-velocity244), 총 이동거리(ΔPos, 목표 위치와 현재 위치의 차이)에 의해 다음 표와 같이 Profile Type이 결정됩니다.
+4. 최종 선택된 Profile Type은 [Moving Status(541)](#moving-status541) 레지스터에 기록됩니다.
 5. 장치는 Profile에서 계산된 목표 궤적에 따라 이동합니다.
 6. 선택된 Profile의 목표 속도 궤적과 목표 위치 궤적은 각각 [Velocity Trajectory(564)](#velocity-trajectory564)와 [Position Trajectory(560)](#position-trajectory560) 레지스터에 기록됩니다.
 
 :::
 
-| 조건                                                           | Profile 형태                  |
+| 조건                                                           | Profile Type                  |
 |:--------------------------------------------------------------:|:------------------------------|
-| [Profile Velocity(244)] = 0                                    | Profile 미사용(Step instruction) |
-| ([Profile Velocity(244)] ≠ 0) & ([Profile Acceleration(240)] = 0) | Rectangular profile           |
-| ([Profile Velocity(244)] ≠ 0) & ([Profile Acceleration(240)] ≠ 0) | Trapezoidal profile           |
+| [Profile Velocity(244)] = 0                                    | Profile Not Used(Step Instruction) |
+| ([Profile Velocity(244)] ≠ 0) & ([Profile Acceleration(240)] = 0) | Rectangular Profile           |
+| ([Profile Velocity(244)] ≠ 0) & ([Profile Acceleration(240)] ≠ 0) | Trapezoidal Profile           |
 
 ![](/img/dxl/model_reference/y_series/profile_2.webp)
 
 :::note
 
-**참고** : Velocity Control Mode에서는 [Profile Acceleration(240)]만 사용되며, 사용 가능한 Profile 형태는 Step과 Trapezoidal 두 가지입니다.
+**참고** : Velocity Control Mode에서는 [Profile Acceleration(240)]만 사용되며, 사용 가능한 Profile Type은 Step과 Trapezoidal 두 가지입니다.
 Velocity Override 기능은 동일한 방식으로 동작합니다.
 이 경우 가속 시간(t1)은 다음과 같이 계산됩니다.
 

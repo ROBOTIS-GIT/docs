@@ -100,9 +100,9 @@ import CommonLink from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl
 ### EEPROM Area 컨트롤 테이블
 | Address | Size(Byte) | Data Name                                   | Access | 초기<br />값 |               범위                |          단위           |
 |:-------:|:--------------:|:--------------------------------------------|:------:|:------------------:|:----------------------------------:|:-----------------------:|
-|    0    |       2        | [모델 번호](#model-number0)               |   R    |       51,201       |                 -                  |            -            |
+|    0    |       2        | [Model Number](#model-number0)               |   R    |       51,201       |                 -                  |            -            |
 |    2    |       4        | Model Information     |   R    |         -          |                 -                  |            -            |
-|    6    |       1        | [펌웨어 버전](#firmware-version6)       |   R    |         -          |                 -                  |            -            |
+|    6    |       1        | [Firmware Version](#firmware-version6)       |   R    |         -          |                 -                  |            -            |
 |    7    |       1        | [ID](#id7)                                   |   RW   |         1          |              0 ~ 252               |            -            |
 |    8    |       1        | [Baud Rate](#baud-rate8)                     |   RW   |         1          |               0 ~ 9                |            -            |
 |    9    |       1        | [Return Delay Time](#return-delay-time9)     |   RW   |        250         |              0 ~ 255               |        2 [μsec]         |
@@ -164,7 +164,7 @@ import CommonLink from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl
 |   580   |       4        | [Present Position](#present-position580)             |   R    |         -          |                          -                          |        1 [pulse]        |
 |   584   |       4        | [Velocity Trajectory](#velocity-trajectory584)       |   R    |         -          |                          -                          |     0.01 [rev/min]      |
 |   588   |       4        | [Position Trajectory](#position-trajectory588)       |   R    |         -          |                          -                          |        1 [pulse]        |
-|   592   |       2        | [Present 입력 전압](#present-input-voltage592)   |   R    |         -          |                          -                          |         0.1 [V]         |
+|   592   |       2        | [Present Input Voltage](#present-input-voltage592)   |   R    |         -          |                          -                          |         0.1 [V]         |
 |   594   |       1        | [Present Temperature](#present-temperature594)       |   R    |         -          |                          -                          |       1 [&deg;C]        |
 |   600   |       2        | [External Port Data 1](#external-port-mode-external-port-data)       |  R/RW  |         0          |                      0 ~ 4,095                      |            -            |
 |   602   |       2        | [External Port Data 2](#external-port-mode-external-port-data)       |  R/RW  |         0          |                      0 ~ 4,095                      |            -            |
@@ -191,14 +191,14 @@ import CommonLink from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl
 
 :::
 <a id="model-number"></a>
-#### 모델 번호(0)
+#### Model Number(0)
 이 Address에는 장치의 모델 번호가 저장됩니다.
 
 |    모델명    |  모델 번호   |
 |:----------------:|:---------------:|
 | H42-20-S300-R(A) | 51,201 (0xC801) |
 <a id="firmware-version"></a>
-#### 펌웨어 버전(6)
+#### Firmware Version(6)
 <PControlTable6FirmwareVersion />
 <a id="id"></a>
 #### ID(7)
@@ -339,7 +339,7 @@ Goal Velocity(552)와 Profile Velocity(562)는 Velocity Limit(44)를 초과하�
 Desired position can be set with Goal Position(564).
 Position Control Mode에서는 이 값이 Min Position Limit(52)와 Max Position Limit(48) 사이에 있어야 하며, 다른 Mode에서는 -2,147,483,648 ~ 2,147,483,647 범위를 가집니다.
 
-|    Angle 범위     |    값 범위     |                     설명                      |
+|    Angle Range     |    값 범위     |                     설명                      |
 |:------------------:|:------------------:|:----------------------------------------------------:|
 | -180 ~ 180 [&deg;] | -303,750 ~ 303,750 | ![](/img/dxl/model_reference/pro_series/pro_42_goal_position.webp) |
 
@@ -373,21 +373,21 @@ Position Control Mode에서는 이 값이 Min Position Limit(52)와 Max Position
 #### Position Trajectory(588)
 <PControlTable588PositionTrajectory />
 <a id="present-input-voltage"></a>
-#### Present 입력 전압(592)
+#### Present Input Voltage(592)
 <PControlTable592PresentInputVoltage />
 <a id="present-temperature"></a>
 #### Present Temperature(594)
 <PControlTable594PresentTemperature />
 
 
-## How to Assemble
+## 조립 방법
 ### Option Frame Assembly
 + FRP42-H110K, FRP42-H120K Set
 
   ![](/img/dxl/model_reference/pro_series/frp42-h110k-h120k.webp)
 
-## Maintenance
-## Reference
+## 유지보수
+## 참고자료
 :::note
 
 [Compatibility Guide]
