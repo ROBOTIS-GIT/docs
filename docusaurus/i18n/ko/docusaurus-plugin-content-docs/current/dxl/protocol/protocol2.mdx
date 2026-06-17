@@ -260,6 +260,7 @@ Instruction Packet의 처리 결과를 나타내는 필드입니다.
 - Param: P
 
 ### Ping (0x01)
+#### 설명
 
 - 장치의 존재 여부 및 기본 정보를 얻기 위한 Instruction
 - 장치는 Status Return Level에 관계없이, Ping Instruction에는 무조건 Status Packet을 전송
@@ -675,6 +676,7 @@ Instruction Packet의 처리 결과를 나타내는 필드입니다.
 |:----:|:----:|:----:|:----:|:---------:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:-----:|:-----:|
 | 0xFF | 0xFF | 0xFD | 0x00 |   0x02    | 0x08 | 0x00 | 0x55 | 0x00 | 0x1F | 0x08 | 0x00 | 0x00 | 0xBA  | 0xBE  |
 
+<a id="sync-write"></a>
 
 ### Sync Write (0x83)
 
@@ -804,6 +806,8 @@ Instruction Packet의 처리 결과를 나타내는 필드입니다.
 | ERR  | ID3  |  D1  |  D2  |  D3  |  D4  | CRC1 | CRC2 |
 |:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
 | 0x00 | 0x04 | 0xFF | 0x03 | 0x00 | 0x00 | 0xD1 | 0x9E |
+
+<a id="bulk-read"></a>
 
 ### Bulk Read (0x92)
 

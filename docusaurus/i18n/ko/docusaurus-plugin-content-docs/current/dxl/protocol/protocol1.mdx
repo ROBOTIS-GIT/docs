@@ -115,6 +115,8 @@ Packet의 길이로서, Instruction, Parameter, Checksum 필드의 Byte Size를 
 
 `Length = Parameter 개수(N) + 2`
 
+<a id="instruction의-종류"></a>
+
 ### Instruction
 
 DYNAMIXEL에 지시하는 명령으로 아래와 같은 종류가 있습니다.
@@ -161,14 +163,14 @@ DYNAMIXEL은 Main Controller로부터 받은 명령을 수행한 뒤 그 결과�
 |:-------:|:-------:|:---------:|:------:|:-----:|:-------:|:---:|:-------:|:--------:|
 |  0xFF   |  0xFF   |    ID     | Length | Error | Param 1 | ... | Param N |  CHKSUM  |
 
-### Header
+**Header**
 Packet의 시작을 알리는 신호입니다.
 
-### Packet ID
+**Packet ID**
 Status Packet을 전송하는 DYNAMIXEL의 ID입니다. 0 ~ 253 (0x00~0xFD), 254개를 사용할 수 있습니다.
 
 
-### Length
+**Length**
 Packet의 길이로서, Error, Parameter, Checksum 필드의 Byte Size를 나타내는 필드입니다.
 `Length = Parameter 개수(N) + 2`
 
@@ -202,7 +204,7 @@ ID 가 01 번인 RX-64로부터 0x24 의 Error가 발생했다는 것을 의미�
 
 :::
 
-### Parameters
+**Parameters**
 
 ERROR 외의 Data 를 Return 합니다. 사용 방법은 [Instruction의 종류](#instruction의-종류)를 참고하시기 바랍니다.
 
