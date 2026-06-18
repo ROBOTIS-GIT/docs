@@ -3,6 +3,13 @@ Indirect Address와 Indirect Data는 컨트롤 테이블에서 서로 떨어져 
 - 속성에는 Size(Byte 길이), 값의 범위, Access 속성(Read Only, Read/Write)이 포함됩니다.
 - 예를 들어 Indirect Address 1(168)에 LED의 Address인 65를 할당하면 Indirect Data 1(224)은 [LED(65)]와 동일하게 동작합니다.
 
+:::note
+
+**참고**: 컨트롤 테이블의 RAM 영역(Address 64 ~ 661) 주소만 Indirect Address로 지정할 수 있습니다.
+
+:::
+
+
 | Indirect Address 범위 | 설명                                                                           |
 |:-----------------------:|:--------------------------------------------------------------------------------------|
 | 64 ~ 661               | [EEPROM](#control-table-of-eeprom-area) Address는 Indirect Address로 지정할 수 없습니다 |

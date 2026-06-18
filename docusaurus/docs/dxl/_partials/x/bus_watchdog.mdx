@@ -11,6 +11,20 @@ If the measured communication interval is larger than the configured value of Bu
 When a Bus Watchdog Error screen is active, all Goal Values ([Goal PWM(100)], [Goal Velocity(104)], [Goal Position(116)]) will be changed to read-only-access until the error has been cleared.
 If the value of Bus Watchdog(98) is changed to '0', active Bus Watchdog Errors will be cleared.
 
+:::note
+
+**NOTE** : For more information about Data Range Error, refer to [Protocol 2.0].
+
+:::
+
+
+:::note
+
+**NOTE** : Bus Watchdog(98) is supported from Firmware v38.
+
+:::
+
+
 #### Bus Watchdog (98) Example
 The following is an example of the operation of the Bus Watchdog failsafe.
 1. After setting the [Operating Mode(11)] to speed control mode, change [Torque Enable(64)] to '1'.
