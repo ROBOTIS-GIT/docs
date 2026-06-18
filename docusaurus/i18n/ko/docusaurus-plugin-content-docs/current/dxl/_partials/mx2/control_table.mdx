@@ -1,0 +1,48 @@
+## 컨트롤 테이블
+
+컨트롤 테이블은 다이나믹셀 액추에이터가 장치 상태를 관리하기 위해 사용하는 데이터 구조입니다. 사용자는 Read Instruction Packet으로 데이터 레지스터를 읽어 장치 상태 정보를 확인하고, Write Instruction Packet으로 데이터 레지스터를 변경해 장치를 제어할 수 있습니다.
+
+:::warning
+
+**주의**
+1. MX(2.0) Firmware는 기존 MX 시리즈와 컨트롤 테이블 및 Address가 다릅니다. 사용 전에 컨트롤 테이블 Address를 확인하세요.
+2. MX(2.0) Firmware는 DYNAMIXEL-X의 기능을 계승합니다. 따라서 [DYNAMIXEL Protocol 1.0](/docs/dxl/protocol/protocol1)과 [DYNAMIXEL Protocol 2.0](/docs/dxl/protocol/protocol2), 다양한 동작 모드, Secondary ID, Drive Mode, Bus Watchdog 등을 지원합니다. 자세한 내용은 컨트롤 테이블을 참고하세요.
+
+:::
+
+### 컨트롤 테이블, Data, Address
+
+컨트롤 테이블은 장치 상태를 저장하거나 장치를 제어하기 위한 여러 Data 필드로 구성됩니다. 사용자는 Read Instruction Packet으로 컨트롤 테이블의 특정 Data를 읽어 현재 상태를 확인할 수 있습니다. WRITE Instruction Packet은 컨트롤 테이블의 특정 Data를 변경해 장치를 제어할 때 사용합니다. Address는 Instruction Packet으로 컨트롤 테이블의 특정 Data에 접근할 때 사용하는 고유 값입니다. 데이터를 읽거나 쓰려면 Instruction Packet에 특정 Address를 지정해야 합니다. Instruction Packet에 대한 자세한 내용은 [DYNAMIXEL Protocol 2.0]을 참고하세요.
+
+:::note
+
+**참고** : 음수 값에는 2의 보수가 적용됩니다. 자세한 내용은 Wikipedia의 [Two's complement]를 참고하세요.
+
+:::
+
+#### Area (EEPROM, RAM)
+
+컨트롤 테이블은 두 영역으로 나뉩니다. RAM 영역의 Data는 전원이 재인가되면 초기값으로 재설정됩니다(Volatile). 반면 EEPROM 영역의 Data는 장치 전원이 꺼져도 유지됩니다(Non-Volatile).
+
+:::warning
+
+**EEPROM 영역의 Data는 Torque Enable(64)이 `0`(Torque OFF)일 때만 쓸 수 있습니다.**
+
+:::
+
+#### Size
+
+Data의 Size는 용도에 따라 1 ~ 4 byte로 달라집니다. Instruction Packet으로 Data를 갱신할 때는 Data의 Size를 확인하세요. 2 byte보다 큰 Data는 [Little Endian] 방식으로 저장됩니다.
+
+#### Access
+
+컨트롤 테이블에는 두 가지 Access 속성이 있습니다. `RW`는 읽기와 쓰기가 가능함을 의미하고, `R`은 읽기만 가능함을 의미합니다. 읽기 전용 속성의 Data는 WRITE Instruction으로 변경할 수 없습니다. 읽기 전용 속성(`R`)은 일반적으로 측정 및 모니터링에 사용되며, 읽기/쓰기 속성(`RW`)은 장치 제어에 사용됩니다.
+
+#### Initial Value
+
+컨트롤 테이블의 각 Data는 장치 전원이 켜질 때 초기값으로 복원됩니다. EEPROM 영역의 기본값은 장치의 초기값(공장 출하 설정)입니다. 사용자가 EEPROM 영역의 값을 변경한 경우, 장치 전원이 켜질 때 변경된 값이 초기값으로 복원됩니다. RAM 영역의 초기값은 장치 전원이 켜질 때 복원됩니다.
+
+[DYNAMIXEL Protocol 1.0]: /docs/dxl/protocol/protocol1
+[DYNAMIXEL Protocol 2.0]: /docs/dxl/protocol/protocol2
+[Two's complement]: https://en.wikipedia.org/wiki/Two%27s_complement
+[Little Endian]: https://en.wikipedia.org/wiki/Endianness#Little

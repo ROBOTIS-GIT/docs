@@ -1,0 +1,15 @@
+DYNAMIXEL의 Operating Mode를 설정합니다.
+
+| 값      | Operating Mode                 | 설명                                                                                                                                                                                                                   |
+|:-----------|:-------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 0          | Current Control Mode           | 속도와 위치에 관계없이 전류/Torque만 제어합니다. 그리퍼처럼 Torque 제어만 필요한 시스템이나 별도의 속도/위치 제어기가 있는 시스템에 적합합니다. |
+| 1          | Velocity Control Mode          | 속도와 전류를 제어하지만 위치는 제어하지 않습니다.                                                                                                                                                       |
+| 3(Default) | Position Control Mode          | 위치, 속도, 전류를 제어합니다. 위치 범위는 [Max Position Limit(48)] 및 [Min Position Limit(52)] 컨트롤 테이블 항목으로 설정됩니다.                                                                |
+| 4          | Extended Position Control Mode | Position Control Mode와 유사하지만 Position Limit 컨트롤 테이블 항목의 제한을 받지 않습니다. 연속 회전이 필요한 애플리케이션에서 multi-turn 위치 기반 제어를 할 수 있습니다.           |
+| 16         | PWM(Voltage) Control Mode      | 모터 출력으로 전달되는 PWM 신호를 직접 제어할 수 있습니다.                                                                                                                                                                                   |
+
+
+{/* nested include: en/dxl/control_table_opmode_note.md */}
+
+[Max Position Limit(48)]: #maxmin-position-limit48-52
+[Min Position Limit(52)]: #maxmin-position-limit48-52

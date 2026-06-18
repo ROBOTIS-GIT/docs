@@ -54,6 +54,8 @@ jobs:
         run: |
           test -d docusaurus/build
           test -f docusaurus/build/index.html
+          test -d docusaurus/build/ko
+          test -f docusaurus/build/ko/index.html
 
       - name: Upload build artifacts on failure
         uses: actions/upload-artifact@v4

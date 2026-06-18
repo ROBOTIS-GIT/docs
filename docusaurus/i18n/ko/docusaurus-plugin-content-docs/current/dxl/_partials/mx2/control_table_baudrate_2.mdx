@@ -1,0 +1,25 @@
+Baud Rate(8)는 제어기와 DYNAMIXEL 간의 Serial 통신 속도를 설정합니다.
+
+|   Value    |   통신 속도   | 오차율 |
+|:----------:|:-------------:|:---------------:|
+|     7      |  4.5M [bps]   |    0.000 [%]    |
+|     6      |   4M [bps]    |    0.000 [%]    |
+|     5      |   3M [bps]    |    0.000 [%]    |
+|     4      |   2M [bps]    |    0.000 [%]    |
+|     3      |   1M [bps]    |    0.000 [%]    |
+|     2      | 115,200 [bps] |    0.000 [%]    |
+| 1(Default) | 57,600 [bps]  |    0.000 [%]    |
+|     0      |  9,600 [bps]  |    0.000 [%]    |
+
+:::note
+
+**참고** : Baud Rate 오차가 3 [%] 이내이면 UART 통신에 영향을 주지 않습니다.
+
+:::
+
+:::note
+
+**참고** : U2D2로 높은 Baudrate에서 안정적인 통신을 사용하려면 USB Latency 값을 낮게 설정하세요.
+[USB Latency 설정](/docs/software/dynamixel_wizard_2_0/advanced_features#usb-latency-setting)
+
+:::

@@ -1,0 +1,7 @@
+:::warning
+
+**주의** : 2XL430-W250의 컨트롤 테이블을 올바르게 사용하려면 다음 내용을 반드시 확인하세요.
+- [EEPROM Area](#eeprom-area)의 Data는 각 축의 컨트롤 테이블에서 [Torque Enable(64)](#torque-enable) 값이 모두 `0`으로 설정된 경우에만 쓸 수 있습니다.
+- 2XL430의 각 축은 자체 컨트롤 테이블을 갖습니다. 다만 2XL430-W250 액추에이터에는 통신 모듈이 하나뿐이므로 [Baud Rate(8)](#baud-rate)와 [Protocol Type(13)](#protocol-type) 값은 항상 동기화됩니다. 또한 이 Address를 수정할 때는 [Torque Enable(64)](#torque-enable)을 `0`으로 설정해야 합니다.
+
+:::

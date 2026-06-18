@@ -1,0 +1,16 @@
+Goal Position(30)을 통해 DYNAMIXEL의 목표 위치를 설정합니다.
+0 ~ 4,095(0xFFF)까지 사용할 수 있으며 단위는 0.088 [&deg;]입니다.
+Goal Position(30)이 [CW/CCW Angle Limit(6, 8)](#cwccw-angle-limit6-8) 범위를 벗어나면 Status Packet은 ERROR 필드를 통해 Angle Limit Error Bit(0x01)를 전송합니다. 이때 [Alarm LED/Shutdown](#alarm-led17-shutdown18)에 Angle Limit Error Bit(0x01)가 설정되어 있으면 Alarm LED가 깜빡이고 모터 출력은 0 [%]가 됩니다.
+
+![](/img/dxl/model_reference/mx_series/mx_position.webp)
+
+> 위 그림은 DYNAMIXEL을 정면에서 본 모습입니다.
+
+Multi-turn Mode에서는 범위가 -28,672 ~ 28,672로 확장됩니다. (CW 또는 CCW 방향으로 최대 7회전)
+Resolution Divider 값을 다르게 설정하면 회전 횟수를 더 늘릴 수 있습니다.
+
+:::note
+
+**참고** : Wheel Mode로 설정된 경우 Goal Position 값은 사용되지 않습니다.
+
+:::

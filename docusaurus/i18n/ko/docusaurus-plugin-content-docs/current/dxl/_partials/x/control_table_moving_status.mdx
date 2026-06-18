@@ -1,0 +1,33 @@
+
+1 byte 데이터인 Moving Status(123)는 이동 상태에 대한 추가 정보를 제공합니다.
+Following Error(0x08)와 In-Position(0x01)은 **Position Control Mode**, **Extended Position Control Mode**에서 사용할 수 있습니다.
+
+모드에 대한 자세한 내용은 [Operating Mode(11)]을 참고하세요.
+
+|      Bit       |        Value         |   Information    | 설명 |
+|:--------------:|:--------------------:|:----------------:|:-----|
+|     Bit 7      |          X           |        -         | 예약 영역입니다. |
+|     Bit 6      |          X           |        -         | 예약 영역입니다. |
+| Bit 4<br />Bit 5 | 11<br />10<br />01<br />00 | Velocity Profile | 11 : [Trapezoidal Profile]<br />10 : Triangular Profile<br />01 : [Rectangular Profile]<br />00 : Profile Not Used([Step]) |
+|     Bit 3      |        0 or 1        | Following Error  | DYNAMIXEL이 목표 위치 궤적을 추종하는지 나타냅니다.<br />0 : 추종 중<br />1 : 추종하지 않음 |
+|     Bit 2      |          X           |        -         | 예약 영역입니다. |
+|     Bit 1      |        0 or 1        | Profile Ongoing  | [Goal Position(116)](#goal-position116) Instruction에 따른 Profile이 진행 중인지 나타냅니다.<br />0 : Profile 완료<br />1 : Profile 진행 중 |
+|     Bit 0      |        0 or 1        |   In-Position    | DYNAMIXEL이 목표 위치에 도달했는지 나타냅니다.<br />0 : 도달하지 않음<br />1 : 도달 |
+
+:::note
+
+**참고** : Rectangular velocity profile이 [Profile Velocity(112)](#profile-verlocity112)에 도달할 수 없는 경우 Triangular velocity profile이 구성됩니다.
+
+:::
+
+:::note
+
+**참고** : Position 관련 제어 모드에서 위치 편차가 사전 정의된 값보다 작으면 In-Position bit가 설정됩니다.
+
+:::
+
+[Trapezoidal Profile]: #what-is-the-profile
+[Step]: #what-is-the-profile
+[Rectangular Profile]: #what-is-the-profile
+
+[Operating Mode(11)]: #operating-mode11

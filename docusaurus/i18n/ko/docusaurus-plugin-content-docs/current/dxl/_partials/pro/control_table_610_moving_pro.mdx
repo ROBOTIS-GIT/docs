@@ -1,0 +1,6 @@
+이 값은 DYNAMIXEL PRO가 움직이는 중인지 나타냅니다. Present Velocity(615)의 절대값이 Moving Threshold(17)보다 크면 Moving(610)이 `1`로 설정되고, 그렇지 않으면 `0`으로 해제됩니다. 단, Goal Position(596) Instruction으로 Profile이 진행 중이면 Present Velocity(615)와 관계없이 이 값은 항상 `1`로 설정됩니다.
+
+| 값 | 설명 |
+|:--:|:-----|
+| 0 | 움직임이 감지되지 않음 |
+| 1 | 움직임이 감지되었거나 Profile이 진행 중임(Goal Position(596) Instruction 처리 중) |

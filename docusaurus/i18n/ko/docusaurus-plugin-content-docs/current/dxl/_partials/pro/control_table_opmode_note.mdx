@@ -1,0 +1,11 @@
+:::note
+
+**참고** : [Present Position(580)](#present-position)은 Torque가 꺼져 있을 때 Operating Mode(11)와 관계없이 -2,147,483,648 ~ 2,147,483,647의 4 byte 연속 범위를 나타냅니다.
+단, 다음 경우에는 [Present Position(580)](#present-position)이 1회전 이내의 절대 위치값으로 재설정됩니다.
+1. Operating Mode(11)가 **Position Control Mode**로 변경될 때
+2. **Position Control Mode**에서 Torque가 켜질 때
+3. 액추에이터의 전원이 켜지거나 [Reboot Instruction](/docs/dxl/protocol/protocol2#reboot)으로 reboot될 때
+
+1회전 이내의 절대 위치값으로 재설정된 [Present Position(580)](#present-position) 값도 설정된 [Homing Offset(20)](#homing-offset) 값의 영향을 받습니다.
+
+:::

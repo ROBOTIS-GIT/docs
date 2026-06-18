@@ -64,8 +64,15 @@ unsigned short update_crc(unsigned short crc_accum, unsigned char *data_blk_ptr,
   - Packet Length = (LEN_H &lt;&lt; 8 ) + LEN_L;  //Little-endian
 - Packet Analysis and CRC Calculation
   - Example Packet(Read Instruction Packet to read the 2 bytes from address 0x0000)
-    unsigned char TxPacket[] = {'{'}0xFF, 0xFF, 0xFD, 0x00, 0x01, 0x07, 0x00, 0x02, 0x00, 0x00, 0x02, 0x00, CRC_L, CRC_H{'}'}
+
+    ```c
+    unsigned char TxPacket[] = {0xFF, 0xFF, 0xFD, 0x00, 0x01, 0x07, 0x00, 0x02, 0x00, 0x00, 0x02, 0x00, CRC_L, CRC_H};
+    ```
+
   - CRC calculation
+
+    ```c
     CRC = update_crc(0, TxPacket , 12);   // 12 = 5 + Packet Length(7)
     CRC_L = (CRC & 0x00FF);               //Little-endian
     CRC_H = (CRC>>8) & 0x00FF;
+    ```

@@ -1,0 +1,11 @@
+PWM Control Mode에서는 PID Controller와 Feedforward Controller가 비활성화되고, Goal PWM(548) 값이 Inverter를 통해 모터를 직접 제어합니다.
+다른 Control Mode에서는 Goal PWM(548)이 출력 Torque를 제한하는 데 사용됩니다.
+Goal PWM(548)은 [PWM Limit(36)]을 초과할 수 없습니다.
+Goal PWM(548)이 각 Control Mode에 어떤 영향을 주는지는 Gain 섹션을 참고하세요.
+
+
+|      단위       |               범위                |
+|:---------------:|:----------------------------------:|
+| about 0.0498 [%] | -[PWM Limit(36)] ~ [PWM Limit(36)] |
+
+[PWM Limit(36)]: #pwm-limit36

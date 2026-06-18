@@ -1,0 +1,4 @@
+이 값은 Profile에 의해 생성된 목표 속도 궤적입니다. 동작 방식은 Control Mode에 따라 달라집니다. 자세한 내용은 Profile Velocity(560)를 참고하세요.
+
+1. **Velocity Control Mode** : Profile이 끝점에 도달하면 Velocity Trajectory(136)는 Goal Velocity(104)와 같아집니다.
+2. **Position Control Mode, Extended Position Control Mode** : 목표 Velocity Trajectory는 Position Trajectory(588)를 생성하는 데 사용됩니다. Profile이 끝점에 도달하면 Velocity Trajectory(584)는 `0`으로 설정됩니다.

@@ -19,8 +19,11 @@
 ### Scan DYNAMIXEL
 1. Go to `Device` > `Scan` to start searching connected DYNAMIXEL's.
 
-    **NOTE** : If Open failed is shown up, please check whether communication port is connected at the **Main Toolbar** or not, then button `Disconnect` to avoid port collision.
-    
+:::note
+
+**NOTE** : If Open failed is shown up, please check whether communication port is connected at the **Main Toolbar** or not, then button `Disconnect` to avoid port collision.
+
+:::
 
     ![](/img/software/dynamixel_wizard_2_0/basic_features/wizard2_012.webp)
 
@@ -54,7 +57,11 @@
 
 5. Select `Goal Position` or `Goal Velocity` item in the control table in the middle column.
 
-    **NOTE**: Read the control table of your DYNAMIXEL as the item can be different depending on the model and Operating Mode of the DYNAMIXEL.
+:::note
+
+**NOTE**: Read the control table of your DYNAMIXEL as the item can be different depending on the model and Operating Mode of the DYNAMIXEL.
+
+:::
     
     
     ![](/img/software/dynamixel_wizard_2_0/basic_features/new_wizard2_004.webp)
@@ -63,7 +70,11 @@
 
 6. Position controlling interface will appear on the buttom right corner of the program.
 
-    **WARNING** : Please be cautious when changing values as DYNAMIXEL can rotate or move.
+:::warning
+
+**WARNING** : Please be cautious when changing values as DYNAMIXEL can rotate or move.
+
+:::
     
 
     
@@ -121,7 +132,11 @@
 
     
     
-    **NOTE**: `Scale` and `Offset` are no longer appearing at the option box above, from the latest version of software. Adjust these factors at the [Graph Window](#graph-window) in real time. (See the additional explanation at Y-Axis below)
+:::note
+
+**NOTE**: `Scale` and `Offset` are no longer appearing at the option box above, from the latest version of software. Adjust these factors at the [Graph Window](#graph-window) in real time. (See the additional explanation at Y-Axis below)
+
+:::
     
 
     - Y-Axis: it adds Y-axis to a selected item. The Maximum is 10.    
@@ -132,12 +147,20 @@
 
 6. Communication interval can be set between 1 ~ 1000ms. Smaller interval will display refined graph.
 
-    **NOTE** : The actual communication interval can differ by baudrate and the hardware spec of the PC.
+:::note
+
+**NOTE** : The actual communication interval can differ by baudrate and the hardware spec of the PC.
+
+:::
     
 
 7. In order to optimize the graph drawing speed, check the option to read selected items only.
 
-    **NOTE** : Checking this option will only refresh selected items in the Control Table.
+:::note
+
+**NOTE** : Checking this option will only refresh selected items in the Control Table.
+
+:::
     
 
 8. Printing Mode captures your graph with white background.
@@ -151,7 +174,11 @@
 
 2. Click `Start` button in the graph window to start plotting data.
 
-    **WARNING** : If there isn't any detected or connected device, `Start` button will be disabled. Please scan DYNAMIXEL first.
+:::warning
+
+**WARNING** : If there isn't any detected or connected device, `Start` button will be disabled. Please scan DYNAMIXEL first.
+
+:::
     
 
     ![](/img/software/dynamixel_wizard_2_0/basic_features/new_wizard2_graph_start_001.webp)
@@ -198,7 +225,11 @@
 2. Set the communication port and baudrate then click `Open` to open the port.
   Once the port is successfully opened, DYNAMIXEL protocol minitoring on the port will begin.
 
-    **NOTE** : If Open failed is shown up, please check whether communication port is connected at the **Main Toolbar** or not, then button `Disconnect` to avoid port collision.  
+:::note
+
+**NOTE** : If Open failed is shown up, please check whether communication port is connected at the **Main Toolbar** or not, then button `Disconnect` to avoid port collision.
+
+:::
     
 
     ![](/img/software/dynamixel_wizard_2_0/basic_features/new_wizard2_packet_002.webp)
@@ -207,7 +238,11 @@
 
 3. Select Protocol Type and instruction to use. In this example, `Write` instruction for Protocol Type `2.0` is selected.
 
-    **NOTE** : Protocol Type can be different depending on a model of DYNAMIXEL. Confirm [Protocol Type](/docs/dxl/protocol/faq_protocol_compatibility_table) of your DYNAMIXEL.
+:::note
+
+**NOTE** : Protocol Type can be different depending on a model of DYNAMIXEL. Confirm [Protocol Type](/docs/dxl/protocol/faq_protocol_compatibility_table) of your DYNAMIXEL.
+
+:::
     
 
     ![](/img/software/dynamixel_wizard_2_0/basic_features/new_wizard2_packet_003.webp)
@@ -248,7 +283,11 @@ When positioning your mouse cursor over the model name, **Firmware update is Ava
 
 1. Go to `Tools` > `Firmware Update`
 
-    **NOTE** : If no DYNAMIXELS are detected, the `Firmware Update` option will not be available. 
+:::note
+
+**NOTE** : If no DYNAMIXELS are detected, the `Firmware Update` option will not be available.
+
+:::
     
 
     ![](/img/software/dynamixel_wizard_2_0/basic_features/new_wizard2_015.webp)
@@ -307,7 +346,11 @@ When positioning your mouse cursor over the model name, **Firmware update is Ava
 
 5. The proper communication port that is connected to DYNAMIXEL has to be selected manually. If the port is in use, it has to be released first.
 
-    **WARNING** : Only one DYNAMIXEL should be connected to the port when recoverying DYNAMIXEL firmware.
+:::warning
+
+**WARNING** : Only one DYNAMIXEL should be connected to the port when recoverying DYNAMIXEL firmware.
+
+:::
     
 
     ![](/img/software/dynamixel_wizard_2_0/basic_features/wizard2_firmware_recovery_004.webp)

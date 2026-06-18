@@ -1,0 +1,90 @@
+# Y Series
+![](/img/dxl/model_reference/y_series/y_series/y_series_product.webp)
+
+DYNAMIXEL-Y는 대형 로봇을 위한 ROBOTIS의 산업용 프리미엄 로봇 액추에이터 솔루션입니다.
+
+## 제품 라인업
+![](/img/dxl/model_reference/y_series/y_series/model_numbering_en.webp)
+
+![](/img/dxl/model_reference/y_series/y_series/y_productline.webp)
+
+> DYNAMIXEL-Y 라인업
+
+**특징**
+- 고성능 프레임리스 모터
+- 멀티턴 절대 엔코더
+- 안전을 위한 일체형 전자식 브레이크
+- 일체형 DYNAMIXEL Drive(DYD)
+- 중공축 기반의 컴팩트하고 간결한 설계
+- 동적 모터 제어기
+
+![](/img/dxl/model_reference/y_series/y_series/y_type.webp)
+
+![](/img/dxl/model_reference/y_series/y_series/y_exploded_view.webp)
+
+## 주요 사양
+### YM070
+|        모델         | 크기 [mm] | 무게 [g] | 감속비 [R] | 연속 토크 [N.m] | 최대 토크 [N.m] | 입력 전압 [V] | 분해능 [pulse/rev] |         타입          |
+| :-----------------: | :-------------: | :--------: | :------------: | :---------------------: | :------------------: | :---------------: | :--------------------: | :-------------------: |
+| [YM070-210-M001-RH] |   Ø70 x 50.9    |    340     |       -        |          0.32           |         0.64         |        24         |        524,288         |         모터          |
+| [YM070-210-B001-RH] |   Ø70 x 71.0    |    530     |       -        |          0.32           |         0.64         |        24         |        524,288         |     모터, 브레이크     |
+| [YM070-210-R051-RH] |   Ø70 x 71.1    |    790     |      51:1      |           8.2           |         16.3         |        24         |       26,738,688       |    모터, 감속기        |
+| [YM070-210-R099-RH] |   Ø70 x 71.1    |    790     |      99:1      |          14.6           |         31.7         |        24         |       51,904,512       |    모터, 감속기        |
+| [YM070-210-A051-RH] |   Ø70 x 91.2    |    980     |      51:1      |           8.2           |         16.3         |        24         |       26,738,688       | 모터, 감속기, 브레이크 |
+| [YM070-210-A099-RH] |   Ø70 x 91.2    |    980     |      99:1      |          14.6           |         31.7         |        24         |       51,904,512       | 모터, 감속기, 브레이크 |
+
+### YM080
+|        모델         | 크기 [mm] | 무게 [g] | 감속비 [R] | 연속 토크 [N.m] | 최대 토크 [N.m] | 입력 전압 [V] | 분해능 [pulse/rev] |         타입          |
+| :-----------------: | :-------------: | :--------: | :------------: | :---------------------: | :------------------: | :---------------: | :--------------------: | :-------------------: |
+| [YM080-230-M001-RH] |   Ø80 x 54.1    |    530     |       -        |          0.62           |         1.24         |        24         |        524,288         |         모터          |
+| [YM080-230-B001-RH] |   Ø80 x 76.1    |    890     |       -        |          0.62           |         1.24         |        24         |        524,288         |     모터, 브레이크     |
+| [YM080-230-R051-RH] |   Ø80 x 78.1    |   1,200    |      51:1      |          15.8           |         31.6         |        24         |       26,738,688       |    모터, 감속기        |
+| [YM080-230-R099-RH] |   Ø80 x 78.1    |   1,200    |      99:1      |          26.0           |         61.4         |        24         |       51,904,512       |    모터, 감속기        |
+| [YM080-230-A051-RH] |   Ø80 x 100.1   |   1,550    |      51:1      |          15.8           |         31.6         |        24         |       26,738,688       | 모터, 감속기, 브레이크 |
+| [YM080-230-A099-RH] |   Ø80 x 100.1   |   1,550    |      99:1      |          26.0           |         61.4         |        24         |       51,904,512       | 모터, 감속기, 브레이크 |
+
+## 통신 회로
+### UART 연결 회로도
+사용자 컨트롤러로 DYNAMIXEL-Y를 제어하려면 UART 신호가 반이중 직렬 통신 방식이어야 합니다. 전이중과 반이중 직렬 통신을 변환하기 위한 권장 회로도는 다음과 같습니다.
+
+![](/img/dxl/model_reference/y_series/uart_connection.webp)
+
+
+:::note
+
+**참고** : 위 회로는 5V 로직 레벨을 사용하는 MCU 또는 IO가 5V tolerant인 경우에 적합합니다. 그 외의 경우에는 Level Shifter를 사용하여 컨트롤러의 전압 레벨을 DYNAMIXEL의 5V 로직 레벨에 맞추세요.
+
+:::
+
+
+위 회로는 ROBOTIS의 DYNAMIXEL 컨트롤러에 내장되어 있습니다. 제시된 회로도에서 TxD와 RxD 신호의 방향은 TX_Enable_5V 레벨에 따라 다음과 같이 결정됩니다.
+- TX_Enable_5V = High인 경우 : TxD 신호가 D+와 D-로 전달됩니다.
+- TX_Enable_5V = Low인 경우 : D+와 D- 신호가 RxD로 전달됩니다.
+
+### 케이블 연결
+DYNAMIXEL-Y 커넥터의 핀 구성은 다음과 같습니다.
+
+![](/img/dxl/model_reference/y_series/70_connect_cable_1.webp)
+
+![](/img/dxl/model_reference/y_series/70_connect_cable_2.webp)
+
+
+:::warning
+
+**경고** : DYNAMIXEL 설치 시 올바른 핀 배열을 반드시 준수하세요. 잘못 연결된 DYNAMIXEL 서보는 심각하게 손상될 수 있습니다.
+
+:::
+
+
+[YM070-210-M001-RH]: /docs/dxl/model_reference/y_series/ym070-210-m001-rh
+[YM070-210-B001-RH]: /docs/dxl/model_reference/y_series/ym070-210-b001-rh
+[YM070-210-R051-RH]: /docs/dxl/model_reference/y_series/ym070-210-r051-rh
+[YM070-210-R099-RH]: /docs/dxl/model_reference/y_series/ym070-210-r099-rh
+[YM070-210-A051-RH]: /docs/dxl/model_reference/y_series/ym070-210-a051-rh
+[YM070-210-A099-RH]: /docs/dxl/model_reference/y_series/ym070-210-a099-rh
+[YM080-230-M001-RH]: /docs/dxl/model_reference/y_series/ym080-230-m001-rh
+[YM080-230-B001-RH]: /docs/dxl/model_reference/y_series/ym080-230-b001-rh
+[YM080-230-R051-RH]: /docs/dxl/model_reference/y_series/ym080-230-r051-rh
+[YM080-230-R099-RH]: /docs/dxl/model_reference/y_series/ym080-230-r099-rh
+[YM080-230-A051-RH]: /docs/dxl/model_reference/y_series/ym080-230-a051-rh
+[YM080-230-A099-RH]: /docs/dxl/model_reference/y_series/ym080-230-a099-rh

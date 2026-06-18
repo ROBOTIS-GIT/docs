@@ -1,0 +1,439 @@
+# 참고자료
+<a id="setting-video-streaming-on-robotis-engineer-app"></a>
+## ROBOTIS ENGINEER 앱에서 Video Streaming 설정하기
+1. 제어기의 전원을 켠 후 Raspberry Pi가 부팅될 때까지 기다립니다.
+
+
+:::note
+
+    **참고**: 약 70초 후 알림음과 함께 User LED가 노란색으로 켜집니다.
+
+:::
+
+
+    ![](/img/edu/engineer/kit2_reference/pi_booting.webp)
+
+2. 앱이 설치된 기기에서 Wi-Fi 설정을 선택합니다.
+
+3. 네트워크 목록에서 Robotis_Rpi_XXXX를 선택합니다.
+
+    ![](/img/edu/engineer/kit2_reference/kit2_wifi_01.webp)
+
+
+:::note
+
+    **참고**: XXXX는 제어기 MAC 주소의 마지막 4자리입니다.
+
+:::
+
+
+4. 비밀번호 입력 창이 나타나면 `robotis0`을 입력해 연결합니다.
+
+    ![](/img/edu/engineer/kit2_reference/kit2_wifi_02.webp)
+
+5. ENGINEER 앱을 실행한 후 오른쪽 위의 Bluetooth 아이콘을 눌러 제어기에 연결합니다. 아이콘이 초록색으로 바뀌면 Bluetooth 연결이 완료된 것입니다.
+
+    ![](/img/edu/engineer/kit2_streaming_bluetooth.webp)
+
+6. streaming 기능이 있는 MAX-E2 또는 Commando를 선택해 streaming service를 실행하면, 아래와 같이 streaming 기능을 사용해 로봇을 제어할 수 있습니다.
+
+    ![](/img/edu/engineer/kit2_reference/kit2_streaming_select_example.webp)
+    > MAX-E2 또는 Commando 선택
+
+    ![](/img/edu/engineer/kit2_reference/kit2_streaming_select_example_02.webp)
+    > 앱을 이용한 Video Streaming
+
+## Raspberry Pi 업데이트 및 복구
+### Raspberry Pi 업데이트
+Engineer Kit2의 새로운 기능을 추가하려면 Raspberry Pi Zero 2 W를 업데이트하세요.
+
+
+:::warning
+
+**경고**
+- Raspberry Pi Zero W를 사용하는 경우 Raspberry Pi Update 절차를 진행하지 말고 [Raspberry Pi Recovery] 절차를 따르세요.
+- Raspberry Pi Zero board 뒷면의 board 이름을 확인하세요.
+
+  ![](/img/edu/engineer/kit2_reference/rpizero2w_back_side.webp)
+
+:::
+
+
+1. PC에 `dxl.rts`를 다운로드합니다.
+  - `Download`: **[dxl.rts](https://www.robotis.com/service/download.php?no=2115)**
+
+2. 제어기의 전원을 켠 후 Raspberry Pi Zero 2 W가 부팅될 때까지 기다립니다.
+
+
+:::note
+
+    **참고**: 약 70초 후 알림음과 함께 User LED가 노란색으로 켜집니다.
+
+:::
+
+
+    ![](/img/edu/engineer/kit2_reference/pi_booting.webp)
+
+3. 부팅 후 Wi-Fi를 검색하여 `Robotis_Rpi_XXXX`(XXXX는 제어기 MAC 주소 마지막 4자리) 또는 `Robotis_Rpi` AP에 연결합니다.
+
+    ![](/img/edu/engineer/kit2_reference/rpi_wifi_scan_02.webp)
+
+
+:::note
+
+    **참고**: Password를 요청하면 아래 정보를 입력합니다.
+    `Account`: pi
+    `Password`: robotis0
+    ![](/img/edu/engineer/kit2_reference/eng_sbc_updaye_password_request.webp)
+
+:::
+
+
+3. PC에서 File Explorer(Windows 10 단축키: `Win` + `E`)를 엽니다.
+
+    ![img Update Needed](/img/edu/engineer/kit2_reference/file_explore_01.webp)
+
+4. **\\\raspberrypi.local**을 입력하면 `robotis` 폴더가 나타납니다.
+
+    ![img Update Needed](/img/edu/engineer/kit2_reference/file_explore_02.webp)
+
+5. `robotis` 폴더에 접속한 후 다운로드한 `dxl.rts` 파일을 해당 폴더에 넣습니다.
+
+    ![](/img/edu/engineer/kit2_reference/copy_rts.webp)
+
+    ![](/img/edu/engineer/kit2_reference/copy_rts_02.webp)
+
+
+:::note
+
+    **참고**: Password를 요청하면 아래 정보를 입력합니다.
+    `Account`: pi
+    `Password`: robotis0
+
+:::
+
+
+6. Raspberry Pi Zero 2 W를 재부팅하면 업데이트가 시작됩니다. board의 전원을 껐다 켜면 재부팅할 수 있습니다.
+
+
+:::note
+
+    **참고**: 업데이트가 완료되면 복사한 `dxl.rts` 파일은 자동으로 삭제됩니다.
+
+:::
+
+
+### Raspberry Pi 복구
+Raspberry Pi가 부팅되지 않거나 정상적으로 동작하지 않으면 아래 절차를 참고하세요.
+
+1. Raspberry Pi Zero 버전(Zero W 또는 Zero 2W)에 맞는 ENGINEER Kit2용 압축 Raspbian Image를 다운로드합니다.
+  - Raspberry Pi Zero W: [Release.zip](https://www.robotis.com/service/download.php?no=1923)
+  - Raspberry Pi Zero 2W: [rpi_zero_w_image_v2_0.zip](https://www.robotis.com/service/download.php?no=2116)
+
+
+:::note
+
+  **참고**: board 뒷면에서 Raspberry Pi 버전을 확인하세요.
+  ![](/img/edu/engineer/kit2_reference/rpizero2w_back_side.webp)
+
+:::
+
+
+2. 다운로드한 zip 파일의 압축을 풉니다. 압축된 **.img** 파일이 현재 경로에 추출됩니다.
+
+3. 압축 해제 후 [Win32 Disk Imager](https://sourceforge.net/projects/win32diskimager/) 같은 image writer를 사용해 Raspberry Pi에 삽입할 SD card에 **.img**를 기록해야 합니다.
+
+4. PC에서 image writer를 실행합니다. 이 안내에서는 Win32 Disk Imager를 사용합니다.
+
+    ![](/img/edu/engineer/kit2_reference/run_win32diskimager.webp)
+
+5. 앞에서 추출한 파일을 선택합니다.
+
+    ![](/img/edu/engineer/kit2_reference/select_rpi_image_extracted_01.webp)
+
+    ![](/img/edu/engineer/kit2_reference/select_rpi_image_extracted_02.webp)
+
+6. SD card가 삽입된 장치를 선택합니다.
+
+    ![](/img/edu/engineer/kit2_reference/select_sdcard_drive.webp)
+
+7. **Write**를 클릭하고 기록이 완료될 때까지 기다립니다.
+
+    ![](/img/edu/engineer/kit2_reference/wait_write_complete.webp)
+
+8. imager를 종료하고 SD card를 안전하게 제거합니다.
+
+9. SD card를 CM-550에 장착된 Raspberry Pi Zero의 SD card slot에 삽입합니다.
+
+11. Raspberry Pi가 부팅될 때까지 기다립니다. 부팅은 약 3회 진행되며, 매 부팅마다 알림음이 울립니다.
+
+
+:::note
+
+  **참고**: 부팅에는 약 3분이 걸립니다.
+
+:::
+
+
+11. 부팅이 정상적으로 완료되었는지 확인하려면 휴대폰에서 Wi-Fi 주소를 검색합니다. 네트워크 목록에서 Robotis_Rpi_xxxx(CM-550의 MAC 주소) 항목을 확인할 수 있습니다.
+
+
+:::note
+
+    **참고**: MAC address는 CM-550의 전원 버튼 옆에 표시되어 있습니다.
+
+:::
+
+
+    ![](/img/edu/engineer/kit2_reference/rpi_wifi_scan_01.webp)
+      > Raspbian 업데이트 완료 전 Wi-Fi 검색 결과
+
+    ![](/img/edu/engineer/kit2_reference/rpi_wifi_scan_02.webp)
+      > Raspbian 업데이트 완료 후 Wi-Fi 검색 결과
+
+12. 비밀번호 입력 창이 나타나면 `robotis0`을 입력해 연결합니다.
+
+## BLE Signal 설정
+CM-550의 BLE slave module 신호 세기가 약하거나 간섭이 있으면 Bluetooth 통신이 불안정할 수 있습니다.
+이 경우 R+ Manager 2.0에서 BLE signal strength를 조정할 수 있습니다.
+
+상황에 따라 CM-550 BLE signal strength를 조정하는 방법은 아래를 참고하세요.
+
+
+:::note
+
+|   내 CM-550   | 다른 CM-550   | BLE Signal Strength |
+|:-------------:|:-------------:|:-------------------:|
+| 연결 불안정   | 연결 안정     |      Increase       |
+| 연결 불안정   | 연결 불안정   |      Increase       |
+| 연결 안정     | 연결 불안정   |      Decrease       |
+| 연결 안정     | 연결 안정     |      No Change      |
+
+- 실내에서 CM-550 제어기 1대를 사용할 때 통신이 불안정하다면 signal strength가 약한 것일 수 있습니다. **BLE signal strength를 높이세요**.
+- 실내에서 여러 대의 CM-550 제어기를 사용할 때 통신이 불안정하다면 BLE signal이 서로 간섭할 수 있습니다. **불안정한 CM-550의 BLE signal strength를 높이거나, 안정적인 다른 CM-550의 BLE signal strength를 낮추세요**.
+- 실내의 모든 CM-550이 안정적이라면 **BLE signal strength를 유지하세요**.
+
+:::
+
+
+:::note
+
+**참고** : BLE signal strength와 noise는 주변 환경과 기기 수에 따라 달라질 수 있습니다.
+
+:::
+
+
+1. CM-550 BLE와 페어링된 BT-410 master 또는 BT-410 Dongle의 전원을 끕니다.
+  (CM-550 BLE가 페어링된 장치와 연결된 상태에서는 BLE signal strength를 설정할 수 없습니다)
+
+2. PC와 CM-550을 USB 케이블로 연결합니다. 전원 스위치가 꺼져 있어도 5V USB 전원으로 제어기가 자동으로 켜집니다.
+3. CM-550의 `MODE` 버튼이 1초마다 깜박일 때까지 기다립니다.
+4. R+ Manager 2.0을 실행합니다.
+5. `Check for Updates` 버튼을 클릭해 최신 업데이트를 설치합니다.
+  ![](/img/edu/engineer/BLE_signal_power_02.webp)
+
+6. `ALL PRODUCTS` 탭으로 이동하거나 단축키(`Ctrl` + `A`)를 사용합니다.
+  ![](/img/edu/engineer/BLE_signal_power_04.webp)
+
+7. 제품 목록에서 `CM-550`을 선택합니다.
+  ![](/img/edu/engineer/BLE_signal_power_05.webp)
+
+8. `Update & Test` 버튼을 클릭합니다.
+  ![](/img/edu/engineer/BLE_signal_power_06.webp)
+
+9. `Next` 버튼을 클릭합니다.
+  ![](/img/edu/engineer/BLE_signal_power_07.webp)
+
+10. 제어기가 연결된 port를 선택합니다.
+  ![](/img/edu/engineer/BLE_signal_power_08.webp)
+
+11. Baudrate를 확인합니다. 기본 baudrate는 57600 bps로 고정되어 있습니다.
+  ![](/img/edu/engineer/BLE_signal_power_09.webp)
+
+12. CM-550 제어기가 감지되면 `Next`를 클릭합니다.
+  ![](/img/edu/engineer/BLE_signal_power_10.webp)
+
+13. 제어기에 최신 firmware가 설치되어 있으면 `Next`를 클릭합니다. 그렇지 않으면 화면의 업데이트 안내에 따라 최신 firmware를 다운로드합니다.
+  ![](/img/edu/engineer/BLE_signal_power_11.webp)
+
+14. 연결이 완료되면 아래 control table이 화면에 나타납니다.
+  ![](/img/edu/engineer/BLE_signal_power_12.webp)
+
+15. address `139`의 `BLE Signal Power`를 찾을 때까지 아래로 스크롤합니다.
+  ![](/img/edu/engineer/BLE_signal_power_13.webp)
+
+16. control table 오른쪽 영역에서 `BLE Signal Power`를 선택한 후 `Save` 버튼을 클릭합니다.
+  값이 클수록 signal strength가 증가합니다.
+
+    ![](/img/edu/engineer/BLE_signal_power_14.webp)
+
+
+:::note
+
+    `BLE Signal Power` 값이 `UNKNOWN(0)`으로 표시되면 1단계로 돌아가 BT-410 Master 또는 BT-410 Dongle module의 전원이 꺼져 있는지 확인하세요.
+
+:::
+
+
+17. 변경된 `BLE Signal Power` 값을 확인합니다.
+  ![](/img/edu/engineer/BLE_signal_power_15.webp)
+
+## 로봇 설정
+### DYNAMIXEL 조립 확인
+이 기능은 ROBOTIS ENGINEER Kit의 DYNAMIXEL ID와 상태를 확인합니다.
+
+1. 메인 화면에서 로봇 예제를 실행한 후 option menu에서 `MOTOR`를 선택합니다.
+![](/img/edu/engineer/engineer_app_motor.webp)
+
+2. 화면에서 joint ID를 선택합니다. 선택한 joint의 LED가 켜지고 살짝 움직이는지 확인합니다.
+![](/img/edu/engineer/engineer_app_motor_2.webp)
+
+### DYNAMIXEL Offset
+이 기능은 ROBOTIS ENGINEERING KIT에 사용되는 DYNAMIXEL의 offset 값을 보정하여 로봇 자세를 조정할 때 사용합니다. 설정한 offset 값은 각 DYNAMIXEL에 저장됩니다.
+잘못 설정하면 동작이 불안정해지거나 하드웨어가 손상될 수 있으므로 충분히 이해한 후 offset을 조정하세요.
+
+1. 메인 화면에서 로봇 예제를 실행한 후 option menu에서 `OFFSET`을 선택합니다.
+![](/img/edu/engineer/engineer_app_motor_offset.webp)
+
+2. 화면에서 offset을 조정할 joint ID를 선택하면 조정 menu가 나타납니다.
+![](/img/edu/engineer/engineer_app_motor_offset_2.webp)
+
+  - `+ / -` : offset 값을 증가/감소합니다.
+  - `Torque On / Off` : 선택한 joint의 torque를 켜거나 끕니다.
+  - `OK / CANCEL` : offset 값 변경을 저장하거나 취소합니다.
+
+3. offset 값을 저장하려면 `OK`를 선택합니다. 확인 메시지가 나타납니다.
+다시 `OK`를 선택하면 offset 값이 로봇에 저장됩니다.
+![](/img/edu/engineer/engineer_app_motor_offset_3.webp)
+
+4. 아래 버튼으로 각 joint의 offset 값을 reset하거나 다시 불러올 수 있습니다.
+![](/img/edu/engineer/engineer_app_motor_offset_4.webp)
+
+  - `Reset Offset` : 선택하면 확인 창이 나타납니다. [OK]를 선택하면 모든 joint의 offset 값이 reset됩니다.
+  - `Initial Pose` : 저장된 offset 값을 다시 불러옵니다. offset이 잘못 설정된 경우 이 버튼으로 복구할 수 있습니다.
+
+## 제어기 및 DYNAMIXEL 초기화
+초기화하려면 제어기에 프로그래밍 코드를 다시 다운로드하세요. 그러면 로봇 설정이 공장 출하 상태로 복원됩니다. 사용자가 직접 만든 로봇의 경우 애플리케이션에 따라 설정이 달라질 수 있습니다.
+- 로봇 예제를 다운로드하려면 [예제 다운로드](/docs/edu/engineer/kit2_quickstart#예제-다운로드)를 참고하고 원하는 방법을 선택하세요. R+Task 3.0을 사용하는 [PC에서 다운로드](/docs/edu/engineer/kit2_quickstart#pc에서-다운로드)를 권장합니다.
+
+## 자가진단 체크리스트
+1. 로봇의 전원이 켜지지 않나요?
+  > 배터리 잔량과 연결 상태를 확인하세요.
+
+2. 배터리 잔량은 어떻게 확인하나요?
+  > [배터리 잔량 확인](#배터리-잔량-확인) 섹션을 참고하세요.
+
+3. 로봇에서 계속 경고음이 들립니다.
+  > 배터리 잔량이 너무 낮으면 배터리 경고음이 울립니다. [배터리 충전](#배터리-충전) 섹션을 참고하세요.
+
+4. 로봇 동작이 어색합니다.
+  > 로봇이 올바르게 조립되지 않았을 수 있습니다. 로봇 조립 상태와 [DYNAMIXEL 조립 확인](#dynamixel-조립-확인) 섹션을 확인하세요.
+
+5. 어댑터를 연결하면 켜지지만 배터리로는 켜지지 않습니다.
+  > CM-550 제어기 바닥면의 퓨즈를 확인하세요. [퓨즈 교체](#퓨즈-교체) 섹션을 참고하세요.
+
+
+## 제어기 및 DYNAMIXEL 초기화 방법
+## 배터리 충전
+
+:::warning
+
+**주의**
+- 제공된 배터리는 키트에 포함된 충전기(LBC-10)로 충전해야 합니다.
+- 배터리를 연결하기 전에 충전기에 전원을 먼저 연결하세요.
+- 처음 사용하기 전에 배터리를 완전히 충전하세요.
+
+:::
+
+
+1. 키트에 포함된 충전 배터리를 준비합니다.
+  ![](/img/common/battery_charging_1_kr.webp)
+
+2. 아래 그림과 같이 배터리를 충전기에 연결합니다.
+  ![](/img/common/battery_charging_2.webp)
+
+3. 충전이 완료되면 LED가 초록색으로 켜집니다.
+  ![](/img/common/battery_charging_3.webp)
+
+4. 배터리 없이 SMPS만으로도 로봇과 제어기에 전원을 공급할 수 있습니다.
+  ![](/img/common/battery_charging_4_kr.webp)
+
+5. 배터리는 충전기용 커넥터와 로봇용 커넥터가 분리되어 있습니다. 배터리를 충전할 때는 로봇에서 `Robot Connector`를 분리하세요.
+  ![](/img/common/battery_charging_5.webp)
+
+
+## 배터리 잔량 확인
+![](/img/common/battery_check.webp)
+
+현재 배터리 잔량은 CM-550의 LED 색상으로 확인할 수 있습니다.
+
+- 파란색 : 70% ~ 100%
+- 초록색 : 30% ~ 70%
+- 빨간색 : 30% 미만(저전압 경고)
+
+
+:::note
+
+**참고** : Bluetooth 연결이 끊어지면 Power LED가 깜박입니다.
+
+:::
+
+
+:::warning
+
+**주의** : 충전이 완료되면 배터리를 충전기에서 분리하세요. 로봇을 동작시키는 동안에는 배터리를 충전하지 마세요.
+
+:::
+
+
+## 퓨즈 교체
+CM-550의 퓨즈는 예상치 못한 과전류로부터 하드웨어를 보호합니다.
+CM-550이 SMPS로는 켜지지만 배터리로는 켜지지 않는다면 퓨즈를 확인하고 필요하면 교체하세요.
+
+
+:::danger
+
+**위험** : 퓨즈를 교체하기 전에 CM-550에서 모든 전원(SMPS, 배터리, USB)을 분리하세요.
+
+:::
+
+
+CM-550의 전원을 분리한 후 CM-550 바닥면의 퓨즈를 교체합니다.
+
+![](/img/common/charger_fuse_1.webp)
+
+![](/img/common/charger_fuse_2.webp)
+
+
+## 도면
+다음 표에서 3D 프린팅 파일(STL)을 다운로드할 수 있습니다.
+
+
+:::note
+
+**참고**: 3D 모델 파일을 출력할 때는 로봇 무게를 줄이기 위해 내부 채움 밀도를 10% 이하로 설정하는 것을 권장합니다.
+
+:::
+
+
+|             모델              | 다운로드                                                                            |
+|:-----------------------------:|:------------------------------------------------------------------------------------|
+|          Parts List           | [ENG2_3D_Printing_Parts_List](https://www.robotis.com/service/download.php?no=1972) |
+|            MAX-E2             | [1. MAX-E2_STL.zip](https://www.robotis.com/service/download.php?no=1951)           |
+|           Commando            | [2. COMMANDO_STL.zip](https://www.robotis.com/service/download.php?no=1952)         |
+|            Scorpi             | [3. SCORPI_STL.zip](https://www.robotis.com/service/download.php?no=1953)           |
+|      AutoBot (추가 예제)      | [4. AUTOBOT_STL.zip](https://www.robotis.com/service/download.php?no=1954)          |
+|      Strider (추가 예제)      | [5. STRIDER_STL.zip](https://www.robotis.com/service/download.php?no=1955)          |
+
+
+:::tip
+
+소프트웨어 애플리케이션, 3D/2D CAD 및 기타 유용한 자료는 **[ROBOTIS Download Center](http://en.robotis.com/service/downloadpage.php?ca_id=70)**에서도 확인할 수 있습니다.
+
+:::
+
+
+[CM-550 eManual]: /docs/parts/controller/cm-550
+[2XL430-W250 eManual]: /docs/dxl/model_reference/x_series/xl_series/2xl430-w250
+[R+ Task 3.0]: /docs/software/rplus_task_3_0
+[Operating Mode]: /docs/parts/controller/cm-550#operating-mode

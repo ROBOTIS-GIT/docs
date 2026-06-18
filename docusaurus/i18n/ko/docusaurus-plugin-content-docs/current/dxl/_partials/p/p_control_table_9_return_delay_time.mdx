@@ -1,0 +1,14 @@
+Instruction Packet을 수신하면 DYNAMIXEL 서보는 설정된 Return Delay Time(9)이 지난 뒤 Status Packet을 반환합니다.
+
+설정 가능한 값은 0 ~ 254(0xFE)이며, 각 단위는 2 μsec 지연을 의미합니다. 예를 들어 Return Delay Time(9)을 `10`으로 설정하면 Instruction Packet을 수신한 뒤 20 μsec 후에 Status Packet이 반환됩니다.
+
+| 단위  | 값 범위 |                         설명                            |
+|:-----:|:-----------:|:--------------------------------------------------------------:|
+| 2μsec |   0 ~ 254   | 기본값: ‘250’(500 [μs]) <br /> 최대값: 508 [μs]    |
+
+
+:::warning
+
+**경고** : Modbus-RTU 통신은 Return Delay Time(9) 기능을 지원하지 않습니다.
+
+:::

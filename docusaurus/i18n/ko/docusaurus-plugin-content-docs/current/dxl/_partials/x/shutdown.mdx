@@ -1,0 +1,30 @@
+DYNAMIXEL은 동작 중 발생할 수 있는 위험 상황을 감지하여 스스로를 보호할 수 있습니다.
+각 Bit는 'OR' 논리로 처리되므로 여러 옵션을 동시에 설정할 수 있습니다.
+예를 들어 Shutdown(63)에 '0x05'(binary : 00000101)가 설정되면 Input Voltage Error(binary : 00000001)와 Overheating Error(binary : 00000100)를 모두 감지할 수 있습니다.
+이러한 오류가 감지되면 [Torque Enable(64)]은 '0'으로 변경되고 모터 출력은 0 [%]가 됩니다.
+Shutdown 이후 [Torque Enable(64)]을 다시 '1'(Torque ON)로 설정하려면 REBOOT이 필요합니다.
+제어기는 Status Packet의 Error 필드에 Alert Bit(0x80)이 설정되었는지 확인하거나 [Hardware Error Status(70)]를 통해 현재 상태를 확인할 수 있습니다. 감지 가능한 상황은 다음과 같습니다.
+
+|  Bit  |              항목               | 설명                                                                             |
+|:-----:|:-------------------------------:|:---------------------------------------------------------------------------------|
+| Bit 7 |                -                | 미사용, 항상 '0'                                                               |
+| Bit 6 |                -                | 미사용, 항상 '0'                                                               |
+| Bit 5 |     Overload Error(default)     | 모터의 최대 출력으로 제어할 수 없는 하중이 지속적으로 적용되는 경우                         |
+| Bit 4 | Electrical Shock Error(default) | 회로에 전기적 충격이 발생하거나 입력 전력이 부족해 모터가 정상 동작하지 못하는 경우 |
+| Bit 3 |       Motor Encoder Error       | 모터 Encoder의 오동작을 감지한 경우                                         |
+| Bit 2 |   Overheating Error(default)    | 내부 온도가 설정된 동작 온도를 초과한 경우   |
+| Bit 1 |                -                | 미사용, 항상 '0'                                                               |
+| Bit 0 |       Input Voltage Error       | 입력 전압이 설정된 동작 전압 범위를 벗어난 경우              |
+
+:::note
+
+**참고** :
+1. Shutdown이 발생하면 **LED가 1초마다 깜빡입니다**. (**Firmware v41 이상**)
+2. Shutdown이 발생하면 **장치를 reboot**하세요.
+- H/W REBOOT : 전원을 껐다가 다시 켭니다.
+- S/W REBOOT : REBOOT Instruction을 전송합니다. 자세한 내용은 e-Manual의 [Reboot](/docs/dxl/protocol/protocol2#reboot) 항목을 참고하세요.
+
+:::
+
+[Torque Enable(64)]: #torque-enable64
+[Hardware Error Status(70)]: #hardware-error-status70

@@ -1,0 +1,19 @@
+Temperature Limit(31)는 DYNAMIXEL 동작 온도의 상한을 설정하는 데 사용됩니다.
+[Present Temperature(146)]가 Temperature Limit(31)보다 크면 [Hardware Error Status(70)] 레지스터의 **Overheating Error Bit(0x04)**와 **Alert Bit(0x80)**가 설정됩니다. [Shutdown(63)]에 Overheating Error Bit(0x04)가 설정되어 있으면 [Torque Enable(64)]은 `0`(Torque OFF)으로 설정됩니다.
+자세한 내용은 [Shutdown(63)]을 참고하세요.
+
+|     Unit     | 값 범위 | 설명  |
+|:------------:|:-----------:|:------------:|
+| About 1&deg; |   0 ~ 100   | 0 ~ 100&deg; |
+
+
+:::warning
+
+**주의** : 이 값을 기본값보다 높게 설정하지 마세요. DYNAMIXEL에서 온도 Shutdown 알람(Overheating Error Bit(0x04))이 발생한 경우 액추에이터 손상을 방지하기 위해 재사용 전에 20분 이상 식히세요.
+
+:::
+
+[Torque Enable(64)]: #torque-enable64
+[Hardware Error Status(70)]: #hardware-error-status70
+[Shutdown(63)]: #shutdown63
+[Present Temperature(146)]: #present-temperature146

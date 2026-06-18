@@ -1,0 +1,47 @@
+# 컨트롤 테이블
+컨트롤 테이블은 DYNAMIXEL 액추에이터의 상태를 관리하기 위한 데이터 구조입니다. 사용자는 Read Instruction Packet으로 데이터 레지스터를 읽어 장치의 상태 정보를 확인할 수 있고, Write Instruction Packet으로 데이터 레지스터를 수정하여 장치를 제어할 수 있습니다.
+
+
+:::warning
+
+**주의** : DYNAMIXEL-P 서보는 DYNAMIXEL PRO 시리즈 액추에이터와 다른 컨트롤 테이블 구조를 사용합니다. DYNAMIXEL PRO에서 DYNAMIXEL-P로 전환할 때 제어 프로그램에서 사용하는 컨트롤 테이블 주소를 반드시 확인하세요.
+
+:::
+
+
+## 컨트롤 테이블, Data, Address
+컨트롤 테이블은 장치의 상태를 저장하거나 장치를 제어하기 위한 여러 Data 필드로 구성됩니다. 사용자는 Read Instruction Packet으로 컨트롤 테이블의 특정 Data를 읽어 현재 장치 상태를 확인할 수 있습니다. WRITE Instruction Packet은 컨트롤 테이블의 특정 Data를 변경하여 장치를 제어할 때 사용합니다. Address는 Instruction Packet으로 컨트롤 테이블의 특정 Data에 접근할 때 사용하는 고유한 값입니다. 데이터를 읽거나 쓰려면 Instruction Packet에 특정 Address를 지정해야 합니다. Instruction Packet에 대한 자세한 내용은 [DYNAMIXEL Protocol 2.0]을 참고하세요.
+
+
+:::note
+
+**참고** : 음수 값에는 2의 보수가 적용됩니다. 자세한 내용은 Wikipedia의 [Two's complement]를 참고하세요.
+
+:::
+
+
+### Area (EEPROM, RAM)
+컨트롤 테이블은 두 영역으로 나뉩니다. RAM Area의 Data는 전원이 재인가되면 초기값으로 리셋됩니다(Volatile). 반면 EEPROM Area의 Data는 장치의 전원이 꺼져도 유지됩니다(Non-Volatile).
+
+
+
+:::warning
+
+**EEPROM Area의 Data는 Torque Enable(512)이 `0`(Torque OFF)으로 해제된 경우에만 쓸 수 있습니다.**
+
+:::
+
+
+### Size
+Data의 Size는 용도에 따라 1 ~ 4 bytes로 다릅니다. Instruction Packet으로 Data를 갱신할 때는 Data의 Size를 확인하세요. 2 bytes보다 큰 Data는 [Little Endian] 방식으로 저장됩니다.
+
+### Access
+컨트롤 테이블은 두 가지 Access 속성을 가집니다. `RW`는 읽기와 쓰기가 모두 가능함을 의미하고, `R`은 읽기만 가능함을 의미합니다. 읽기 전용 속성의 Data는 WRITE Instruction으로 변경할 수 없습니다. 읽기 전용(`R`) 속성은 주로 측정 및 모니터링 용도로 사용되며, 읽기/쓰기(`RW`) 속성은 장치 제어에 사용됩니다.
+
+### Initial Value
+컨트롤 테이블의 각 Data는 장치가 켜질 때 Initial Value로 복원됩니다. EEPROM Area의 기본값은 장치의 초기값(공장 출하 설정)입니다. 사용자가 EEPROM Area의 값을 변경하면, 장치가 켜질 때 변경된 값이 초기값으로 복원됩니다. RAM Area의 Initial Value는 장치가 켜질 때 복원됩니다.
+
+[DYNAMIXEL Protocol 1.0]: /docs/dxl/protocol/protocol1
+[DYNAMIXEL Protocol 2.0]: /docs/dxl/protocol/protocol2
+[Two's complement]: https://en.wikipedia.org/wiki/Two%27s_complement
+[Little Endian]: https://en.wikipedia.org/wiki/Endianness#Little

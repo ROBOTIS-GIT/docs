@@ -1,0 +1,35 @@
+Indirect Address와 Indirect Data는 컨트롤 테이블의 서로 떨어진 Address를 연속된 Address처럼 접근할 때 유용합니다. 연속된 Address를 사용하면 Instruction Packet의 효율이 높아집니다. Indirect Address로 지정할 수 있는 Address는 RAM Area(Address 562 ~ 892)로 제한됩니다.
+특정 Address를 Indirect Address에 할당하면, Indirect Address는 해당 Address의 Data 특성과 속성을 상속합니다. 속성에는 Size(byte 길이), 값 범위, Access 속성(Read Only, Read/Write)이 포함됩니다. 예를 들어 Address 563(LED Red)을 Indirect Address 1(49)에 할당하면 Indirect Data 1(634)은 LED Red(563)와 정확히 같은 값을 갖습니다.
+
+#### 예제 1
+1 byte LED(563)를 Indirect Data 1(634)에 할당합니다.
+1. Indirect Address 1(49) : LED Red의 Address인 `563`으로 값을 변경합니다.
+2. Indirect Data 1(634)을 `1`로 설정 : LED Red(563)도 `1`이 되어 Red LED가 켜집니다.
+3. Indirect Data 1(634)을 `0`으로 설정 : LED Red(563)도 `0`이 되어 Red LED가 꺼집니다.
+
+#### 예제 2
+4 byte 크기의 Goal Position(596)을 Indirect Data 2(635)에 할당하려면, 연속된 4 byte를 할당해야 합니다.
+1. Indirect Address 2(51) : Goal Position의 첫 번째 Address인 `596`으로 값을 변경합니다.
+2. Indirect Address 3(53) : Goal Position의 두 번째 Address인 `597`으로 값을 변경합니다.
+3. Indirect Address 4(55) : Goal Position의 세 번째 Address인 `598`으로 값을 변경합니다.
+4. Indirect Address 5(57) : Goal Position의 네 번째 Address인 `599`으로 값을 변경합니다.
+5. Indirect Data 2에 4 byte 값 305,419,896(0x12345678)을 설정하면 Goal Position(596)도 아래와 같이 305,419,896(0x12345678)이 됩니다.
+
+| Indirect Data Address | Goal Position Address | 저장된 HEX 값 |
+|:---------------------:|:---------------------:|:---------------:|
+|          635          |          596          |      0x78       |
+|          636          |          597          |      0x56       |
+|          637          |          598          |      0x34       |
+|          638          |          599          |      0x12       |
+
+:::note
+
+**참고** : 컨트롤 테이블에서 2[byte]보다 긴 Data를 Indirect Address에 할당하려면 위 예제 2처럼 모든 Address를 Indirect Address에 할당해야 합니다.
+
+:::
+
+:::note
+
+**참고** : Indirect Address 29 ~ 56과 Indirect Data 29 ~ 56은 Protocol 2.0에서만 접근할 수 있습니다.
+
+:::

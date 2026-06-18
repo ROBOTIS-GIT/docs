@@ -34,7 +34,11 @@ The `ID Inspection` resolves the overlapping ID although they remain wired. For 
 
     ![](/img/software/dynamixel_wizard_2_0/advanced_features/id_inspection_step2_01.webp)  
 
-    **Note**: Perform [Firmware Recovery](#firmware-recovery) if you fail to scan any DYNAMIXEL.
+:::note
+
+**Note**: Perform [Firmware Recovery](#firmware-recovery) if you fail to scan any DYNAMIXEL.
+
+:::
     
 
 4. Click on `Next` for "ID Setting"
@@ -48,7 +52,11 @@ The `ID Inspection` resolves the overlapping ID although they remain wired. For 
 
     ![](/img/software/dynamixel_wizard_2_0/advanced_features/id_inspection_step3_02.webp)  
 
-    **Note** : If you select any item in the list, the DYNAMIXEL will blink once.
+:::note
+
+**Note** : If you select any item in the list, the DYNAMIXEL will blink once.
+
+:::
     
 
 6. If new ID are saved to the items of DYNAMIXEL, it will be colored green. Once completed, click on `Apply`.
@@ -84,7 +92,11 @@ See the available items in Control Table for data backup,
 - Profile Velocity
 - Indirect Addresses (Except DYNAMIXEL-P Series)
 
+:::note
+
 **Note**: Be sure to set the **Restore RAM** bit of the `Startup Configuration(60)` address in order to restore the RAM data on startup.
+
+:::
 
 
 :::info
@@ -135,7 +147,11 @@ See the available items in Control Table for data backup,
 ### Save and Load Backup File
 Save and Load backup data of EEPROM field as .ctd file. Utilizing "Save and Load Backup File" reduces the consuming time tasks of DYNAMIXEL configuration, and lowers the possibility of configuration error.
 
+:::note
+
 **NOTE**: Saved backup file(.cd) can be used between the same DYNAMIXEL models.
+
+:::
 
 
 ![](/img/software/dynamixel_wizard_2_0/advanced_features/backup_save_ctd.webp)
@@ -163,7 +179,11 @@ The resulting log shows the restored item.
 
 4. Enter the value
 
-    **NOTE** : Press `Enter` key to apply the value.
+:::note
+
+**NOTE** : Press `Enter` key to apply the value.
+
+:::
     
 
     ![](/img/software/dynamixel_wizard_2_0/advanced_features/wizard2_008.webp)
@@ -188,10 +208,18 @@ If the horn is misaligned after gear set replacement or reassembly, please perfo
 
     
     
-    **NOTE**: `Calibration` itme will be disabled at the menu for non-supported DYNAMIXEL such as [AX Series](/docs/dxl/model_reference/#ax-series)
-    
-    
-    **WARNING** : Only one DYNAMIXEL has to be connected to the port when calibrating DYNAMIXEL.
+:::note
+
+**NOTE**: `Calibration` itme will be disabled at the menu for non-supported DYNAMIXEL such as [AX Series](/docs/dxl/model_reference/#ax-series)
+
+:::
+
+
+:::warning
+
+**WARNING** : Only one DYNAMIXEL has to be connected to the port when calibrating DYNAMIXEL.
+
+:::
         
 
 2. Calibration will begin with a brief instruction.
@@ -233,14 +261,22 @@ In order to find error in DYNAMIXEL, self diagnosis can be performed.
 
 1. Go to `Tool` > `Self-Diagnosis`
 
-    **NOTE** : `Self-Diagnosis` item will be disabled at the menu for non-suppored DYNAMIXEL such as [RX Series](/docs/dxl/model_reference/#rx-series)
+:::note
+
+**NOTE** : `Self-Diagnosis` item will be disabled at the menu for non-suppored DYNAMIXEL such as [RX Series](/docs/dxl/model_reference/#rx-series)
+
+:::
     
 
     ![](/img/software/dynamixel_wizard_2_0/advanced_features/wizard2_self_001.webp)
 
 2. Self diagnosis will begin with a brief instruction.
 
-    **WARNING** : DYNAMIXEL will be factory reset during self diagnosis.
+:::warning
+
+**WARNING** : DYNAMIXEL will be factory reset during self diagnosis.
+
+:::
     
 
     ![](/img/software/dynamixel_wizard_2_0/advanced_features/wizard2_self_002.webp)

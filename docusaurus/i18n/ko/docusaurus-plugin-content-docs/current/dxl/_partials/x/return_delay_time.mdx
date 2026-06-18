@@ -1,0 +1,5 @@
+DYNAMIXEL이 Instruction Packet을 수신하면 설정된 Return Delay Time(9)이 지난 뒤 Status Packet을 반환합니다. 설정 가능한 값의 범위는 0 ~ 254(0xFE)이며 단위는 2[μsec]입니다. 예를 들어 Return Delay Time(9)을 `10`으로 설정하면 Instruction Packet을 수신한 뒤 20[μsec] 후에 Status Packet이 반환됩니다.
+
+|  Unit   | 값 범위 | 설명                                                    |
+|:-------:|:-----------:|:---------------------------------------------------------------|
+| 2[μsec] |   0 ~ 254   | Default value ‘250’(500[μsec]) <br /> Maximum value: '508'[μsec] |

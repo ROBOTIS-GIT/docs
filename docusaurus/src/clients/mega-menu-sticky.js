@@ -14,7 +14,71 @@
 if (typeof window !== 'undefined') {
   const initialized = new WeakSet();
 
+  function isKoreanLocale() {
+    return (
+      window.location.pathname === '/ko' ||
+      window.location.pathname.startsWith('/ko/')
+    );
+  }
+
+  function localizeMenuLinks(menu) {
+    menu
+      .querySelectorAll('a[href^="/docs/"], a[href^="/ko/docs/"]')
+      .forEach((link) => {
+        const href = link.getAttribute('href');
+        if (!href) return;
+
+        if (isKoreanLocale() && href.startsWith('/docs/')) {
+          link.setAttribute('href', `/ko${href}`);
+          return;
+        }
+
+        if (!isKoreanLocale() && href.startsWith('/ko/docs/')) {
+          link.setAttribute('href', href.slice(3));
+        }
+      });
+  }
+
+  function localizeHrefForCurrentLocale(href) {
+    if (isKoreanLocale() && href.startsWith('/docs/')) {
+      return `/ko${href}`;
+    }
+
+    if (!isKoreanLocale() && href.startsWith('/ko/docs/')) {
+      return href.slice(3);
+    }
+
+    return href;
+  }
+
+  document.addEventListener(
+    'click',
+    (event) => {
+      if (!(event.target instanceof Element)) return;
+
+      const link = event.target.closest('.mega-menu a[href]');
+      if (!link) return;
+
+      const href = link.getAttribute('href');
+      if (
+        !href ||
+        (!href.startsWith('/docs/') && !href.startsWith('/ko/docs/'))
+      ) {
+        return;
+      }
+
+      const localizedHref = localizeHrefForCurrentLocale(href);
+      if (localizedHref === href) return;
+
+      event.preventDefault();
+      window.location.assign(localizedHref);
+    },
+    true,
+  );
+
   function init(menu) {
+    localizeMenuLinks(menu);
+
     if (initialized.has(menu)) return;
     initialized.add(menu);
 

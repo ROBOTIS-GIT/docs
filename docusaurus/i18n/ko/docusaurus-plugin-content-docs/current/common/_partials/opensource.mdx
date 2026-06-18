@@ -1,0 +1,184 @@
+## 공통 오픈소스
+
+### CYCLO
+
+CYCLO는 ROBOTIS가 개발한 모듈형 오픈소스 프레임워크로, AI 통합부터 로봇 운용까지 Physical AI 시스템의 구축 및 운용을 손쉽게 만들기 위해 설계되었습니다.
+
+| 리소스 | 설명 | 링크 |
+|--------|------|------|
+| **CYCLO** | AI 통합, 데이터 워크플로우, 제어, 시뮬레이션, 운용을 아우르는 오픈 스택 | [GitHub](https://github.com/ROBOTIS-GIT/cyclo) |
+| **CYCLO Control** | Physical AI 제품 라인업을 위한 제어 패키지 | [GitHub](https://github.com/ROBOTIS-GIT/cyclo_control) |
+
+### 공유 리소스
+
+| 리소스 | 설명 | 링크 |
+|--------|------|------|
+| **Physical AI Tools** | LeRobotDataset 형식의 데이터셋 생성을 위한 ROS 2 패키지 | [GitHub](https://github.com/ROBOTIS-GIT/physical_ai_tools) |
+| **AI Models & Datasets** | 사전 학습 모델 및 학습 데이터셋 | [Hugging Face](https://huggingface.co/ROBOTIS) |
+| **DYNAMIXEL SDK** | DYNAMIXEL 액추에이터 및 플랫폼 제어 SDK | [GitHub](https://github.com/ROBOTIS-GIT/DynamixelSDK) |
+| **DYNAMIXEL Hardware Interface** | DYNAMIXEL 모터용 `ros2_control` 하드웨어 인터페이스 | [GitHub](https://github.com/ROBOTIS-GIT/dynamixel_hardware_interface) |
+| **ROBOTIS Interfaces** | Physical AI 제품 라인업의 공유 인터페이스 정의 | [GitHub](https://github.com/ROBOTIS-GIT/robotis_interfaces) |
+| **ROBOTIS Applications** | 애플리케이션 수준의 ROS 2 통합 및 의존성 | [GitHub](https://github.com/ROBOTIS-GIT/robotis_applications) |
+| **Isaac Sim Models** | Isaac Sim / Isaac Lab용 USD 로봇 에셋 | [GitHub](https://github.com/ROBOTIS-GIT/robotis_lab/tree/main/source/robotis_lab/data/robots) |
+| **MuJoCo Models** | MuJoCo menagerie 모델 | [GitHub](https://github.com/ROBOTIS-GIT/robotis_mujoco_menagerie) |
+
+## 제품별 오픈소스
+
+<table>
+  <thead>
+    <tr>
+      <th>제품</th>
+      <th>리소스</th>
+      <th>설명</th>
+      <th>링크</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowSpan="5"><strong>AI Worker</strong></td>
+      <td><strong>AI Worker</strong></td>
+      <td>AI Worker 운용을 위한<br />ROS 2 패키지</td>
+      <td><a href="https://github.com/ROBOTIS-GIT/ai_worker">GitHub</a></td>
+    </tr>
+    <tr>
+      <td><strong>시뮬레이션<br />모델</strong></td>
+      <td>시뮬레이션용 URDF(ROS),<br />MJCF(MuJoCo), USD(Isaac Sim/Lab)<br />모델 파일</td>
+      <td>
+        <a href="https://github.com/ROBOTIS-GIT/ai_worker/tree/main/ffw_description/urdf">URDF</a><br />
+        <a href="https://github.com/ROBOTIS-GIT/robotis_mujoco_menagerie">MJCF</a><br />
+        <a href="https://github.com/ROBOTIS-GIT/robotis_lab/tree/main/source/robotis_lab/data/robots">USD</a>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>도면<br />파일</strong></td>
+      <td>하드웨어 설계 파일 및<br />기술 도면</td>
+      <td>
+        <strong>FFW-BG2:</strong><br />
+        <a href="https://www.robotis.com/service/download.php?no=2214">PDF</a><br />
+        <a href="https://www.robotis.com/service/download.php?no=2231">DWG</a> / <a href="https://www.robotis.com/service/download.php?no=2227">STEP</a><br />
+        <strong>FFW-SG2:</strong><br />
+        <a href="https://www.robotis.com/service/download.php?no=2215">PDF</a><br />
+        <a href="https://www.robotis.com/service/download.php?no=2232">DWG</a> / <a href="https://www.robotis.com/service/download.php?no=2228">STEP</a><br />
+        <strong>FFW-LG2:</strong><br />
+        <a href="https://www.robotis.com/service/download.php?no=2229">STEP</a>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Docker<br />이미지</strong></td>
+      <td>바로 사용 가능한<br />개발 환경</td>
+      <td><a href="https://hub.docker.com/r/robotis/ai-worker">Docker Hub</a></td>
+    </tr>
+    <tr>
+      <td><strong>튜토리얼<br />영상</strong></td>
+      <td>교육 콘텐츠 및 데모</td>
+      <td><a href="https://www.youtube.com/@ROBOTISOpenSourceTeam">YouTube</a></td>
+    </tr>
+    <tr>
+      <td rowSpan="5"><strong>OMY</strong></td>
+      <td><strong>AI<br />매니퓰레이터</strong></td>
+      <td>AI 매니퓰레이터 운용을 위한<br />ROS 2 패키지</td>
+      <td><a href="https://github.com/ROBOTIS-GIT/open_manipulator">GitHub</a></td>
+    </tr>
+    <tr>
+      <td><strong>시뮬레이션<br />모델</strong></td>
+      <td>시뮬레이션용 URDF(ROS),<br />MJCF(MuJoCo), USD(Isaac Sim/Lab)<br />모델 파일</td>
+      <td>
+        <a href="https://github.com/ROBOTIS-GIT/open_manipulator/tree/main/open_manipulator_description/urdf">URDF</a><br />
+        <a href="https://github.com/ROBOTIS-GIT/robotis_mujoco_menagerie">MJCF</a><br />
+        <a href="https://github.com/ROBOTIS-GIT/robotis_lab/tree/main/source/robotis_lab/data/robots">USD</a>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>도면<br />파일</strong></td>
+      <td>하드웨어 설계 파일 및<br />기술 도면</td>
+      <td>
+        <strong>OMY-F3M:</strong><br />
+        <a href="https://www.robotis.com/service/download.php?no=2217">PDF</a><br />
+        <a href="https://www.robotis.com/service/download.php?no=2216">DWG</a> / <a href="https://www.robotis.com/service/download.php?no=2218">STEP</a><br />
+        <strong>OMY-L100:</strong><br />
+        <a href="https://www.robotis.com/service/download.php?no=2220">PDF</a><br />
+        <a href="https://www.robotis.com/service/download.php?no=2219">DWG</a> / <a href="https://www.robotis.com/service/download.php?no=2221">STEP</a>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Docker<br />이미지</strong></td>
+      <td>바로 사용 가능한<br />개발 환경</td>
+      <td><a href="https://hub.docker.com/r/robotis/open-manipulator">Docker Hub</a></td>
+    </tr>
+    <tr>
+      <td><strong>튜토리얼<br />영상</strong></td>
+      <td>교육 콘텐츠 및 데모</td>
+      <td><a href="https://www.youtube.com/@ROBOTISOpenSourceTeam">YouTube</a></td>
+    </tr>
+    <tr>
+      <td rowSpan="5"><strong>OMX</strong></td>
+      <td><strong>AI<br />매니퓰레이터</strong></td>
+      <td>AI 매니퓰레이터 운용을 위한<br />ROS 2 패키지</td>
+      <td><a href="https://github.com/ROBOTIS-GIT/open_manipulator">GitHub</a></td>
+    </tr>
+    <tr>
+      <td><strong>시뮬레이션<br />모델</strong></td>
+      <td>시뮬레이션용 URDF(ROS),<br />MJCF(MuJoCo), USD(Isaac Sim/Lab)<br />모델 파일</td>
+      <td>
+        <a href="https://github.com/ROBOTIS-GIT/open_manipulator/tree/main/open_manipulator_description/urdf">URDF</a><br />
+        <a href="https://github.com/ROBOTIS-GIT/robotis_mujoco_menagerie">MJCF</a><br />
+        <a href="https://github.com/ROBOTIS-GIT/robotis_lab/tree/main/source/robotis_lab/data/robots">USD</a>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>도면<br />파일</strong></td>
+      <td>하드웨어 설계 파일 및<br />기술 도면</td>
+      <td>
+        <strong>OMX-F:</strong><br />
+        <a href="https://www.robotis.com/service/download.php?no=2223">PDF</a> / <a href="https://www.robotis.com/service/download.php?no=2224">STEP</a><br />
+        <strong>OMX-L:</strong><br />
+        <a href="https://www.robotis.com/service/download.php?no=2225">PDF</a> / <a href="https://www.robotis.com/service/download.php?no=2226">STEP</a>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Docker<br />이미지</strong></td>
+      <td>바로 사용 가능한<br />개발 환경</td>
+      <td><a href="https://hub.docker.com/r/robotis/open-manipulator">Docker Hub</a></td>
+    </tr>
+    <tr>
+      <td><strong>튜토리얼<br />영상</strong></td>
+      <td>교육 콘텐츠 및 데모</td>
+      <td><a href="https://www.youtube.com/@ROBOTISOpenSourceTeam">YouTube</a></td>
+    </tr>
+    <tr>
+      <td rowSpan="5"><strong>ROBOTIS Hand</strong></td>
+      <td><strong>ROBOTIS<br />Hand</strong></td>
+      <td>ROBOTIS Hand 운용을 위한<br />ROS 2 패키지</td>
+      <td><a href="https://github.com/ROBOTIS-GIT/robotis_hand">GitHub</a></td>
+    </tr>
+    <tr>
+      <td><strong>시뮬레이션<br />모델</strong></td>
+      <td>시뮬레이션용 URDF(ROS) 모델 파일</td>
+      <td><a href="https://github.com/ROBOTIS-GIT/robotis_hand/tree/main/robotis_hand_description/urdf">URDF</a></td>
+    </tr>
+    <tr>
+      <td><strong>도면<br />파일</strong></td>
+      <td>하드웨어 설계 파일 및<br />기술 도면</td>
+      <td>
+        <strong>HX5-D20-MRT:</strong><br />
+        <a href="https://www.robotis.com/service/download.php?no=2239">PDF</a><br />
+        <a href="https://www.robotis.com/service/download.php?no=2238">DWG</a> / <a href="https://www.robotis.com/service/download.php?no=2240">STEP</a><br />
+        <strong>HX5-D20-MLT:</strong><br />
+        <a href="https://www.robotis.com/service/download.php?no=2242">PDF</a><br />
+        <a href="https://www.robotis.com/service/download.php?no=2241">DWG</a> / <a href="https://www.robotis.com/service/download.php?no=2243">STEP</a>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Docker<br />이미지</strong></td>
+      <td>바로 사용 가능한<br />개발 환경</td>
+      <td><a href="https://hub.docker.com/r/robotis/robotis-hand">Docker Hub</a></td>
+    </tr>
+    <tr>
+      <td><strong>튜토리얼<br />영상</strong></td>
+      <td>교육 콘텐츠 및 데모</td>
+      <td><a href="https://www.youtube.com/@ROBOTISOpenSourceTeam">YouTube</a></td>
+    </tr>
+  </tbody>
+</table>
+
+커뮤니티의 기여를 통해 오픈소스 생태계를 함께 발전시켜 나가길 환영합니다.

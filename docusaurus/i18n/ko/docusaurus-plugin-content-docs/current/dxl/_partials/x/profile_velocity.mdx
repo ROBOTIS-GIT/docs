@@ -1,0 +1,31 @@
+[Drive Mode(10)]가 **Velocity-based Profile**인 경우 Profile Velocity(112)는 Profile의 최대 속도를 설정합니다.
+[Drive Mode(10)]가 **Time-based Profile**인 경우 Profile Velocity(112)는 Profile의 도달 시간(총 시간)을 설정합니다.
+Profile Velocity(112)는 [Operating Mode(11)]가 **Position Control Mode**, **Extended Position Control Mode**, **Current-based Position Control Mode**일 때만 적용됩니다.
+
+자세한 내용은 [Profile이란?](#what-is-the-profile)을 참고하세요.
+
+:::note
+
+**참고** : Velocity Control Mode에서는 Profile Velocity(112)를 사용하지 않고 [Profile Acceleration(108)]만 사용합니다.
+
+:::
+
+| Velocity-based Profile |      값         | 설명                                |
+|:----------------------:|:---------------:|:------------------------------------|
+|          Unit          | 0.229 [rev/min] | Profile의 속도를 설정합니다         |
+|         Range          |    0 ~ 32767    | '0'은 무한대 속도를 의미합니다      |
+
+| Time-based Profile |    값     | 설명                                                                                                                                                                                                       |
+|:------------------:|:---------:|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|        Unit        | 1 [msec]  | Profile의 도달 시간을 설정합니다                                                                                                                                                                                |
+|       Range        | 0 ~ 32737 | '0'은 무한대 속도를 의미합니다.<br />Profile Acceleration(108, 가속 시간)은 Profile Velocity(112, Profile 도달 시간) 값의 50%를 초과하지 않습니다.                    |
+
+:::note
+
+**참고** : Time-based Profile은 펌웨어 V42부터 지원합니다.
+
+:::
+
+[Drive Mode(10)]: #drive-mode10
+[Operating Mode(11)]: #operating-mode11
+[Profile Acceleration(108)]: #profile-acceleration108

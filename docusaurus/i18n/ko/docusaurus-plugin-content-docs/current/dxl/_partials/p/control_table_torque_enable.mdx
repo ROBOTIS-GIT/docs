@@ -1,0 +1,18 @@
+Torque Enable(512)은 Torque ON/OFF를 설정합니다. Torque Enable의 Address에 `1`을 쓰면 Torque가 켜지고 EEPROM Area의 모든 Data가 잠깁니다.
+
+|   Value    | 설명                    |
+|:----------:|:-------------------------------|
+| 0(Default) | Torque Off                     |
+|     1      | Torque On 및 EEPROM Area 잠금 |
+
+
+:::note
+
+**참고** : [Operating Mode(11)]와 [Torque Enable(512)]이 변경되면 [Present Position(580)]이 리셋될 수 있습니다. 자세한 내용은 [Homing Offset(20)]과 [Present Position(580)]을 참고하세요.
+
+:::
+
+[Present Position(580)]: #present-position580
+[Homing Offset(20)]: #homing-offset20
+[Torque Enable(512)]: #torque-enable512
+[Operating Mode(11)]: #operating-mode11

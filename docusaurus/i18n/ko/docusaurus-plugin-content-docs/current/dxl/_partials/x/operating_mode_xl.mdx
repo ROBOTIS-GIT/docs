@@ -1,0 +1,29 @@
+
+| Value      | Operating Mode                             | 설명 |
+|:-----------|:-------------------------------------------|:-----|
+| 1          | Velocity Control Mode                      | 속도를 제어하는 모드입니다. 일반 DC 모터와 유사하게 동작하며 구동 휠과 같은 용도에 적합합니다. |
+| 3(Default) | Position Control Mode                      | 위치를 제어하는 모드입니다. 기존 DYNAMIXEL의 Joint Mode와 동일합니다. 동작 위치 범위는 [Max Position Limit(48)]와 [Min Position Limit(52)]로 제한됩니다. 각 관절이 360도 미만으로 회전하는 관절형 로봇에 적합합니다. |
+| 4          | Extended Position Control Mode(Multi-turn) | 위치를 제어하는 모드입니다. 기존 DYNAMIXEL의 Multi-turn Position Control과 동일합니다. 512회전(-256[rev] ~ 256[rev])을 지원하며, 여러 바퀴를 회전하는 손목 관절, 컨베이어 시스템 또는 추가 감속기가 필요한 시스템에 적합합니다. Extended Position Control Mode에서는 [Max Position Limit(48)], [Min Position Limit(52)]가 사용되지 않습니다. |
+| 16         | PWM Control Mode  (Voltage Control Mode)   | PWM 출력을 직접 제어하는 모드입니다(Voltage Control Mode). |
+
+:::note
+
+**참고** : Operating Mode(11) 값이 변경되면 선택된 Operating Mode(11)에 따라 [Velocity PI(76, 78)](#velocity-pi-gain76-78), [Position PID(80, 82, 84)](#position-pid-gain80-82-84), [Feedforward(88, 90)](#position-pid-gain80-82-84)이 초기화됩니다. 또한 다음 레지스터도 함께 초기화됩니다.
+
+1. [Profile Velocity(112)](#profile-velocity112)와 [Profile Acceleration(108)](#profile-acceleration108)은 `0`으로 설정됩니다.
+2. [Goal PWM(100)](#goal-pwm100)은 [PWM Limit(36)](#pwm-limit36) 값으로 초기화됩니다.
+
+:::
+
+:::note
+
+**참고** : PWM은 **Pulse Width Modulation**의 약자로, 전압을 변조하여 모터를 제어하는 신호입니다. PWM은 펄스 폭을 변경해 모터에 공급되는 평균 전압을 제어하며, 모터 제어 분야에서 널리 사용됩니다.
+PWM Control Mode는 [AX](/docs/dxl/model_reference/ax_series/ax-12w#cw-compliance-margin) 및 [RX](/docs/dxl/model_reference/rx_series/rx-10#moving-speed-32) 시리즈의 Wheel Mode와 유사합니다.
+**PWM Control Mode**에서는 [Goal PWM(100)](#goal-pwm)을 사용해 DYNAMIXEL에 공급되는 전압을 제어합니다.
+
+:::
+
+{/* nested include: en/dxl/control_table_opmode_note.md */}
+
+[Max Position Limit(48)]: #minmax-position-limit
+[Min Position Limit(52)]: #minmax-position-limit

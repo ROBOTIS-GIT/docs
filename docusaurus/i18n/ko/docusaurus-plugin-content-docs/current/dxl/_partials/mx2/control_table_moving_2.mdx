@@ -1,0 +1,9 @@
+Moving(122)은 다이나믹셀이 움직이는 중인지 여부를 나타냅니다.
+[Present Velocity(128)](#present-velocity128)의 절대값이 [Moving Threshold(24)](#moving-threshold24)보다 크면 Moving(122)이 `1`로 설정됩니다.
+그렇지 않으면 `0`으로 설정됩니다.
+단, [Goal Position(116)](#goal-position116) Instruction으로 Profile이 진행 중인 경우에는 [Present Velocity(128)](#present-velocity128)와 관계없이 Moving(122)이 항상 `1`로 설정됩니다.
+
+| 값 | 설명                                                                                       |
+|:-----:|:--------------------------------------------------------------------------------------------------|
+|   0   | 움직임이 감지되지 않음                                                                          |
+|   1   | 움직임이 감지되었거나 Profile이 진행 중임(Goal Position(116) Instruction 처리 중) |

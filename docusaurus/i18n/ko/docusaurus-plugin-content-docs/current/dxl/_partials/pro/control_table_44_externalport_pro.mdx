@@ -1,0 +1,41 @@
+다양한 용도로 사용할 수 있는 External Port가 제공됩니다.
+각 포트의 속성은 External Port Mode(44, 45, 46, 47)로 설정하며, External Port의 Data는 External Port Data(626, 628, 630, 632)로 제어합니다.
+
+|External Port Mode|Mode|설명|
+| :---: | :---: | :---: |
+|0|AI(Analogue Input)|External Port 신호를 12[bit] 디지털 값으로 변환합니다.|
+|1|DO_PP(Digital Output Push-Pull)|External Port를 3.3V level의 digital output port로 사용합니다.|
+|2|DI_PU(Digital Input Pull-Up)|External Port를 digital input port로 사용합니다.<br />Floating 연결은 `1`로 간주됩니다.|
+|3(default)|DI_PD(Digital Input Pull-Down)|External Port를 digital input port로 사용합니다.<br />Floating 연결은 `0`으로 간주됩니다.|
+
+|External Port Mode|Access|Details|Electrical Characteristics|
+| :---: | :---: | :---: | :---: |
+|Common|-|-|0 ~ 3.3[V], 0 ~ 5[mA]<br />VESD(HBM) : 2[kV]|
+|0(AI)|Read|External Port 신호를 디지털 값으로 변환<br />External Data = signal x (4,095 / 3.3)|해상도 : 12[bit] (0 ~ 4,095)|
+|1(DO_PP)|Write|0 : External Port 출력을 0[V]로 설정<br />1 : External Port 출력을 3.3[V]로 설정|Output High level(VOH) : 2.4 [V] (min)<br />Output Low level(VOL) : 0.5 [V] (max)|
+|2(DI_PU)<br />3 (DI_PD)|Read|0: External Port 입력이 0[V]<br />1 : External Port 입력이 3.3[V]|Input High level(VIH) : 2.3 [V] (min)<br />Input Low level(VIL) : 1.0 [V] (max)<br />Pull-Up/Down : 40 [kΩ] (typ)|
+
+※ VESD(HBM) : ESD(Electrostatic Discharge) Voltage(human body model)
+
+:::warning
+
+External Port는 전기적으로 절연되어 있지 않으므로 전기적 사양을 준수해야 합니다.
+전기적 사양을 초과하거나 신호 연결에 문제가 있으면 DYNAMIXEL이 손상될 수 있으므로 특별히 주의하세요.
+- 정전기(ESD), 단락, 개방 회로로 인한 전기적 충격이 발생하지 않도록 주의하세요.
+- External Port 커넥터에 물이나 먼지가 들어가지 않도록 주의하세요.
+- External Port를 사용하지 않는 경우 케이블을 제거하세요.
+- External Port를 연결하거나 분리할 때는 전원을 끈 상태에서 진행하세요.
+- External Port의 GNDext Pin을 DYNAMIXEL 커넥터의 GND Pin에 직접 연결하지 마세요. 전원 노이즈가 External Port에 영향을 줄 수 있습니다.
+
+:::
+
+#### External 확장 포트 위치 및 Pin 기능
+볼트와 커버 플레이트를 제거하면 External Port 커넥터가 나타납니다.
+
+![](/img/common/pro_external_port.webp)
+
+![](/img/common/external_port_pinout.webp)
+
+|Pin 1|Pin 2|Pin 3|Pin 4|Pin 5|Pin 6|
+| :---: | :---: | :---: | :---: | :---: | :---: |
+|GND|3.3V|PORT1|PORT2|PORT3|PORT4|

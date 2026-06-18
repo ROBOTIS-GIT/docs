@@ -1,0 +1,19 @@
+이 값은 동작 온도를 제한합니다.
+DYNAMIXEL의 내부 온도를 나타내는 Present Temperature(625)가 Temperature Limit(21)보다 높아지면 Hardware Error Status(892)의 Overheating Error Bit(Bit 2)가 설정됩니다.
+Overheating Error Bit(Bit 2)가 [Shutdown(48)]에 설정되어 있고 Overheating Error가 발생하면 [Torque Enable(562)]이 `0`으로 해제되어 Torque가 꺼집니다.
+자세한 내용은 [Shutdown(48)] 섹션을 참고하세요.
+
+|단위|값 범위|설명|
+| :---: | :---: | :---: |
+|약 1&deg;|0 ~ 100|0 ~ 100&deg;|
+
+
+:::warning
+
+**주의** : 온도를 기본값보다 높게 설정하지 마세요. 온도 알람으로 Shutdown이 발생하면 재사용 전 20분 동안 온도를 식히세요. 고온 상태에서 계속 사용하면 DYNAMIXEL이 심각하게 손상될 수 있습니다.
+
+:::
+
+
+[Shutdown(48)]: #shutdown
+[Torque Enable(562)]: #torque-enable562

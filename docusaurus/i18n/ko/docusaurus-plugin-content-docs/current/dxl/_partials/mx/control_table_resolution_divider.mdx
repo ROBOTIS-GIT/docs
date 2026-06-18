@@ -1,0 +1,25 @@
+DYNAMIXEL의 해상도를 변경할 수 있습니다.
+Resolution Divider의 기본값은 1입니다. (1 ~ 4 사용 가능)
+해상도를 낮추면 양방향 회전 횟수를 늘릴 수 있습니다. (각 방향 최대 28회전)
+
+```
+Present Position = 실제 위치 / Resolution Divider
+```
+
+예를 들어 실제 위치 값이 2048이고 Resolution Divider가 2이면 Present Position 값은 1024(2048/2 = 1024)가 됩니다.
+Resolution Divider가 2로 설정된 DYNAMIXEL은 1회전 해상도가 2048이 됩니다.
+Multi-turn Offset과 Resolution Divider를 함께 고려하면 Present Position은 아래 식으로 구할 수 있습니다.
+
+```
+Present position = (실제 위치 / Resolution Divider) + Multi-turn Offset
+```
+
+예를 들어 실제 위치가 2048이고 Resolution Divider가 4, Multi-turn Offset이 1024이면 DYNAMIXEL은 회전하지 않지만 Present Position은 1535((2048/4) + 1024 = 1535)가 됩니다.
+
+![](/img/dxl/model_reference/mx_series/mx-12_res_divider.webp)
+
+:::note
+
+**참고** : [Multiturn Offset(20)](#multi-turn-offset)과 [Resolution Divider(22)](#resolution-divider)은 Multi-turn Mode(CW와 CCW가 모두 0인 조건, 동작 모드는 [CW/CCW Angle Limit(6, 8)](#cwccw-angle-limit6-8) 참고)에서만 적용됩니다. 다른 동작 모드에서는 Multiturn Offset(20)과 Resolution Divider(22)의 설정값이 무시됩니다.
+
+:::

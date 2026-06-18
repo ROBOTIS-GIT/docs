@@ -1,0 +1,11 @@
+Moving(122) 레지스터는 연결된 DYNAMIXEL이 이동 중인지 여부를 나타냅니다.
+[Present Velocity(128)]의 절대값이 설정된 [Moving Threshold(24)]보다 크면 Moving(122)은 `1`로 설정되어 액추에이터가 이동 중임을 나타냅니다. 그렇지 않으면 `0`으로 설정됩니다. 단, [Goal Position(116)] Instruction이 갱신되어 이동 Profile이 진행 중인 동안에는 [Present Velocity(128)]와 관계없이 Moving(122)이 항상 `1`로 설정됩니다.
+
+| Value | 설명     |
+| :------------- | :------------- |
+| 0 | 움직임이 감지되지 않음 |
+| 1 | 움직임이 감지되었거나 Profile이 진행 중입니다(Goal Position(116) Instruction이 갱신됨). |
+
+[Goal Position(116)]: #goal-position116
+[Moving Threshold(24)]: #moving-threshold24
+[Present Velocity(128)]: #present-velocity128

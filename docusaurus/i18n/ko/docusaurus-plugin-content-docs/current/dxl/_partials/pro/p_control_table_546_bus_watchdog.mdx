@@ -1,0 +1,35 @@
+Bus Watchdog(546)는 컨트롤러와 장치 사이의 통신(RS-485, TTL)이 알 수 없는 오류로 끊겼을 때 장치를 정지시키는 안전 기능(Fail-safe)입니다.
+여기서 "통신"은 프로토콜에 정의된 모든 Instruction Packet으로 볼 수 있습니다.
+
+|       |  값  | 설명                                                     |
+|:-----:|:-------:|:----------------------------------------------------------------|
+| 범위 |    0    | Bus Watchdog 기능을 비활성화하고 Bus Watchdog Error를 해제합니다. |
+| 범위 | 1 ~ 127 | Bus Watchdog을 활성화합니다. 단위: 20 [msec]                        |
+| 범위 |   -1    | Bus Watchdog Error Status                                       |
+
+Bus Watchdog은 Torque Enable(512)이 `1`(Torque ON)일 때 컨트롤러와 장치 사이의 통신 간격을 감시합니다.
+측정된 통신 간격이 Bus Watchdog(546)에 설정된 값보다 길면 장치가 정지하고 Bus Watchdog(546) 값은 `-1`(Bus Watchdog Error)로 설정됩니다.
+Bus Watchdog Error가 발생하면 Goal PWM(548), Goal Current(550), Goal Velocity(552), Goal Position(564) 같은 Goal Value의 접근 속성이 읽기 전용으로 변경됩니다.
+따라서 Goal Value에 새 값을 쓰면 Status Packet의 Error 필드를 통해 Data Range Error가 반환됩니다.
+Bus Watchdog(546)에 `0`을 쓰면 Bus Watchdog Error가 해제됩니다.
+
+:::note
+
+**참고** : Data Range Error에 대한 자세한 내용은 [Protocol 2.0]을 참고하세요.
+
+:::
+
+[Protocol 2.0]: /docs/dxl/protocol/protocol2
+
+다음은 Bus Watchdog 기능의 예제입니다.
+
+<div class="notice--success">
+1. Operating Mode(11)를 Velocity Control Mode로 설정한 뒤 Torque Enable(512)을 `1`로 변경합니다.
+2. Goal Velocity(552)에 `50`을 쓰면 장치가 CCW 방향으로 회전합니다.
+3. Bus Watchdog(546) 값을 `100`(2,000 [ms])으로 변경합니다. Bus Watchdog 기능이 활성화됩니다.
+4. 2,000 [ms] 동안 Instruction Packet이 수신되지 않으면 장치는 미리 정의된 감속값으로 정지합니다.
+5. Bus Watchdog(546) 값은 `-1`(Bus Watchdog Error)로 설정됩니다. 이때 Goal Value의 접근 속성은 읽기 전용으로 변경됩니다.
+6. Goal Velocity(552)에 `150`을 쓰면 Status Packet으로 Data Range Error가 반환됩니다.
+7. Bus Watchdog(546) 값을 `0`으로 변경하면 Bus Watchdog Error가 해제됩니다.
+8. Goal Velocity(552)에 `150`을 쓰면 장치가 CCW 방향으로 회전합니다.
+</div>

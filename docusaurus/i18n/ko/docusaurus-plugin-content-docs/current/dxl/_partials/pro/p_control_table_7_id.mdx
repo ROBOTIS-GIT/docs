@@ -1,0 +1,8 @@
+DYNAMIXEL ID는 DYNAMIXEL 네트워크에서 Instruction Packet의 대상 액추에이터를 식별하는 데 사용됩니다.
+개별 DYNAMIXEL 액추에이터에는 0 ~ 253(0xFD) 값을 할당할 수 있으며, 254(0xFE)는 연결된 모든 장치에 Instruction Packet을 동시에 전송하기 위한 Broadcast ID로 예약되어 있습니다.
+
+:::note
+
+**참고**: DYNAMIXEL 네트워크에 연결된 각 장치는 서로 다른 ID를 사용해야 합니다. 여러 장치가 같은 ID를 공유하면 통신 문제나 제어 실패가 발생할 수 있습니다.
+
+:::

@@ -1,0 +1,18 @@
+동작이 허용되는 각도를 설정할 수 있습니다.
+값의 범위와 단위는 [Goal Position(30)]과 같습니다.
+- CW Angle Limit: [Goal Position(30)]의 최소값
+- CCW Angle Limit: [Goal Position(30)]의 최대값
+
+CW와 CCW 값에 따라 다음 3가지 동작 모드를 설정할 수 있습니다.
+
+| 동작 모드 |                                      CW / CCW                                      |
+|:---------------:|:----------------------------------------------------------------------------------:|
+|   Wheel Mode    |                        CW와 CCW가 모두 0인 조건                        |
+|   Joint Mode    | CW와 CCW가 모두 0이 아닌 조건<br />(Wheel Mode와 Multi-turn Mode를 제외한 조건) |
+| Multi-turn Mode |                      CW와 CCW가 모두 4,095인 조건                       |
+
+Wheel Mode는 모터가 무한 회전하므로 바퀴형 구동 로봇에 사용할 수 있습니다.
+Joint Mode는 특정 각도로 제어할 수 있어 다관절 로봇에 사용할 수 있습니다.
+Multi-turn Mode는 Joint Mode와 같이 특정 위치로 제어할 수 있으며, 여러 회전을 포함한 위치 범위(-28,672 ~ 28,672)를 사용할 수 있습니다.
+
+[Goal Position(30)]: #goal-position-30

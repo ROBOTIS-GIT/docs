@@ -1,0 +1,362 @@
+# 기타
+## 제어기 선택
+RoboPlus Task에서 사용할 수 있는 명령과 파라미터는 선택한 제어기에 따라 달라집니다. 따라서 프로그램을 작성하기 전에 사용할 제어기를 먼저 선택해야 합니다.
+
+![select controller][select_controller]
+
+- 다른 제어기용 프로그램을 작성하던 중 제어기를 변경하면 룰 체크 과정에서 오류가 발생할 수 있습니다.
+- 다른 제어기용 프로그램을 사용하려면 호환되지 않는 명령과 파라미터를 해당 제어기에 맞게 수정해야 합니다.
+
+<a id="rule-check"></a>
+
+## 룰 체크
+룰 체크는 태스크 코드가 규칙에 맞게 작성되었는지 검사하는 과정입니다. RoboPlus Task는 문법 오류의 원인과 위치를 출력하며, 오류 메시지를 더블클릭하면 해당 위치로 이동할 수 있습니다.
+
+```
+=== Sentence Check(ollo_bug_product_en) ===
+Line:13 Please select a device or number.
+=== Total Error: 1 ===
+```
+
+### 오류
+다음은 룰 체크에서 표시될 수 있는 문법 오류 목록입니다.
+
+<a id="error_01"></a>
+
+1. [숫자 또는 장치 선택](#error_01)
+
+<a id="error_02"></a>
+
+2. [블록의 시작이 없음](#error_02)
+
+<a id="error_03"></a>
+
+3. [블록을 지정해야 함](#error_03)
+
+<a id="error_04"></a>
+
+4. [프로그램 시작은 1개만 허용됨](#error_04)
+
+<a id="error_05"></a>
+
+5. [프로그램 시작은 블록 안에 정의할 수 없음](#error_05)
+
+<a id="error_06"></a>
+
+6. [함수는 블록 안에 정의할 수 없음](#error_06)
+
+<a id="error_07"></a>
+
+7. [지정한 블록을 실행하는 명령이 없음](#error_07)
+
+<a id="error_08"></a>
+
+8. [이 줄은 블록 안에 포함되어야 함](#error_08)
+
+<a id="error_09"></a>
+
+9. [블록의 시작과 끝이 맞지 않음](#error_09)
+
+<a id="error_10"></a>
+
+10. [프로그램 시작이 없음](#error_10)
+
+<a id="error_11"></a>
+
+11. [같은 이름의 함수가 이미 있음](#error_11)
+
+<a id="error_12"></a>
+
+12. [복귀는 함수 안에서만 사용할 수 있음](#error_12)
+
+<a id="error_13"></a>
+
+13. [같은 이름의 레이블이 이미 있음](#error_13)
+
+<a id="error_14"></a>
+
+14. [함수는 자기 자신을 호출할 수 없음](#error_14)
+
+<a id="error_15"></a>
+
+15. [만약/아니면 만약 사용이 올바르지 않음](#error_15)
+
+<a id="error_16"></a>
+
+16. [끝낼 반복문이 없음](#error_16)
+
+<a id="error_17"></a>
+
+17. [블록은 하나 이상의 명령으로 구성되어야 함](#error_17)
+
+<a id="error_18"></a>
+
+18. [다른 블록으로 점프할 수 없음](#error_18)
+
+<a id="error_19"></a>
+
+19. [호출한 함수가 없음](#error_19)
+
+<a id="error_20"></a>
+
+20. [콜백 함수는 1개만 존재할 수 있음](#error_20)
+
+<a id="error_21"></a>
+
+21. [콜백 함수는 블록 안에 정의할 수 없음](#error_21)
+
+<a id="error_22"></a>
+
+22. [이 명령은 콜백 함수에서 사용할 수 없음](#error_22)
+
+<a id="error_23"></a>
+
+23. [이 장치는 콜백 함수에서 사용할 수 없음](#error_23)
+
+<a id="error_24"></a>
+
+24. [선택한 제어기에서 사용할 수 없는 명령임](#error_24)
+
+<a id="error_25"></a>
+
+25. [선택한 제어기에서 사용할 수 없는 장치가 있음](#error_25)
+
+### 해결 방법
+
+1. 숫자 또는 장치 선택
+
+  | 오류 원인 | 해결 방법 |
+  | :---: | :---: |
+  | 태스크 코드 규칙에 맞지 않는 명령 또는 파라미터가 사용되었습니다. | 오류 위치로 이동해 명령, 블록, 파라미터 또는 제어기 설정을 올바르게 수정합니다. |
+  | ![img_01][img_01] | ![img_02][img_02] |
+
+2. 블록의 시작이 없음
+
+  | 오류 원인 | 해결 방법 |
+  | :---: | :---: |
+  | 태스크 코드 규칙에 맞지 않는 명령 또는 파라미터가 사용되었습니다. | 오류 위치로 이동해 명령, 블록, 파라미터 또는 제어기 설정을 올바르게 수정합니다. |
+  | ![img_03][img_03] | ![img_04][img_04] |
+
+3. 블록을 지정해야 함
+
+  | 오류 원인 | 해결 방법 |
+  | :---: | :---: |
+  | 태스크 코드 규칙에 맞지 않는 명령 또는 파라미터가 사용되었습니다. | 오류 위치로 이동해 명령, 블록, 파라미터 또는 제어기 설정을 올바르게 수정합니다. |
+  | ![img_05][img_05] | ![img_06][img_06] |
+
+4. 프로그램 시작은 1개만 허용됨
+
+  | 오류 원인 | 해결 방법 |
+  | :---: | :---: |
+  | 태스크 코드 규칙에 맞지 않는 명령 또는 파라미터가 사용되었습니다. | 오류 위치로 이동해 명령, 블록, 파라미터 또는 제어기 설정을 올바르게 수정합니다. |
+  | ![img_07][img_07] | ![img_08][img_08] |
+
+5. 프로그램 시작은 블록 안에 정의할 수 없음
+
+  | 오류 원인 | 해결 방법 |
+  | :---: | :---: |
+  | 태스크 코드 규칙에 맞지 않는 명령 또는 파라미터가 사용되었습니다. | 오류 위치로 이동해 명령, 블록, 파라미터 또는 제어기 설정을 올바르게 수정합니다. |
+  | ![img_09][img_09] | ![img_10][img_10] |
+
+6. 함수는 블록 안에 정의할 수 없음
+
+  | 오류 원인 | 해결 방법 |
+  | :---: | :---: |
+  | 태스크 코드 규칙에 맞지 않는 명령 또는 파라미터가 사용되었습니다. | 오류 위치로 이동해 명령, 블록, 파라미터 또는 제어기 설정을 올바르게 수정합니다. |
+  | ![img_11][img_11] | ![img_12][img_12] |
+
+7. 지정한 블록을 실행하는 명령이 없음
+
+  | 오류 원인 | 해결 방법 |
+  | :---: | :---: |
+  | 태스크 코드 규칙에 맞지 않는 명령 또는 파라미터가 사용되었습니다. | 오류 위치로 이동해 명령, 블록, 파라미터 또는 제어기 설정을 올바르게 수정합니다. |
+  | ![img_13][img_13] | ![img_14][img_14] |
+
+8. 이 줄은 블록 안에 포함되어야 함
+
+  | 오류 원인 | 해결 방법 |
+  | :---: | :---: |
+  | 태스크 코드 규칙에 맞지 않는 명령 또는 파라미터가 사용되었습니다. | 오류 위치로 이동해 명령, 블록, 파라미터 또는 제어기 설정을 올바르게 수정합니다. |
+  | ![img_15][img_15] | ![img_16][img_16] |
+
+9. 블록의 시작과 끝이 맞지 않음
+
+  | 오류 원인 | 해결 방법 |
+  | :---: | :---: |
+  | 태스크 코드 규칙에 맞지 않는 명령 또는 파라미터가 사용되었습니다. | 오류 위치로 이동해 명령, 블록, 파라미터 또는 제어기 설정을 올바르게 수정합니다. |
+  | ![img_17][img_17] | ![img_18][img_18] |
+
+10. 프로그램 시작이 없음
+
+  | 오류 원인 | 해결 방법 |
+  | :---: | :---: |
+  | 태스크 코드 규칙에 맞지 않는 명령 또는 파라미터가 사용되었습니다. | 오류 위치로 이동해 명령, 블록, 파라미터 또는 제어기 설정을 올바르게 수정합니다. |
+  | ![img_19][img_19] | ![img_20][img_20] |
+
+11. 같은 이름의 함수가 이미 있음
+
+  | 오류 원인 | 해결 방법 |
+  | :---: | :---: |
+  | 태스크 코드 규칙에 맞지 않는 명령 또는 파라미터가 사용되었습니다. | 오류 위치로 이동해 명령, 블록, 파라미터 또는 제어기 설정을 올바르게 수정합니다. |
+  | ![img_21][img_21] | ![img_22][img_22] |
+
+12. 복귀는 함수 안에서만 사용할 수 있음
+
+  | 오류 원인 | 해결 방법 |
+  | :---: | :---: |
+  | 태스크 코드 규칙에 맞지 않는 명령 또는 파라미터가 사용되었습니다. | 오류 위치로 이동해 명령, 블록, 파라미터 또는 제어기 설정을 올바르게 수정합니다. |
+  | ![img_23][img_23] | ![img_24][img_24] |
+
+13. 같은 이름의 레이블이 이미 있음
+
+  | 오류 원인 | 해결 방법 |
+  | :---: | :---: |
+  | 태스크 코드 규칙에 맞지 않는 명령 또는 파라미터가 사용되었습니다. | 오류 위치로 이동해 명령, 블록, 파라미터 또는 제어기 설정을 올바르게 수정합니다. |
+  | ![img_25][img_25] | ![img_26][img_26] |
+
+14. 함수는 자기 자신을 호출할 수 없음
+
+  | 오류 원인 | 해결 방법 |
+  | :---: | :---: |
+  | 태스크 코드 규칙에 맞지 않는 명령 또는 파라미터가 사용되었습니다. | 오류 위치로 이동해 명령, 블록, 파라미터 또는 제어기 설정을 올바르게 수정합니다. |
+  | ![img_27][img_27] | ![img_28][img_28] |
+
+15. 만약/아니면 만약 사용이 올바르지 않음
+
+  | 오류 원인 | 해결 방법 |
+  | :---: | :---: |
+  | 태스크 코드 규칙에 맞지 않는 명령 또는 파라미터가 사용되었습니다. | 오류 위치로 이동해 명령, 블록, 파라미터 또는 제어기 설정을 올바르게 수정합니다. |
+  | ![img_29][img_29] | ![img_30][img_30] |
+
+16. 끝낼 반복문이 없음
+
+  | 오류 원인 | 해결 방법 |
+  | :---: | :---: |
+  | 태스크 코드 규칙에 맞지 않는 명령 또는 파라미터가 사용되었습니다. | 오류 위치로 이동해 명령, 블록, 파라미터 또는 제어기 설정을 올바르게 수정합니다. |
+  | ![img_31][img_31] | ![img_32][img_32] |
+
+17. 블록은 하나 이상의 명령으로 구성되어야 함
+
+  | 오류 원인 | 해결 방법 |
+  | :---: | :---: |
+  | 태스크 코드 규칙에 맞지 않는 명령 또는 파라미터가 사용되었습니다. | 오류 위치로 이동해 명령, 블록, 파라미터 또는 제어기 설정을 올바르게 수정합니다. |
+  | ![img_33][img_33] | ![img_34][img_34] |
+
+18. 다른 블록으로 점프할 수 없음
+
+  | 오류 원인 | 해결 방법 |
+  | :---: | :---: |
+  | 태스크 코드 규칙에 맞지 않는 명령 또는 파라미터가 사용되었습니다. | 오류 위치로 이동해 명령, 블록, 파라미터 또는 제어기 설정을 올바르게 수정합니다. |
+  | ![img_35][img_35] | ![img_36][img_36] |
+
+19. 호출한 함수가 없음
+
+  | 오류 원인 | 해결 방법 |
+  | :---: | :---: |
+  | 태스크 코드 규칙에 맞지 않는 명령 또는 파라미터가 사용되었습니다. | 오류 위치로 이동해 명령, 블록, 파라미터 또는 제어기 설정을 올바르게 수정합니다. |
+  | ![img_37][img_37] | ![img_38][img_38] |
+
+20. 콜백 함수는 1개만 존재할 수 있음
+
+  | 오류 원인 | 해결 방법 |
+  | :---: | :---: |
+  | 태스크 코드 규칙에 맞지 않는 명령 또는 파라미터가 사용되었습니다. | 오류 위치로 이동해 명령, 블록, 파라미터 또는 제어기 설정을 올바르게 수정합니다. |
+  | ![img_39][img_39] | ![img_40][img_40] |
+
+21. 콜백 함수는 블록 안에 정의할 수 없음
+
+  | 오류 원인 | 해결 방법 |
+  | :---: | :---: |
+  | 태스크 코드 규칙에 맞지 않는 명령 또는 파라미터가 사용되었습니다. | 오류 위치로 이동해 명령, 블록, 파라미터 또는 제어기 설정을 올바르게 수정합니다. |
+  | ![img_41][img_41] | ![img_42][img_42] |
+
+22. 이 명령은 콜백 함수에서 사용할 수 없음
+
+  | 오류 원인 | 해결 방법 |
+  | :---: | :---: |
+  | 태스크 코드 규칙에 맞지 않는 명령 또는 파라미터가 사용되었습니다. | 오류 위치로 이동해 명령, 블록, 파라미터 또는 제어기 설정을 올바르게 수정합니다. |
+  | ![img_43][img_43] | ![img_44][img_44] |
+
+23. 이 장치는 콜백 함수에서 사용할 수 없음
+
+  | 오류 원인 | 해결 방법 |
+  | :---: | :---: |
+  | 태스크 코드 규칙에 맞지 않는 명령 또는 파라미터가 사용되었습니다. | 오류 위치로 이동해 명령, 블록, 파라미터 또는 제어기 설정을 올바르게 수정합니다. |
+  | ![img_45][img_45] | ![img_46][img_46] |
+
+24. 선택한 제어기에서 사용할 수 없는 명령임
+
+  | 오류 원인 | 해결 방법 |
+  | :---: | :---: |
+  | 태스크 코드 규칙에 맞지 않는 명령 또는 파라미터가 사용되었습니다. | 오류 위치로 이동해 명령, 블록, 파라미터 또는 제어기 설정을 올바르게 수정합니다. |
+  | ![img_47][img_47] | ![img_48][img_48] |
+
+25. 선택한 제어기에서 사용할 수 없는 장치가 있음
+
+  | 오류 원인 | 해결 방법 |
+  | :---: | :---: |
+  | 태스크 코드 규칙에 맞지 않는 명령 또는 파라미터가 사용되었습니다. | 오류 위치로 이동해 명령, 블록, 파라미터 또는 제어기 설정을 올바르게 수정합니다. |
+  | ![img_49][img_49] | ![img_50][img_50] |
+
+## 오류 메시지
+다음 표는 RoboPlus Task에서 코드를 작성하거나 화면 출력 기능을 사용할 때 표시될 수 있는 오류 메시지 예시입니다.
+
+| 오류 코드 | 설명 | 출력 예시 |
+| :---: | :--- | :--- |
+| 8100 | 연결되지 않은 DYNAMIXEL ID와 통신을 시도했습니다.&lt;br&gt;연결되어 있다면 케이블을 다시 확인하세요. | **{'{'}[ERROR:8100:0005:03]{'}'}**&lt;br&gt;8100 : 오류 코드&lt;br&gt;0005 : DYNAMIXEL ID&lt;br&gt;03 : 상세 정보 |
+| 0009 | 함수가 너무 많이 연속 호출되었습니다. (6회 초과) | **{'{'}[ERROR:0009:0033:06]{'}'}**&lt;br&gt;0009 : 오류 코드&lt;br&gt;0033 : 상세 정보&lt;br&gt;06 : 상세 정보 |
+| 8001 | 쓰기 전용으로 지정된 제어기 주소를 읽으려고 했습니다. | **{'{'}[ERROR:8001:000C:02]{'}'}**&lt;br&gt;8001 : 오류 코드&lt;br&gt;000C : 상세 정보&lt;br&gt;02 : 상세 정보 |
+| 8002 | 읽기 전용으로 지정된 제어기 주소에 쓰려고 했습니다. | **{'{'}[ERROR:8002:0009:02]{'}'}**&lt;br&gt;8002 : 오류 코드&lt;br&gt;0009 : 상세 정보&lt;br&gt;02 : 상세 정보 |
+| None | 실행하려는 모션 페이지가 없습니다. | **[Invalid Page Read:00FE]**&lt;br&gt;00FE : 모션 페이지 번호(16진수) |
+
+[select_controller]: /img/software/rplus_1_0/rplus_task/task_misc/task_select_controller.png
+[img_01]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_001.png
+[img_02]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_002.png
+[img_03]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_003.png
+[img_04]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_004.png
+[img_05]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_005.png
+[img_06]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_006.png
+[img_07]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_007.png
+[img_08]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_008.png
+[img_09]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_009.png
+[img_10]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_010.png
+[img_11]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_011.png
+[img_12]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_012.png
+[img_13]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_013.png
+[img_14]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_014.png
+[img_15]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_015.png
+[img_16]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_016.png
+[img_17]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_017.png
+[img_18]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_018.png
+[img_19]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_019.png
+[img_20]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_020.png
+[img_21]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_021.png
+[img_22]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_022.png
+[img_23]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_023.png
+[img_24]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_024.png
+[img_25]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_025.png
+[img_26]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_026.png
+[img_27]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_027.png
+[img_28]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_028.png
+[img_29]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_029.png
+[img_30]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_030.png
+[img_31]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_031.png
+[img_32]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_032.png
+[img_33]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_033.png
+[img_34]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_034.png
+[img_35]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_035.png
+[img_36]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_036.png
+[img_37]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_037.png
+[img_38]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_038.png
+[img_39]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_039.png
+[img_40]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_040.png
+[img_41]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_041.png
+[img_42]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_042.png
+[img_43]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_043.png
+[img_44]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_044.png
+[img_45]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_045.png
+[img_46]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_046.png
+[img_47]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_047.png
+[img_48]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_048.png
+[img_49]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_049.png
+[img_50]: /img/software/rplus_1_0/rplus_task/task_misc/task_rule_error_050.png

@@ -1,0 +1,32 @@
+.ko-unsupported-doc {
+  min-height: 42vh;
+  display: flex;
+  align-items: flex-start;
+}
+
+.ko-unsupported-doc__notice {
+  width: 100%;
+  max-width: 720px;
+  margin: 2rem 0 3rem;
+  padding: 1.5rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 8px;
+  background: var(--ifm-background-surface-color);
+}
+
+.ko-unsupported-doc__label {
+  margin: 0 0 0.75rem;
+  color: var(--ifm-color-primary);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.ko-unsupported-doc__notice h1 {
+  margin: 0 0 0.75rem;
+  font-size: 1.85rem;
+}
+
+.ko-unsupported-doc__notice p:not(.ko-unsupported-doc__label) {
+  margin-bottom: 1.25rem;
+  color: var(--ifm-color-emphasis-700);
+}

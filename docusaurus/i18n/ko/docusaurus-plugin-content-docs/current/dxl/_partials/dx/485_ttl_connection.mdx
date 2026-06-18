@@ -1,0 +1,29 @@
+### 통신 회로
+
+다이나믹셀 액추에이터를 제어하려면 메인 컨트롤러의 UART 신호를 Half Duplex 방식으로 변환해야 합니다. 권장 회로도는 아래와 같습니다.
+
+#### TTL 통신
+
+![](/img/common/ttl_circuit.webp)
+
+:::note
+
+**참고** : 위 회로는 5V 또는 5V tolerant MCU를 기준으로 설계되었습니다. 그렇지 않은 경우 MCU 전압에 맞도록 Level Shifter를 사용하세요.
+
+:::
+
+#### RS-485 통신
+
+![](/img/common/x_series_485_circuit.webp)
+
+:::note
+
+**참고** : 위 회로는 5V 또는 5V tolerant MCU를 기준으로 설계되었습니다. 그렇지 않은 경우 MCU 전압에 맞도록 Level Shifter를 사용하세요.
+
+:::
+
+다이나믹셀 전원은 Pin1(-), Pin2(+)를 통해 공급됩니다.
+(위 회로는 다이나믹셀 컨트롤러 내부에만 포함되어 있습니다.)
+위 회로도에서 TTL Level의 TxD와 RxD 데이터 신호 방향은 TX_Enable_5V의 레벨에 따라 다음과 같이 결정됩니다.
+TX_Enable_5V = High인 경우: TxD 신호가 D+와 D-로 출력됩니다.
+TX_Enable_5V = Low인 경우: D+와 D- 신호가 RxD로 출력됩니다.

@@ -1,0 +1,28 @@
+{/*
+AX,EX,DX,RX Series : Shutdown [18], Torque Enable [24]
+*/}
+
+다이나믹셀은 동작 중 발생할 수 있는 위험 상황을 감지하여 스스로를 보호할 수 있습니다.
+각 Bit는 'OR' 논리로 포함 처리되므로 여러 옵션을 동시에 설정할 수 있습니다.
+예를 들어 Shutdown(18)에 '0x05' (binary : 00000101)가 설정되어 있으면 다이나믹셀은 Input Voltage Error(binary : 00000001)와 Overheating Error(binary : 00000100)를 모두 감지할 수 있습니다.
+해당 오류가 감지되면 Alarm LED가 점멸하고 모터 출력은 0 [%]가 됩니다. 감지 가능한 상황은 다음과 같습니다.
+
+|  Bit  |        항목         | 설명                                                                                                        |
+|:-----:|:-------------------:|:-------------------------------------------------------------------------------------------------------------------|
+| Bit 7 |          0          | -                                                                                                                  |
+| Bit 6 |  Instruction Error  | 정의되지 않은 Instruction이 전송되었거나 REG_WRITE 명령 없이 ACTION 명령이 전달된 경우를 감지 |
+| Bit 5 |   Overload Error    | 지속적인 부하가 최대 출력을 초과한 경우를 감지                                                                |
+| Bit 4 |   CheckSum Error    | 전송된 Instruction Packet의 Checksum이 올바르지 않은 경우를 감지                                         |
+| Bit 3 |     Range Error     | 사용 범위를 벗어난 명령이 전달된 경우를 감지                                                        |
+| Bit 2 |  Overheating Error  | 내부 온도가 설정 온도를 초과한 경우를 감지                                                  |
+| Bit 1 |  Angle Limit Error  | Goal Position이 CW Angle Limit과 CCW Angle Limit 사이가 아닌 값으로 쓰인 경우를 감지        |
+| Bit 0 | Input Voltage Error | 입력 전압이 설정된 동작 전압 범위를 벗어난 경우를 감지                                                |
+
+:::note
+
+Shutdown이 발생하면 **LED가 1초마다 점멸합니다.**
+
+:::
+
+[Shutdown(18)]: #shutdown
+[Torque Enable(24)]: #torque-enable

@@ -1,0 +1,30 @@
+[Drive Mode(10)]가 **Velocity-based Profile**이면 Profile Acceleration(556)은 Profile의 가속도를 설정합니다.
+[Drive Mode(10)]가 **Time-based Profile**이면 Profile Acceleration(556)은 Profile의 가속 시간을 설정합니다.
+Profile Acceleration(556)은 [Operating Mode(11)]의 **Current Control Mode**와 **PWM Control Mode**를 제외한 모든 Control Mode에 적용됩니다.
+자세한 내용은 [Profile이란?](#what-is-the-profile)을 참고하세요.
+
+| Velocity-based Profile |            값            | 설명                             |
+|:----------------------:|:----------------------------:|:----------------------------------------|
+|          단위          | 0 ~ [Acceleration Limit(40)] | Profile의 가속도를 설정합니다.        |
+|         범위          |          0 ~ 32767           | `0`은 무한대 가속도를 의미합니다. |
+
+| Time-based Profile |  값   | 설명                                                                                                                                                                                                        |
+|:------------------:|:---------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|        단위        | 1 [msec]  | Profile의 가속 시간을 설정합니다.                                                                                                                                                                              |
+|       범위        | 0 ~ 32737 | `0`은 무한대 가속 시간(`0 [msec]`)을 의미합니다.<br />Profile Acceleration(556, Acceleration time)은 Profile Velocity(112, Profile의 속도에 도달하는 시간) 값의 50%를 초과하지 않습니다. |
+
+:::note
+
+**참고** : Profile Velocity(560)가 `0`으로 설정되면 Profile의 가속도는 무시됩니다.
+
+:::
+
+:::note
+
+**참고** : Time-based Profile은 펌웨어 12부터 사용할 수 있습니다.
+
+:::
+
+[Acceleration Limit(40)]: #acceleration-limit40
+[Drive Mode(10)]: #drive-mode
+[Operating Mode(11)]: #operating-mode11

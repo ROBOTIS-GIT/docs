@@ -1,0 +1,311 @@
+# 개요
+![](/img/edu/engineer/kit2_introduction/kit2_main.webp)
+
+**ROBOTIS ENGINEER**는 스마트 기기를 기반으로 AI 기술을 적용한 차세대 로봇입니다.
+- 단계별 로봇 교육 과정에 맞춘 표준 커리큘럼을 제공합니다.
+- 관절형 구조로 다양한 로봇 동작을 구현할 수 있습니다.
+- 3D part 설계와 printing을 지원합니다.
+- 전용 앱(R+ ENGINEER)과 소프트웨어(R+ Task 3.0)를 제공합니다.
+- Raspberry Pi와 Camera를 지원합니다.
+- 확장 로봇 예제 3종(`MAX-E2`, `Commando`, `Scorpi`)을 만들 수 있는 부품이 포함되어 있습니다. [Advanced Study Materials](/docs/edu/engineer/kit2_advanced_course#advanced-study-materials)를 활용하면 총 5종의 예제를 제작할 수 있습니다.
+
+
+:::warning
+
+**주의** ENGINEER KIT 2는 ENGINEER KIT 1의 확장 키트입니다. ENGINEER KIT 2의 예제를 제작하려면 ENGINEER KIT 1의 부품이 필요합니다.
+
+:::
+
+
+## 부품 목록
+![](/img/edu/engineer/kit2_introduction/kit2_parts_list.webp)
+
+### CM-550 제어기
+#### 제품 사양
+|         항목          |                                                                                   사양                                                                                      |
+|:---------------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+|        무게           |                                                                                  58.8 [g]                                                                                   |
+|          MCU          |                                                                     ARM Cortex-M4 (168 [MHz], 32 [Bit])                                                                     |
+|   동작 전압           | Battery : 6.5 ~ 15 [V], **권장 11.1 [V] (Li-PO 3cell)**<br />SMPS : 6.5 ~ 15 [V], **권장 12.0 [V]**<br />Micro USB : 4.75 ~ 5.25 [V], **권장 5.0 [V]** |
+|  소비 전류            |                              Standby : 50 [mA]<br />Port 1 ~ 2 I/O Max : 0.5 [A]<br />Port 3 ~ 5 I/O Max : 0.02 [A]<br />Total : 10 [A] (Fuse)                              |
+| 동작 온도             |                                                                              -5 ~ 70 [&deg;C]                                                                               |
+| 통신 모듈             |                                                                              BLE Slave Module                                                                               |
+| 내부 I/O 장치         |  Buttons : 2 (MODE, START)<br />Mic (Sound Detection) : 1<br />Buzzer : 1<br />Voltage Sensor : 1<br />Gyro Accelerometer : 1<br />Temperature Sensor : 1<br />RGB LED : 3  |
+| 외부 I/O 장치         |                                   ROBOTIS 5 Pin Port : 5 (SM-10 / IR Array / TMS-10 : Port 1 또는 2 사용)<br />X series DYNAMIXEL Ports : 6                                    |
+
+
+#### CM-550 각 부 명칭
+![](/img/common/cm550_1.webp)
+
+![](/img/common/cm550_2.webp)
+
+- `USB` Micro USB Port : 5 pin Micro USB 케이블로 PC의 USB 포트와 연결할 수 있습니다.
+- `UART` Communication Port : BT-210, BT-410, LN-101, IR receiver 또는 기타 통신 모듈을 연결할 수 있습니다.
+- `BAT` Battery Socket : 제공된 Li-Po battery를 연결합니다.
+- `12VDC` DC Input : 제공된 SMPS의 DC barrel jack을 연결합니다.
+- `POWER` Power Switch : 제어기의 전원을 켜거나 끕니다.
+- Status LED : 전압 상태와 무선 장치 연결 상태를 RGB LED로 표시합니다.
+- `MODE` MODE LED : CM-550의 Operating Mode를 표시하는 RGB LED입니다. CM-550의 [Operating Mode]를 참고하세요.
+- `START` START LED : CM-550의 [Operating Mode]를 참고하세요.
+- `MODE` MODE Button : 이 버튼으로 Operating Mode를 변경할 수 있습니다. CM-550의 [Operating Mode]를 참고하세요.
+- `START` START Button : 선택한 Operating Mode를 실행합니다. CM-550의 [Operating Mode]를 참고하세요.
+- `DXL` DYNAMIXEL-X Series Port : DYNAMIXEL-X series를 이 포트에 연결할 수 있습니다.
+- `PORT` ROBOTIS 5 Pin Port : DMS, Touch sensor, IR sensor 등의 센서를 연결할 수 있습니다.
+  Servo motor, IR array sensor, Temperature & Humidity sensor는 Port 1 또는 2에만 연결할 수 있습니다.
+- `MIC` Internal Microphone : 내장 마이크로 박수 소리를 감지합니다.
+- `FUSE` Fuse : 10A fuse가 전기적 손상을 방지합니다.
+
+
+:::warning
+
+**주의** : CM-550의 USB 포트는 PC 연결용으로 설계되었습니다. 다른 USB 장치를 연결하지 마세요. 제어기가 손상될 수 있습니다.
+
+:::
+
+
+:::note
+
+**[CM-550 e-Manual]**
+
+:::
+
+
+### Raspberry Pi
+Raspberry Pi는 영국 Raspberry Pi Foundation에서 교육 목적으로 개발한 Linux 운영체제 기반의 single board computer입니다.
+
+#### Raspberry Pi Zero W
+Raspberry Pi Zero는 기존 Raspberry Pi의 기능을 유지하면서 크기와 가격을 낮춘 compact computer입니다.
+
+![](/img/edu/engineer/kit2_introduction/raspberry_pi_zero_port.webp)
+> Raspberry Pi Zero W 구성
+
+- `40 Pin GPIO Port`: Raspberry Pi의 General Purpose Input/Output pin입니다.
+- `Broadcom BCM2835`: Raspberry Pi Zero에 사용되는 Broadcom processor입니다.
+- `CSI Camera Connector`: Raspberry Pi camera module을 연결하는 connector입니다.
+- `Micro USB 5V Power Input`: Micro USB cable을 통한 5 V 전원 입력입니다.
+- `Micro USB Data Port`: USB HUB를 사용해 peripheral device(Mouse 또는 Keyboard)를 연결하는 port입니다.
+- `Mini-HDMI 1080P Video & Audio Output`: monitor와 audio 출력을 위한 Mini-HDMI port입니다.
+- `MicroSD Card`: 제공된 image file을 설치하는 MicroSD card slot입니다.
+
+#### Raspberry Pi Camera Module
+Raspberry Pi Camera는 Raspberry Pi에 연결하여 얼굴 및 색상 인식, line detection, video streaming 등 다양한 기능을 수행할 수 있습니다.
+
+![](/img/edu/engineer/kit2_introduction/raspberry_pi_cam_01.webp)
+> Raspberry Pi Camera Module
+
+![](/img/edu/engineer/kit2_introduction/raspberry_pi_cam_02.webp)
+> Camera Module이 장착된 Raspberry Pi Zero W
+
+
+#### Raspberry Pi Zero를 CM-550 제어기에 연결하는 방법
+![](/img/edu/engineer/kit2_introduction/raspberry_pi_zero_connection.webp)
+
+
+:::note
+
+**참고**: 제어기의 전원을 켠 후 Raspberry Pi가 부팅될 때까지 70초 정도 기다리세요. 부팅이 완료되면 알림음과 함께 노란색 LED가 켜집니다.
+
+:::
+
+
+### DYNAMIXEL
+#### XL430-W250-T
+DYNAMIXEL XL430-W250-T는 로봇 응용을 위해 설계된 smart actuator입니다.
+XL430-W250-T는 speed, position, extended position(multi-turn), PWM 등 다양한 control mode를 제공하며 11.0 V에서 1.4 N.m torque를 낼 수 있습니다.
+
+![](/img/common/xl430_product_new.webp)
+
+
+:::note
+
+**[XL430-W250-T e-Manual]**
+
+:::
+
+
+### 2XL430-W250
+**2XL430-W250**은 하나의 module로 **2 axis(2 DOF)** 제어가 가능한 DYNAMIXEL입니다. 2 axis를 동시에 제어하기 위해 각 축은 동일한 Baudrate를 공유하면서 서로 다른 ID를 사용합니다. Baudrate를 제외하면 각 축의 Control Table이 분리되어 있으므로 2XL은 다양한 응용 분야에 활용할 수 있습니다.
+
+사용 방법은 다른 DYNAMIXEL과 동일하지만, Firmware Recovery를 수행하면 두 축이 모두 공장 출하 상태로 초기화됩니다.
+
+![](/img/edu/engineer/2xl430_intro.webp)
+
+
+:::note
+
+**[2XL430-W250 e-Manual]**
+
+:::
+
+
+### LED Module
+R / B LED board는 red, blue, violet 색상과 밝기를 제어할 수 있으며, 로봇 외형에 부착하여 화려한 LED 효과를 주거나 경기에서 LED 색상으로 팀을 구분할 때 사용할 수 있습니다.
+
+![](/img/edu/engineer/kit2_introduction/led_board_01.webp)
+> LED Module
+
+![](/img/edu/engineer/kit2_introduction/led_board_02.webp)
+> LED Module용 sticker
+
+![](/img/edu/engineer/kit2_introduction/led_board_03.webp)
+> MAX-E2에 장착된 LED Module
+
+### Servo Motor
+Actuator는 장치를 특정 각도로 회전시키거나 특정 위치로 이동해야 하는 응용 분야에서 motion control 용도로 자주 사용됩니다. DYNAMIXEL은 다양한 operating mode를 제공하며, 그중 wheel 기반 회전 운동과 joint movement를 위한 정밀 position 제어가 가장 널리 사용됩니다.
+
+![](/img/edu/engineer/kit2_introduction/servo_motor_product.webp)
+
+
+:::note
+
+**[Servo Motor e-Manual]**
+
+:::
+
+
+### DMS-80
+DMS-80(Distance Measuring Sensor)은 infrared sensor를 사용하여 거리를 감지하는 센서입니다.
+일반 infrared sensor와 달리 DMS sensor는 반사체의 색상 영향을 적게 받으며, 감지 거리는 10 ~ 80 cm까지 확장됩니다.
+
+![](/img/edu/engineer/kit2_introduction/dms.webp)
+
+
+:::note
+
+**[DMS-80 e-Manual]**
+
+:::
+
+
+## 주의사항
+### 안전 주의사항
+
+:::danger
+
+![](/img/common/icon_warning.webp)
+1. 사용하기 전에 이 매뉴얼을 충분히 읽어 주세요.
+2. 키트에 제공된 공구만 사용하세요.
+3. 로봇이 동작 중일 때 얼굴이나 몸을 가까이 대지 마세요.
+4. 손가락이나 신체 일부가 로봇 관절에 끼이지 않도록 주의하세요.
+5. 직사광선 아래에서 로봇을 동작하거나 보관하지 마세요.
+6. 물이나 열원 근처에서 로봇을 동작하거나 보관하지 마세요.
+7. 부품을 임의로 개조하거나 분해하지 마세요.
+8. 로봇과 부품은 영유아나 어린아이의 손이 닿지 않는 곳에 보관하세요.
+9. 로봇에 충격을 주거나 날카로운 물체로 찌르지 마세요.
+
+:::
+
+
+### 사용 시 주의사항
+
+:::warning
+
+1. 나사를 조일 때는 키트에 제공된 screwdriver(PH 1)를 사용하세요.
+2. 조립 시 나사와 부품에 과도한 힘을 가하지 마세요.
+3. 낙하로 인한 손상을 방지하기 위해 로봇은 바닥에서 동작시키세요.
+4. 낙하로 인한 우발적 손상은 보증 대상에 포함되지 않습니다.
+5. DYNAMIXEL 내부 gear와 로봇 관절은 소모품입니다. 과도하게 사용하거나 장기간 사용하면 backlash가 발생할 수 있습니다.
+6. 빠른 동작(예: combat motion)을 수행하는 로봇은 순간적으로 많은 전류를 소비하므로 전원 공급이 부족하면 예기치 않게 전원이 꺼질 수 있습니다. 이 경우 높은 전류(A)를 공급할 수 있는 battery 또는 SMPS를 사용하세요.
+
+:::
+
+
+### Battery 주의사항
+
+:::danger
+
+![](/img/common/icon_warning.webp)
+1. battery를 사용하지 않을 때는 로봇에서 분리하고, 충전 시에는 지정된 충전기를 사용하세요.
+2. battery 또는 charger를 분해하거나 충격을 주지 마세요.
+3. battery를 가열하지 말고 불이나 액체에 닿지 않게 하세요.
+4. battery를 전자레인지, 세탁기, 냉장고, 건조기에 넣지 마세요.
+5. 변형, 팽창, 외부 손상 등 손상된 battery는 사용하지 마세요.
+6. battery를 단락시키지 마세요.
+7. 충전 시 battery의 극성을 반대로 연결하지 마세요.
+8. battery가 뜨거울 때 충전하지 마세요. 상온으로 식힌 후 충전하세요.
+9. battery를 고온 또는 습한 장소에 보관하지 마세요.
+10. 하나의 charger로 여러 battery를 동시에 충전하지 마세요.
+11. charger가 전원에 연결되지 않은 상태에서 battery를 charger에 연결하지 마세요.
+
+:::
+
+
+### 조립 시 주의사항
+#### DYNAMIXEL 조립
+- 2 axis를 동시에 제어하기 위해 각 축은 동일한 Baudrate를 공유하면서 서로 다른 ID를 사용합니다.
+- ID와 Status LED는 output horn의 반대쪽에 있습니다.
+- ROBOTIS ENGINEER는 robot joint를 견고하게 조립하기 위해 bolt를 사용합니다. 아래 이미지는 DYNAMIXEL에 frame을 고정할 때 bolt가 필요한 위치를 보여줍니다.
+
+![](/img/edu/engineer/2xl430_assembly_caution_1.webp)
+
+![](/img/edu/engineer/2xl430_assembly_caution_2.webp)
+
+
+:::warning
+
+**주의** : bolt를 조립할 때는 지정된 screw driver(PH 1)를 사용하세요.
+
+:::
+
+
+##### DYNAMIXEL ID 확인
+![](/img/edu/engineer/2xl430_id.webp)
+
+##### DYNAMIXEL Horn 위치 확인
+![](/img/edu/engineer/2xl430_horn.webp)
+
+
+:::warning
+
+**주의**
+- 중앙 정렬이 올바르면 housing의 marking과 horn marking이 일치해야 합니다.
+- horn을 중앙에 맞추려면 PH 1 screw driver로 horn screw를 시계 방향으로 돌리세요. 반시계 방향으로 돌리면 screw가 풀릴 수 있으니 주의하세요.
+
+:::
+
+
+#### Rivet 조립
+##### 6mm Rivet
+
+![](/img/edu/engineer/rivet_assembly_6mm.webp)
+
+
+:::warning
+
+**주의** : rivet을 재사용할 때는 pin hole을 먼저 삽입해야 합니다. 사용한 rivet은 pin과 pinhole이 분리되지 않습니다.
+
+:::
+
+
+##### 12mm Rivet
+
+![](/img/edu/engineer/rivet_assembly_12mm.webp)
+
+
+#### Cable 조립
+##### Connector
+
+두 connector는 module에 전원과 통신을 공급하기 위해 서로 연결되어 있습니다. 조립하기 쉬운 쪽 connector를 사용하세요.
+
+![](/img/edu/engineer/cable_assembly_1.webp)
+
+##### Idler Cap을 통한 배선
+
+![](/img/edu/engineer/cable_assembly_2.webp)
+
+
+:::note
+
+**참고** :
+through hole 배선 방식은 cable 내구성을 높이고 cable 조립을 단순하게 만드는 데 도움이 됩니다.
+필수 사항은 아니며, 이후 cable 교체 시 시간이 더 걸릴 수 있습니다.
+
+:::
+
+
+[XL430-W250-T e-Manual]: /docs/dxl/model_reference/x_series/xl_series/xl430-w250
+[CM-550 e-Manual]: /docs/parts/controller/cm-550
+[2XL430-W250 e-Manual]: /docs/dxl/model_reference/x_series/xl_series/2xl430-w250
+
+
+[Operating Mode]: /docs/parts/controller/cm-550#operating-mode

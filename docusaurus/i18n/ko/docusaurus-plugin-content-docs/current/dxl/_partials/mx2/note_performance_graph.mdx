@@ -1,0 +1,20 @@
+:::note
+
+**참고** : Servo의 Stall torque 사양은 연속 출력 사양과 다르며, 실제 사용 환경에서 기대할 수 있는 성능과도 다를 수 있습니다.
+
+Stall torque는 Servo가 순간적으로 낼 수 있는 최대 토크이며, 일반적인 RC Servo 사양 측정 방식입니다. 위 그래프의 Performance Graph 또는 N-T Curve는 부하(load)를 점진적으로 증가시키는 조건에서 측정됩니다.
+
+일반적으로 Performance Graph 시험에서 표시되는 Maximum Torque는 최대 Stall Torque보다 작게 측정됩니다.
+
+실제 사용 환경에서의 Servo 성능은 정격 Stall torque보다 Performance Graph 측정값에 더 가깝습니다.
+
+:::
+
+:::warning
+
+**주의 - 전원 공급 시:**
+
+- 안정적인 전원 공급을 위해 ROBOTIS Controller 또는 SMPS2DYNAMIXEL 전원 어댑터 사용을 권장합니다.
+- 전원이 공급되는 동안 DYNAMIXEL actuator cable을 연결하거나 분리하지 마십시오.
+
+:::

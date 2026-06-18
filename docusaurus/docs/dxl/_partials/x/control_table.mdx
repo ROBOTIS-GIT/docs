@@ -1,6 +1,11 @@
 # Control Table
 The Control Table is a data structure used by DYNAMIXEL actuators to manage the state of the device. Users can read data registers to get information about the status of the device with Read Instruction Packets, and modify data registers to control the device with Write Instruction Packets.
 
+:::warning
+
+**WARNING** : The DYNAMIXEL-X series Control Table configuration may differ depending on the model and firmware. Verify the Address and supported features in the Control Table of the specific model you are using.
+
+:::
 
 ## Control Table, Data, Address
 The Control Table is a structure that consists of multiple Data fields to store status or to control the device. Users can check current status of the device by reading a specific Data from the Control Table with Read Instruction Packets. WRITE Instruction Packets enable users to control the device by changing specific Data in the Control Table. The Address is a unique value when accessing a specific Data in the Control Table with Instruction Packets. In order to read or write data, users must designate a specific Address in the Instruction Packet. Please refer to [DYNAMIXEL Protocol 2.0] for more details about Instruction Packets.

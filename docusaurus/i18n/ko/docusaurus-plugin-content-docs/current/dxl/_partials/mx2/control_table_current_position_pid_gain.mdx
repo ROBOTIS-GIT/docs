@@ -1,0 +1,22 @@
+아래 그림은 Current-based Position Control Mode에서 동작하는 전류 기반 위치 제어기의 블록 다이어그램입니다. Current-based Position Control Mode는 Position Control Mode와 매우 유사하므로, 아래 단계에서는 차이점 위주로 설명합니다. 블록 다이어그램에서도 차이점을 초록색으로 표시했습니다.
+1. Feedforward와 PID 제어기는 목표 궤적을 기반으로 목표 전류를 계산합니다.
+2. [Goal Current(102)]는 계산된 목표 전류를 제한하여 최종 목표 전류를 결정합니다.
+3. 전류 제어기는 최종 목표 전류를 기반으로 모터에 인가할 PWM 출력을 계산합니다.
+4. [Goal PWM(100)]은 계산된 PWM 출력을 제한하여 최종 PWM 값을 결정합니다.
+5. 최종 PWM 값은 Inverter를 통해 모터에 적용되고 DYNAMIXEL의 Horn이 구동됩니다.
+6. 구동 결과는 [Present Position(132)], [Present Velocity(128)], [Present PWM(124)], [Present Current(126)]에 저장됩니다.
+
+![](/img/dxl/model_reference/common/current_position_controller_pid_gain.webp)
+
+:::note
+
+**참고** : K<sub>a</sub>는 사용자가 변경할 수 없는 Anti-windup Gain입니다.
+
+:::
+
+[Goal Current(102)]: #goal-current102
+[Goal PWM(100)]: #goal-pwm100
+[Present Position(132)]: #present-position132
+[Present Velocity(128)]: #present-velocity128
+[Present PWM(124)]: #present-pwm124
+[Present Current(126)]: #present-current126

@@ -1,0 +1,73 @@
+### 출력부 베어링 사양 (Table.B1)
+
+| 모델             | 기본 동정격 하중, C [N] | 베어링 1과 2 사이 거리, LC [m] | 출력축에서 베어링 2까지의 거리, df [m] | 허용 동등가 동하중, Pc_max [N]<sup>1)</sup> |
+|:-----------------:|:-----:|:------:|:------:|:----:|
+| YM070-210-B001-RH | 1,091 | 0.0177 | 0.0085 | 61.4 |
+| YM080-230-B001-RH | 1,143 | 0.0197 | 0.0099 | 78.2 |
+
+**참고 :**
+1&#41; 허용 동등가 하중값 (Pc_max)을 초과하여 사용하지 마십시오.
+### 베어링 수명
+DYNAMIXEL-Y 출력부의 베어링 수명은 다음 식으로 결정할 수 있습니다.
+
+![](/img/dxl/model_reference/y_series/m_1.webp)
+
+- L<sub>10</sub> - 베어링 수명 [hour]
+- N<sub>a</sub> - 평균 출력 속도 [rpm]
+- C - 기본 동정격 하중 [N]
+- P<sub>c</sub> - 동등가 동하중 [N]
+- T<sub>f</sub> - 온도 계수 (Tf=1.0, 100℃ 이하)
+- L<sub>f</sub> - 하중 계수 (Table.B2)
+
+### 허용 동등가 하중, Pc_max
+
+![](/img/dxl/model_reference/y_series/m_2.webp)
+
+- L<sub>10</sub> - 베어링 수명 [hour] @ 20,000 hour
+- N<sub>n</sub> - 공칭 출력 속도 [rpm]
+- C - 기본 동정격 하중 [N]
+- T<sub>f</sub> - 온도 계수 (Tf=1.0, 100℃ 이하) @ Tf = 1.0
+- L<sub>f</sub> - 하중 계수 (Table.B2) @ Lf=1.0
+- P<sub>c_max</sub> - 허용 동등가 동하중 [N]
+
+### 동등가 하중, Pc
+DYNAMIXEL-Y 출력부 베어링의 동등가 하중은 다음 식으로 결정할 수 있습니다.
+
+![](/img/dxl/model_reference/y_series/m_3.webp)
+
+- P<sub>c</sub> - 동등가 동하중[N]
+- F<sub>a</sub> - 레이디얼 하중[N]
+- F<sub>a</sub> - 축방향 하중 [N]
+- d<sub>f</sub> - 플랜지로부터의 오프셋 [m] (Table.B1)
+- L<sub>r</sub> - 레이디얼 하중 거리 [m]
+- L<sub>c</sub> - Length between bearings 1 and 2 [m] (Table.B1)
+- X - 동적 레이디얼 계수 (Table.B3)
+- Y - 동적 축방향 계수 (Table.B3)
+
+![](/img/dxl/model_reference/y_series/m_4.webp)
+
+### 테이블
+
+Table.B2 하중 계수
+
+| 조건                         | Lf        |
+|:-----------------------------|:---------:|
+| 충격이 없는 부드러운 동작 | 1.0 ~ 1.2 |
+| 일반 동작                | 1.2 ~ 1.5 |
+| 심한 충격이 있는 동작    | 1.5 ~ 3.0 |
+
+Table.B3 동적 레이디얼/축방향 계수
+
+| Fa/(ZD) | e    | Fa/Fr &lt;= e<br />X &nbsp; &nbsp; Y  | Fa/Fr > e<br />X &nbsp; &nbsp; Y |
+|:--------|:----:|:--------------------------------:|:------------------------------:|
+| 0.172   | 0.19 | 1 &nbsp; &nbsp; 0                | 0.56 &nbsp; 2.30               |
+| 0.345   | 0.22 | 1 &nbsp; &nbsp; 0                | 0.56 &nbsp; 1.99               |
+| 0.689   | 0.26 | 1 &nbsp; &nbsp; 0                | 0.56 &nbsp; 1.71               |
+| 1.03    | 0.28 | 1 &nbsp; &nbsp; 0                | 0.56 &nbsp; 1.55               |
+| 1.38    | 0.30 | 1 &nbsp; &nbsp; 0                | 0.56 &nbsp; 1.45               |
+| 2.07    | 0.34 | 1 &nbsp; &nbsp; 0                | 0.56 &nbsp; 1.31               |
+| 3.45    | 0.38 | 1 &nbsp; &nbsp; 0                | 0.56 &nbsp; 1.15               |
+| 5.17    | 0.42 | 1 &nbsp; &nbsp; 0                | 0.56 &nbsp; 1.04               |
+| 6.89    | 0.44 | 1 &nbsp; &nbsp; 0                | 0.56 &nbsp; 1.00               |
+
+ - where ZD : YM070=52.956, YM080=60.521

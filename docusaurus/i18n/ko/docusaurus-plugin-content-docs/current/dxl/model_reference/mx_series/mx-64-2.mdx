@@ -1,0 +1,469 @@
+import Warning from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/warning.mdx';
+import ControlTable from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table.mdx';
+import ControlTableId from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_id.mdx';
+import ControlTableBaudrate2 from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_baudrate_2.mdx';
+import ControlTableReturnDelayTime from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_return_delay_time.mdx';
+import ControlTableDriveMode from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_drivemode.mdx';
+import ControlTableOpmodeSix2 from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_opmode_six_2.mdx';
+import ControlTableShadowId from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_shadowid.mdx';
+import ControlTableProtocolVersion from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_protocolversion.mdx';
+import ControlTableHomingOffset from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_homingoffset.mdx';
+import ControlTableMovingThreshold from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_movingthreshold.mdx';
+import ControlTableTempLimit2 from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_temp_limit_2.mdx';
+import ControlTableVoltLimit2 from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_volt_limit_2.mdx';
+import ControlTablePwmLimit from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_pwm_limit.mdx';
+import ControlTableCurrentLimit from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_current_limit.mdx';
+import ControlTableAccLimit from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_acclimit.mdx';
+import ControlTableVelLimit from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_vellimit.mdx';
+import ControlTablePositionLimit from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_positionlimit.mdx';
+import ControlTableShutdown from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_shutdown.mdx';
+import ControlTableTorqueEnable from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_torque_enable.mdx';
+import ControlTableLed from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_led.mdx';
+import ControlTableStatusReturnLv from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_status_return_lv.mdx';
+import ControlTableRegInstruction from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_reg_instruction.mdx';
+import ControlTableVelocityPiGain from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_velocity_pi_gain.mdx';
+import ControlTablePositionPidGain from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_position_pid_gain.mdx';
+import ControlTableCurrentPositionPidGain from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_current_position_pid_gain.mdx';
+import ControlTableBusWatchdog from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_buswatchdog.mdx';
+import ControlTableGoalPwm from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_goal_pwm.mdx';
+import ControlTableGoalCurrent from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_goal_current.mdx';
+import ControlTableGoalVelocity from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_goal_velocity.mdx';
+import ControlTableProfileAcceleration from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_profile_acceleration.mdx';
+import ControlTableProfileVelocity from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_profile_velocity.mdx';
+import ControlTableGoalPosition2 from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_goal_position_2.mdx';
+import ControlTableRealtimeTick from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_realtime_tick.mdx';
+import ControlTableMoving2 from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_moving_2.mdx';
+import ControlTableMovingStatus from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_moving_status.mdx';
+import ControlTablePresentPosition from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_present_position.mdx';
+import ControlTableVelocityTrajectory from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_velocity_trajectory.mdx';
+import ControlTablePositionTrajectory from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_position_trajectory.mdx';
+import ControlTablePresentVolt2 from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_present_volt_2.mdx';
+import ControlTablePresentTemp2 from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_present_temp_2.mdx';
+import ControlTableIndirectData from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_indirect_data.mdx';
+import NotePerformanceGraph from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/note_performance_graph.mdx';
+import HornBearingReplacement from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/horn_bearing_replacement.mdx';
+import FccClassB from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/fcc_class_b.mdx';
+import Molex485Ttl from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx/molex_485_ttl.mdx';
+import DownloadCenterNotice from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/download_center_notice.mdx';
+import TtlConnection from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/485_ttl_connection.mdx';
+import CommonLink from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/common_link.mdx';
+import ProfileDescription from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/profile_description.mdx';
+
+![](/img/dxl/model_reference/mx_series/mx-64ar_product.webp)
+![](/img/dxl/model_reference/mx_series/mx-64at_product.webp)
+
+# MX-64AR, MX-64AT (Protocol 2.0)
+
+## 주요 사양
+
+| 항목                   | 사양                                                                                                                                                                                |
+|:-----------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| MCU                    | ARM CORTEX-M3 (72 [MHz], 32Bit)                                                                                                                                                               |
+| 위치 센서        | Contactless absolute encoder (12Bit, 360 [&deg;])<br />Maker : ams(www.ams.com), Part No : AS5045                                                                                              |
+| 모터                  | Coreless(Maxon)                                                                                                                                                                                |
+| 통신 속도              | 8,000 [bps] ~ 4.5 [Mbps]                                                                                                                                                                      |
+| 제어 알고리즘      | PID control                                                                                                                                                                                   |
+| 해상도             | 4096 [pulse/rev]                                                                                                                                                                              |
+| Backlash               | 20 [arcmin] (0.33 [&deg;])                                                                                                                                                                    |
+| 동작 모드        | Current Control Mode<br />Velocity Control Mode<br />Position Control Mode (0 ~ 360 [&deg;])<br />Extended Position Control Mode (Multi-turn)<br />Current-based Position Control Mode<br />PWM Control Mode (Voltage Control Mode) |
+| 무게                 | MX-64AR/AT: 135 [g]<br /> MX-64R/T: 126 [g]                                                                                                                                                    |
+| 크기 (W x H x D) | 40.2 x 61.1 x 41 [mm]                                                                                                                                                                         |
+| 기어비             | 200 : 1                                                                                                                                                                                       |
+| Stall Torque           | 5.5 [N.m] (at 11.1 [V], 3.9 [A], 1.410 [Nm/A])<br />6.0 [N.m] (at 12 [V], 4.1 [A], 1.463 [Nm/A])<br />7.3 [N.m] (at 14.8 [V], 5.2 [A], 1.404 [Nm/A])                                            |
+| 무부하 속도          | 58 [rev/min] (at 11.1 [V])<br />63 [rev/min] (at 12 [V])<br />78 [rev/min] (at 14.8 [V])                                                                                                       |
+| Radial Load            | `1` 40 [N] (10 [mm] away from the horn)                                                                                                                                                       |
+| Axial Load             | `1` 20 [N]                                                                                                                                                                                    |
+| 동작 온도  | -5 ~ +80 [&deg;C]                                                                                                                                                                             |
+| 입력 전압          | 10.0 ~ 14.8 [V] (**권장 : 12.0 [V]**)                                                                                                                                                  |
+| 제어 명령         | Digital Packet                                                                                                                                                                                |
+| 물리적 연결    | RS-485 / TTL Multidrop Bus <br /> TTL Half Duplex Asynchronous Serial Communication with 8bit, 1stop, No Parity<br />RS-485 Asynchronous Serial Communication with 8bit, 1stop, No Parity   |
+| ID                     | 253 ID (0 ~ 252)                                                                                                                                                                              |
+| Feedback               | Position, Velocity, Current, Realtime tick, Trajectory, Temperature, Input Voltage, etc                                                                                                       |
+| 케이스 재질          | Engineering Plastic(Front, Middle, Back)<br />`1` Metal(Front)                                                                                                                                |
+| 기어 재질          | Full Metal Gear                                                                                                                                                                               |
+| 대기 전류        | 100 [mA]                                                                                                                                                                                      |
+
+:::warning
+
+`1` 알루미늄 하우징 제품(MX-28AR/AT, MX-64AR/AT, MX-106R/T)에 적용됩니다.
+
+:::
+
+<Warning />
+
+### 성능 그래프
+
+![](/img/dxl/model_reference/mx_series/mx-64_ntgraph.webp)
+
+<NotePerformanceGraph />
+
+<ControlTable />
+
+
+### EEPROM 영역 컨트롤 테이블
+
+| Address | Size(Byte) | Data Name                                    | 설명                               | Access | 초기<br />값 |
+|:-------:|:----------:|:---------------------------------------------|:------------------------------------------|:------:|:------------------:|
+|    0    |     2      | [Model Number](#model-number0)                | 모델 번호                              |   R    |        311         |
+|    2    |     4      | Model Information      | Model Information                         |   R    |         -          |
+|    6    |     1      | [Firmware Version](#firmware-version6)        | 펌웨어 버전                          |   R    |         -          |
+|    7    |     1      | [ID](#id7)                                    | DYNAMIXEL ID                              |   RW   |         1          |
+|    8    |     1      | [Baud Rate](#baud-rate8)                      | Communication Baud Rate                   |   RW   |         1          |
+|    9    |     1      | [Return Delay Time](#return-delay-time9)      | 응답 지연 시간                       |   RW   |        250         |
+|   10    |     1      | [Drive Mode](#drive-mode10)                    | Drive Mode                                |   RW   |         0          |
+|   11    |     1      | [Operating Mode](#operating-mode11)            | 동작 모드                            |   RW   |         3          |
+|   12    |     1      | [Secondary(Shadow) ID](#secondaryshadow-id12) | Secondary ID                              |   RW   |        255         |
+|   13    |     1      | [Protocol Type](#protocol-type13)            | 프로토콜 타입                             |   RW   |         2          |
+|   20    |     4      | [Homing Offset](#homing-offset20)              | Home Position Offset                      |   RW   |         0          |
+|   24    |     4      | [Moving Threshold](#moving-threshold24)        | Velocity Threshold for Movement Detection |   RW   |         10         |
+|   31    |     1      | [Temperature Limit](#temperature-limit31)      | 최대 내부 온도 제한        |   RW   |         80         |
+|   32    |     2      | [Max Voltage Limit](#minmax-voltage-limit32-34)      | 최대 입력 전압 제한               |   RW   |        160         |
+|   34    |     2      | [Min Voltage Limit](#minmax-voltage-limit32-34)      | 최소 입력 전압 제한               |   RW   |         95         |
+|   36    |     2      | [PWM Limit](#pwm-limit36)                      | Maximum PWM Limit                         |   RW   |        885         |
+|   38    |     2      | [Current Limit](#current-limit38)              | 최대 전류 제한                     |   RW   |        1941        |
+|   40    |     4      | [Acceleration Limit](#acceleration-limit40)    | Maximum Acceleration Limit                |   RW   |       32767        |
+|   44    |     4      | [Velocity Limit](#velocity-limit44)            | Maximum Velocity Limit                    |   RW   |        285         |
+|   48    |     4      | [Max Position Limit](#minmax-position-limit48-52)    | Maximum Position Limit                    |   RW   |       4,095        |
+|   52    |     4      | [Min Position Limit](#minmax-position-limit48-52)    | Minimum Position Limit                    |   RW   |         0          |
+|   63    |     1      | [Shutdown](#shutdown63)                        | Shutdown Error Information                |   RW   |         52         |
+
+### RAM 영역 컨트롤 테이블
+
+| Address | Size(Byte) | Data Name                                         | 설명                              | Access | 초기<br />값 |
+|:-------:|:----------:|:--------------------------------------------------|:-----------------------------------------|:------:|:------------------:|
+|   64    |     1      | [Torque Enable](#torque-enable64)                   | Motor Torque On/Off                      |   RW   |         0          |
+|   65    |     1      | [LED](#led65)                                       | Status LED On/Off                        |   RW   |         0          |
+|   68    |     1      | [Status Return Level](#status-return-level68)       | Select Types of Status Return            |   RW   |         2          |
+|   69    |     1      | [Registered Instruction](#registered-instruction69) | REG_WRITE Instruction Flag               |   R    |         0          |
+|   70    |     1      | [Hardware Error Status](#hardware-error-status70)   | Hardware Error Status                    |   R    |         0          |
+|   76    |     2      | [Velocity I Gain](#velocity-pi-gain76-78)               | I Gain of Velocity                       |   RW   |        1920        |
+|   78    |     2      | [Velocity P Gain](#velocity-pi-gain76-78)               | P Gain of Velocity                       |   RW   |        100         |
+|   80    |     2      | [Position D Gain](#position-pid-gain80-82-84-feedforward-1st2nd-gains88-90)               | D Gain of Position                       |   RW   |         0          |
+|   82    |     2      | [Position I Gain](#position-pid-gain80-82-84-feedforward-1st2nd-gains88-90)               | I Gain of Position                       |   RW   |         0          |
+|   84    |     2      | [Position P Gain](#position-pid-gain80-82-84-feedforward-1st2nd-gains88-90)               | P Gain of Position                       |   RW   |        850         |
+|   88    |     2      | [Feedforward 2nd Gain](#position-pid-gain80-82-84-feedforward-1st2nd-gains88-90)     | 2nd Gain of Feed-Forward                 |   RW   |         0          |
+|   90    |     2      | [Feedforward 1st Gain](#position-pid-gain80-82-84-feedforward-1st2nd-gains88-90)     | 1st Gain of Feed-Forward                 |   RW   |         0          |
+|   98    |     1      | [BUS Watchdog](#bus-watchdog98)                     | DYNAMIXEL BUS Watchdog                   |   RW   |         0          |
+|   100   |     2      | [Goal PWM](#goal-pwm100)                             | Desired PWM Value                        |   RW   |         -          |
+|   102   |     2      | [Goal Current](#goal-current102)                     | Desired Current Value                    |   RW   |         -          |
+|   104   |     4      | [Goal Velocity](#goal-velocity104)                   | Desired Velocity Value                   |   RW   |         -          |
+|   108   |     4      | [Profile Acceleration](#profile-acceleration108)     | Acceleration Value of Profile            |   RW   |         0          |
+|   112   |     4      | [Profile Velocity](#profile-velocity112)             | Velocity Value of Profile                |   RW   |         0          |
+|   116   |     4      | [Goal Position](#goal-position116)                   | Desired Position                         |   RW   |         -          |
+|   120   |     2      | [Realtime Tick](#realtime-tick120)                   | Count Time in Millisecond                |   R    |         -          |
+|   122   |     1      | [Moving](#moving122)                                 | Movement Flag                            |   R    |         0          |
+|   123   |     1      | [Moving Status](#moving-status123)                   | Detailed Information of Movement Status  |   R    |         0          |
+|   124   |     2      | [Present PWM](#present-pwm124)                       | Present PWM Value                        |   R    |         -          |
+|   126   |     2      | [Present Current](#present-current126)               | Present Current Value                    |   R    |         -          |
+|   128   |     4      | [Present Velocity](#present-velocity128)             | Present Velocity Value                   |   R    |         -          |
+|   132   |     4      | [Present Position](#present-position132)             | Present Position Value                   |   R    |         -          |
+|   136   |     4      | [Velocity Trajectory](#velocity-trajectory136)       | Desired Velocity Trajectory from Profile |   R    |         -          |
+|   140   |     4      | [Position Trajectory](#position-trajectory140)       | Desired Position Trajectory from Profile |   R    |         -          |
+|   144   |     2      | [Present Input Voltage](#present-input-voltage144)   | Present Input Voltage                    |   R    |         -          |
+|   146   |     1      | [Present Temperature](#present-temperature146)       | Present Internal Temperature             |   R    |         -          |
+|   168   |     2      | [Indirect Address 1](#indirect-address-indirect-data)           | Indirect Address 1                       |   RW   |        224         |
+|   170   |     2      | [Indirect Address 2](#indirect-address-indirect-data)           | Indirect Address 2                       |   RW   |        225         |
+|   172   |     2      | [Indirect Address 3](#indirect-address-indirect-data)           | Indirect Address 3                       |   RW   |        226         |
+|   ...   |    ...     | ...                                               | ...                                      |  ...   |        ...         |
+|   218   |     2      | [Indirect Address 26](#indirect-address-indirect-data)          | Indirect Address 26                      |   RW   |        249         |
+|   220   |     2      | [Indirect Address 27](#indirect-address-indirect-data)          | Indirect Address 27                      |   RW   |        250         |
+|   222   |     2      | [Indirect Address 28](#indirect-address-indirect-data)          | Indirect Address 28                      |   RW   |        251         |
+|   224   |     1      | [Indirect Data 1](#indirect-address-indirect-data)                 | Indirect Data 1                          |   RW   |         0          |
+|   225   |     1      | [Indirect Data 2](#indirect-address-indirect-data)                 | Indirect Data 2                          |   RW   |         0          |
+|   226   |     1      | [Indirect Data 3](#indirect-address-indirect-data)                 | Indirect Data 3                          |   RW   |         0          |
+|   ...   |    ...     | ...                                               | ...                                      |  ...   |        ...         |
+|   249   |     1      | [Indirect Data 26](#indirect-address-indirect-data)                | Indirect Data 26                         |   RW   |         0          |
+|   250   |     1      | [Indirect Data 27](#indirect-address-indirect-data)                | Indirect Data 27                         |   RW   |         0          |
+|   251   |     1      | [Indirect Data 28](#indirect-address-indirect-data)                | Indirect Data 28                         |   RW   |         0          |
+|   578   |     2      | [Indirect Address 29](#indirect-address-indirect-data)          | Indirect Address 29                      |   RW   |        634         |
+|   580   |     2      | [Indirect Address 30](#indirect-address-indirect-data)          | Indirect Address 30                      |   RW   |        635         |
+|   582   |     2      | [Indirect Address 31](#indirect-address-indirect-data)          | Indirect Address 31                      |   RW   |        636         |
+|   ...   |    ...     | ...                                               | ...                                      |  ...   |        ...         |
+|   628   |     2      | [Indirect Address 54](#indirect-address-indirect-data)          | Indirect Address 54                      |   RW   |        659         |
+|   630   |     2      | [Indirect Address 55](#indirect-address-indirect-data)          | Indirect Address 55                      |   RW   |        660         |
+|   632   |     2      | [Indirect Address 56](#indirect-address-indirect-data)          | Indirect Address 56                      |   RW   |        661         |
+|   634   |     1      | [Indirect Data 29](#indirect-address-indirect-data)                | Indirect Data 29                         |   RW   |         0          |
+|   635   |     1      | [Indirect Data 30](#indirect-address-indirect-data)                | Indirect Data 30                         |   RW   |         0          |
+|   636   |     1      | [Indirect Data 31](#indirect-address-indirect-data)                | Indirect Data 31                         |   RW   |         0          |
+|   ...   |    ...     | ...                                               | ...                                      |  ...   |        ...         |
+|   659   |     1      | [Indirect Data 54](#indirect-address-indirect-data)                | Indirect Data 54                         |   RW   |         0          |
+|   660   |     1      | [Indirect Data 55](#indirect-address-indirect-data)                | Indirect Data 55                         |   RW   |         0          |
+|   661   |     1      | [Indirect Data 56](#indirect-address-indirect-data)                | Indirect Data 56                         |   RW   |         0          |
+
+:::warning
+
+**주의** : Protocol 1.0은 256보다 큰 Address를 지원하지 않습니다. 따라서 Indirect Address 29 ~ 56과 Indirect Data 29 ~ 56은 Protocol 2.0에서만 접근할 수 있습니다.
+
+:::
+
+### 컨트롤 테이블 설명
+
+:::warning
+
+**주의** : EEPROM Area의 Data는 Torque Enable(64) 값이 '0'으로 해제된 경우에만 쓸 수 있습니다.
+
+:::
+<a id="model-number"></a>
+#### Model Number(0)
+다이나믹셀의 모델 번호를 저장합니다.
+<a id="firmware-version"></a>
+#### Firmware Version(6)
+다이나믹셀의 펌웨어 버전을 저장합니다.
+<a id="id"></a>
+#### ID(7)
+<ControlTableId />
+<a id="baud-rate"></a>
+#### Baud Rate(8)
+<ControlTableBaudrate2 />
+<a id="return-delay-time"></a>
+#### Return Delay Time(9)
+<ControlTableReturnDelayTime />
+<a id="drive-mode"></a>
+#### Drive Mode(10)
+<ControlTableDriveMode />
+<a id="operating-mode"></a>
+#### Operating Mode(11)
+<ControlTableOpmodeSix2 />
+<a id="secondary-id"></a>
+#### Secondary(Shadow) ID(12)
+<ControlTableShadowId />
+<a id="protocol-type"></a>
+#### Protocol Type(13)
+<ControlTableProtocolVersion />
+<a id="homing-offset"></a>
+#### Homing Offset(20)
+<ControlTableHomingOffset />
+<a id="moving-threshold"></a>
+#### Moving Threshold(24)
+<ControlTableMovingThreshold />
+<a id="temperature-limit"></a>
+#### Temperature Limit(31)
+<ControlTableTempLimit2 />
+<a id="minmax-voltage-limit"></a>
+<a id="max-voltage-limit"></a>
+#### Min/Max Voltage Limit(32, 34)
+<ControlTableVoltLimit2 />
+<a id="pwm-limit"></a>
+#### PWM Limit(36)
+<ControlTablePwmLimit />
+<a id="current-limit"></a>
+#### Current Limit(38)
+<ControlTableCurrentLimit />
+
+|      Unit       | Value Range |
+|:---------------:|:-----------:|
+| about  3.36[mA] |  0 ~ 1,941  |
+
+:::note
+
+**참고** : Current Limit(38)은 다이나믹셀마다 다를 수 있으므로 컨트롤 테이블을 확인하세요.
+
+:::
+<a id="acceleration-limit"></a>
+#### Acceleration Limit(40)
+<ControlTableAccLimit />
+<a id="velocity-limit"></a>
+#### Velocity Limit(44)
+<ControlTableVelLimit />
+<a id="minmax-position-limit"></a>
+#### Min/Max Position Limit(48, 52)
+<ControlTablePositionLimit />
+<a id="shutdown"></a>
+#### Shutdown(63)
+<ControlTableShutdown />
+<a id="torque-enable"></a>
+#### Torque Enable(64)
+<ControlTableTorqueEnable />
+<a id="led"></a>
+#### LED(65)
+<ControlTableLed />
+<a id="status-return-level"></a>
+#### Status Return Level(68)
+<ControlTableStatusReturnLv />
+<a id="registered-instruction"></a>
+#### Registered Instruction(69)
+<ControlTableRegInstruction />
+<a id="hardware-error-status"></a>
+#### Hardware Error Status(70)
+Hardware Error Status(70)는 하드웨어 오류 상태를 나타냅니다.
+<ControlTableShutdown />
+<a id="velocity-pi-gain"></a>
+#### Velocity PI Gain(76, 78)
+<ControlTableVelocityPiGain />
+<a id="position-pid-gain-feedforward-1st2nd-gains"></a>
+<a id="position-pid-gain80-82-84"></a>
+#### Position PID Gain(80, 82, 84), Feedforward 1st/2nd Gains(88, 90)
+<ControlTablePositionPidGain />
+<ControlTableCurrentPositionPidGain />
+<a id="bus-watchdog"></a>
+#### BUS Watchdog(98)
+<ControlTableBusWatchdog />
+<a id="goal-pwm"></a>
+#### Goal PWM(100)
+<ControlTableGoalPwm />
+<a id="goal-current"></a>
+#### Goal Current(102)
+<ControlTableGoalCurrent />
+
+|      단위       |                  범위                  |
+|:---------------:|:--------------------------------------:|
+| 약 3.36[mA] | -Current Limit(38) ~ Current Limit(38) |
+
+:::note
+
+**참고** : 모터에 높은 전류를 장시간 인가하면 모터가 손상될 수 있습니다.
+
+:::
+<a id="goal-velocity"></a>
+#### Goal Velocity(104)
+<ControlTableGoalVelocity />
+<a id="profile-acceleration"></a>
+#### Profile Acceleration(108)
+<ControlTableProfileAcceleration />
+<a id="profile-velocity"></a>
+#### Profile Velocity(112)
+<ControlTableProfileVelocity />
+<a id="goal-position"></a>
+#### Goal Position(116)
+<ControlTableGoalPosition2 />
+<a id="realtime-tick"></a>
+#### Realtime Tick(120)
+<ControlTableRealtimeTick />
+<a id="moving"></a>
+#### Moving(122)
+<ControlTableMoving2 />
+<a id="moving-status"></a>
+#### Moving Status(123)
+<ControlTableMovingStatus />
+<a id="present-pwm"></a>
+#### Present PWM(124)
+현재 PWM 값을 나타냅니다. 자세한 내용은 [Goal PWM(100)](#goal-pwm100)을 참고하세요.
+<a id="present-current"></a>
+#### Present Current(126)
+현재 전류 값을 나타냅니다. 자세한 내용은 [Goal Current(102)](#goal-current102)을 참고하세요.
+<a id="present-velocity"></a>
+#### Present Velocity(128)
+현재 속도 값을 나타냅니다. 자세한 내용은 [Goal Velocity(104)](#goal-velocity104)을 참고하세요.
+<a id="present-position"></a>
+#### Present Position(132)
+<ControlTablePresentPosition />
+<a id="velocity-trajectory"></a>
+#### Velocity Trajectory(136)
+<ControlTableVelocityTrajectory />
+<a id="position-trajectory"></a>
+#### Position Trajectory(140)
+<ControlTablePositionTrajectory />
+<a id="present-input-voltage"></a>
+#### Present Input Voltage(144)
+<ControlTablePresentVolt2 />
+<a id="present-temperature"></a>
+#### Present Temperature(146)
+<ControlTablePresentTemp2 />
+#### Indirect Address, Indirect Data
+<ControlTableIndirectData />
+
+## 조립 방법
+
+### Optional Frames
+
+- FR05-B101
+
+  ![](/img/dxl/model_reference/rx_series/rx-64_fr05-b101.webp)
+
+- FR05-F101 and FR05-X101
+
+  ![](/img/dxl/model_reference/rx_series/rx-64_fr05-f101_fr05-x101.webp)
+
+- FR05-H101
+
+  ![](/img/dxl/model_reference/rx_series/rx-64_fr05-h101.webp)
+
+- FR05-S101
+
+  ![](/img/dxl/model_reference/rx_series/rx-64_fr05-s101.webp)
+
+### Horns
+
+- HN05-I102
+
+  ![](/img/dxl/model_reference/rx_series/rx-64_hn05-i101.webp)
+
+- HN05-N101
+
+  ![](/img/dxl/model_reference/rx_series/rx-64_hn05-n101.webp)
+
+### Combination Structures
+
+![](/img/dxl/model_reference/rx_series/rx-64_combinations.webp)
+
+## 유지보수
+
+<HornBearingReplacement />
+
+### Gear Replacement
+
+다이나믹셀 내부 기어가 손상되거나 마모된 경우, 양호한 상태를 유지하기 위해 기어를 교체하세요.
+
+기어를 올바르게 교체하는 방법은 다음 동영상을 참고하세요.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/aO4XNlP94q8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+### DYNAMIXEL Calibration
+
+기어 교체 후에는 기어가 올바른 위치에 정렬되도록 DYNAMIXEL을 캘리브레이션하세요.
+
+소프트웨어로 다이나믹셀을 올바르게 캘리브레이션하는 방법은 다음 동영상을 참고하세요.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/mAm_9C1MoAs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+:::note
+
+**참고** :
+- USB2Dynamixel은 단종되었으므로, 동영상의 소프트웨어를 사용해 PC에서 다이나믹셀과 통신하려면 [U2D2](/docs/parts/interface/u2d2)가 필요합니다.
+- 동영상에서 사용하는 R+ Manager 2.0 대신 [DYNAMIXEL Wizard 2.0](/docs/software/dynamixel_wizard_2_0/advanced_features#calibration)으로도 DYNAMIXEL(X / MX만 해당)을 캘리브레이션할 수 있습니다.
+
+:::
+
+## 참고자료
+
+:::note
+
+**참고**
+[호환성 가이드](http://en.robotis.com/service/compatibility_table.php?cate=d)
+하네스 호환성
+
+:::
+
+### Profile이란?
+
+<ProfileDescription />
+
+### 인증
+표기되지 않은 인증에 대해서는 별도로 문의하세요.
+
+#### FCC
+<FccClassB />
+
+### 커넥터 정보
+
+<Molex485Ttl />
+
+### 도면
+
+- `Download` [MX-64AT_AR DWG](http://en.robotis.com/service/download.php?no=138)
+- `Download` [MX-64AT_AR PDF](http://en.robotis.com/service/download.php?no=139)
+- `Download` [MX-64AT_AR STEP](http://en.robotis.com/service/download.php?no=140)
+- `Download` [MX-64T DWG](http://en.robotis.com/service/download.php?no=130)
+- `Download` [MX-64T PDF](http://en.robotis.com/service/download.php?no=131)
+- `Download` [MX-64T STEP](http://en.robotis.com/service/download.php?no=132)
+- `Download` [MX-64T IGES](http://en.robotis.com/service/download.php?no=133)
+- `Download` [MX-64R DWG](http://en.robotis.com/service/download.php?no=134)
+- `Download` [MX-64R PDF](http://en.robotis.com/service/download.php?no=135)
+- `Download` [MX-64R STEP](http://en.robotis.com/service/download.php?no=136)
+- `Download` [MX-64R IGES](http://en.robotis.com/service/download.php?no=137)
+
+<DownloadCenterNotice />
+
+<TtlConnection />
+
+<CommonLink />

@@ -1,0 +1,23 @@
+Homing Offset(20)은 보고되는 [Present Position(132)]에 offset 값을 더해 액추에이터의 home position을 조정할 수 있게 합니다.
+
+**Present Position(132) = Actual Position + Homing Offset(20)**
+
+|        단위         |                  값 범위                  |
+|:-------------------:|:---------------------------------------------:|
+| about 0.088 [&deg;] | -1,044,479 ~ 1,044,479<br />(-255 ~ 255[rev]) |
+
+
+:::note
+
+**참고** : 360도 미만으로 회전하도록 설정된 Position Control Mode(Joint Mode)에서는 유효하지 않은 Homing Offset(20) 값이 무시됩니다(유효 범위: -1,024 ~ 1,024).
+
+:::
+
+
+:::warning
+
+**주의** : [Drive Mode(10)](#drive-mode10)가 Reverse Mode로 설정되어 있어도 Homing Offset(20) 값의 부호는 반전되지 않습니다.
+
+:::
+
+[Present Position(132)]: #present-position132

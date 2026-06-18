@@ -1,0 +1,15 @@
+다이나믹셀 동작 온도의 상한값입니다.
+
+예를 들어 Temperature Limit(11) 값이 '80'으로 설정되어 있으면 80 &deg;C를 의미합니다.
+동작 중인 다이나믹셀의 내부 온도가 Temperature Limit(11)을 초과하면 Status Packet은 ERROR 필드를 통해 Overheating Error Bit (Bit2)를 전송합니다. [Alarm LED(17)/Shutdown(18)](#alarm-led17-shutdown18)에 Overheating flag가 설정되어 있으면 Alarm LED가 점멸하고 모터 출력은 0 [%]가 됩니다.
+
+|     단위      | 값 범위 |
+|:-------------:|:-----------:|
+| About 1&deg;C |   0 ~ 100   |
+
+
+:::warning
+
+**주의** : 온도를 기본값보다 높게 설정하지 마세요. 온도 알람 Shutdown이 발생하면 재사용하기 전에 20분 정도 기다려 온도를 낮추세요. 온도가 높은 상태에서 제품을 계속 사용하면 심각한 손상이 발생할 수 있습니다.
+
+:::

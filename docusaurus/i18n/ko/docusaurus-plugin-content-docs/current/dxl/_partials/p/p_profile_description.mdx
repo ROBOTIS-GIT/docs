@@ -1,0 +1,58 @@
+Profile은 모터 구동 시 급격하게 변하는 속도와 가속도를 제어하여 진동, 소음 및 모터의 부하를 줄이는 가감속 제어 방식입니다.
+속도를 기준으로 가속과 감속을 제어하기 때문에 Velocity Profile이라고도 합니다.
+이 장치는 아래의 3가지 Profile Type을 제공합니다.
+Profile은 일반적으로 [Profile Velocity(560)]와 [Profile Acceleration(556)]의 조합으로 선택됩니다.
+Trapezoidal Profile은 예외적으로 총 이동 거리(&Delta;Pos, 목표 위치와 현재 위치의 차이)를 추가로 고려하여 선택됩니다.
+
+![](/img/dxl/model_reference/common/common_profile_types.webp)
+
+장치의 Profile은 [Goal Position(564)]이 주어지면 현재 속도(Profile의 시작 속도)를 기준으로 목표 속도 궤적을 생성합니다.
+장치가 이전 목표 위치로 이동하는 중에 [Goal Position(564)]으로 새로운 목표 위치를 받으면, 새로운 목표 속도 궤적에 맞춰 속도가 부드럽게 변경됩니다.
+목표 속도 궤적을 갱신할 때 속도의 연속성을 유지하는 기능을 "Velocity Override"라고 합니다.
+이 예제에서는 계산을 쉽게 하기 위해 Profile의 시작 속도를 `0`으로 가정합니다.
+
+다음은 [Operating Mode(11)]가 **Position Control Mode** 또는 **Extended Position Control Mode**일 때 [Goal Position(564)]을 Profile이 처리하는 과정을 설명합니다.
+
+
+<div class="notice--success">
+1. Instruction이 통신 버스를 통해 수신되어 [Goal Position(564)](#goal_position564)에 등록됩니다.
+2. [Profile Velocity(560)](#profile-velocity560)와 [Profile Acceleration(556)](#profile-acceleration556)을 기준으로 가속 시간(t<sub>1</sub>)이 계산됩니다.
+3. [Profile Velocity(560)](#profile-velocity560), [Profile Acceleration(556)](#profile-acceleration556), 총 이동 거리(&Delta;Pos, 목표 위치와 현재 위치의 차이)에 따라 Profile Type이 결정됩니다.
+4. 선택된 Profile Type은 [Moving Status(571)](#moving-status571)에 저장됩니다.
+5. 장치는 Profile에서 계산된 목표 궤적에 따라 구동됩니다.
+6. Profile로 계산된 목표 속도 궤적과 목표 위치 궤적은 각각 [Velocity Trajectory(584)](#velocity-trajectory584)와 [Position Trajectory(588)](#position-trajectory588)에 저장됩니다.
+</div>
+
+| 조건                                                          | Profile Type                            |
+|:--------------------------------------------------------------|:---------------------------------------|
+| Profile Velocity(560) = 0                                     | Profile Not Used<br />(Step Instruction) |
+| (Profile Velocity(560) ≠ 0) & (Profile Acceleration(556) = 0) | Rectangular Profile                    |
+| (Profile Velocity(560) ≠ 0) & (Profile Acceleration(556) ≠ 0) | Trapezoidal Profile                    |
+
+![](/img/dxl/model_reference/common/common_velocity_profile.webp)
+
+
+:::note
+
+**참고** : Velocity Control Mode에서는 [Profile Velocity(560)](#profile-velocity560)만 사용합니다.
+Step 및 Trapezoidal Profile이 지원되며 Velocity Override도 동일하게 지원됩니다.
+가속 시간(t<sub>1</sub>)은 아래 식으로 계산할 수 있습니다.
+
+**Velocity-based Profile**: **t<sub>1</sub> = 600 * {'{'}[Profile Velocity(560)](#profile-velocity560) / [Profile Acceleration(556)](#profile-acceleration556){'}'}**
+**Time-based Profile**: **t<sub>1</sub> = Profile Acceleration(556)**
+
+:::
+
+
+:::note
+
+**참고** : Time-based Profile이 선택된 경우 [Profile Velocity(560)](#profile-velocity560)는 Profile의 전체 시간(t<sub>3</sub>)을 설정하고, [Profile Acceleration(556)](#profile-acceleration556)는 가속 시간(t<sub>1</sub>)을 millisecond[ms] 단위로 설정합니다. [Profile Acceleration(556)](#profile-acceleration556)는 [Profile Velocity(560)](#profile-velocity560) 값의 50%를 초과하지 않습니다.
+
+:::
+
+
+[Profile Acceleration(556)]: #profile-acceleration556
+[Profile Velocity(560)]: #profile-velocity560
+
+[Goal Position(564)]: #goal-position564
+[Operating Mode(11)]: #operating-mode11

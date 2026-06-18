@@ -13,9 +13,9 @@
   </iframe>
 </div>
 
-<p style={{textAlign: 'center', fontStyle: 'italic', color: '#888', fontSize: '14px', marginBottom: '20px'}}>
+<div style={{textAlign: 'center', fontStyle: 'italic', color: '#888', fontSize: '14px', marginBottom: '20px'}}>
   This video demonstrates tactile sensor visualization, force-based grasping, optimization-based correction, and stable grasping across different object shapes.
-</p>
+</div>
 
 ## 1. Overview
 
@@ -163,12 +163,12 @@ robotis_hand_playground/config/param.yaml
 <div style={{display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '16px', margin: '16px 0'}}>
   <div>
     <h4 style={{marginTop: '0', fontSize: '16px'}}>state: HOLD</h4>
-    <p style={{marginTop: '0'}}>After contact is detected, the controller maintains the contact force.</p>
+    <div style={{marginTop: '0'}}>After contact is detected, the controller maintains the contact force.</div>
     <img src="/img/systems/hx5_d20/resources/technical_story/tactile_feedback_grasping/tactile_param_hold.gif" alt="Force-based grasping HOLD mode" style={{width: '100%', borderRadius: '8px'}} />
   </div>
   <div>
     <h4 style={{marginTop: '0', fontSize: '16px'}}>state: IDLE</h4>
-    <p style={{marginTop: '0'}}>After contact is detected, the controller stops immediately.</p>
+    <div style={{marginTop: '0'}}>After contact is detected, the controller stops immediately.</div>
     <img src="/img/systems/hx5_d20/resources/technical_story/tactile_feedback_grasping/tactile_param_idle.gif" alt="Force-based grasping IDLE mode" style={{width: '100%', borderRadius: '8px'}} />
   </div>
 </div>
@@ -368,16 +368,16 @@ The region-based correction result can be visualized separately for X-axis and Y
 <div style={{display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '16px', margin: '16px 0'}}>
   <div>
     <h4 style={{marginTop: '0'}}>X-Axis Correction</h4>
-    <p>
+    <div>
       X correction moves left- or right-biased contact back toward the center region.
-    </p>
+    </div>
     <img src="/img/systems/hx5_d20/resources/technical_story/tactile_feedback_grasping/tactile_grasp_x_corr.gif" alt="X-axis tactile grasp correction" style={{width: '100%', borderRadius: '8px'}} />
   </div>
   <div>
     <h4 style={{marginTop: '0'}}>Y-Axis Correction</h4>
-    <p>
+    <div>
       Y correction moves top- or bottom-biased contact back toward the center region.
-    </p>
+    </div>
     <img src="/img/systems/hx5_d20/resources/technical_story/tactile_feedback_grasping/tactile_grasp_y_corr.gif" alt="Y-axis tactile grasp correction" style={{width: '100%', borderRadius: '8px'}} />
   </div>
 </div>
