@@ -17,6 +17,10 @@ const config: Config = {
 
   url: process.env.DOCUSAURUS_URL ?? 'https://docs.robotis.com',
   baseUrl: process.env.DOCUSAURUS_BASE_URL ?? '/',
+  storage: {
+    type: 'localStorage',
+    namespace: 'robotis-docs',
+  },
 
   i18n: {
     defaultLocale: 'en',

@@ -1,6 +1,14 @@
 import React from 'react';
 import {useLocation} from '@docusaurus/router';
+import {useDoc} from '@docusaurus/plugin-content-docs/client';
 import DocItemLayout from '@theme-original/DocItem/Layout';
+import DocItemPaginator from '@theme/DocItem/Paginator';
+import DocVersionBanner from '@theme/DocVersionBanner';
+import DocVersionBadge from '@theme/DocVersionBadge';
+import DocItemFooter from '@theme/DocItem/Footer';
+import DocItemContent from '@theme/DocItem/Content';
+import DocBreadcrumbs from '@theme/DocBreadcrumbs';
+import ContentVisibility from '@theme/ContentVisibility';
 import unsupportedRoutes from '@site/src/data/koUnsupportedDocRoutes.json';
 import './styles.css';
 
@@ -30,6 +38,28 @@ function UnsupportedKoreanDocNotice({englishPath}) {
   );
 }
 
+function UnsupportedKoreanDocLayout({children}) {
+  const {metadata} = useDoc();
+
+  return (
+    <div className="row">
+      <div className="col">
+        <ContentVisibility metadata={metadata} />
+        <DocVersionBanner />
+        <div className="ko-unsupported-doc__container">
+          <article>
+            <DocBreadcrumbs />
+            <DocVersionBadge />
+            <DocItemContent>{children}</DocItemContent>
+            <DocItemFooter />
+          </article>
+          <DocItemPaginator />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function DocItemLayoutWrapper(props) {
   const location = useLocation();
   const normalizedPath = normalizeDocPath(location.pathname);
@@ -38,9 +68,9 @@ export default function DocItemLayoutWrapper(props) {
 
   if (isUnsupportedKoreanDoc) {
     return (
-      <DocItemLayout {...props}>
+      <UnsupportedKoreanDocLayout>
         <UnsupportedKoreanDocNotice englishPath={normalizedPath} />
-      </DocItemLayout>
+      </UnsupportedKoreanDocLayout>
     );
   }
 

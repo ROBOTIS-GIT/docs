@@ -4,6 +4,11 @@
   align-items: flex-start;
 }
 
+.ko-unsupported-doc__container header + *,
+.ko-unsupported-doc__container article > *:first-child {
+  margin-top: 0;
+}
+
 .ko-unsupported-doc__notice {
   width: 100%;
   max-width: 720px;
