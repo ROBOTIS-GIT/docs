@@ -22,7 +22,11 @@ RoboPlus is a software to create a customized programme for every ROBOTIS produc
 
 ![img_install](/img/software/rplus_1_0/roboplus_install_en.png)
 
+:::note
+
 **NOTE** : To execute RoboPlus, .NET FrameWork 3.5 or higher version is required. When installing RoboPlus, if the automatic installation of .NET FrameWork fails, .NET FrameWork must be installed separately.
+
+:::
 
 ### RoboPlus Install Failure
 
@@ -156,7 +160,11 @@ If the controller's firmware version is older than that of RoboPlus Manager, it 
 - Search speed is slower because it searches for DYNAMIXEL connected at different communication speeds.
 - The DYNAMIXEL that are not connected at 1Mbps are automatically adjusted to 1Mbps.  
  
+:::note
+
 **NOTE** : If a DYNAMIXEL is no longer detected after a detailed search, there might be an ID duplication. In this case, connect only the undetected device, and change its ID to an unused one. (Refer to the Change ID of DYNAMIXEL.)
+
+:::
 
 
 #### Aux LED
@@ -431,9 +439,17 @@ In the program as shown below, users can set up and test DYNAMIXEL.
 - Parameters that can be set and tested for each device are shown in the table.  Clicking on DYNAMIXEL Name/ID  will call a subwindow to set or test the parameter. The subwindow simplifies the process of setting the parameter for the user.  
 - The image above is a screen shot of RoboPlus manager when the "Goal Position" parameter is clicked.  A subwindow is shown on the lower right hand corner when any row is clicked.  However, no subwindow will be displayed if only values need to be shown.
 
+:::note
+
 **NOTE** : When an actuator with an ID in ① is double clicked, the actuator is selected and its LED will blink for a moment. This is used to check where the actuator is located.
 
+:::
+
+:::note
+
 **NOTE** : Actuators can be managed in a group.
+
+:::
 
 ### ID Setup
 
