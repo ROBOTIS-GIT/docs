@@ -255,7 +255,7 @@ ros2 topic pub --once /capture_grasp std_msgs/msg/Bool "{data: true}"
 ros2 topic pub --once /capture_grasp std_msgs/msg/Bool "{data: false}"
 ```
 
-The controller can also infer grasp mode from gripper commands. When both configured gripper joints stay above `gripper_grasp_threshold` for `gripper_grasp_hold_time`, it enables the rigid grasp constraint. When one gripper stays below that threshold for the hold time, it disables or partially releases the constraint and blends the arm back into follower control.
+The controller can also infer grasp mode from gripper commands. When both configured gripper joints stay above `gripper_grasp_threshold` for `gripper_grasp_hold_time`, it enables the rigid grasp constraint. When one gripper stays below that threshold for the hold time, it disables or partially releases the constraint and slowly blends the arm back into follower control.
 
 Example input commands are the same shape as normal `movej`:
 
