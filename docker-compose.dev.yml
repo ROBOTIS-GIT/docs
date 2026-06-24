@@ -1,0 +1,16 @@
+services:
+  docs-dev:
+    container_name: docs-dev
+    build:
+      context: ./docusaurus
+      dockerfile: ../Dockerfile
+    volumes:
+      - ./docusaurus:/app
+      - /app/node_modules
+    ports:
+      - "5715:5715"
+    environment:
+      DOCUSAURUS_ON_BROKEN_LINKS: warn
+    command: >
+      npm start -- --host 0.0.0.0 --port 5715 --locale en
+    restart: unless-stopped
