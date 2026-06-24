@@ -25,7 +25,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
         items: [
           {type: 'doc', id: 'systems/aiworker/quick_start_guide/setup_overview/hardware', label: 'Hardware', key: 'setup-overview-hardware'},
           {type: 'doc', id: 'systems/aiworker/quick_start_guide/setup_overview/software', label: 'Software', key: 'setup-overview-software'},
-          {type: 'doc', id: 'systems/aiworker/quick_start_guide/setup_overview/ros2_communication', label: 'ROS 2 Communication', key: 'setup-overview-ros2-communication'},
+          {type: 'doc', id: 'systems/aiworker/quick_start_guide/setup_overview/rmw_zenoh', label: 'RMW Zenoh', key: 'setup-overview-rmw-zenoh'},
         ],
       },
       {

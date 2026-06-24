@@ -1,0 +1,25 @@
+### Run Zenoh Daemon
+
+:::info[RMW_ZENOH NOTIFICATION]
+AI WORKER uses zenoh as RMW since version 2.0.0, so you need to bring up the Zenoh daemon before bringup the robot.  
+Please refer to the [RMW Zenoh](/docs/systems/aiworker/quick_start_guide/setup_overview/rmw_zenoh) guide.
+:::
+
+:::warning
+If Cyclo Manager is installed, the Zenoh daemon may already be running. Check whether the **zenoh_daemon** container is running. If it is, you do not need to start the Zenoh daemon separately.
+```bash
+docker ps | grep zenoh_daemon
+```
+:::
+
+In the AI Worker container, run the following command to bring up the Zenoh daemon:
+
+```bash
+ros2 run rmw_zenoh_cpp rmw_zenohd
+```
+
+or alias:
+
+```bash
+zenohd
+```

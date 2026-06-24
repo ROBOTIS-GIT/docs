@@ -1,5 +1,6 @@
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import RunZenohDaemon from '@site/docs/systems/aiworker/_partials/run_zenoh_daemon.mdx';
 
 # Teleoperation
 
@@ -38,13 +39,14 @@ It can be worn more easily by users with different body types.
 The following teleoperation commands are executed on the `robot PC`.
 You can either connect a keyboard and mouse directly to the Nvidia Orin, or access it via SSH (see the Setup Guide for instructions).<br />
 
-
 Enter the **ai_worker** Docker container with:
 
 ```bash
 cd ~/ai_worker
 ./docker/container.sh enter
 ```
+
+<RunZenohDaemon />
 
 ### Option 1: All-in-One Launch
 

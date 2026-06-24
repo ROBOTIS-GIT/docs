@@ -1,5 +1,6 @@
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import RunZenohDaemon from '@site/docs/systems/aiworker/_partials/run_zenoh_daemon.mdx';
 
 # Navigation
 
@@ -18,10 +19,13 @@ cd ~/ai_worker
 ./docker/container.sh enter
 ```
 
+<RunZenohDaemon />
+
 <Tabs groupId="robot-type">
 <TabItem value="gripper-type" label="Gripper Type">
 
 Note that `sg2` model is used as an example.
+
 ```bash
 ros2 launch ffw_bringup ffw_sg2_follower_ai.launch.py
 ```
@@ -34,6 +38,7 @@ ffw_sg2_follower_ai
 <TabItem value="hand-type" label="Hand Type">
 
 Note that `sh5` model is used as an example.
+
 ```bash
 ros2 launch ffw_bringup ffw_sh5_follower_ai.launch.py
 ```

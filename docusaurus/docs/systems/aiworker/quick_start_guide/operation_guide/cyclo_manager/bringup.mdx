@@ -1,6 +1,9 @@
 # Bringup the Robot
 
-AI Worker uses Zenoh as RMW, so you need to bring up the Zenoh daemon before bringing up the robot.  
+:::info[RMW_ZENOH NOTIFICATION]
+AI Worker uses Zenoh as RMW since version 2.0.0, so you need to bring up the Zenoh daemon before bringing up the robot. For how Zenoh fits into the AI Worker ROS 2 stack, see [RMW Zenoh](/docs/systems/aiworker/quick_start_guide/setup_overview/rmw_zenoh).
+:::
+
 On the **System** page, you can bring up the robot and the Zenoh daemon.
 
 ![System Page](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/system_page.png)
@@ -15,7 +18,7 @@ You can see the logs by clicking the paper icon.
 :::info
 - Red light indicates the Zenoh daemon is not running. Green light indicates the Zenoh daemon is running.
 - The Zenoh daemon runs in the **zenoh-daemon** container, which is created only for the Zenoh daemon.
-- If the Zenoh daemon is running, it keeps running unless you stop the **zenoh-daemon** container.
+- If the Zenoh daemon is running, it keeps running even after you power the robot off and on, unless you stop the **zenoh-daemon** container.
 :::
 
 
