@@ -34,6 +34,19 @@ const aiworkerSidebar: SidebarsConfig[string] = [
         link: {type: 'doc', id: 'systems/aiworker/quick_start_guide/operation_guide/operation_guide'},
         collapsed: true,
         items: [
+          {
+            type: 'category',
+            label: 'Cyclo Manager',
+            link: {type: 'doc', id: 'systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/cyclo_manager'},
+            collapsed: true,
+            items: [
+              {type: 'doc', id: 'systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/install', label: 'Install'},
+              {type: 'doc', id: 'systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/bringup', label: 'Bringup'},
+              {type: 'doc', id: 'systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/manage_container', label: 'Manage Container'},
+              {type: 'doc', id: 'systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/version_update', label: 'Version Update'},
+              {type: 'doc', id: 'systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/novnc', label: 'noVNC'},
+            ],
+          },
           {type: 'doc', id: 'systems/aiworker/quick_start_guide/operation_guide/teleoperation', label: 'Teleoperation'},
           {type: 'doc', id: 'systems/aiworker/quick_start_guide/operation_guide/vr_teleoperation', label: 'VR Teleoperation'},
           {type: 'doc', id: 'systems/aiworker/quick_start_guide/operation_guide/navigation', label: 'Navigation'},
@@ -79,7 +92,6 @@ const aiworkerSidebar: SidebarsConfig[string] = [
     collapsed: true,
     items: [
       {type: 'doc', id: 'systems/aiworker/advanced_features/advanced_features', label: 'Overview', key: 'advanced-features-overview'},
-      {type: 'doc', id: 'systems/aiworker/advanced_features/cyclo_manager', label: 'Cyclo Manager'},
       {type: 'doc', id: 'systems/aiworker/advanced_features/cyclo_control', label: 'Cyclo Control'},
       {type: 'doc', id: 'systems/aiworker/advanced_features/behavior_trees', label: 'Behavior Trees'},
       {type: 'doc', id: 'systems/aiworker/advanced_features/cyclo_intelligence', label: 'Cyclo Intelligence'},

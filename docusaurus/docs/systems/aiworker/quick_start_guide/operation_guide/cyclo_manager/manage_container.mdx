@@ -1,0 +1,34 @@
+# Manage Container
+
+On the Dashboard **Container Management** section, you can manage the containers on the robot.
+
+![Container Management](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/container_management.png)
+
+## Features
+
+1. View the list of containers on the robot.
+2. Check whether each container is running.
+3. Start/restart/stop containers.
+4. View container logs.
+5. Edit **`.bashrc`**.
+
+## Change ROS_DOMAIN_ID
+
+Click the `.bashrc` button.  
+Set `ROS_DOMAIN_ID` to the same value on every container that must communicate over ROS 2 (for example `export ROS_DOMAIN_ID=30`).
+
+![Editing container .bashrc](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/modifying_bashrc_cyclo_manager.png)
+
+After you save **`.bashrc`**, **Restarting** the container is recommended.
+
+:::info
+**Environment variables in the container are managed in the `.bashrc` file.**
+:::
+
+## Run Commands in a Container
+
+On the Terminal page, select the container where you want to run the command.
+
+![Terminal page](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/terminal_page.png)
+
+Use a bash terminal to run commands and manage processes inside the container without using SSH to access the container.
