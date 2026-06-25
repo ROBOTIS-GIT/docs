@@ -18,6 +18,7 @@ const omySidebar: SidebarsConfig[string] = [
         ],
       },
       {type: 'doc', id: 'systems/omy/specifications/software', label: 'Software'},
+      {type: 'doc', id: 'systems/omy/specifications/zenoh_communication', label: 'Zenoh Communication'},
     ],
   },
   {

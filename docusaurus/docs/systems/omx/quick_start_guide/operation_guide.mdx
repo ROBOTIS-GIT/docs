@@ -1,4 +1,9 @@
 # Operation Guide — ROS 2
+:::info
+At least one **Zenoh daemon** must be running in the communication network. If no Zenoh daemon is running, ROS 2 nodes cannot discover or communicate with each other.
+
+For the recommended setup, run `zenohd` in a terminal inside the **open_manipulator Docker container**.
+:::
 
 ## Teleoperation
 After accessing the Open Manipulator Docker container, use the following command:
