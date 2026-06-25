@@ -1,0 +1,94 @@
+---
+sidebar_label: Zenoh Communication
+title: Zenoh Communication
+displayed_sidebar: omxSidebar
+---
+
+# Zenoh Communication
+
+<div className="zenoh-intro">
+  <img src="/img/systems/omx/specifications/zenoh_communication/zenoh-dragon-light.png" alt="Zenoh logo" className="zenoh-intro__logo" />
+  <div className="zenoh-intro__text"><strong>Starting from OPENMANIPULATOR package version 5.0.0, OMX changes its default ROS 2 middleware from Fast DDS to Zenoh RMW.</strong> This enables more stable communication between robot-side nodes, Docker containers, and external PCs. This page explains how to connect an external PC to the robot and how <code>rmw_zenoh</code> fits into the ROS 2 communication stack.</div>
+</div>
+
+:::warning
+At least one **Zenoh daemon** must be running in the communication network. If no Zenoh daemon is running, ROS 2 nodes cannot discover or communicate with each other.
+
+To start the Zenoh daemon manually, run `zenohd` in a terminal inside the open_manipulator container.
+:::
+
+## External PC Control
+
+To control OMX from an external PC, set up the `open_manipulator` Docker container on the external PC. Then connect the container's Zenoh client to the Zenoh router running on the robot.
+
+Inside the external PC's `open_manipulator` container, set the following environment variable:
+
+```bash
+export ZENOH_CONFIG_OVERRIDE='transport/shared_memory/enabled=true;mode="client";connect/endpoints=["tcp/robot_ip:7447"]'
+```
+
+Replace `robot_ip` with the real IP address of the OMX robot. Use the robot's Wi-Fi IP address when both devices are connected over Wi-Fi, or use the robot's LAN IP address when the external PC is connected through Ethernet.
+
+For example, if the robot's IP address is `192.168.0.42`:
+
+```bash
+export ZENOH_CONFIG_OVERRIDE='transport/shared_memory/enabled=true;mode="client";connect/endpoints=["tcp/192.168.0.42:7447"]'
+```
+
+The `open_manipulator` Docker image enables Zenoh RMW by default. You can check or manually set it with:
+
+```bash
+export RMW_IMPLEMENTATION=rmw_zenoh_cpp
+```
+
+Keep `ROS_DOMAIN_ID` consistent across terminals and containers when the OMX environment expects a specific ROS domain. Even though Zenoh does not rely on DDS multicast discovery, the ROS 2 process environment should remain consistent across the robot-side stack.
+
+## What is rmw_zenoh?
+
+`rmw_zenoh` is the ROS 2 RMW (ROS Middleware) implementation for Zenoh. The implementation package is `rmw_zenoh_cpp`, and it maps the ROS 2 middleware API onto Zenoh APIs. Existing ROS 2 publishers, subscribers, services, clients, parameters, and command-line tools can keep using normal ROS 2 interfaces while Zenoh handles discovery and transport.
+
+Zenoh is a pub/sub/query protocol designed to move data efficiently across local processes, robot networks, edge computers, and cloud systems. For OMX, this means the robot control software can use normal ROS 2 topics while Zenoh provides a lightweight communication layer that is easier to route across containers and hosts than multicast-heavy DDS discovery.
+
+## Main Components
+
+| Component | Role |
+| --- | --- |
+| `rmw_zenoh_cpp` | ROS 2 RMW implementation selected by `RMW_IMPLEMENTATION=rmw_zenoh_cpp`. |
+| `rmw_zenohd` | Zenoh router executable packaged with `rmw_zenoh_cpp`. It provides discovery information and host-to-host routing. |
+| Zenoh session | Communication session used internally by ROS 2 contexts. Publishers, subscribers, services, and clients share the session. |
+| Zenoh router configuration | Controls how routers listen, connect, and bridge communication between containers, the robot, and remote PCs. |
+
+## How Communication Works
+
+- ROS 2 nodes continue to publish and subscribe to normal topics such as `/joint_states`, `/tf`, or controller command topics.
+- `rmw_zenoh_cpp` converts the ROS 2 middleware calls into Zenoh operations.
+- A local Zenoh router is normally started so nodes can discover each other.
+- On the same host, message data can use direct peer-to-peer paths instead of forcing every sample through the router.
+- Across multiple hosts, configure the external PC container as a Zenoh client connected to the robot's Zenoh router endpoint.
+
+## Quick Checks
+
+Use these commands inside the `open_manipulator` container to confirm that Zenoh RMW is active and that the ROS graph is visible:
+
+```bash
+echo $RMW_IMPLEMENTATION
+echo $ZENOH_CONFIG_OVERRIDE
+ros2 node list
+ros2 topic list
+ros2 topic echo /joint_states
+```
+
+If topics appear but messages are not flowing, check that:
+
+- `ZENOH_CONFIG_OVERRIDE` uses the robot's real IP address.
+- The robot and external PC are on the same reachable network.
+- Port `7447` is reachable from the external PC.
+- The `open_manipulator` container is running with the expected network configuration.
+- Old ROS 2 daemon state has been stopped with `ros2 daemon stop`.
+
+## References
+
+- [ros2/rmw_zenoh](https://github.com/ros2/rmw_zenoh)
+- [rmw_zenoh design document](https://github.com/ros2/rmw_zenoh/blob/rolling/docs/design.md)
+- [Zenoh overview](https://zenoh.io/docs/overview/what-is-zenoh/)
+- [Zenoh website](https://zenoh.io/)

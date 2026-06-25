@@ -10,6 +10,7 @@ const omxSidebar: SidebarsConfig[string] = [
     items: [
       {type: 'doc', id: 'systems/omx/specifications/hardware', label: 'Hardware'},
       {type: 'doc', id: 'systems/omx/specifications/software', label: 'Software'},
+      {type: 'doc', id: 'systems/omx/specifications/zenoh_communication', label: 'Zenoh Communication'},
     ],
   },
   {

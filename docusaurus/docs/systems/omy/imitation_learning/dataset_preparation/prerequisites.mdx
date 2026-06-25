@@ -84,19 +84,46 @@ Build the Physical AI Server with the following command:
 colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
 ```
 
-## Launch the Camera Node
 
-Navigate to **open_manipulator/docker** directory and enter the Docker container:
+## Launch the ROS 2 Teleoperation Node
 
-`USER PC`
+:::info
+At least one **Zenoh daemon** must be running in the communication network. If no Zenoh daemon is running, ROS 2 nodes cannot discover or communicate with each other.
+
+For the recommended setup, run `zenohd` in a terminal inside the **OpenMANIPULATOR Docker container** on the **robot PC**.
+:::
+
+### 1. Access the Robot PC
+Access the Robot PC either directly or via SSH. For SSH connection instructions, refer to the SSH connection. 
+
+### 2. Launch the ROS 2 Teleoperation Node
+
+Enter the Docker Container
+
+`ROBOT PC`
 ```bash
-cd open_manipulator/docker
-```
-```bash
-./container.sh enter
+cd open_manipulator/docker && ./container.sh enter
 ```
 
-Launch the Camera Node:
+Then, launch the ROS 2 teleoperation node with following command:
+:::warning
+Executing the code will cause OMY to move immediately. Please stay clear and be cautious.
+:::
+`ROBOT PC` `🐋 OPEN MANIPULATOR`
+```bash
+ros2 launch open_manipulator_bringup omy_ai.launch.py
+```
+
+## Launch the Camera Node:
+:::info
+The OMY camera must be launched inside the **OpenMANIPULATOR Docker container** on the **user PC**, not on the robot PC.
+
+If `zenohd` is running on the **robot PC**, configure the user PC to connect to the robot PC's Zenoh daemon by setting `ZENOH_CONFIG_OVERRIDE`.
+
+Refer to the [External PC Control](/docs/systems/omy/specifications/zenoh_communication#external-pc-control) section in [Zenoh Communication](/docs/systems/omy/specifications/zenoh_communication) for the network and `ZENOH_CONFIG_OVERRIDE` settings.
+
+Once configured correctly, both the robot PC and user PC can communicate through a single **Zenoh daemon**.
+:::
 
 `USER PC` `🐋 OPEN MANIPULATOR`
 ```bash
@@ -107,6 +134,9 @@ You can also use other camera models such as ZED2 or USB cameras, if needed.
 
 
 ## Launch the Physical AI Server
+:::info
+The `ZENOH_CONFIG_OVERRIDE` environment variable must also be correctly set inside the **physical_ai_server Docker container** according to the [External PC Control](/docs/systems/omy/specifications/zenoh_communication#external-pc-control) configuration. Otherwise, ROS 2 communication may not work.
+:::
 
 Navigate to **physical_ai_tools/docker** directory and enter the Docker Container:
 
@@ -128,27 +158,4 @@ Or, use shortcut command:
 
 ```bash
 ai_server
-```
-
-## Launch the ROS 2 Teleoperation Node
-
-### 1. Access the Robot PC
-Access the Robot PC either directly or via SSH. For SSH connection instructions, refer to the SSH connection. 
-
-### 2. Launch the ROS 2 Teleoperation Node
-
-Enter the Docker Container
-
-`ROBOT PC`
-```bash
-cd open_manipulator/docker && ./container.sh enter
-```
-
-Then, launch the ROS 2 teleoperation node with following command:
-:::warning
-Executing the code will cause OMY to move immediately. Please stay clear and be cautious.
-:::
-`ROBOT PC` `🐋 OPEN MANIPULATOR`
-```bash
-ros2 launch open_manipulator_bringup omy_ai.launch.py
 ```

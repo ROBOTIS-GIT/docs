@@ -804,11 +804,21 @@
 }
 
 .dynamixel-q-at-a-glance,
-.ai-sapiens-at-a-glance {
+.ai-sapiens-at-a-glance,
+.zenoh-intro {
   display: grid;
   grid-template-columns: minmax(180px, 260px) minmax(0, 1fr);
   gap: 1.25rem;
   align-items: center;
+}
+
+.zenoh-intro__logo {
+  width: min(200px, 100%);
+  justify-self: center;
+}
+
+.zenoh-intro__text {
+  min-width: 0;
 }
 
 .ai-sapiens-page img,
@@ -1139,7 +1149,8 @@
   .channel-info,
   .cyclo-bringup-legend,
   .dynamixel-q-at-a-glance,
-  .ai-sapiens-at-a-glance {
+  .ai-sapiens-at-a-glance,
+  .zenoh-intro {
     grid-template-columns: 1fr;
   }
 
