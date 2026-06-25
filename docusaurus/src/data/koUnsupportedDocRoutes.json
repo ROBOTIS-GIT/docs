@@ -309,6 +309,7 @@
   "/docs/systems/aiworker/quick_start_guide/setup_overview",
   "/docs/systems/aiworker/quick_start_guide/setup_overview/hardware",
   "/docs/systems/aiworker/quick_start_guide/setup_overview/rmw_zenoh",
+  "/docs/systems/aiworker/quick_start_guide/setup_overview/ros2_communication",
   "/docs/systems/aiworker/quick_start_guide/setup_overview/software",
   "/docs/systems/aiworker/resources/open_source",
   "/docs/systems/aiworker/resources/release_notes",
