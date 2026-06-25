@@ -120,7 +120,7 @@ The OMY camera must be launched inside the **OpenMANIPULATOR Docker container** 
 
 If `zenohd` is running on the **robot PC**, configure the user PC to connect to the robot PC's Zenoh daemon by setting `ZENOH_CONFIG_OVERRIDE`.
 
-Refer to the [External PC Control](/docs/systems/omy/specifications/zenoh_communication#external-pc-control) section in [Zenoh Communication](/docs/systems/omy/specifications/zenoh_communication) for the network and `ZENOH_CONFIG_OVERRIDE` settings.
+Refer to the [External PC Control](/docs/systems/omy/quick_start_guide/zenoh_communication#external-pc-control) section in [Zenoh Communication](/docs/systems/omy/quick_start_guide/zenoh_communication) for the network and `ZENOH_CONFIG_OVERRIDE` settings.
 
 Once configured correctly, both the robot PC and user PC can communicate through a single **Zenoh daemon**.
 :::
@@ -135,7 +135,7 @@ You can also use other camera models such as ZED2 or USB cameras, if needed.
 
 ## Launch the Physical AI Server
 :::info
-The `ZENOH_CONFIG_OVERRIDE` environment variable must also be correctly set inside the **physical_ai_server Docker container** according to the [External PC Control](/docs/systems/omy/specifications/zenoh_communication#external-pc-control) configuration. Otherwise, ROS 2 communication may not work.
+The `ZENOH_CONFIG_OVERRIDE` environment variable must also be correctly set inside the **physical_ai_server Docker container** according to the [External PC Control](/docs/systems/omy/quick_start_guide/zenoh_communication#external-pc-control) configuration. Otherwise, ROS 2 communication may not work.
 :::
 
 Navigate to **physical_ai_tools/docker** directory and enter the Docker Container:
