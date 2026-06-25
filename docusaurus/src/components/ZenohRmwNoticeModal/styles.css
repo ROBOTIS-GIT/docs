@@ -1,0 +1,88 @@
+.zenoh-rmw-notice {
+  position: fixed;
+  top: calc(var(--ifm-navbar-height, 60px) + 1rem);
+  left: 1rem;
+  z-index: 500;
+  width: min(calc(100vw - 2rem), 420px);
+  pointer-events: none;
+}
+
+.zenoh-rmw-notice__dialog {
+  position: relative;
+  pointer-events: auto;
+  max-height: calc(100vh - var(--ifm-navbar-height, 60px) - 2rem);
+  overflow: auto;
+  padding: 1.25rem 1.25rem 1rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 12px;
+  background: var(--ifm-background-surface-color, #ffffff);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+}
+
+[data-theme='dark'] .zenoh-rmw-notice__dialog {
+  background: #242526;
+  border-color: var(--ifm-color-emphasis-400);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+}
+
+.zenoh-rmw-notice__close {
+  position: absolute;
+  top: 0.65rem;
+  right: 0.65rem;
+  border: 0;
+  background: transparent;
+  color: var(--ifm-color-emphasis-700);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.zenoh-rmw-notice__label {
+  margin: 0 0 0.5rem;
+  color: var(--ifm-color-primary);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.zenoh-rmw-notice__dialog h2 {
+  margin: 0 0 0.75rem;
+  padding-right: 1.5rem;
+  font-size: 1.25rem;
+}
+
+.zenoh-rmw-notice__dialog p {
+  margin-bottom: 0.75rem;
+  color: var(--ifm-color-emphasis-800);
+}
+
+.zenoh-rmw-notice__dialog ul {
+  margin: 0 0 1rem 1.25rem;
+  padding: 0;
+}
+
+.zenoh-rmw-notice__dialog li {
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.zenoh-rmw-notice__checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  color: var(--ifm-color-emphasis-700);
+  font-size: 0.92rem;
+  cursor: pointer;
+}
+
+.zenoh-rmw-notice__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.zenoh-rmw-notice__actions .button {
+  margin: 0;
+}
