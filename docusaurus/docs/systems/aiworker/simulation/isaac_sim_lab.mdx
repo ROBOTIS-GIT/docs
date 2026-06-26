@@ -1,8 +1,8 @@
-# Getting Started with ROBOTIS Lab
+# Getting Started with Cyclo Lab
 
 ## Overview
 
-**ROBOTIS Lab** is a research-oriented repository based on [Isaac Lab](https://isaac-sim.github.io/IsaacLab), designed to enable reinforcement learning and imitation learning experiments using Robotis robots in simulation.
+**Cyclo Lab** is a research-oriented repository based on [Isaac Lab](https://isaac-sim.github.io/IsaacLab), designed to enable reinforcement learning and imitation learning experiments using Robotis robots in simulation.
 This project provides simulation environments, configuration tools, and task definitions tailored for Robotis hardware, leveraging NVIDIA Isaac Sim’s powerful GPU-accelerated physics engine and Isaac Lab’s modular RL pipeline.
 
 :::info
@@ -18,11 +18,11 @@ Docker installation provides a consistent environment with all dependencies pre-
 - NVIDIA GPU with appropriate drivers
 
 **Steps:**
-1. Clone robotis_lab repository with submodules:
+1. Clone the cyclo_lab repository with submodules:
 
    ```bash
-   git clone --recurse-submodules https://github.com/ROBOTIS-GIT/robotis_lab.git
-   cd robotis_lab
+   git clone --recurse-submodules https://github.com/ROBOTIS-GIT/cyclo_lab.git
+   cd cyclo_lab
    ```
 
    If you already cloned without submodules, initialize them:
@@ -68,15 +68,15 @@ Docker installation provides a consistent environment with all dependencies pre-
 
 ```bash
 # Train
-python scripts/reinforcement_learning/rsl_rl/train.py --task RobotisLab-Reach-FFW-BG2-v0 --num_envs=512 --headless
+python scripts/reinforcement_learning/rsl_rl/train.py --task Cyclo-Reach-FFW-BG2-v0 --num_envs=512 --headless
 
 # Play
-python scripts/reinforcement_learning/rsl_rl/play.py --task RobotisLab-Reach-FFW-BG2-v0 --num_envs=16
+python scripts/reinforcement_learning/rsl_rl/play.py --task Cyclo-Reach-FFW-BG2-Play-v0 --num_envs=16
 ```
 
 ### Imitation Learning
 
-ROBOTIS Lab supports imitation learning pipelines for ROBOTIS robots. Using the AI Worker as an example, you can collect demonstration data, process it, convert it into the Lerobot dataset format, and run inference or training using **physical_ai_tools**.
+Cyclo Lab supports imitation learning pipelines for ROBOTIS robots. Using the AI Worker as an example, you can collect demonstration data, process it, convert it into the Lerobot dataset format, and run inference or training using **physical_ai_tools**.
 
 #### FFW SG2 Pick and Place Task
 
@@ -93,7 +93,7 @@ ROBOTIS Lab supports imitation learning pipelines for ROBOTIS robots. Using the 
 
   ```bash
    python scripts/sim2real/imitation_learning/recorder/record_demos.py \
-   --task=RobotisLab-Real-Pick-Place-FFW-SG2-v0 \
+   --task=Cyclo-Real-Pick-Place-FFW-SG2-v0 \
    --robot_type FFW_SG2 --dataset_file ./datasets/ffw_sg2_raw.hdf5 \
    --num_demos 4 \
    --enable_cameras
@@ -112,7 +112,7 @@ ROBOTIS Lab supports imitation learning pipelines for ROBOTIS robots. Using the 
 
   # Annotate dataset
    python scripts/sim2real/imitation_learning/mimic/annotate_demos.py \
-   --task RobotisLab-Real-Mimic-Pick-Place-FFW-SG2-v0 \
+   --task Cyclo-Real-Mimic-Pick-Place-FFW-SG2-v0 \
    --auto \
    --input_file ./datasets/ffw_sg2_ik.hdf5 \
    --output_file ./datasets/ffw_sg2_annotate.hdf5 \
@@ -123,7 +123,7 @@ ROBOTIS Lab supports imitation learning pipelines for ROBOTIS robots. Using the 
    python scripts/sim2real/imitation_learning/mimic/generate_dataset.py \
    --device cuda \
    --num_envs 10 \
-   --task RobotisLab-Real-Mimic-Pick-Place-FFW-SG2-v0 \
+   --task Cyclo-Real-Mimic-Pick-Place-FFW-SG2-v0 \
    --generation_num_trials 500 \
    --input_file ./datasets/ffw_sg2_annotate.hdf5 \
    --output_file ./datasets/ffw_sg2_generate.hdf5 \
@@ -143,7 +143,7 @@ ROBOTIS Lab supports imitation learning pipelines for ROBOTIS robots. Using the 
 
   ```bash
    lerobot-python scripts/sim2real/imitation_learning/data_converter/isaaclab2lerobot.py \
-   --task=RobotisLab-Real-Pick-Place-FFW-SG2-v0 \
+   --task=Cyclo-Real-Pick-Place-FFW-SG2-v0 \
    --robot_type FFW_SG2 \
    --dataset_file ./datasets/ffw_sg2_final.hdf5
   ```
@@ -159,7 +159,7 @@ ROBOTIS Lab supports imitation learning pipelines for ROBOTIS robots. Using the 
 
   ```bash
    python scripts/sim2real/imitation_learning/inference/inference_demos.py \
-   --task RobotisLab-Real-Pick-Place-FFW-SG2-v0 \
+   --task Cyclo-Real-Pick-Place-FFW-SG2-v0 \
    --robot_type FFW_SG2 \
    --enable_cameras
   ```
