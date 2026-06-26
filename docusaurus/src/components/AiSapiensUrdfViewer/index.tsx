@@ -23,6 +23,7 @@ export default function AiSapiensUrdfViewer(): React.JSX.Element {
     let resizeObserver: ResizeObserver | null = null;
     let renderer: any = null;
     let controls: any = null;
+    let scene: any = null;
 
     async function initViewer() {
       const mount = mountRef.current;
@@ -37,7 +38,7 @@ export default function AiSapiensUrdfViewer(): React.JSX.Element {
 
         if (disposed || !mountRef.current) return;
 
-        const scene = new THREE.Scene();
+        scene = new THREE.Scene();
         scene.background = new THREE.Color(0xf6f7f9);
 
         const camera = new THREE.PerspectiveCamera(38, 1, 0.01, 100);
@@ -305,6 +306,27 @@ export default function AiSapiensUrdfViewer(): React.JSX.Element {
       if (animationFrame) window.cancelAnimationFrame(animationFrame);
       if (resizeObserver) resizeObserver.disconnect();
       if (controls) controls.dispose();
+      if (scene) {
+        const disposeMaterial = (material: any) => {
+          Object.values(material).forEach((value: any) => {
+            if (value?.isTexture) {
+              value.dispose();
+            }
+          });
+          material.dispose?.();
+        };
+
+        scene.traverse((object: any) => {
+          object.geometry?.dispose?.();
+
+          if (Array.isArray(object.material)) {
+            object.material.forEach(disposeMaterial);
+          } else if (object.material) {
+            disposeMaterial(object.material);
+          }
+        });
+        scene.clear();
+      }
       if (renderer) {
         renderer.dispose();
         renderer.domElement?.remove();
