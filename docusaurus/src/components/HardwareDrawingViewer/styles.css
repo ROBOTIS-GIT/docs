@@ -38,24 +38,23 @@
   line-height: 1.55;
 }
 
-.hardware-drawing-viewer__actions,
-.hardware-drawing-viewer__zoom {
+.hardware-drawing-viewer__actions {
   display: flex;
   flex: 0 0 auto;
   align-items: center;
   gap: 0.55rem;
 }
 
-.hardware-drawing-viewer__actions a,
-.hardware-drawing-viewer__toolbar button {
+.hardware-drawing-viewer__actions a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-height: 36px;
-  border: 1px solid var(--ifm-color-emphasis-300);
+  padding: 0 0.85rem;
+  border: 1px solid var(--ifm-color-primary);
   border-radius: 6px;
   background: var(--ifm-background-surface-color);
-  color: var(--ifm-font-color-base);
+  color: var(--ifm-color-primary);
   font-size: 0.86rem;
   font-weight: 750;
   line-height: 1.2;
@@ -66,72 +65,16 @@
     border-color 140ms ease;
 }
 
-.hardware-drawing-viewer__actions a {
-  padding: 0 0.85rem;
-  border-color: var(--ifm-color-primary);
-  color: var(--ifm-color-primary);
-}
-
-.hardware-drawing-viewer__actions a:hover,
-.hardware-drawing-viewer__toolbar button:hover:not(:disabled) {
+.hardware-drawing-viewer__actions a:hover {
   border-color: var(--ifm-color-primary);
   background: color-mix(in srgb, var(--ifm-color-primary) 8%, transparent);
   color: var(--ifm-color-primary);
   text-decoration: none;
 }
 
-.hardware-drawing-viewer__toolbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.85rem;
-  padding: 0.75rem 1.1rem;
-  border-bottom: 1px solid var(--robotis-card-border);
-  background: color-mix(in srgb, var(--ifm-color-emphasis-100) 52%, transparent);
-}
-
-.hardware-drawing-viewer__zoom {
-  min-width: 0;
-}
-
-.hardware-drawing-viewer__zoom button {
-  width: 36px;
-  padding: 0;
-  font-size: 1.15rem;
-}
-
-.hardware-drawing-viewer__zoom span {
-  min-width: 4.4rem;
-  color: var(--ifm-font-color-base);
-  font-size: 0.88rem;
-  font-weight: 800;
-  text-align: center;
-}
-
-.hardware-drawing-viewer__fit {
-  padding: 0 0.85rem;
-}
-
-.hardware-drawing-viewer__fit[aria-pressed='true'] {
-  border-color: var(--ifm-color-primary);
-  background: color-mix(in srgb, var(--ifm-color-primary) 9%, transparent);
-  color: var(--ifm-color-primary);
-}
-
-.hardware-drawing-viewer__toolbar button:disabled {
-  cursor: not-allowed;
-  opacity: 0.48;
-}
-
-.hardware-drawing-viewer__stage {
-  position: relative;
-  overflow: auto;
-  display: grid;
-  justify-items: center;
-  width: 100%;
-  height: min(82vh, 920px);
-  min-height: 560px;
-  padding: 18px;
+.hardware-drawing-viewer__preview {
+  display: block;
+  padding: clamp(0.75rem, 2vw, 1.25rem);
   background:
     linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px),
     linear-gradient(180deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px),
@@ -139,54 +82,30 @@
   background-size: 24px 24px;
 }
 
-.hardware-drawing-viewer__stage canvas {
+.hardware-drawing-viewer__preview:hover {
+  text-decoration: none;
+}
+
+.hardware-drawing-viewer__preview img {
   display: block;
-  align-self: start;
-  max-width: none;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+  border: 1px solid rgba(15, 23, 42, 0.13);
   background: #fff;
   box-shadow: 0 18px 45px rgba(15, 23, 42, 0.16);
 }
 
-.hardware-drawing-viewer__status {
-  position: absolute;
-  top: 18px;
-  left: 18px;
-  max-width: calc(100% - 36px);
-  padding: 7px 10px;
-  border: 1px solid rgba(18, 38, 72, 0.1);
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.9);
-  color: #53606f;
-  font-size: 0.78rem;
-  line-height: 1.25;
-  backdrop-filter: blur(10px);
-  transition: opacity 160ms ease;
-}
-
-.hardware-drawing-viewer__status--ready {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.hardware-drawing-viewer__status--error {
-  border-color: rgba(190, 18, 60, 0.18);
-  background: rgba(255, 241, 242, 0.94);
-  color: #9f1239;
-}
-
 @media (max-width: 760px) {
-  .hardware-drawing-viewer__header,
-  .hardware-drawing-viewer__toolbar {
+  .hardware-drawing-viewer__header {
     display: grid;
   }
 
-  .hardware-drawing-viewer__actions,
-  .hardware-drawing-viewer__zoom {
+  .hardware-drawing-viewer__actions {
     flex-wrap: wrap;
   }
 
-  .hardware-drawing-viewer__stage {
-    height: 72vh;
-    min-height: 460px;
+  .hardware-drawing-viewer__actions a {
+    flex: 1 1 8rem;
   }
 }
