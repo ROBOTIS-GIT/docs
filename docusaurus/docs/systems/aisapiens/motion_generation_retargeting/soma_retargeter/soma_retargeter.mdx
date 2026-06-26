@@ -1,0 +1,428 @@
+---
+sidebar_label: Soma-retargeter
+title: Soma-retargeter
+---
+
+# Soma-retargeter
+
+Soma-retargeter converts SOMA BVH motion files into AI Sapiens CSV joint data. It loads `.bvh` files, solves the target robot pose with Newton and NVIDIA Warp, and writes AI Sapiens `.csv` files.
+
+Soma-retargeter does not create or export BVH files. Prepare SOMA-compatible BVH files before running this tool.
+
+:::info
+Use this guide to set up `ROBOTIS-GIT/soma-retargeter`, convert SOMA BVH files, and export AI Sapiens CSV motion data.
+:::
+
+## AI Sapiens Soma-retargeter Demo
+
+<video className="ai-sapiens-demo-video" controls autoPlay muted loop playsInline preload="metadata">
+  <source src="/videos/systems/aisapiens/soma_retargeter_k1_demo.webm" type="video/webm" />
+</video>
+
+## Official Resources
+
+- [ROBOTIS Soma-retargeter repository](https://github.com/ROBOTIS-GIT/soma-retargeter)
+- [AI Sapiens submodule source](https://github.com/ROBOTIS-GIT/ai_sapiens)
+- [NVIDIA upstream Soma-retargeter repository](https://github.com/NVIDIA/soma-retargeter)
+- [SOMA body model](https://github.com/NVlabs/SOMA-X)
+- [Newton physics](https://github.com/newton-physics/newton)
+- [NVIDIA Warp](https://github.com/NVIDIA/warp)
+- [SEED dataset](https://huggingface.co/datasets/bones-studio/seed)
+
+## Workflow
+
+The AI Sapiens workflow is driven by:
+
+```text
+assets/default_ai_sapiens_bvh_to_csv_converter_config.json
+```
+
+Key settings:
+
+| Area | AI Sapiens setting |
+| --- | --- |
+| Retarget target | `ai_sapiens` |
+| Converter config | `assets/default_ai_sapiens_bvh_to_csv_converter_config.json` |
+| Retargeter config | `soma_retargeter/configs/ai_sapiens/soma_to_ai_sapiens_retargeter_config.json` |
+| Retarget MJCF | `soma_retargeter/configs/ai_sapiens/ai_sapiens_retarget.xml` |
+| Source robot model | `third_party/ai_sapiens/ai_sapiens_description/urdf/k1_rev1/k1.urdf` |
+| Source STL meshes | `third_party/ai_sapiens/ai_sapiens_description/meshes/k1_rev1/` |
+| CSV output layout | `AISapiens23DOF_CSVConfig` |
+
+## Retargeting Pipeline
+
+| Stage | Role |
+| --- | --- |
+| SOMA BVH loading | Reads the source skeleton and animation frames from `.bvh` files. |
+| AI Sapiens model loading | Resolves the generated AI Sapiens retarget MJCF. |
+| Human-to-robot scaling | Converts SOMA body proportions into AI Sapiens target bodies using scaler config values. |
+| Multi-objective IK | Solves AI Sapiens body position and rotation objectives with Newton IK. |
+| Joint-limit objective | Penalizes or constrains motion near AI Sapiens joint limits during solving. |
+| CSV export | Writes AI Sapiens root and 23 joint columns through the AI Sapiens CSV config. |
+
+## Requirements
+
+- Python `3.12` or newer
+- Git LFS
+- Git submodule support
+- Windows `x86-64`, Linux `x86-64`, or Linux `aarch64`
+- NVIDIA GPU, Maxwell generation or newer
+- NVIDIA driver `545+` with CUDA 12 runtime support
+- Python environment manager such as conda
+- OpenGL viewer on Linux: `python3.12-tk`
+
+## Installation
+
+### 1. Clone the Repository
+
+Clone Soma-retargeter and enter the repository root:
+
+```bash
+git clone --recursive https://github.com/ROBOTIS-GIT/soma-retargeter.git
+cd soma-retargeter
+```
+
+The commands that use `.` or `tools/...` must be run from the `soma-retargeter` repository root. The repository root is the directory that contains:
+
+```text
+pyproject.toml
+app/
+assets/
+soma_retargeter/
+tools/
+```
+
+Do not run `pip install ... -e .` or `python tools/generate_ai_sapiens_retarget_mjcf.py` from the parent directory such as `~/work`. In those commands, `.` means the current directory.
+
+### 2. Download LFS Files and Submodules
+
+Initialize Git LFS and make sure the AI Sapiens submodule is available:
+
+```bash
+git lfs install
+git submodule sync --recursive
+git submodule update --init --recursive
+git lfs pull
+git -C third_party/ai_sapiens lfs pull
+```
+
+Check the submodule state from the repository root:
+
+```bash
+git submodule status --recursive
+```
+
+If the status line for `third_party/ai_sapiens` starts with `-`, the submodule is not initialized. Run `git submodule update --init --recursive` again from the repository root. If the viewer reports missing STL files under `third_party/ai_sapiens`, run `git -C third_party/ai_sapiens lfs pull`.
+
+### 3. Create a Python Environment
+
+Soma-retargeter requires Python `3.12` or newer. The repository `.python-version` file uses `3.12`, and the Ubuntu 24.04 example below uses the distro `python3.12` packages.
+
+On Ubuntu 24.04 or inside a clean Docker container, install the required Python `venv` packages first:
+
+```bash
+apt-get update
+apt-get install -y python3.12-venv python3.12-dev python3-pip build-essential
+```
+
+Then create and activate the environment:
+
+```bash
+python3.12 -m venv .venv
+source .venv/bin/activate
+```
+
+If you already use conda, you can use a conda environment instead:
+
+```bash
+conda create -n soma-retargeter python=3.12 -y
+conda activate soma-retargeter
+```
+
+If you use another Python version, it must satisfy the project requirement `>=3.12` and the required binary wheels for dependencies such as Newton, Warp, MuJoCo, SciPy, and imgui-bundle must be available for that Python version.
+
+### 4. Install Soma-retargeter in Editable Mode
+
+After activating either environment, upgrade pip tooling and install the checked-out repository in editable mode from the repository root:
+
+```bash
+python -m pip install --upgrade pip setuptools wheel
+python -m pip install --extra-index-url https://pypi.nvidia.com -e .
+```
+
+Use `-e .` instead of `.`. Editable mode makes Python import `soma_retargeter` from the checked-out repository, so repo-local assets such as `third_party/ai_sapiens`, `assets`, and `tools` stay available.
+
+### 5. Check the Installation
+
+Run the check from the repository root:
+
+```bash
+python --version
+python tools/generate_ai_sapiens_retarget_mjcf.py --check
+```
+
+The remaining commands assume the same activated Python environment and the `soma-retargeter` repository root.
+
+## AI Sapiens Retarget MJCF
+
+During conversion, Soma-retargeter loads the AI Sapiens retarget MJCF. The AI Sapiens URDF is used as the generator input when the retarget MJCF is created or regenerated:
+
+```text
+source URDF  = third_party/ai_sapiens/ai_sapiens_description/urdf/k1_rev1/k1.urdf
+source mesh  = third_party/ai_sapiens/ai_sapiens_description/meshes/k1_rev1/
+output MJCF  = soma_retargeter/configs/ai_sapiens/ai_sapiens_retarget.xml
+```
+
+The generator:
+
+- reads the AI Sapiens submodule URDF,
+- resolves `package://ai_sapiens_description/meshes/k1_rev1` to the submodule STL directory,
+- temporarily adds a floating `world -> pelvis` root before MuJoCo compilation,
+- checks the compiled model dimensions as `nq=30`, `nv=29`,
+- inserts retargeting proxy/TCP bodies from `ai_sapiens_retarget_mjcf_patch.json`,
+- writes the generated MJCF with `meshdir="../../../third_party/ai_sapiens/ai_sapiens_description/meshes/k1_rev1"`.
+
+Primitive MJCF files are not generated or used.
+
+### When the MJCF Is Generated
+
+The default behavior is an ensure-style flow:
+
+| Case | Behavior |
+| --- | --- |
+| `ai_sapiens_retarget.xml` exists | Use the existing file and validate it. |
+| The file does not exist | Generate it from the submodule URDF/STL, then validate it. |
+| `--force` is used | Regenerate and overwrite the existing file. |
+| `--check` is used | Validate only. Do not generate or overwrite. |
+
+Validate the current MJCF:
+
+```bash
+python tools/generate_ai_sapiens_retarget_mjcf.py --check
+```
+
+Regenerate it explicitly:
+
+```bash
+python tools/generate_ai_sapiens_retarget_mjcf.py --force
+```
+
+During normal conversion, the default AI Sapiens MJCF is generated only when the default file is missing. User-specified absolute MJCF paths or environment overrides are not auto-generated.
+
+## Input Motion
+
+Soma-retargeter expects SOMA BVH files as input. The default AI Sapiens config reads from:
+
+```text
+assets/motions/bvh
+```
+
+Batch mode recursively finds every `.bvh` file under `import_folder` and converts all of them. Every file in a batch must use the same expected SOMA skeleton joint structure.
+
+To convert only selected motions, place only those `.bvh` files in a separate folder and set `import_folder` to that folder.
+
+## Run AI Sapiens Batch Conversion
+
+Run headless BVH-to-CSV conversion:
+
+```bash
+python ./app/bvh_to_csv_converter.py \
+  --config ./assets/default_ai_sapiens_bvh_to_csv_converter_config.json \
+  --viewer null
+```
+
+The default AI Sapiens config contains:
+
+| Config key | Default value |
+| --- | --- |
+| `import_folder` | `assets/motions/bvh` |
+| `export_folder` | `assets/motions/ai_sapiens-csv` |
+| `timestamp_result_folder` | `false` |
+| `batch_size` | `1` |
+| `retargeter` | `Newton` |
+| `retarget_source` | `soma` |
+| `retarget_target` | `ai_sapiens` |
+| `retarget_source_facing_direction` | `Mujoco` |
+| `retargeter_config` | `ai_sapiens/soma_to_ai_sapiens_retargeter_config.json` |
+| `ai_sapiens_mjcf` | `ai_sapiens/ai_sapiens_retarget.xml` |
+
+The converter creates `export_folder` if it does not exist, retargets every `.bvh` file found under `import_folder`, and saves matching AI Sapiens `.csv` files while preserving the input folder structure.
+
+## Launch the Interactive Viewer
+
+Run the converter with the OpenGL viewer:
+
+```bash
+python ./app/bvh_to_csv_converter.py \
+  --config ./assets/default_ai_sapiens_bvh_to_csv_converter_config.json \
+  --viewer gl
+```
+
+The viewer loads BVH files, runs retargeting, previews the source skeleton and AI Sapiens robot, and saves CSV output. It also provides playback, scrubbing, loop, mesh, skeleton, joint-axis, and gizmo controls.
+
+### Convert One Motion with the GUI
+
+Use the GUI when you want to inspect and convert one motion interactively:
+
+1. Run the viewer command above from the repository root.
+2. In the `Motion` section, click `Load` next to `BVH Motion`.
+3. Select one `.bvh` file, for example a file under `assets/motions/bvh`.
+4. Check the loaded source motion in the viewport.
+5. Click `Retarget`.
+6. Use the playback controls to preview the retargeted AI Sapiens motion.
+7. Click `Save` next to `CSV Motion` and choose the output `.csv` path.
+
+The GUI does not automatically convert every file in `import_folder`. Batch conversion of all `.bvh` files under `import_folder` happens only when running with `--viewer null`.
+
+If you run the GUI inside Docker, the container must be started with a valid host display. Confirm that `echo $DISPLAY` is not empty inside the container and that `/tmp/.X11-unix` is mounted.
+
+### Why STL Mesh Files Are Required
+
+The viewer loads the generated AI Sapiens MJCF to display the robot model. That MJCF references STL meshes from the AI Sapiens submodule:
+
+```xml
+<compiler angle="radian" meshdir="../../../third_party/ai_sapiens/ai_sapiens_description/meshes/k1_rev1" />
+<mesh name="left_hip_pitch_link" file="left_hip_pitch_link.stl" />
+```
+
+The `<geom type="mesh" ... />` entries resolve to those STL files when MuJoCo or Newton loads the MJCF. The STL files are robot geometry assets used for model loading and visualization. They are not motion files and not BVH input files.
+
+If the submodule is missing, the viewer cannot load the robot model. Headless conversion can also fail before solving if the MJCF mesh references cannot be resolved.
+
+Check the submodule state from the repository root:
+
+```bash
+git submodule status --recursive
+```
+
+## AI Sapiens Converter Config Fields
+
+| Field | Description |
+| --- | --- |
+| `ai_sapiens_root_translation_yaw_deg` | Yaw rotation applied to exported root translation. |
+| `ai_sapiens_root_orientation_yaw_deg` | Yaw rotation applied to exported root orientation. |
+| `ai_sapiens_root_translation_xy_scale` | Scale applied to exported root XY translation. |
+| `ai_sapiens_target_position_yaw_deg` | Yaw rotation applied to AI Sapiens IK target positions before solving. |
+| `ai_sapiens_target_orientation_yaw_deg` | Yaw rotation applied to AI Sapiens IK target orientations before solving. |
+| `ai_sapiens_target_yaw_pivot` | Pivot mode for target yaw correction: `origin`, `first_root`, or `per_frame_root`. |
+| `ai_sapiens_ground_align` | When enabled, applies a root-Z offset based on non-plane geoms. |
+
+The default AI Sapiens converter config sets `ai_sapiens_root_translation_yaw_deg` and `ai_sapiens_root_orientation_yaw_deg` to `90.0`, keeps XY scale at `1.0`, and leaves `ai_sapiens_ground_align` disabled. Retargeter solver options are defined separately in `soma_retargeter/configs/ai_sapiens/soma_to_ai_sapiens_retargeter_config.json`.
+
+## Project Structure Reference
+
+| Path | Purpose |
+| --- | --- |
+| `app/bvh_to_csv_converter.py` | Main entry point for OpenGL viewer mode and headless batch mode. |
+| `assets/default_ai_sapiens_bvh_to_csv_converter_config.json` | Default AI Sapiens converter config. |
+| `soma_retargeter/assets/ai_sapiens.py` | AI Sapiens path and CSV root convention helpers. |
+| `soma_retargeter/assets/ai_sapiens_mjcf.py` | URDF-based retarget MJCF generator and validator. |
+| `soma_retargeter/configs/ai_sapiens/soma_to_ai_sapiens_retargeter_config.json` | AI Sapiens IK body map and solver settings. |
+| `soma_retargeter/configs/ai_sapiens/ai_sapiens_retarget_mjcf_patch.json` | Retarget proxy/TCP body patch data. |
+| `soma_retargeter/configs/ai_sapiens/ai_sapiens_retarget.xml` | Generated AI Sapiens retarget MJCF. |
+| `third_party/ai_sapiens/` | AI Sapiens submodule containing URDF and STL mesh assets. |
+| `tools/generate_ai_sapiens_retarget_mjcf.py` | CLI wrapper for MJCF ensure/check/force generation. |
+
+## Output CSV
+
+Soma-retargeter writes the `AISapiens23DOF_CSVConfig` layout:
+
+```text
+Frame,
+root_translateX, root_translateY, root_translateZ,
+root_rotateX, root_rotateY, root_rotateZ,
+<23 AI Sapiens joint columns>
+```
+
+Units:
+
+| Data | CSV unit |
+| --- | --- |
+| Root translation | centimeters |
+| Root rotation | XYZ Euler degrees |
+| Joint values | degrees |
+
+AI Sapiens joint columns:
+
+```text
+left_hip_pitch_joint_dof
+left_hip_roll_joint_dof
+left_hip_yaw_joint_dof
+left_knee_joint_dof
+left_ankle_pitch_joint_dof
+left_ankle_roll_joint_dof
+right_hip_pitch_joint_dof
+right_hip_roll_joint_dof
+right_hip_yaw_joint_dof
+right_knee_joint_dof
+right_ankle_pitch_joint_dof
+right_ankle_roll_joint_dof
+waist_yaw_joint_dof
+left_shoulder_pitch_joint_dof
+left_shoulder_roll_joint_dof
+left_shoulder_yaw_joint_dof
+left_elbow_joint_dof
+left_wrist_roll_joint_dof
+right_shoulder_pitch_joint_dof
+right_shoulder_roll_joint_dof
+right_shoulder_yaw_joint_dof
+right_elbow_joint_dof
+right_wrist_roll_joint_dof
+```
+
+After creating a CSV file, use it as the motion source for a Cyclo Lab mimic policy. See [How to Add Your Own Mimic Task](/docs/systems/aisapiens/reinforcement_learning/cyclo_lab/mimic#how-to-add-your-own-mimic-task) for the conversion, task setup, training, and export workflow.
+
+## Verification Checklist
+
+Check the submodule:
+
+```bash
+git submodule status --recursive
+```
+
+Validate the generated MJCF:
+
+```bash
+python tools/generate_ai_sapiens_retarget_mjcf.py --check
+```
+
+Check Python syntax:
+
+```bash
+python -m compileall app soma_retargeter tools
+```
+
+Check the retarget MJCF patch JSON:
+
+```bash
+python -m json.tool soma_retargeter/configs/ai_sapiens/ai_sapiens_retarget_mjcf_patch.json
+```
+
+Run an optional smoke test after setup if you need to confirm BVH-to-CSV conversion end to end. The default converter config processes every `.bvh` file under `assets/motions/bvh`; for a quick check, use a config copy that points `import_folder` to a folder containing one or a few BVH files.
+
+This guide covers setup and conversion only. It does not certify retargeting quality, initial pose equivalence, physical stability, or hardware safety.
+
+## Troubleshooting
+
+| Log message or symptom | Meaning | Check |
+| --- | --- | --- |
+| `ERROR: Directory '.' is not installable. Neither 'setup.py' nor 'pyproject.toml' found.` | `pip install ... -e .` was run outside the `soma-retargeter` repository root. | Run `cd soma-retargeter` first. Confirm `ls pyproject.toml` succeeds, then rerun the install command. |
+| `ModuleNotFoundError: No module named 'soma_retargeter'` | Soma-retargeter was not installed in the active Python environment, or the wrong environment is active. | Activate the environment and run `pip install --extra-index-url https://pypi.nvidia.com -e .` from the repository root. |
+| `python: can't open file '.../tools/generate_ai_sapiens_retarget_mjcf.py': [Errno 2] No such file or directory` | The command was run outside the repository root, or the repository was not cloned. | Run `cd soma-retargeter` first. Confirm `ls tools/generate_ai_sapiens_retarget_mjcf.py` succeeds. |
+| `[ERROR]: Main config json file not found: ...` | The path passed to `--config` does not exist. | Confirm the command uses `./assets/default_ai_sapiens_bvh_to_csv_converter_config.json` or another valid config path. |
+| `[ERROR]: Import folder does not exist ...` | `import_folder` in the config points to a missing directory. | Create the directory or edit `import_folder`. |
+| `[ERROR]: Import folder ..., does not contain any BVH files.` | Batch mode found no `.bvh` files under `import_folder`. | Add SOMA-compatible `.bvh` files or point `import_folder` to the correct folder. |
+| `[ERROR]: No export folder specified.` | `export_folder` is empty in the config. | Set `export_folder` to the CSV output directory. |
+| `[ERROR]: AI Sapiens source URDF not found: ...` | The AI Sapiens submodule is missing or not initialized. | Run `git submodule update --init --recursive`. |
+| `[ERROR]: AI Sapiens STL mesh directory not found: ...` | The submodule mesh directory is missing. | Run `git submodule update --init --recursive` and check `third_party/ai_sapiens/ai_sapiens_description/meshes/k1_rev1`. |
+| `AI Sapiens submodule commit mismatch ...` | The submodule is checked out at a different commit than the generator patch expects. | Run `git submodule update --init --recursive` from the parent repository to restore the recorded submodule commit. |
+| `Generated MJCF references missing mesh files ...` | The MJCF meshdir points to STL files that are not available. | Initialize the submodule and validate the generated MJCF again. |
+| `Compiled AI Sapiens URDF has unexpected dimensions ...` | The URDF compiled into an unexpected MuJoCo model shape. | Confirm the submodule commit and the generator patch JSON. |
+| `AssertionError: [ERROR]: Unexpected number of joints in input motion. Expected ..., got ...` | A BVH file in the batch does not match the skeleton structure of the first BVH file. | Keep one expected SOMA skeleton format per batch. |
+| `[ERROR]: Invalid retarget solver selected [...]. Use 'Newton'.` | The config uses an unsupported `retargeter` value. | Set `retargeter` to `Newton`. |
+| `ModuleNotFoundError: No module named 'tkinter'`, display error, or OpenGL context error when using `--viewer gl` | The interactive viewer dependency or display context is unavailable. | Install `python3.12-tk` and confirm a display/OpenGL context. For headless conversion, use `--viewer null`. |
+| Output appears in a different folder than expected | The config controls output path creation and timestamp behavior. | Check `export_folder` and `timestamp_result_folder`. |
+
+:::warning
+Do not execute retargeted CSV motion directly on AI Sapiens hardware. Validate the result in simulation and confirm joint limits, contacts, balance, and safety behavior before hardware execution.
+:::

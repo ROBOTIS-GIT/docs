@@ -69,6 +69,17 @@ function ProductGrid(): ReactNode {
             }
           />
           <ProductCard
+            to="/docs/systems/aisapiens/introduction"
+            imageSrc="/img/systems/aisapiens/ai_sapiens_k1_render.webp"
+            imageAlt="AI Sapiens"
+            title={<Translate id="home.card.aisapiens.title">AI Sapiens</Translate>}
+            desc={
+              <Translate id="home.card.aisapiens.desc">
+                Humanoid platform built on DYNAMIXEL Q for imitation and reinforcement learning.
+              </Translate>
+            }
+          />
+          <ProductCard
             to="/docs/systems/aiworker/introduction"
             imageSrc="/img/mega-menu/ai-worker.webp"
             imageAlt="AI Worker"

@@ -1,0 +1,316 @@
+---
+sidebar_label: Kimodo
+title: Kimodo
+---
+
+# Kimodo
+
+Kimodo is NVIDIA Research's kinematic motion diffusion model for generating high-quality 3D human and humanoid robot motion from text prompts and kinematic constraints. It supports natural language prompts, full-body keyframes, sparse joint constraints, end-effector constraints, 2D waypoints, and 2D paths.
+
+For AI Sapiens, use Kimodo as a motion authoring tool. Kimodo generates kinematic motion files; before a motion can run on AI Sapiens, it must be converted or retargeted into the AI Sapiens motion and control pipeline.
+
+:::info
+Kimodo is developed and maintained by NVIDIA Research. Use this guide to install Kimodo, generate source motion, and prepare the output for the AI Sapiens motion workflow. For the latest command options and model list, refer to the official Kimodo documentation and repository.
+:::
+
+## AI Sapiens Kimodo Demo
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/2xAJzQ8V9p8" title="Open Humanoid ROBOTIS AI Sapiens #2: Text-Generated Motion with NVIDIA Kimodo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## Official Resources
+
+- [Kimodo project page](https://research.nvidia.com/labs/sil/projects/kimodo/)
+- [Kimodo documentation](https://research.nvidia.com/labs/sil/projects/kimodo/docs/)
+- [Kimodo GitHub repository](https://github.com/nv-tlabs/kimodo)
+- [Kimodo installation guide](https://research.nvidia.com/labs/sil/projects/kimodo/docs/getting_started/installation.html)
+- [Kimodo quick start](https://research.nvidia.com/labs/sil/projects/kimodo/docs/getting_started/quick_start.html)
+- [Kimodo command-line interface](https://research.nvidia.com/labs/sil/projects/kimodo/docs/user_guide/cli.html)
+
+## Requirements
+
+Kimodo is primarily tested on Linux. The official documentation lists the following baseline requirements:
+
+- Python `3.10+`
+- PyTorch `2.0+`
+- A CUDA®-capable NVIDIA GPU for practical generation speed
+- Hugging Face access token for the text encoder
+- Access to the gated `meta-llama/Meta-Llama-3-8B-Instruct` model on Hugging Face
+
+Kimodo can run the text encoder on CPU when GPU memory is limited. NVIDIA notes that local GPU generation requires about `17 GB` of VRAM when the text encoder also runs on GPU. If the GPU has less memory, run the text encoder on CPU with `TEXT_ENCODER_DEVICE=cpu`.
+
+## Set Up Hugging Face Access
+
+Kimodo uses a Llama-based text encoder. Before installing or running generation, prepare Hugging Face access:
+
+1. Request access to [`meta-llama/Meta-Llama-3-8B-Instruct`](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct).
+2. Create a Hugging Face access token from your Hugging Face account settings.
+3. Log in on the machine where Kimodo will run:
+
+```bash
+pip install --upgrade huggingface_hub
+hf auth login
+```
+
+Alternatively, place the token directly at:
+
+```text
+~/.cache/huggingface/token
+```
+
+## Install Option 1: Docker
+
+Docker is the recommended setup path for AI Sapiens users because it keeps Kimodo's Python, CUDA, demo, and text-encoder dependencies isolated from the host system.
+
+Clone Kimodo and enter the repository:
+
+```bash
+git clone https://github.com/nv-tlabs/kimodo.git
+cd kimodo
+```
+
+Clone the modified Viser library inside the Kimodo directory:
+
+```bash
+git clone https://github.com/nv-tlabs/kimodo-viser.git
+```
+
+Make sure the Hugging Face token exists on the host:
+
+```bash
+hf auth login
+```
+
+Build and start the demo plus text-encoder service:
+
+```bash
+docker compose up -d --build
+```
+
+Or build and run services step by step:
+
+```bash
+docker compose build
+docker compose up text-encoder
+docker compose up demo
+```
+
+The first run can take several minutes because Docker images, dependencies, and model files are downloaded.
+
+## Install Option 2: Package Install
+
+Use this option when you want to generate motions or run the demo without modifying Kimodo source code and prefer a local Python environment.
+
+Create a Python environment:
+
+```bash
+conda create -n kimodo python=3.10
+conda activate kimodo
+```
+
+Install a PyTorch build that matches your CUDA version. Follow the [official PyTorch installation selector](https://pytorch.org/get-started/locally/) for the exact command.
+
+Install Kimodo:
+
+```bash
+pip install git+https://github.com/nv-tlabs/kimodo.git
+```
+
+To include the interactive demo dependencies:
+
+```bash
+pip install "kimodo[all] @ git+https://github.com/nv-tlabs/kimodo.git"
+```
+
+## Install Option 3: Source Install
+
+Use this option when you plan to inspect, modify, or extend Kimodo.
+
+Clone the repository:
+
+```bash
+git clone https://github.com/nv-tlabs/kimodo.git
+cd kimodo
+```
+
+Create and activate an environment:
+
+```bash
+conda create -n kimodo python=3.10
+conda activate kimodo
+```
+
+Install a PyTorch build that matches your CUDA version, then install Kimodo in editable mode:
+
+```bash
+pip install -e .
+```
+
+For the interactive demo, install all extras:
+
+```bash
+pip install -e ".[all]"
+```
+
+The interactive demo uses NVIDIA's modified Viser fork. For an editable Viser install, clone and install it inside the Kimodo repository:
+
+```bash
+git clone https://github.com/nv-tlabs/kimodo-viser.git
+pip install -e kimodo-viser
+```
+
+## Generate Motion from the Command Line
+
+The main command-line entry point is `kimodo_gen`.
+
+Generate a simple walking motion:
+
+```bash
+kimodo_gen "A person walks forward." \
+  --model Kimodo-SOMA-RP-v1 \
+  --duration 5.0 \
+  --output output/walk_forward
+```
+
+Kimodo downloads the selected model automatically the first time it is used.
+
+For repeated generation, start the text encoder once in a separate terminal:
+
+```bash
+kimodo_textencoder
+```
+
+If your GPU memory is limited, run the text encoder on CPU:
+
+```bash
+TEXT_ENCODER_DEVICE=cpu kimodo_textencoder
+```
+
+Then run `kimodo_gen` from another terminal in the same environment.
+
+### Docker CLI Usage
+
+When using Docker, run the same generation command inside the `demo` container:
+
+```bash
+docker compose run --rm demo kimodo_gen "A person walks forward." \
+  --model Kimodo-SOMA-RP-v1 \
+  --duration 5.0 \
+  --output output/walk_forward
+```
+
+If the `demo` container is already running, execute the command inside it:
+
+```bash
+docker compose exec demo kimodo_gen "A person walks forward." \
+  --model Kimodo-SOMA-RP-v1 \
+  --duration 5.0 \
+  --output output/walk_forward
+```
+
+## Generate Multiple Motions
+
+To generate a sequence of prompts, separate sentences with periods and provide matching durations:
+
+```bash
+kimodo_gen "A person walks forward. A person turns left and waves." \
+  --duration "4.0 3.0" \
+  --output output/walk_turn_wave
+```
+
+Kimodo blends the prompt segments together. Use `--num_transition_frames` to control the transition length.
+
+## Use Constraints
+
+Kimodo can condition generation with constraint JSON files. Constraints can be saved from the interactive demo or written manually using NVIDIA's constraint format.
+
+Example:
+
+```bash
+kimodo_gen "A person walks forward and picks something up from the ground." \
+  --model Kimodo-SOMA-RP-v1 \
+  --duration 5.0 \
+  --constraints kimodo/assets/demo/examples/kimodo-soma-rp/03_full_body_keyframes/constraints.json \
+  --output output/pickup_motion
+```
+
+## Launch the Interactive Demo
+
+The interactive demo provides a browser UI for prompt timelines, constraints, visualization, saving, and loading motions.
+
+Start the demo:
+
+```bash
+kimodo_demo
+```
+
+Open:
+
+```text
+http://localhost:7860
+```
+
+With Docker:
+
+```bash
+docker compose up demo
+```
+
+To start both the demo and text encoder:
+
+```bash
+docker compose up
+```
+
+## Output Files
+
+Kimodo's default output is an `.npz` motion file. When multiple samples are generated, files are saved with suffixes such as `_00`, `_01`, and so on.
+
+Common output formats include:
+
+| Model type | Output format | Notes |
+| --- | --- | --- |
+| SOMA | `.npz` | Contains global joint positions, rotations, contacts, root positions, and heading information. |
+| SOMA | `.bvh` | Available with the `--bvh` flag. Use this export for Soma-retargeter. |
+| G1 | `.csv` | MuJoCo `qpos` CSV with root pose and G1 joint values. |
+| SMPL-X | `.npz` | AMASS-style SMPL-X output. |
+
+For AI Sapiens, treat Kimodo output as source motion. Convert or retarget it into the AI Sapiens motion format before attempting to execute it on the robot.
+
+:::tip[Soma-retargeter Export Setting]
+When preparing Kimodo output for [Soma-retargeter](/docs/systems/aisapiens/motion_generation_retargeting/soma_retargeter/), export the motion as BVH and leave the standard T-pose option unchecked.
+:::
+
+## Useful CLI Options
+
+| Option | Description |
+| --- | --- |
+| `--model` | Kimodo model checkpoint to use. |
+| `--duration` | Motion duration in seconds. For multiple prompts, pass space-separated durations in quotes. |
+| `--output` | Output file or folder stem. |
+| `--num_samples` | Number of motion variations to generate. |
+| `--seed` | Seed for reproducible generation. |
+| `--constraints` | Path to a constraints JSON file. |
+| `--bvh` | Export BVH alongside NPZ for SOMA models. |
+| `--bvh_standard_tpose` | Export BVH with the standard T-pose rest pose. Do not enable this option when exporting for Soma-retargeter. |
+| `--no-postprocess` | Disable post-processing such as foot-skate cleanup and constraint optimization. |
+
+Check all options with:
+
+```bash
+kimodo_gen --help
+```
+
+## AI Sapiens Workflow
+
+Use the following workflow when preparing Kimodo motion for AI Sapiens:
+
+1. Generate source motion in Kimodo with a SOMA model, such as `Kimodo-SOMA-RP-v1`.
+2. Preview the motion in the Kimodo interactive demo.
+3. Export the generated SOMA motion as `.bvh` with the standard T-pose option unchecked.
+4. Retarget the exported BVH motion data with [Soma-retargeter](/docs/systems/aisapiens/motion_generation_retargeting/soma_retargeter/).
+5. Test the motion in simulation before running it on hardware.
+6. Execute on the robot only after confirming joint limits, balance, contacts, and safety behavior.
+
+:::warning
+Do not execute generated Kimodo motion directly on AI Sapiens hardware. Create the motion with a SOMA model, export it, retarget it with Soma-retargeter, and validate the result before running it on the robot.
+:::

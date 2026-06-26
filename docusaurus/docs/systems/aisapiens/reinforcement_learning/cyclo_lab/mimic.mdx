@@ -1,0 +1,247 @@
+---
+sidebar_label: Mimic
+title: Mimic Policy Training
+---
+
+import CodeSnippet from '@site/src/components/CodeSnippet';
+
+# Mimic Policy Training
+
+<video className="ai-sapiens-demo-video" controls autoPlay muted loop playsInline preload="metadata">
+  <source src="/videos/systems/aisapiens/k1_mimic_dance_isaac_lab.webm" type="video/webm" />
+</video>
+
+Train, preview, and export a K1 dance mimic policy from this guide.
+Run the commands inside the Cyclo Lab container from `/workspace/cyclo_lab`.
+
+## Train
+
+```bash
+python scripts/reinforcement_learning/rsl_rl/train.py \
+  --task Cyclo-Mimic-K1-Rev1-Dance1 \
+  --num_envs 4096 \
+  --headless
+```
+
+Training output is written to:
+
+```text
+logs/rsl_rl/cyclo_mimic_k1_rev1_dance1/*/
+```
+
+Each run directory contains:
+
+<div className="docs-folder-tree" role="img" aria-label="Cyclo Lab mimic training output directory structure">
+  <div className="docs-folder-tree__root">
+    <code>logs/rsl_rl/cyclo_mimic_k1_rev1_dance1/*/</code>
+  </div>
+  <ul>
+    <li><code>model_*.pt</code></li>
+    <li>
+      <strong>params/</strong>
+      <ul>
+        <li><code>agent.yaml</code></li>
+        <li><code>env.yaml</code></li>
+        <li><code>sim2real.yaml</code></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+
+## Play and Export
+
+Run the matching play task after training.
+By default, `play.py` loads the latest run and the latest `model_*.pt` checkpoint for the selected task.
+It runs the policy in simulation and exports `policy.onnx` next to the checkpoint.
+
+```bash
+python scripts/reinforcement_learning/rsl_rl/play.py \
+  --task Cyclo-Mimic-K1-Rev1-Dance1-Play \
+  --num_envs 16
+```
+
+Add `--headless` when exporting without the Isaac Sim window.
+
+To play a specific checkpoint instead of the latest one, add `--checkpoint`:
+
+```bash
+python scripts/reinforcement_learning/rsl_rl/play.py \
+  --task Cyclo-Mimic-K1-Rev1-Dance1-Play \
+  --checkpoint logs/rsl_rl/cyclo_mimic_k1_rev1_dance1/2026-01-01_12-00-00/model_1000.pt \
+  --num_envs 16
+```
+
+After `play.py` finishes, check the same training run directory.
+The `exported/` directory is added by `play.py`:
+
+<div className="docs-folder-tree" role="img" aria-label="Cyclo Lab mimic training run directory structure">
+  <div className="docs-folder-tree__root">
+    <code>logs/rsl_rl/cyclo_mimic_k1_rev1_dance1/*/</code>
+  </div>
+  <ul>
+    <li><code>model_*.pt</code></li>
+    <li>
+      <strong>exported/</strong>
+      <ul>
+        <li><code>policy.onnx</code></li>
+        <li><code>policy.pt</code></li>
+      </ul>
+    </li>
+    <li>
+      <span className="docs-folder-tree__label">params/</span>
+      <ul>
+        <li><code>agent.yaml</code></li>
+        <li><code>env.yaml</code></li>
+        <li><code>sim2real.yaml</code></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+## Prepare for Sim2Real
+
+Before moving to Sim2Real, make sure these required files are ready:
+
+- `exported/policy.onnx`
+- `params/sim2real.yaml`
+- The motion reference CSV for the same motion used during training.
+
+Then follow [How to Deploy Your Own Cyclo Lab-Trained Policy](/docs/systems/aisapiens/development_guide/sim2real/#how-to-deploy-your-own-cyclo-lab-trained-policy) to place the asset under the Sim2Real asset root and register the new mimic mode.
+
+:::note
+`exported/policy.onnx` and `params/sim2real.yaml` are a matched pair from one `logs/rsl_rl/.../<run>/` directory.
+Do not pair `policy.onnx` from one run with `sim2real.yaml` from another run.
+:::
+
+## How to Add Your Own Mimic Task
+
+Use this flow when you want to add a new mimic task for your own motion.
+
+:::note
+This guide assumes you already have a Soma-retargeter output CSV from the [Kimodo](/docs/systems/aisapiens/motion_generation_retargeting/kimodo/) > [Soma-retargeter](/docs/systems/aisapiens/motion_generation_retargeting/soma_retargeter/) pipeline.
+:::
+
+The examples below use `my_motion` as the new motion name.
+Use your own motion name in the same places.
+
+1. **Place and convert the motion file.**
+
+   First, place the Soma-retargeter output CSV under the K1 Rev.1 motion data directory:
+
+   <div className="docs-folder-tree" role="img" aria-label="K1 Rev.1 motion input directory structure">
+     <div className="docs-folder-tree__root">
+       <code>source/cyclo_lab/data/</code>
+     </div>
+     <ul>
+       <li>
+         <span className="docs-folder-tree__folder">motions/</span>
+         <ul>
+           <li>
+             <span className="docs-folder-tree__folder">K1_rev1/</span>
+             <ul>
+               <li><span className="docs-folder-tree__folder">dance1/</span></li>
+               <li><span className="docs-folder-tree__folder">dance2/</span></li>
+               <li>
+                 <strong>my_motion/</strong>
+                 <ul>
+                   <li><code>my_motion_soma.csv</code></li>
+                 </ul>
+               </li>
+             </ul>
+           </li>
+         </ul>
+       </li>
+     </ul>
+   </div>
+
+   `my_motion_soma.csv` is the Soma-retargeter output CSV.
+
+   Convert it because Cyclo Lab does not train directly from the Soma-retargeter output CSV.
+
+   ```bash
+   python3 scripts/tools/motion/soma_retargeter_csv_converter.py \
+     -f source/cyclo_lab/data/motions/K1_rev1/my_motion/my_motion_soma.csv \
+     --output_name source/cyclo_lab/data/motions/K1_rev1/my_motion/my_motion.npz
+   ```
+
+   This creates the Cyclo Lab motion files used after this step:
+
+   - `my_motion.csv` for Sim2Real deployment
+   - `my_motion.npz` for training
+
+   After conversion, `my_motion_soma.csv` is not used by training or Sim2Real deployment, so it can be removed from this folder.
+
+2. **Create a new mimic task config.**
+
+   Create `my_motion_env_cfg.py` by duplicating the existing `dance1_env_cfg.py`.
+   In the new file, set `TRAJECTORY_FILE` to the new NPZ path.
+
+   ```python
+   TRAJECTORY_FILE = f"{CYCLO_LAB_ASSETS_DATA_DIR}/motions/K1_rev1/my_motion/my_motion.npz"
+   ```
+
+3. **Register the new task.**
+
+   The files you edit are here:
+
+   <div className="docs-folder-tree" role="img" aria-label="Mimic task registration file structure">
+     <div className="docs-folder-tree__root">
+       <code>source/cyclo_lab/cyclo_lab/simulation_tasks/manager_based/mimic/</code>
+       <strong>config/</strong>
+     </div>
+     <ul>
+       <li>
+         <strong>k1_rev1/</strong>
+         <ul>
+           <li><span className="docs-folder-tree__folder">agents/</span></li>
+           <li><code><strong className="docs-folder-tree__file">&lowbar;&lowbar;init&lowbar;&lowbar;.py</strong></code></li>
+           <li><code>base_env_cfg.py</code></li>
+           <li><code>dance1_env_cfg.py</code></li>
+           <li><code>dance2_env_cfg.py</code></li>
+           <li><code><span className="docs-folder-tree__file">my_motion_env_cfg.py</span></code><em>cloned from dance1_env_cfg.py</em></li>
+         </ul>
+       </li>
+     </ul>
+   </div>
+
+   Add new entries to `source/cyclo_lab/cyclo_lab/simulation_tasks/manager_based/mimic/config/k1_rev1/__init__.py` for:
+
+   <CodeSnippet
+     language="python"
+     accentTokens={['Cyclo-Mimic-K1-Rev1-MyMotion-Play', 'Cyclo-Mimic-K1-Rev1-MyMotion', 'my_motion_env_cfg']}
+     lines={[
+       'gym.register(',
+       '    id="Cyclo-Mimic-K1-Rev1-MyMotion",',
+       '    entry_point="isaaclab.envs:ManagerBasedRLEnv",',
+       '    disable_env_checker=True,',
+       '    kwargs={',
+       '        "env_cfg_entry_point": f"{__name__}.my_motion_env_cfg:K1Rev1EnvCfg",',
+       '        "rsl_rl_cfg_entry_point": f"{agents.__name__}.rsl_rl_ppo_cfg:K1Rev1MimicPPORunnerCfg",',
+       '    },',
+       ')',
+       '',
+       'gym.register(',
+       '    id="Cyclo-Mimic-K1-Rev1-MyMotion-Play",',
+       '    entry_point="isaaclab.envs:ManagerBasedRLEnv",',
+       '    disable_env_checker=True,',
+       '    kwargs={',
+       '        "env_cfg_entry_point": f"{__name__}.my_motion_env_cfg:K1Rev1PlayEnvCfg",',
+       '        "rsl_rl_cfg_entry_point": f"{agents.__name__}.rsl_rl_ppo_cfg:K1Rev1MimicPPORunnerCfg",',
+       '    },',
+       ')',
+     ]}
+   />
+
+   Check that both task IDs are registered:
+
+   ```bash
+   python3 scripts/tools/list_envs.py | grep MyMotion
+   ```
+
+   Check that the output includes `Cyclo-Mimic-K1-Rev1-MyMotion` and `Cyclo-Mimic-K1-Rev1-MyMotion-Play`.
+
+4. **Train and export.**
+
+   Run `train.py` with the new task ID.
+   Then run `play.py` to preview the policy and export `exported/policy.onnx`.

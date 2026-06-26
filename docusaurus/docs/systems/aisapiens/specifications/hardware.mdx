@@ -1,0 +1,160 @@
+import Box from '@site/src/components/Box';
+import AiSapiensUrdfViewer from '@site/src/components/AiSapiensUrdfViewer';
+import HardwareDrawingViewer from '@site/src/components/HardwareDrawingViewer';
+
+<div className="ai-sapiens-page">
+
+# Hardware
+
+<AiSapiensUrdfViewer />
+
+---
+
+<Box variant="hero">
+
+<div className="ai-sapiens-at-a-glance">
+
+<img src="/img/systems/aisapiens/ai_sapiens_k1_render.webp" alt="AI Sapiens K1" className="ai-sapiens-at-a-glance-img" />
+
+<div className="ai-sapiens-at-a-glance-spec">
+
+|  | |
+| :-- | :-- |
+| **Model** | AI Sapiens K1 |
+| **Height** | 1366 mm |
+| **Weight** | 35 kg |
+| **Degrees of freedom** | 23 total |
+| **Actuators** | <a href="/docs/systems/aisapiens/development_guide/dynamixel_q_impedance_control">DYNAMIXEL-Q<br />QC060-200-R020-RE ×12, QC080-240-R020-RE ×11</a> |
+| **Electrical system** | [Compute, interfaces, and power](/docs/systems/aisapiens/specifications/electrical_system/) |
+
+</div>
+
+</div>
+
+</Box>
+
+AI Sapiens K1 is a compact humanoid hardware platform for physical AI development on real actuators and real contact. The hardware is organized around a 23-DOF body, DYNAMIXEL-Q QDD actuators, and an open mechanical structure for robot-side development.
+
+Review the K1 mechanical layout here before working with motion, control, simulation, or real-robot deployment. For compute, interfaces, battery, and board-level electronics, see [Electrical System](/docs/systems/aisapiens/specifications/electrical_system/).
+
+:::info
+Specifications may change as the product approaches launch. For additional inquiries, contact [contactus@robotis.com](mailto:contactus@robotis.com).
+:::
+
+<HardwareDrawingViewer
+  title="AI Sapiens K1 Hardware Drawing"
+  description="Inspect the K1 mechanical drawing and download the PDF for detailed reference."
+  src="/files/systems/aisapiens/hardware/ai_sapiens_k1_hardware_drawing.pdf"
+  downloadName="ai_sapiens_k1_hardware_drawing.pdf"
+/>
+
+---
+## Mechanical Overview
+
+K1 is a 1366 mm, 35 kg humanoid platform with a 23-DOF whole-body joint layout. Its joint arrangement is designed for locomotion, upper-body motion, and sim-to-real policy deployment.
+
+| Item | Specification |
+|:-----|:--------------|
+| Height | 1366 mm |
+| Weight | 35 kg |
+| Degrees of freedom | 23 total |
+| Arm DOF | 5 per arm |
+| Leg DOF | 6 per leg |
+| Waist DOF | 1 |
+
+### Joint Layout
+
+| Body area | DOF | Notes |
+|:----------|:----|:------|
+| Left arm | 5 | Shoulder, elbow, and wrist motion for upper-body tasks |
+| Right arm | 5 | Mirrored upper-body joint layout |
+| Left leg | 6 | Hip, knee, and ankle joints for bipedal locomotion |
+| Right leg | 6 | Mirrored lower-body joint layout |
+| Waist | 1 | Yaw motion for whole-body coordination |
+| Total | 23 | Whole-body motion platform |
+
+---
+## Actuator System
+
+AI Sapiens K1 uses DYNAMIXEL-Q actuators, including QC060-200-R020-RE and QC080-240-R020-RE. DYNAMIXEL-Q is a QDD actuator lineup that combines low gear reduction, a low-inertia PMSM design, integrated electronics, and high-speed communication for dynamic humanoid control.
+
+<div className="dynamixel-q-image-pair">
+  <img src="/img/systems/aisapiens/qc060-200-r020-re.webp" alt="QC060-200-R020-RE actuator" />
+  <img src="/img/systems/aisapiens/qc080-240-r020-re.webp" alt="QC080-240-R020-RE actuator" />
+</div>
+
+| Actuator | Quantity | Role |
+|:---------|:---------|:-----|
+| QC060-200-R020-RE | 12 | Compact joints where lower mass and smaller packaging are important |
+| QC080-240-R020-RE | 11 | Higher-capacity joints for larger load paths |
+
+<Box variant="spec" title="QC060-200-R020-RE">
+
+<div className="dynamixel-q-at-a-glance">
+
+<img src="/img/systems/aisapiens/qc060-200-r020-re.webp" alt="QC060-200-R020-RE actuator" />
+
+<div className="motor-spec">
+
+| Item | Specification |
+|:-----|:--------------|
+| Motor type | Low-inertia inner rotor PMSM |
+| Rated voltage | 48 V |
+| Ratio | 20:1 |
+| Backlash | 10 arcmin |
+| Size | Ø58 x 60 mm |
+| Max torque | 30.0 Nm |
+| Max speed | 200.0 rpm |
+| Hollow shaft | Ø5 mm |
+| Weight | 435 g |
+| Torque density | 24.37 Nm/kg |
+
+</div>
+
+</div>
+
+</Box>
+
+<Box variant="spec" title="QC080-240-R020-RE">
+
+<div className="dynamixel-q-at-a-glance">
+
+<img src="/img/systems/aisapiens/qc080-240-r020-re.webp" alt="QC080-240-R020-RE actuator" />
+
+<div className="motor-spec">
+
+| Item | Specification |
+|:-----|:--------------|
+| Motor type | Low-inertia inner rotor PMSM |
+| Rated voltage | 48 V |
+| Ratio | 20:1 |
+| Backlash | 10 arcmin |
+| Size | Ø78 x 65 mm |
+| Max torque | 72.6 Nm |
+| Max speed | 110.0 rpm |
+| Hollow shaft | Ø7 mm |
+| Weight | 845 g |
+| Torque density | 28.64 Nm/kg |
+
+</div>
+
+</div>
+
+</Box>
+
+## Hardware Resources
+
+AI Sapiens is designed as an open hardware-friendly platform. These resources help users inspect the mechanism, integrate accessories, and modify exterior parts.
+
+| Resource | Status |
+|:---------|:-------|
+| Hardware BoM | Coming soon |
+| STEP files | Coming soon |
+| 3D-printable covers | Coming soon |
+| Tutorials | Coming soon |
+
+:::info
+The default front cover, rear cover, and head files are planned as open-source, 3D-printable parts so users can modify and extend the exterior design.
+:::
+
+</div>

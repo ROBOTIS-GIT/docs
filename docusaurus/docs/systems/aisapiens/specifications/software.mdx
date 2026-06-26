@@ -1,0 +1,271 @@
+---
+sidebar_label: Software Architecture
+title: Software Architecture
+---
+
+# Software Architecture
+
+AI Sapiens K1 runs its robot software inside the `ai_sapiens` Docker container on the NVIDIA® Jetson Orin™ NX 16GB module. The base system uses Cyclo OS, a Yocto Project-based operating system, with ROS 2 Jazzy and [`rmw_zenoh_cpp`](https://github.com/ros2/rmw_zenoh) for low-latency robot communication.
+
+The control stack is built around ROS 2 control. High-level robot commands are converted into joint commands, passed through the ROS 2 controller manager, written to DYNAMIXEL-Q actuators over multiple RS-485 buses at 6 Mbps, and reported back through ROS 2 state topics.
+
+<img src="/img/systems/aisapiens/software_architecture_overview.png" alt="AI Sapiens Software Architecture Overview" width="100%" />
+
+## Architecture Flow
+
+```mermaid
+flowchart LR
+  classDef platform fill:#eef6ff,stroke:#2563eb,color:#0f172a,stroke-width:1.5px
+  classDef runtime fill:#f7f0ff,stroke:#7c3aed,color:#0f172a,stroke-width:1.5px
+  classDef control fill:#ecfdf5,stroke:#059669,color:#0f172a,stroke-width:1.5px
+  classDef hardware fill:#fff7ed,stroke:#ea580c,color:#0f172a,stroke-width:1.5px
+  classDef topic fill:#f8fafc,stroke:#64748b,color:#0f172a,stroke-width:1.2px
+
+  subgraph Platform["Onboard Platform"]
+    Orin["NVIDIA Jetson Orin NX"]
+    Cyclo["Cyclo OS"]
+    Docker["ai_sapiens Docker Container"]
+    ROS["ROS 2 Jazzy + rmw_zenoh_cpp"]
+  end
+
+  subgraph Runtime["Robot Runtime"]
+    Command["Policy / User Command"]
+    Sim2Real["ai_sapiens_sim2real"]
+    CmdTopic["/joint_group_position_controller/commands"]
+  end
+
+  subgraph Control["ROS 2 Control"]
+    ControllerManager["controller_manager<br/>1 kHz"]
+    JointController["ai_sapiens_joint_group_position_controller"]
+    StateBroadcaster["joint_state_broadcaster"]
+    ImuBroadcaster["imu_sensor_broadcaster"]
+    RcBroadcaster["ai_sapiens_rc_broadcaster"]
+    HardwareInterface["dynamixel_hardware_interface"]
+    SDK["DynamixelSDK"]
+  end
+
+  subgraph Hardware["Robot Hardware"]
+    Bus["Multiple RS-485 buses<br/>6 Mbps"]
+    DQ["DYNAMIXEL-Q Actuators"]
+    Hat["K1 HAT Board"]
+    Imu["K1 IMU Board"]
+  end
+
+  subgraph Topics["ROS 2 State Topics"]
+    JointStates["/joint_states"]
+    ImuTopic["/imu_sensor_broadcaster/imu"]
+    RcStatus["/ai_sapiens_rc/status"]
+    ModeStatus["/ai_sapiens/mode_status"]
+  end
+
+  Orin --> Cyclo --> Docker --> ROS
+  ROS --> ControllerManager
+  Command --> Sim2Real --> CmdTopic --> JointController --> HardwareInterface --> SDK --> Bus
+  Bus --> DQ
+  Bus --> Hat
+  Bus --> Imu
+  DQ --> Bus
+  Hat --> Bus
+  Imu --> Bus
+  Bus --> SDK --> HardwareInterface
+  HardwareInterface --> StateBroadcaster --> JointStates
+  HardwareInterface --> ImuBroadcaster --> ImuTopic
+  HardwareInterface --> RcBroadcaster --> RcStatus
+  Sim2Real --> ModeStatus
+
+  class Orin,Cyclo,Docker,ROS platform
+  class Command,Sim2Real runtime
+  class CmdTopic,JointStates,ImuTopic,RcStatus,ModeStatus topic
+  class ControllerManager,JointController,StateBroadcaster,ImuBroadcaster,RcBroadcaster,HardwareInterface,SDK control
+  class Bus,DQ,Hat,Imu hardware
+```
+
+## Runtime Stack
+
+| Layer | Role |
+|---|---|
+| NVIDIA® Jetson Orin™ NX 16GB | Onboard compute module for robot runtime, ROS 2 nodes, and policy execution |
+| Cyclo OS | Yocto Project-based robot operating system |
+| `ai_sapiens` Docker container | Robot software container for the AI Sapiens ROS 2 stack |
+| ROS 2 Jazzy | Robot middleware, node graph, topics, services, and ROS 2 control runtime |
+| [`rmw_zenoh_cpp`](https://github.com/ros2/rmw_zenoh) | Default ROS 2 RMW layer for communication between robot-side nodes, containers, and external PCs |
+
+External PC setup is documented separately in [ROS 2 Communication](/docs/systems/aisapiens/development_guide/ros2_communication). The sections below focus on the onboard software architecture.
+
+## Control Flow
+
+The command path moves from a policy or user command down to the actuator bus:
+
+```mermaid
+flowchart LR
+  classDef runtime fill:#f7f0ff,stroke:#7c3aed,color:#0f172a,stroke-width:1.5px
+  classDef control fill:#ecfdf5,stroke:#059669,color:#0f172a,stroke-width:1.5px
+  classDef hardware fill:#fff7ed,stroke:#ea580c,color:#0f172a,stroke-width:1.5px
+
+  Command["Policy / User Command"] --> Sim2Real["ai_sapiens_sim2real"]
+  Sim2Real --> Controller["joint_group_position_controller"]
+  Controller --> HardwareInterface["dynamixel_hardware_interface"]
+  HardwareInterface --> SDK["DynamixelSDK"]
+  SDK --> Bus["RS-485 Bus"]
+  Bus --> Actuator["DYNAMIXEL-Q"]
+
+  class Command,Sim2Real runtime
+  class Controller,HardwareInterface,SDK control
+  class Bus,Actuator hardware
+```
+
+`ai_sapiens_sim2real` produces robot joint commands from policy output, mode logic, and user command inputs. The `joint_group_position_controller` receives those commands and exposes them to [`dynamixel_hardware_interface`](https://github.com/ROBOTIS-GIT/dynamixel_hardware_interface) through ROS 2 control command interfaces. The hardware interface uses [DynamixelSDK](https://github.com/ROBOTIS-GIT/DynamixelSDK) to write position, feedforward torque, and impedance-control gains to the DYNAMIXEL-Q actuators.
+
+## State Flow
+
+The feedback path moves from the robot hardware back into ROS 2:
+
+```mermaid
+flowchart LR
+  classDef hardware fill:#fff7ed,stroke:#ea580c,color:#0f172a,stroke-width:1.5px
+  classDef control fill:#ecfdf5,stroke:#059669,color:#0f172a,stroke-width:1.5px
+  classDef topic fill:#f8fafc,stroke:#64748b,color:#0f172a,stroke-width:1.2px
+
+  Hardware["DYNAMIXEL-Q / Boards"] --> Bus["RS-485 Bus"]
+  Bus --> SDK["DynamixelSDK"]
+  SDK --> HardwareInterface["dynamixel_hardware_interface"]
+  HardwareInterface --> JointState["joint_state_broadcaster"]
+  HardwareInterface --> Imu["imu_sensor_broadcaster"]
+  HardwareInterface --> RC["ai_sapiens_rc_broadcaster"]
+  JointState --> JointTopic["/joint_states"]
+  Imu --> ImuTopic["/imu_sensor_broadcaster/imu"]
+  RC --> RcTopic["/ai_sapiens_rc/status"]
+
+  class Hardware,Bus hardware
+  class SDK,HardwareInterface,JointState,Imu,RC control
+  class JointTopic,ImuTopic,RcTopic topic
+```
+
+DYNAMIXEL-Q actuators report present position, present velocity, and present current through the hardware interface. The HAT board and IMU board are also exposed through the same ROS 2 control hardware layer, so battery state, emergency-stop state, remote-controller channels, and IMU measurements can be published as ROS 2 topics.
+
+## ROS 2 Control Layer
+
+AI Sapiens K1 uses `controller_manager` at a 1 kHz update rate. The controller layer includes:
+
+| Component | Purpose |
+|---|---|
+| `joint_state_broadcaster` | Publishes actuator position, velocity, and effort as `/joint_states` |
+| `imu_sensor_broadcaster` | Publishes IMU orientation, angular velocity, and linear acceleration |
+| `ai_sapiens_rc_broadcaster` | Publishes remote-controller input and RC link status from the HAT board state interfaces |
+| `ai_sapiens_joint_group_position_controller` | Receives joint position, feedforward, `kp`, and `kd` commands for impedance control mode |
+| [`dynamixel_hardware_interface`](https://github.com/ROBOTIS-GIT/dynamixel_hardware_interface) | Bridges ROS 2 control command/state interfaces to DynamixelSDK |
+| [`DynamixelSDK`](https://github.com/ROBOTIS-GIT/DynamixelSDK) | Handles packet communication with DYNAMIXEL-Q actuators and boards over RS-485 |
+
+The controller command order is defined by the bringup controller configuration. For the detailed joint index map and command message definition, see [ROS 2 Package Structure](/docs/systems/aisapiens/development_guide/ros2_package_structure/).
+
+## Main ROS 2 Interfaces
+
+<div className="ros-interface-grid">
+  <article className="ros-interface-card">
+    <div className="ros-interface-card__header">
+      <code>/joint_states</code>
+      <span>Hardware to ROS 2</span>
+    </div>
+    <div className="ros-interface-card__type">
+      <span>Type</span>
+      <code>sensor_msgs/msg/JointState</code>
+    </div>
+    <p>Joint position, velocity, and effort feedback.</p>
+  </article>
+
+  <article className="ros-interface-card">
+    <div className="ros-interface-card__header">
+      <code>/imu_sensor_broadcaster/imu</code>
+      <span>Hardware to ROS 2</span>
+    </div>
+    <div className="ros-interface-card__type">
+      <span>Type</span>
+      <code>sensor_msgs/msg/Imu</code>
+    </div>
+    <p>Pelvis IMU orientation, angular velocity, and linear acceleration.</p>
+  </article>
+
+  <article className="ros-interface-card">
+    <div className="ros-interface-card__header">
+      <code>/joint_group_position_controller/commands</code>
+      <span>ROS 2 to controller</span>
+    </div>
+    <div className="ros-interface-card__type">
+      <span>Type</span>
+      <code>ai_sapiens_controller_msgs/msg/JointPositionGainsCommand</code>
+    </div>
+    <p>Joint position, feedforward torque, and impedance-control gain command.</p>
+  </article>
+
+  <article className="ros-interface-card">
+    <div className="ros-interface-card__header">
+      <code>/ai_sapiens_rc/input</code>
+      <span>RC broadcaster to ROS 2</span>
+    </div>
+    <div className="ros-interface-card__type">
+      <span>Type</span>
+      <code>sensor_msgs/msg/Joy</code>
+    </div>
+    <p>Normalized remote-controller axes and buttons.</p>
+  </article>
+
+  <article className="ros-interface-card">
+    <div className="ros-interface-card__header">
+      <code>/ai_sapiens_rc/status</code>
+      <span>RC broadcaster to ROS 2</span>
+    </div>
+    <div className="ros-interface-card__type">
+      <span>Type</span>
+      <code>ai_sapiens_rc_broadcaster/msg/AiSapiensRcStatus</code>
+    </div>
+    <p>RC link, failsafe, and HAT-board status.</p>
+  </article>
+
+  <article className="ros-interface-card">
+    <div className="ros-interface-card__header">
+      <code>/cmd_vel</code>
+      <span>User/API to runtime</span>
+    </div>
+    <div className="ros-interface-card__type">
+      <span>Type</span>
+      <code>geometry_msgs/msg/Twist</code>
+    </div>
+    <p>Velocity command input for API-controlled behavior.</p>
+  </article>
+
+  <article className="ros-interface-card">
+    <div className="ros-interface-card__header">
+      <code>/ai_sapiens/request_mode_by_name</code>
+      <span>User/API to runtime</span>
+    </div>
+    <div className="ros-interface-card__type">
+      <span>Type</span>
+      <code>ai_sapiens_sim2real/srv/RequestModeByName</code>
+    </div>
+    <p>Requests a named robot control mode.</p>
+  </article>
+
+  <article className="ros-interface-card">
+    <div className="ros-interface-card__header">
+      <code>/ai_sapiens/list_modes</code>
+      <span>User/API to runtime</span>
+    </div>
+    <div className="ros-interface-card__type">
+      <span>Type</span>
+      <code>ai_sapiens_sim2real/srv/ListModes</code>
+    </div>
+    <p>Lists available robot control modes.</p>
+  </article>
+
+  <article className="ros-interface-card">
+    <div className="ros-interface-card__header">
+      <code>/ai_sapiens/mode_status</code>
+      <span>Runtime to ROS 2</span>
+    </div>
+    <div className="ros-interface-card__type">
+      <span>Type</span>
+      <code>ai_sapiens_sim2real/msg/ModeStatus</code>
+    </div>
+    <p>Current mode and command authority status.</p>
+  </article>
+</div>

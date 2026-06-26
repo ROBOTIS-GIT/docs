@@ -1,0 +1,490 @@
+# Sim2Real
+
+The AI Sapiens Sim2Real package provides the control layer for deploying trained policies on the real robot.
+It connects robot feedback, operator input, API requests, policy inference, and joint command publishing into one control loop.
+
+The package is centered around `ai_sapiens_sim2real_node`.
+On each control tick, the node reads the robot state, decides the active mode, runs the corresponding behavior, and publishes joint commands to the hardware controller.
+
+<div className="sim2real-flow" role="img" aria-label="Sim2Real control flow">
+  <div className="sim2real-flow__inputs">
+    <div className="sim2real-flow__node">
+      <strong>Robot feedback</strong>
+      <span>IMU, joint states</span>
+    </div>
+    <div className="sim2real-flow__node">
+      <strong>Operator / API input</strong>
+      <span>RC, heartbeat, mode request, cmd_vel</span>
+    </div>
+  </div>
+
+  <div className="sim2real-flow__merge" />
+
+  <div className="sim2real-flow__runtime">
+    <strong>ai_sapiens_sim2real_node</strong>
+    <ol>
+      <li>Check input validity and failsafe conditions</li>
+      <li>Select authority: MANUAL or API</li>
+      <li>Select mode: Damping, ReadyPose, Velocity, or Mimic</li>
+      <li>Run the selected behavior</li>
+    </ol>
+  </div>
+
+  <div className="sim2real-flow__arrow" />
+
+  <div className="sim2real-flow__output">
+    <strong>Hardware command</strong>
+    <span>/joint_group_position_controller/commands</span>
+  </div>
+</div>
+
+:::info
+- **Mode**: what the robot does.
+- **Authority**: who can request the next mode and provide velocity commands, either **Manual** or **API**.
+- **Failsafe**: safety logic that can override both and force `Damping`.
+:::
+
+## Launching Sim2Real
+
+Use the package launch file with the target robot configuration.
+For K1, the default launch argument resolves to `config/k1_config.yaml`.
+
+```bash
+ros2 launch ai_sapiens_sim2real ai_sapiens_sim2real.launch.py robot:=k1
+```
+
+The main launch arguments are:
+
+| Argument | Default | Description |
+| --- | --- | --- |
+| `robot` | `k1` | Selects `config/{robot}_config.yaml`. |
+| `imu_topic` | `/imu_sensor_broadcaster/imu` | IMU feedback used by policy inference. |
+| `joint_states_topic` | `/joint_states` | Robot joint state feedback. |
+| `control_rate` | `1000.0` | Realtime control loop rate in Hz. |
+| `joint_command_topic` | `/joint_group_position_controller/commands` | Final joint command output topic. |
+| `command_publisher_enabled` | `true` | Enables or disables publishing commands to the hardware controller. |
+
+Before policy inference starts, the node waits for IMU feedback, joint states, and the first RC input sample.
+If any of them do not arrive within `wait_for_ready_timeout`, the node exits instead of starting without robot feedback or operator input.
+
+## Default Manual Operation
+
+Manual operation through the RC transmitter is the default control path.
+Operator input is converted into mode requests and velocity commands.
+Even during API authority, RC input must keep arriving so the operator can take control back or force `Damping` immediately.
+
+The root config maps RC inputs to mode conditions:
+
+| Condition | Meaning |
+| --- | --- |
+| `DampingRequested` | Force the robot into damping before normal mode selection. |
+| `ReadyPoseRequested` | Move to the ready posture defined in `k1_config.yaml`. |
+| `VelocityRequested` | Run the velocity policy mode. |
+| `MimicRequested` | Select and run a mimic motion mode. |
+
+The default state machine starts in `Damping`.
+At startup, the first accepted operator input must match either `DampingRequested` or `ReadyPoseRequested`.
+This prevents the robot from immediately entering a motion mode because of a stale switch position.
+
+## Failsafe Rules
+
+Failsafe checks run first on every control tick.
+The first active rule below wins before normal mode switching, RC selection, API service requests, mimic completion, or startup gating.
+
+<ol className="sim2real-failsafe-list">
+  <li>
+    <strong>RC input unavailable</strong>
+    <span>No accepted RC command, or the latest command is older than <code>teleop_input.timeout</code> (<code>0.2</code> seconds for K1).</span>
+    <em>Response: zero velocity, request <code>Damping</code>, revoke API authority, and discard pending API service requests. This also applies while API authority is active.</em>
+  </li>
+  <li>
+    <strong>RC damping switch</strong>
+    <span>The operator holds the input mapped to <code>DampingRequested</code>.</span>
+    <em>Response: keep the robot pinned in <code>Damping</code>. API re-entry requires a fresh API switch toggle after leaving damping.</em>
+  </li>
+  <li>
+    <strong>Robot feedback watchdog</strong>
+    <span>IMU or joint state feedback stalls after startup. Defaults: <code>imu_timeout=0.5</code>, <code>joint_states_timeout=0.5</code>.</span>
+    <em>Response: latch a damping request until the node is restarted and discard pending API service requests.</em>
+  </li>
+  <li>
+    <strong>Policy action fault</strong>
+    <span>A processed policy action is non-finite or exceeds <code>2π</code> rad.</span>
+    <em>Response: force <code>Damping</code> and clear the action fault flag.</em>
+  </li>
+  <li>
+    <strong>Unsafe body orientation</strong>
+    <span>Body orientation exceeds the safety angle from <code>k1_config.yaml</code> while a policy mode is active. Default: <code>2.0</code> rad. Mimic modes ignore the check for the first <code>0.5</code> seconds, then use <code>3.0</code> rad.</span>
+    <em>Response: force <code>Damping</code> to stop the active policy behavior.</em>
+  </li>
+</ol>
+
+In short, a failsafe can force `Damping`, zero velocity, revoke API authority, discard pending API service requests, or latch damping until restart when robot feedback stalls.
+
+:::note
+API heartbeat loss is not a Damping failsafe.
+If the heartbeat is lost during API authority while a mimic mode is active, the node returns to manual authority, zeros the velocity command for that control tick, and switches to `Velocity`.
+:::
+
+## Policy Location and Mode Switching Configuration
+
+The root configuration file defines the robot joint order, policy asset search paths, teleoperation mapping, state machine, and behavior assets.
+For K1, the entry point is:
+
+```text
+ai_sapiens_sim2real/config/k1_config.yaml
+```
+
+The file is organized in this top-level order:
+
+```yaml
+robot_joint_order:     # robot joint order used by commands and policies
+policy_asset_roots:    # directories searched for policy folders
+mimic_defaults:        # default playback settings for mimic modes
+authority:             # API handoff settings
+teleop_input:          # RC input plugin and watchdog timeout
+teleop_conditions:     # maps RC input codes to named mode requests
+selectors:             # maps selector codes to concrete modes
+state_machine:         # mode graph, transitions, and state roles
+state_behaviors:       # behavior implementation for each mode
+```
+
+### Policy Asset Layout
+
+The K1 config uses `policy_asset_roots` as the base folder for Sim2Real assets:
+
+```yaml
+policy_asset_roots:
+  - ../assets/k1
+```
+
+The node looks for each behavior's `asset` folder under `policy_asset_roots`.
+
+<div className="sim2real-asset-map" role="img" aria-label="Policy asset path resolution">
+  <div className="sim2real-asset-map__formula">
+    <div className="sim2real-asset-map__box">
+      <strong>policy_asset_roots</strong>
+      <code>../assets/k1</code>
+    </div>
+    <span className="sim2real-asset-map__operator">+</span>
+    <div className="sim2real-asset-map__box">
+      <strong>asset</strong>
+      <code>mimic/run</code>
+    </div>
+    <span className="sim2real-asset-map__operator">=</span>
+    <div className="sim2real-asset-map__box sim2real-asset-map__box--resolved">
+      <strong>loaded directory</strong>
+      <code>../assets/k1/mimic/run</code>
+    </div>
+  </div>
+
+  <div className="sim2real-asset-map__contents">
+    <strong>Required inside the loaded directory</strong>
+    <div className="sim2real-asset-map__folders">
+      <div className="sim2real-asset-map__folder">
+        <strong>exported/</strong>
+        <div>
+          <code>policy.onnx</code>
+        </div>
+      </div>
+      <div className="sim2real-asset-map__folder">
+        <strong>params/</strong>
+        <div>
+          <code>sim2real.yaml</code>
+          <code>&lt;motion_reference&gt;.csv</code>
+          <em>mimic only</em>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+Mimic behaviors also reference a motion CSV under the same `params` directory.
+For example, the current K1 mimic run behavior is declared as:
+
+```yaml
+mimic_run:
+  kind: mimic
+  asset: mimic/run
+  motion: run_kimodo_k1_23dof.csv
+```
+
+When a mimic mode starts, it loads the ONNX policy, the `sim2real.yaml` observation/action mapping, and the selected motion reference.
+
+### Built-in K1 Modes
+
+The default K1 configuration includes these built-in modes:
+
+| Mode | Behavior |
+| --- | --- |
+| `Damping` | Sends the damping command values from `k1_config.yaml`. Used for startup and failsafe. |
+| `ReadyPose` | Moves the robot to the ready posture defined in `k1_config.yaml`. |
+| `ZeroPose` | Moves the robot to the zero posture defined in `k1_config.yaml`. |
+| `Velocity` | Runs the velocity policy behavior. |
+| `MimicRun` | Runs the run mimic policy and motion reference. |
+| `MimicSwallowBalance` | Runs the swallow-balance mimic policy and motion reference. |
+| `MimicGangnamStyle` | Runs the Gangnam-style mimic policy and motion reference. |
+| `MimicRunComOffset10cm` | Runs the run mimic policy variant with the COM-offset asset. |
+
+Mimic modes share the `Mimic` parent state.
+That parent state gives all mimic motions the same transition and failsafe rules, while each child mode still points to its own policy asset and motion CSV.
+
+The K1 mimic selector currently maps RC selector codes to modes as follows:
+
+| Selector code | Mode |
+| --- | --- |
+| `200` | `MimicRun` |
+| `201` | `MimicSwallowBalance` |
+| `202` | `MimicGangnamStyle` |
+| `203` | `MimicRunComOffset10cm` |
+
+## How to Deploy Your Own Cyclo Lab-Trained Policy
+
+Treat a Cyclo Lab export as a Sim2Real asset, then bind that asset to a robot mode.
+
+:::info
+A deployable Cyclo Lab policy is a full Sim2Real asset, not only `policy.onnx`.
+The asset also needs the matching `sim2real.yaml` and, for mimic policies, the motion reference CSV.
+:::
+
+1. **Export for deployment.**
+   The required files are `exported/policy.onnx` and `params/sim2real.yaml`.
+   For mimic policies, also include the motion reference CSV required by the mimic behavior.
+
+2. **Place the policy under `assets/k1`.**
+
+Create one policy folder under `ai_sapiens_sim2real/assets/k1/<category>/`.
+
+<div className="docs-folder-tree" role="img" aria-label="Cyclo Lab policy asset directory structure">
+  <div className="docs-folder-tree__root">
+    <code>ai_sapiens_sim2real/assets/k1/&lt;category&gt;/</code>
+    <strong>&lt;your_policy_name&gt;/</strong>
+  </div>
+  <ul>
+    <li>
+      <strong>exported/</strong>
+      <ul>
+        <li><code>policy.onnx</code></li>
+      </ul>
+    </li>
+    <li>
+      <strong>params/</strong>
+      <ul>
+        <li><code>sim2real.yaml</code></li>
+        <li><code>&lt;motion_reference&gt;.csv</code><em>mimic only</em></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+Use `locomotion/velocity` for velocity policies and `mimic` for mimic policies.
+The category is only part of the asset path; the behavior type is selected in the config.
+
+3. **Update `k1_config.yaml`.**
+
+Use the locomotion example for a velocity policy, or the mimic example for a mimic policy.
+
+**Locomotion policy**
+
+Add one `state_behaviors` entry that points to your asset folder, then change only the existing `Velocity` state's `run` value.
+
+<pre className="sim2real-config-snippet language-yaml"><code className="language-yaml">
+<span>state_behaviors:</span>
+<span className="sim2real-config-snippet__existing">  velocity_policy:                            # already exists</span>
+<span className="sim2real-config-snippet__existing">    kind: policy</span>
+<span className="sim2real-config-snippet__existing">    asset: locomotion/velocity/walk_default</span>
+<span>  <span className="sim2real-config-snippet__key">my_velocity_policy</span>:                         <span className="sim2real-config-snippet__comment"># 1. Add this below the existing behavior.</span></span>
+<span>    <span className="sim2real-config-snippet__key">kind</span>: <span className="sim2real-config-snippet__value">policy</span></span>
+<span>    <span className="sim2real-config-snippet__key">asset</span>: <span className="sim2real-config-snippet__value">locomotion/velocity/&lt;your_policy_name&gt;</span></span>
+<span></span>
+<span>state_machine:</span>
+<span>  states:</span>
+<span className="sim2real-config-snippet__existing">    Velocity:                                 # already exists</span>
+<span>      <span className="sim2real-config-snippet__key">run</span>: <span className="sim2real-config-snippet__value">my_velocity_policy</span>                 <span className="sim2real-config-snippet__comment"># 2. Change only this value.</span></span>
+<span className="sim2real-config-snippet__existing">      transitions:                            # keep the existing transitions</span>
+<span className="sim2real-config-snippet__existing">        ...</span>
+</code></pre>
+
+
+**Mimic policy**
+
+Add one `state_behaviors` entry, add one `state_machine.states` entry for the new mimic mode, then map an unused RC selector code to that mode.
+
+<pre className="sim2real-config-snippet language-yaml"><code className="language-yaml">
+<span>state_behaviors:</span>
+<span className="sim2real-config-snippet__existing">  mimic_run:                                  # already exists</span>
+<span className="sim2real-config-snippet__existing">    kind: mimic</span>
+<span className="sim2real-config-snippet__existing">    asset: mimic/run</span>
+<span className="sim2real-config-snippet__existing">    motion: run_kimodo_k1_23dof.csv</span>
+<span>  <span className="sim2real-config-snippet__key">my_mimic_motion</span>:                            <span className="sim2real-config-snippet__comment"># 1. Add a new behavior.</span></span>
+<span>    <span className="sim2real-config-snippet__key">kind</span>: <span className="sim2real-config-snippet__value">mimic</span></span>
+<span>    <span className="sim2real-config-snippet__key">asset</span>: <span className="sim2real-config-snippet__value">mimic/my_motion</span></span>
+<span>    <span className="sim2real-config-snippet__key">motion</span>: <span className="sim2real-config-snippet__value">my_motion_reference.csv</span>           <span className="sim2real-config-snippet__comment"># From the asset's params/ directory.</span></span>
+<span></span>
+<span>state_machine:</span>
+<span>  states:</span>
+<span className="sim2real-config-snippet__existing">    MimicRun:                                 # already exists</span>
+<span className="sim2real-config-snippet__existing">      parent: Mimic</span>
+<span className="sim2real-config-snippet__existing">      run: mimic_run</span>
+<span>    <span className="sim2real-config-snippet__key">MyMimicMotion</span>:                            <span className="sim2real-config-snippet__comment"># 2. Add a new mode.</span></span>
+<span>      <span className="sim2real-config-snippet__key">parent</span>: <span className="sim2real-config-snippet__value">Mimic</span></span>
+<span>      <span className="sim2real-config-snippet__key">run</span>: <span className="sim2real-config-snippet__value">my_mimic_motion</span></span>
+<span></span>
+<span>selectors:</span>
+<span>  mimic_selector:</span>
+<span>    table:</span>
+<span className="sim2real-config-snippet__existing">      200: MimicRun                           # already exists</span>
+<span>      <span className="sim2real-config-snippet__number">204</span>: <span className="sim2real-config-snippet__value">MyMimicMotion</span>                      <span className="sim2real-config-snippet__comment"># 3. Add an RC selector code.</span></span>
+</code></pre>
+
+### Policy Compatibility Checks
+
+The node uses the observation and action layout from the config files as written.
+Check these items before running the policy:
+
+- Joint names listed in `policy_joints` inside `sim2real.yaml`.
+- Observation terms and their order in `sim2real.yaml`.
+- Action scaling, offset, and clipping in `sim2real.yaml`.
+- Motion reference file, FPS, and playback window for mimic policies.
+
+:::info
+- `policy_joints`: joint order used by the policy input and output.
+- `robot_joint_order`: joint order expected by the lower-level controller.
+
+The two lists can use different orders.
+Just make sure every joint name in `policy_joints` exists with the same name in `robot_joint_order`.
+:::
+
+If the joint names, observation list, action settings, or mimic CSV settings do not match the exported policy, the node may still launch, but the robot behavior will not represent the trained policy correctly.
+
+### Recommended First-Run Flow
+
+After you place the policy folder under `assets/k1`, update `k1_config.yaml`, and verify the compatibility checks above, use this sequence for the first dry-run validation.
+
+1. Start the robot bringup and confirm that `/joint_states`, the IMU topic, the joint command controller, and RC input are active.
+2. Start `ai_sapiens_sim2real_node` with `command_publisher_enabled:=false` for the first dry run.
+3. Start from `Damping` and confirm that the launch terminal logs do not report a startup timeout or missing IMU, joint state, or RC input.
+4. While still in dry run, select the mode that should run your policy and confirm that the launch terminal logs show the expected mode name.
+5. If the logs show a different mode name, stop here and recheck the `state_machine`, `state_behaviors`, and `selectors` entries in `config/k1_config.yaml`.
+
+After the launch logs show the expected mode name in dry run, follow the [Quick Start Operation Guide](/docs/systems/aisapiens/quick_start_guide/operation_guide/) to run the robot, then select that mode from the RC transmitter.
+For API-driven tests, first run the policy once through RC control, then use the optional API control flow below.
+
+## Optional API Control
+
+Manual operation is the default path.
+API authority is optional. It lets an external API client request modes and send velocity commands.
+
+Sim2Real separates the robot's behavior mode from the authority that is allowed to request it.
+
+- **Mode** is the active robot behavior, such as `Damping`, `ReadyPose`, `Velocity`, or a mimic motion mode.
+- **Authority** is who can request the next mode and provide velocity commands. Manual authority follows the operator's teleoperation input. API authority accepts ROS2 service requests and velocity commands from an external API client.
+
+:::info
+Even in `API` authority, RC input must keep arriving.
+The operator can use the RC transmitter to take control back or force `Damping`, and missing RC input triggers failsafe.
+:::
+
+The authority states are:
+
+| Authority | Meaning |
+| --- | --- |
+| `MANUAL` | The RC transmitter owns mode switching. This is used at startup and after API control ends. |
+| `API_WARMUP` | A short guarded handoff period after the operator requests API control. Service requests are still rejected. |
+| `API` | ROS2 service requests can switch to modes that are currently available through the state machine. |
+
+### API Handoff
+
+API authority must be requested by the operator from the RC transmitter.
+The API switch must be toggled while the node is in manual authority.
+If the switch is already enabled during boot, the node does not enter API control until the operator lowers and raises it again.
+
+An API handoff is accepted only when:
+
+- The API heartbeat is arriving within `api_mode_heartbeat_timeout`.
+- The robot is currently in one of these modes:
+  - `Damping` / posture mode, such as `ReadyPose` / `Velocity`
+- The RC velocity command is zero.
+- The `/cmd_vel` velocity command is zero.
+
+After acceptance, the node enters `API_WARMUP` for the configured warmup duration.
+For the K1 config, the warmup duration is `3.0` seconds, defined in the `authority.api_entry` section of `config/k1_config.yaml`.
+
+`API_WARMUP` is a short confirmation window before the external API client receives API authority.
+During this window, the heartbeat must keep arriving and the operator must keep the API switch enabled.
+
+During warmup, the robot keeps the current mode and rejects service requests.
+When warmup completes, authority becomes `API` without changing the active mode.
+
+If API control is released or the heartbeat is lost, the node returns to manual authority using the current operator switch position.
+If the heartbeat is lost during API authority while a mimic mode is active, the node returns to manual authority, zeros the velocity command for that control tick, and switches to `Velocity`.
+
+### Heartbeat
+
+The node subscribes to `ai_sapiens_sim2real/msg/ApiModeHeartbeat` on:
+
+```text
+/ai_sapiens/api_mode_heartbeat
+```
+
+An external API client must keep publishing this heartbeat while it wants to use API authority.
+The message contains a `Header` and a monotonically updated `sequence`.
+The node treats the heartbeat as invalid when updates stop for longer than `api_mode_heartbeat_timeout`.
+The default timeout is `0.2` seconds.
+
+### Velocity Command
+
+When API authority is active, velocity commands are read from:
+
+```text
+/cmd_vel
+```
+
+This replaces the RC transmitter as the velocity command source while API authority is active.
+
+### Request a Mode
+
+Use `/ai_sapiens/request_mode_by_name` to request a mode by its name, such as `Velocity` or `MyMimicMotion`.
+
+```bash
+ros2 service call /ai_sapiens/request_mode_by_name \
+  ai_sapiens_sim2real/srv/RequestModeByName \
+  "{mode_name: Velocity}"
+```
+
+The response reports whether the request was accepted, the active mode at the time of the response, and a message explaining the result.
+Requests are rejected when authority is `MANUAL` or `API_WARMUP`, when another request is not allowed by the state machine, or when the requested mode is not a valid concrete mode.
+
+### List Modes
+
+Use `/ai_sapiens/list_modes` to inspect the configured modes.
+
+```bash
+ros2 service call /ai_sapiens/list_modes ai_sapiens_sim2real/srv/ListModes "{}"
+```
+
+The response includes:
+
+- `modes`: all concrete modes in the state machine.
+- `available_modes`: modes that can currently be requested through the API service.
+
+### Monitor Node Status
+
+The node publishes `ai_sapiens_sim2real/msg/ModeStatus` to:
+
+```text
+/ai_sapiens/mode_status
+```
+
+API clients can read this topic to track the node state.
+It reports the active mode, authority, RC input status, API heartbeat status, whether API service requests are currently accepted, and the last transition reason.
+
+When debug publishing is enabled with `debug_publish_enabled:=true`, the node also publishes policy observation and action data:
+
+| Topic | Purpose |
+| --- | --- |
+| `/ai_sapiens/observations` | Structured observation, action, and policy input snapshot. |
+| `/policy_input/raw_observation` | Raw policy input vector. |
+| `/policy_output/processed_action` | Processed policy action before command publishing. |
+
+Use these topics to debug policy inputs and outputs; do not send robot commands through them.

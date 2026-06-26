@@ -1,8 +1,8 @@
-# Getting Started with ROBOTIS Lab
+# Getting Started with Cyclo Lab
 
 ## Overview
 
-**ROBOTIS Lab** is a research-oriented repository based on [Isaac Lab](https://isaac-sim.github.io/IsaacLab), designed to enable reinforcement learning and imitation learning experiments using Robotis robots in simulation.
+**Cyclo Lab** is a research-oriented repository based on [Isaac Lab](https://isaac-sim.github.io/IsaacLab), designed to enable reinforcement learning and imitation learning experiments using Robotis robots in simulation.
 This project provides simulation environments, configuration tools, and task definitions tailored for Robotis hardware, leveraging NVIDIA Isaac Sim’s powerful GPU-accelerated physics engine and Isaac Lab’s modular RL pipeline.
 
 :::info
@@ -18,11 +18,11 @@ Docker installation provides a consistent environment with all dependencies pre-
 - NVIDIA GPU with appropriate drivers
 
 **Steps:**
-1. Clone robotis_lab repository with submodules:
+1. Clone the cyclo_lab repository with submodules:
 
    ```bash
-   git clone --recurse-submodules https://github.com/ROBOTIS-GIT/robotis_lab.git
-   cd robotis_lab
+   git clone --recurse-submodules https://github.com/ROBOTIS-GIT/cyclo_lab.git
+   cd cyclo_lab
    ```
 
    If you already cloned without submodules, initialize them:
@@ -75,10 +75,10 @@ You can train and run the **OMY Reach Task** using the following commands:
 
 ```bash
 # Train
-python scripts/reinforcement_learning/rsl_rl/train.py --task RobotisLab-Reach-OMY-v0 --num_envs=512 --headless
+python scripts/reinforcement_learning/rsl_rl/train.py --task Cyclo-Reach-OMY-v0 --num_envs=512 --headless
 
 # Play
-python scripts/reinforcement_learning/rsl_rl/play.py --task RobotisLab-Reach-OMY-v0 --num_envs=16
+python scripts/reinforcement_learning/rsl_rl/play.py --task Cyclo-Reach-OMY-Play-v0 --num_envs=16
 ```
 
 **Sim2Real**
@@ -92,12 +92,14 @@ python scripts/reinforcement_learning/rsl_rl/play.py --task RobotisLab-Reach-OMY
 
 ```bash
 # Play
-python scripts/sim2real/reinforcement_learning/inference/OMY/reach/run_omy_reach.py --model_dir=<2025-07-10_08-47-09>
+python scripts/sim2real/reinforcement_learning/inference/OMY/reach/run_omy_reach.py --model_dir 2025-07-10_08-47-09
 ```
+
+`--model_dir` is the run folder under `logs/rsl_rl/reach_omy/`. The script loads `exported/policy.pt` and `params/env.yaml` from that folder.
 
 ### Imitation Learning
 
-ROBOTIS Lab supports imitation learning pipelines for ROBOTIS robots. Using the OMY robot as an example, you can collect demonstration data, process it, convert it into the Lerobot dataset format, and run inference or training using **physical_ai_tools**.
+Cyclo Lab supports imitation learning pipelines for ROBOTIS robots. Using the OMY robot as an example, you can collect demonstration data, process it, convert it into the Lerobot dataset format, and run inference or training using **physical_ai_tools**.
 
 #### OMY Pick and Place Task
 
@@ -122,7 +124,7 @@ ROBOTIS Lab supports imitation learning pipelines for ROBOTIS robots. Using the 
 
   ```bash
   python scripts/sim2real/imitation_learning/recorder/record_demos.py \
-  --task=RobotisLab-Real-Pick-Place-Bottle-OMY-v0 \
+  --task=Cyclo-Real-Pick-Place-Bottle-OMY-v0 \
   --robot_type OMY \
   --dataset_file ./datasets/omy_pick_place_task.hdf5 \
   --num_demos 10 \
@@ -135,13 +137,14 @@ ROBOTIS Lab supports imitation learning pipelines for ROBOTIS robots. Using the 
   ```bash
   # Convert actions from joint space to end-effector pose
   python scripts/sim2real/imitation_learning/mimic/action_data_converter.py \
+  --robot_type OMY \
   --input_file ./datasets/omy_pick_place_task.hdf5 \
   --output_file ./datasets/processed_omy_pick_place_task.hdf5 \
   --action_type ik
 
   # Annotate dataset
   python scripts/sim2real/imitation_learning/mimic/annotate_demos.py \
-  --task RobotisLab-Real-Mimic-Pick-Place-Bottle-OMY-v0 \
+  --task Cyclo-Real-Mimic-Pick-Place-Bottle-OMY-v0 \
   --auto \
   --input_file ./datasets/processed_omy_pick_place_task.hdf5 \
   --output_file ./datasets/annotated_dataset.hdf5 \
@@ -151,7 +154,7 @@ ROBOTIS Lab supports imitation learning pipelines for ROBOTIS robots. Using the 
   python scripts/sim2real/imitation_learning/mimic/generate_dataset.py \
   --device cuda \
   --num_envs 10 \
-  --task RobotisLab-Real-Mimic-Pick-Place-Bottle-OMY-v0 \
+  --task Cyclo-Real-Mimic-Pick-Place-Bottle-OMY-v0 \
   --generation_num_trials 500 \
   --input_file ./datasets/annotated_dataset.hdf5 \
   --output_file ./datasets/generated_dataset.hdf5 \
@@ -159,6 +162,7 @@ ROBOTIS Lab supports imitation learning pipelines for ROBOTIS robots. Using the 
 
   # Convert actions back to joint space
   python scripts/sim2real/imitation_learning/mimic/action_data_converter.py \
+  --robot_type OMY \
   --input_file ./datasets/generated_dataset.hdf5 \
   --output_file ./datasets/processed_generated_dataset.hdf5 \
   --action_type joint
@@ -168,8 +172,8 @@ ROBOTIS Lab supports imitation learning pipelines for ROBOTIS robots. Using the 
   The processed datasets can be converted to the Lerobot dataset format, which is compatible with physical_ai_tools for training and inference.
 
   ```bash
-  lerobot-python scripts/sim2real/imitation_learning/data_converter/OMY/isaaclab2lerobot.py \
-  --task=RobotisLab-Real-Pick-Place-Bottle-OMY-v0 \
+  lerobot-python scripts/sim2real/imitation_learning/data_converter/isaaclab2lerobot.py \
+  --task=Cyclo-Real-Pick-Place-Bottle-OMY-v0 \
   --robot_type OMY \
   --dataset_file ./datasets/<processed_generated_dataset.hdf5>  # or processed_omy_pick_place_task.hdf5
   ```
@@ -185,7 +189,7 @@ ROBOTIS Lab supports imitation learning pipelines for ROBOTIS robots. Using the 
 
   ```bash
   python scripts/sim2real/imitation_learning/inference/inference_demos.py \
-  --task RobotisLab-Real-Pick-Place-Bottle-OMY-v0 \
+  --task Cyclo-Real-Pick-Place-Bottle-OMY-v0 \
   --robot_type OMY \
   --enable_cameras
   ```
