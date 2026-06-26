@@ -26,6 +26,7 @@ const omySidebar: SidebarsConfig[string] = [
     collapsed: true,
     items: [
       {type: 'doc', id: 'systems/omy/quick_start_guide/setup_guide', label: 'Setup Guide'},
+      {type: 'doc', id: 'systems/omy/quick_start_guide/zenoh_communication', label: 'Zenoh Communication'},
       {type: 'doc', id: 'systems/omy/quick_start_guide/operation_guide', label: 'Operation Guide'},
     ],
   },

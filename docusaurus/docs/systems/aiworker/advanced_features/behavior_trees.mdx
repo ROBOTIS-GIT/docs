@@ -1,3 +1,5 @@
+import RunZenohDaemon from '@site/docs/systems/aiworker/_partials/run_zenoh_daemon.mdx';
+
 # Behavior Trees
 
 ## Overview
@@ -303,6 +305,8 @@ You have now completed the behavior tree design. Your custom tree is ready to ru
 Before running behavior trees, you need to launch the AI Worker's follower node first.
 
 #### 1. Launch the Follower
+
+<RunZenohDaemon />
 
 ```bash
 ros2 launch ffw_bringup ffw_sg2_follower_ai.launch.py

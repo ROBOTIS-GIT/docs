@@ -1,3 +1,5 @@
+import RunZenohDaemon from '@site/docs/systems/aiworker/_partials/run_zenoh_daemon.mdx';
+
 # Cyclo Control
 
 This guide shows how to run the Cyclo Control from [`cyclo_control`](https://github.com/ROBOTIS-GIT/cyclo_control) on AI Worker.
@@ -52,6 +54,11 @@ Start the AI Worker follower bringup first. Run this on the `robot PC`:
 ```bash
 cd ~/ai_worker
 ./docker/container.sh enter
+```
+
+<RunZenohDaemon />
+
+```bash
 ros2 launch ffw_bringup ffw_sg2_follower_ai.launch.py
 ```
 

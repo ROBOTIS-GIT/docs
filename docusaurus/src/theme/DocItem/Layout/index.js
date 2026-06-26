@@ -9,6 +9,7 @@ import DocItemFooter from '@theme/DocItem/Footer';
 import DocItemContent from '@theme/DocItem/Content';
 import DocBreadcrumbs from '@theme/DocBreadcrumbs';
 import ContentVisibility from '@theme/ContentVisibility';
+import ZenohRmwNoticeModal from '@site/src/components/ZenohRmwNoticeModal';
 import unsupportedRoutes from '@site/src/data/koUnsupportedDocRoutes.json';
 import './styles.css';
 
@@ -68,11 +69,19 @@ export default function DocItemLayoutWrapper(props) {
 
   if (isUnsupportedKoreanDoc) {
     return (
-      <UnsupportedKoreanDocLayout>
-        <UnsupportedKoreanDocNotice englishPath={normalizedPath} />
-      </UnsupportedKoreanDocLayout>
+      <>
+        <ZenohRmwNoticeModal />
+        <UnsupportedKoreanDocLayout>
+          <UnsupportedKoreanDocNotice englishPath={normalizedPath} />
+        </UnsupportedKoreanDocLayout>
+      </>
     );
   }
 
-  return <DocItemLayout {...props} />;
+  return (
+    <>
+      <ZenohRmwNoticeModal />
+      <DocItemLayout {...props} />
+    </>
+  );
 }
