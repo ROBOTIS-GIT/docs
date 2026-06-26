@@ -1,0 +1,19 @@
+# How to SSH into the Robot
+
+AI Sapiens supports mDNS, allowing you to connect without manually checking the IP address.
+
+1. Connect the robot's SBC (onboard PC) to the same network as your PC using a LAN cable.
+
+2. Check the serial number printed on the back of the robot body. In this example, the serial number is **SNPR50A1004**.
+
+<img src="/img/systems/aisapiens/k1_serial_number_label.webp" alt="AI Sapiens K1 serial number label" width="760" />
+
+3. On your PC terminal, run:
+
+   ```bash
+   ssh root@k1-SNPR50A1004.local
+   ```
+
+Replace `SNPR50A1004` with the serial number printed on the back of your robot body.
+
+The root account has no password by default.

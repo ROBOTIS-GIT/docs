@@ -1,0 +1,60 @@
+---
+sidebar_label: DYNAMIXEL-Q and Impedance Control
+title: DYNAMIXEL-Q and Impedance Control
+---
+
+# DYNAMIXEL-Q and Impedance Control
+
+DYNAMIXEL-Q is a new DYNAMIXEL product line based on a QDD (Quasi-Direct Drive) actuator architecture. It combines a low gear ratio, a low-inertia PMSM (Permanent Magnet Synchronous Motor), a high-performance embedded controller, and a fast communication protocol for responsive force and motion control.
+
+<div className="dynamixel-q-image-pair">
+  <img src="/img/systems/aisapiens/qc060-200-r020-re.webp" alt="QC060-200-R020-RE actuator" />
+  <img src="/img/systems/aisapiens/qc080-240-r020-re.webp" alt="QC080-240-R020-RE actuator" />
+</div>
+
+In AI Sapiens, DYNAMIXEL-Q actuators communicate over RS-485 at `6 Mbps`. The actuator control interface uses **Impedance Control Mode**: the robot-side controller sends the desired joint control parameters, and each actuator's internal controller calculates the final torque command.
+
+## QDD Actuator Concept
+
+Conventional high-ratio geared servos are strong and compact, but the high reduction ratio can make the joint less backdrivable and less responsive to external interaction. QDD actuators use a lower gear ratio with a high-torque motor, allowing the joint to respond more naturally while still producing useful output torque.
+
+For AI Sapiens, this actuator structure supports fast joint response, smooth damping, and stable physical interaction during dynamic motion.
+
+## Impedance Control Mode
+
+The impedance controller combines position feedback, velocity damping, and feedforward torque:
+
+<div className="control-equation" aria-label="tau command equals k p times position error plus k d times velocity error plus feedforward torque">
+  <span>&tau;<sub>cmd</sub></span>
+  <span>=</span>
+  <span>k<sub>p</sub>(q<sub>des</sub> - q)</span>
+  <span>+</span>
+  <span>k<sub>d</sub>(q&#775;<sub>des</sub> - q&#775;)</span>
+  <span>+</span>
+  <span>&tau;<sub>ff</sub></span>
+</div>
+
+This controller behaves like a virtual spring-damper with optional torque assist. The `kp` term acts like a spring that pulls the joint toward the desired position, the `kd` term acts like a damper that resists velocity, and `tau_ff` adds feedforward torque from the higher-level robot controller.
+
+This mode does not expose a separate inertia term in the command equation. That is still a valid impedance-style joint interface: the commanded behavior is set by virtual stiffness, damping, and optional feedforward torque, while the actuator and robot dynamics provide the physical inertia.
+
+| Term | Description |
+| --- | --- |
+| &tau;<sub>cmd</sub> | Final torque command calculated inside the actuator controller. |
+| q<sub>des</sub> | Desired joint position. |
+| q | Present joint position. |
+| q&#775;<sub>des</sub> | Desired joint velocity. |
+| q&#775; | Present joint velocity. |
+| k<sub>p</sub> | Position gain. Higher values make the joint track position more strongly. |
+| k<sub>d</sub> | Damping gain. Higher values resist joint velocity more strongly. |
+| &tau;<sub>ff</sub> | Feedforward torque command from the robot-side controller. |
+
+## AI Sapiens Control Flow
+
+1. The robot-side controller calculates desired joint position, gains, and feedforward torque.
+2. Commands are transmitted to DYNAMIXEL-Q actuators over RS-485 at `6 Mbps`.
+3. Each actuator reads its internal position and velocity feedback.
+4. The actuator's internal impedance controller calculates &tau;<sub>cmd</sub>.
+5. The embedded motor controller drives the low-inertia PMSM to produce the commanded torque.
+
+This structure keeps the fast low-level control loop inside the actuator while allowing the robot-side ROS 2 control stack to command compliant and dynamic joint behavior.

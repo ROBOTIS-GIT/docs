@@ -1,0 +1,69 @@
+---
+sidebar_label: Overview
+title: Cyclo Lab
+---
+
+# Cyclo Lab
+
+Cyclo Lab is the Isaac Lab-based environment for training AI Sapiens K1 policies in simulation.
+It provides the training and export workflow needed before deploying a policy with Sim2Real.
+
+For robot-side deployment after training, use the [Sim2Real guide](/docs/systems/aisapiens/development_guide/sim2real/).
+
+## Set Up the Docker Container
+
+Run Cyclo Lab inside the provided Docker container.
+The container includes Isaac Sim, Isaac Lab, Cyclo Lab, and the Python dependencies used by the training scripts.
+
+Install these on the host PC first:
+
+- Docker and Docker Compose.
+- NVIDIA Container Toolkit.
+- NVIDIA GPU driver compatible with the Isaac Sim container image.
+
+Clone Cyclo Lab with submodules:
+
+```bash
+git clone --recurse-submodules https://github.com/ROBOTIS-GIT/cyclo_lab.git
+cd cyclo_lab
+```
+
+If the repository was cloned without submodules, initialize them before starting the container:
+
+```bash
+git submodule update --init --recursive
+```
+
+Start and enter the container:
+
+```bash
+./docker/container.sh start
+./docker/container.sh enter
+```
+
+Inside the container, the repository is mounted at:
+
+```text
+/workspace/cyclo_lab
+```
+
+Useful host-side commands:
+
+| Command | Use |
+| --- | --- |
+| `./docker/container.sh start` | Build if needed, initialize submodules, and start the container. |
+| `./docker/container.sh enter` | Open a shell inside the running container. |
+| `./docker/container.sh stop` | Stop the container. |
+| `./docker/container.sh logs` | Follow container logs. |
+| `./docker/container.sh clean` | Remove the container and image. |
+
+:::note
+The start script enables X11 forwarding when `DISPLAY` and `xauth` are available on the host.
+Use `--headless` for training runs that do not need the Isaac Sim window.
+:::
+
+## Next Steps
+
+- Train and export a velocity policy with the [Locomotion guide](./locomotion).
+- Train and export a motion-imitation policy with the [Mimic guide](./mimic).
+- Deploy the exported asset with [How to Deploy Your Own Cyclo Lab-Trained Policy](/docs/systems/aisapiens/development_guide/sim2real/#how-to-deploy-your-own-cyclo-lab-trained-policy).
