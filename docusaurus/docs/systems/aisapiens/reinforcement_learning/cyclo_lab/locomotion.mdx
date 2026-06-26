@@ -1,0 +1,112 @@
+---
+sidebar_label: Locomotion
+title: Locomotion Policy Training
+---
+
+# Locomotion Policy Training
+
+<video className="ai-sapiens-demo-video" controls autoPlay muted loop playsInline preload="metadata">
+  <source src="/videos/systems/aisapiens/k1_rl_locomotion_isaac_lab.webm" type="video/webm" />
+</video>
+
+Train, preview, and export a K1 velocity policy from this guide.
+Run the commands inside the Cyclo Lab container from `/workspace/cyclo_lab`.
+
+## Train
+
+```bash
+python scripts/reinforcement_learning/rsl_rl/train.py \
+  --task Cyclo-Velocity-Flat-K1-Rev1-v0 \
+  --num_envs 4096 \
+  --headless
+```
+
+Training output is written to:
+
+```text
+logs/rsl_rl/k1_rev1_velocity/*/
+```
+
+Each run directory contains:
+
+<div className="docs-folder-tree" role="img" aria-label="Cyclo Lab locomotion training output directory structure">
+  <div className="docs-folder-tree__root">
+    <code>logs/rsl_rl/k1_rev1_velocity/*/</code>
+  </div>
+  <ul>
+    <li><code>model_*.pt</code></li>
+    <li>
+      <strong>params/</strong>
+      <ul>
+        <li><code>agent.yaml</code></li>
+        <li><code>env.yaml</code></li>
+        <li><code>sim2real.yaml</code></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+
+## Play and Export
+
+Run the matching play task after training.
+By default, `play.py` loads the latest run and the latest `model_*.pt` checkpoint for the selected task.
+It runs the policy in simulation and exports `policy.onnx` next to the checkpoint.
+
+```bash
+python scripts/reinforcement_learning/rsl_rl/play.py \
+  --task Cyclo-Velocity-Flat-K1-Rev1-Play-v0 \
+  --num_envs 16
+```
+
+Add `--headless` when exporting without the Isaac Sim window.
+
+To play a specific checkpoint instead of the latest one, add `--checkpoint`:
+
+```bash
+python scripts/reinforcement_learning/rsl_rl/play.py \
+  --task Cyclo-Velocity-Flat-K1-Rev1-Play-v0 \
+  --checkpoint logs/rsl_rl/k1_rev1_velocity/2026-01-01_12-00-00/model_1000.pt \
+  --num_envs 16
+```
+
+After `play.py` finishes, check the same training run directory.
+The `exported/` directory is added by `play.py`:
+
+<div className="docs-folder-tree" role="img" aria-label="Cyclo Lab locomotion training run directory structure">
+  <div className="docs-folder-tree__root">
+    <code>logs/rsl_rl/k1_rev1_velocity/*/</code>
+  </div>
+  <ul>
+    <li><code>model_*.pt</code></li>
+    <li>
+      <strong>exported/</strong>
+      <ul>
+        <li><code>policy.onnx</code></li>
+        <li><code>policy.pt</code></li>
+      </ul>
+    </li>
+    <li>
+      <span className="docs-folder-tree__label">params/</span>
+      <ul>
+        <li><code>agent.yaml</code></li>
+        <li><code>env.yaml</code></li>
+        <li><code>sim2real.yaml</code></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+## Prepare for Sim2Real
+
+Before moving to Sim2Real, make sure these required files are ready:
+
+- `exported/policy.onnx`
+- `params/sim2real.yaml`
+
+Then follow [How to Deploy Your Own Cyclo Lab-Trained Policy](/docs/systems/aisapiens/development_guide/sim2real/#how-to-deploy-your-own-cyclo-lab-trained-policy) to place the asset under the Sim2Real asset root and connect it to the `Velocity` mode.
+
+:::note
+`exported/policy.onnx` and `params/sim2real.yaml` are a matched pair from one `logs/rsl_rl/.../<run>/` directory.
+Do not pair `policy.onnx` from one run with `sim2real.yaml` from another run.
+:::

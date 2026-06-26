@@ -1,4 +1,6 @@
 import {themes as prismThemes} from 'prism-react-renderer';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 const docsRouteBasePath = process.env.DOCUSAURUS_DOCS_ROUTE_BASE_PATH ?? '/docs';
@@ -46,6 +48,7 @@ const config: Config = {
     require.resolve('./src/clients/platform-docs-ui.js'),
   ],
   markdown: {
+    mermaid: true,
     hooks: {
       onBrokenMarkdownLinks: 'warn',
       onBrokenMarkdownImages: 'warn',
@@ -60,6 +63,8 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
           routeBasePath: docsRouteBasePath,
           showLastUpdateTime: false,
+          remarkPlugins: [remarkMath],
+          rehypePlugins: [rehypeKatex],
         },
         blog: false,
         theme: {
@@ -87,7 +92,22 @@ const config: Config = {
     ],
   ],
 
+  themes: ['@docusaurus/theme-mermaid'],
+
+  stylesheets: [
+    {
+      href: 'https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css',
+      type: 'text/css',
+    },
+  ],
+
   themeConfig: {
+    mermaid: {
+      options: {
+        fontFamily:
+          '"Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+      },
+    },
     colorMode: {
       respectPrefersColorScheme: false,
     },

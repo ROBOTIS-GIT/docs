@@ -1,0 +1,94 @@
+# Electrical System
+
+Review the K1 compute module, communication interfaces, power system, and board-level components here. PCB files, MCU firmware, and wiring documents will be shared separately.
+
+---
+## Compute
+
+K1 uses the NVIDIA® Jetson Orin™ NX 16GB module for robot-side computation. This compute stack supports control, perception, learning workflows, and deployment of trained policies on the robot.
+
+<img src="/img/systems/aisapiens/jetson_orin_nx_compute.png" alt="NVIDIA Jetson Orin NX compute module" width="640" />
+
+| Item | Specification |
+|:-----|:--------------|
+| Module | [NVIDIA® Jetson Orin™ NX 16GB](https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/) |
+| Storage | 256 GB SSD |
+| CPU | 8-core Arm® Cortex®-A78AE v8.2 64-bit CPU |
+| GPU | 1024-core NVIDIA Ampere architecture GPU with 32 Tensor Cores |
+| AI performance | Up to 157 TOPS |
+
+---
+## Interfaces
+
+The platform exposes wired and wireless interfaces for development, operation, and external PC workflows.
+
+| Item | Specification |
+|:-----|:--------------|
+| Wireless | Wi-Fi 5, Bluetooth 5.0 (RTL8822CE) |
+| Ethernet 2.5 Gbps | ×1 |
+| Ethernet 1 Gbps | ×1 |
+| USB-A 3.2 Gen 2 | ×3, up to 10 Gbps data transmission |
+| USB-A 2.0 | ×1, supports 480 Mbps data transmission |
+| USB-C | ×1, for system burning |
+
+---
+## Power
+
+K1 is powered by a Li-ion 21700, 13S2P battery built with LG Energy Solution M50LT cells. The battery provides 48 V nominal voltage and 460.8 Wh energy capacity. Board-level output rails are listed under the K1 HAT Board section.
+
+| Item | Specification |
+|:-----|:--------------|
+| Main battery | Li-ion 21700, 13S2P |
+| Cell model | LG Energy Solution M50LT |
+| Nominal voltage | 48 V |
+| Capacity | 10 Ah |
+| Energy capacity | 460.8 Wh |
+
+---
+## K1 HAT Board
+
+The K1 HAT (Hardware Attached on Top) Board integrates robot-side power and embedded control functions, including the DYNAMIXEL Hub for Ethernet-to-RS-485 communication, emergency stop, battery monitoring, remote control, and LED control.
+
+<img src="/img/systems/aisapiens/k1_hat_board.webp" alt="K1 HAT Board" width="760" />
+
+| Item | Specification |
+|:-----|:--------------|
+| MCU | STM32H562AGI6 for the embedded DYNAMIXEL Hub, which bridges Ethernet to RS-485 |
+| MCU | STM32C532CCU6 for remote controller, BMS, and other board functions |
+| Input voltage | 30-60 V, recommended 48 V |
+| Output voltage | 24 V up to 5 A; 12 V up to 5 A |
+| Ethernet | 100 Mbps |
+| DYNAMIXEL communication | RS-485, 5 ports, up to 6 Mbps |
+| DYNAMIXEL protocol | DYNAMIXEL Protocol 2.0 |
+| Functions | DYNAMIXEL Hub, emergency stop, battery monitoring, remote control, LED control |
+
+---
+## K1 IMU Board
+
+The K1 IMU Board provides inertial sensing for robot state estimation and control.
+
+<img src="/img/systems/aisapiens/k1_imu_board.png" alt="K1 IMU Board" width="560" />
+
+| Item | Specification |
+|:-----|:--------------|
+| MCU | STM32C532CCU6 |
+| IMU | ICM-42688-P or BNO085 |
+| Input voltage | 30-60 V, recommended 48 V |
+| DYNAMIXEL communication | RS-485, up to 6 Mbps |
+| DYNAMIXEL protocol | DYNAMIXEL Protocol 2.0 |
+
+---
+## Resources
+
+<div class="coming-soon">
+  <div class="coming-soon-content">
+    <h3>Coming Soon</h3>
+    <p>Electrical system resources for AI Sapiens K1 will be added here.</p>
+  </div>
+</div>
+
+| Resource | Status |
+|:---------|:-------|
+| PCB design files | Coming soon |
+| MCU firmware | Coming soon |
+| Wiring and pinout documents | Coming soon |
