@@ -23,6 +23,40 @@ export default function AiSapiensUrdfViewer(): React.JSX.Element {
     let resizeObserver: ResizeObserver | null = null;
     let renderer: any = null;
     let controls: any = null;
+    let scene: any = null;
+
+    const disposeTextureValue = (value: any) => {
+      if (!value) return;
+      if (value.isTexture) {
+        value.dispose();
+        return;
+      }
+      if (Array.isArray(value)) {
+        value.forEach(disposeTextureValue);
+      }
+    };
+
+    const disposeMaterial = (material: any) => {
+      Object.values(material).forEach(disposeTextureValue);
+      if (material.uniforms) {
+        Object.values(material.uniforms).forEach((uniform: any) => {
+          disposeTextureValue(uniform?.value);
+        });
+      }
+      material.dispose?.();
+    };
+
+    const disposeObjectResources = (root: any) => {
+      root.traverse((object: any) => {
+        object.geometry?.dispose?.();
+
+        if (Array.isArray(object.material)) {
+          object.material.forEach(disposeMaterial);
+        } else if (object.material) {
+          disposeMaterial(object.material);
+        }
+      });
+    };
 
     async function initViewer() {
       const mount = mountRef.current;
@@ -37,7 +71,7 @@ export default function AiSapiensUrdfViewer(): React.JSX.Element {
 
         if (disposed || !mountRef.current) return;
 
-        const scene = new THREE.Scene();
+        scene = new THREE.Scene();
         scene.background = new THREE.Color(0xf6f7f9);
 
         const camera = new THREE.PerspectiveCamera(38, 1, 0.01, 100);
@@ -157,11 +191,13 @@ export default function AiSapiensUrdfViewer(): React.JSX.Element {
 
         const loadingManager = new THREE.LoadingManager();
         loadingManager.onProgress = (_url: string, loaded: number, total: number) => {
+          if (disposed) return;
           if (!finalized && total > 0) {
             setStatusText(`Loading meshes ${loaded}/${total}...`);
           }
         };
         loadingManager.onLoad = () => {
+          if (disposed) return;
           geometryLoadDone = true;
           finishWhenGeometryReady();
         };
@@ -254,7 +290,10 @@ export default function AiSapiensUrdfViewer(): React.JSX.Element {
         loader.load(
           URDF_URL,
           (robot: any) => {
-            if (disposed) return;
+            if (disposed || !scene) {
+              disposeObjectResources(robot);
+              return;
+            }
 
             loadedRobot = robot;
             scene.add(robot);
@@ -262,6 +301,7 @@ export default function AiSapiensUrdfViewer(): React.JSX.Element {
           },
           undefined,
           (error: unknown) => {
+            if (disposed) return;
             console.error('[AiSapiensUrdfViewer] Failed to load URDF', error);
             setViewerState('error');
             setStatusText('Could not load the K1 URDF model.');
@@ -291,6 +331,7 @@ export default function AiSapiensUrdfViewer(): React.JSX.Element {
         };
         animate();
       } catch (error) {
+        if (disposed) return;
         console.error('[AiSapiensUrdfViewer] Viewer initialization failed', error);
         setViewerState('error');
         setStatusText('Could not initialize the 3D viewer.');
@@ -305,6 +346,10 @@ export default function AiSapiensUrdfViewer(): React.JSX.Element {
       if (animationFrame) window.cancelAnimationFrame(animationFrame);
       if (resizeObserver) resizeObserver.disconnect();
       if (controls) controls.dispose();
+      if (scene) {
+        disposeObjectResources(scene);
+        scene.clear();
+      }
       if (renderer) {
         renderer.dispose();
         renderer.domElement?.remove();
