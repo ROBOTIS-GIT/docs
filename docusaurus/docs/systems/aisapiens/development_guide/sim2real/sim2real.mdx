@@ -169,12 +169,12 @@ The node looks for each behavior's `asset` folder under `policy_asset_roots`.
     <span className="sim2real-asset-map__operator">+</span>
     <div className="sim2real-asset-map__box">
       <strong>asset</strong>
-      <code>mimic/run</code>
+      <code>mimic/dance1</code>
     </div>
     <span className="sim2real-asset-map__operator">=</span>
     <div className="sim2real-asset-map__box sim2real-asset-map__box--resolved">
       <strong>loaded directory</strong>
-      <code>../assets/k1/mimic/run</code>
+      <code>../assets/k1/mimic/dance1</code>
     </div>
   </div>
 
@@ -200,13 +200,13 @@ The node looks for each behavior's `asset` folder under `policy_asset_roots`.
 </div>
 
 Mimic behaviors also reference a motion CSV under the same `params` directory.
-For example, the current K1 mimic run behavior is declared as:
+For example, the current K1 mimic dance behavior is declared as:
 
 ```yaml
-mimic_run:
+mimic_dance1:
   kind: mimic
-  asset: mimic/run
-  motion: run_kimodo_k1_23dof.csv
+  asset: mimic/dance1
+  motion: dance1.csv
 ```
 
 When a mimic mode starts, it loads the ONNX policy, the `sim2real.yaml` observation/action mapping, and the selected motion reference.
@@ -221,10 +221,8 @@ The default K1 configuration includes these built-in modes:
 | `ReadyPose` | Moves the robot to the ready posture defined in `k1_config.yaml`. |
 | `ZeroPose` | Moves the robot to the zero posture defined in `k1_config.yaml`. |
 | `Velocity` | Runs the velocity policy behavior. |
-| `MimicRun` | Runs the run mimic policy and motion reference. |
-| `MimicSwallowBalance` | Runs the swallow-balance mimic policy and motion reference. |
-| `MimicGangnamStyle` | Runs the Gangnam-style mimic policy and motion reference. |
-| `MimicRunComOffset10cm` | Runs the run mimic policy variant with the COM-offset asset. |
+| `MimicDance1` | Runs the first Kimodo-generated dance mimic policy and motion reference. |
+| `MimicDance2` | Runs the second Kimodo-generated dance mimic policy and motion reference. |
 
 Mimic modes share the `Mimic` parent state.
 That parent state gives all mimic motions the same transition and failsafe rules, while each child mode still points to its own policy asset and motion CSV.
@@ -233,10 +231,8 @@ The K1 mimic selector currently maps RC selector codes to modes as follows:
 
 | Selector code | Mode |
 | --- | --- |
-| `200` | `MimicRun` |
-| `201` | `MimicSwallowBalance` |
-| `202` | `MimicGangnamStyle` |
-| `203` | `MimicRunComOffset10cm` |
+| `200` | `MimicDance1` |
+| `201` | `MimicDance2` |
 
 ## How to Deploy Your Own Cyclo Lab-Trained Policy
 
@@ -312,10 +308,10 @@ Add one `state_behaviors` entry, add one `state_machine.states` entry for the ne
 
 <pre className="sim2real-config-snippet language-yaml"><code className="language-yaml">
 <span>state_behaviors:</span>
-<span className="sim2real-config-snippet__existing">  mimic_run:                                  # already exists</span>
+<span className="sim2real-config-snippet__existing">  mimic_dance1:                               # already exists</span>
 <span className="sim2real-config-snippet__existing">    kind: mimic</span>
-<span className="sim2real-config-snippet__existing">    asset: mimic/run</span>
-<span className="sim2real-config-snippet__existing">    motion: run_kimodo_k1_23dof.csv</span>
+<span className="sim2real-config-snippet__existing">    asset: mimic/dance1</span>
+<span className="sim2real-config-snippet__existing">    motion: dance1.csv</span>
 <span>  <span className="sim2real-config-snippet__key">my_mimic_motion</span>:                            <span className="sim2real-config-snippet__comment"># 1. Add a new behavior.</span></span>
 <span>    <span className="sim2real-config-snippet__key">kind</span>: <span className="sim2real-config-snippet__value">mimic</span></span>
 <span>    <span className="sim2real-config-snippet__key">asset</span>: <span className="sim2real-config-snippet__value">mimic/my_motion</span></span>
@@ -323,9 +319,9 @@ Add one `state_behaviors` entry, add one `state_machine.states` entry for the ne
 <span></span>
 <span>state_machine:</span>
 <span>  states:</span>
-<span className="sim2real-config-snippet__existing">    MimicRun:                                 # already exists</span>
+<span className="sim2real-config-snippet__existing">    MimicDance1:                              # already exists</span>
 <span className="sim2real-config-snippet__existing">      parent: Mimic</span>
-<span className="sim2real-config-snippet__existing">      run: mimic_run</span>
+<span className="sim2real-config-snippet__existing">      run: mimic_dance1</span>
 <span>    <span className="sim2real-config-snippet__key">MyMimicMotion</span>:                            <span className="sim2real-config-snippet__comment"># 2. Add a new mode.</span></span>
 <span>      <span className="sim2real-config-snippet__key">parent</span>: <span className="sim2real-config-snippet__value">Mimic</span></span>
 <span>      <span className="sim2real-config-snippet__key">run</span>: <span className="sim2real-config-snippet__value">my_mimic_motion</span></span>
@@ -333,7 +329,7 @@ Add one `state_behaviors` entry, add one `state_machine.states` entry for the ne
 <span>selectors:</span>
 <span>  mimic_selector:</span>
 <span>    table:</span>
-<span className="sim2real-config-snippet__existing">      200: MimicRun                           # already exists</span>
+<span className="sim2real-config-snippet__existing">      200: MimicDance1                        # already exists</span>
 <span>      <span className="sim2real-config-snippet__number">204</span>: <span className="sim2real-config-snippet__value">MyMimicMotion</span>                      <span className="sim2real-config-snippet__comment"># 3. Add an RC selector code.</span></span>
 </code></pre>
 
