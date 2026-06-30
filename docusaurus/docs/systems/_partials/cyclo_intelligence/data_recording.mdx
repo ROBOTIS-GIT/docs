@@ -1,4 +1,5 @@
 import CycloDataArchitecture from '@site/src/components/CycloDataArchitecture';
+import Link from '@docusaurus/Link';
 
 Use Data Recording to collect robot demonstrations as rosbag2 episodes. After recording, the dataset can be reviewed, edited, merged, converted, or uploaded from Data Tools.
 
@@ -7,6 +8,14 @@ Use Data Recording to collect robot demonstrations as rosbag2 episodes. After re
 
   <CycloDataArchitecture />
 </details>
+
+## Robot Preparation
+
+:::important
+Before recording, make sure the robot bringup and camera nodes are running. Cyclo Intelligence records the robot, joint, and camera topics that are already being published on the robot network.
+
+For robot bringup and camera setup, follow the <Link to={props.robotBringupGuide}>{props.robotName} bringup guide</Link>. After the robot is ready, return to this page and check the `Camera Views` and `Topic Monitor`.
+:::
 
 ## Home Page
 

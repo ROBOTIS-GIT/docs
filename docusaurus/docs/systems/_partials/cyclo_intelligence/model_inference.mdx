@@ -21,6 +21,10 @@ Use Model Inference to load a trained policy and test it in simulation mode befo
 
 ![Inference Page](/img/systems/_partials/cyclo_intelligence/inference_page.png)
 
+:::warning
+Before running inference on the real robot, stop the teleoperation node or any leader-follower bringup used during data recording. Teleoperation and model inference should not command the robot at the same time.
+:::
+
 ## Inference Workflow
 
 Use 3D Sim Deploy first to run one action chunk from the current robot state in simulation. This helps check whether the first policy motion is normal before sending commands to the real robot.

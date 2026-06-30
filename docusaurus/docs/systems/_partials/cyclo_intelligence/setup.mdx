@@ -68,9 +68,27 @@ Then enter the container:
 
 Cyclo Intelligence uses Zenoh-based ROS 2 communication for all supported robots.
 
+:::important
 Before launching the Cyclo Intelligence ROS 2 process, start the Zenoh daemon for the robot network.
 
-Follow the <Link to={props.zenohGuide}>{props.robotName} Zenoh Communication</Link> guide for the robot you are setting up.
+Follow the <Link to={props.zenohGuide}>{`${props.robotName} Zenoh Communication`}</Link> guide for the robot you are setting up.
+
+Set `ZENOH_CONFIG_OVERRIDE` inside the Cyclo Intelligence container according to where the Zenoh daemon is running.
+
+When Cyclo Intelligence and the Zenoh daemon run on the same machine:
+
+```bash
+export ZENOH_CONFIG_OVERRIDE='transport/shared_memory/enabled=true'
+```
+
+When the Zenoh daemon runs on a different machine, set Cyclo Intelligence to `client` mode and use the Zenoh daemon machine's IP address as the endpoint:
+
+```bash
+export ZENOH_CONFIG_OVERRIDE='transport/shared_memory/enabled=true;mode="client";connect/endpoints=["tcp/192.168.0.42:7447"]'
+```
+
+Replace `192.168.0.42` with the actual Zenoh daemon IP address.
+:::
 
 ## Launch Cyclo Intelligence
 
@@ -101,3 +119,11 @@ For example, if Cyclo Intelligence is running on a machine with IP address `192.
 ```text
 http://192.168.0.42/
 ```
+
+{props.hostNameExample && (
+  <div>
+    <p>For {props.robotName}, you can also use the robot hostname when it is available on the network. For example:</p>
+
+    <pre><code>{props.hostNameExample}</code></pre>
+  </div>
+)}
