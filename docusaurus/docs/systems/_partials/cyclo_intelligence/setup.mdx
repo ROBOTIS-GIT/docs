@@ -1,0 +1,103 @@
+import Link from '@docusaurus/Link';
+
+## Requirements
+
+Prepare the host machine before starting Cyclo Intelligence.
+
+| Requirement | How to check |
+| --- | --- |
+| Docker 24 or later with Docker Compose | `docker compose version` |
+| Free disk space for Docker images, datasets, and models | Keep at least 35 GB available before the first start. |
+| Available UI port | Make sure port 80 is free, or set `CYCLO_UI_PORT` to another port before starting. |
+| NVIDIA Container Toolkit | Required for GPU-based policy containers. The main UI and data tools can run without a GPU when the no-GPU compose override is used. |
+
+Cyclo Intelligence uses public Docker images by default, so Docker Hub login is not required.
+
+## Install
+
+Clone Cyclo Intelligence on the machine where the web UI and Docker containers will run.
+
+```bash
+cd $HOME
+git clone --recurse-submodules https://github.com/ROBOTIS-GIT/cyclo_intelligence.git
+cd $HOME/cyclo_intelligence
+```
+
+For an existing checkout, update the repository and submodules:
+
+```bash
+cd $HOME/cyclo_intelligence
+git pull --ff-only
+git submodule update --init --recursive
+```
+
+## Storage
+
+The default storage mode is `auto`. When `/mnt/ssd/cyclo_intelligence` is mounted and writable, `./docker/container.sh start` stores the workspace and Hugging Face cache on the SSD through repo-local symlinks. If the SSD path is not available, it keeps the workspace under the repository.
+
+SSD mode does not move the repository itself. It only redirects `docker/workspace` and `docker/huggingface` to SSD-backed storage.
+
+To require SSD-backed storage:
+
+```bash
+CYCLO_STORAGE_MODE=ssd ./docker/container.sh start
+```
+
+To keep all workspace files under the repository:
+
+```bash
+CYCLO_STORAGE_MODE=local ./docker/container.sh start
+```
+
+## Start The Container
+
+Start the main Cyclo Intelligence container from the repository root:
+
+```bash
+cd $HOME/cyclo_intelligence
+./docker/container.sh start
+```
+
+Then enter the container:
+
+```bash
+./docker/container.sh enter
+```
+
+## Start Zenoh
+
+Cyclo Intelligence uses Zenoh-based ROS 2 communication for all supported robots.
+
+Before launching the Cyclo Intelligence ROS 2 process, start the Zenoh daemon for the robot network.
+
+Follow the <Link to={props.zenohGuide}>{props.robotName} Zenoh Communication</Link> guide for the robot you are setting up.
+
+## Launch Cyclo Intelligence
+
+Inside the container, run either command:
+
+```bash
+cyclo_intelligence
+```
+
+or:
+
+```bash
+ros2 launch orchestrator cyclo_intelligence_bringup.launch.py
+```
+
+The `cyclo_intelligence` alias runs the same ROS 2 launch command.
+
+After the launch is running, open the web UI:
+
+```text
+http://localhost/
+```
+
+If Cyclo Intelligence is running on another machine, replace `localhost` with that machine's IP address.
+
+For example, if Cyclo Intelligence is running on a machine with IP address `192.168.0.42`, open:
+
+```text
+http://192.168.0.42/
+```

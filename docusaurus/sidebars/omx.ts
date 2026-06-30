@@ -25,7 +25,6 @@ const omxSidebar: SidebarsConfig[string] = [
         link: {type: 'doc', id: 'systems/omx/quick_start_guide/setup_guide/setup_guide'},
         collapsed: true,
         items: [
-          {type: 'doc', id: 'systems/omx/quick_start_guide/setup_guide/physical_ai_tools', label: 'ROS 2 (Physical AI Tools)'},
           {type: 'link', label: 'LeRobot', href: 'https://huggingface.co/docs/lerobot/omx'},
         ],
       },
@@ -37,28 +36,12 @@ const omxSidebar: SidebarsConfig[string] = [
     label: 'Imitation Learning',
     collapsed: true,
     items: [
-      {type: 'doc', id: 'systems/omx/imitation_learning/imitation_learning', label: 'Overview', key: 'imitation-learning-overview'},
-      {
-        type: 'category',
-        label: 'ROS 2 (Physical AI Tools)',
-        collapsed: true,
-        items: [
-          {
-            type: 'category',
-            label: 'Dataset Preparation',
-            link: {type: 'doc', id: 'systems/omx/imitation_learning/physical_ai_tools/dataset_preparation/dataset_preparation'},
-            collapsed: true,
-            items: [
-              {type: 'doc', id: 'systems/omx/imitation_learning/physical_ai_tools/dataset_preparation/prerequisites', label: 'Prerequisites'},
-              {type: 'doc', id: 'systems/omx/imitation_learning/physical_ai_tools/dataset_preparation/recording', label: 'Recording'},
-              {type: 'doc', id: 'systems/omx/imitation_learning/physical_ai_tools/dataset_preparation/visualization', label: 'Visualization'},
-            ],
-          },
-          {type: 'doc', id: 'systems/omx/imitation_learning/physical_ai_tools/model_training', label: 'Model Training'},
-          {type: 'doc', id: 'systems/omx/imitation_learning/physical_ai_tools/model_inference', label: 'Model Inference'},
-          {type: 'doc', id: 'systems/omx/imitation_learning/physical_ai_tools/data_tools', label: 'Data Tools'},
-        ],
-      },
+      {type: 'doc', id: 'systems/omx/imitation_learning/imitation_learning', label: 'Overview', key: 'cyclo-intelligence-overview'},
+      {type: 'doc', id: 'systems/omx/imitation_learning/setup', label: 'Setup', key: 'cyclo-intelligence-setup'},
+      {type: 'doc', id: 'systems/omx/imitation_learning/data_recording', label: 'Data Recording', key: 'cyclo-intelligence-data-recording'},
+      {type: 'doc', id: 'systems/omx/imitation_learning/data_tools', label: 'Data Tools', key: 'cyclo-intelligence-data-tools'},
+      {type: 'doc', id: 'systems/omx/imitation_learning/model_training', label: 'Model Training Guide', key: 'cyclo-intelligence-model-training'},
+      {type: 'doc', id: 'systems/omx/imitation_learning/model_inference', label: 'Model Inference', key: 'cyclo-intelligence-model-inference'},
     ],
   },
   {
@@ -86,6 +69,55 @@ const omxSidebar: SidebarsConfig[string] = [
     items: [
       {type: 'doc', id: 'systems/omx/resources/open_source', label: 'Open Source'},
       {type: 'doc', id: 'systems/omx/resources/release_notes', label: 'Release Notes'},
+      {
+        type: 'category',
+        label: 'Legacy',
+        link: {
+          type: 'generated-index',
+          slug: '/systems/omx/resources/legacy',
+          title: 'Legacy',
+          description: 'Archived OMX documentation kept for reference.',
+        },
+        collapsed: true,
+        items: [
+          {
+            type: 'category',
+            label: 'Physical AI Tools',
+            link: {
+              type: 'generated-index',
+              slug: '/systems/omx/resources/legacy/physical_ai_tools',
+              title: 'Physical AI Tools',
+              description: 'Legacy Physical AI Tools documentation for OMX.',
+            },
+            collapsed: true,
+            items: [
+              {type: 'doc', id: 'systems/omx/resources/legacy/physical_ai_tools/imitation_learning', label: 'Overview', key: 'imitation-learning-overview'},
+              {type: 'doc', id: 'systems/omx/resources/legacy/physical_ai_tools/setup_guide', label: 'Setup Guide'},
+              {
+                type: 'category',
+                label: 'ROS 2 (Physical AI Tools)',
+                collapsed: true,
+                items: [
+                  {
+                    type: 'category',
+                    label: 'Dataset Preparation',
+                    link: {type: 'doc', id: 'systems/omx/resources/legacy/physical_ai_tools/dataset_preparation/dataset_preparation'},
+                    collapsed: true,
+                    items: [
+                      {type: 'doc', id: 'systems/omx/resources/legacy/physical_ai_tools/dataset_preparation/prerequisites', label: 'Prerequisites'},
+                      {type: 'doc', id: 'systems/omx/resources/legacy/physical_ai_tools/dataset_preparation/recording', label: 'Recording'},
+                      {type: 'doc', id: 'systems/omx/resources/legacy/physical_ai_tools/dataset_preparation/visualization', label: 'Visualization'},
+                    ],
+                  },
+                  {type: 'doc', id: 'systems/omx/resources/legacy/physical_ai_tools/model_training', label: 'Model Training', key: 'legacy-physical-ai-tools-model-training'},
+                  {type: 'doc', id: 'systems/omx/resources/legacy/physical_ai_tools/model_inference', label: 'Model Inference', key: 'legacy-physical-ai-tools-model-inference'},
+                  {type: 'doc', id: 'systems/omx/resources/legacy/physical_ai_tools/data_tools', label: 'Data Tools', key: 'legacy-physical-ai-tools-data-tools'},
+                ],
+              },
+            ],
+          },
+        ],
+      },
       {
         type: 'category',
         label: 'Technical Story',

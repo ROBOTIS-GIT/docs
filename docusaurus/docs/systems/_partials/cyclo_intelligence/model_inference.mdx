@@ -1,0 +1,143 @@
+import CycloBrainArchitecture from '@site/src/components/CycloBrainArchitecture';
+
+Use Model Inference to load a trained policy and test it in simulation mode before moving the real robot. It also supports TensorRT conversion for faster inference and provides both `Async` and `Sync` action request modes.
+
+<details>
+  <summary>Cyclo Brain System Architecture</summary>
+
+  Cyclo Brain runs policy backends as separate Docker containers. The UI sends inference commands to the selected backend, the backend loads the model and computes action chunks, and Cyclo Brain publishes robot commands only when `Real Robot Deploy` is selected.
+
+  <CycloBrainArchitecture />
+
+  | Part | Role |
+  | --- | --- |
+  | UI / Orchestrator | Sends model load, start, stop, and configuration commands. |
+  | `main-runtime` | Owns inference session state, action buffering, and robot command publishing. |
+  | `engine-process` | Loads the policy model and computes action chunks from robot observations. |
+  | Robot | Receives commands only when real robot deployment is enabled. |
+</details>
+
+## Inference Page
+
+![Inference Page](/img/systems/_partials/cyclo_intelligence/inference_page.png)
+
+## Inference Workflow
+
+Use 3D Sim Deploy first to run one action chunk from the current robot state in simulation. This helps check whether the first policy motion is normal before sending commands to the real robot.
+
+![Model Inference Workflow](/img/systems/_partials/cyclo_intelligence/model_inference_workflow.svg)
+
+## Inference Settings
+
+### Deploy Target
+
+<table>
+  <colgroup>
+    <col style={{width: '18%'}} />
+    <col style={{width: '82%'}} />
+  </colgroup>
+  <thead>
+    <tr>
+      <th style={{textAlign: 'center'}}>Target</th>
+      <th>Behavior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style={{textAlign: 'center'}}>3D Sim Deploy</td>
+      <td>Runs one action chunk from the current robot state in simulation and blocks physical robot commands. Use it to check whether the first policy motion is normal.</td>
+    </tr>
+    <tr>
+      <td style={{textAlign: 'center'}}>Real Robot Deploy</td>
+      <td>Sends policy actions to the physical robot. Keep the robot workspace clear before starting.</td>
+    </tr>
+  </tbody>
+</table>
+
+### Action Request
+
+<table>
+  <colgroup>
+    <col style={{width: '18%'}} />
+    <col style={{width: '82%'}} />
+  </colgroup>
+  <thead>
+    <tr>
+      <th style={{textAlign: 'center'}}>Mode</th>
+      <th>Use when</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style={{textAlign: 'center'}}>Async</td>
+      <td>Requests the next action chunk asynchronously while the control loop continues. This mode is not recommended when inference takes a long time.</td>
+    </tr>
+    <tr>
+      <td style={{textAlign: 'center'}}>Sync</td>
+      <td>Waits for the policy response before continuing. Use this when inference timing should be handled synchronously.</td>
+    </tr>
+  </tbody>
+</table>
+
+`Inference Hz` sets the model action generation rate. `Control Hz` sets the robot command publish rate.
+
+## LeRobot Inference
+
+LeRobot inference supports multiple policy families, including `ACT`, `Diffusion`, `SmolVLA`, `XVLA`, `Pi0`, and `Pi0.5`.
+
+![LeRobot Task Information](/img/systems/_partials/cyclo_intelligence/inference_lerobot_task_information.png)
+
+Use this panel when the selected model belongs to the LeRobot group. The main input is `Policy Path`. If the selected policy uses language conditioning, also enter `Task Instruction`.
+
+For LeRobot checkpoints, select the exported `pretrained_model` directory:
+
+```text
+/workspace/model/lerobot/<run_name>/checkpoints/<step>/pretrained_model
+```
+
+## GR00T N1.7 Inference
+
+GR00T N1.7 uses a task instruction and can optionally use TensorRT acceleration.
+
+![GR00T N1.7 Task Information](/img/systems/_partials/cyclo_intelligence/inference_groot_task_information.png)
+
+Use this panel for GR00T N1.7 checkpoints. GR00T uses `Task Instruction` as part of the inference input, so enter the task instruction before starting inference. Enable `TensorRT` only when using a TensorRT engine for the selected checkpoint.
+
+For GR00T checkpoints, select the checkpoint folder:
+
+```text
+/workspace/model/groot/<run_name>/checkpoint-<step>
+```
+
+## Docker Backend Control
+
+After selecting a model, the matching Docker backend control appears in the right panel.
+
+<table>
+  <colgroup>
+    <col style={{width: '18%'}} />
+    <col style={{width: '82%'}} />
+  </colgroup>
+  <thead>
+    <tr>
+      <th style={{textAlign: 'center'}}>Button</th>
+      <th>Behavior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style={{textAlign: 'center'}}>ON</td>
+      <td>Creates or starts the matching policy container.</td>
+    </tr>
+    <tr>
+      <td style={{textAlign: 'center'}}>Restart</td>
+      <td>Restarts the policy container after model-load failures or stale runtime state.</td>
+    </tr>
+    <tr>
+      <td style={{textAlign: 'center'}}>OFF</td>
+      <td>Stops the policy container.</td>
+    </tr>
+  </tbody>
+</table>
+
+If `Start` is disabled, check the backend status first. Common causes are `Policy Docker is off`, `Not created`, `Warming up`, `Main Down`, or `Engine Down`.
