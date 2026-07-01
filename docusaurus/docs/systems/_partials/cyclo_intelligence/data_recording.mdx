@@ -120,8 +120,8 @@ After entering the required information, click `Record Start` to begin recording
     <div className="alert alert--info" role="note">
       <p>When both hands are needed to operate the wearable skeletal leader device, use the leader buttons to control the recording state.</p>
       <ul>
-        <li><strong>Left button press</strong>: Retry the current episode.</li>
-        <li><strong>Right button press</strong>: Move to the next episode.</li>
+        <li><strong>Left button press</strong>: Cancel the current episode.</li>
+        <li><strong>Right button press</strong>: Save the current episode.</li>
       </ul>
       <img src="/img/systems/aiworker/imitation_learning/dataset_preparation/recording/data_collection_button.png" alt="AI Worker leader buttons for data recording" style={{width: '70%', margin: '20px 0 0'}} />
     </div>
@@ -148,7 +148,7 @@ $HOME/cyclo_intelligence/docker/workspace/rosbag2/<dataset_name>/<episode_index>
 Example:
 
 ```text
-/workspace/rosbag2/Task_1_1_MCAP/0/
+/workspace/rosbag2/Task_000081_RecycleBlackPlasticCup_MCAP/0/
 ```
 
 Each episode folder contains the recorded MCAP file, task metadata, camera videos, timestamp files, and camera calibration snapshots.

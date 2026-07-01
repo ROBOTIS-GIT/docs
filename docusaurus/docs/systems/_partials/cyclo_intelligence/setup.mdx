@@ -73,18 +73,24 @@ Before launching the Cyclo Intelligence ROS 2 process, start the Zenoh daemon fo
 
 Follow the <Link to={props.zenohGuide}>{`${props.robotName} Zenoh Communication`}</Link> guide for the robot you are setting up.
 
-Set `ZENOH_CONFIG_OVERRIDE` inside the Cyclo Intelligence container according to where the Zenoh daemon is running.
+Set `ZENOH_CONFIG_OVERRIDE` in `~/.bashrc` inside the Cyclo Intelligence container according to where the Zenoh daemon is running. If `ZENOH_CONFIG_OVERRIDE` already exists in `~/.bashrc`, update the existing line instead of adding another one.
 
 When Cyclo Intelligence and the Zenoh daemon run on the same machine:
 
 ```bash
+cat <<'EOF' >> ~/.bashrc
 export ZENOH_CONFIG_OVERRIDE='transport/shared_memory/enabled=true'
+EOF
+source ~/.bashrc
 ```
 
 When the Zenoh daemon runs on a different machine, set Cyclo Intelligence to `client` mode and use the Zenoh daemon machine's IP address as the endpoint:
 
 ```bash
+cat <<'EOF' >> ~/.bashrc
 export ZENOH_CONFIG_OVERRIDE='transport/shared_memory/enabled=true;mode="client";connect/endpoints=["tcp/192.168.0.42:7447"]'
+EOF
+source ~/.bashrc
 ```
 
 Replace `192.168.0.42` with the actual Zenoh daemon IP address.
