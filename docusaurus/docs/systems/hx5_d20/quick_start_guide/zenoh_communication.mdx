@@ -15,7 +15,7 @@ To start the Zenoh daemon manually, run `zenohd` in a terminal.
 
 `rmw_zenoh` is the ROS 2 RMW (ROS Middleware) implementation for Zenoh. The implementation package is `rmw_zenoh_cpp`, and it maps the ROS 2 middleware API onto Zenoh APIs. Existing ROS 2 publishers, subscribers, services, clients, parameters, and command-line tools can keep using normal ROS 2 interfaces while Zenoh handles discovery and transport.
 
-Zenoh is a pub/sub/query protocol designed to move data efficiently across local processes, robot networks, edge computers, and cloud systems. For OMY, this means the robot control software can use normal ROS 2 topics while Zenoh provides a lightweight communication layer that is easier to route across containers and hosts than multicast-heavy DDS discovery.
+Zenoh is a pub/sub/query protocol designed to move data efficiently across local processes, robot networks, edge computers, and cloud systems. For ROBOTIS Hand, this means the robot control software can use normal ROS 2 topics while Zenoh provides a lightweight communication layer that is easier to route across containers and hosts than multicast-heavy DDS discovery.
 
 ## Main Components
 
@@ -49,7 +49,7 @@ If topics appear but messages are not flowing, check that:
 
 - The robot and external PC are on the same reachable network.
 - Port `7447` is reachable from the external PC.
-- The `open_manipulator` container is running with the expected network configuration.
+- The `robotis_hand` container is running with the expected network configuration.
 - Old ROS 2 daemon state has been stopped with `ros2 daemon stop`.
 
 ## References
