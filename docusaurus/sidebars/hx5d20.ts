@@ -29,6 +29,7 @@ const hx5d20Sidebar: SidebarsConfig[string] = [
       {type: 'doc', id: 'systems/hx5_d20/quick_start_guide/operation_guide', label: 'Operation Guide'},
       {type: 'doc', id: 'systems/hx5_d20/quick_start_guide/vr_teleoperation_guide', label: 'VR Teleoperation Guide'},
       {type: 'doc', id: 'systems/hx5_d20/quick_start_guide/dxl_wizard_guide', label: 'DXL Wizard Guide'},
+      {type: 'doc', id: 'systems/hx5_d20/quick_start_guide/zenoh_communication', label: 'Zenoh Communication'},
     ],
   },
   {

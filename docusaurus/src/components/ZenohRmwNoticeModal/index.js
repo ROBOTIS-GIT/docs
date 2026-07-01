@@ -27,6 +27,13 @@ const PLATFORM_NOTICES = [
     sinceLabel: 'OPENMANIPULATOR package 5.0.0',
     zenohDocPath: '/docs/systems/omx/specifications/zenoh_communication',
   },
+  {
+    id: 'hx5_d20',
+    pathPrefix: '/docs/systems/hx5_d20',
+    productName: 'ROBOTIS Hand',
+    sinceLabel: 'ROBOTIS Hand 1.0.0',
+    zenohDocPath: '/docs/systems/hx5_d20/quick_start_guide/zenoh_communication',
+  },
 ];
 
 function normalizePath(pathname) {
