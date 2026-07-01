@@ -2,7 +2,7 @@
 
 <div className="zenoh-intro">
   <img src="/img/systems/hx5_d20/quick_start_guide/zenoh_communication/zenoh-dragon-light.png" alt="Zenoh logo" className="zenoh-intro__logo" />
-  <div className="zenoh-intro__text"><strong>Starting from ROBOTIS Hand version 1.0.0, ROBOTIS Hand changes its default ROS 2 middleware from Fast DDS to Zenoh RMW.</strong> This enables more stable communication between robot-side nodes, Docker containers, and external PCs. This page explains about Zenoh and how <code>rmw_zenoh</code> fits into the ROS 2 communication stack.</div>
+  <div className="zenoh-intro__text"><strong>Starting from ROBOTIS Hand version 1.0.0, ROBOTIS Hand changes its default ROS 2 middleware from Fast DDS to Zenoh RMW.</strong> This enables more stable communication between robot-side nodes, Docker containers, and external PCs. This page explains Zenoh and how <code>rmw_zenoh</code> fits into the ROS 2 communication stack.</div>
 </div>
 
 :::warning
@@ -15,7 +15,7 @@ To start the Zenoh daemon manually, run `zenohd` in a terminal.
 
 `rmw_zenoh` is the ROS 2 RMW (ROS Middleware) implementation for Zenoh. The implementation package is `rmw_zenoh_cpp`, and it maps the ROS 2 middleware API onto Zenoh APIs. Existing ROS 2 publishers, subscribers, services, clients, parameters, and command-line tools can keep using normal ROS 2 interfaces while Zenoh handles discovery and transport.
 
-Zenoh is a pub/sub/query protocol designed to move data efficiently across local processes, robot networks, edge computers, and cloud systems. For ROBOTIS Hand, this means the robot control software can use normal ROS 2 topics while Zenoh provides a lightweight communication layer that is easier to route across containers and hosts than multicast-heavy DDS discovery.
+Zenoh is a pub/sub/query protocol designed to move data efficiently across local processes, robot networks, edge computers, and cloud systems. For the ROBOTIS Hand, this means the robot control software can use normal ROS 2 topics while Zenoh provides a lightweight communication layer that is easier to route across containers and hosts than multicast-heavy DDS discovery.
 
 ## Main Components
 
