@@ -1,0 +1,83 @@
+# OS Update
+
+OMY uses [Mender](https://mender.io/) for over-the-air (OTA) OS updates. This page describes how to update the OS image with the `mender-update` command.
+
+:::warning
+Updating the OS erases all data except the `/data` partition. Any files outside `/data` (including on-board configuration and user data) will be lost. Back up anything important before you begin.
+:::
+
+## Prerequisites
+
+- OMY powered on with internet access so it can download the OS image. You can verify connectivity with:
+
+```bash
+ping -c 3 robotis.com
+```
+
+- Access to the OMY terminal over SSH. See [SSH connection](/docs/systems/omy/quick_start_guide/setup_guide#ssh-connection) for details.
+
+## Update procedure
+
+### 1. Connect to OMY
+
+Connect to OMY over SSH. Replace `SNPR44B9999` with your robot's serial number. See [SSH connection](/docs/systems/omy/quick_start_guide/setup_guide#ssh-connection) for details.
+
+```bash
+ssh root@omy-SNPR44B9999.local
+```
+
+### 2. Install the new OS image
+
+Run `mender-update install` with the URL of the latest `.mender` artifact to download and install the new image.
+
+```bash
+mender-update install 'https://dl.dropboxusercontent.com/scl/fi/k575uefd41len1kidco5f/core-image-base-raspberrypi5-20260629045823.mender?rlkey=ychroifmippewbwe7uf5kjku5&st=tao0filr&dl=1'
+```
+
+![install os image](/img/systems/omy/support/os_update_1.png)
+
+### 3. Reboot
+
+Reboot OMY to boot into the newly installed image.
+
+```bash
+reboot
+```
+
+### 4. Verify and commit the update
+
+Rebooting closes the SSH session, so connect to OMY again once it has finished booting.
+
+:::note
+Because the OS image changed, the host key is different and SSH may refuse to connect with a `REMOTE HOST IDENTIFICATION HAS CHANGED!` warning. Remove the old host key, then reconnect.
+
+```bash
+ssh-keygen -R omy-SNPR44B9999.local
+```
+:::
+
+```bash
+ssh root@omy-SNPR44B9999.local
+```
+
+Then verify the OS version.
+
+```bash
+cat /etc/cyclo-os-release
+```
+
+If the new version booted correctly, commit the update to make it permanent.
+
+```bash
+mender-update commit
+```
+
+:::note
+If you do not commit the update, Mender automatically rolls back to the previous image on the next reboot.
+:::
+
+![verify os version](/img/systems/omy/support/os_update_2.png)
+
+## Troubleshooting
+
+If OMY does not boot after the update, Mender rolls back to the previous image on the next reboot. If the problem persists or you run into any other issues, reach out on our [Discord server](https://discord.gg/robotis).
