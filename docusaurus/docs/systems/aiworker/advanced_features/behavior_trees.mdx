@@ -65,29 +65,55 @@ Behavior trees can send robot motion and inference commands. Make sure the robot
 
 Use the BT Manager editor to create a tree from the node catalog, connect nodes on the canvas, edit node parameters, and organize the graph before execution.
 
-### Node Catalog
-
 ### Adding Nodes to the Canvas
+
+To add a node, select the node you want from the **Node Catalog** on the left side of BT Manager, then drag it into the workspace and drop it on the canvas.
+
+After the node is dropped, BT Manager creates a new node block on the canvas. You can then move the node by dragging it, connect it to other nodes, or select it to edit its parameters.
+
+<div style={{display: 'flex', gap: '16px', alignItems: 'flex-start'}}>
+  <img src="/img/systems/aiworker/advanced_features/behavior_trees/aiw_drag_node_1.png" alt="Drag a BT node from the node catalog" style={{width: '50%'}} />
+  <img src="/img/systems/aiworker/advanced_features/behavior_trees/aiw_drag_node_2.png" alt="Drop the BT node on the workspace" style={{width: '50%'}} />
+</div>
 
 ### Connecting Nodes
 
+Each node has small circular handles at the top and bottom. Click a handle to create an edge, then drag the edge to another node's circular handle to connect the two nodes as shown below.
+
+![Edge between BT nodes](/img/systems/aiworker/advanced_features/behavior_trees/aiw_edge_between_nodes.png)
+
 ### Editing Node Parameters
+
+Click a node to open the parameter panel on the right side, as shown below. Edit the node's parameters in this panel.
+
+![BT node parameter panel](/img/systems/aiworker/advanced_features/behavior_trees/aiw_bt_parameters.png)
 
 ### Auto Layout
 
+Click the button shown in the upper-right corner of the image below to automatically arrange the behavior tree graph.
+
+<div style={{display: 'flex', gap: '16px', alignItems: 'flex-start'}}>
+  <img src="/img/systems/aiworker/advanced_features/behavior_trees/aiw_bt_auto_layout_1.png" alt="Auto layout button in BT Manager" style={{width: '50%'}} />
+  <img src="/img/systems/aiworker/advanced_features/behavior_trees/aiw_bt_auto_layout_2.png" alt="Behavior tree graph after auto layout" style={{width: '50%'}} />
+</div>
+
 ### Undo and Redo
+
+The buttons shown below are **Undo** and **Redo**. If you accidentally delete a node or make an unwanted change, click **Undo** to restore the previous state. If you prefer the state after the undo operation, click **Redo** to apply it again.
+
+![Undo and redo buttons in BT Manager](/img/systems/aiworker/advanced_features/behavior_trees/aiw_redo_undo_buttons.png)
 
 ### Saving the Tree
 
-## Loading a Behavior Tree
+Use the button shown below to save the behavior tree you created as an XML file.
 
-Use the tree loading controls to open an existing BT XML file and restore it in the editor.
+![Save button in BT Manager](/img/systems/aiworker/advanced_features/behavior_trees/aiw_save_button.png)
 
-### Opening the Tree List
+### Loading a Behavior Tree
 
-### Selecting a Tree
+Use the button shown below to load a saved behavior tree XML file.
 
-### Reviewing the Loaded Tree
+![Load XML button in BT Manager](/img/systems/aiworker/advanced_features/behavior_trees/aiw_load_xml_button.png)
 
 ## Running a Behavior Tree
 
