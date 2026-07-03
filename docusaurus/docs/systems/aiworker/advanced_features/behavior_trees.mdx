@@ -145,7 +145,7 @@ class Wait(BaseAction):
     ...
 ```
 
-`TreeNodesModel` is not required for Cyclo Intelligence BT execution. The UI node palette is generated dynamically from `/bt/nodes/catalog`.
+Cyclo Intelligence does not require a `TreeNodesModel` section in the BT XML. In the previous Groot-based workflow, `TreeNodesModel` was used to describe which nodes and input ports were available. In Cyclo Intelligence, BT Manager gets that information directly from the running BT node through `/bt/nodes/catalog`. The catalog is generated automatically by scanning the Python action and control classes in the orchestrator package.
 
 ## Built-In Control Nodes
 
@@ -329,4 +329,6 @@ The class name becomes the XML tag:
 
 Constructor parameters become editable BT Manager ports. Type hints and default values are used to build the node catalog.
 
-After adding or deleting a node file, refresh the node list in BT Manager.
+After adding or deleting a node file, refresh the node list in BT Manager. Click the update button shown below to rebuild the node catalog. Newly added node classes will appear in the list, and deleted node classes will be removed from the list.
+
+![Update node list button in BT Manager](/img/systems/aiworker/advanced_features/behavior_trees/aiw_update_button.png)
