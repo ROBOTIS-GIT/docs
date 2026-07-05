@@ -124,7 +124,7 @@ Use the button shown below to load a saved behavior tree XML file.
 
 ## Running a Behavior Tree
 
-## XML Format
+### XML Format
 
 BT Manager stores trees as BehaviorTree.CPP-style XML.
 
@@ -154,9 +154,9 @@ class Wait(BaseAction):
 
 Cyclo Intelligence does not require a `TreeNodesModel` section in the BT XML. In the previous Groot-based workflow, `TreeNodesModel` was used to describe which nodes and input ports were available. In Cyclo Intelligence, BT Manager gets that information directly from the running BT node through `/bt/nodes/catalog`. The catalog is generated automatically by scanning the Python action and control classes in the orchestrator package.
 
-## Built-In Control Nodes
+### Built-In Control Nodes
 
-### Sequence
+#### Sequence
 
 Runs child nodes from left to right.
 
@@ -171,7 +171,7 @@ Runs child nodes from left to right.
 </Sequence>
 ```
 
-### Loop
+#### Loop
 
 Repeats child nodes like a sequence.
 
@@ -184,9 +184,9 @@ Repeats child nodes like a sequence.
 </Loop>
 ```
 
-## Built-In Action Nodes
+### Built-In Action Nodes
 
-### SendCommand
+#### SendCommand
 
 `SendCommand` controls the Cyclo Brain inference lifecycle from a BT.
 
@@ -223,7 +223,7 @@ A typical policy workflow is:
 
 `LOAD` is a preparation step. It loads the selected policy and leaves it paused in memory. Use `RESUME` later in the tree to begin policy execution.
 
-### JointControl
+#### JointControl
 
 `JointControl` sends joint trajectory commands for head, arms, and lift.
 
@@ -243,7 +243,7 @@ It can control one or more groups at the same time.
 
 The node publishes trajectories once, then monitors `/joint_states` until the enabled joints reach the target positions.
 
-### Rotate
+#### Rotate
 
 `Rotate` rotates the mobile base by a target angle.
 
@@ -253,7 +253,7 @@ The node publishes trajectories once, then monitors `/joint_states` until the en
 
 The node reads `/odom`, publishes velocity commands to the mobile base command topic, and succeeds when the target angle is reached.
 
-### Wait
+#### Wait
 
 `Wait` blocks the tree for a fixed duration.
 
@@ -261,7 +261,7 @@ The node reads `/odom`, publishes velocity commands to the mobile base command t
 <Wait name="Hold" duration="3.0"/>
 ```
 
-## Example Tree
+### Example Tree
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
