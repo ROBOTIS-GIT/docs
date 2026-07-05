@@ -2,7 +2,14 @@
 
 ## Overview
 
-Cyclo Intelligence provides a Behavior Tree (BT) workflow for composing robot actions, inference commands, and repeated task logic into a visual execution graph.
+Behavior Trees (BTs) provide a modular, hierarchical, and reactive framework for designing complex robot behaviors. 
+In AI Worker, BTs are used to structure long-horizon and multi-task robot behaviors that require multiple steps, conditional decisions, retries, recovery behavior, and a clear execution order.
+
+Cyclo Intelligence provides a BT workflow for composing robot actions, inference commands, and repeated task logic into a visual execution graph. 
+The goal is to combine the flexibility of learned or VLA-based policies with the reliability of rule-based control.
+
+VLA models can be used where flexible perception, language understanding, or action reasoning is needed, while rule-based control can be used where deterministic execution, safety checks, repeated motions, or explicit task logic are required.
+By combining these approaches in one tree, Cyclo Intelligence can describe complex tasks as reusable decision and action nodes while keeping the execution flow inspectable and controllable.
 
 The BT system is built into the Cyclo Intelligence orchestrator. It consists of:
 
