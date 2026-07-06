@@ -33,6 +33,14 @@ Use 3D Sim Deploy first to run one action chunk from the current robot state in 
 
 ## Inference Settings
 
+### Policy Docker Image
+
+When the selected policy Docker image has not been downloaded yet, the backend panel shows `Image missing`. Click `Pull` to download the policy Docker image that matches the selected model.
+
+![Policy Docker Image Pull Button](/img/systems/_partials/cyclo_intelligence/inference_policy_docker_pull.png)
+
+Pre-built ACT and GR00T policy Docker images are supported only on Blackwell-based `amd64` or `arm64` environments. If the host environment is not supported, use a compatible machine or prepare a policy backend image that matches the target hardware.
+
 ### Deploy Target
 
 <table>

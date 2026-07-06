@@ -6,7 +6,7 @@ Prepare the host machine before starting Cyclo Intelligence.
 
 | Requirement | How to check |
 | --- | --- |
-| Docker 24 or later with Docker Compose | `docker compose version` |
+| Docker 24 or later with Docker Compose | docker compose version |
 | Free disk space for Docker images, datasets, and models | Keep at least 35 GB available before the first start. |
 | Available UI port | Make sure port 80 is free, or set `CYCLO_UI_PORT` to another port before starting. |
 | NVIDIA Container Toolkit | Required for GPU-based policy containers. The main UI and data tools can run without a GPU when the no-GPU compose override is used. |
@@ -14,6 +14,15 @@ Prepare the host machine before starting Cyclo Intelligence.
 Cyclo Intelligence uses public Docker images by default, so Docker Hub login is not required.
 
 ## Install
+
+::::warning[Port Conflict]
+`physical_ai_tools` and `cyclo_intelligence` use the same web UI port. If `physical_ai_tools` is already installed and running on the same machine, stop the `physical_ai_tools` containers before starting `cyclo_intelligence`.
+
+```bash
+cd $HOME/physical_ai_tools
+./docker/container.sh stop
+```
+::::
 
 Clone Cyclo Intelligence on the machine where the web UI and Docker containers will run.
 

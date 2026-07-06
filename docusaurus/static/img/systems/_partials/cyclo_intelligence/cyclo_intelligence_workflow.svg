@@ -124,8 +124,8 @@
     <text class="external-subtitle" x="260" y="180" text-anchor="middle">Train a policy model</text>
   </g>
 
-  <line class="arrow-blue" x1="958" y1="642" x2="1098" y2="642" />
+  <line class="arrow-red" x1="958" y1="642" x2="1098" y2="642" />
   <text class="label" x="1028" y="618" text-anchor="middle">Dataset</text>
-  <line class="arrow-red" x1="1098" y1="706" x2="958" y2="706" />
+  <line class="arrow-blue" x1="1098" y1="706" x2="958" y2="706" />
   <text class="label" x="1028" y="744" text-anchor="middle">Trained model</text>
 </svg>
