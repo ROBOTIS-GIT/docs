@@ -117,6 +117,7 @@ const omySidebar: SidebarsConfig[string] = [
     label: 'Support',
     collapsed: true,
     items: [
+      {type: 'doc', id: 'systems/omy/support/os_update', label: 'OS Update'},
       {type: 'doc', id: 'systems/omy/support/troubleshooting_guide', label: 'Troubleshooting Guide'},
       {type: 'doc', id: 'systems/omy/support/manual_packing_procedure', label: 'Manual Packing Procedure'},
       {type: 'link', label: 'Discord Server', href: 'https://discord.gg/robotis'},
