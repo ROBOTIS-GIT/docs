@@ -1,17 +1,112 @@
 # Using the Remote Controller
 
-This guide explains how to operate AI Sapiens using the remote controller.
+This guide explains how to operate AI Sapiens using the RadioMaster remote controller.
+Use it as a quick reference when you receive the controller and need to check the robot status, select a robot mode, or use Emergency Stop.
+
+{/* IMAGE PLACEHOLDER: Add a front-view photo of the RadioMaster controller with the TELE, MDL, PAGE, EXIT, scroll wheel, and E-STOP trim switches labeled. */}
+
+:::warning
+Before operating the robot, make sure there is enough open space around AI Sapiens and keep your hand near the Emergency Stop controls.
+Do not continue operating if the controller shows a weak/lost link or missing battery telemetry.
+:::
+
+## Quick Operation Flow
+
+1. Turn on the remote controller.
+2. Turn on AI Sapiens and wait for the controller status to update.
+3. Open the status screen with the `TELE` button.
+4. Confirm that `UPLINK`, `DOWNLINK`, and `BATT TELE` are healthy before moving the robot.
+5. Select the desired robot mode from `MDL > Robot Mode`.
+6. Keep watching the controller display while operating the robot.
+
+## Status Screen
+
+Press the `TELE` button to open the controller telemetry screen.
+The first page is the main robot status page.
+Use `PAGE >` to move through additional diagnostic pages, and press `EXIT` to return to the normal screen.
+
+{/* IMAGE PLACEHOLDER: Add an image of the TELE Robot Status page showing UPLINK, DOWNLINK, K1 BATT, and BATT TELE. */}
+
+### Main Status Page
+
+The main status page shows the values that matter most during normal operation.
+
+| Display | What it means | Normal reading | What to do if it is not normal |
+| --- | --- | --- | --- |
+| `UPLINK` | Radio control path from the controller to the robot receiver. | `OK` | If it shows `WEAK` or `LOST`, stop operation and move closer to the robot or check the radio link. |
+| `DOWNLINK` | Telemetry path from the robot back to the controller. | `OK` | If it shows `WEAK` or `LOST`, robot status values may not update reliably. |
+| `K1 BATT` | Robot battery percentage and voltage. | A percentage and voltage value, such as `83%` and `24.8V`. | If it shows `?` or `?V`, check `BATT TELE`. |
+| `BATT TELE` | Battery telemetry status. | `OK` | If it shows `NO BATT`, the controller is not receiving recent robot battery telemetry. Do not rely on the displayed battery value. |
+
+The controller may also show a compact `Link` status on the normal main screen.
+Use the meaning below when reading that display:
+
+| Link display | Meaning |
+| --- | --- |
+| `OK` | The radio link and battery telemetry are healthy. |
+| `WEAK` | The radio link is present but weak. Operate only after improving the link. |
+| `LOST` | The radio link is lost. Stop operating immediately. |
+| `NO BATT` | The radio link is present, but recent robot battery telemetry is missing. Check robot power and battery telemetry before operating. |
+
+### Diagnostic Pages
+
+Use `PAGE >` from the `TELE` screen to view more details.
+
+| Page | Use this page to check |
+| --- | --- |
+| `Robot Status` | Main operator status: uplink, downlink, K1 battery, and battery telemetry. |
+| `K1 Battery` | Detailed battery telemetry, including battery percentage, voltage, current, and capacity when available. |
+| `ELRS Link` | Radio link quality values for checking receiver-side link condition. |
+| `ELRS RF` | RF and telemetry-return values for checking transmitter-side link condition. |
+
+If you only need to operate the robot, check `Robot Status` first.
+Use the diagnostic pages when the main status page does not look normal or when sharing information with support.
 
 ## Mode Switching
 
-<div class="coming-soon">
-  <div class="coming-soon-content">
-    <h3>Coming Soon</h3>
-    <p>Remote controller mode switching steps will be added here.</p>
-  </div>
-</div>
+AI Sapiens robot modes are selected from the controller's `Robot Mode` tool.
+The selected mode is sent to the robot through the robot mode channel.
+
+{/* IMAGE PLACEHOLDER: Add an image of the MDL menu with Robot Mode highlighted. */}
+
+To select a robot mode:
+
+1. Press the `MDL` button.
+2. Open `Robot Mode`.
+3. Rotate the scroll wheel to move through the available modes.
+4. Check the mode name and PWM value shown on the screen.
+5. Press `EXIT` to close the tool after selecting the desired mode.
+
+{/* IMAGE PLACEHOLDER: Add an image of the Robot Mode screen showing the mode index, PWM value, and mimic name. */}
+
+The `Robot Mode` screen shows:
+
+| Display | Meaning |
+| --- | --- |
+| `Mode` | The current mode index. |
+| `PWM` | The control value sent to the robot for the selected mode. |
+| `Name` | The selected behavior name, such as `Mimic_squat` or `Mimic_dance2`. |
+| `G1` | The internal controller value used to send the selected mode. |
+
+If the robot does not change behavior after selecting a mode, check that `UPLINK` is `OK`, `BATT TELE` is `OK`, and the robot software is running normally.
+
+### Basic Mimic Mode List
+
+The controller includes a set of mimic behaviors.
+The exact list may vary by robot software version, but the controller displays the active mode name on the `Robot Mode` screen.
+
+| Example mode name | Description |
+| --- | --- |
+| `Mimic_squat` | Squat-style mimic behavior. |
+| `Mimic_salute` | Salute-style mimic behavior. |
+| `Mimic_bow` | Bow-style mimic behavior. |
+| `Mimic_handshake` | Handshake-style mimic behavior. |
+| `Mimic_jump` | Jump-style mimic behavior. |
+| `Mimic_dance2`, `Mimic_dance3` | Dance-style mimic behaviors. |
 
 ### Locomotion Video Sample
+
+{/* IMAGE PLACEHOLDER: Add a short locomotion video or GIF captured while the controller status page shows a healthy link. */}
 
 <div class="coming-soon">
   <div class="coming-soon-content">
@@ -21,6 +116,8 @@ This guide explains how to operate AI Sapiens using the remote controller.
 </div>
 
 ### Mimic Basic Motion Video Samples
+
+{/* IMAGE PLACEHOLDER: Add short video or GIF samples for the basic mimic modes selected from Robot Mode. */}
 
 <div class="coming-soon">
   <div class="coming-soon-content">
@@ -48,7 +145,7 @@ The controller will show the activation and deactivation guide without changing 
 
 The E-STOP instruction overlay shows the activation and deactivation gestures on the controller display.
 
-{/* TODO: Add an image or GIF showing any E-STOP switch input opening the E-STOP instruction overlay. */}
+{/* IMAGE PLACEHOLDER: Add an image or GIF showing any E-STOP switch input opening the E-STOP instruction overlay. */}
 
 **The E-STOP switches are reserved for the E-STOP gesture and guide display**, so they do not adjust the joystick offset.
 
@@ -63,7 +160,7 @@ To activate E-STOP:
 While holding the switches, the E-STOP gauge fills on the controller display and the controller beeps several times.
 When activation is complete, the display shows `ACTIVATED` and the controller plays the `e-stop activate` voice prompt.
 
-{/* TODO: Add an image or GIF showing both E-STOP switches pushed outward and the E-STOP activation gauge filling. */}
+{/* IMAGE PLACEHOLDER: Add an image or GIF showing both E-STOP switches pushed outward and the E-STOP activation gauge filling. */}
 
 When E-STOP is active, the controller keeps the E-STOP overlay visible.
 
@@ -79,6 +176,6 @@ To deactivate E-STOP:
 While holding the switches, the E-STOP gauge decreases on the controller display.
 When deactivation is complete, the display shows `DEACTIVATED` and the controller plays the `e-stop deactivate` voice prompt.
 
-{/* TODO: Add an image or GIF showing the E-STOP deactivation gauge decreasing. */}
+{/* IMAGE PLACEHOLDER: Add an image or GIF showing the E-STOP deactivation gauge decreasing. */}
 
 After E-STOP is deactivated, the E-STOP overlay is cleared and the controller returns to the normal display.
