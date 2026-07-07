@@ -18,7 +18,7 @@ Cyclo Intelligence uses public Docker images by default, so Docker Hub login is 
 ::::warning[Port Conflict]
 `physical_ai_tools` and `cyclo_intelligence` use the same web UI port. If `physical_ai_tools` is already installed and running on the same machine, stop the `physical_ai_tools` containers before starting `cyclo_intelligence`.
 
-If you want to keep using `physical_ai_tools`, use the <Link to={props.physicalAiToolsLegacyGuide}>{props.robotName} Legacy Physical AI Tools guide</Link> instead of starting `cyclo_intelligence`.
+If you want to keep using `physical_ai_tools`, use the <Link to={props.physicalAiToolsLegacyGuide}>`Physical AI Tools guide`</Link> instead of starting `cyclo_intelligence`.
 
 ```bash
 cd $HOME/physical_ai_tools
@@ -26,38 +26,20 @@ cd $HOME/physical_ai_tools
 ```
 ::::
 
-Clone Cyclo Intelligence on the machine where the web UI and Docker containers will run.
+Install Cyclo Intelligence on the machine where the web UI and Docker containers will run.
 
 ```bash
-cd $HOME
-git clone --recurse-submodules https://github.com/ROBOTIS-GIT/cyclo_intelligence.git
-cd $HOME/cyclo_intelligence
+curl -fsSL https://raw.githubusercontent.com/ROBOTIS-GIT/cyclo_intelligence/main/install.sh | bash
 ```
 
-For an existing checkout, update the repository and submodules:
+On ROBOTIS robot PCs whose host name starts with `ffw`, the installer places the checkout under `/mnt/ssd/cyclo_intelligence` and creates `~/cyclo_intelligence` as a symlink. On other PCs, it installs directly under `~/cyclo_intelligence`.
+
+For an existing checkout, update the repository and submodules manually:
 
 ```bash
 cd $HOME/cyclo_intelligence
 git pull --ff-only
 git submodule update --init --recursive
-```
-
-## Storage
-
-The default storage mode is `auto`. When `/mnt/ssd/cyclo_intelligence` is mounted and writable, `./docker/container.sh start` stores the workspace and Hugging Face cache on the SSD through repo-local symlinks. If the SSD path is not available, it keeps the workspace under the repository.
-
-SSD mode does not move the repository itself. It only redirects `docker/workspace` and `docker/huggingface` to SSD-backed storage.
-
-To require SSD-backed storage:
-
-```bash
-CYCLO_STORAGE_MODE=ssd ./docker/container.sh start
-```
-
-To keep all workspace files under the repository:
-
-```bash
-CYCLO_STORAGE_MODE=local ./docker/container.sh start
 ```
 
 ## Start The Container

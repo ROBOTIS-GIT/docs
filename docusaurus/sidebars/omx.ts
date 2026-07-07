@@ -28,7 +28,16 @@ const omxSidebar: SidebarsConfig[string] = [
           {type: 'link', label: 'LeRobot', href: 'https://huggingface.co/docs/lerobot/omx'},
         ],
       },
-      {type: 'doc', id: 'systems/omx/quick_start_guide/operation_guide', label: 'Operation Guide - ROS 2'},
+      {
+        type: 'category',
+        label: 'Operation Guide - ROS 2',
+        link: {type: 'doc', id: 'systems/omx/quick_start_guide/operation_guide'},
+        collapsed: true,
+        items: [
+          {type: 'doc', id: 'systems/omx/quick_start_guide/operation_guide/teleoperation', label: 'Teleoperation'},
+          {type: 'doc', id: 'systems/omx/quick_start_guide/operation_guide/robot_control', label: 'Robot Control'},
+        ],
+      },
     ],
   },
   {

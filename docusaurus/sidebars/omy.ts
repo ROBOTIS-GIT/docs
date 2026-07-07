@@ -27,7 +27,16 @@ const omySidebar: SidebarsConfig[string] = [
     items: [
       {type: 'doc', id: 'systems/omy/quick_start_guide/setup_guide', label: 'Setup Guide'},
       {type: 'doc', id: 'systems/omy/quick_start_guide/zenoh_communication', label: 'Zenoh Communication'},
-      {type: 'doc', id: 'systems/omy/quick_start_guide/operation_guide', label: 'Operation Guide'},
+      {
+        type: 'category',
+        label: 'Operation Guide',
+        link: {type: 'doc', id: 'systems/omy/quick_start_guide/operation_guide'},
+        collapsed: true,
+        items: [
+          {type: 'doc', id: 'systems/omy/quick_start_guide/operation_guide/teleoperation', label: 'Teleoperation'},
+          {type: 'doc', id: 'systems/omy/quick_start_guide/operation_guide/robot_control', label: 'Robot Control'},
+        ],
+      },
     ],
   },
   {

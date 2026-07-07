@@ -1,4 +1,5 @@
 import CycloBrainArchitecture from '@site/src/components/CycloBrainArchitecture';
+import Link from '@docusaurus/Link';
 
 Use Model Inference to load a trained policy and test it in simulation mode before moving the real robot. It also supports TensorRT conversion for faster inference and provides both `Async` and `Sync` action request modes.
 
@@ -23,6 +24,8 @@ Use Model Inference to load a trained policy and test it in simulation mode befo
 
 :::warning
 Before running inference on the real robot, stop the teleoperation node or any leader-follower bringup used during data recording. Teleoperation and model inference should not command the robot at the same time.
+
+Then launch the robot follower bringup from <strong><Link to={props.robotFollowerBringupGuide}>{props.robotFollowerBringupGuideLabel || 'Follower Bringup for Inference'}</Link></strong> before using `Real Robot Deploy`.
 :::
 
 ## Inference Workflow
