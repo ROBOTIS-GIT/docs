@@ -18,6 +18,8 @@ Cyclo Intelligence uses public Docker images by default, so Docker Hub login is 
 ::::warning[Port Conflict]
 `physical_ai_tools` and `cyclo_intelligence` use the same web UI port. If `physical_ai_tools` is already installed and running on the same machine, stop the `physical_ai_tools` containers before starting `cyclo_intelligence`.
 
+If you want to keep using `physical_ai_tools`, use the <Link to={props.physicalAiToolsLegacyGuide}>{props.robotName} Legacy Physical AI Tools guide</Link> instead of starting `cyclo_intelligence`.
+
 ```bash
 cd $HOME/physical_ai_tools
 ./docker/container.sh stop
