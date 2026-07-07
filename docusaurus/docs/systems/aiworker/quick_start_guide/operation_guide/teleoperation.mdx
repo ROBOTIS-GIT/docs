@@ -165,6 +165,46 @@ ros2 launch ffw_bringup ffw_bg2_follower_ai.launch.py launch_cameras:=false init
    ffw_lg2_leader_ai
    ```
 
+## Follower Bringup for Inference
+
+For model inference, stop the teleoperation leader node and run only the follower bringup. Do not command the robot from teleoperation and model inference at the same time.
+
+<Tabs groupId="aiworker-robot-type">
+  <TabItem value="bg2" label="BG2 Type">
+
+```bash
+ros2 launch ffw_bringup ffw_bg2_follower_ai.launch.py
+```
+
+  </TabItem>
+  <TabItem value="sg2" label="SG2 Type">
+
+```bash
+ros2 launch ffw_bringup ffw_sg2_follower_ai.launch.py
+```
+
+  </TabItem>
+</Tabs>
+
+Or use the shortcut:
+
+<Tabs groupId="aiworker-robot-type">
+  <TabItem value="bg2" label="BG2 Type">
+
+```bash
+ffw_bg2_follower_ai
+```
+
+  </TabItem>
+  <TabItem value="sg2" label="SG2 Type">
+
+```bash
+ffw_sg2_follower_ai
+```
+
+  </TabItem>
+</Tabs>
+
 ## Basic Operation
 :::tip
 You must push **both hand triggers** for more than 2 seconds for the follower to start moving. When you push both triggers forward, the follower will slowly move to the leader's position, and once it comes within a certain error range, it will move quickly.

@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1760" height="860" viewBox="0 0 1760 860" role="img" aria-labelledby="title desc">
+  <title id="title">Cyclo Intelligence Workflow</title>
+  <desc id="desc">A workflow diagram showing Cyclo Intelligence setup, data recording, data tools, Hugging Face dataset exchange, external server training with the model training guide, model download through data tools, and model inference.</desc>
+  <defs>
+    <marker id="arrow-gray" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#59606a" />
+    </marker>
+    <marker id="arrow-blue" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#2563eb" />
+    </marker>
+    <marker id="arrow-red" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#ef4444" />
+    </marker>
+    <style>
+      .background { fill: #ffffff; }
+      .group { fill: none; stroke: #3b82f6; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 2 13; }
+      .group-title { fill: #4b5563; font-family: Arial, Helvetica, sans-serif; font-size: 44px; font-weight: 700; }
+      .card { fill: #ffffff; stroke: #111827; stroke-width: 3; }
+      .card-title { fill: #374151; font-family: Arial, Helvetica, sans-serif; font-size: 30px; font-weight: 700; }
+      .step { fill: #2563eb; font-family: Arial, Helvetica, sans-serif; font-size: 20px; font-weight: 700; letter-spacing: 0; }
+      .arrow-gray { stroke: #59606a; stroke-width: 3; fill: none; marker-end: url(#arrow-gray); }
+      .arrow-blue { stroke: #2563eb; stroke-width: 4; fill: none; marker-end: url(#arrow-blue); }
+      .arrow-red { stroke: #ef4444; stroke-width: 4; fill: none; marker-end: url(#arrow-red); }
+      .label { fill: #59606a; font-family: Arial, Helvetica, sans-serif; font-size: 22px; }
+      .label-small { fill: #59606a; font-family: Arial, Helvetica, sans-serif; font-size: 20px; }
+      .hub { fill: #fff1ca; stroke: #fde68a; stroke-width: 2; }
+      .hub-title { fill: #1f2937; font-family: Arial, Helvetica, sans-serif; font-size: 34px; font-weight: 800; letter-spacing: 0; }
+      .hub-subtitle { fill: #59606a; font-family: Arial, Helvetica, sans-serif; font-size: 23px; }
+      .external { fill: #ffffff; stroke: #f59e0b; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 8 8; }
+      .external-title { fill: #374151; font-family: Arial, Helvetica, sans-serif; font-size: 30px; font-weight: 800; }
+      .external-subtitle { fill: #59606a; font-family: Arial, Helvetica, sans-serif; font-size: 24px; }
+      .icon { fill: none; stroke: #111827; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+      .icon-fill { fill: #111827; }
+      .accent { fill: #eff6ff; stroke: #bfdbfe; stroke-width: 2; }
+    </style>
+  </defs>
+
+  <rect class="background" width="1760" height="860" />
+
+  <rect class="group" x="28" y="28" width="1704" height="430" rx="76" />
+  <text class="group-title" x="880" y="88" text-anchor="middle">Cyclo Intelligence Workflow</text>
+
+  <g transform="translate(80 130)">
+    <rect class="card" x="0" y="0" width="250" height="260" rx="44" />
+    <text class="step" x="125" y="42" text-anchor="middle">STEP 0</text>
+    <g transform="translate(86 74)">
+      <rect class="accent" x="-12" y="-14" width="102" height="102" rx="24" />
+      <path class="icon" d="M12 58 L12 22 L42 8 L72 22 L72 58 L42 72 Z" />
+      <path class="icon" d="M42 8 L42 72" />
+      <path class="icon" d="M12 22 L42 38 L72 22" />
+    </g>
+    <text class="card-title" x="125" y="220" text-anchor="middle">Setup</text>
+  </g>
+
+  <line class="arrow-gray" x1="348" y1="260" x2="388" y2="260" />
+
+  <g transform="translate(410 130)">
+    <rect class="card" x="0" y="0" width="250" height="260" rx="44" />
+    <text class="step" x="125" y="42" text-anchor="middle">STEP 1</text>
+    <g transform="translate(75 75)">
+      <rect class="accent" x="-8" y="-14" width="116" height="102" rx="24" />
+      <path class="icon" d="M20 68 L20 32 C20 19 30 10 43 10 C56 10 66 19 66 32 L66 68" />
+      <path class="icon" d="M10 68 L76 68" />
+      <circle class="icon" cx="43" cy="33" r="12" />
+      <path class="icon" d="M66 36 L92 22" />
+      <path class="icon" d="M92 22 L92 48" />
+      <path class="icon" d="M82 48 L102 48" />
+    </g>
+    <text class="card-title" x="125" y="204" text-anchor="middle">Data</text>
+    <text class="card-title" x="125" y="238" text-anchor="middle">Recording</text>
+  </g>
+
+  <line class="arrow-gray" x1="678" y1="260" x2="718" y2="260" />
+
+  <g transform="translate(740 130)">
+    <rect class="card" x="0" y="0" width="250" height="260" rx="44" />
+    <text class="step" x="125" y="42" text-anchor="middle">STEP 2</text>
+    <g transform="translate(78 72)">
+      <rect class="accent" x="-10" y="-12" width="112" height="106" rx="24" />
+      <rect class="icon" x="6" y="18" width="80" height="58" rx="6" />
+      <path class="icon" d="M20 62 L32 48 L46 58 L60 38 L74 62" />
+      <circle class="icon-fill" cx="26" cy="34" r="5" />
+      <path class="icon" d="M18 90 L74 90" />
+      <path class="icon" d="M46 76 L46 90" />
+    </g>
+    <text class="card-title" x="125" y="220" text-anchor="middle">Data Tools</text>
+  </g>
+
+  <line class="arrow-gray" x1="1008" y1="260" x2="1388" y2="260" />
+  <text class="label-small" x="1198" y="234" text-anchor="middle">after model download</text>
+
+  <g transform="translate(1410 130)">
+    <rect class="card" x="0" y="0" width="250" height="260" rx="44" />
+    <text class="step" x="125" y="42" text-anchor="middle">STEP 4</text>
+    <g transform="translate(78 68)">
+      <rect class="accent" x="-12" y="-8" width="118" height="112" rx="24" />
+      <rect class="icon" x="28" y="10" width="40" height="30" rx="8" />
+      <path class="icon" d="M48 40 L48 74" />
+      <path class="icon" d="M28 74 L68 74" />
+      <path class="icon" d="M24 52 L4 64" />
+      <path class="icon" d="M72 52 L92 64" />
+      <circle class="icon" cx="26" cy="92" r="12" />
+      <circle class="icon" cx="70" cy="92" r="12" />
+      <path class="icon" d="M38 92 L58 92" />
+    </g>
+    <text class="card-title" x="125" y="204" text-anchor="middle">Model</text>
+    <text class="card-title" x="125" y="238" text-anchor="middle">Inference</text>
+  </g>
+
+  <line class="arrow-red" x1="835" y1="408" x2="835" y2="576" />
+  <text class="label" x="800" y="506" text-anchor="end">Upload dataset</text>
+  <line class="arrow-blue" x1="895" y1="576" x2="895" y2="408" />
+  <text class="label" x="930" y="506">Download trained model</text>
+
+  <rect class="hub" x="118" y="604" width="820" height="130" rx="30" />
+  <text class="hub-title" x="528" y="660" text-anchor="middle">HUGGING FACE</text>
+  <text class="hub-subtitle" x="528" y="696" text-anchor="middle">Datasets and trained model checkpoints</text>
+
+  <g transform="translate(1120 548)">
+    <rect class="external" x="0" y="0" width="520" height="220" rx="30" />
+    <text class="step" x="260" y="48" text-anchor="middle">STEP 3</text>
+    <text class="external-title" x="260" y="88" text-anchor="middle">External Training Server</text>
+    <text class="external-subtitle" x="260" y="142" text-anchor="middle">Follow Model Training Guide</text>
+    <text class="external-subtitle" x="260" y="180" text-anchor="middle">Train a policy model</text>
+  </g>
+
+  <line class="arrow-red" x1="958" y1="642" x2="1098" y2="642" />
+  <text class="label" x="1028" y="618" text-anchor="middle">Dataset</text>
+  <line class="arrow-blue" x1="1098" y1="706" x2="958" y2="706" />
+  <text class="label" x="1028" y="744" text-anchor="middle">Trained model</text>
+</svg>

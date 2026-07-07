@@ -27,7 +27,16 @@ const omySidebar: SidebarsConfig[string] = [
     items: [
       {type: 'doc', id: 'systems/omy/quick_start_guide/setup_guide', label: 'Setup Guide'},
       {type: 'doc', id: 'systems/omy/quick_start_guide/zenoh_communication', label: 'Zenoh Communication'},
-      {type: 'doc', id: 'systems/omy/quick_start_guide/operation_guide', label: 'Operation Guide'},
+      {
+        type: 'category',
+        label: 'Operation Guide',
+        link: {type: 'doc', id: 'systems/omy/quick_start_guide/operation_guide'},
+        collapsed: true,
+        items: [
+          {type: 'doc', id: 'systems/omy/quick_start_guide/operation_guide/teleoperation', label: 'Teleoperation'},
+          {type: 'doc', id: 'systems/omy/quick_start_guide/operation_guide/robot_control', label: 'Robot Control'},
+        ],
+      },
     ],
   },
   {
@@ -35,21 +44,42 @@ const omySidebar: SidebarsConfig[string] = [
     label: 'Imitation Learning',
     collapsed: true,
     items: [
-      {type: 'doc', id: 'systems/omy/imitation_learning/imitation_learning', label: 'Overview', key: 'imitation-learning-overview'},
+      {type: 'doc', id: 'systems/omy/imitation_learning/overview', label: 'Overview', key: 'imitation-learning-overview'},
       {
         type: 'category',
-        label: 'Dataset Preparation',
-        link: {type: 'doc', id: 'systems/omy/imitation_learning/dataset_preparation/dataset_preparation'},
+        label: 'Cyclo Intelligence',
+        link: {type: 'doc', id: 'systems/omy/imitation_learning/imitation_learning'},
         collapsed: true,
         items: [
-          {type: 'doc', id: 'systems/omy/imitation_learning/dataset_preparation/prerequisites', label: 'Prerequisites'},
-          {type: 'doc', id: 'systems/omy/imitation_learning/dataset_preparation/recording', label: 'Recording'},
-          {type: 'doc', id: 'systems/omy/imitation_learning/dataset_preparation/visualization', label: 'Visualization'},
+          {type: 'doc', id: 'systems/omy/imitation_learning/setup', label: 'Setup', key: 'cyclo-intelligence-setup'},
+          {type: 'doc', id: 'systems/omy/imitation_learning/data_recording', label: 'Data Recording', key: 'cyclo-intelligence-data-recording'},
+          {type: 'doc', id: 'systems/omy/imitation_learning/data_tools', label: 'Data Tools', key: 'cyclo-intelligence-data-tools'},
+          {type: 'doc', id: 'systems/omy/imitation_learning/model_training', label: 'Model Training Guide', key: 'cyclo-intelligence-model-training'},
+          {type: 'doc', id: 'systems/omy/imitation_learning/model_inference', label: 'Model Inference', key: 'cyclo-intelligence-model-inference'},
         ],
       },
-      {type: 'doc', id: 'systems/omy/imitation_learning/model_training', label: 'Model Training'},
-      {type: 'doc', id: 'systems/omy/imitation_learning/model_inference', label: 'Model Inference'},
-      {type: 'doc', id: 'systems/omy/imitation_learning/data_tools', label: 'Data Tools'},
+      {
+        type: 'category',
+        label: 'Physical AI Tools',
+        link: {type: 'doc', id: 'systems/omy/resources/legacy/physical_ai_tools/imitation_learning'},
+        collapsed: true,
+        items: [
+          {
+            type: 'category',
+            label: 'Dataset Preparation',
+            link: {type: 'doc', id: 'systems/omy/resources/legacy/physical_ai_tools/dataset_preparation/dataset_preparation'},
+            collapsed: true,
+            items: [
+              {type: 'doc', id: 'systems/omy/resources/legacy/physical_ai_tools/dataset_preparation/prerequisites', label: 'Prerequisites'},
+              {type: 'doc', id: 'systems/omy/resources/legacy/physical_ai_tools/dataset_preparation/recording', label: 'Recording'},
+              {type: 'doc', id: 'systems/omy/resources/legacy/physical_ai_tools/dataset_preparation/visualization', label: 'Visualization'},
+            ],
+          },
+          {type: 'doc', id: 'systems/omy/resources/legacy/physical_ai_tools/model_training', label: 'Model Training', key: 'physical-ai-tools-model-training'},
+          {type: 'doc', id: 'systems/omy/resources/legacy/physical_ai_tools/model_inference', label: 'Model Inference', key: 'physical-ai-tools-model-inference'},
+          {type: 'doc', id: 'systems/omy/resources/legacy/physical_ai_tools/data_tools', label: 'Data Tools', key: 'physical-ai-tools-data-tools'},
+        ],
+      },
     ],
   },
   {
