@@ -8,23 +8,12 @@ Prepare the host machine before starting Cyclo Intelligence.
 | --- | --- |
 | Docker 24 or later with Docker Compose | docker compose version |
 | Free disk space for Docker images, datasets, and models | Keep at least 35 GB available before the first start. |
-| Available UI port | Make sure port 80 is free, or set `CYCLO_UI_PORT` to another port before starting. |
+| Available UI port | Make sure port 7080 is free, or set `CYCLO_UI_PORT` to another port before starting. |
 | NVIDIA Container Toolkit | Required for GPU-based policy containers. The main UI and data tools can run without a GPU when the no-GPU compose override is used. |
 
 Cyclo Intelligence uses public Docker images by default, so Docker Hub login is not required.
 
 ## Install
-
-::::warning[Port Conflict]
-`physical_ai_tools` and `cyclo_intelligence` use the same web UI port. If `physical_ai_tools` is already installed and running on the same machine, stop the `physical_ai_tools` containers before starting `cyclo_intelligence`.
-
-If you want to keep using `physical_ai_tools`, use the <Link to={props.physicalAiToolsLegacyGuide}>`Physical AI Tools guide`</Link> instead of starting `cyclo_intelligence`.
-
-```bash
-cd $HOME/physical_ai_tools
-./docker/container.sh stop
-```
-::::
 
 Install Cyclo Intelligence on the machine where the web UI and Docker containers will run.
 
@@ -32,13 +21,11 @@ Install Cyclo Intelligence on the machine where the web UI and Docker containers
 curl -fsSL https://raw.githubusercontent.com/ROBOTIS-GIT/cyclo_intelligence/main/install.sh | bash
 ```
 
-On ROBOTIS robot PCs whose host name starts with `ffw`, the installer places the checkout under `/mnt/ssd/cyclo_intelligence` and creates `~/cyclo_intelligence` as a symlink. On other PCs, it installs directly under `~/cyclo_intelligence`.
-
 For an existing checkout, update the repository and submodules manually:
 
 ```bash
 cd $HOME/cyclo_intelligence
-git pull --ff-only
+git pull
 git submodule update --init --recursive
 ```
 
@@ -71,18 +58,14 @@ Set `ZENOH_CONFIG_OVERRIDE` in `~/.bashrc` inside the Cyclo Intelligence contain
 When Cyclo Intelligence and the Zenoh daemon run on the same machine:
 
 ```bash
-cat <<'EOF' >> ~/.bashrc
-export ZENOH_CONFIG_OVERRIDE='transport/shared_memory/enabled=true'
-EOF
+echo "export ZENOH_CONFIG_OVERRIDE='transport/shared_memory/enabled=true'" >> ~/.bashrc
 source ~/.bashrc
 ```
 
-When the Zenoh daemon runs on a different machine, set Cyclo Intelligence to `client` mode and use the Zenoh daemon machine's IP address as the endpoint:
+To use Cyclo Intelligence on an external PC that is not running the Zenoh daemon, set Cyclo Intelligence to `client` mode and use the IP address of the PC where the Zenoh daemon is running as the endpoint:
 
 ```bash
-cat <<'EOF' >> ~/.bashrc
-export ZENOH_CONFIG_OVERRIDE='transport/shared_memory/enabled=true;mode="client";connect/endpoints=["tcp/192.168.0.42:7447"]'
-EOF
+echo "export ZENOH_CONFIG_OVERRIDE='transport/shared_memory/enabled=true;mode=\"client\";connect/endpoints=[\"tcp/192.168.0.42:7447\"]'" >> ~/.bashrc
 source ~/.bashrc
 ```
 
@@ -108,7 +91,7 @@ The `cyclo_intelligence` alias runs the same ROS 2 launch command.
 After the launch is running, open the web UI:
 
 ```text
-http://localhost/
+http://localhost:7080/
 ```
 
 If Cyclo Intelligence is running on another machine, replace `localhost` with that machine's IP address.
@@ -116,7 +99,7 @@ If Cyclo Intelligence is running on another machine, replace `localhost` with th
 For example, if Cyclo Intelligence is running on a machine with IP address `192.168.0.42`, open:
 
 ```text
-http://192.168.0.42/
+http://192.168.0.42:7080/
 ```
 
 {props.hostNameExample && (
