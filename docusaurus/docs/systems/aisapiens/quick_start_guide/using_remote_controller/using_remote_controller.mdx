@@ -3,7 +3,7 @@
 This guide explains how to operate AI Sapiens using the RadioMaster remote controller.
 Use it as a quick reference when you receive the controller and need to check the robot status, select a robot mode, or use Emergency Stop.
 
-{/* IMAGE PLACEHOLDER: Add a front-view photo of the RadioMaster controller with the TELE, MDL, PAGE, EXIT, scroll wheel, and E-STOP trim switches labeled. */}
+{/* IMAGE PLACEHOLDER: Add a front-view photo of the RadioMaster controller with the TELE, PAGE, EXIT, ENTER, scroll wheel, and E-STOP trim switches labeled. */}
 
 :::warning
 Before operating the robot, make sure there is enough open space around AI Sapiens and keep your hand near the Emergency Stop controls.
@@ -14,14 +14,29 @@ Do not continue operating if the controller shows a weak/lost link or missing ba
 
 1. Turn on the remote controller.
 2. Turn on AI Sapiens and wait for the controller status to update.
-3. Open the status screen with the `TELE` button.
+3. Check the normal main screen and open the status screen with the `TELE` button.
 4. Confirm that `UPLINK`, `DOWNLINK`, and `BATT TELE` are healthy before moving the robot.
-5. Select the desired robot mode from `MDL > Robot Mode`.
+5. Select the desired mimic mode from the normal main screen.
 6. Keep watching the controller display while operating the robot.
+
+## Controller Display Pages
+
+The controller has a normal main screen for operation and Lua script pages for robot status.
+
+| Screen | How to open it | What it is for |
+| --- | --- | --- |
+| Normal main screen | Press `EXIT` until the controller returns to the main display. | Shows the robot name, compact battery/link status, and the selected mimic mode. Use this screen to change mimic modes. |
+| `Robot Status` | Press `TELE`. | Main Lua status page with `UPLINK`, `DOWNLINK`, `K1 BATT`, and `BATT TELE`. |
+| `K1 Battery` | Press `PAGE >` from the Lua status pages. | Battery diagnostics such as percentage, voltage, current, and capacity when available. |
+| `ELRS Link` | Press `PAGE >` from the Lua status pages. | Receiver-side radio link quality values. |
+| `ELRS RF` | Press `PAGE >` from the Lua status pages. | RF and telemetry-return values for debugging the radio link. |
+
+The Lua script pages are for status and diagnostics.
+Mimic mode selection is done from the normal main screen, not from the `TELE` pages.
 
 ## Status Screen
 
-Press the `TELE` button to open the controller telemetry screen.
+Press the `TELE` button to open the controller Lua telemetry screen.
 The first page is the main robot status page.
 Use `PAGE >` to move through additional diagnostic pages, and press `EXIT` to return to the normal screen.
 
@@ -59,50 +74,86 @@ Use `PAGE >` from the `TELE` screen to view more details.
 | `ELRS Link` | Radio link quality values for checking receiver-side link condition. |
 | `ELRS RF` | RF and telemetry-return values for checking transmitter-side link condition. |
 
+<details className="ai-sapiens-telemetry-details">
+<summary>Robot Status values</summary>
+
+| Value | Meaning |
+| --- | --- |
+| `UPLINK` | RC control link quality from the controller to the robot receiver. It uses `RQly`: `OK` at `70-100%`, `WEAK` at `1-69%`, and `LOST` at `0%` or missing. |
+| `DOWNLINK` | Telemetry return quality from the robot back to the controller. It uses `TQly` when available, and may fall back to recent battery telemetry presence. |
+| `K1 BATT` | Robot battery percentage and voltage from `Bat%` and `RxBt`. If recent battery telemetry is missing, the value is shown as `?` or `?V`. |
+| `BATT TELE` | Battery telemetry state. `OK` means recent `Bat%` or `RxBt` data exists. `NO BATT` means both battery sources are missing or stale. |
+
+</details>
+
+<details className="ai-sapiens-telemetry-details">
+<summary>K1 Battery values</summary>
+
+| Value | Meaning |
+| --- | --- |
+| `K1 BATT` | Robot battery percentage and voltage. `Bat%` is `0-100%`; `RxBt` is shown in volts. |
+| `BATT TELE` | `OK` when recent `Bat%` or `RxBt` data exists; `NO BATT` when battery telemetry is missing or stale. |
+| `Curr` | Discharge current in amps when available. It may be hidden if the value is not current. |
+| `Capa` | Consumed capacity in mAh when available. In the current HAT mirror, this is usually `0` and should not be treated as remaining battery capacity. |
+
+</details>
+
+<details className="ai-sapiens-telemetry-details">
+<summary>ELRS Link values</summary>
+
+| Value | Meaning |
+| --- | --- |
+| `1RSS` | Receiver antenna 1 signal strength. Negative values are normal; less negative is stronger. |
+| `2RSS` | Receiver antenna 2 signal strength. Negative values are normal; less negative is stronger. |
+| `RQly` | RC uplink quality in percent. `70-100%` is healthy, `1-69%` is weak, and `0%` or missing means lost. |
+| `RSNR` | Uplink signal-to-noise ratio in dB. Higher is better. |
+| `ANT` | Receiver antenna selection value. Use it mainly for antenna diversity diagnostics. |
+
+</details>
+
+<details className="ai-sapiens-telemetry-details">
+<summary>ELRS RF values</summary>
+
+| Value | Meaning |
+| --- | --- |
+| `RFMD` | ELRS RF mode or packet-rate indicator. Compare it with the configured ELRS mode. |
+| `TPWR` | Radio transmit power in mW. It should match the configured transmit power. |
+| `TRSS` | Telemetry/downlink signal strength as seen by the transmitter side. Negative values are normal; less negative is stronger. |
+| `TQly` | Telemetry return quality in percent. `70-100%` is healthy, `1-69%` is weak, and `0%` or missing means lost or unavailable. |
+| `TSNR` | Downlink signal-to-noise ratio in dB. Higher is better. |
+
+</details>
+
 If you only need to operate the robot, check `Robot Status` first.
 Use the diagnostic pages when the main status page does not look normal or when sharing information with support.
 
 ## Mode Switching
 
-AI Sapiens robot modes are selected from the controller's `Robot Mode` tool.
+AI Sapiens mimic modes are selected from the normal main screen.
 The selected mode is sent to the robot through the robot mode channel.
 
-{/* IMAGE PLACEHOLDER: Add an image of the MDL menu with Robot Mode highlighted. */}
+{/* IMAGE PLACEHOLDER: Add an image of the normal main screen showing Mode 00/09, the mimic name, and VIEW/EDIT state. */}
 
-To select a robot mode:
+To select a mimic mode:
 
-1. Press the `MDL` button.
-2. Open `Robot Mode`.
-3. Rotate the scroll wheel to move through the available modes.
-4. Check the mode name and PWM value shown on the screen.
-5. Press `EXIT` to close the tool after selecting the desired mode.
+1. Return to the normal main screen.
+2. Press `ENTER` once to change the mode panel from `VIEW` to `EDIT`.
+3. Rotate the scroll wheel to move through the available mimic modes.
+4. Stop on the desired mode name.
+5. Press `ENTER` again, or press `EXIT`, to return the mode panel to `VIEW`.
 
-{/* IMAGE PLACEHOLDER: Add an image of the Robot Mode screen showing the mode index, PWM value, and mimic name. */}
+{/* IMAGE PLACEHOLDER: Add a short GIF showing ENTER, scroll wheel mode selection, and returning to VIEW. */}
 
-The `Robot Mode` screen shows:
+The main screen mode panel shows:
 
 | Display | Meaning |
 | --- | --- |
-| `Mode` | The current mode index. |
-| `PWM` | The control value sent to the robot for the selected mode. |
+| `Mode` | The current mode index, such as `Mode 00/09`. |
 | `Name` | The selected behavior name, such as `Mimic_squat` or `Mimic_dance2`. |
-| `G1` | The internal controller value used to send the selected mode. |
+| `VIEW` | The mode panel is locked for normal operation. |
+| `EDIT` | The scroll wheel changes the selected mimic mode. |
 
 If the robot does not change behavior after selecting a mode, check that `UPLINK` is `OK`, `BATT TELE` is `OK`, and the robot software is running normally.
-
-### Basic Mimic Mode List
-
-The controller includes a set of mimic behaviors.
-The exact list may vary by robot software version, but the controller displays the active mode name on the `Robot Mode` screen.
-
-| Example mode name | Description |
-| --- | --- |
-| `Mimic_squat` | Squat-style mimic behavior. |
-| `Mimic_salute` | Salute-style mimic behavior. |
-| `Mimic_bow` | Bow-style mimic behavior. |
-| `Mimic_handshake` | Handshake-style mimic behavior. |
-| `Mimic_jump` | Jump-style mimic behavior. |
-| `Mimic_dance2`, `Mimic_dance3` | Dance-style mimic behaviors. |
 
 ### Locomotion Video Sample
 
@@ -117,7 +168,7 @@ The exact list may vary by robot software version, but the controller displays t
 
 ### Mimic Basic Motion Video Samples
 
-{/* IMAGE PLACEHOLDER: Add short video or GIF samples for the basic mimic modes selected from Robot Mode. */}
+{/* IMAGE PLACEHOLDER: Add short video or GIF samples for the basic mimic modes selected from the normal main screen. */}
 
 <div class="coming-soon">
   <div class="coming-soon-content">
