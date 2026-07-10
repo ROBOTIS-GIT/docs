@@ -145,7 +145,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
     label: 'Support',
     collapsed: false,
     items: [
-      {type: 'doc', id: 'systems/aiworker/support/troubleshooting_guide', label: 'Troubleshooting Guide'},
+      {type: 'doc', id: 'systems/aiworker/support/multi_turn_troubleshooting_guide', label: 'Clearing Multi-turn Error'},
       {type: 'link', label: 'Discord Server', href: 'https://discord.gg/robotis'},
       {type: 'doc', id: 'systems/aiworker/support/issues', label: 'Issues'},
       {type: 'doc', id: 'systems/aiworker/support/faq', label: 'FAQ'},
