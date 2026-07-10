@@ -6,7 +6,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Specifications',
-    collapsed: true,
+    collapsed: false,
     items: [
       {type: 'doc', id: 'systems/aiworker/specifications/hardware', label: 'Hardware', key: 'specifications-hardware'},
       {type: 'doc', id: 'systems/aiworker/specifications/software', label: 'Software', key: 'specifications-software'},
@@ -15,13 +15,13 @@ const aiworkerSidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Quick Start Guide',
-    collapsed: true,
+    collapsed: false,
     items: [
       {
         type: 'category',
         label: 'Setup Overview',
         link: {type: 'doc', id: 'systems/aiworker/quick_start_guide/setup_overview/setup_overview'},
-        collapsed: true,
+        collapsed: false,
         items: [
           {type: 'doc', id: 'systems/aiworker/quick_start_guide/setup_overview/hardware', label: 'Hardware', key: 'setup-overview-hardware'},
           {type: 'doc', id: 'systems/aiworker/quick_start_guide/setup_overview/software', label: 'Software', key: 'setup-overview-software'},
@@ -32,13 +32,13 @@ const aiworkerSidebar: SidebarsConfig[string] = [
         type: 'category',
         label: 'Operation Guide',
         link: {type: 'doc', id: 'systems/aiworker/quick_start_guide/operation_guide/operation_guide'},
-        collapsed: true,
+        collapsed: false,
         items: [
           {
             type: 'category',
             label: 'Cyclo Manager',
             link: {type: 'doc', id: 'systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/cyclo_manager'},
-            collapsed: true,
+            collapsed: false,
             items: [
               {type: 'doc', id: 'systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/install', label: 'Install'},
               {type: 'doc', id: 'systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/bringup', label: 'Bringup'},
@@ -57,14 +57,14 @@ const aiworkerSidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Imitation Learning',
-    collapsed: true,
+    collapsed: false,
     items: [
       {type: 'doc', id: 'systems/aiworker/imitation_learning/overview', label: 'Overview', key: 'imitation-learning-overview'},
       {
         type: 'category',
         label: 'Cyclo Intelligence',
         link: {type: 'doc', id: 'systems/aiworker/imitation_learning/imitation_learning'},
-        collapsed: true,
+        collapsed: false,
         items: [
           {type: 'doc', id: 'systems/aiworker/imitation_learning/setup', label: 'Setup', key: 'cyclo-intelligence-setup'},
           {type: 'doc', id: 'systems/aiworker/imitation_learning/data_recording', label: 'Data Recording', key: 'cyclo-intelligence-data-recording'},
@@ -77,13 +77,13 @@ const aiworkerSidebar: SidebarsConfig[string] = [
         type: 'category',
         label: 'Physical AI Tools',
         link: {type: 'doc', id: 'systems/aiworker/resources/legacy/physical_ai_tools/imitation_learning'},
-        collapsed: true,
+        collapsed: false,
         items: [
           {
             type: 'category',
             label: 'Dataset Preparation',
             link: {type: 'doc', id: 'systems/aiworker/resources/legacy/physical_ai_tools/dataset_preparation/dataset_preparation'},
-            collapsed: true,
+            collapsed: false,
             items: [
               {type: 'doc', id: 'systems/aiworker/resources/legacy/physical_ai_tools/dataset_preparation/prerequisites', label: 'Prerequisites'},
               {type: 'doc', id: 'systems/aiworker/resources/legacy/physical_ai_tools/dataset_preparation/recording', label: 'Recording'},
@@ -100,7 +100,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Simulation',
-    collapsed: true,
+    collapsed: false,
     items: [
       {type: 'doc', id: 'systems/aiworker/simulation/simulation', label: 'Overview', key: 'simulation-overview'},
       {type: 'doc', id: 'systems/aiworker/simulation/gazebo', label: 'Gazebo'},
@@ -110,18 +110,19 @@ const aiworkerSidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Advanced Features',
-    collapsed: true,
+    collapsed: false,
     items: [
       {type: 'doc', id: 'systems/aiworker/advanced_features/advanced_features', label: 'Overview', key: 'advanced-features-overview'},
       {type: 'doc', id: 'systems/aiworker/advanced_features/cyclo_control', label: 'Cyclo Control'},
       {type: 'doc', id: 'systems/aiworker/advanced_features/behavior_trees', label: 'Behavior Trees'},
       {type: 'doc', id: 'systems/aiworker/advanced_features/robotis_vuer', label: 'ROBOTIS Vuer'},
+      {type: 'doc', id: 'systems/aiworker/advanced_features/eazy_navi', label: 'Eazy Navi'},
     ],
   },
   {
     type: 'category',
     label: 'Resources',
-    collapsed: true,
+    collapsed: false,
     items: [
       {type: 'doc', id: 'systems/aiworker/resources/open_source', label: 'Open Source'},
       {type: 'doc', id: 'systems/aiworker/resources/release_notes', label: 'Release Notes'},
@@ -129,7 +130,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
         type: 'category',
         label: 'Technical Story',
         link: {type: 'doc', id: 'systems/aiworker/resources/technical_story/technical_story'},
-        collapsed: true,
+        collapsed: false,
         items: [
           {type: 'doc', id: 'systems/aiworker/resources/technical_story/isaac_gr00t', label: 'Isaac GR00T'},
           {type: 'doc', id: 'systems/aiworker/resources/technical_story/nav2', label: 'Nav2'},
@@ -141,7 +142,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Support',
-    collapsed: true,
+    collapsed: false,
     items: [
       {type: 'doc', id: 'systems/aiworker/support/troubleshooting_guide', label: 'Troubleshooting Guide'},
       {type: 'link', label: 'Discord Server', href: 'https://discord.gg/robotis'},

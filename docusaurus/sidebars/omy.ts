@@ -6,13 +6,13 @@ const omySidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Specifications',
-    collapsed: true,
+    collapsed: false,
     items: [
       {
         type: 'category',
         label: 'Hardware',
         link: {type: 'doc', id: 'systems/omy/specifications/hardware'},
-        collapsed: true,
+        collapsed: false,
         items: [
           {type: 'doc', id: 'systems/omy/specifications/control_table', label: 'Control Table'},
         ],
@@ -23,7 +23,7 @@ const omySidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Quick Start Guide',
-    collapsed: true,
+    collapsed: false,
     items: [
       {type: 'doc', id: 'systems/omy/quick_start_guide/setup_guide', label: 'Setup Guide'},
       {type: 'doc', id: 'systems/omy/quick_start_guide/zenoh_communication', label: 'Zenoh Communication'},
@@ -31,7 +31,7 @@ const omySidebar: SidebarsConfig[string] = [
         type: 'category',
         label: 'Operation Guide',
         link: {type: 'doc', id: 'systems/omy/quick_start_guide/operation_guide'},
-        collapsed: true,
+        collapsed: false,
         items: [
           {type: 'doc', id: 'systems/omy/quick_start_guide/operation_guide/teleoperation', label: 'Teleoperation'},
           {type: 'doc', id: 'systems/omy/quick_start_guide/operation_guide/robot_control', label: 'Robot Control'},
@@ -42,14 +42,14 @@ const omySidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Imitation Learning',
-    collapsed: true,
+    collapsed: false,
     items: [
       {type: 'doc', id: 'systems/omy/imitation_learning/overview', label: 'Overview', key: 'imitation-learning-overview'},
       {
         type: 'category',
         label: 'Cyclo Intelligence',
         link: {type: 'doc', id: 'systems/omy/imitation_learning/imitation_learning'},
-        collapsed: true,
+        collapsed: false,
         items: [
           {type: 'doc', id: 'systems/omy/imitation_learning/setup', label: 'Setup', key: 'cyclo-intelligence-setup'},
           {type: 'doc', id: 'systems/omy/imitation_learning/data_recording', label: 'Data Recording', key: 'cyclo-intelligence-data-recording'},
@@ -62,13 +62,13 @@ const omySidebar: SidebarsConfig[string] = [
         type: 'category',
         label: 'Physical AI Tools',
         link: {type: 'doc', id: 'systems/omy/resources/legacy/physical_ai_tools/imitation_learning'},
-        collapsed: true,
+        collapsed: false,
         items: [
           {
             type: 'category',
             label: 'Dataset Preparation',
             link: {type: 'doc', id: 'systems/omy/resources/legacy/physical_ai_tools/dataset_preparation/dataset_preparation'},
-            collapsed: true,
+            collapsed: false,
             items: [
               {type: 'doc', id: 'systems/omy/resources/legacy/physical_ai_tools/dataset_preparation/prerequisites', label: 'Prerequisites'},
               {type: 'doc', id: 'systems/omy/resources/legacy/physical_ai_tools/dataset_preparation/recording', label: 'Recording'},
@@ -85,7 +85,7 @@ const omySidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Simulation',
-    collapsed: true,
+    collapsed: false,
     items: [
       {type: 'doc', id: 'systems/omy/simulation/simulation', label: 'Overview', key: 'simulation-overview'},
       {type: 'doc', id: 'systems/omy/simulation/gazebo', label: 'Gazebo'},
@@ -95,7 +95,7 @@ const omySidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Advanced Features',
-    collapsed: true,
+    collapsed: false,
     items: [
       {type: 'doc', id: 'systems/omy/advanced_features/advanced_features', label: 'Overview', key: 'advanced-features-overview'},
       {type: 'doc', id: 'systems/omy/advanced_features/cyclo_control', label: 'Cyclo Control'},
@@ -104,7 +104,7 @@ const omySidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Resources',
-    collapsed: true,
+    collapsed: false,
     items: [
       {type: 'doc', id: 'systems/omy/resources/open_source', label: 'Open Source'},
       {type: 'doc', id: 'systems/omy/resources/release_notes', label: 'Release Notes'},
@@ -113,7 +113,7 @@ const omySidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Support',
-    collapsed: true,
+    collapsed: false,
     items: [
       {type: 'doc', id: 'systems/omy/support/os_update', label: 'OS Update'},
       {type: 'doc', id: 'systems/omy/support/troubleshooting_guide', label: 'Troubleshooting Guide'},
