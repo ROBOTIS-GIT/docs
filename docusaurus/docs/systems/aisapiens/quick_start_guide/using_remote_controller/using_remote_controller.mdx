@@ -3,7 +3,7 @@
 This guide explains how to operate AI Sapiens using the RadioMaster remote controller.
 Use it as a quick reference when you receive the controller and need to check the robot status, select a robot mode, or use Emergency Stop.
 
-{/* IMAGE PLACEHOLDER: Add a front-view photo of the RadioMaster controller with the TELE, PAGE, EXIT, ENTER, scroll wheel, and E-STOP trim switches labeled. */}
+{/* IMAGE PLACEHOLDER: Add a front-view photo of the RadioMaster controller with the TELE, PAGE, RTN, scroll wheel, and E-STOP trim switches labeled. */}
 
 :::warning
 Before operating the robot, make sure there is enough open space around AI Sapiens and keep your hand near the Emergency Stop controls.
@@ -25,7 +25,7 @@ The controller has a normal main screen for operation and Lua script pages for r
 
 | Screen | How to open it | What it is for |
 | --- | --- | --- |
-| Normal main screen | Press `EXIT` until the controller returns to the main display. | Shows the robot name, compact battery/link status, and the selected mimic mode. Use this screen to change mimic modes. |
+| Normal main screen | Press `RTN` until the controller returns to the main display. | Shows the robot name, compact battery/link status, and the selected mimic mode. Use this screen to change mimic modes. |
 | `Robot Status` | Press `TELE`. | Main Lua status page with `UPLINK`, `DOWNLINK`, `K1 BATT`, and `BATT TELE`. |
 | `K1 Battery` | Press `PAGE >` from the Lua status pages. | Battery diagnostics such as percentage, voltage, current, and capacity when available. |
 | `ELRS Link` | Press `PAGE >` from the Lua status pages. | Receiver-side radio link quality values. |
@@ -38,7 +38,7 @@ Mimic mode selection is done from the normal main screen, not from the `TELE` pa
 
 Press the `TELE` button to open the controller Lua telemetry screen.
 The first page is the main robot status page.
-Use `PAGE >` to move through additional diagnostic pages, and press `EXIT` to return to the normal screen.
+Use `PAGE >` to move through additional diagnostic pages, and press `RTN` to return to the normal screen.
 
 {/* IMAGE PLACEHOLDER: Add an image of the TELE Robot Status page showing UPLINK, DOWNLINK, K1 BATT, and BATT TELE. */}
 
@@ -136,13 +136,16 @@ The selected mode is sent to the robot through the robot mode channel.
 
 To select a mimic mode:
 
+On the RadioMaster Pocket, `ENTER` means **pressing the scroll wheel inward like a button**.
+
 1. Return to the normal main screen.
 2. Press `ENTER` once to change the mode panel from `VIEW` to `EDIT`.
 3. Rotate the scroll wheel to move through the available mimic modes.
 4. Stop on the desired mode name.
-5. Press `ENTER` again, or press `EXIT`, to return the mode panel to `VIEW`.
+5. Press `ENTER` again, or press `RTN`, to return the mode panel to `VIEW`.
+6. Move the `SC` switch forward. The screen changes from `Passive` or `Fixstand` to `Demo_Mode`, and the selected mode starts.
 
-{/* IMAGE PLACEHOLDER: Add a short GIF showing ENTER, scroll wheel mode selection, and returning to VIEW. */}
+{/* IMAGE PLACEHOLDER: Add a short GIF showing the scroll wheel press, scroll wheel mode selection, returning to VIEW, and moving the SC switch forward. */}
 
 The main screen mode panel shows:
 

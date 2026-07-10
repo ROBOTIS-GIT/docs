@@ -1501,6 +1501,7 @@
   --ai-sapiens-telemetry-table-bg: var(--ifm-background-color);
   --ai-sapiens-telemetry-table-head-bg: var(--ifm-color-emphasis-100);
   --ai-sapiens-telemetry-table-stripe-bg: var(--ifm-color-emphasis-100);
+  --ai-sapiens-telemetry-code-bg: #ffffff;
   --docusaurus-details-decoration-color: var(--ifm-color-emphasis-600);
   --ifm-alert-background-color: var(--ai-sapiens-telemetry-toggle-bg);
   --ifm-alert-border-color: var(--ai-sapiens-telemetry-toggle-border);
@@ -1517,20 +1518,47 @@
 }
 
 .ai-sapiens-telemetry-details > summary {
-  padding: 0.65rem 0.8rem;
+  position: relative;
+  min-height: 2.5rem;
+  padding: 0.6rem 1rem 0.6rem 2.25rem;
   background: var(--ai-sapiens-telemetry-toggle-summary-bg);
   color: var(--ifm-font-color-base);
   cursor: pointer;
   font-weight: 700;
   line-height: 1.4;
+  list-style: none;
+  border-bottom: 1px solid transparent;
+}
+
+.ai-sapiens-telemetry-details > summary::-webkit-details-marker {
+  display: none;
 }
 
 .ai-sapiens-telemetry-details > summary::marker {
-  color: var(--ifm-color-emphasis-600);
+  content: "";
+}
+
+.ai-sapiens-telemetry-details > summary::before {
+  content: "";
+  position: absolute;
+  left: 1.15rem;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border-top: 0.32rem solid transparent;
+  border-bottom: 0.32rem solid transparent;
+  border-left: 0.42rem solid var(--ifm-color-emphasis-600);
+  transform-origin: 50% 50%;
+  transform: translateY(-50%);
+  transition: transform 160ms ease;
+}
+
+.ai-sapiens-telemetry-details[open] > summary::before {
+  transform: translateY(-50%) rotate(90deg);
 }
 
 .ai-sapiens-telemetry-details[open] > summary {
-  border-bottom: 1px solid var(--ai-sapiens-telemetry-toggle-border);
+  border-bottom-color: var(--ai-sapiens-telemetry-toggle-border);
 }
 
 .ai-sapiens-telemetry-details table {
@@ -1569,6 +1597,12 @@
   background: var(--ai-sapiens-telemetry-table-stripe-bg);
 }
 
+.ai-sapiens-telemetry-details code {
+  color: var(--ifm-font-color-base);
+  background: var(--ai-sapiens-telemetry-code-bg);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
 [data-theme='dark'] .ai-sapiens-telemetry-details {
   --ai-sapiens-telemetry-toggle-bg: var(--ifm-color-emphasis-100);
   --ai-sapiens-telemetry-toggle-summary-bg: var(--ifm-color-emphasis-100);
@@ -1576,6 +1610,7 @@
   --ai-sapiens-telemetry-table-bg: var(--ifm-background-surface-color);
   --ai-sapiens-telemetry-table-head-bg: var(--ifm-color-emphasis-100);
   --ai-sapiens-telemetry-table-stripe-bg: var(--ifm-color-emphasis-100);
+  --ai-sapiens-telemetry-code-bg: rgba(255, 255, 255, 0.1);
 }
 
 .ros-interface-grid {
