@@ -30,21 +30,15 @@ Do not continue operating if the controller shows a weak/lost link or missing ba
 
 ## Controller Display Pages
 
-The controller has three main display pages and four Lua telemetry pages.
+| Page | Purpose |
+| --- | --- |
+| Main screen | Robot name, battery/link status, and Mimic selection. |
+| `ROBOTIS Docs` / Channel Monitor | Documentation QR code and channel output values. |
+| `TELE` pages | `Robot Status`, `K1 Battery`, `ELRS Link`, and `ELRS RF` status and diagnostics. |
 
-| Screen | How to open it | What it is for |
-| --- | --- | --- |
-| Main screen | Press `RTN` until the controller returns to the main display. Use `PAGE <` or `PAGE >` if another main display page is open. | Shows the robot name, compact battery/link status, and the selected mimic mode. Use this screen to change mimic modes. |
-| `ROBOTIS Docs` | Press `PAGE >` once from the main screen. | Shows a QR code for the ROBOTIS documentation. |
-| Channel Monitor | Press `PAGE >` again from `ROBOTIS Docs`. | Shows the current output value of each controller channel. |
-| `Robot Status` | Press `TELE`. | Main Lua status page with `UPLINK`, `DOWNLINK`, `K1 BATT`, and `BATT TELE`. |
-| `K1 Battery` | Press `PAGE >` from the Lua status pages. | Battery diagnostics such as percentage, voltage, current, and capacity when available. |
-| `ELRS Link` | Press `PAGE >` from the Lua status pages. | Receiver-side radio link quality values. |
-| `ELRS RF` | Press `PAGE >` from the Lua status pages. | RF and telemetry-return values for debugging the radio link. |
-
-The main display pages cycle in this order: Main screen, `ROBOTIS Docs`, Channel Monitor, and back to the main screen.
-The Lua script pages are for status and diagnostics.
-Mimic mode selection is done from the main screen, not from the `TELE` pages.
+Press `RTN` to return to the main screen. `PAGE <` and `PAGE >` cycle through the main display pages.
+Press `TELE` to open `Robot Status`, then use `PAGE >` for the other Lua pages.
+Select Mimic modes from the main screen, not from the `TELE` pages.
 
 ## Status Screen
 
