@@ -6,9 +6,9 @@ Use it as a quick reference when you receive the controller and need to check th
 For controller hardware specifications and product details, see the [RadioMaster Pocket Radio Controller](https://radiomasterrc.com/products/pocket-radio-controller-m2) product page.
 
 <img
-  src="/img/systems/aisapiens/quick_start_guide/using_remote_controller/radiomaster_pocket.png"
-  alt="RadioMaster Pocket remote controller"
-  style={{width: '75%', height: 'auto', display: 'block', margin: '0 auto'}}
+  src="/img/systems/aisapiens/quick_start_guide/using_remote_controller/radiomaster_pocket_controls.png"
+  alt="RadioMaster Pocket remote controller controls"
+  style={{width: '100%', height: 'auto', display: 'block', margin: '0 auto'}}
 />
 
 :::info
@@ -142,6 +142,15 @@ Use the diagnostic pages when the main status page does not look normal or when 
 
 **`SC` selects the main robot state. `SB` matters only when `SC` is down.**
 
+The image below shows the `SB` positions from above, with the antenna side at the top and the user side at the bottom.
+`SB` and `SC` use the same `UP`, `MIDDLE`, and `DOWN` orientation.
+
+<img
+  src="/img/systems/aisapiens/quick_start_guide/using_remote_controller/radiomaster_sb_positions_top_view.png"
+  alt="RadioMaster Pocket SB switch positions viewed from above"
+  style={{width: '90%', height: 'auto', display: 'block', margin: '0 auto'}}
+/>
+
 <details className="ai-sapiens-telemetry-details">
 <summary>SC and SB mode combinations</summary>
 
@@ -155,10 +164,23 @@ Use the diagnostic pages when the main status page does not look normal or when 
 
 </details>
 
-`SC` takes priority, so `SB` has no effect while `SC` is up or in the middle.
+**`SC` takes priority, so `SB` has no effect while `SC` is up or in the middle.**
 The recommended flow is: start with `SC` up, check the surroundings, move `SC` to the middle and wait for Ready Pose, then move `SC` down and select the required `SB` position.
 To stop active control, move `SC` to the middle for Ready Pose or up for Damping.
 Do not start with `SC` down and `SB` in the middle; the startup safety check does not accept this combination.
+
+### Velocity Controls
+
+Move `SC` down and `SB` up to enter Velocity control, then use the gimbals as follows:
+
+| Gimbal input | Robot movement |
+| --- | --- |
+| Right gimbal up / down | Move forward / backward |
+| Left gimbal left / right | Move left / right |
+| Right gimbal left / right | Turn left / right |
+| Left gimbal up / down | Not used for Velocity control |
+
+Move the gimbals gradually and return them to the center to stop the commanded movement.
 
 ### Selecting and Playing a Mimic Motion
 
