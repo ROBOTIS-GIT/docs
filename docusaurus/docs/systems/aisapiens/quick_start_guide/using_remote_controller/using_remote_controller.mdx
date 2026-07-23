@@ -3,7 +3,15 @@
 This guide explains how to operate AI Sapiens using the RadioMaster remote controller.
 Use it as a quick reference when you receive the controller and need to check the robot status, select a robot mode, or use Emergency Stop.
 
-{/* IMAGE PLACEHOLDER: Add a front-view photo of the RadioMaster controller with the TELE, PAGE, RTN, scroll wheel, and E-STOP trim switches labeled. */}
+<img
+  src="/img/systems/aisapiens/quick_start_guide/using_remote_controller/radiomaster_pocket.png"
+  alt="RadioMaster Pocket remote controller"
+  style={{width: '75%', height: 'auto', display: 'block', margin: '0 auto'}}
+/>
+
+:::info
+The controller appearance and the information shown on its display may change with future updates.
+:::
 
 :::warning
 Before operating the robot, make sure there is enough open space around AI Sapiens and keep your hand near the Emergency Stop controls.
@@ -12,33 +20,37 @@ Do not continue operating if the controller shows a weak/lost link or missing ba
 
 ## Quick Operation Flow
 
-1. Turn on the remote controller.
+1. Place `SC` up for Damping. Press and hold the power button; when the controller vibrates, release the button and confirm that the `ROBOTIS` logo appears.
 2. Turn on AI Sapiens and wait for the controller status to update.
-3. Check the normal main screen and open the status screen with the `TELE` button.
-4. Confirm that `UPLINK`, `DOWNLINK`, and `BATT TELE` are healthy before moving the robot.
-5. Select the desired mimic mode from the normal main screen.
-6. Keep watching the controller display while operating the robot.
+3. Confirm that `UPLINK`, `DOWNLINK`, and `BATT TELE` are healthy on the `TELE` screen.
+4. After checking that the area is safe, move `SC` to the middle and wait for Ready Pose.
+5. For Velocity control, move `SC` down and `SB` up.
+6. For a Mimic motion, select it on the main screen, then move `SC` and `SB` down.
+7. Keep watching the controller display while operating the robot.
 
 ## Controller Display Pages
 
-The controller has a normal main screen for operation and Lua script pages for robot status.
+The controller has three main display pages and four Lua telemetry pages.
 
 | Screen | How to open it | What it is for |
 | --- | --- | --- |
-| Normal main screen | Press `RTN` until the controller returns to the main display. | Shows the robot name, compact battery/link status, and the selected mimic mode. Use this screen to change mimic modes. |
+| Main screen | Press `RTN` until the controller returns to the main display. Use `PAGE <` or `PAGE >` if another main display page is open. | Shows the robot name, compact battery/link status, and the selected mimic mode. Use this screen to change mimic modes. |
+| `ROBOTIS Docs` | Press `PAGE >` once from the main screen. | Shows a QR code for the ROBOTIS documentation. |
+| Channel Monitor | Press `PAGE >` again from `ROBOTIS Docs`. | Shows the current output value of each controller channel. |
 | `Robot Status` | Press `TELE`. | Main Lua status page with `UPLINK`, `DOWNLINK`, `K1 BATT`, and `BATT TELE`. |
 | `K1 Battery` | Press `PAGE >` from the Lua status pages. | Battery diagnostics such as percentage, voltage, current, and capacity when available. |
 | `ELRS Link` | Press `PAGE >` from the Lua status pages. | Receiver-side radio link quality values. |
 | `ELRS RF` | Press `PAGE >` from the Lua status pages. | RF and telemetry-return values for debugging the radio link. |
 
+The main display pages cycle in this order: Main screen, `ROBOTIS Docs`, Channel Monitor, and back to the main screen.
 The Lua script pages are for status and diagnostics.
-Mimic mode selection is done from the normal main screen, not from the `TELE` pages.
+Mimic mode selection is done from the main screen, not from the `TELE` pages.
 
 ## Status Screen
 
 Press the `TELE` button to open the controller Lua telemetry screen.
 The first page is the main robot status page.
-Use `PAGE >` to move through additional diagnostic pages, and press `RTN` to return to the normal screen.
+Use `PAGE >` to move through additional diagnostic pages, and press `RTN` to return to the main screen.
 
 {/* IMAGE PLACEHOLDER: Add an image of the TELE Robot Status page showing UPLINK, DOWNLINK, K1 BATT, and BATT TELE. */}
 
@@ -49,12 +61,15 @@ The main status page shows the values that matter most during normal operation.
 | Display | What it means | Normal reading | What to do if it is not normal |
 | --- | --- | --- | --- |
 | `UPLINK` | Radio control path from the controller to the robot receiver. | `OK` | If it shows `WEAK` or `LOST`, stop operation and move closer to the robot or check the radio link. |
-| `DOWNLINK` | Telemetry path from the robot back to the controller. | `OK` | If it shows `WEAK` or `LOST`, robot status values may not update reliably. |
+| `DOWNLINK` | Telemetry path from the robot back to the controller. | `OK` or `OK ?` | If it shows `WEAK`, `LOST`, or `LOST ?`, robot status values may not update reliably. |
 | `K1 BATT` | Robot battery percentage and voltage. | A percentage and voltage value, such as `83%` and `24.8V`. | If it shows `?` or `?V`, check `BATT TELE`. |
 | `BATT TELE` | Battery telemetry status. | `OK` | If it shows `NO BATT`, the controller is not receiving recent robot battery telemetry. Do not rely on the displayed battery value. |
 
-The controller may also show a compact `Link` status on the normal main screen.
+The controller also shows a compact `Link` status on the main screen.
 Use the meaning below when reading that display:
+
+<details className="ai-sapiens-telemetry-details">
+<summary>Main screen Link status meanings</summary>
 
 | Link display | Meaning |
 | --- | --- |
@@ -63,31 +78,31 @@ Use the meaning below when reading that display:
 | `LOST` | The radio link is lost. Stop operating immediately. |
 | `NO BATT` | The radio link is present, but recent robot battery telemetry is missing. Check robot power and battery telemetry before operating. |
 
+</details>
+
+The main screen and the `TELE` pages use slightly different battery telemetry timing.
+The main screen follows the native EdgeTX sensor freshness state, while the `TELE` pages retain the last fresh `Bat%` or `RxBt` value for up to 800 ms.
+During a brief telemetry delay, the main screen may therefore show `Link NO BATT` before `BATT TELE` changes to `NO BATT` on the `Robot Status` page.
+If `NO BATT` persists, stop relying on the displayed K1 battery value and check the robot power and telemetry connection.
+
 ### Diagnostic Pages
 
 Use `PAGE >` from the `TELE` screen to view more details.
 
-| Page | Use this page to check |
-| --- | --- |
-| `Robot Status` | Main operator status: uplink, downlink, K1 battery, and battery telemetry. |
-| `K1 Battery` | Detailed battery telemetry, including battery percentage, voltage, current, and capacity when available. |
-| `ELRS Link` | Radio link quality values for checking receiver-side link condition. |
-| `ELRS RF` | RF and telemetry-return values for checking transmitter-side link condition. |
-
 <details className="ai-sapiens-telemetry-details">
-<summary>Robot Status values</summary>
+<summary>Robot Status: Overall connection and battery status</summary>
 
 | Value | Meaning |
 | --- | --- |
 | `UPLINK` | RC control link quality from the controller to the robot receiver. It uses `RQly`: `OK` at `70-100%`, `WEAK` at `1-69%`, and `LOST` at `0%` or missing. |
-| `DOWNLINK` | Telemetry return quality from the robot back to the controller. It uses `TQly` when available, and may fall back to recent battery telemetry presence. |
+| `DOWNLINK` | Telemetry return quality from the robot back to the controller. `OK`, `WEAK`, or `LOST` with a percentage comes from `TQly`. `OK ?` means `TQly` is unavailable but recent battery telemetry confirms that telemetry is arriving. `LOST ?` means neither current `TQly` nor recent battery telemetry is available. |
 | `K1 BATT` | Robot battery percentage and voltage from `Bat%` and `RxBt`. If recent battery telemetry is missing, the value is shown as `?` or `?V`. |
 | `BATT TELE` | Battery telemetry state. `OK` means recent `Bat%` or `RxBt` data exists. `NO BATT` means both battery sources are missing or stale. |
 
 </details>
 
 <details className="ai-sapiens-telemetry-details">
-<summary>K1 Battery values</summary>
+<summary>K1 Battery: Robot battery diagnostics</summary>
 
 | Value | Meaning |
 | --- | --- |
@@ -99,7 +114,7 @@ Use `PAGE >` from the `TELE` screen to view more details.
 </details>
 
 <details className="ai-sapiens-telemetry-details">
-<summary>ELRS Link values</summary>
+<summary>ELRS Link: RC uplink diagnostics</summary>
 
 | Value | Meaning |
 | --- | --- |
@@ -112,7 +127,7 @@ Use `PAGE >` from the `TELE` screen to view more details.
 </details>
 
 <details className="ai-sapiens-telemetry-details">
-<summary>ELRS RF values</summary>
+<summary>ELRS RF: RF and telemetry downlink diagnostics</summary>
 
 | Value | Meaning |
 | --- | --- |
@@ -129,34 +144,45 @@ Use the diagnostic pages when the main status page does not look normal or when 
 
 ## Mode Switching
 
-AI Sapiens mimic modes are selected from the normal main screen.
-The selected mode is sent to the robot through the robot mode channel.
+**`SC` selects the main robot state. `SB` matters only when `SC` is down.**
 
-{/* IMAGE PLACEHOLDER: Add an image of the normal main screen showing Mode 00/09, the mimic name, and VIEW/EDIT state. */}
+<details className="ai-sapiens-telemetry-details">
+<summary>SC and SB mode combinations</summary>
 
-To select a mimic mode:
+| `SC` | `SB` | Screen | Robot action | When to use it |
+| --- | --- | --- | --- | --- |
+| Up | Any | `Passive` | **Damping:** Resists joint movement without pulling the robot toward a target pose. The robot may sag, and this is not motor-off or E-STOP. | Recommended at startup and for a safe fallback. Control loss, input timeout, or a safety error also requests Damping automatically. |
+| Middle | Any | `Fixstand` | **Ready Pose:** Moves to the prepared standing pose over about 3 seconds, then actively holds it. | After checking that the area is safe, before entering Velocity or Mimic control. |
+| Down | Up | `Demo_Mode` | **Velocity control:** Uses the policy configured in `ai_sapiens/ai_sapiens_sim2real/config/k1_config.yaml`. | When driving the robot with the gimbals. |
+| Down | Middle | `Demo_Mode` | No new mode request; the current mode normally remains active. | Use only as a neutral selection between active requests. It is not Damping or E-STOP. |
+| Down | Down | `Demo_Mode` | Play the selected Mimic motion. | After selecting the desired motion on the main screen. |
+
+</details>
+
+`SC` takes priority, so `SB` has no effect while `SC` is up or in the middle.
+The recommended flow is: start with `SC` up, check the surroundings, move `SC` to the middle and wait for Ready Pose, then move `SC` down and select the required `SB` position.
+To stop active control, move `SC` to the middle for Ready Pose or up for Damping.
+Do not start with `SC` down and `SB` in the middle; the startup safety check does not accept this combination.
+
+### Selecting and Playing a Mimic Motion
+
+Select the motion on the main screen, then trigger it with `SC` and `SB`.
+
+{/* IMAGE PLACEHOLDER: Add an image of the main screen showing Mode 00/09, the mimic name, and VIEW/EDIT state. */}
 
 On the RadioMaster Pocket, `ENTER` means **pressing the scroll wheel inward like a button**.
 
-1. Return to the normal main screen.
-2. Press `ENTER` once to change the mode panel from `VIEW` to `EDIT`.
-3. Rotate the scroll wheel to move through the available mimic modes.
-4. Stop on the desired mode name.
-5. Press `ENTER` again, or press `RTN`, to return the mode panel to `VIEW`.
-6. Move the `SC` switch forward. The screen changes from `Passive` or `Fixstand` to `Demo_Mode`, and the selected mode starts.
+1. On the main screen, press `ENTER` to change `VIEW` to `EDIT`.
+2. Rotate the scroll wheel to select a Mimic motion.
+3. Press `ENTER` or `RTN` to return to `VIEW`.
+4. Move `SC` down, then move `SB` down to play the selected motion.
 
-{/* IMAGE PLACEHOLDER: Add a short GIF showing the scroll wheel press, scroll wheel mode selection, returning to VIEW, and moving the SC switch forward. */}
+{/* IMAGE PLACEHOLDER: Add a short GIF showing mode selection on the main screen, moving SC down, and moving SB down. */}
 
-The main screen mode panel shows:
+Holding `SB` down does not restart the motion.
+To play it again, move `SB` to the middle or up, then move it down again.
 
-| Display | Meaning |
-| --- | --- |
-| `Mode` | The current mode index, such as `Mode 00/09`. |
-| `Name` | The selected behavior name, such as `Mimic_squat` or `Mimic_dance2`. |
-| `VIEW` | The mode panel is locked for normal operation. |
-| `EDIT` | The scroll wheel changes the selected mimic mode. |
-
-If the robot does not change behavior after selecting a mode, check that `UPLINK` is `OK`, `BATT TELE` is `OK`, and the robot software is running normally.
+If the robot does not play the selected motion, check that `SC` and `SB` are both down, `UPLINK` is `OK`, `BATT TELE` is `OK`, and the robot software is running normally.
 
 ### Locomotion Video Sample
 
@@ -171,7 +197,7 @@ If the robot does not change behavior after selecting a mode, check that `UPLINK
 
 ### Mimic Basic Motion Video Samples
 
-{/* IMAGE PLACEHOLDER: Add short video or GIF samples for the basic mimic modes selected from the normal main screen. */}
+{/* IMAGE PLACEHOLDER: Add short video or GIF samples for the basic mimic modes selected from the main screen. */}
 
 <div class="coming-soon">
   <div class="coming-soon-content">
@@ -191,7 +217,7 @@ Release E-STOP only after confirming that the robot and the surrounding area are
 :::
 
 :::tip
-If you are unsure how to use E-STOP, move either E-STOP switch in any direction once.
+If E-STOP is inactive and you are unsure how to use it, move either E-STOP switch in any direction once.
 The controller will show the activation and deactivation guide without changing the E-STOP state.
 :::
 
@@ -207,14 +233,13 @@ The E-STOP instruction overlay shows the activation and deactivation gestures on
 
 To activate E-STOP:
 
-1. Push the left E-STOP switch outward to the left.
-2. Push the right E-STOP switch outward to the right at the same time.
-3. Hold both E-STOP switches outward for at least 0.5 seconds.
+1. **Push both E-STOP switches outward simultaneously**: the left switch **to the left** and the right switch **to the right**.
+2. Hold both E-STOP switches outward for at least 0.5 seconds.
 
 While holding the switches, the E-STOP gauge fills on the controller display and the controller beeps several times.
-When activation is complete, the display shows `ACTIVATED` and the controller plays the `e-stop activate` voice prompt.
+When activation is complete, the display shows `ACTIVATED`.
 
-{/* IMAGE PLACEHOLDER: Add an image or GIF showing both E-STOP switches pushed outward and the E-STOP activation gauge filling. */}
+![Activating E-STOP with both switches](/img/systems/aisapiens/quick_start_guide/using_remote_controller/estop_activate.gif)
 
 When E-STOP is active, the controller keeps the E-STOP overlay visible.
 
@@ -223,13 +248,12 @@ When E-STOP is active, the controller keeps the E-STOP overlay visible.
 To deactivate E-STOP:
 
 1. Make sure it is safe to release the emergency stop.
-2. Push the left E-STOP switch outward to the left.
-3. Push the right E-STOP switch outward to the right at the same time.
-4. Hold both E-STOP switches outward for at least 3 seconds.
+2. **Push both E-STOP switches outward simultaneously**: the left switch **to the left** and the right switch **to the right**.
+3. Hold both E-STOP switches outward for at least 3 seconds.
 
 While holding the switches, the E-STOP gauge decreases on the controller display.
-When deactivation is complete, the display shows `DEACTIVATED` and the controller plays the `e-stop deactivate` voice prompt.
+When deactivation is complete, the display shows `DEACTIVATED`.
 
-{/* IMAGE PLACEHOLDER: Add an image or GIF showing the E-STOP deactivation gauge decreasing. */}
+![Deactivating E-STOP with both switches](/img/systems/aisapiens/quick_start_guide/using_remote_controller/estop_deactivate.gif)
 
-After E-STOP is deactivated, the E-STOP overlay is cleared and the controller returns to the normal display.
+After E-STOP is deactivated, the E-STOP overlay is cleared and the controller returns to the main screen.
