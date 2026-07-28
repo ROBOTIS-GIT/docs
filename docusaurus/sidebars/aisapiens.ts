@@ -52,6 +52,7 @@ const aisapiensSidebar: SidebarsConfig[string] = [
     label: 'Motion Generation',
     collapsed: false,
     items: [
+      {type: 'doc', id: 'systems/aisapiens/motion_generation/gem-x', label: 'GEM-X'},
       {type: 'doc', id: 'systems/aisapiens/motion_generation_retargeting/kimodo/kimodo', label: 'Kimodo'},
     ],
   },

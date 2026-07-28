@@ -1,0 +1,209 @@
+---
+sidebar_label: GEM-X
+title: GEM-X
+---
+
+# GEM-X
+
+GEM-X is NVIDIA's monocular whole-body 3D human motion estimation pipeline. It recovers SOMA-format full-body motion (77 joints including body, hands, and face) from a single RGB video, then can retarget the recovered motion to humanoid robots.
+
+For AI Sapiens, use GEM-X as a motion extraction tool from real videos. GEM-X output still needs conversion and validation in the AI Sapiens motion workflow before hardware execution.
+
+:::info
+GEM-X is developed and maintained by NVIDIA. This guide is based on the official GEM-X repository and documentation. For the latest options and dependency updates, always check the official links below.
+:::
+
+## Official Resources
+
+- [GEM-X GitHub repository](https://github.com/NVlabs/GEM-X)
+- [Installation guide](https://github.com/NVlabs/GEM-X/blob/main/docs/INSTALL.md)
+- [Demo guide](https://github.com/NVlabs/GEM-X/blob/main/docs/DEMO.md)
+- [Model overview](https://github.com/NVlabs/GEM-X/blob/main/docs/MODEL_OVERVIEW.md)
+- [Training and evaluation](https://github.com/NVlabs/GEM-X/blob/main/docs/TRAINING.md)
+- [macOS setup guide](https://github.com/NVlabs/GEM-X/blob/main/docs/INSTALL_MACOS.md)
+- [Pretrained checkpoint and ONNX assets](https://huggingface.co/nvidia/GEM-X)
+
+## What GEM-X Does
+
+- Recovers full-body SOMA motion from monocular video.
+- Produces 77-joint 2D keypoints and 3D pose outputs.
+- Recovers global/world motion trajectory from dynamic camera video.
+- Optionally retargets recovered human motion to Unitree G1 through soma-retargeter.
+
+## Requirements
+
+The official Linux setup baseline is:
+
+- Python `3.12+`
+- CUDA-compatible NVIDIA GPU (recommended for full pipeline speed)
+- CUDA-compatible PyTorch build (for example, `cu126`)
+- `git-lfs` for SOMA assets
+- `uv` package manager
+
+macOS Apple Silicon is supported through ONNX Runtime acceleration for demo usage. For full details, use NVIDIA's macOS installation guide.
+
+## Install on Linux (Official Path)
+
+Clone GEM-X with submodules:
+
+```bash
+git clone --recursive https://github.com/NVlabs/GEM-X.git
+cd GEM-X
+```
+
+If the repo was cloned without submodules:
+
+```bash
+git submodule update --init --recursive
+```
+
+Create and activate virtual environment:
+
+```bash
+pip install uv
+uv venv .venv --python 3.12
+source .venv/bin/activate
+```
+
+Install PyTorch matching your CUDA stack:
+
+```bash
+uv pip install torch torchvision --index-url https://download.pytorch.org/whl/cu126
+```
+
+Install SOMA body model and pull LFS assets:
+
+```bash
+uv pip install -e third_party/soma
+cd third_party/soma && git lfs pull && cd ../..
+```
+
+Install GEM and dependencies:
+
+```bash
+bash scripts/install_env.sh
+```
+
+Optional: install soma-retargeter for `--retarget` mode:
+
+```bash
+uv pip install -e third_party/soma-retargeter
+```
+
+## Download Pretrained Model
+
+GEM-X can auto-download checkpoints when needed, or you can download manually:
+
+```bash
+huggingface-cli download nvidia/GEM-X gem_soma.ckpt --local-dir inputs/pretrained
+```
+
+Expected checkpoint path:
+
+```text
+inputs/pretrained/gem_soma.ckpt
+```
+
+## Run Full 3D Inference
+
+Run the standard pipeline:
+
+```bash
+python scripts/demo/demo_soma.py \
+  --video path/to/video.mp4 \
+  --output_root outputs \
+  --ckpt inputs/pretrained/gem_soma.ckpt
+```
+
+If `--ckpt` is omitted, GEM-X attempts automatic download from Hugging Face.
+
+### Useful Flags
+
+| Option | Description |
+| --- | --- |
+| `--video` | Input video path (required). |
+| `--ckpt` | GEM pretrained checkpoint path. |
+| `--output_root` | Output root directory. |
+| `--static_cam` | Treat camera as static (disables VO). |
+| `--verbose` | Save debug overlays and intermediate views. |
+| `--retarget` | Retarget recovered motion to Unitree G1 (requires soma-retargeter). |
+
+## Run ONNX-Accelerated Demo
+
+Use ONNX/TensorRT-capable path:
+
+```bash
+python scripts/demo/demo_soma_onnx.py \
+  --video path/to/video.mp4
+```
+
+This path can also run well on Apple Silicon with ONNX Runtime and CoreML (see official macOS guide).
+
+## Run 2D Keypoint-Only Demo
+
+If you only need tracked SOMA 77-joint keypoints:
+
+```bash
+python scripts/demo/demo_2d_keypoints.py \
+  --video path/to/video.mp4
+```
+
+## Output Files
+
+For `demo_soma.py`, GEM-X writes outputs under:
+
+```text
+<output_root>/<video_name>/
+```
+
+Common outputs:
+
+- `0_kp2d77_overlay.mp4`: 2D keypoint overlay
+- `<video_name>_1_incam.mp4`: in-camera mesh render
+- `<video_name>_2_global.mp4`: world/global render
+- `<video_name>_3_incam_global_horiz.mp4`: combined preview
+- `preprocess/bbx.pt`: tracked person bounding boxes
+- `preprocess/vitpose.pt`: 77-joint 2D keypoints
+- `preprocess/hpe_results.pt`: estimated 3D motion results
+
+With `--retarget` enabled, additional outputs include:
+
+- `<video_name>_retarget_g1.bvh`
+- `<video_name>_retarget_g1.csv`
+- `<video_name>_4_g1_retarget.mp4`
+
+## AI Sapiens Workflow
+
+Use the following workflow when preparing GEM-X motion for AI Sapiens:
+
+1. Prepare and clean monocular source video.
+2. Run GEM-X (`demo_soma.py` or `demo_soma_onnx.py`) to recover SOMA motion.
+3. Inspect outputs, especially 2D keypoint quality and global trajectory stability.
+4. Export and retarget motion through [Soma-retargeter](/docs/systems/aisapiens/motion_generation_retargeting/soma_retargeter/).
+5. Validate in simulation before hardware execution.
+6. Execute on robot only after confirming limits, contacts, and stability.
+
+:::warning
+Do not run recovered motion on AI Sapiens hardware without retargeting and validation. Always test in simulation first and confirm safety constraints before real-robot execution.
+:::
+
+## Troubleshooting
+
+Common fixes from official docs:
+
+- `git lfs` pointer files instead of assets: run `cd third_party/soma && git lfs pull`.
+- CUDA/PyTorch mismatch: install the PyTorch build matching `nvidia-smi` driver capability.
+- `ModuleNotFoundError: gem`: activate venv and rerun `bash scripts/install_env.sh`.
+- OpenGL/EGL rendering issues: set `PYOPENGL_PLATFORM=egl` and `EGL_PLATFORM=surfaceless`.
+
+## Notes on Training
+
+NVIDIA's official training recipe in GEM-X uses internal data (`Bones RigPlay-1`) and is not fully reproducible with public data only. Most AI Sapiens users should focus on inference and retargeting workflows unless they have appropriate dataset access.
+
+## Attribution and Terms
+
+This page is an independent integration guide for AI Sapiens based on publicly available GEM-X documentation from NVIDIA.
+
+- GEM-X source code is released under Apache 2.0 in the official repository.
+- GEM-X model artifacts and checkpoints are governed by NVIDIA model terms described in the official release pages.
+- Verify the latest official license and model terms before production deployment, redistribution, or commercial release.
