@@ -7,10 +7,12 @@ title: Soma-retargeter
 
 Soma-retargeter converts SOMA BVH motion files into AI Sapiens CSV joint data. It loads `.bvh` files, solves the target robot pose with Newton and NVIDIA Warp, and writes AI Sapiens `.csv` files.
 
+For AI Sapiens, use the [ROBOTIS-GIT/soma-retargeter](https://github.com/ROBOTIS-GIT/soma-retargeter) fork. It includes the AI Sapiens retarget target, MJCF generation, and CSV export layout used in the AI Sapiens motion workflow.
+
 Soma-retargeter does not create or export BVH files. Prepare SOMA-compatible BVH files before running this tool.
 
 :::info
-Use this guide to set up `ROBOTIS-GIT/soma-retargeter`, convert SOMA BVH files, and export AI Sapiens CSV motion data.
+Use the ROBOTIS soma-retargeter fork for AI Sapiens integration. Upstream research remains from NVIDIA ([NVIDIA/soma-retargeter](https://github.com/NVIDIA/soma-retargeter)). Prefer the ROBOTIS repo and install steps below for the latest fork-specific options.
 :::
 
 ## AI Sapiens Soma-retargeter Demo
@@ -19,11 +21,12 @@ Use this guide to set up `ROBOTIS-GIT/soma-retargeter`, convert SOMA BVH files, 
   <source src="/videos/systems/aisapiens/soma_retargeter_k1_demo.webm" type="video/webm" />
 </video>
 
-## Official Resources
+## Resources
 
-- [ROBOTIS Soma-retargeter repository](https://github.com/ROBOTIS-GIT/soma-retargeter)
+- [ROBOTIS Soma-retargeter repository](https://github.com/ROBOTIS-GIT/soma-retargeter) (recommended)
 - [AI Sapiens submodule source](https://github.com/ROBOTIS-GIT/ai_sapiens)
-- [NVIDIA upstream Soma-retargeter repository](https://github.com/NVIDIA/soma-retargeter)
+- [Installation and conversion steps](#installation) on this page
+- [Upstream NVIDIA Soma-retargeter](https://github.com/NVIDIA/soma-retargeter)
 - [SOMA body model](https://github.com/NVlabs/SOMA-X)
 - [Newton physics](https://github.com/newton-physics/newton)
 - [NVIDIA Warp](https://github.com/NVIDIA/warp)
@@ -75,7 +78,7 @@ Key settings:
 
 ### 1. Clone the Repository
 
-Clone Soma-retargeter and enter the repository root:
+Clone the ROBOTIS soma-retargeter fork and enter the repository root:
 
 ```bash
 git clone --recursive https://github.com/ROBOTIS-GIT/soma-retargeter.git
@@ -422,6 +425,13 @@ This guide covers setup and conversion only. It does not certify retargeting qua
 | `[ERROR]: Invalid retarget solver selected [...]. Use 'Newton'.` | The config uses an unsupported `retargeter` value. | Set `retargeter` to `Newton`. |
 | `ModuleNotFoundError: No module named 'tkinter'`, display error, or OpenGL context error when using `--viewer gl` | The interactive viewer dependency or display context is unavailable. | Install `python3.12-tk` and confirm a display/OpenGL context. For headless conversion, use `--viewer null`. |
 | Output appears in a different folder than expected | The config controls output path creation and timestamp behavior. | Check `export_folder` and `timestamp_result_folder`. |
+
+## Attribution
+
+This page is an AI Sapiens integration guide for the [ROBOTIS-GIT/soma-retargeter](https://github.com/ROBOTIS-GIT/soma-retargeter) fork.
+
+- The ROBOTIS fork builds on NVIDIA soma-retargeter ([NVIDIA/soma-retargeter](https://github.com/NVIDIA/soma-retargeter)).
+- Verify the latest license and model terms before production deployment, redistribution, or commercial release.
 
 :::warning
 Do not execute retargeted CSV motion directly on AI Sapiens hardware. Validate the result in simulation and confirm joint limits, contacts, balance, and safety behavior before hardware execution.
