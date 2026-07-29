@@ -71,6 +71,8 @@ const aisapiensSidebar: SidebarsConfig[string] = [
     collapsed: false,
     items: [
       {type: 'doc', id: 'systems/aisapiens/imitation_learning/overview', label: 'Overview', key: 'imitation-learning-overview'},
+      {type: 'doc', id: 'systems/aisapiens/imitation_learning/lerobot', label: 'LeRobot'},
+      {type: 'doc', id: 'systems/aisapiens/imitation_learning/cyclo_intelligence', label: 'Cyclo Intelligence'},
     ],
   },
   {

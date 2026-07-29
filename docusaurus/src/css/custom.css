@@ -1203,10 +1203,8 @@
   aspect-ratio: 16 / 9;
   height: auto;
   margin: 1.25rem 0 1.75rem;
-  border: 1px solid var(--robotis-card-border);
   border-radius: 8px;
   background: #0f172a;
-  box-shadow: var(--robotis-card-shadow);
 }
 
 .zenoh-intro {
