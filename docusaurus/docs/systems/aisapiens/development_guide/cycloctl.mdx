@@ -1,3 +1,6 @@
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Bringup with cycloctl
 
 `cyclod` is the daemon that runs on the robot and owns Wi-Fi mode switching and service management. `cycloctl` is its command-line client, documented here.
@@ -28,7 +31,10 @@ ai_sapiens/zenoh_daemon: down
 
 ### Start
 
-Start the services in order — `zenoh_daemon`, then `ai_sapiens_bringup`, then `ai_sapiens_sim2real` — waiting about 3 seconds between each so the previous one is up before the next depends on it:
+Start the services in order — `zenoh_daemon`, then `ai_sapiens_bringup`, then `ai_sapiens_sim2real` — waiting about 3 seconds between each so the previous one is up before the next depends on it.
+
+<Tabs groupId="cycloctl-vs-raw" queryString>
+<TabItem value="cycloctl" label="With cycloctl">
 
 ```bash
 cycloctl service start --container ai_sapiens --name zenoh_daemon
@@ -38,9 +44,38 @@ sleep 3
 cycloctl service start --container ai_sapiens --name ai_sapiens_sim2real
 ```
 
+</TabItem>
+<TabItem value="raw" label="Without cycloctl">
+
+In each terminal, exec into the `ai_sapiens` container first:
+
+```bash
+docker exec -it ai_sapiens bash
+```
+
+Then run one command per terminal, waiting about 3 seconds before starting the next one:
+
+```bash
+ros2 run rmw_zenoh_cpp rmw_zenohd
+```
+
+```bash
+ros2 launch ai_sapiens_bringup k1.launch.py
+```
+
+```bash
+ros2 launch ai_sapiens_sim2real ai_sapiens_sim2real.launch.py
+```
+
+</TabItem>
+</Tabs>
+
 ### Stop
 
-Stop them in the reverse order:
+Stop them in the reverse order.
+
+<Tabs groupId="cycloctl-vs-raw" queryString>
+<TabItem value="cycloctl" label="With cycloctl">
 
 ```bash
 cycloctl service stop --container ai_sapiens --name ai_sapiens_sim2real
@@ -48,10 +83,45 @@ cycloctl service stop --container ai_sapiens --name ai_sapiens_bringup
 cycloctl service stop --container ai_sapiens --name zenoh_daemon
 ```
 
+</TabItem>
+<TabItem value="raw" label="Without cycloctl">
+
+Press Ctrl-C in each terminal, in reverse order: `ai_sapiens_sim2real` first, then `ai_sapiens_bringup`, then `rmw_zenohd`.
+
+</TabItem>
+</Tabs>
+
 ### Logs
+
+<Tabs groupId="cycloctl-vs-raw" queryString>
+<TabItem value="cycloctl" label="With cycloctl">
 
 Fetch recent log lines:
 
 ```bash
 cycloctl service logs --container ai_sapiens --name zenoh_daemon --tail 200
 ```
+
+</TabItem>
+<TabItem value="raw" label="Without cycloctl">
+
+Exec into the `ai_sapiens` container, then follow the service's log file:
+
+```bash
+docker exec -it ai_sapiens bash
+```
+
+```bash
+tail -f /var/log/zenoh_daemon/current
+```
+
+```bash
+tail -f /var/log/ai_sapiens_bringup/current
+```
+
+```bash
+tail -f /var/log/ai_sapiens_sim2real/current
+```
+
+</TabItem>
+</Tabs>
