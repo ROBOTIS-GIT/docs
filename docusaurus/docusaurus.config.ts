@@ -45,6 +45,8 @@ const config: Config = {
   // 클라이언트 사이드 모듈: navbar mega-menu / docs UI enhancements
   clientModules: [
     require.resolve('./src/clients/mega-menu-sticky.js'),
+    require.resolve('./src/clients/navbar-search-toggle.js'),
+    require.resolve('./src/clients/navbar-sidebar-cleanup.js'),
     require.resolve('./src/clients/platform-docs-ui.js'),
   ],
   markdown: {
