@@ -7,6 +7,23 @@ import TabItem from '@theme/TabItem';
 
 `cycloctl` talks to `cyclod` over its local Unix socket, so it only works when run directly on the robot — connect over USB, Ethernet, or Wi-Fi and [SSH in](./ssh) first.
 
+## Workspace and container shell
+
+On the robot SBC, the AI Sapiens source lives at `/data/ai_sapiens`. That host directory is volume-mounted into the `ai_sapiens` container at `/root/ros2_ws/src/ai_sapiens`.
+
+To open a shell inside the running container:
+
+```bash
+cd /data/ai_sapiens
+./docker/container.sh enter
+```
+
+Or:
+
+```bash
+docker exec -it ai_sapiens bash
+```
+
 ## Wi-Fi
 
 `cycloctl wifi` switches the robot's Wi-Fi radio between hotspot (AP) and station (client) mode — see [Networking → Wi-Fi AP/STA Mode Switching](./networking#wi-fi-apsta-mode-switching).
@@ -47,7 +64,14 @@ cycloctl service start --container ai_sapiens --name ai_sapiens_sim2real
 </TabItem>
 <TabItem value="raw" label="Without cycloctl">
 
-In each terminal, exec into the `ai_sapiens` container first:
+In each terminal, open a shell in the `ai_sapiens` container first (see [Workspace and container shell](#workspace-and-container-shell)):
+
+```bash
+cd /data/ai_sapiens
+./docker/container.sh enter
+```
+
+Or:
 
 ```bash
 docker exec -it ai_sapiens bash
@@ -107,7 +131,14 @@ cycloctl service logs --container ai_sapiens --name ai_sapiens_bringup --tail 20
 cycloctl service logs --container ai_sapiens --name ai_sapiens_sim2real --tail 200
 ```
 
-You can also read a service's log file directly instead of going through `cycloctl`. Exec into the `ai_sapiens` container and tail the file:
+You can also read a service's log file directly instead of going through `cycloctl`. Open a shell in the `ai_sapiens` container (see [Workspace and container shell](#workspace-and-container-shell)) and tail the file:
+
+```bash
+cd /data/ai_sapiens
+./docker/container.sh enter
+```
+
+Or:
 
 ```bash
 docker exec -it ai_sapiens bash
