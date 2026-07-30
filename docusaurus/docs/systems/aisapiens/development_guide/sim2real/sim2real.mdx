@@ -34,7 +34,7 @@ On each control tick, the node reads the robot state, decides the active mode, r
 
   <div className="sim2real-flow__output">
     <strong>Hardware command</strong>
-    <span>/joint_group_position_controller/commands</span>
+    <span>/joint_group_impedance_controller/commands</span>
   </div>
 </div>
 
@@ -61,10 +61,10 @@ The main launch arguments are:
 | `imu_topic` | `/imu_sensor_broadcaster/imu` | IMU feedback used by policy inference. |
 | `joint_states_topic` | `/joint_states` | Robot joint state feedback. |
 | `control_rate` | `1000.0` | Realtime control loop rate in Hz. |
-| `joint_command_topic` | `/joint_group_position_controller/commands` | Final joint command output topic. |
+| `joint_command_topic` | `/joint_group_impedance_controller/commands` | Final joint command output topic. |
 | `command_publisher_enabled` | `true` | Enables or disables publishing commands to the hardware controller. |
 
-Before policy inference starts, the node waits for IMU feedback, joint states, and the first RC input sample.
+Before the control loop starts, the node waits for IMU feedback, joint states, and the first RC input sample.
 If any of them do not arrive within `wait_for_ready_timeout`, the node exits instead of starting without robot feedback or operator input.
 
 ## Default Manual Operation
@@ -95,12 +95,12 @@ The first active rule below wins before normal mode switching, RC selection, API
   <li>
     <strong>RC input unavailable</strong>
     <span>No accepted RC command, or the latest command is older than <code>teleop_input.timeout</code> (<code>0.2</code> seconds for K1).</span>
-    <em>Response: zero velocity, request <code>Damping</code>, revoke API authority, and discard pending API service requests. This also applies while API authority is active.</em>
+    <em>Response: zero velocity, force <code>Damping</code>, revoke API authority, and discard pending API service requests. This also applies while API authority is active.</em>
   </li>
   <li>
     <strong>RC damping switch</strong>
     <span>The operator holds the input mapped to <code>DampingRequested</code>.</span>
-    <em>Response: keep the robot pinned in <code>Damping</code>. API re-entry requires a fresh API switch toggle after leaving damping.</em>
+    <em>Response: keep the robot pinned in <code>Damping</code>. API re-entry after this failsafe requires a fresh API switch toggle.</em>
   </li>
   <li>
     <strong>Robot feedback watchdog</strong>
@@ -114,7 +114,7 @@ The first active rule below wins before normal mode switching, RC selection, API
   </li>
   <li>
     <strong>Unsafe body orientation</strong>
-    <span>Body orientation exceeds the safety angle from <code>k1_config.yaml</code> while a policy mode is active. Default: <code>2.0</code> rad. Mimic modes ignore the check for the first <code>0.5</code> seconds, then use <code>3.0</code> rad.</span>
+    <span>Body orientation exceeds the hardcoded safety angle while a policy mode is active. Default: <code>2.0</code> rad. Mimic modes ignore the check for the first <code>0.5</code> seconds, then use <code>3.0</code> rad.</span>
     <em>Response: force <code>Damping</code> to stop the active policy behavior.</em>
   </li>
 </ol>
@@ -123,7 +123,8 @@ In short, a failsafe can force `Damping`, zero velocity, revoke API authority, d
 
 :::note
 API heartbeat loss is not a Damping failsafe.
-If the heartbeat is lost during API authority while a mimic mode is active, the node returns to manual authority, zeros the velocity command for that control tick, and switches to `Velocity`.
+If the heartbeat is lost during API authority, the node returns to manual authority and zeros the velocity command for that control tick.
+This handoff never starts or continues a mimic mode; an active mimic mode falls back to `Velocity`.
 :::
 
 ## Policy Location and Mode Switching Configuration
@@ -138,7 +139,7 @@ ai_sapiens_sim2real/config/k1_config.yaml
 The file is organized in this top-level order:
 
 ```yaml
-robot_joint_order:     # robot joint order used by commands and policies
+robot_joint_order:     # joint order expected by the lower-level controller
 policy_asset_roots:    # directories searched for policy folders
 mimic_defaults:        # default playback settings for mimic modes
 authority:             # API handoff settings
@@ -158,7 +159,7 @@ policy_asset_roots:
   - ../assets/k1
 ```
 
-The node looks for each behavior's `asset` folder under `policy_asset_roots`.
+The `asset` value is a path relative to `policy_asset_roots`.
 
 <div className="sim2real-asset-map" role="img" aria-label="Policy asset path resolution">
   <div className="sim2real-asset-map__formula">
@@ -209,30 +210,27 @@ mimic_dance1:
   motion: dance1.csv
 ```
 
-When a mimic mode starts, it loads the ONNX policy, the `sim2real.yaml` observation/action mapping, and the selected motion reference.
-
 ### Built-in K1 Modes
 
 The default K1 configuration includes these built-in modes:
 
 | Mode | Behavior |
 | --- | --- |
-| `Damping` | Sends the damping command values from `k1_config.yaml`. Used for startup and failsafe. |
+| `Damping` | Sets joint stiffness to zero. Damping is applied using the values in `k1_config.yaml`. Used for startup and failsafe. |
 | `ReadyPose` | Moves the robot to the ready posture defined in `k1_config.yaml`. |
 | `ZeroPose` | Moves the robot to the zero posture defined in `k1_config.yaml`. |
 | `Velocity` | Runs the velocity policy behavior. |
-| `MimicDance1` | Runs the first Kimodo-generated dance mimic policy and motion reference. |
-| `MimicDance2` | Runs the second Kimodo-generated dance mimic policy and motion reference. |
-
-Mimic modes share the `Mimic` parent state.
-That parent state gives all mimic motions the same transition and failsafe rules, while each child mode still points to its own policy asset and motion CSV.
+| `MimicSquat` | Runs the squat mimic policy and motion reference. |
+| `MimicDance1` | Runs the first dance mimic policy and motion reference. |
+| `MimicDance2` | Runs the second dance mimic policy and motion reference. |
 
 The K1 mimic selector currently maps RC selector codes to modes as follows:
 
 | Selector code | Mode |
 | --- | --- |
-| `200` | `MimicDance1` |
-| `201` | `MimicDance2` |
+| `200` | `MimicSquat` |
+| `201` | `MimicDance1` |
+| `202` | `MimicDance2` |
 
 ## How to Deploy Your Own Cyclo Lab-Trained Policy
 
@@ -251,29 +249,34 @@ The asset also needs the matching `sim2real.yaml` and, for mimic policies, the m
 
 Create one policy folder under `ai_sapiens_sim2real/assets/k1/<category>/`.
 
+**`<category>`:** `locomotion/velocity` for a velocity policy or `mimic` for a mimic policy.
+
 <div className="docs-folder-tree" role="img" aria-label="Cyclo Lab policy asset directory structure">
   <div className="docs-folder-tree__root">
     <code>ai_sapiens_sim2real/assets/k1/&lt;category&gt;/</code>
-    <strong>&lt;your_policy_name&gt;/</strong>
   </div>
   <ul>
     <li>
-      <strong>exported/</strong>
+      <strong>&lt;your_policy_name&gt;/</strong>
       <ul>
-        <li><code>policy.onnx</code></li>
-      </ul>
-    </li>
-    <li>
-      <strong>params/</strong>
-      <ul>
-        <li><code>sim2real.yaml</code></li>
-        <li><code>&lt;motion_reference&gt;.csv</code><em>mimic only</em></li>
+        <li>
+          <strong>exported/</strong>
+          <ul>
+            <li><code>policy.onnx</code></li>
+          </ul>
+        </li>
+        <li>
+          <strong>params/</strong>
+          <ul>
+            <li><code>sim2real.yaml</code></li>
+            <li><code>&lt;motion_reference&gt;.csv</code><em>mimic only</em></li>
+          </ul>
+        </li>
       </ul>
     </li>
   </ul>
 </div>
 
-Use `locomotion/velocity` for velocity policies and `mimic` for mimic policies.
 The category is only part of the asset path; the behavior type is selected in the config.
 
 3. **Update `k1_config.yaml`.**
@@ -306,6 +309,9 @@ Add one `state_behaviors` entry that points to your asset folder, then change on
 
 Add one `state_behaviors` entry, add one `state_machine.states` entry for the new mimic mode, then map an unused RC selector code to that mode.
 
+`Mimic` is an abstract parent state and cannot be selected directly.
+New Mimic modes use `parent: Mimic` to share the existing RC transitions.
+
 <pre className="sim2real-config-snippet language-yaml"><code className="language-yaml">
 <span>state_behaviors:</span>
 <span className="sim2real-config-snippet__existing">  mimic_dance1:                               # already exists</span>
@@ -329,8 +335,10 @@ Add one `state_behaviors` entry, add one `state_machine.states` entry for the ne
 <span>selectors:</span>
 <span>  mimic_selector:</span>
 <span>    table:</span>
-<span className="sim2real-config-snippet__existing">      200: MimicDance1                        # already exists</span>
-<span>      <span className="sim2real-config-snippet__number">202</span>: <span className="sim2real-config-snippet__value">MyMimicMotion</span>                      <span className="sim2real-config-snippet__comment"># 3. Add an RC selector code.</span></span>
+<span className="sim2real-config-snippet__existing">      200: MimicSquat                         # already exists</span>
+<span className="sim2real-config-snippet__existing">      201: MimicDance1                        # already exists</span>
+<span className="sim2real-config-snippet__existing">      202: MimicDance2                        # already exists</span>
+<span>      <span className="sim2real-config-snippet__number">203</span>: <span className="sim2real-config-snippet__value">MyMimicMotion</span>                      <span className="sim2real-config-snippet__comment"># 3. Add an unused RC selector code.</span></span>
 </code></pre>
 
 ### Policy Compatibility Checks
@@ -351,19 +359,25 @@ The two lists can use different orders.
 Just make sure every joint name in `policy_joints` exists with the same name in `robot_joint_order`.
 :::
 
-If the joint names, observation list, action settings, or mimic CSV settings do not match the exported policy, the node may still launch, but the robot behavior will not represent the trained policy correctly.
+The node stops during startup if policy joint names or ONNX input/output sizes do not match the configuration.
+Incorrect ordering or values may pass these checks but still produce unexpected robot behavior.
 
 ### Recommended First-Run Flow
 
-After you place the policy folder under `assets/k1`, update `k1_config.yaml`, and verify the compatibility checks above, use this sequence for the first dry-run validation.
+After you place the policy folder under `assets/k1`, update `k1_config.yaml`, and verify the compatibility checks above, validate the configuration with a dry run first.
+In a dry run, the node runs the full control loop but publishes no joint commands, so the robot does not move.
 
-1. Start the robot bringup and confirm that `/joint_states`, the IMU topic, the joint command controller, and RC input are active.
-2. Start `ai_sapiens_sim2real_node` with `command_publisher_enabled:=false` for the first dry run.
-3. Start from `Damping` and confirm that the launch terminal logs do not report a startup timeout or missing IMU, joint state, or RC input.
-4. While still in dry run, select the mode that should run your policy and confirm that the launch terminal logs show the expected mode name.
-5. If the logs show a different mode name, stop here and recheck the `state_machine`, `state_behaviors`, and `selectors` entries in `config/k1_config.yaml`.
+1. Follow the "Without cycloctl" steps in [Bringup with cycloctl → Start](/docs/systems/aisapiens/development_guide/cycloctl/?cycloctl-vs-raw=raw#start) to start `zenoh_daemon` and `ai_sapiens_bringup`, but do not start `ai_sapiens_sim2real` yet. Confirm that `/joint_states`, the IMU topic, the joint command controller, and RC input are active.
+2. Start `ai_sapiens_sim2real` in the same way, but add `command_publisher_enabled:=false` for the dry run:
 
-After the launch logs show the expected mode name in dry run, follow the [Quick Start Operation Guide](/docs/systems/aisapiens/quick_start_guide/operation_guide/) to run the robot, then select that mode from the RC transmitter.
+   ```bash
+   ros2 launch ai_sapiens_sim2real ai_sapiens_sim2real.launch.py command_publisher_enabled:=false
+   ```
+
+3. Confirm that the launch terminal logs do not report a startup timeout or missing IMU, joint state, or RC input. The node starts in `Damping`.
+4. Select the mode that should run your policy from the RC transmitter and confirm that the logs show the expected mode name. If a different mode name appears, recheck the `state_machine`, `state_behaviors`, and `selectors` entries in `config/k1_config.yaml`.
+
+After the dry run passes, stop the dry-run node with Ctrl-C, launch it again without `command_publisher_enabled:=false`, and select that mode from the RC transmitter.
 For API-driven tests, first run the policy once through RC control, then use the optional API control flow below.
 
 ## Optional API Control
@@ -387,7 +401,7 @@ The authority states are:
 | --- | --- |
 | `MANUAL` | The RC transmitter owns mode switching. This is used at startup and after API control ends. |
 | `API_WARMUP` | A short guarded handoff period after the operator requests API control. Service requests are still rejected. |
-| `API` | ROS2 service requests can switch to modes that are currently available through the state machine. |
+| `API` | ROS 2 service requests can switch to modes that are currently available through the API. |
 
 ### API Handoff
 
@@ -397,11 +411,19 @@ If the switch is already enabled during boot, the node does not enter API contro
 
 An API handoff is accepted only when:
 
-- The API heartbeat is arriving within `api_mode_heartbeat_timeout`.
-- The robot is currently in one of these modes:
-  - `Damping` / posture mode, such as `ReadyPose` / `Velocity`
+- The API heartbeat is arriving within `api_heartbeat_timeout`.
+- The robot is currently in an allowed entry mode: `Damping`, `ReadyPose`, or `Velocity`.
 - The RC velocity command is zero.
 - The `/cmd_vel` velocity command is zero.
+
+:::note
+Allowed entry modes are configured under `authority.api_entry.allowed_from_states`.
+
+For the RC and `/cmd_vel` commands above, "zero" means that each of `linear.x`, `linear.y`, and `angular.z` is within `authority.api_entry.velocity_neutral_threshold` (`±0.05` for K1).
+:::
+
+If the handoff is rejected, fix the failing condition, then toggle the API switch off and on again to retry.
+Keeping the switch on does not retry the handoff; the node waits for a fresh switch toggle.
 
 After acceptance, the node enters `API_WARMUP` for the configured warmup duration.
 For the K1 config, the warmup duration is `3.0` seconds, defined in the `authority.api_entry` section of `config/k1_config.yaml`.
@@ -412,20 +434,22 @@ During this window, the heartbeat must keep arriving and the operator must keep 
 During warmup, the robot keeps the current mode and rejects service requests.
 When warmup completes, authority becomes `API` without changing the active mode.
 
-If API control is released or the heartbeat is lost, the node returns to manual authority using the current operator switch position.
-If the heartbeat is lost during API authority while a mimic mode is active, the node returns to manual authority, zeros the velocity command for that control tick, and switches to `Velocity`.
+To end API control, select `Damping`, `ReadyPose`, or `Velocity` on the RC transmitter, then turn off the API switch. The node returns to manual authority and applies the RC selection through the normal RC transition rules, so the selected mode is not always entered immediately. For example, `Damping` cannot transition directly to `Velocity`; select `ReadyPose` first.
+
+If the heartbeat is lost, API control ends and the node returns to manual authority.
+The current RC selection is applied through the normal RC transition rules, but this handoff never starts or continues a mimic mode: when the result would be a mimic mode, the node enters `Velocity` instead.
 
 ### Heartbeat
 
-The node subscribes to `ai_sapiens_sim2real/msg/ApiModeHeartbeat` on:
+The node subscribes to `ai_sapiens_interfaces/msg/ApiHeartbeat` on:
 
 ```text
-/ai_sapiens/api_mode_heartbeat
+/ai_sapiens/api_heartbeat
 ```
 
 An external API client must keep publishing this heartbeat while it wants to use API authority.
-The message contains a `Header` and a monotonically updated `sequence`.
-The node treats the heartbeat as invalid when updates stop for longer than `api_mode_heartbeat_timeout`.
+The message contains a `Header` and a `sequence` value that must keep changing.
+The node treats the heartbeat as invalid when `sequence` does not change within `api_heartbeat_timeout`.
 The default timeout is `0.2` seconds.
 
 ### Velocity Command
@@ -440,47 +464,68 @@ This replaces the RC transmitter as the velocity command source while API author
 
 ### Request a Mode
 
-Use `/ai_sapiens/request_mode_by_name` to request a mode by its name, such as `Velocity` or `MyMimicMotion`.
+Use `/ai_sapiens/set_mode_by_name` to request a mode by its name, such as `Velocity` or `MyMimicMotion`.
 
 ```bash
-ros2 service call /ai_sapiens/request_mode_by_name \
-  ai_sapiens_sim2real/srv/RequestModeByName \
+ros2 service call /ai_sapiens/set_mode_by_name \
+  ai_sapiens_interfaces/srv/SetModeByName \
   "{mode_name: Velocity}"
 ```
 
-The response reports whether the request was accepted, the active mode at the time of the response, and a message explaining the result.
-Requests are rejected when authority is `MANUAL` or `API_WARMUP`, when another request is not allowed by the state machine, or when the requested mode is not a valid concrete mode.
+| Request field | Description |
+| --- | --- |
+| `mode_name` | Name of the mode to request. |
+
+| Response field | Description |
+| --- | --- |
+| `success` | Whether the request was accepted. |
+| `active_mode` | Mode active when the request was handled. |
+| `message` | Message explaining the result. |
+
+A request can be accepted only when `api_request_available` is true in `/ai_sapiens/mode_status` and the requested mode is currently listed in `available_modes` returned by `/ai_sapiens/list_modes`.
+
+From `Damping`, request `ReadyPose` before requesting `Velocity` or a mimic mode.
 
 ### List Modes
 
 Use `/ai_sapiens/list_modes` to inspect the configured modes.
 
 ```bash
-ros2 service call /ai_sapiens/list_modes ai_sapiens_sim2real/srv/ListModes "{}"
+ros2 service call /ai_sapiens/list_modes ai_sapiens_interfaces/srv/ListModes "{}"
 ```
 
-The response includes:
-
-- `modes`: all concrete modes in the state machine.
-- `available_modes`: modes that can currently be requested through the API service.
+| Response field | Description |
+| --- | --- |
+| `success` | Whether the mode list was returned successfully. |
+| `modes` | All concrete modes in the state machine. |
+| `available_modes` | Modes allowed as API targets from the current active mode. Empty unless authority is `API`. |
+| `message` | Message explaining the result. |
 
 ### Monitor Node Status
 
-The node publishes `ai_sapiens_sim2real/msg/ModeStatus` to:
+The node publishes `ai_sapiens_interfaces/msg/ModeStatus` on `/ai_sapiens/mode_status`:
 
-```text
-/ai_sapiens/mode_status
+```bash
+ros2 topic echo /ai_sapiens/mode_status
 ```
 
-API clients can read this topic to track the node state.
-It reports the active mode, authority, RC input status, API heartbeat status, whether API service requests are currently accepted, and the last transition reason.
+| Field | Description |
+| --- | --- |
+| `header.stamp` | Time when the status was published. |
+| `active_mode` | Mode currently running. |
+| `authority` | Current control authority. |
+| `teleop_input_valid` | Whether RC input is available. |
+| `api_heartbeat_valid` | Whether the API heartbeat is valid. |
+| `api_request_available` | Whether the node is ready for a new API mode request. It is `true` when authority is `API`, the API switch remains on, the heartbeat is valid, and no other API mode request is pending. |
+| `last_transition_reason` | Reason for the most recent mode or authority transition. |
+
+### Debug Policy Data
 
 When debug publishing is enabled with `debug_publish_enabled:=true`, the node also publishes policy observation and action data:
 
 | Topic | Purpose |
 | --- | --- |
-| `/ai_sapiens/observations` | Structured observation, action, and policy input snapshot. |
-| `/policy_input/raw_observation` | Raw policy input vector. |
+| `/policy_input/raw_observation` | Observation vector supplied to the policy, after scale, clip, and history processing. |
 | `/policy_output/processed_action` | Processed policy action before command publishing. |
 
 Use these topics to debug policy inputs and outputs; do not send robot commands through them.
