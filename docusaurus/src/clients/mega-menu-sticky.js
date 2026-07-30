@@ -86,36 +86,47 @@ if (typeof window !== 'undefined') {
     const panels = menu.querySelectorAll('.mega-menu__panel');
     if (!categories.length || !panels.length) return;
 
-    // 기본 활성: 첫 번째 카테고리 + 첫 번째 패널
-    categories[0].classList.add('mega-menu__category--active');
-    panels[0].classList.add('mega-menu__panel--active');
+    const isNavbarSidebar = Boolean(menu.closest('.navbar-sidebar'));
+
+    function activateCategory(cat) {
+      const target = cat.dataset.cat;
+      if (isNavbarSidebar) {
+        menu.classList.add('mega-menu--panel-open');
+      }
+      categories.forEach((c) =>
+        c.classList.toggle('mega-menu__category--active', c === cat),
+      );
+      panels.forEach((p) =>
+        p.classList.toggle(
+          'mega-menu__panel--active',
+          p.dataset.panel === target,
+        ),
+      );
+    }
+
+    if (isNavbarSidebar) {
+      menu.classList.remove('mega-menu--panel-open');
+      categories.forEach((c) =>
+        c.classList.remove('mega-menu__category--active'),
+      );
+      panels.forEach((p) => p.classList.remove('mega-menu__panel--active'));
+    } else {
+      // 기본 활성: 첫 번째 카테고리 + 첫 번째 패널
+      activateCategory(categories[0]);
+    }
 
     categories.forEach((cat) => {
-      cat.addEventListener('mouseenter', () => {
-        const target = cat.dataset.cat;
-        categories.forEach((c) =>
-          c.classList.toggle('mega-menu__category--active', c === cat),
-        );
-        panels.forEach((p) =>
-          p.classList.toggle(
-            'mega-menu__panel--active',
-            p.dataset.panel === target,
-          ),
-        );
-      });
-      // 키보드 접근성: focus 시에도 동일 동작
-      cat.addEventListener('focus', () => {
-        const target = cat.dataset.cat;
-        categories.forEach((c) =>
-          c.classList.toggle('mega-menu__category--active', c === cat),
-        );
-        panels.forEach((p) =>
-          p.classList.toggle(
-            'mega-menu__panel--active',
-            p.dataset.panel === target,
-          ),
-        );
-      });
+      const handleSidebarActivate = (event) => {
+        if (!isNavbarSidebar) return;
+        event.preventDefault();
+        event.stopPropagation();
+        activateCategory(cat);
+      };
+
+      cat.addEventListener('mouseenter', () => activateCategory(cat));
+      cat.addEventListener('focus', () => activateCategory(cat));
+      cat.addEventListener('pointerdown', handleSidebarActivate);
+      cat.addEventListener('click', handleSidebarActivate);
     });
   }
 
