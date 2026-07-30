@@ -1,4 +1,4 @@
-# Control with cycloctl
+# Bringup with cycloctl
 
 `cyclod` is the daemon that runs on the robot and owns Wi-Fi mode switching and service management. `cycloctl` is its command-line client, documented here.
 
@@ -10,7 +10,9 @@
 
 ## Services
 
-`cycloctl service` manages the services running inside the robot's containers (e.g. `zenoh_daemon` and `ai_sapiens_bringup` in the `ai_sapiens` container).
+`cycloctl service` manages the services running inside the robot's containers (e.g. `zenoh_daemon` and `ai_sapiens_bringup` in the `ai_sapiens` container). `--container` is only required when the service name exists in more than one container, so you can omit it in normal use.
+
+### Status
 
 Show every service's status:
 
@@ -24,14 +26,29 @@ ai_sapiens/ai_sapiens_sim2real: down
 ai_sapiens/zenoh_daemon: down
 ```
 
-Start or stop a service:
+### Start
+
+Start the services in order — `zenoh_daemon`, then `ai_sapiens_bringup`, then `ai_sapiens_sim2real` — waiting about 3 seconds between each so the previous one is up before the next depends on it:
 
 ```bash
 cycloctl service start --container ai_sapiens --name zenoh_daemon
+sleep 3
+cycloctl service start --container ai_sapiens --name ai_sapiens_bringup
+sleep 3
+cycloctl service start --container ai_sapiens --name ai_sapiens_sim2real
+```
+
+### Stop
+
+Stop them in the reverse order:
+
+```bash
+cycloctl service stop --container ai_sapiens --name ai_sapiens_sim2real
+cycloctl service stop --container ai_sapiens --name ai_sapiens_bringup
 cycloctl service stop --container ai_sapiens --name zenoh_daemon
 ```
 
-`--container` is only required when the service name exists in more than one container, so you can omit it in normal use.
+### Logs
 
 Fetch recent log lines:
 

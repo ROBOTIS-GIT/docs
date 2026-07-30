@@ -22,7 +22,7 @@ const aisapiensSidebar: SidebarsConfig[string] = [
     items: [
       {type: 'doc', id: 'systems/aisapiens/development_guide/networking', label: 'Networking'},
       {type: 'doc', id: 'systems/aisapiens/development_guide/ssh', label: 'How to SSH into the Robot'},
-      {type: 'doc', id: 'systems/aisapiens/development_guide/cycloctl', label: 'Control with cycloctl'},
+      {type: 'doc', id: 'systems/aisapiens/development_guide/cycloctl', label: 'Bringup with cycloctl'},
       {type: 'doc', id: 'systems/aisapiens/development_guide/dynamixel_q_impedance_control', label: 'DYNAMIXEL-Q and Impedance Control'},
       {type: 'doc', id: 'systems/aisapiens/development_guide/ros2_communication', label: 'ROS 2 Communication'},
       {type: 'doc', id: 'systems/aisapiens/development_guide/ros2_package_structure/ros2_package_structure', label: 'ROS 2 Package Structure and Topic Description'},
