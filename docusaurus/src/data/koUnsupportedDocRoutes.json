@@ -284,6 +284,7 @@
   "/docs/systems/aisapiens/advanced_features",
   "/docs/systems/aisapiens/development_guide",
   "/docs/systems/aisapiens/development_guide/basic_motion",
+  "/docs/systems/aisapiens/development_guide/cycloctl",
   "/docs/systems/aisapiens/development_guide/dynamixel_q_impedance_control",
   "/docs/systems/aisapiens/development_guide/networking",
   "/docs/systems/aisapiens/development_guide/ros2_communication",

@@ -1,0 +1,40 @@
+# Control with cycloctl
+
+`cyclod` is the daemon that runs on the robot and owns Wi-Fi mode switching and service management. `cycloctl` is its command-line client, documented here.
+
+`cycloctl` talks to `cyclod` over its local Unix socket, so it only works when run directly on the robot — connect over USB, Ethernet, or Wi-Fi and [SSH in](./ssh) first.
+
+## Wi-Fi
+
+`cycloctl wifi` switches the robot's Wi-Fi radio between hotspot (AP) and station (client) mode — see [Networking → Wi-Fi AP/STA Mode Switching](./networking#wi-fi-apsta-mode-switching).
+
+## Services
+
+`cycloctl service` manages the services running inside the robot's containers (e.g. `zenoh_daemon` and `ai_sapiens_bringup` in the `ai_sapiens` container).
+
+Show every service's status:
+
+```bash
+cycloctl service status
+```
+
+```
+ai_sapiens/ai_sapiens_bringup: down
+ai_sapiens/ai_sapiens_sim2real: down
+ai_sapiens/zenoh_daemon: down
+```
+
+Start or stop a service:
+
+```bash
+cycloctl service start --container ai_sapiens --name zenoh_daemon
+cycloctl service stop --container ai_sapiens --name zenoh_daemon
+```
+
+`--container` is only required when the service name exists in more than one container, so you can omit it in normal use.
+
+Fetch recent log lines:
+
+```bash
+cycloctl service logs --container ai_sapiens --name zenoh_daemon --tail 200
+```
