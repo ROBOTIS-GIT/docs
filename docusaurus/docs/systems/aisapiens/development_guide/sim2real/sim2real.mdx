@@ -100,7 +100,7 @@ The first active rule below wins before normal mode switching, RC selection, API
   <li>
     <strong>RC damping switch</strong>
     <span>The operator holds the input mapped to <code>DampingRequested</code>.</span>
-    <em>Response: keep the robot pinned in <code>Damping</code>. API re-entry requires a fresh API switch toggle after leaving damping.</em>
+    <em>Response: keep the robot pinned in <code>Damping</code>. API re-entry after this failsafe requires a fresh API switch toggle.</em>
   </li>
   <li>
     <strong>Robot feedback watchdog</strong>
@@ -139,7 +139,7 @@ ai_sapiens_sim2real/config/k1_config.yaml
 The file is organized in this top-level order:
 
 ```yaml
-robot_joint_order:     # robot joint order used by commands and policies
+robot_joint_order:     # joint order expected by the lower-level controller
 policy_asset_roots:    # directories searched for policy folders
 mimic_defaults:        # default playback settings for mimic modes
 authority:             # API handoff settings
@@ -159,7 +159,7 @@ policy_asset_roots:
   - ../assets/k1
 ```
 
-The node looks for each behavior's `asset` folder under `policy_asset_roots`.
+The `asset` value is a path relative to `policy_asset_roots`.
 
 <div className="sim2real-asset-map" role="img" aria-label="Policy asset path resolution">
   <div className="sim2real-asset-map__formula">
@@ -210,24 +210,19 @@ mimic_dance1:
   motion: dance1.csv
 ```
 
-When a mimic mode starts, it loads the ONNX policy, the `sim2real.yaml` observation/action mapping, and the selected motion reference.
-
 ### Built-in K1 Modes
 
 The default K1 configuration includes these built-in modes:
 
 | Mode | Behavior |
 | --- | --- |
-| `Damping` | Sends the damping command values from `k1_config.yaml`. Used for startup and failsafe. |
+| `Damping` | Sets joint stiffness to zero. Damping is applied using the values in `k1_config.yaml`. Used for startup and failsafe. |
 | `ReadyPose` | Moves the robot to the ready posture defined in `k1_config.yaml`. |
 | `ZeroPose` | Moves the robot to the zero posture defined in `k1_config.yaml`. |
 | `Velocity` | Runs the velocity policy behavior. |
 | `MimicSquat` | Runs the squat mimic policy and motion reference. |
 | `MimicDance1` | Runs the first dance mimic policy and motion reference. |
 | `MimicDance2` | Runs the second dance mimic policy and motion reference. |
-
-Mimic modes share the `Mimic` parent state.
-That parent state gives all mimic motions the same transition and failsafe rules, while each child mode still points to its own policy asset and motion CSV.
 
 The K1 mimic selector currently maps RC selector codes to modes as follows:
 
@@ -309,6 +304,9 @@ Add one `state_behaviors` entry that points to your asset folder, then change on
 
 Add one `state_behaviors` entry, add one `state_machine.states` entry for the new mimic mode, then map an unused RC selector code to that mode.
 
+`Mimic` is an abstract parent state and cannot be selected directly.
+New Mimic modes use `parent: Mimic` to share the existing RC transitions.
+
 <pre className="sim2real-config-snippet language-yaml"><code className="language-yaml">
 <span>state_behaviors:</span>
 <span className="sim2real-config-snippet__existing">  mimic_dance1:                               # already exists</span>
@@ -356,7 +354,8 @@ The two lists can use different orders.
 Just make sure every joint name in `policy_joints` exists with the same name in `robot_joint_order`.
 :::
 
-If the joint names, observation list, action settings, or mimic CSV settings do not match the exported policy, the node may still launch, but the robot behavior will not represent the trained policy correctly.
+The node stops during startup if policy joint names or ONNX input/output sizes do not match the configuration.
+Incorrect ordering or values may pass these checks but still produce unexpected robot behavior.
 
 ### Recommended First-Run Flow
 
@@ -368,7 +367,7 @@ After you place the policy folder under `assets/k1`, update `k1_config.yaml`, an
 4. While still in dry run, select the mode that should run your policy and confirm that the launch terminal logs show the expected mode name.
 5. If the logs show a different mode name, stop here and recheck the `state_machine`, `state_behaviors`, and `selectors` entries in `config/k1_config.yaml`.
 
-After the launch logs show the expected mode name in dry run, follow the [Quick Start Operation Guide](/docs/systems/aisapiens/quick_start_guide/operation_guide/) to run the robot, then select that mode from the RC transmitter.
+After the launch logs show the expected mode name in dry run, follow [Using the Remote Controller](/docs/systems/aisapiens/quick_start_guide/using_remote_controller/) to select that mode from the RC transmitter.
 For API-driven tests, first run the policy once through RC control, then use the optional API control flow below.
 
 ## Optional API Control
@@ -392,7 +391,7 @@ The authority states are:
 | --- | --- |
 | `MANUAL` | The RC transmitter owns mode switching. This is used at startup and after API control ends. |
 | `API_WARMUP` | A short guarded handoff period after the operator requests API control. Service requests are still rejected. |
-| `API` | ROS2 service requests can switch to modes that are currently available through the state machine. |
+| `API` | ROS 2 service requests can switch to modes that are currently available through the API. |
 
 ### API Handoff
 
@@ -403,10 +402,15 @@ If the switch is already enabled during boot, the node does not enter API contro
 An API handoff is accepted only when:
 
 - The API heartbeat is arriving within `api_heartbeat_timeout`.
-- The robot is currently in one of these modes:
-  - `Damping` / posture mode, such as `ReadyPose` / `Velocity`
-- The RC velocity command is within `authority.api_entry.velocity_neutral_threshold` (`0.05` for K1).
-- The `/cmd_vel` velocity command is within the same neutral threshold.
+- The robot is currently in an allowed entry mode: `Damping`, `ReadyPose`, or `Velocity`.
+- The RC velocity command is zero.
+- The `/cmd_vel` velocity command is zero.
+
+:::note
+Allowed entry modes are configured under `authority.api_entry.allowed_from_states`.
+
+For the RC and `/cmd_vel` commands above, "zero" means that each velocity axis is within `authority.api_entry.velocity_neutral_threshold` (`±0.05` for K1).
+:::
 
 After acceptance, the node enters `API_WARMUP` for the configured warmup duration.
 For the K1 config, the warmup duration is `3.0` seconds, defined in the `authority.api_entry` section of `config/k1_config.yaml`.
@@ -417,8 +421,10 @@ During this window, the heartbeat must keep arriving and the operator must keep 
 During warmup, the robot keeps the current mode and rejects service requests.
 When warmup completes, authority becomes `API` without changing the active mode.
 
-If API control is released or the heartbeat is lost, the node returns to manual authority using the current operator switch position.
-If the heartbeat is lost during API authority while a mimic mode is active, the node returns to manual authority, zeros the velocity command for that control tick, and switches to `Velocity`.
+To end API control, select `Damping`, `ReadyPose`, or `Velocity` on the RC transmitter, then turn off the API switch. The node returns to manual authority using the selected RC mode.
+
+If the heartbeat is lost, API control ends and the node returns to manual authority using the current RC selection.
+An active Mimic mode falls back to `Velocity` unless the RC selects `Damping`, `ReadyPose`, or `Velocity`.
 
 ### Heartbeat
 
@@ -429,7 +435,7 @@ The node subscribes to `ai_sapiens_interfaces/msg/ApiHeartbeat` on:
 ```
 
 An external API client must keep publishing this heartbeat while it wants to use API authority.
-The message contains a `Header` and a monotonically updated `sequence`.
+The message contains a `Header` and a `sequence` value that must keep changing.
 The node treats the heartbeat as invalid when `sequence` does not advance within `api_heartbeat_timeout`.
 The default timeout is `0.2` seconds.
 
@@ -453,9 +459,17 @@ ros2 service call /ai_sapiens/set_mode_by_name \
   "{mode_name: Velocity}"
 ```
 
-The response reports whether the request was accepted, the active mode at the time of the response, and a message explaining the result.
-Requests are accepted only under full `API` authority while the API switch is held and the heartbeat is valid.
-They are rejected when authority is `MANUAL` or `API_WARMUP`, when the API switch or heartbeat is invalid, when another request is not allowed by the state machine, or when the requested mode is not a valid concrete mode.
+| Request field | Description |
+| --- | --- |
+| `mode_name` | Name of the mode to request. |
+
+| Response field | Description |
+| --- | --- |
+| `success` | Whether the request was accepted. |
+| `active_mode` | Mode active when the request was handled. |
+| `message` | Message explaining the result. |
+
+A request can be accepted only when `api_request_available` is true in `/ai_sapiens/mode_status` and the requested mode is currently listed in `available_modes` returned by `/ai_sapiens/list_modes`.
 
 ### List Modes
 
@@ -465,10 +479,12 @@ Use `/ai_sapiens/list_modes` to inspect the configured modes.
 ros2 service call /ai_sapiens/list_modes ai_sapiens_interfaces/srv/ListModes "{}"
 ```
 
-The response includes:
-
-- `modes`: all concrete modes in the state machine.
-- `available_modes`: modes that can currently be requested through the API service.
+| Response field | Description |
+| --- | --- |
+| `success` | Whether the mode list was returned successfully. |
+| `modes` | All concrete modes in the state machine. |
+| `available_modes` | Modes that can currently be requested through the API service. |
+| `message` | Message explaining the result. |
 
 ### Monitor Node Status
 
@@ -478,8 +494,17 @@ The node publishes `ai_sapiens_interfaces/msg/ModeStatus` to:
 /ai_sapiens/mode_status
 ```
 
-API clients can read this topic to track the node state.
-It reports the active mode, authority, RC input status, API heartbeat status, whether API service requests are currently accepted, and the last transition reason.
+| Field | Description |
+| --- | --- |
+| `header.stamp` | Time when the status was published. |
+| `active_mode` | Mode currently running. |
+| `authority` | Current control authority. |
+| `teleop_input_valid` | Whether RC input is available. |
+| `api_heartbeat_valid` | Whether the API heartbeat is valid. |
+| `api_request_available` | Whether the node is ready for a new API mode request. It is `true` when authority is `API`, the API switch remains on, the heartbeat is valid, and no other API mode request is pending. |
+| `last_transition_reason` | Reason for the most recent mode or authority transition. |
+
+### Debug Policy Data
 
 When debug publishing is enabled with `debug_publish_enabled:=true`, the node also publishes policy observation and action data:
 
