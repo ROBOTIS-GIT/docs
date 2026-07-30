@@ -1,0 +1,16 @@
+**Cyclo Intelligence** is a Physical AI workflow system for collecting robot demonstrations, preparing datasets, training policies, and running model inference from a web UI.
+
+It can be used with AI Worker, OMY, OMX, and other ROS 2 robots that provide the required robot and camera topics.
+
+## Workflow
+
+Cyclo Intelligence follows the same end-to-end imitation learning flow: set up the environment, record demonstrations, prepare the dataset with Data Tools, upload it to Hugging Face, train the model on an external server by following the Model Training Guide, download the trained model with Data Tools, then run inference on the robot.
+
+<img src="/img/systems/_partials/cyclo_intelligence/cyclo_intelligence_workflow.svg" alt="Cyclo Intelligence workflow from setup to data recording, data tools, model training guide, and model inference" style={{width: '100%'}} />
+
+## Main Components
+
+| Component | Role |
+| --- | --- |
+| Cyclo Data | Dataset recording, episode review, dataset editing, LeRobot conversion, and Hugging Face dataset operations. |
+| Cyclo Brain | Policy backend control, model loading, and robot inference runtime. |
