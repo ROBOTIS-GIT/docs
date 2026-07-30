@@ -149,8 +149,14 @@ Check if the position is within ±1.5° while the slits are still aligned. If it
   ![check position](/img/systems/aiworker/support/troubleshooting_guide/wizard_check_position.png)
 
 :::info
-⚠️ At this point, the multi-turn error is now cleared. However, for **IDs 1, 3, 31, and 33**, you must set the `Homing Offset` value to 32768 (22.5°).
+⚠️ At this point, the multi-turn error is now cleared. However, for **IDs 1, 3, 31, and 33**, you must set the `Homing Offset` value to `32768` (22.5°).
   ![homing offset](/img/systems/aiworker/support/troubleshooting_guide/wizard_homing_offset.png)
+
+⚠️ For **ID 81 (lift joint)**, set `Max Position Limit (76)` to `0` and `Min Position Limit (84)` to `-50000`.
+  ![lift limit](/img/systems/aiworker/support/troubleshooting_guide/lift_pos_limit.png)
+
+⚠️ For **ID 81 (lift joint)**, under the `Advanced` section, set `Gear Ratio Numerator (96)` to `131072`, and `Gear Ratio Denominator (100)` to `125`.
+  ![lift gear ratio](/img/systems/aiworker/support/troubleshooting_guide/lift_gear_ratio.png)
 :::
 
 You may now disconnect and close `DYNAMIXEL Wizard 2.0`.
