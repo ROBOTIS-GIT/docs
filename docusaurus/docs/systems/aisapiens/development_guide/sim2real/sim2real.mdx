@@ -249,29 +249,34 @@ The asset also needs the matching `sim2real.yaml` and, for mimic policies, the m
 
 Create one policy folder under `ai_sapiens_sim2real/assets/k1/<category>/`.
 
+**`<category>`:** `locomotion/velocity` for a velocity policy or `mimic` for a mimic policy.
+
 <div className="docs-folder-tree" role="img" aria-label="Cyclo Lab policy asset directory structure">
   <div className="docs-folder-tree__root">
     <code>ai_sapiens_sim2real/assets/k1/&lt;category&gt;/</code>
-    <strong>&lt;your_policy_name&gt;/</strong>
   </div>
   <ul>
     <li>
-      <strong>exported/</strong>
+      <strong>&lt;your_policy_name&gt;/</strong>
       <ul>
-        <li><code>policy.onnx</code></li>
-      </ul>
-    </li>
-    <li>
-      <strong>params/</strong>
-      <ul>
-        <li><code>sim2real.yaml</code></li>
-        <li><code>&lt;motion_reference&gt;.csv</code><em>mimic only</em></li>
+        <li>
+          <strong>exported/</strong>
+          <ul>
+            <li><code>policy.onnx</code></li>
+          </ul>
+        </li>
+        <li>
+          <strong>params/</strong>
+          <ul>
+            <li><code>sim2real.yaml</code></li>
+            <li><code>&lt;motion_reference&gt;.csv</code><em>mimic only</em></li>
+          </ul>
+        </li>
       </ul>
     </li>
   </ul>
 </div>
 
-Use `locomotion/velocity` for velocity policies and `mimic` for mimic policies.
 The category is only part of the asset path; the behavior type is selected in the config.
 
 3. **Update `k1_config.yaml`.**
