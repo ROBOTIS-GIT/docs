@@ -93,19 +93,21 @@ Press Ctrl-C in each terminal, in reverse order: `ai_sapiens_sim2real` first, th
 
 ### Logs
 
-<Tabs groupId="cycloctl-vs-raw" queryString>
-<TabItem value="cycloctl" label="With cycloctl">
-
 Fetch recent log lines:
 
 ```bash
 cycloctl service logs --container ai_sapiens --name zenoh_daemon --tail 200
 ```
 
-</TabItem>
-<TabItem value="raw" label="Without cycloctl">
+```bash
+cycloctl service logs --container ai_sapiens --name ai_sapiens_bringup --tail 200
+```
 
-Exec into the `ai_sapiens` container, then follow the service's log file:
+```bash
+cycloctl service logs --container ai_sapiens --name ai_sapiens_sim2real --tail 200
+```
+
+You can also read a service's log file directly instead of going through `cycloctl`. Exec into the `ai_sapiens` container and tail the file:
 
 ```bash
 docker exec -it ai_sapiens bash
@@ -122,6 +124,3 @@ tail -f /var/log/ai_sapiens_bringup/current
 ```bash
 tail -f /var/log/ai_sapiens_sim2real/current
 ```
-
-</TabItem>
-</Tabs>
