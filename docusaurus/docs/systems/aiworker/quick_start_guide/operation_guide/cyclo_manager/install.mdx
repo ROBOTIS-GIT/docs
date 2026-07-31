@@ -1,6 +1,13 @@
 # Install Cyclo Manager
 
+:::info
+After Cyclo Manager is installed and set up once, it starts automatically when the robot boots.
+When you power on the robot later, you only need to open Cyclo Manager from your browser.
+:::
+
 **Cyclo Manager** runs inside Docker containers. The Python package **`cyclo-manager`** on PyPI provides the **`cyclo_manager`** CLI, which uses Docker images and Compose to bring up and configure the container stack.
+
+## How to Install
 
 :::info
 **Cyclo Manager** runs on the **AI Worker Orin**. Install it on the **AI Worker Orin**.
@@ -20,7 +27,7 @@ ssh robotis@ffw-SNPR48A0000.local
 pip install cyclo-manager
 ```
 
-3. Add the CLI to your `PATH` and create the containers.
+3. Add the CLI to your `PATH` and set up the Cyclo Manager environment.
 
 ```bash
 export PATH="$HOME/.local/bin:$PATH"
@@ -68,7 +75,7 @@ http://ffw-SNPR48A0000.local:3000
 
 ![Cyclo Manager App Page](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/app_page.png)
 
-This is the main page of the Cyclo Manager web UI. From here, you can open the Cyclo Manager or Physical AI Tools pages.  
+This is the main page of the Cyclo Manager web UI. From here, you can open the Cyclo Manager or Cyclo Intelligence pages.  
 Enter the Cyclo Manager.
 
 Click the Cyclo Manager button to open the Cyclo Manager dashboard page.

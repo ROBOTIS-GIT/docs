@@ -2,9 +2,9 @@
 
 **Cyclo Manager** is a web-based operation and maintenance tool for the **AI Worker, OMY, and OMX**.
 It runs on the robot computer and provides a browser UI for common robot-side tasks such as
-bringup, container management, log inspection, version updates, noVNC access, and manual jog control.
+bringup, container management, version updates, noVNC access, and manual jog control.
 
-Instead of entering the robot container and running several commands by hand, you can open Cyclo Manager from a browser and control the system through a small set of pages.
+Instead of entering the robot container and running several commands by hand, you can open Cyclo Manager from a browser and use each operation feature directly.
 This is useful during setup, daily operation, and software updates.
 
 :::info
@@ -18,7 +18,7 @@ Use Cyclo Manager to:
 
 - Bring up the AI Worker robot stack and related services from the browser.
 - Start, stop, restart, and inspect Docker containers running on the robot.
-- Monitor robot status, Docker status, storage usage, and version status from the Dashboard.
+- Monitor robot status, Docker status, storage usage, and version status.
 - Open a browser-based terminal into docker containers.
 - Use noVNC to run GUI tools such as **Dynamixel Wizard 2.0** without connecting a monitor.
 - Jog the mobile base from a PC or phone browser.
@@ -47,20 +47,11 @@ At a high level, Cyclo Manager separates user-facing controls from the robot run
 
 This layout keeps normal operation in the browser while preserving access to the underlying Docker and ROS 2 system when deeper debugging is needed.
 
-## Typical Workflow
-
-1. Install Cyclo Manager on the AI Worker Orin.
-2. Open the Cyclo Manager web UI from a browser.
-3. Check robot and container status on the Dashboard.
-4. Start the required services from the System page.
-5. Use logs, topic status, noVNC, terminal, and jog controls as needed.
-6. Use Version Update when the robot software stack needs to be updated.
-
-## Choose a Guide
+## Feature Guides
 
 - [Install](/docs/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/install): Install the CLI, start the Cyclo Manager stack, and open the web UI.
-- [Bringup](/docs/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/bringup): Bring up the Zenoh daemon, robot stack, and Physical AI server from the System page.
-- [Manage Container](/docs/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/manage_container): Start, stop, and configure containers, edit **`.bashrc`**, and run commands in a terminal.
-- [Version Update](/docs/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/version_update): Update package versions from the Dashboard.
-- [noVNC](/docs/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/novnc): Start the noVNC container and use Dynamixel Wizard 2.0 in the browser.
-- [Jog](/docs/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/jog): Move the robot manually from the Jog page in the browser.
+- [Bringup](/docs/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/bringup): Bring up the Zenoh daemon, robot stack, leader stack, and related services.
+- [Manage Container](/docs/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/manage_container): Start, stop, configure, inspect, and access containers.
+- [Version Update](/docs/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/version_update): Update robot software packages and container images.
+- [noVNC](/docs/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/novnc): Run graphical tools such as Dynamixel Wizard 2.0 from the browser.
+- [Jog](/docs/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/jog): Move the mobile base manually from the browser.

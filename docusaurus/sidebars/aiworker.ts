@@ -42,7 +42,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
             items: [
               {type: 'doc', id: 'systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/install', label: 'Install'},
               {type: 'doc', id: 'systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/bringup', label: 'Bringup'},
-              {type: 'doc', id: 'systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/manage_container', label: 'Manage Container'},
+              {type: 'doc', id: 'systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/manage_container', label: 'Manage Containers'},
               {type: 'doc', id: 'systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/version_update', label: 'Version Update'},
               {type: 'doc', id: 'systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/novnc', label: 'noVNC'},
               {type: 'doc', id: 'systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/jog', label: 'Jog'},

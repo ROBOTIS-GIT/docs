@@ -1,6 +1,7 @@
-# Manage Container
+# Manage Containers
 
-On the Dashboard **Container Management** section, you can manage the containers on the robot.
+Use container management to check and control Docker containers running on the robot.
+You can start, stop, restart, inspect, and configure containers without connecting to the robot with separate Docker commands.
 
 ![Container Management](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/container_management.png)
 
@@ -19,13 +20,13 @@ Set `ROS_DOMAIN_ID` to the same value on every container that must communicate o
 
 ![Editing container .bashrc](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/modifying_bashrc_cyclo_manager.png)
 
-After you save **`.bashrc`**, **Restarting** the container is recommended.
+If you change the `ROS_DOMAIN_ID` for Cyclo Manager, you must **restart** the Cyclo Manager container. Cyclo Manager is already running, so the new value takes effect only after a restart.
 
 :::info
 **Environment variables in the container are managed in the `.bashrc` file.**
 :::
 
-## Run Commands in a Container
+## Open a Container Terminal
 
 On the Terminal page, select the container where you want to run the command.
 
