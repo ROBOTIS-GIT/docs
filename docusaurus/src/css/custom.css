@@ -183,10 +183,12 @@
 
   position: relative;
   display: flex !important;
+  flex: 0 0 var(--navbar-search-icon-width) !important;
   align-items: center;
   justify-content: center;
-  width: var(--navbar-search-icon-width);
-  min-width: var(--navbar-search-icon-width);
+  width: var(--navbar-search-icon-width) !important;
+  min-width: var(--navbar-search-icon-width) !important;
+  max-width: var(--navbar-search-icon-width) !important;
   height: var(--navbar-search-icon-height);
   margin-right: 0.5rem;
   overflow: visible;
@@ -201,8 +203,9 @@
 
 .navbar .navbar-search-icon-shell input,
 .navbar .navbar-search-icon-shell .navbar__search-input {
-  width: var(--navbar-search-icon-width);
-  min-width: var(--navbar-search-icon-width);
+  width: var(--navbar-search-icon-width) !important;
+  min-width: var(--navbar-search-icon-width) !important;
+  max-width: var(--navbar-search-icon-width) !important;
   height: var(--navbar-search-icon-height);
   padding: 0;
   color: transparent;
@@ -211,14 +214,20 @@
   background-size: 1rem 1rem;
 }
 
-.navbar .navbar-search-icon-shell .algolia-autocomplete {
+.navbar .navbar-search-icon-inner {
   position: static !important;
+  display: flex !important;
+  flex: 0 0 var(--navbar-search-icon-width) !important;
   width: var(--navbar-search-icon-width) !important;
+  min-width: var(--navbar-search-icon-width) !important;
+  max-width: var(--navbar-search-icon-width) !important;
 }
 
 .navbar .navbar-search-icon-shell.algolia-autocomplete {
   position: relative !important;
   width: var(--navbar-search-icon-width) !important;
+  min-width: var(--navbar-search-icon-width) !important;
+  max-width: var(--navbar-search-icon-width) !important;
 }
 
 .navbar .navbar-search-icon-shell [class*='searchIcon'] {
@@ -230,6 +239,7 @@
 
 .navbar [class*='searchHint'],
 .navbar [class*='SearchHint'],
+.navbar .navbar-search-loading,
 .navbar [class*='shortcut'],
 .navbar [class*='Shortcut'],
 .navbar kbd {
@@ -241,37 +251,40 @@
   color: transparent;
 }
 
-.navbar .navbar-search-icon-shell--expanded,
-.navbar .navbar-search-icon-shell:focus-within {
+.navbar .navbar-search-icon-shell--expanded {
   overflow: visible;
 }
 
 .navbar .navbar-search-icon-shell--expanded input,
-.navbar .navbar-search-icon-shell:focus-within input,
 .navbar .navbar-search-icon-shell--expanded .navbar__search-input {
   position: fixed !important;
   top: var(--navbar-search-panel-top, calc(var(--ifm-navbar-height) + 0.5rem));
   right: var(--navbar-search-panel-right, 1rem);
+  left: auto !important;
   z-index: 1001;
-  width: var(--navbar-search-panel-width, min(22rem, calc(100vw - 2rem)));
-  min-width: 0;
+  display: block !important;
+  width: var(--navbar-search-panel-width, min(22rem, calc(100vw - 2rem))) !important;
+  min-width: 0 !important;
+  max-width: calc(100vw - 2rem) !important;
   padding: 0 0.9rem 0 2.4rem;
   color: var(--ifm-font-color-base);
   background-color: var(--ifm-navbar-background-color);
   background-position: 0.9rem center !important;
   box-shadow: var(--ifm-global-shadow-md);
   cursor: text;
+  transform: none !important;
 }
 
 .navbar .navbar-search-icon-shell--expanded input::placeholder,
-.navbar .navbar-search-icon-shell:focus-within input::placeholder,
 .navbar .navbar-search-icon-shell--expanded .navbar__search-input::placeholder {
   color: var(--ifm-color-emphasis-600);
 }
 
-.navbar .navbar-search-icon-shell [class*='dropdownMenu'],
-.navbar .navbar-search-icon-shell .algolia-autocomplete .ds-dropdown-menu,
-.navbar .navbar-search-icon-shell.algolia-autocomplete .ds-dropdown-menu {
+.navbar .navbar-search-icon-shell:not(.navbar-search-icon-shell--expanded) .navbar-search-dropdown {
+  display: none !important;
+}
+
+.navbar .navbar-search-dropdown {
   position: fixed !important;
   top: var(--navbar-search-dropdown-top, calc(var(--ifm-navbar-height) + 3rem)) !important;
   right: var(--navbar-search-panel-right, 1rem) !important;
