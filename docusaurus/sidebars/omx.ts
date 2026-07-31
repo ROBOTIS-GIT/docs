@@ -25,6 +25,7 @@ const omxSidebar: SidebarsConfig[string] = [
         link: {type: 'doc', id: 'systems/omx/quick_start_guide/setup_guide/setup_guide'},
         collapsed: false,
         items: [
+          {type: 'doc', id: 'systems/omx/quick_start_guide/setup_guide/ros2_setup', label: 'ROS 2 Setup'},
           {type: 'link', label: 'LeRobot', href: 'https://huggingface.co/docs/lerobot/omx'},
         ],
       },
