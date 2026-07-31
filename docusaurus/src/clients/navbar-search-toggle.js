@@ -8,21 +8,51 @@
 
 if (typeof window !== 'undefined') {
   const EXPANDED_CLASS = 'navbar-search-icon-shell--expanded';
+  const DROPDOWN_CLASS = 'navbar-search-dropdown';
+  const INNER_CLASS = 'navbar-search-icon-inner';
+  const LOADING_CLASS = 'navbar-search-loading';
   const ROOT_CLASS = 'navbar-search-icon-shell';
   const SEARCH_INPUT_SELECTOR = '.navbar input, .navbar .navbar__search-input';
   const SEARCH_ROOT_SELECTOR =
     '[class*="navbarSearchContainer"], [class*="searchBarContainer"], .navbar__search';
+  const DROPDOWN_SELECTOR =
+    '[class*="dropdownMenu"], [class*="DropdownMenu"], [class*="dropdown-menu"], .aa-dropdown-menu, .ds-dropdown-menu';
+  const INNER_SELECTOR =
+    '[class*="searchBar"], [class*="SearchBar"], [class*="navbarSearch"], [class*="NavbarSearch"], [class*="searchContainer"], [class*="SearchContainer"], .algolia-autocomplete';
+  const LOADING_SELECTOR = '[class*="loading"], [class*="Loading"]';
 
   const roots = new Set();
   const initialized = new WeakSet();
   let listenersBound = false;
 
   function findSearchRoot(input) {
-    return input.closest(SEARCH_ROOT_SELECTOR) || input.parentElement;
+    const navbarItems = input.closest('.navbar__items');
+    let root = input.closest(SEARCH_ROOT_SELECTOR) || input.parentElement;
+
+    if (!navbarItems || !root) return root;
+
+    while (
+      root.parentElement &&
+      root.parentElement !== navbarItems &&
+      navbarItems.contains(root.parentElement)
+    ) {
+      root = root.parentElement;
+    }
+
+    return root;
   }
 
   function setExpanded(root, expanded) {
     root.classList.toggle(EXPANDED_CLASS, expanded);
+  }
+
+  function collapse(root) {
+    setExpanded(root, false);
+
+    const activeElement = document.activeElement;
+    if (activeElement instanceof HTMLElement && root.contains(activeElement)) {
+      activeElement.blur();
+    }
   }
 
   function isExpanded(root) {
@@ -48,13 +78,27 @@ if (typeof window !== 'undefined') {
 
   function collapseAll(except = null) {
     roots.forEach((root) => {
-      if (root !== except) setExpanded(root, false);
+      if (root !== except) collapse(root);
     });
   }
 
   function updateExpandedPositions() {
     roots.forEach((root) => {
       if (isExpanded(root)) updatePosition(root);
+    });
+  }
+
+  function markSearchElements(root) {
+    root.querySelectorAll(INNER_SELECTOR).forEach((element) => {
+      if (element !== root) element.classList.add(INNER_CLASS);
+    });
+
+    root.querySelectorAll(DROPDOWN_SELECTOR).forEach((element) => {
+      element.classList.add(DROPDOWN_CLASS);
+    });
+
+    root.querySelectorAll(LOADING_SELECTOR).forEach((element) => {
+      element.classList.add(LOADING_CLASS);
     });
   }
 
@@ -89,6 +133,7 @@ if (typeof window !== 'undefined') {
     initialized.add(root);
     roots.add(root);
     root.classList.add(ROOT_CLASS);
+    markSearchElements(root);
     bindSharedListeners();
 
     root.addEventListener('pointerdown', () => {
@@ -105,6 +150,7 @@ if (typeof window !== 'undefined') {
 
   function setupAll() {
     document.querySelectorAll(SEARCH_INPUT_SELECTOR).forEach(initSearch);
+    roots.forEach(markSearchElements);
   }
 
   if (document.readyState === 'loading') {
