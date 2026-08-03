@@ -44,6 +44,11 @@ When you click the **Update** button, Cyclo Manager runs the update workflow:
 
 4. The Git repository is pulled and the container is created.
 
+:::note
+When Cyclo Manager starts the updated container, it may need to download the required Docker image first.
+Depending on the network connection, this step can take about 5 minutes.
+:::
+
 ![Update5](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/version_update5.png)
 
 ## Cyclo Manager Update
@@ -70,3 +75,13 @@ If the update fails from the web UI, connect to the robot over SSH and run the u
 cyclo-manager update
 ```
 
+## Agent Update
+
+Use **Agent Update** when the s6 agent inside a managed container is older than, or not compatible with, the installed Cyclo Manager version.
+The s6 agent handles service control, log streaming, and status reporting from inside the container, so a version mismatch can cause Cyclo Manager operations to fail or behave unexpectedly.
+
+When Cyclo Manager detects an incompatible container agent, the **Container Agents** section shows an **Update** button.
+Click **Update** to update the in-container agent to a version compatible with the current Cyclo Manager.
+The container may restart during the update.
+
+![Agent Version Update](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/agent_version_update.png)

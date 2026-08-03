@@ -1,13 +1,14 @@
 # Cyclo Manager
 
 **Cyclo Manager** is a web-based operation and maintenance tool for **OMX**.
-It runs on the robot computer and provides a browser UI for common robot-side tasks such as bringup, container management, version updates, and noVNC access.
+For OMX, the robot software stack runs on the user's PC, so Cyclo Manager is installed and run on the user's PC.
+It provides a browser UI for common robot-side tasks such as bringup, container management, version updates, and noVNC access.
 
 Instead of entering the robot container and running several commands by hand, you can open Cyclo Manager from a browser and use each operation feature directly.
 This is useful during setup, daily operation, and software updates.
 
 :::info
-Cyclo Manager is installed on the **OMX robot PC** and is accessed from a PC, tablet, or phone on the same network.
+For OMX, install Cyclo Manager on the **user PC** that runs the OMX Docker containers.
 The web UI runs on port **3000**, and the API server runs on port **8081**.
 :::
 
@@ -41,7 +42,7 @@ At a high level, Cyclo Manager separates user-facing controls from the robot run
 - **User layer**: A browser is used to operate the robot and CLI is used to install the Cyclo Manager stack.
 - **Manager layer**: The Web UI and API Server provide the control surface.
 - **Robot container layer**: Robot bringup services run inside containers managed by s6.
-- **Host layer**: Docker, storage, serial devices, and git repositories remain on the robot host.
+- **Host layer**: Docker, storage, serial devices, and git repositories remain on the user PC that runs the OMX containers.
 
 ## Feature Guides
 
