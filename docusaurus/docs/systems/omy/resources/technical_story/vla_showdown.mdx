@@ -89,7 +89,18 @@ first step is to bring the camera drivers up on the robot side.
 <details>
 <summary>Camera bring-up commands (User computer side)</summary>
 
-Two driver packages are used: `usb_cam` for the two USB cameras and `realsense2_camera` for the wrist RealSense. Bring each camera up on the robot in its own terminal.
+Each camera runs in its own terminal, inside the `open_manipulator` Docker container. In **every** terminal, first enter the container and point Zenoh at the robot (replace `robot_ip` with the arm's IP):
+
+```bash
+cd open_manipulator
+./docker/container.sh enter
+
+# run these in every terminal/window
+export RMW_IMPLEMENTATION=rmw_zenoh_cpp
+export ZENOH_CONFIG_OVERRIDE='transport/shared_memory/enabled=true;mode="client";connect/endpoints=["tcp/robot_ip:7447"]'
+```
+
+Two driver packages are used: `usb_cam` for the two USB cameras and `realsense2_camera` for the wrist RealSense. Bring each camera up in its own terminal.
 
 Launch one `usb_cam` node per USB camera:
 
@@ -315,13 +326,13 @@ Running that from noise to a clean chunk is the whole sampling process. More ste
 
 ## 3. Training and Offline Accuracy
 
-Each model was trained with its authors' most-recommended config (hardware was chosen based on size and availability). One thing changed was VLA-JEPA's published learning rate ($1\times10^{-4}$) diverged into NaNs on two
+Each model was trained with its authors' most-recommended or publicly verified configs. The training hardware or GPU count was chosen on size and availability. One thing modified was VLA-JEPA's learning rate ($1\times10^{-4}$, published); it diverged into NaNs on two
 runs, so we used $3\times10^{-5}$.
 
 | | GR00T N1.7 | MolmoAct2 | VLA-JEPA | FastWAM |
 |---|---|---|---|---|
 | Regime | partial (head + top-4 LLM) | full FT | head-only (Qwen frozen) | full FT |
-| Final ckpt | 057643 | 20000 | 230574 | 165000 |
+| Final ckpt | 57643 | 20000 | 230574 | 165000 |
 | Hardware | 2×A100-80GB | 4×H100-80GB | 1×RTX 4090 | 2×A100-80GB |
 | Wall-clock | ~9 h | ~6 h | ~36 h | ~36 h |
 | Global batch | 32 | 32 | 8 | 8 |
@@ -337,9 +348,9 @@ held-out episodes and measuring the mean absolute error between commanded and de
 
 | Model | Held-out arm MAE (rad) | End-effector error | Source (best ckpt) |
 |---|---|---|---|
-| **GR00T N1.7** | **0.017** | **7.5 mm** | ckpt 057643, held-out |
+| **GR00T N1.7** | **0.017** | **7.5 mm** | ckpt 57643, held-out |
 | MolmoAct2 | 0.019 | 9.9 mm | ckpt 12000, held-out |
-| FastWAM | 0.034 | 24.8 mm | ckpt 165000, held-out |
+| FastWAM | 0.034 | 24.8 mm | ckpt 105000, held-out |
 | VLA-JEPA | 0.038 | 21.2 mm | ckpt 184000, held-out |
 
 <div style={{textAlign: 'center', margin: '30px 0'}}>
@@ -460,7 +471,7 @@ a little longer, but it is minimal next to the vision backbone (per-inference 13
 </div>
 
 ```bash
-# Run it: more denoising (flow-integration) steps, in chunk mode (the source fix).
+# Run it: more denoising (flow-integration) steps, in chunk mode (for example).
 omy-infer CKPT --chunk-mode --flow-steps 32
 ```
 
@@ -530,7 +541,7 @@ Despite the flag name, `--groot-ensemble` is policy-agnostic: age-weighted avera
 
 Success is measured per plate and split into **grab** (did the arm pick the plate up) and **place** (did
 it seat the plate). "Task" is the full three-plate completion; place can never exceed grab. Each rate is
-first-try success over **10 trials per plate** on hardware.
+first-try success over **10 trials per plate** with the robot.
 
 <table>
 <thead>
@@ -550,6 +561,84 @@ first-try success over **10 trials per plate** on hardware.
 GR00T completed plates 1 and 2 every time. Plate 3 is harder because it requires extending the arm further,
 and the ensemble mode lifted it from 50/40 to 60/60. MolmoAct2 managed only a partial first grab;
 VLA-JEPA and FastWAM did not grasp the first plate at all.
+
+<details>
+<summary>Why ensembling moves GR00T from 40% to 60%</summary>
+
+Plates 1 and 2 are 100% in both chunk and ensembling, so the change is plate 3, and it comes down to **grabbing**.
+
+<div style={{textAlign: 'center', margin: '20px 0'}}>
+<svg viewBox="0 0 900 310" style={{width: '100%', maxWidth: '820px', height: 'auto'}} role="img" aria-label="Three overlapping action chunks; at the current instant the oldest is at a deep step while the newest restarts shallow, with lag arrows from each chunk's deepest step to the next chunk's first step">
+    <defs><marker id="lagarrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#b0463c" /></marker></defs>
+    <line x1="389.0" y1="74" x2="389.0" y2="266" stroke="currentColor" strokeWidth="1.5" strokeDasharray="5,4" opacity="0.65" />
+    <text x="389.0" y="66" textAnchor="middle" fontSize="13" fontWeight="bold" fill="currentColor">now</text>
+    <rect x="150" y="92" width="34" height="26" rx="3" fill="#cfe0f5" stroke="#ffffff" strokeWidth="1" />
+    <rect x="187" y="92" width="34" height="26" rx="3" fill="#b6c8e2" stroke="#ffffff" strokeWidth="1" />
+    <rect x="224" y="92" width="34" height="26" rx="3" fill="#9db1cf" stroke="#ffffff" strokeWidth="1" />
+    <rect x="261" y="92" width="34" height="26" rx="3" fill="#8499bc" stroke="#ffffff" strokeWidth="1" />
+    <rect x="298" y="92" width="34" height="26" rx="3" fill="#6a82a8" stroke="#ffffff" strokeWidth="1" />
+    <rect x="335" y="92" width="34" height="26" rx="3" fill="#516a95" stroke="#ffffff" strokeWidth="1" />
+    <rect x="372" y="92" width="34" height="26" rx="3" fill="#385382" stroke="#d9822b" strokeWidth="2.5" />
+    <rect x="409" y="92" width="34" height="26" rx="3" fill="#1f3b6f" stroke="#ffffff" strokeWidth="1" />
+    <rect x="261" y="160" width="34" height="26" rx="3" fill="#cfe0f5" stroke="#ffffff" strokeWidth="1" />
+    <rect x="298" y="160" width="34" height="26" rx="3" fill="#b6c8e2" stroke="#ffffff" strokeWidth="1" />
+    <rect x="335" y="160" width="34" height="26" rx="3" fill="#9db1cf" stroke="#ffffff" strokeWidth="1" />
+    <rect x="372" y="160" width="34" height="26" rx="3" fill="#8499bc" stroke="#d9822b" strokeWidth="2.5" />
+    <rect x="409" y="160" width="34" height="26" rx="3" fill="#6a82a8" stroke="#ffffff" strokeWidth="1" />
+    <rect x="446" y="160" width="34" height="26" rx="3" fill="#516a95" stroke="#ffffff" strokeWidth="1" />
+    <rect x="483" y="160" width="34" height="26" rx="3" fill="#385382" stroke="#ffffff" strokeWidth="1" />
+    <rect x="520" y="160" width="34" height="26" rx="3" fill="#1f3b6f" stroke="#ffffff" strokeWidth="1" />
+    <rect x="372" y="228" width="34" height="26" rx="3" fill="#cfe0f5" stroke="#d9822b" strokeWidth="2.5" />
+    <rect x="409" y="228" width="34" height="26" rx="3" fill="#b6c8e2" stroke="#ffffff" strokeWidth="1" />
+    <rect x="446" y="228" width="34" height="26" rx="3" fill="#9db1cf" stroke="#ffffff" strokeWidth="1" />
+    <rect x="483" y="228" width="34" height="26" rx="3" fill="#8499bc" stroke="#ffffff" strokeWidth="1" />
+    <rect x="520" y="228" width="34" height="26" rx="3" fill="#6a82a8" stroke="#ffffff" strokeWidth="1" />
+    <rect x="557" y="228" width="34" height="26" rx="3" fill="#516a95" stroke="#ffffff" strokeWidth="1" />
+    <rect x="594" y="228" width="34" height="26" rx="3" fill="#385382" stroke="#ffffff" strokeWidth="1" />
+    <rect x="631" y="228" width="34" height="26" rx="3" fill="#1f3b6f" stroke="#ffffff" strokeWidth="1" />
+    <text x="136" y="110" textAnchor="end" fontSize="13.5" fill="currentColor">oldest</text>
+    <text x="136" y="178" textAnchor="end" fontSize="13.5" fill="currentColor">next</text>
+    <text x="136" y="246" textAnchor="end" fontSize="13.5" fill="currentColor">newest</text>
+    <path d="M426,120 Q352,152 282,158" fill="none" stroke="#b0463c" strokeWidth="2" markerEnd="url(#lagarrow)" />
+    <text x="352" y="135" textAnchor="middle" fontSize="12.5" fontStyle="italic" fill="#b0463c">lag</text>
+    <path d="M537,188 Q463,220 393,226" fill="none" stroke="#b0463c" strokeWidth="2" markerEnd="url(#lagarrow)" />
+    <text x="463" y="203" textAnchor="middle" fontSize="12.5" fontStyle="italic" fill="#b0463c">lag</text>
+    <text x="700" y="66" fontSize="12.5" fontWeight="bold" fill="currentColor">age weight</text>
+    <rect x="700" y="96" width="96" height="18" rx="3" fill="#d9822b" fillOpacity="0.55" /><text x="804" y="110" fontSize="12" fill="currentColor">most</text>
+    <rect x="700" y="164" width="62" height="18" rx="3" fill="#d9822b" fillOpacity="0.38" /><text x="770" y="178" fontSize="12" fill="currentColor"></text>
+    <rect x="700" y="232" width="32" height="18" rx="3" fill="#d9822b" fillOpacity="0.22" /><text x="740" y="246" fontSize="12" fill="currentColor">least</text>
+    <text x="118" y="290" fontSize="12" fill="currentColor" opacity="0.7">each block = one step of a planned chunk</text>
+    <rect x="382" y="279" width="20" height="12" rx="2" fill="#cfe0f5" /><text x="408" y="289" fontSize="12" fill="currentColor" opacity="0.7">early (shallow)</text>
+    <rect x="522" y="279" width="20" height="12" rx="2" fill="#1f3b6f" /><text x="548" y="289" fontSize="12" fill="currentColor" opacity="0.7">later (deep)</text>
+</svg>
+  <p style={{marginTop: '8px', fontSize: '14px', color: '#888', fontStyle: 'italic'}}>At the same instant (orange), the oldest chunk is already at a deep step while the newest restarts shallow. The red arrows are the lag: each chunk's deepest step is discarded and the next chunk begins again near the arm's trailing pose.</p>
+</div>
+
+**Why chunk mode lands short.** Every chunk is planned from where the arm is right now, and the arm
+always trails the command. So at any instant an older chunk is already deep into its reach, while a
+brand-new chunk is still on its first steps, near the arm's trailing position. 
+
+Chunk mode always jumps to
+the newest chunk, so it keeps restarting from behind and the command settles slightly shallow. This does not wash out with time nor chunk length either, because each chunk is replaced after a few steps due to the late-responding robot, so its deep steps are discarded before the arm ever reaches them and the replacement starts from the same trailing pose.
+
+**Why the age weight *helps* it.** That shortfall sits almost entirely in the newest chunks. Giving
+older chunks more weight lets the chunk that already reached full depth lead the blend, so the command
+keeps its depth and still follows the live scene.  The old chunk keeps contributing after the point where chunk mode would have thrown it away, so depth carries across each seam instead of resetting. 
+
+However, it mitigates rather than fixes: the weighting can only re-use plans the policy already produced, so it cannot add reach that was never predicted. Leaning harder on the old plans gets us the last of the depth but may ignore fresh grab corrections, which is maybe why plate 3 is at 60% and not 100%.
+
+A variable `c` scheduler may fix this issue, with a custom curriculum, but that is set as future work.
+
+<div style={{textAlign: 'center', margin: '20px 0'}}>
+  <img src="/img/systems/omy/resources/technical_story/vla_showdown/figures/c_schedule.png" alt="Proposed schedule for the age-weight coefficient c" style={{maxWidth: '78%', borderRadius: '8px'}} />
+  <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic'}}>Sketch of the idea, not an evaluated result. A fixed c has to serve the whole subtask at once. A scheduled c could stay low while the arm approaches and still tracks the scene, rise into the grasp where the committed depth matters, then relax again for the lift and place.</p>
+</div>
+
+**Smoother motion helps too.** The blend is continuous across the seams, so the arm stops decelerating
+and re-accelerating at every re-plan (because of robot latency, following newest chunk). That removes the start-stop jerk of chunk mode, which matters most
+as the gripper closes.
+
+</details>
 
 **Inference latency** (one `predict_action_chunk` on a single RTX 4090; "per action" divides by chunk
 length). All are at 30 Hz.
@@ -694,7 +783,7 @@ omy-infer CKPT --repo-id your-username/your-dataset --root "$DATASET" \
 ---
 
 ```bash
-# example, our best run: GR00T N1.7, ckpt 057643
+# example, our best run: GR00T N1.7, ckpt 57643
 export DATASET=datasets/plates100_subtask
 export TASKS="Place gray plate #1 to the first (very left) slot.||Place blue plate #2 to the third slot, a slot after the gray plate.||Place green plate #3 to the fifth slot, a slot after the blue plate."
 
