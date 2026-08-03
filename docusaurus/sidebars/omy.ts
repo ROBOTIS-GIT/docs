@@ -108,6 +108,14 @@ const omySidebar: SidebarsConfig[string] = [
     items: [
       {type: 'doc', id: 'systems/omy/resources/open_source', label: 'Open Source'},
       {type: 'doc', id: 'systems/omy/resources/release_notes', label: 'Release Notes'},
+      {
+        type: 'category',
+        label: 'Technical Story',
+        link: {type: 'doc', id: 'systems/omy/resources/technical_story/technical_story'},
+        items: [
+          {type: 'doc', id: 'systems/omy/resources/technical_story/vla_showdown', label: 'VLA Showdown'},
+        ],
+      },
     ],
   },
   {
