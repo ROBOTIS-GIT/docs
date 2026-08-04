@@ -2,12 +2,16 @@
 
 ### CYCLO
 
+<img src="/img/common/CYCLO_Signature_Horiz.svg" alt="CYCLO" className="opensource-cyclo-signature" />
+
 CYCLO는 ROBOTIS가 개발한 모듈형 오픈소스 프레임워크로, AI 통합부터 로봇 운용까지 Physical AI 시스템의 구축 및 운용을 손쉽게 만들기 위해 설계되었습니다.
 
 | 리소스 | 설명 | 링크 |
 |--------|------|------|
 | **CYCLO** | AI 통합, 데이터 워크플로우, 제어, 시뮬레이션, 운용을 아우르는 오픈 스택 | [GitHub](https://github.com/ROBOTIS-GIT/cyclo) |
 | **CYCLO Control** | Physical AI 제품 라인업을 위한 제어 패키지 | [GitHub](https://github.com/ROBOTIS-GIT/cyclo_control) |
+| **CYCLO Lab** | Isaac Lab 환경, 정책 학습 및 Sim2Real 워크플로우 | [GitHub](https://github.com/ROBOTIS-GIT/cyclo_lab) |
+| **CYCLO Intelligence** | 데이터 기록, 데이터셋 변환, 정책 학습, 추론 및 로봇 실행 | [GitHub](https://github.com/ROBOTIS-GIT/cyclo_intelligence) |
 
 ### 공유 리소스
 
@@ -35,6 +39,35 @@ CYCLO는 ROBOTIS가 개발한 모듈형 오픈소스 프레임워크로, AI 통�
   </thead>
   <tbody>
     <tr>
+      <td rowSpan="5"><strong>AI Sapiens</strong></td>
+      <td><strong>AI Sapiens</strong></td>
+      <td>K1 휴머노이드 로봇 운용을 위한<br />ROS 2 패키지</td>
+      <td><a href="https://github.com/ROBOTIS-GIT/ai_sapiens">GitHub</a></td>
+    </tr>
+    <tr>
+      <td><strong>시뮬레이션<br />모델</strong></td>
+      <td>시뮬레이션용 URDF(ROS) 및<br />MJCF(MuJoCo) 모델 파일</td>
+      <td>
+        <a href="https://github.com/ROBOTIS-GIT/ai_sapiens/tree/main/ai_sapiens_description/urdf/k1_rev1">URDF</a><br />
+        <a href="https://github.com/ROBOTIS-GIT/ai_sapiens/tree/main/ai_sapiens_description/mujoco/k1">MJCF</a>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>하드웨어<br />BoM</strong></td>
+      <td>재현 가능한 제작을 위한<br />부품 목록, 수량 및 참고 정보</td>
+      <td><span className="badge badge--secondary">Coming Soon</span></td>
+    </tr>
+    <tr>
+      <td><strong>STEP<br />파일</strong></td>
+      <td>K1 핵심 어셈블리의<br />기계 STEP 파일</td>
+      <td><span className="badge badge--secondary">Coming Soon</span></td>
+    </tr>
+    <tr>
+      <td><strong>튜토리얼<br />영상</strong></td>
+      <td>Bring-up부터 정책 배포까지의<br />영상 가이드</td>
+      <td><span className="badge badge--secondary">Coming Soon</span></td>
+    </tr>
+    <tr>
       <td rowSpan="5"><strong>AI Worker</strong></td>
       <td><strong>AI Worker</strong></td>
       <td>AI Worker 운용을 위한<br />ROS 2 패키지</td>
@@ -46,7 +79,7 @@ CYCLO는 ROBOTIS가 개발한 모듈형 오픈소스 프레임워크로, AI 통�
       <td>
         <a href="https://github.com/ROBOTIS-GIT/ai_worker/tree/main/ffw_description/urdf">URDF</a><br />
         <a href="https://github.com/ROBOTIS-GIT/robotis_mujoco_menagerie">MJCF</a><br />
-        <a href="https://github.com/ROBOTIS-GIT/robotis_lab/tree/main/source/robotis_lab/data/robots">USD</a>
+        <a href="https://github.com/ROBOTIS-GIT/cyclo_lab/tree/main/source/cyclo_lab/data/robots/FFW">USD</a>
       </td>
     </tr>
     <tr>
@@ -85,7 +118,7 @@ CYCLO는 ROBOTIS가 개발한 모듈형 오픈소스 프레임워크로, AI 통�
       <td>
         <a href="https://github.com/ROBOTIS-GIT/open_manipulator/tree/main/open_manipulator_description/urdf">URDF</a><br />
         <a href="https://github.com/ROBOTIS-GIT/robotis_mujoco_menagerie">MJCF</a><br />
-        <a href="https://github.com/ROBOTIS-GIT/robotis_lab/tree/main/source/robotis_lab/data/robots">USD</a>
+        <a href="https://github.com/ROBOTIS-GIT/cyclo_lab/tree/main/source/cyclo_lab/data/robots/OMY">USD</a>
       </td>
     </tr>
     <tr>
@@ -118,11 +151,10 @@ CYCLO는 ROBOTIS가 개발한 모듈형 오픈소스 프레임워크로, AI 통�
     </tr>
     <tr>
       <td><strong>시뮬레이션<br />모델</strong></td>
-      <td>시뮬레이션용 URDF(ROS),<br />MJCF(MuJoCo), USD(Isaac Sim/Lab)<br />모델 파일</td>
+      <td>시뮬레이션용 URDF(ROS) 및<br />MJCF(MuJoCo) 모델 파일</td>
       <td>
         <a href="https://github.com/ROBOTIS-GIT/open_manipulator/tree/main/open_manipulator_description/urdf">URDF</a><br />
-        <a href="https://github.com/ROBOTIS-GIT/robotis_mujoco_menagerie">MJCF</a><br />
-        <a href="https://github.com/ROBOTIS-GIT/robotis_lab/tree/main/source/robotis_lab/data/robots">USD</a>
+        <a href="https://github.com/ROBOTIS-GIT/robotis_mujoco_menagerie">MJCF</a>
       </td>
     </tr>
     <tr>
