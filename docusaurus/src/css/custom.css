@@ -12,6 +12,48 @@
     'Noto Sans KR', 'Malgun Gothic', sans-serif;
 }
 
+.repository-category-badge {
+  padding: 0.25rem 0.55rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.35;
+  white-space: nowrap;
+}
+
+.repository-category-list {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.repository-with-origin {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+}
+
+.repository-fork-origin {
+  color: var(--ifm-color-emphasis-800);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.repository-fork-origin code {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.repository-guide-list {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+  white-space: nowrap;
+}
+
 /* KaTeX display tuning for control equations and robotics math. */
 .theme-doc-markdown .katex-display {
   font-size: 1.25rem;
