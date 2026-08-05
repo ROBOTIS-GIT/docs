@@ -121,6 +121,7 @@ const omxSidebar: SidebarsConfig[string] = [
     label: 'Resources',
     collapsed: false,
     items: [
+      {type: 'doc', id: 'systems/omx/resources/cyclo', label: 'What is Cyclo?'},
       {type: 'doc', id: 'systems/omx/resources/open_source', label: 'Open Source'},
       {type: 'doc', id: 'systems/omx/resources/release_notes', label: 'Release Notes'},
       {
