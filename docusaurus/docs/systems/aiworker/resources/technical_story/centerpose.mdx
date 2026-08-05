@@ -8,7 +8,7 @@ import TabItem from '@theme/TabItem';
 <div style={{position: 'relative', paddingBottom: '56.25%', height: '0', overflow: 'hidden', maxWidth: '100%', margin: '20px 0', borderRadius: '8px'}}>
   <iframe
     style={{position: 'absolute', top: '0', left: '0', width: '100%', height: '100%'}}
-    src="https://www.youtube.com/embed/KeW64zzxfTM"
+    src="https://www.youtube.com/embed/2Vqnwvggzyw"
     title="AI Worker CenterPose Pick & Place Demo"
     frameBorder="0"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -24,15 +24,11 @@ import TabItem from '@theme/TabItem';
 
 This project is built on top of NVIDIA's [Isaac ROS CenterPose](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_pose_estimation/isaac_ros_centerpose/index.html), a category-level 6DoF object pose detector that outputs a 3D bounding box and orientation per detected object. `ffw_centerpose` is the layer built on top of it that turns those detections into an actual pick-and-place motion on the AI Worker's left arm.
 
+<div style={{textAlign: 'center', margin: '20px 0'}}>
+  <img src="/img/systems/aiworker/resources/technical_story/centerpose/centerpose_overview.gif" alt="CenterPose detection overview" style={{maxWidth: '100%', borderRadius: '8px'}} />
+</div>
+
 CenterPose needs a GPU, so it runs inside the Isaac ROS container on a separate user PC — the AI Worker itself only runs its own onboard bringup. That means three containers in total have to talk to each other: the AI Worker, the Isaac ROS container, and the worker container (both on the user PC), all bridged over the network with **Zenoh RMW**, covered in [Section 4](#4-environment-setup).
-
-**Key Packages**
-
-* `pick_place_base.py`: Shared `~/capture` → `~/execute` → `~/cancel` service flow and motion/TF utilities used by every pick-and-place node.
-* `centerpose_bottle.py` / `centerpose_box.py` / `centerpose_shoe.py`: Per-object pick-and-place nodes.
-* `centerpose_camera.py`: Converts the ZED camera's BGRA image to BGR and relays `CameraInfo`.
-* `centerpose_pointcloud.py`: RViz visualization — cropped point cloud, table plane, corrected bbox markers.
-* `joint_trajectory_topic_executor.py`: Resets arms/head/lift to an initial pose.
 
 ---
 
@@ -45,7 +41,7 @@ CenterPose needs a GPU, so it runs inside the Isaac ROS container on a separate 
 
 **Machines and roles**
 
-- **AI Worker**: Runs `zenohd` (the Zenoh router) and the robot bringup (`ffw_bringup`). This is the only thing physically wired to the arms/cameras.
+- **AI Worker**: Runs `zenohd` (the Zenoh router) and the robot bringup (`ffw_bringup`). This machine is directly connected to the arms and cameras.
 - **User PC — Isaac ROS container**: Runs `isaac_ros_centerpose` with a Triton-served model, one of `centerpose_bottle` / `centerpose_box` / `centerpose_shoe`, publishing `vision_msgs/Detection3DArray` on `/centerpose/detections`.
 - **User PC — worker container**: Runs the `ffw_centerpose` nodes (this package) plus `cyclo_motion_controller_ros` (the MoveL controller that turns `/l_goal_move` Cartesian targets into actual joint motion) and the RViz visualization.
 - **Zenoh RMW**: Bridges ROS 2 topics between the AI Worker and the user PC over the network, instead of relying on DDS discovery working across subnets.
@@ -92,12 +88,18 @@ Follow NVIDIA's [Isaac ROS CenterPose quickstart](https://nvidia-isaac-ros.githu
 
 Because the Isaac ROS container and the AI Worker are on different machines, this setup uses **Zenoh** as the RMW implementation instead of the default DDS, with the user PC acting as a Zenoh client connecting to the AI Worker's Zenoh router.
 
-Install `zenohd` inside the container/workspace on the user PC side, then export the following before launching *any* ROS 2 node that needs to talk to the AI Worker (Isaac ROS container terminal **and** worker container terminal):
+Install the Zenoh RMW package (it also bundles the `zenohd` router) inside the container/workspace on the user PC side:
+
+```bash
+sudo apt install ros-$ROS_DISTRO-rmw-zenoh-cpp
+```
+
+Then export the following before launching *any* ROS 2 node that needs to talk to the AI Worker (Isaac ROS container terminal **and** worker container terminal):
 
 ```bash
 export RMW_IMPLEMENTATION=rmw_zenoh_cpp
 export ROS_DOMAIN_ID=30
-export ZENOH_CONFIG_OVERRIDE='transport/shared_memory/enabled=true;mode="client";connect/endpoints=["tcp/robot_ip:7447"]'
+export ZENOH_CONFIG_OVERRIDE='transport/shared_memory/enabled=false;mode="client";connect/endpoints=["tcp/robot_ip:7447"]'
 ```
 
 :::info
@@ -167,35 +169,39 @@ ros2 launch isaac_ros_centerpose isaac_ros_centerpose_triton.launch.py \
 
 ### Step 3: Run the Worker Container
 
-Everything below runs in the same terminal on the user PC — the `ffw_centerpose` workspace container, referred to as the "worker container." Start with these, common to every object:
+All of the commands below run in separate terminals inside the same `ffw_centerpose` workspace container on the user PC (the "worker container"). Terminals 1–3 are common to every object:
 
-```bash title="Worker container — common"
+```bash title="Worker container — terminal 1"
 # Reset arms/head/lift to a known initial pose
 ros2 launch ffw_centerpose centerpose_initial_pose.launch.py
 
 # Start the MoveL controller that /l_goal_move commands actually drive
 ros2 launch cyclo_motion_controller_ros ai_worker_controller.launch.py controller_type:=movel
+```
 
+```bash title="Worker container — terminal 2"
 # BGRA -> BGR conversion + CameraInfo relay for the ZED feed
 ros2 run ffw_centerpose centerpose_camera
+```
 
+```bash title="Worker container — terminal 3"
 # Point cloud / table / bbox visualization in RViz
 ros2 launch ffw_centerpose centerpose_pointcloud.launch.py
 ```
 
-Then pick the tab matching the object from Step 2:
+Then, in terminal 4, pick the tab matching the object from Step 2:
 
 <Tabs groupId="object-type">
 <TabItem value="bottle" label="Bottle">
 
-```bash title="Worker container — bottle"
+```bash title="Worker container — terminal 4 (bottle)"
 # Start the pick-and-place node with motion enabled
 ros2 launch ffw_centerpose centerpose_bottle.launch.py execute_motion:=true
 ```
 
-Once the node above is running, drive it with these service calls (any time, from another tab in the same terminal):
+Once the node above is running, drive it from terminal 5 with these service calls (any time):
 
-```bash title="Worker container — bottle services"
+```bash title="Worker container — terminal 5 (bottle)"
 # Snapshot the currently visible detections into a queue
 ros2 service call /centerpose_bottle/capture std_srvs/srv/Trigger {}
 
@@ -203,20 +209,20 @@ ros2 service call /centerpose_bottle/capture std_srvs/srv/Trigger {}
 ros2 service call /centerpose_bottle/execute std_srvs/srv/Trigger {}
 
 # Cancel mid-motion if needed
-ros2 service call /centerpose_bottle/cancel std_srvs/srv/Trigger
+ros2 service call /centerpose_bottle/cancel std_srvs/srv/Trigger {}
 ```
 
 </TabItem>
 <TabItem value="box" label="Box">
 
-```bash title="Worker container — box"
+```bash title="Worker container — terminal 4 (box)"
 # Start the pick-and-place node with motion enabled
 ros2 launch ffw_centerpose centerpose_box.launch.py execute_motion:=true
 ```
 
-Once the node above is running, drive it with these service calls (any time, from another tab in the same terminal):
+Once the node above is running, drive it from terminal 5 with these service calls (any time):
 
-```bash title="Worker container — box services"
+```bash title="Worker container — terminal 5 (box)"
 # Snapshot the currently visible detections into a queue
 ros2 service call /centerpose_box/capture std_srvs/srv/Trigger {}
 
@@ -224,20 +230,20 @@ ros2 service call /centerpose_box/capture std_srvs/srv/Trigger {}
 ros2 service call /centerpose_box/execute std_srvs/srv/Trigger {}
 
 # Cancel mid-motion if needed
-ros2 service call /centerpose_box/cancel std_srvs/srv/Trigger
+ros2 service call /centerpose_box/cancel std_srvs/srv/Trigger {}
 ```
 
 </TabItem>
 <TabItem value="shoe" label="Shoe">
 
-```bash title="Worker container — shoe"
+```bash title="Worker container — terminal 4 (shoe)"
 # Start the pick-and-place node with motion enabled
 ros2 launch ffw_centerpose centerpose_shoe.launch.py execute_motion:=true
 ```
 
-Once the node above is running, drive it with these service calls (any time, from another tab in the same terminal):
+Once the node above is running, drive it from terminal 5 with these service calls (any time):
 
-```bash title="Worker container — shoe services"
+```bash title="Worker container — terminal 5 (shoe)"
 # Snapshot the currently visible detections into a queue
 ros2 service call /centerpose_shoe/capture std_srvs/srv/Trigger {}
 
@@ -245,7 +251,7 @@ ros2 service call /centerpose_shoe/capture std_srvs/srv/Trigger {}
 ros2 service call /centerpose_shoe/execute std_srvs/srv/Trigger {}
 
 # Cancel mid-motion if needed
-ros2 service call /centerpose_shoe/cancel std_srvs/srv/Trigger
+ros2 service call /centerpose_shoe/cancel std_srvs/srv/Trigger {}
 ```
 
 </TabItem>
@@ -264,15 +270,15 @@ ros2 service call /centerpose_shoe/cancel std_srvs/srv/Trigger
 | Parameter | Default | Description |
 | :--- | :---: | :--- |
 | `execute_motion` | `false` | Master switch — the arm only moves if this is `true`. |
-| `max_grasp_x` | `0.7` | Safety bound; `~/execute` refuses to move if a captured pose's x exceeds this (almost always a bad depth read). |
-| `detection_timeout` | `10.0` | How stale (s) a detection can be before `~/capture` rejects it — CenterPose inference is slow/bursty. |
+| `max_grasp_x` | `0.7` | Safety bound; `~/execute` refuses to move if a captured pose's x exceeds this (almost always a bad depth read). Adjust to match your own workspace's real reach. |
+| `detection_timeout` | `10.0` | How stale (s) a detection can be before `~/capture` rejects it — CenterPose inference may have a low or irregular update rate. |
 
 ### 6.2 Grasp Calibration
 
 | Parameter | Description |
 | :--- | :--- |
 | `fixed_grasp_z` | Fixed grasp height (base_link Z); measured once on the real robot instead of trusting CenterPose's height estimate. |
-| `grasp_position_offset` | Small xyz correction calibrated from measured grasp error. |
+| `grasp_position_offset` | Small xy correction calibrated from measured grasp error (z always comes from `fixed_grasp_z`, never offset). |
 
 All of these are measured on the real robot (`tf2_echo` / `ros2 topic echo --once /l_goal_pose`) and need to be re-measured for your own setup — see [Coordinate Transformation](#7-coordinate-transformation) for how the box/shoe orientation is derived instead of hand-tuned.
 
@@ -282,15 +288,13 @@ All of these are measured on the real robot (`tf2_echo` / `ros2 topic echo --onc
 
 ### 7.1 Recovering Real Position: Pixel Projection + Depth
 
-CenterPose's own depth and object size aren't reliable enough to grasp with, so only its 2D pixel direction is trusted. Getting from that back to a real 3D grasp point in `base_link` uses standard techniques end-to-end — a pinhole-camera back-projection followed by a rigid TF transform — plus one small calibrated offset on top:
+CenterPose's own distance (depth) estimate has too much error to grasp with, so its value is discarded — only its 2D pixel direction is trusted, and the real depth value comes from the ZED camera's own depth image instead:
 
 1. **Forward-project** CenterPose's reported 3D point to a pixel using the standard pinhole camera model: `u = fx·(x/z) + cx`, `v = fy·(y/z) + cy`.
-2. **Sample real depth** at that pixel from the depth image (median over a small `depth_window`, ignoring invalid readings).
+2. **Sample real depth** at that pixel from the ZED camera's depth image (median over a small `depth_window`, ignoring invalid readings).
 3. **Back-project** the pixel + real depth into a 3D camera-frame point with the inverse of the same pinhole model: `X = (u-cx)·depth/fx`, `Y = (v-cy)·depth/fy`, `Z = depth`.
 4. **Transform to `base_link`** with a standard rigid-body TF transform: rotate by the camera→base_link quaternion, then translate.
-5. Add `grasp_position_offset`, a small xyz correction calibrated from measured grasp error on the real robot — the only non-analytic step in the whole pipeline.
-
-Z is never taken from steps 3–4 at all — it's always `fixed_grasp_z`, measured once on the real robot, since CenterPose's depth can't be trusted even after this correction. For the **bottle**, this recovered `(x, y, fixed_grasp_z)` position plus one fixed, pre-measured orientation *is* the entire grasp pose — no orientation math is needed at all.
+5. Add `grasp_position_offset`, a small xy correction calibrated from measured grasp error on the real robot — the only non-analytic step in the whole pipeline. The transformed Z is discarded entirely; the final grasp Z always comes from `fixed_grasp_z` instead.
 
 <div style={{padding: '14px 18px', background: 'rgba(102, 126, 234, 0.08)', borderLeft: '4px solid #667eea', borderRadius: '4px', margin: '12px 0'}}>
 CenterPose's reported bounding-box <code>size</code> was measured to be roughly 5x too large versus the real object — this is why <code>centerpose_pointcloud</code> also applies a <code>bbox_size_scale</code> correction before drawing markers, and why grasp poses never use CenterPose's size or depth directly.
@@ -300,7 +304,7 @@ CenterPose's reported bounding-box <code>size</code> was measured to be roughly 
 
 For the box and shoe, orientation also has to be converted — from CenterPose's detected quaternion into a gripper target quaternion. The standard technique is to decompose the *relative* rotation between the detected quaternion and a fixed reference orientation into an axis + angle, then rebuild a gripper quaternion from only the part of that rotation that actually matters for the grasp:
 
-1. **Signed angle via relative quaternion.** The detected orientation is compared against a measured reference orientation (the "0°" pose): `relative_q = conjugate(reference) * object_q`, decomposed into an axis + angle — a standard, frame-independent way to get a signed rotation angle between two quaternions, robust to whichever TF convention the raw angle happens to be expressed in.
+1. **Signed angle via relative quaternion.** Compute the relative rotation between the detected orientation and a measured reference orientation (the "0°" pose): `relative_q = conjugate(reference) * object_q`, then decompose `relative_q` into an axis + angle. This axis-angle form alone is unsigned; the sign is set by comparing that axis against a configured reference axis (`box_yaw_axis_xyz` / `shoe_yaw_axis_xyz`) via a dot product.
 2. **180° front/back flip correction.** CenterPose occasionally reports an object rotated 180° from its true orientation (mistaking front for back). Since this always shows up as an unusually large *unsigned* angle from the reference, if it exceeds a threshold the orientation is rotated by a further 180° around a fixed axis and the angle is recomputed.
 3. **Rebuild the gripper quaternion.** Pitch and yaw stay fixed (the grasp always approaches from the same general direction); only this single angle drives roll (box) or yaw (shoe). The final quaternion is built from `(computed angle, fixed pitch, fixed yaw)` and composed with a fixed tool-mounting quaternion offset via standard quaternion multiplication.
 
@@ -331,7 +335,7 @@ ros2 launch ffw_centerpose centerpose_pointcloud.launch.py freeze_table_plane:=t
 ## 9. Known Limitations
 
 - **Grasp height is always fixed, never read from depth**: the depth camera's own reading isn't accurate enough to trust directly, so `fixed_grasp_z` is used instead of live depth — re-measure it if your table height or object changes.
-- **Offsets are per-setup**: `grasp_position_offset` and the box/shoe angle-to-gripper fit were all calibrated on one specific robot; expect to need your own offset tuning pass since setups vary slightly.
+- **Position bias observed toward one side of frame**: in testing, the recovered position drifted slightly toward one side of the image — re-tune `grasp_position_offset` (and the box/shoe slope correction) if you see the same bias on your own camera/mounting.
 - **Detection can be stale**: CenterPose's inference rate is low and bursty, so a "fresh" detection can lag several seconds behind the moment you call `~/capture`; `detection_timeout` is the only guard.
-- **Requires a wired connection**: operating the arm needs a wired connection between the AI Worker and the user PC — don't expect this to work reliably over Wi-Fi.
+- **Requires a wired connection**: operating the arm needs a wired connection between the AI Worker and the user PC; Wi-Fi is not recommended, since communication reliability may be insufficient for arm control.
 - **Post-grasp motion is not generic**: what happens after the object is picked (where/how it's placed) is task-specific — write your own placement motion rather than reusing the defaults as-is.
