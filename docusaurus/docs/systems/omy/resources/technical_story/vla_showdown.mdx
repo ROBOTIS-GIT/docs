@@ -131,7 +131,7 @@ ros2 launch realsense2_camera rs_launch.py \
   depth_module.gain:=GAIN
 ```
 
-Here `CAM_KEY` follows the same rule as above (the wrist key is `cam_wrist`), and `WIDTHxHEIGHTxFPS` is the colour stream profile, for example `424x240x60`. Depth is disabled because the policy only reads RGB. `EXPOSURE_US` and `GAIN` set a fixed manual exposure (in microseconds) and sensor gain: auto-exposure is turned off so the wrist image does not brighten and darken as the arm moves, which would drift the pixels away from what training saw. Start from `11000` and `25` and adjust until the live image matches the recorded look.
+Here `CAM_KEY` follows the same rule as above (the wrist key is `cam_wrist`), and `WIDTHxHEIGHTxFPS` is the color stream profile, for example `424x240x60`. Depth is disabled because the policy only reads RGB. `EXPOSURE_US` and `GAIN` set a fixed manual exposure (in microseconds) and sensor gain: auto-exposure is turned off so the wrist image does not brighten and darken as the arm moves, which would drift the pixels away from what training saw. Start from `11000` and `25` and adjust until the live image matches the recorded look.
 
 The concrete values used in this study are:
 
@@ -141,7 +141,7 @@ The concrete values used in this study are:
 | Side | `cam_external2` | usb_cam | `/dev/video0` |
 | Wrist | `cam_wrist` | realsense2_camera | `424x240x60` |
 
-If a USB camera looks too dark or its colour drifts, reset its controls to a neutral baseline. This is only needed when the live image does not match training:
+If a USB camera looks too dark or its color drifts, reset its controls to a neutral baseline. This is only needed when the live image does not match training:
 
 ```bash
 for d in DEVICE_A DEVICE_B; do
@@ -150,7 +150,7 @@ for d in DEVICE_A DEVICE_B; do
 done
 ```
 
-List the same `/dev/videoN` devices you launched in place of `DEVICE_A` and `DEVICE_B`. The values recentre brightness, contrast, saturation, and sharpness to mid-range, drop the extra gain and backlight compensation, and re-enable automatic white balance and exposure (`auto_exposure=3` is the V4L2 automatic mode).
+List the same `/dev/videoN` devices you launched in place of `DEVICE_A` and `DEVICE_B`. The values recenter brightness, contrast, saturation, and sharpness to mid-range, drop the extra gain and backlight compensation, and re-enable automatic white balance and exposure (`auto_exposure=3` is the V4L2 automatic mode).
 
 </details>
 
@@ -484,27 +484,27 @@ little; averaging cancels this out.
 
 <div style={{textAlign: 'center', margin: '20px 0'}}>
   <img src="/img/systems/omy/resources/technical_story/vla_showdown/animations/Ensembling.gif" alt="Ensembling animation" style={{maxWidth: '90%', borderRadius: '8px'}} />
-  <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic'}}>Overlapping chunk predictions are blended by an age weight into one smooth command; the coefficient c controls how strongly the older, committed reach is favoured — and that sets grab depth.</p>
+  <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic'}}>Overlapping chunk predictions are blended by an age weight into one smooth command; the coefficient c controls how strongly the older, committed reach is favored — and that sets grab depth.</p>
 </div>
 
 The one catch is **grab depth**: averaging damps the reach peak, so a naive average grabs short. The
 blend weights each prediction by its age, `w = exp(-c·(a_max − age))`. The *oldest* overlapping
 prediction is the committed reach (the tail of an old chunk); the *newest* sits near the current pose.
-The single coefficient `c` sets how strongly the older reach is favoured. 
+The single coefficient `c` sets how strongly the older reach is favored. 
 
 Across a sweep of `c`, **`c = 0.15` gave the best success rate**, so it is the default.
 
 <details>
 <summary>What each `c` value does (and why it stays non-negative)</summary>
 
-Higher `c` puts *more* weight on the oldest, committed plan, not less. Only `c ≥ 0` is allowed; reach is shown as a percentage of the committed 0.566 rad:
+Higher `c` favors the oldest, committed plan. Only `c ≥ 0` is valid; reach is a percentage of the committed 0.566 rad.
 
-| `c` | How it weights the overlapping plans | Reach depth | On the arm |
-| --- | --- | --- | --- |
-| `c < 0` | Flips the exponent onto the *newest* plan, whose weight then grows without bound. | n/a | Disallowed: it reverses the goal. The weighting exists to favour the older committed reach; a negative `c` favours the newest near-pose plan instead, so the arm re-commands its current pose and never reaches depth. |
-| `c = 0` | Uniform, so every overlapping plan counts equally. | 96.7% | Blends the reach with the current pose and stops halfway (touches but cannot hold). |
-| `c ≈ 0.15` *(deployed)* | Tips toward the oldest, committed reach while still tracking the newer plans. | 98.4% | Commits to near-full depth, one smooth command per tick. |
-| `c ≈ 0.5` | Collapses almost entirely onto the oldest plan. | 100% | Reaches full depth but lags the live scene and ignores fresh corrections. |
+| `c` | Oldest plan's share | Weighting | Reach | On the arm |
+| --- | --- | --- | --- | --- |
+| `< 0` | n/a | inverted, favors the newest plan without bound | n/a | disallowed: re-commands the current pose, never reaches depth |
+| `0` | 20% | uniform, every plan counts equally | 96.7% | touches but cannot hold |
+| `0.15` *(deployed)* | 26% | tips to the oldest, still tracks newer plans | 98.4% | near-full depth, smooth |
+| `0.5` | 43% | dominated by the oldest plan | 100% | full depth, but lags the scene and ignores corrections |
 
 </details> 
 
@@ -625,7 +625,7 @@ the newest chunk, so it keeps restarting from behind and the command settles sli
 older chunks more weight lets the chunk that already reached full depth lead the blend, so the command
 keeps its depth and still follows the live scene.  The old chunk keeps contributing after the point where chunk mode would have thrown it away, so depth carries across each seam instead of resetting. 
 
-However, it mitigates rather than fixes: the weighting can only re-use plans the policy already produced, so it cannot add reach that was never predicted. Leaning harder on the old plans gets us the last of the depth but may ignore fresh grab corrections, which is maybe why plate 3 is at 60% and not 100%.
+However, it mitigates rather than fixes: the weighting can only re-use plans the policy already produced, so it cannot add reach that was never predicted. Leaning harder on the old plans gets us the last of the depth but may ignore fresh grab corrections. Also, ensembling is nevertheless still an averaging method, mixing chunks and dampening overall actions (with constant, low `c`). Due to these two, this is maybe why plate 3 is at 60% and not 100%.
 
 A variable `c` scheduler may fix this issue, with a custom curriculum, but that is set as future work.
 
@@ -945,7 +945,7 @@ RTC re-generates each chunk so its values are *inpainted* to agree with the prev
 the plan continuous across the seam. In principle that attacks the dip; in practice, on this arm, it does
 not help. 
 
-The OMY controller takes *position-only* commands and re-linearises at every seam regardless of
+The OMY controller takes *position-only* commands and re-linearizes at every seam regardless of
 how continuous the values were (RTC's continuity is thrown away before the motors see it) while its
 per-chunk re-generation adds one more source of frame-to-frame variation.
 
