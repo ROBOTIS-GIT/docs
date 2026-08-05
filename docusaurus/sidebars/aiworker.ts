@@ -117,7 +117,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
       {type: 'doc', id: 'systems/aiworker/advanced_features/cyclo_control', label: 'Cyclo Control'},
       {type: 'doc', id: 'systems/aiworker/advanced_features/behavior_trees', label: 'Behavior Trees'},
       {type: 'doc', id: 'systems/aiworker/advanced_features/robotis_vuer', label: 'ROBOTIS Vuer'},
-      {type: 'doc', id: 'systems/aiworker/advanced_features/eazy_navi', label: 'Eazy Navi'},
+      {type: 'doc', id: 'systems/aiworker/advanced_features/eazy_navi', label: 'Easy Navi'},
     ],
   },
   {
@@ -125,6 +125,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
     label: 'Resources',
     collapsed: false,
     items: [
+      {type: 'doc', id: 'systems/aiworker/resources/cyclo', label: 'What is Cyclo?'},
       {type: 'doc', id: 'systems/aiworker/resources/open_source', label: 'Open Source'},
       {type: 'doc', id: 'systems/aiworker/resources/release_notes', label: 'Release Notes'},
       {
