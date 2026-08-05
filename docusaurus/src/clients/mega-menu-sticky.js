@@ -1,14 +1,14 @@
 /**
  * Mega-menu sticky behaviour.
  *
- *   - 좌측 카테고리(.mega-menu__category) 에 mouseenter 시
- *     - 자기 자신 + 대응 .mega-menu__panel 에 --active class 부여
- *     - 다른 카테고리/패널의 --active 제거
- *   - mouseleave 핸들러는 두지 않음 → 한 번 활성화된 panel 은 다른 카테고리를
- *     hover 하기 전까지 유지 (마우스가 우측 panel 영역으로 이동해도 sticky)
+ *   - On mouseenter for a left-side category (.mega-menu__category):
+ *     - Apply the --active class to the category and its matching panel.
+ *     - Remove --active from the other categories and panels.
+ *   - There is no mouseleave handler. The active panel persists until another
+ *     category is hovered, including while the pointer moves into the panel.
  *
- *   Docusaurus 는 client-side routing 이라 navbar DOM 이 페이지 전환 시
- *   재구축될 수 있음. MutationObserver 로 새 mega-menu 가 붙으면 자동 init.
+ *   Docusaurus uses client-side routing, so the navbar DOM can be rebuilt
+ *   during navigation. A MutationObserver initializes newly added mega-menus.
  */
 
 if (typeof window !== 'undefined') {
@@ -111,7 +111,7 @@ if (typeof window !== 'undefined') {
       );
       panels.forEach((p) => p.classList.remove('mega-menu__panel--active'));
     } else {
-      // 기본 활성: 첫 번째 카테고리 + 첫 번째 패널
+      // Default to the first category and its panel.
       activateCategory(categories[0]);
     }
 
@@ -134,14 +134,14 @@ if (typeof window !== 'undefined') {
     document.querySelectorAll('.mega-menu').forEach(init);
   }
 
-  // 첫 페이지 로드
+  // Initial page load.
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', setupAll);
   } else {
     setupAll();
   }
 
-  // SPA 라우팅 후에도 새로 추가된 mega-menu 자동 초기화
+  // Initialize mega-menus added after SPA navigation.
   const observer = new MutationObserver(() => setupAll());
   observer.observe(document.body, {childList: true, subtree: true});
 }
