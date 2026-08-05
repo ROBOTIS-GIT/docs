@@ -1,23 +1,24 @@
-# Docusaurus 빌드 + 서빙 이미지 (EN + KO 다국어 포함)
-# package.json engines: node >=20, GitHub Actions 빌드도 node 20 사용
+# Docusaurus build and serving image with English and Korean locales.
+# package.json requires Node.js 20 or newer; GitHub Actions also uses Node.js 20.
 #
-# 빌드 컨텍스트는 docker-compose.yml 에서 ./docusaurus 로 지정한다.
-# (레포 루트를 컨텍스트로 잡으면 .git / source(1GB+) 까지 데몬에 전송되어 느려짐)
-# 따라서 아래 COPY 경로는 모두 docusaurus/ 폴더 기준이다.
+# docker-compose.yml sets ./docusaurus as the build context.
+# Using the repository root would also send .git and source (1 GB+) to the
+# Docker daemon, slowing down the build. COPY paths below are therefore
+# relative to the docusaurus directory.
 FROM node:20
 
 WORKDIR /app
 
-# 의존성만 먼저 복사해 레이어 캐시 활용
+# Copy dependency manifests first to take advantage of layer caching.
 COPY package.json package-lock.json ./
 RUN npm ci
 
-# 나머지 소스 복사 (compose 에서 볼륨으로 덮어쓰므로 초기값 역할)
+# Copy the remaining source as the initial content; Compose overlays a volume.
 COPY . .
 
-# Docusaurus serve 포트
+# Docusaurus serving port.
 EXPOSE 5714
 
-# 전체 빌드(EN + KO) 후 정적 파일 서빙
-# DOCUSAURUS_ON_BROKEN_LINKS=warn: broken link를 경고로만 처리해 빌드 중단 방지
+# Build all locales, then serve the generated static files.
+# Treat broken links as warnings so they do not stop the build.
 CMD ["/bin/sh", "-c", "DOCUSAURUS_ON_BROKEN_LINKS=warn npm run build && npm run serve -- --host 0.0.0.0 --port 5714"]

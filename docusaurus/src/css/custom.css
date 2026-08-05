@@ -3,13 +3,55 @@
  * Brand primary: #00A0DF (ROBOTIS cyan/blue). Dark mode lifts to a brighter cyan.
  */
 
-/* Pretendard — 한국어/영문 모두 가독성 좋은 모던 sans-serif. CDN 로딩 (variable). */
+/* Pretendard — a readable modern sans-serif for Korean and English, loaded as a variable font from a CDN. */
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
 
 :root {
   --ifm-font-family-base: 'Pretendard Variable', Pretendard, -apple-system,
     BlinkMacSystemFont, 'Segoe UI', Roboto, 'Apple SD Gothic Neo',
     'Noto Sans KR', 'Malgun Gothic', sans-serif;
+}
+
+.repository-category-badge {
+  padding: 0.25rem 0.55rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.35;
+  white-space: nowrap;
+}
+
+.repository-category-list {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.repository-with-origin {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+}
+
+.repository-fork-origin {
+  color: var(--ifm-color-emphasis-800);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.repository-fork-origin code {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.repository-guide-list {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+  white-space: nowrap;
 }
 
 /* KaTeX display tuning for control equations and robotics math. */
@@ -149,7 +191,7 @@
   text-align: center;
 }
 
-/* 항목 사이 구분선 */
+/* Separators between navbar items. */
 .theme-layout-navbar-left > .navbar__item::after,
 .theme-layout-navbar-left > .dropdown::after {
   content: '';
@@ -294,7 +336,7 @@
   z-index: 1000;
 }
 
-/* navbar의 locale dropdown 옆 globe(번역) 아이콘 + 외부 링크 화살표 아이콘 숨김 */
+/* Hide the locale dropdown globe and external-link arrow icons in the navbar. */
 .navbar svg[class*='iconLanguage'],
 .navbar svg.iconLanguage,
 .navbar__link svg[class*='iconExternalLink'],
@@ -318,7 +360,7 @@
 }
 .mega-menu {
   display: grid;
-  /* 우측 폭 20% 축소: 1fr (600px) → 480px */
+  /* Reduce the right column by 20%: 1fr (600px) to 480px. */
   grid-template-columns: 240px 480px;
   min-height: 320px;
   background: var(--ifm-background-color);
@@ -369,13 +411,13 @@
   display: none;
 }
 /* Panel visibility driven by JS-managed --active class (src/clients/mega-menu-sticky.js).
-   JS 가 카테고리 mouseenter 시 .--active 토글, mouseleave 핸들러 없음 →
-   한 번 활성화된 panel 은 다른 카테고리 hover 전까지 유지. 마우스가 우측
-   panel 영역으로 이동해도 sticky. */
+   JavaScript toggles --active on category mouseenter. With no mouseleave
+   handler, the active panel persists until another category is hovered,
+   including while the pointer moves into the panel. */
 .mega-menu__panel--active {
   display: block;
 }
-/* JS 미로드 fallback: 첫 번째 panel default 표시 (모든 panel display: none 위에 덮어쓰기) */
+/* Fallback without JavaScript: show the first panel by default. */
 .mega-menu__panel:first-child {
   display: block;
 }
@@ -387,7 +429,7 @@
   display: none;
 }
 
-/* Active 카테고리 시각 표시 (좌측 보더 + 강조) */
+/* Active category styling with a left border and emphasis. */
 .mega-menu__category--active {
   border-left-color: var(--ifm-color-primary);
   background: var(--ifm-color-emphasis-100);
@@ -1722,6 +1764,62 @@
   object-fit: contain;
 }
 
+.opensource-cyclo-signature {
+  display: block;
+  width: min(250px, 70%);
+  height: auto;
+  margin: 0.25rem 0 1rem;
+}
+
+[data-theme='dark'] .opensource-cyclo-signature {
+  filter: invert(1);
+}
+
+.ai-sapiens-open-source-callout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1.25rem;
+  align-items: center;
+  margin: 1.5rem 0;
+  padding: 1.15rem 1.25rem;
+  border: 1px solid color-mix(in srgb, var(--ifm-color-primary) 22%, var(--robotis-card-border));
+  border-left: 4px solid var(--ifm-color-primary);
+  border-radius: 14px;
+  background:
+    linear-gradient(120deg, color-mix(in srgb, var(--ifm-color-primary) 9%, transparent), transparent 58%),
+    var(--ifm-background-surface-color);
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--ifm-color-primary) 8%, transparent);
+}
+
+.ai-sapiens-open-source-callout__content {
+  min-width: 0;
+}
+
+.ai-sapiens-open-source-callout__eyebrow {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: var(--ifm-color-primary);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.ai-sapiens-page .ai-sapiens-open-source-callout h3 {
+  margin: 0 0 0.35rem;
+  font-size: 1.05rem;
+}
+
+.ai-sapiens-open-source-callout p {
+  margin: 0;
+  color: var(--robotis-muted);
+  line-height: 1.55;
+}
+
+.ai-sapiens-open-source-callout__link {
+  white-space: nowrap;
+}
+
 .ai-sapiens-imitation-image {
   display: block;
   width: min(900px, 100%);
@@ -2264,6 +2362,14 @@
     grid-template-columns: 1fr;
   }
 
+  .ai-sapiens-open-source-callout {
+    grid-template-columns: 1fr;
+  }
+
+  .ai-sapiens-open-source-callout__link {
+    justify-self: start;
+  }
+
   .model-comparison {
     flex-direction: column;
   }
@@ -2330,7 +2436,7 @@
 
 }
 
-/* 모든 H1 동일 크기 */
+/* Normalize all H1 headings to the same size. */
 .markdown h1 {
   --ifm-h1-font-size: 2.5rem;
 }

@@ -1,6 +1,7 @@
 import type {ReactNode} from 'react';
 import Link from '@docusaurus/Link';
 import Translate, {translate} from '@docusaurus/Translate';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
@@ -33,10 +34,12 @@ type CardProps = {
 };
 
 function ProductCard({to, imageSrc, imageAlt, title, desc}: CardProps): ReactNode {
+  const localizedImageSrc = useBaseUrl(imageSrc);
+
   return (
     <Link to={to} className={styles.productCard}>
       <div className={styles.productImageWrap}>
-        <img src={imageSrc} alt={imageAlt} className={styles.productImage} />
+        <img src={localizedImageSrc} alt={imageAlt} className={styles.productImage} />
       </div>
       <Heading as="h3" className={styles.productTitle}>
         {title}
