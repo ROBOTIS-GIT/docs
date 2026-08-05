@@ -1,0 +1,46 @@
+# Version Update
+
+Use Version Update to update Cyclo Manager and the container agent.
+
+:::info
+Package version update is not supported for OMX yet.
+Only **Agent Update** and **Cyclo Manager Update** are currently available.
+:::
+
+The Version Management section shows two update targets:
+
+- **Agent Update**: Updates the Cyclo Manager agent inside a managed container. The agent receives service control requests, streams logs, and reports service status to Cyclo Manager.
+- **Cyclo Manager Update**: Updates the Cyclo Manager CLI, API server, and web UI stack. Use this when a new Cyclo Manager release is available.
+
+## Cyclo Manager Update
+
+Use **Cyclo Manager Update** when a new Cyclo Manager version is available.
+
+![Cyclo Manager Update](/img/systems/omx/quick_start_guide/operation_guide/cyclo_manager/cyclo_manager_update.png)
+
+This updates the `cyclo-manager` CLI package on the user PC and restarts the Cyclo Manager stack with the matching API server and web UI images.
+
+1. Updates the `cyclo-manager` package.
+2. Stops the running Cyclo Manager containers.
+3. Pulls or starts the configured Cyclo Manager API and web UI images.
+4. Restarts the host agent service.
+5. Starts Cyclo Manager again with the updated stack.
+
+After the update finishes, reopen the Cyclo Manager web UI in your browser.
+
+If the update fails from the web UI, run the update manually on the user PC:
+
+```bash
+cyclo-manager update
+```
+
+## Agent Update
+
+Use **Agent Update** when the s6 agent inside a managed container is older than, or not compatible with, the installed Cyclo Manager version.
+The s6 agent handles service control, log streaming, and status reporting from inside the container, so a version mismatch can cause Cyclo Manager operations to fail or behave unexpectedly.
+
+When Cyclo Manager detects an incompatible container agent, the **Container Agents** section shows an **Update** button.
+Click **Update** to update the in-container agent to a version compatible with the current Cyclo Manager.
+The container may restart during the update.
+
+![Agent Version Update](/img/systems/omx/quick_start_guide/operation_guide/cyclo_manager/agent_version_update.png)
