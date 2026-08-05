@@ -1,7 +1,7 @@
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# AI Worker x CenterPose Pick & Place
+# AI Worker x Isaac CenterPose Pick & Place
 
 ### Full Demo
 
@@ -132,7 +132,7 @@ ros2 launch ffw_bringup ffw_sg2_follower_ai.launch.py
 
 ### Step 2: Launch CenterPose Detection (Isaac ROS Container)
 
-Make sure the [Zenoh env vars](#42-zenoh-rmw-bridge-user-pc--ai-worker) are exported in this terminal, then pick the launch matching the object you're picking. Pretrained CenterPose models for additional object categories can be downloaded from NVIDIA's [CenterPose model catalog](https://catalog.ngc.nvidia.com/orgs/nvidia/tao/models/centerpose/deployable_dla34).
+Make sure the [Zenoh env vars](#42-zenoh-rmw-bridge-user-pc--ai-worker) are exported in this terminal, then pick the launch matching the object you're picking. Pretrained CenterPose models for additional object categories can be downloaded from NVIDIA's [CenterPose model catalog](https://catalog.ngc.nvidia.com/orgs/nvidia/tao/models/centerpose/deployable_dla34) — place them under `isaac_ros_assets/models/triton/` in your Isaac ROS workspace, which is mounted inside the container as `/workspaces/isaac_ros-dev`.
 
 <Tabs groupId="object-type">
 <TabItem value="bottle" label="Bottle">
@@ -278,9 +278,10 @@ ros2 service call /centerpose_shoe/cancel std_srvs/srv/Trigger {}
 | Parameter | Description |
 | :--- | :--- |
 | `fixed_grasp_z` | Fixed grasp height (base_link Z); measured once on the real robot instead of trusting CenterPose's height estimate. |
-| `grasp_position_offset` | Small xy correction calibrated from measured grasp error (z always comes from `fixed_grasp_z`, never offset). |
+| `grasp_position_offset` | Small xyz correction calibrated from measured grasp error, added on top of `fixed_grasp_z` for the z component. |
+| `grasp_position_x_slope` / `grasp_position_y_slope` | Additional correction proportional to how far the detection's pixel is from `grasp_position_y_reference_pixel`, compensating for the depth reading drifting with position in frame. |
 
-All of these are measured on the real robot (`tf2_echo` / `ros2 topic echo --once /l_goal_pose`) and need to be re-measured for your own setup — see [Coordinate Transformation](#7-coordinate-transformation) for how the box/shoe orientation is derived instead of hand-tuned.
+All of these are measured on the real robot and need to be re-measured for your own setup.
 
 ---
 
@@ -294,13 +295,13 @@ CenterPose's own distance (depth) estimate has too much error to grasp with, so 
 2. **Sample real depth** at that pixel from the ZED camera's depth image (median over a small `depth_window`, ignoring invalid readings).
 3. **Back-project** the pixel + real depth into a 3D camera-frame point with the inverse of the same pinhole model: `X = (u-cx)·depth/fx`, `Y = (v-cy)·depth/fy`, `Z = depth`.
 4. **Transform to `base_link`** with a standard rigid-body TF transform: rotate by the camera→base_link quaternion, then translate.
-5. Add `grasp_position_offset`, a small xy correction calibrated from measured grasp error on the real robot — the only non-analytic step in the whole pipeline. The transformed Z is discarded entirely; the final grasp Z always comes from `fixed_grasp_z` instead.
+5. Add `grasp_position_offset`, a small xyz correction calibrated from measured grasp error on the real robot — the only non-analytic step in the whole pipeline. The transformed Z is discarded; the grasp Z instead comes from `fixed_grasp_z` plus the offset's z component.
 
 <div style={{padding: '14px 18px', background: 'rgba(102, 126, 234, 0.08)', borderLeft: '4px solid #667eea', borderRadius: '4px', margin: '12px 0'}}>
 CenterPose's reported bounding-box <code>size</code> was measured to be roughly 5x too large versus the real object — this is why <code>centerpose_pointcloud</code> also applies a <code>bbox_size_scale</code> correction before drawing markers, and why grasp poses never use CenterPose's size or depth directly.
 </div>
 
-### 7.2 From Object Quaternion to Gripper Quaternion (Box & Shoe)
+### 7.2 From Object Quaternion to Gripper Quaternion
 
 For the box and shoe, orientation also has to be converted — from CenterPose's detected quaternion into a gripper target quaternion. The standard technique is to decompose the *relative* rotation between the detected quaternion and a fixed reference orientation into an axis + angle, then rebuild a gripper quaternion from only the part of that rotation that actually matters for the grasp:
 
@@ -336,6 +337,6 @@ ros2 launch ffw_centerpose centerpose_pointcloud.launch.py freeze_table_plane:=t
 
 - **Grasp height is always fixed, never read from depth**: the depth camera's own reading isn't accurate enough to trust directly, so `fixed_grasp_z` is used instead of live depth — re-measure it if your table height or object changes.
 - **Position bias observed toward one side of frame**: in testing, the recovered position drifted slightly toward one side of the image — re-tune `grasp_position_offset` (and the box/shoe slope correction) if you see the same bias on your own camera/mounting.
-- **Detection can be stale**: CenterPose's inference rate is low and bursty, so a "fresh" detection can lag several seconds behind the moment you call `~/capture`; `detection_timeout` is the only guard.
+- **Detection can be stale**: CenterPose's inference may have a low or irregular update rate, so a "fresh" detection can lag several seconds behind the moment you call `~/capture`; `detection_timeout` is the only guard.
 - **Requires a wired connection**: operating the arm needs a wired connection between the AI Worker and the user PC; Wi-Fi is not recommended, since communication reliability may be insufficient for arm control.
 - **Post-grasp motion is not generic**: what happens after the object is picked (where/how it's placed) is task-specific — write your own placement motion rather than reusing the defaults as-is.
