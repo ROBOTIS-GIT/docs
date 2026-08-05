@@ -33,6 +33,19 @@ const omySidebar: SidebarsConfig[string] = [
         link: {type: 'doc', id: 'systems/omy/quick_start_guide/operation_guide'},
         collapsed: false,
         items: [
+          {
+            type: 'category',
+            label: 'Cyclo Manager',
+            link: {type: 'doc', id: 'systems/omy/quick_start_guide/operation_guide/cyclo_manager/cyclo_manager'},
+            collapsed: false,
+            items: [
+              {type: 'doc', id: 'systems/omy/quick_start_guide/operation_guide/cyclo_manager/install', label: 'Install'},
+              {type: 'doc', id: 'systems/omy/quick_start_guide/operation_guide/cyclo_manager/bringup', label: 'Bringup'},
+              {type: 'doc', id: 'systems/omy/quick_start_guide/operation_guide/cyclo_manager/manage_container', label: 'Manage Containers'},
+              {type: 'doc', id: 'systems/omy/quick_start_guide/operation_guide/cyclo_manager/version_update', label: 'Version Update'},
+              {type: 'doc', id: 'systems/omy/quick_start_guide/operation_guide/cyclo_manager/novnc', label: 'noVNC'},
+            ],
+          },
           {type: 'doc', id: 'systems/omy/quick_start_guide/operation_guide/teleoperation', label: 'Teleoperation'},
           {type: 'doc', id: 'systems/omy/quick_start_guide/operation_guide/robot_control', label: 'Robot Control'},
         ],
