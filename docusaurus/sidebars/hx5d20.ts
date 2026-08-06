@@ -46,7 +46,6 @@ const hx5d20Sidebar: SidebarsConfig[string] = [
     label: 'Resources',
     collapsed: false,
     items: [
-      {type: 'doc', id: 'systems/hx5_d20/resources/cyclo', label: 'What is Cyclo?'},
       {type: 'doc', id: 'systems/hx5_d20/resources/open_source', label: 'Open Source'},
       {type: 'doc', id: 'systems/hx5_d20/resources/release_notes', label: 'Release Notes'},
       {

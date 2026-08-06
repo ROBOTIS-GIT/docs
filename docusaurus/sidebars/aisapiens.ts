@@ -81,7 +81,6 @@ const aisapiensSidebar: SidebarsConfig[string] = [
     label: 'Resources',
     collapsed: false,
     items: [
-      {type: 'doc', id: 'systems/aisapiens/resources/cyclo', label: 'What is Cyclo?'},
       {type: 'doc', id: 'systems/aisapiens/resources/open_source', label: 'Open Source'},
       {type: 'doc', id: 'systems/aisapiens/resources/release_notes', label: 'Release Notes'},
       {type: 'doc', id: 'systems/aisapiens/resources/support', label: 'Support'},
