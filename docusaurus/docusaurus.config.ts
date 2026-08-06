@@ -344,7 +344,7 @@ const config: Config = {
                     </div>
                     <div class="mega-menu__category" data-cat="cyclo" tabindex="0">
                       <h4>CYCLO</h4>
-                      <p>Physical AI platform</p>
+                      <p>Physical AI software platform</p>
                     </div>
                     <div class="mega-menu__category" data-cat="arduino-ide" tabindex="0">
                       <h4>Arduino IDE</h4>
