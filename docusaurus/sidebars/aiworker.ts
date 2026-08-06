@@ -125,7 +125,6 @@ const aiworkerSidebar: SidebarsConfig[string] = [
     label: 'Resources',
     collapsed: false,
     items: [
-      {type: 'doc', id: 'systems/aiworker/resources/cyclo', label: 'What is Cyclo?'},
       {type: 'doc', id: 'systems/aiworker/resources/open_source', label: 'Open Source'},
       {type: 'doc', id: 'systems/aiworker/resources/release_notes', label: 'Release Notes'},
       {
