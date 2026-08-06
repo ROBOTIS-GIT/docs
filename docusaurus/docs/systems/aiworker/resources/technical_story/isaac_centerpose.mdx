@@ -89,7 +89,7 @@ $$
 
 $P$ is a 3D point, and $R_{cam \to base}$, $t_{cam \to base}$ come straight from a TF lookup: $R_{cam \to base}$ rotates the camera's axes to line up with `base_link`'s, and $t_{cam \to base}$ is the position of the camera-frame origin, expressed in the `base_link` frame.
 
-Getting a trustworthy $P_{camera}$ in the first place — since CenterPose's own 3D point can't be trusted — is most of the work below. Its distance (depth) estimate has too much error to grasp with, so that value is discarded — only its 2D pixel direction is trusted, and the real depth comes from the ZED camera's own depth image instead:
+Getting a trustworthy $P_{camera}$ in the first place is most of the work below. CenterPose estimates pose up to scale, so its translation isn't metric-accurate enough for our grasping setup — we only use the image ray implied by its detected center (i.e. its 2D pixel direction), and recover metric depth separately from the ZED's registered depth image:
 
 **Step 1 — forward-project** CenterPose's reported 3D point to a pixel with the standard pinhole camera model:
 
@@ -163,7 +163,7 @@ pose.pose.position.y = float(point[1] + self.grasp_position_offset[1])
 pose.pose.position.z = fixed_z + self.grasp_position_offset[2]
 ```
 
-`fixed_z` is a measured constant (`fixed_grasp_z`), not the depth-derived Z — even real depth readings aren't reliable enough at the exact grasp height. Box and shoe go a step further and add a small correction proportional to how far off-center the pixel is (`grasp_position_x/y_slope`), since the depth reading itself drifts slightly with position in frame.
+`fixed_z` is a measured constant (`fixed_grasp_z`), not the depth-derived Z — even real depth readings aren't reliable enough at the exact grasp height. Box and shoe go a step further and add a small correction proportional to how far off-center the pixel is, since the depth reading itself drifts slightly with position in frame.
 
 ---
 
@@ -193,7 +193,7 @@ def _signed_box_yaw(self, object_q):
     return sign * angle, angle
 ```
 
-**Step 2 — 180° front/back flip correction.** CenterPose occasionally reports an object rotated 180° from its true orientation. That mistake always shows up as an unusually large *unsigned* angle from the reference, so it's simple to detect and correct before trusting the angle:
+**Step 2 — 180° front/back flip correction.** CenterPose occasionally reports an object rotated 180° from its true orientation. In our calibrated operating range, this front/back ambiguity usually shows up as an unsigned relative angle larger than a configured threshold — an empirical heuristic, not a general guarantee, since a genuinely large rotation would look the same. We treat detections past that threshold as a flip and apply a local-Y correction:
 
 ```python
 object_yaw, raw_angle = self._signed_box_yaw(object_q)
