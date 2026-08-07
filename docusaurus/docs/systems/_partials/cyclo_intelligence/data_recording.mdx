@@ -26,6 +26,10 @@ Before opening the `Record` page, select the robot type from the `Home` page.
 
 Only robot types with a config file under `cyclo_intelligence/shared/shared/robot_configs` appear in this list.
 
+The robot config file defines the observation data and action data collected for each robot type. For example, to add more camera observations, add image entries under `observation.images` as shown below.
+
+![Robot config camera example](/img/systems/_partials/cyclo_intelligence/robot_configs_camera_example.png)
+
 ## Record Page
 
 
@@ -115,17 +119,17 @@ Use the `Rosbag Recorder` panel to enter the recording information before starti
 After entering the required information, click `Record Start` to begin recording.
 
 {props.showAiWorkerLeaderControls && (
-  <details>
-    <summary>AI Worker leader button controls</summary>
+  <>
+    <h3>AI Worker Leader Button Controls</h3>
     <div className="alert alert--info" role="note">
       <p>When both hands are needed to operate the wearable skeletal leader device, use the leader buttons to control the recording state.</p>
       <ul>
         <li><strong>Left button press</strong>: Cancel the current episode.</li>
-        <li><strong>Right button press</strong>: Save the current episode.</li>
+        <li><strong>Right button press</strong>: Start recording or save the current episode.</li>
       </ul>
       <img src="/img/systems/aiworker/imitation_learning/dataset_preparation/recording/data_collection_button.png" alt="AI Worker leader buttons for data recording" style={{width: '70%', margin: '20px 0 0'}} />
     </div>
-  </details>
+  </>
 )}
 
 
