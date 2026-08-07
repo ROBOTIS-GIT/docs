@@ -345,6 +345,10 @@ const config: Config = {
                       <h4>DYNAMIXEL Software</h4>
                       <p>Tools and SDKs</p>
                     </div>
+                    <div class="mega-menu__category" data-cat="cyclo" tabindex="0">
+                      <h4>CYCLO</h4>
+                      <p>Physical AI software platform</p>
+                    </div>
                     <div class="mega-menu__category" data-cat="arduino-ide" tabindex="0">
                       <h4>Arduino IDE</h4>
                       <p>Controller development</p>
@@ -383,6 +387,13 @@ const config: Config = {
                         </a>
                         <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/software/dynamixel_workbench">
                           <span>DYNAMIXEL Workbench</span>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="mega-menu__panel" data-panel="cyclo">
+                      <div class="mega-menu__list">
+                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/software/cyclo">
+                          <span>What is CYCLO?</span>
                         </a>
                       </div>
                     </div>
