@@ -54,13 +54,23 @@ export default function OhGymFloatingIndex() {
     let currentY = 0;
     let targetY = 0;
 
+    const getPageScale = () => {
+      const scale = Number.parseFloat(
+        window.getComputedStyle(page).getPropertyValue('--ohgym-page-scale'),
+      );
+
+      return Number.isFinite(scale) && scale > 0 ? scale : 1;
+    };
+
     const getTargetY = () => {
+      const scale = getPageScale();
       const pageRect = page.getBoundingClientRect();
+      const pageHeight = pageRect.height / scale;
       const panelHeight = panel.offsetHeight;
       const pageTop = pageRect.top + window.scrollY;
-      const viewportOffset = window.innerHeight / 2 - panelHeight / 2;
-      const rawY = window.scrollY - pageTop + viewportOffset;
-      const maxY = Math.max(page.offsetHeight - panelHeight, 0);
+      const viewportOffset = window.innerHeight / (2 * scale) - panelHeight / 2;
+      const rawY = (window.scrollY - pageTop) / scale + viewportOffset;
+      const maxY = Math.max(pageHeight - panelHeight, 0);
 
       return Math.min(Math.max(rawY, 0), maxY);
     };
