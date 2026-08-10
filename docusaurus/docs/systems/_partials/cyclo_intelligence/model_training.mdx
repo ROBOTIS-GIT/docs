@@ -1,7 +1,251 @@
+import TrainingStrategies from '@site/src/components/cyclo_intelligence/TrainingStrategies';
+import ModelPicker from '@site/src/components/cyclo_intelligence/ModelPicker';
+
 ![Cyclo Intelligence Training Guide](/img/systems/_partials/cyclo_intelligence/training_guide_overview.png)
 
 Training is performed outside Cyclo Intelligence. Training environments vary by model, GPU, framework version, and server setup, so Cyclo Intelligence provides this page as a guide instead of a fixed training Docker environment.
 
 Use `Data Tools` to convert and upload the dataset. Train the model in your own training environment, then bring the trained model back into Cyclo Intelligence with `Data Tools` and run it from `Model Inference`.
 
-The current guide focuses on LeRobot and GR00T workflows. Cyclo Intelligence aims to expand this training flow to Green VLA, RLDX, PI models, and other robot foundation model pipelines.
+## Supported Models
+
+Train only the policies that have a matching inference backend. `Model Inference` ships pre-built Docker backends for the models below, so a policy outside this list has no backend to run in.
+
+<table>
+  <colgroup>
+    <col style={{width: '22%'}} />
+    <col style={{width: '20%'}} />
+    <col style={{width: '58%'}} />
+  </colgroup>
+  <thead>
+    <tr>
+      <th style={{textAlign: 'center'}}>Model</th>
+      <th style={{textAlign: 'center'}}>Policy type</th>
+      <th>Training start point</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style={{textAlign: 'center'}}>ACT</td>
+      <td style={{textAlign: 'center'}}><code>act</code></td>
+      <td>Trained from scratch on your dataset.</td>
+    </tr>
+    <tr>
+      <td style={{textAlign: 'center'}}>Diffusion</td>
+      <td style={{textAlign: 'center'}}><code>diffusion</code></td>
+      <td>Trained from scratch on your dataset.</td>
+    </tr>
+    <tr>
+      <td style={{textAlign: 'center'}}>SmolVLA</td>
+      <td style={{textAlign: 'center'}}><code>smolvla</code></td>
+      <td>Fine-tuned from <code>lerobot/smolvla_base</code>.</td>
+    </tr>
+    <tr>
+      <td style={{textAlign: 'center'}}>XVLA</td>
+      <td style={{textAlign: 'center'}}><code>xvla</code></td>
+      <td>Fine-tuned from <code>lerobot/xvla-base</code>.</td>
+    </tr>
+    <tr>
+      <td style={{textAlign: 'center'}}>Pi0</td>
+      <td style={{textAlign: 'center'}}><code>pi0</code></td>
+      <td>Fine-tuned from <code>lerobot/pi0_base</code>.</td>
+    </tr>
+    <tr>
+      <td style={{textAlign: 'center'}}>Pi0.5</td>
+      <td style={{textAlign: 'center'}}><code>pi05</code></td>
+      <td>Fine-tuned from <code>lerobot/pi05_base</code>.</td>
+    </tr>
+    <tr>
+      <td style={{textAlign: 'center'}}>GR00T N1.7</td>
+      <td style={{textAlign: 'center'}}><code>groot</code></td>
+      <td>Fine-tuned from <code>nvidia/GR00T-N1.7-3B</code>.</td>
+    </tr>
+  </tbody>
+</table>
+
+ACT and Diffusion are small enough to train on a single consumer GPU. The VLA policies are billions of parameters and expect a data-center GPU, so check the memory requirement of the model you pick before starting a run. The [LeRobot documentation](https://huggingface.co/docs/lerobot/en) carries the per-policy specifics, including the page for each policy and its training options.
+
+<details>
+<summary>Which model should I pick?</summary>
+
+<ModelPicker />
+
+Unsure? Train `ACT` on your first dataset.
+
+</details>
+
+## Set Up LeRobot
+
+All seven policies train with the same `lerobot-train` entry point. Install LeRobot on the training machine:
+
+```bash
+git clone https://github.com/huggingface/lerobot.git
+cd lerobot
+pip install -e '.[training]'
+```
+
+The `training` extra pulls in [Accelerate](https://huggingface.co/docs/accelerate), which is required for the multi-GPU launches shown below.
+
+Then log in so the dataset uploaded from `Data Tools` can be pulled, and set the user name used in the commands below:
+
+```bash
+hf auth login
+HF_USER=$(hf auth whoami | head -n 1)
+```
+
+## Train
+
+Every command writes checkpoints under `--output_dir`. Keep `--job_name` meaningful, since it is what identifies the run later.
+
+<details style={{"--docusaurus-details-decoration-color": "var(--ifm-color-primary)", background: "color-mix(in srgb, var(--ifm-color-primary) 6%, var(--ifm-background-surface-color))"}}>
+<summary>Choose what to train</summary>
+
+<TrainingStrategies />
+
+ACT and Diffusion are not here. They have no pretrained backbone and always train from scratch.
+
+</details>
+
+<details>
+<summary>ACT and Diffusion</summary>
+
+Both train from scratch, so they take `--policy.type` and no pretrained path. Swap `act` for `diffusion` to train the other. There is no pretrained backbone here, so nothing to freeze.
+
+```bash
+lerobot-train \
+  --dataset.repo_id=${HF_USER}/my_dataset \
+  --policy.type=act \
+  --output_dir=outputs/train/act_run \
+  --job_name=act_run \
+  --policy.device=cuda \
+  --wandb.enable=true
+```
+
+</details>
+
+<details>
+<summary>SmolVLA</summary>
+
+Fine-tunes from the released base checkpoint, passed with `--policy.path`.
+
+**Trains the action expert only by default**, which is what keeps SmolVLA within a single consumer GPU. The two freeze flags below are those defaults, written out. Set both to `false` for a full fine-tune.
+
+```bash
+lerobot-train \
+  --policy.path=lerobot/smolvla_base \
+  --dataset.repo_id=${HF_USER}/my_dataset \
+  --policy.freeze_vision_encoder=true \
+  --policy.train_expert_only=true \
+  --batch_size=64 \
+  --steps=20000 \
+  --output_dir=outputs/train/smolvla_run \
+  --job_name=smolvla_run \
+  --policy.device=cuda \
+  --wandb.enable=true
+```
+
+</details>
+
+<details>
+<summary>XVLA</summary>
+
+**Defaults to a full fine-tune**, as shown below. Set either flag to `true` to freeze that encoder and train less.
+
+```bash
+lerobot-train \
+  --dataset.repo_id=${HF_USER}/my_dataset \
+  --policy.path=lerobot/xvla-base \
+  --policy.freeze_vision_encoder=false \
+  --policy.freeze_language_encoder=false \
+  --policy.dtype=bfloat16 \
+  --policy.action_mode=auto \
+  --steps=20000 \
+  --output_dir=outputs/train/xvla_run \
+  --job_name=xvla_run \
+  --policy.device=cuda
+```
+
+</details>
+
+<details>
+<summary>Pi0 and Pi0.5</summary>
+
+These take the base weights through `--policy.pretrained_path`. Use `pi0` with `lerobot/pi0_base`, or `pi05` with `lerobot/pi05_base` as shown.
+
+**Default to a full fine-tune**, as shown below. Set `--policy.freeze_vision_encoder=true` to freeze just the vision encoder, or `--policy.train_expert_only=true` to freeze the whole VLM and train only the action expert and projections.
+
+```bash
+lerobot-train \
+  --dataset.repo_id=${HF_USER}/my_dataset \
+  --policy.type=pi05 \
+  --policy.pretrained_path=lerobot/pi05_base \
+  --policy.freeze_vision_encoder=false \
+  --policy.train_expert_only=false \
+  --policy.dtype=bfloat16 \
+  --policy.gradient_checkpointing=true \
+  --output_dir=outputs/train/pi05_run \
+  --job_name=pi05_run \
+  --wandb.enable=true
+```
+
+`--policy.gradient_checkpointing=true` trades speed for memory. Turn it on when the run does not fit on the GPU.
+
+</details>
+
+<details>
+<summary>GR00T N1.7</summary>
+
+**Trains the projector, diffusion head, and VL LayerNorm by default**, with the LLM and vision tower frozen. The `tune_*` flags below are those defaults. Set `--policy.tune_llm=true` or `--policy.tune_visual=true` to widen the run, which needs considerably more memory, or adapt only the last language layers with `--policy.tune_top_llm_layers=4`.
+
+```bash
+lerobot-train \
+  --dataset.repo_id=${HF_USER}/my_dataset \
+  --dataset.image_transforms.enable=true \
+  --policy.type=groot \
+  --policy.base_model_path=nvidia/GR00T-N1.7-3B \
+  --policy.embodiment_tag=new_embodiment \
+  --policy.tune_llm=false \
+  --policy.tune_visual=false \
+  --policy.tune_projector=true \
+  --policy.tune_diffusion_model=true \
+  --policy.chunk_size=16 \
+  --policy.n_action_steps=16 \
+  --policy.use_bf16=true \
+  --output_dir=outputs/train/groot_run \
+  --job_name=groot_run \
+  --policy.device=cuda
+```
+
+`--policy.embodiment_tag=new_embodiment` tells GR00T the robot is not one of its pretrained embodiments.
+
+</details>
+
+To continue an interrupted run, point at the saved config and add `--resume=true`:
+
+```bash
+lerobot-train \
+  --config_path=outputs/train/<run_name>/checkpoints/last/pretrained_model/train_config.json \
+  --resume=true
+```
+
+To train on more than one GPU, `lerobot-train` is launched through `torchrun` or `accelerate launch`. See [Multi-GPU Training](https://huggingface.co/docs/lerobot/en/multi_gpu_training) for the launchers, FSDP and HSDP flags, and batch-size semantics.
+
+## Upload the Trained Model
+
+From the training machine, **push the checkpoint** you want to deploy to Hugging Face. Then in Cyclo Intelligence, open `Data Tools` → `Hugging Face Upload & Download`, choose the `Model` type, and download it into `/workspace/model`.
+
+![Hugging Face Download Model panel](/img/systems/_partials/cyclo_intelligence/data_tools_hf_download_model.png)
+
+For the LeRobot policies, select the exported `pretrained_model` directory:
+
+```text
+/workspace/model/lerobot/<run_name>/checkpoints/<step>/pretrained_model
+```
+
+For GR00T N1.7, select the checkpoint folder:
+
+```text
+/workspace/model/groot/<run_name>/checkpoint-<step>
+```
+
+Cyclo Intelligence aims to expand this training flow to Green VLA, RLDX, PI, and other SOTA models from LeRobot and outside.
