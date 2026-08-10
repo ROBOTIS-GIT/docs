@@ -878,7 +878,7 @@ a.ohgym-card:focus {
 .ohgym-contact-card .ohgym-contact-card__email a,
 .ohgym-contact-card a[href^='mailto:'],
 .ohgym-contact-card a[x-apple-data-detectors] {
-  color: #000 !important;
+  color: var(--ohgym-text) !important;
   text-decoration: none !important;
 }
 
