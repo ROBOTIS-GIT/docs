@@ -1,4 +1,5 @@
 .ohgym-page {
+  --ohgym-page-scale: 1;
   --ohgym-text: #111827;
   --ohgym-accent: #2563eb;
   --ohgym-surface: #ffffff;
@@ -9,12 +10,15 @@
   --ohgym-active-bg: #111827;
   --ohgym-active-text: #ffffff;
 
-  width: min(1240px, calc(100vw - 2rem));
-  margin-top: clamp(1rem, 3vw, 2rem);
-  margin-bottom: clamp(5rem, 10vw, 8rem);
+  container-type: inline-size;
+  width: 1240px;
+  max-width: none;
+  margin-top: clamp(1rem, 3cqw, 2rem);
+  margin-bottom: clamp(5rem, 10cqw, 8rem);
   color: var(--ohgym-text);
   font-family: var(--ifm-font-family-base);
   position: relative;
+  zoom: var(--ohgym-page-scale);
 }
 
 [data-theme='dark'] .ohgym-page {
@@ -72,7 +76,7 @@
   z-index: 999;
   width: 0;
   height: 0;
-  margin-left: clamp(1rem, 2vw, 1.6rem);
+  margin-left: clamp(1rem, 2cqw, 1.6rem);
   overflow: visible;
   transform: translateY(var(--ohgym-index-y, 0));
   will-change: transform;
@@ -128,8 +132,8 @@
 }
 
 .ohgym-section + .ohgym-section {
-  margin-top: clamp(5rem, 10vw, 8rem);
-  padding-top: clamp(4rem, 7vw, 6rem);
+  margin-top: clamp(5rem, 10cqw, 8rem);
+  padding-top: clamp(4rem, 7cqw, 6rem);
   border-top: 1px solid var(--ohgym-border-soft);
 }
 
@@ -140,7 +144,7 @@
 
 .ohgym-open-intro {
   display: grid;
-  gap: clamp(2.2rem, 5vw, 4rem);
+  gap: clamp(2.2rem, 5cqw, 4rem);
 }
 
 .ohgym-open-logo,
@@ -157,18 +161,18 @@
 
 .ohgym-open-copy {
   display: grid;
-  gap: clamp(1.15rem, 2.6vw, 1.9rem);
+  gap: clamp(1.15rem, 2.6cqw, 1.9rem);
 }
 
 .ohgym-open-copy > div {
   color: var(--ohgym-text);
-  font-size: clamp(1.08rem, 2.31vw, 1.85rem);
+  font-size: clamp(1.08rem, 2.31cqw, 1.85rem);
   font-weight: 800;
   line-height: 1.65;
 }
 
 .ohgym-banner {
-  margin-bottom: clamp(2.5rem, 6vw, 4.5rem);
+  margin-bottom: clamp(2.5rem, 6cqw, 4.5rem);
 }
 
 .ohgym-banner img,
@@ -199,13 +203,13 @@
 
 .ohgym-copy-block {
   display: grid;
-  gap: clamp(1.2rem, 3vw, 2rem);
+  gap: clamp(1.2rem, 3cqw, 2rem);
   max-width: 1040px;
 }
 
 .ohgym-copy-block > div {
   color: var(--ohgym-text);
-  font-size: clamp(1.08rem, 2.31vw, 1.85rem);
+  font-size: clamp(1.08rem, 2.31cqw, 1.85rem);
   font-weight: 800;
   line-height: 1.65;
 }
@@ -219,31 +223,31 @@
 }
 
 .ohgym-statement {
-  margin-top: clamp(3rem, 7vw, 5.5rem);
+  margin-top: clamp(3rem, 7cqw, 5.5rem);
 }
 
 .ohgym-statement span,
 .ohgym-challenge-callout span {
   display: block;
-  margin-bottom: clamp(0.7rem, 1.75vw, 1.22rem);
+  margin-bottom: clamp(0.7rem, 1.75cqw, 1.22rem);
   color: var(--ohgym-accent);
-  font-size: clamp(1.65rem, 3.64vw, 3.04rem);
+  font-size: clamp(1.65rem, 3.64cqw, 3.04rem);
   font-weight: 950;
   line-height: 0.95;
 }
 
 .ohgym-statement > div {
-  margin-top: clamp(1.2rem, 2.6vw, 1.9rem) !important;
+  margin-top: clamp(1.2rem, 2.6cqw, 1.9rem) !important;
   color: var(--ohgym-text);
-  font-size: clamp(1.35rem, 3vw, 2.45rem);
+  font-size: clamp(1.35rem, 3cqw, 2.45rem);
   font-weight: 950;
   line-height: 1.32;
 }
 
 .ohgym-card-grid {
   display: grid;
-  gap: clamp(0.8rem, 2vw, 1.25rem);
-  margin-top: clamp(1.4rem, 3.5vw, 2.4rem);
+  gap: clamp(0.8rem, 2cqw, 1.25rem);
+  margin-top: clamp(1.4rem, 3.5cqw, 2.4rem);
 }
 
 .ohgym-card-grid--three {
@@ -272,8 +276,8 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding: clamp(0.9rem, 2vw, 1.35rem);
-  padding-top: clamp(0.7rem, 1.7vw, 1.05rem);
+  padding: clamp(0.9rem, 2cqw, 1.35rem);
+  padding-top: clamp(0.7rem, 1.7cqw, 1.05rem);
   border: 1px solid var(--ohgym-border-soft);
   border-radius: 8px;
   background:
@@ -281,7 +285,7 @@
     var(--ohgym-surface);
   box-shadow: var(--ohgym-shadow-soft);
   color: var(--ohgym-text);
-  font-size: clamp(1.1rem, 2vw, 1.55rem);
+  font-size: clamp(1.1rem, 2cqw, 1.55rem);
   font-weight: 950;
   line-height: 1.25;
   text-align: center;
@@ -316,13 +320,13 @@
 .ohgym-card span:not(.ohgym-card__meta),
 .ohgym-stat-card span:not(.ohgym-card__meta) {
   color: inherit;
-  font-size: clamp(1rem, 1.75vw, 1.25rem);
+  font-size: clamp(1rem, 1.75cqw, 1.25rem);
   text-align: center;
 }
 
 .ohgym-card strong {
   color: inherit;
-  font-size: clamp(1.25rem, 2.5vw, 2rem);
+  font-size: clamp(1.25rem, 2.5cqw, 2rem);
 }
 
 a.ohgym-card,
@@ -349,7 +353,7 @@ a.ohgym-card:focus {
   background: var(--ohgym-accent);
   box-shadow: 0 10px 24px rgba(37, 99, 235, 0.24);
   color: #fff;
-  font-size: clamp(1.17rem, 2.1vw, 1.5rem);
+  font-size: clamp(1.17rem, 2.1cqw, 1.5rem);
   font-weight: 950;
   line-height: 1;
   letter-spacing: 0;
@@ -358,7 +362,7 @@ a.ohgym-card:focus {
 
 .ohgym-generation > .ohgym-card-grid--two .ohgym-card span:not(.ohgym-card__meta),
 .ohgym-seminar > .ohgym-card-grid--two .ohgym-card span:not(.ohgym-card__meta) {
-  font-size: clamp(1.25rem, 2.5vw, 2rem);
+  font-size: clamp(1.25rem, 2.5cqw, 2rem);
   font-weight: 950;
 }
 
@@ -372,17 +376,17 @@ a.ohgym-card:focus {
 
 .ohgym-card:has(.ohgym-card__meta) {
   min-height: 132px;
-  padding-top: clamp(2.25rem, 4vw, 2.8rem);
+  padding-top: clamp(2.25rem, 4cqw, 2.8rem);
 }
 
 .ohgym-card__meta {
   position: absolute;
-  top: clamp(0.75rem, 1.4vw, 1rem);
-  right: clamp(0.8rem, 1.6vw, 1.15rem);
-  left: clamp(0.8rem, 1.6vw, 1.15rem);
+  top: clamp(0.75rem, 1.4cqw, 1rem);
+  right: clamp(0.8rem, 1.6cqw, 1.15rem);
+  left: clamp(0.8rem, 1.6cqw, 1.15rem);
   display: block;
   color: var(--ohgym-accent);
-  font-size: clamp(0.95rem, 1.7vw, 1.15rem);
+  font-size: clamp(0.95rem, 1.7cqw, 1.15rem);
   font-weight: 950;
   letter-spacing: 0.04em;
   line-height: 1.2;
@@ -402,13 +406,13 @@ a.ohgym-card:focus {
 .ohgym-training-grid,
 .ohgym-shorts-section,
 .ohgym-closing {
-  margin-top: clamp(2rem, 4.8vw, 3.6rem);
+  margin-top: clamp(2rem, 4.8cqw, 3.6rem);
 }
 
 .ohgym-motion-wall {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(0.7rem, 1.6vw, 1rem);
+  gap: clamp(0.7rem, 1.6cqw, 1rem);
 }
 
 .ohgym-motion-wall img,
@@ -433,21 +437,21 @@ a.ohgym-card:focus {
 
 .ohgym-generation > h2 {
   color: var(--ohgym-text);
-  font-size: clamp(2.2rem, 5.2vw, 4.2rem);
+  font-size: clamp(2.2rem, 5.2cqw, 4.2rem);
   font-weight: 950;
   line-height: 1.08;
 }
 
 .ohgym-section-lead {
-  margin-top: clamp(1rem, 2.4vw, 1.6rem) !important;
+  margin-top: clamp(1rem, 2.4cqw, 1.6rem) !important;
   color: var(--ohgym-text);
-  font-size: clamp(1.45rem, 3.2vw, 2.6rem);
+  font-size: clamp(1.45rem, 3.2cqw, 2.6rem);
   font-weight: 900;
   line-height: 1.35;
 }
 
 .ohgym-trainer {
-  margin-top: clamp(2.8rem, 6vw, 4.2rem);
+  margin-top: clamp(2.8rem, 6cqw, 4.2rem);
 }
 
 .ohgym-trainer h3,
@@ -461,13 +465,13 @@ a.ohgym-card:focus {
 }
 
 .ohgym-trainer h3 {
-  font-size: clamp(1.25rem, 2.6vw, 2rem);
+  font-size: clamp(1.25rem, 2.6cqw, 2rem);
 }
 
 .ohgym-media-section h2,
 .ohgym-seminar > h2,
 .ohgym-shorts-section h2 {
-  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  font-size: clamp(1.8rem, 4cqw, 3.2rem);
 }
 
 .ohgym-stat-panel {
@@ -482,7 +486,7 @@ a.ohgym-card:focus {
 }
 
 .ohgym-stat-panel .ohgym-stat-card {
-  min-height: clamp(132px, 18vw, 190px);
+  min-height: clamp(132px, 18cqw, 190px);
   border: 0;
   border-radius: 0;
   background: transparent;
@@ -499,11 +503,11 @@ a.ohgym-card:focus {
 
 .ohgym-stat-card strong {
   color: var(--ohgym-text);
-  font-size: clamp(1.6rem, 4vw, 3.35rem);
+  font-size: clamp(1.6rem, 4cqw, 3.35rem);
 }
 
 .ohgym-stat-card span {
-  font-size: clamp(1rem, 1.75vw, 1.25rem);
+  font-size: clamp(1rem, 1.75cqw, 1.25rem);
 }
 
 .ohgym-stat-card--schools {
@@ -536,7 +540,7 @@ a.ohgym-card:focus {
   color: #111827;
   cursor: pointer;
   font: inherit;
-  font-size: clamp(0.95rem, 1.6vw, 1.15rem);
+  font-size: clamp(0.95rem, 1.6cqw, 1.15rem);
   font-weight: 900;
   line-height: 1.1;
   transition:
@@ -557,7 +561,7 @@ a.ohgym-card:focus {
 
 .ohgym-school-gallery {
   display: grid;
-  gap: clamp(1.6rem, 3.8vw, 3rem);
+  gap: clamp(1.6rem, 3.8cqw, 3rem);
 }
 
 .ohgym-school-gallery:not(.has-active) {
@@ -571,8 +575,8 @@ a.ohgym-card:focus {
     "title title"
     "media content";
   align-items: stretch;
-  gap: clamp(1rem, 3vw, 2rem);
-  padding: clamp(0.7rem, 2.1vw, 1.05rem);
+  gap: clamp(1rem, 3cqw, 2rem);
+  padding: clamp(0.7rem, 2.1cqw, 1.05rem);
   border: 1px solid var(--ohgym-border-soft);
   background: var(--ohgym-surface);
   box-shadow: var(--ohgym-shadow-soft);
@@ -599,7 +603,7 @@ a.ohgym-card:focus {
 .ohgym-school__media {
   grid-area: media;
   display: grid;
-  gap: clamp(0.55rem, 1.3vw, 0.85rem);
+  gap: clamp(0.55rem, 1.3cqw, 0.85rem);
   align-content: start;
   justify-items: start;
   min-width: 0;
@@ -608,7 +612,7 @@ a.ohgym-card:focus {
 .ohgym-school__title {
   grid-area: title;
   color: var(--ohgym-text);
-  font-size: clamp(1.05rem, 2vw, 1.55rem);
+  font-size: clamp(1.05rem, 2cqw, 1.55rem);
   font-weight: 950;
   line-height: 1.15;
   overflow-wrap: anywhere;
@@ -617,7 +621,7 @@ a.ohgym-card:focus {
 .ohgym-school__image-card {
   justify-self: start;
   width: fit-content;
-  max-width: min(42vw, 520px);
+  max-width: min(42cqw, 520px);
   overflow: hidden;
   border: 1px solid var(--ohgym-border-soft);
   background:
@@ -631,7 +635,7 @@ a.ohgym-card:focus {
   width: auto;
   max-width: 100%;
   height: auto;
-  max-height: clamp(220px, 34vw, 420px);
+  max-height: clamp(220px, 34cqw, 420px);
   object-fit: contain;
 }
 
@@ -639,7 +643,7 @@ a.ohgym-card:focus {
   grid-area: content;
   display: grid;
   grid-template-rows: auto 1fr;
-  gap: clamp(0.65rem, 1.5vw, 1rem);
+  gap: clamp(0.65rem, 1.5cqw, 1rem);
   align-self: stretch;
   justify-items: start;
   min-width: 0;
@@ -650,19 +654,19 @@ a.ohgym-card:focus {
 .ohgym-school__names {
   display: flex;
   flex-wrap: wrap;
-  gap: clamp(0.45rem, 1.2vw, 0.75rem);
+  gap: clamp(0.45rem, 1.2cqw, 0.75rem);
 }
 
 .ohgym-school__name {
   display: inline-flex;
   align-items: center;
   min-height: 2.2rem;
-  padding: clamp(0.4rem, 0.9vw, 0.55rem) clamp(0.75rem, 1.6vw, 1rem);
+  padding: clamp(0.4rem, 0.9cqw, 0.55rem) clamp(0.75rem, 1.6cqw, 1rem);
   border: 1px solid var(--ohgym-border-soft);
   border-radius: 999px;
   background: #fff;
   color: #111827;
-  font-size: clamp(1rem, 1.8vw, 1.35rem);
+  font-size: clamp(1rem, 1.8cqw, 1.35rem);
   font-weight: 850;
   line-height: 1.2;
 }
@@ -672,23 +676,23 @@ a.ohgym-card:focus {
   width: 100%;
   min-height: 100%;
   align-content: center;
-  gap: clamp(0.35rem, 0.9vw, 0.55rem);
-  padding: clamp(1.2rem, 3vw, 2rem);
+  gap: clamp(0.35rem, 0.9cqw, 0.55rem);
+  padding: clamp(1.2rem, 3cqw, 2rem);
   border: 1px solid var(--ohgym-border-soft);
   border-radius: 8px;
   background: var(--ohgym-surface);
   box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
   color: var(--ohgym-text);
-  font-size: clamp(1rem, 1.8vw, 1.3rem);
+  font-size: clamp(1rem, 1.8cqw, 1.3rem);
   font-weight: 750;
   line-height: 1.55;
 }
 
 .ohgym-school__description-label,
 .ohgym-school__pledge-label {
-  margin-top: clamp(0.55rem, 1.2vw, 0.9rem);
+  margin-top: clamp(0.55rem, 1.2cqw, 0.9rem);
   color: var(--ohgym-text);
-  font-size: clamp(1rem, 1.7vw, 1.25rem);
+  font-size: clamp(1rem, 1.7cqw, 1.25rem);
   font-weight: 850;
   line-height: 1.25;
 }
@@ -699,7 +703,7 @@ a.ohgym-card:focus {
 
 .ohgym-school__description strong {
   color: var(--ohgym-text);
-  font-size: clamp(1.65rem, 3.2vw, 2.55rem);
+  font-size: clamp(1.65rem, 3.2cqw, 2.55rem);
   font-weight: 950;
   line-height: 1.28;
   overflow-wrap: anywhere;
@@ -709,7 +713,7 @@ a.ohgym-card:focus {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
   grid-auto-flow: dense;
-  gap: clamp(0.7rem, 1.6vw, 1rem);
+  gap: clamp(0.7rem, 1.6cqw, 1rem);
 }
 
 .ohgym-training-card,
@@ -749,28 +753,28 @@ a.ohgym-card:focus {
 
 .ohgym-section-copy {
   color: var(--ohgym-text);
-  font-size: clamp(1.2rem, 2.5vw, 2rem);
+  font-size: clamp(1.2rem, 2.5cqw, 2rem);
   font-weight: 850;
   line-height: 1.58;
 }
 
 .ohgym-seminar > .ohgym-card-grid--two {
-  margin-top: clamp(3rem, 6vw, 4.8rem);
+  margin-top: clamp(3rem, 6cqw, 4.8rem);
 }
 
 .ohgym-seminar > .ohgym-section-copy,
 .ohgym-seminar > .ohgym-card-grid--four {
-  margin-top: clamp(3.2rem, 6.5vw, 5.2rem);
+  margin-top: clamp(3.2rem, 6.5cqw, 5.2rem);
 }
 
 .theme-doc-markdown .ohgym-page .ohgym-seminar > .ohgym-section-copy {
-  margin-top: clamp(3.2rem, 6.5vw, 5.2rem) !important;
+  margin-top: clamp(3.2rem, 6.5cqw, 5.2rem) !important;
 }
 
 .ohgym-seminar-image-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: clamp(0.7rem, 1.6vw, 1rem);
+  gap: clamp(0.7rem, 1.6cqw, 1rem);
 }
 
 .ohgym-seminar-image-card img,
@@ -781,7 +785,7 @@ a.ohgym-card:focus {
 
 .ohgym-challenge-callout {
   max-width: 1120px;
-  padding: clamp(1rem, 2.8vw, 1.75rem);
+  padding: clamp(1rem, 2.8cqw, 1.75rem);
   border: 1px solid var(--ohgym-border-soft);
   border-radius: 8px;
   background: var(--ohgym-surface-soft);
@@ -790,15 +794,15 @@ a.ohgym-card:focus {
 
 .ohgym-challenge-callout h2 {
   color: var(--ohgym-text);
-  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  font-size: clamp(1.8rem, 4cqw, 3.2rem);
   font-weight: 950;
   line-height: 1.12;
 }
 
 .ohgym-challenge-callout > div {
-  margin-top: clamp(0.6rem, 1.4vw, 1rem) !important;
+  margin-top: clamp(0.6rem, 1.4cqw, 1rem) !important;
   color: var(--ohgym-text);
-  font-size: clamp(1.35rem, 3vw, 2.45rem);
+  font-size: clamp(1.35rem, 3cqw, 2.45rem);
   font-weight: 900;
   line-height: 1.32;
 }
@@ -806,14 +810,14 @@ a.ohgym-card:focus {
 .ohgym-challenge-image-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(0.8rem, 2vw, 1.25rem);
+  gap: clamp(0.8rem, 2cqw, 1.25rem);
 }
 
 .ohgym-closing {
   display: grid;
-  gap: clamp(1.2rem, 3vw, 2rem);
+  gap: clamp(1.2rem, 3cqw, 2rem);
   justify-items: center;
-  padding-top: clamp(2rem, 5vw, 4rem);
+  padding-top: clamp(2rem, 5cqw, 4rem);
   text-align: center;
 }
 
@@ -823,7 +827,7 @@ a.ohgym-card:focus {
 }
 
 .ohgym-closing h2 {
-  font-size: clamp(2.3rem, 6vw, 5rem);
+  font-size: clamp(2.3rem, 6cqw, 5rem);
 }
 
 .ohgym-closing h2 span {
@@ -833,7 +837,7 @@ a.ohgym-card:focus {
 .ohgym-contact-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(0.8rem, 2vw, 1.2rem);
+  gap: clamp(0.8rem, 2cqw, 1.2rem);
   width: min(100%, 760px);
 }
 
@@ -841,7 +845,7 @@ a.ohgym-card:focus {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: clamp(1rem, 2vw, 1.35rem);
+  padding: clamp(1rem, 2cqw, 1.35rem);
   border: 1px solid var(--ohgym-border-soft);
   background: var(--ohgym-surface-soft);
   box-shadow: var(--ohgym-shadow-soft);
@@ -870,7 +874,7 @@ a.ohgym-card:focus {
 .ohgym-contact-card__value {
   margin: 0 !important;
   color: var(--ohgym-text);
-  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  font-size: clamp(1rem, 1.8cqw, 1.25rem);
   font-weight: 900;
 }
 
@@ -884,16 +888,16 @@ a.ohgym-card:focus {
 
 .ohgym-shorts-section {
   display: grid;
-  gap: clamp(1.2rem, 3vw, 2rem);
+  gap: clamp(1.2rem, 3cqw, 2rem);
   justify-items: center;
-  padding-top: clamp(1.5rem, 4vw, 3rem);
+  padding-top: clamp(1.5rem, 4cqw, 3rem);
   text-align: center;
 }
 
 .ohgym-shorts-grid {
   display: grid;
   grid-template-columns: minmax(220px, 360px);
-  gap: clamp(1rem, 3vw, 1.6rem);
+  gap: clamp(1rem, 3cqw, 1.6rem);
   justify-content: center;
   width: 100%;
 }
@@ -918,7 +922,7 @@ a.ohgym-card:focus {
 .ohgym-gear-system {
   position: relative;
   width: min(100%, 960px);
-  min-height: clamp(380px, 48vw, 620px);
+  min-height: clamp(380px, 48cqw, 620px);
 }
 
 .ohgym-gear {
@@ -997,28 +1001,28 @@ a.ohgym-card:focus {
   width: 70%;
   aspect-ratio: 1;
   color: var(--ohgym-active-text);
-  font-size: clamp(1.65rem, 3.2vw, 2.6rem);
+  font-size: clamp(1.65rem, 3.2cqw, 2.6rem);
   font-weight: 950;
   line-height: 1;
   text-align: center;
 }
 
 .ohgym-gear--robotis {
-  --gear-size: clamp(190px, 25vw, 310px);
+  --gear-size: clamp(190px, 25cqw, 310px);
   --gear-speed: 22s;
   left: 0;
   top: 18%;
 }
 
 .ohgym-gear--ohgym {
-  --gear-size: clamp(245px, 32vw, 395px);
+  --gear-size: clamp(245px, 32cqw, 395px);
   --gear-speed: 18s;
   left: 42%;
   top: 0;
 }
 
 .ohgym-gear--future {
-  --gear-size: clamp(180px, 23vw, 285px);
+  --gear-size: clamp(180px, 23cqw, 285px);
   --gear-speed: 20s;
   left: 24%;
   top: 58%;
@@ -1059,116 +1063,5 @@ a.ohgym-card:focus {
     opacity: 1;
     transform: none;
     transition: none;
-  }
-}
-
-@media (max-width: 860px) {
-  .ohgym-floating-index {
-    display: none;
-  }
-}
-
-@media (max-width: 996px) {
-  .ohgym-contact-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .ohgym-card-grid--three,
-  .ohgym-card-grid--four,
-  .ohgym-training-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .ohgym-training-card--portrait,
-  .ohgym-training-card--landscape {
-    grid-column: span 1;
-  }
-
-  .ohgym-shorts-grid {
-    grid-template-columns: minmax(220px, 360px);
-  }
-}
-
-@media (max-width: 640px) {
-  .ohgym-page {
-    width: min(100%, calc(100vw - 1rem));
-    margin-top: 0;
-  }
-
-  .ohgym-section + .ohgym-section {
-    margin-top: clamp(3.8rem, 12vw, 5rem);
-    padding-top: clamp(3rem, 10vw, 4rem);
-  }
-
-  .ohgym-statement {
-    margin-top: clamp(2.4rem, 9vw, 3.6rem);
-  }
-
-  .ohgym-motion-wall,
-  .ohgym-gear-system,
-  .ohgym-stat-panel,
-  .ohgym-school-gallery,
-  .ohgym-media-section,
-  .ohgym-section-logo,
-  .ohgym-section-copy,
-  .ohgym-seminar-image-grid,
-  .ohgym-challenge-image-grid,
-  .ohgym-training-grid,
-  .ohgym-shorts-section,
-  .ohgym-closing {
-    margin-top: clamp(1.6rem, 7vw, 2.6rem);
-  }
-
-  .ohgym-card-grid--two,
-  .ohgym-card-grid--three,
-  .ohgym-card-grid--four,
-  .ohgym-motion-wall,
-  .ohgym-challenge-image-grid,
-  .ohgym-training-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .ohgym-stat-panel,
-  .ohgym-school {
-    grid-template-columns: 1fr;
-  }
-
-  .ohgym-school {
-    grid-template-areas:
-      "title"
-      "media"
-      "content";
-  }
-
-  .ohgym-stat-panel .ohgym-stat-card + .ohgym-stat-card {
-    border-top: 1px solid var(--ohgym-border-soft);
-    border-left: 0;
-  }
-
-  .ohgym-school__image-card {
-    max-width: 100%;
-  }
-
-  .ohgym-school__content {
-    padding-top: 0;
-  }
-
-  .ohgym-gear-system {
-    min-height: 430px;
-  }
-
-  .ohgym-gear--robotis {
-    left: 0;
-    top: 14%;
-  }
-
-  .ohgym-gear--ohgym {
-    left: 42%;
-    top: 0;
-  }
-
-  .ohgym-gear--future {
-    left: 15%;
-    top: 58%;
   }
 }
