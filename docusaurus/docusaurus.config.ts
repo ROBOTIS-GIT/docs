@@ -72,7 +72,10 @@ const config: Config = {
         },
         blog: false,
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: [
+            './src/css/custom.css',
+            './src/css/ohgym.css',
+          ],
         },
         sitemap: {
           changefreq: 'weekly',
@@ -645,6 +648,11 @@ const config: Config = {
           to: '/docs/common/opensource',
           position: 'left',
           label: 'Open Source',
+        },
+        {
+          to: '/docs/common/oh_gym',
+          position: 'left',
+          label: 'OH! Project',
         },
         {
           to: '/docs/common/contact',
