@@ -650,7 +650,7 @@ const config: Config = {
           label: 'Open Source',
         },
         {
-          to: '/docs/common/oh_gym',
+          to: '/docs/common/oh_project',
           position: 'left',
           label: 'OH! Project',
         },
