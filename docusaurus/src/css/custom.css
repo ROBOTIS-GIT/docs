@@ -562,7 +562,7 @@
 /* Keep the desktop navbar until Docusaurus switches to mobile at 996px.
    Between desktop and mobile widths, compact spacing instead of exposing the
    mobile toggle before Docusaurus has mounted its mobile menu. */
-@media (max-width: 1320px) and (min-width: 997px) {
+@media (max-width: 1430px) and (min-width: 1020px) {
   .navbar__brand {
     margin-right: 1rem;
   }
@@ -582,7 +582,7 @@
   }
 }
 
-@media (max-width: 1100px) and (min-width: 997px) {
+@media (max-width: 1190px) and (min-width: 1020px) {
   .navbar__title {
     display: none;
   }
