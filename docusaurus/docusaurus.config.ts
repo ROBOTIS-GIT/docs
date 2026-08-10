@@ -37,14 +37,16 @@ const config: Config = {
   projectName: 'docs',
 
   onBrokenLinks,
-  // <a id> invisible anchor (inject-heading-anchors.js로 부착)는 빌드 HTML에
-  // 살아있지만 Docusaurus 검증 알고리즘은 heading id만 인식. 실제 브라우저
-  // anchor scroll 동작 정상이므로 워닝을 끄고 진짜 broken은 시각 검증으로 처리.
+  // Invisible <a id> anchors injected by inject-heading-anchors.js remain in
+  // the built HTML, but Docusaurus validation only recognizes heading IDs.
+  // Browser anchor scrolling works, so ignore these warnings and catch real
+  // failures through visual checks.
   onBrokenAnchors: 'ignore',
 
-  // 클라이언트 사이드 모듈: navbar mega-menu / docs UI enhancements
+  // Client-side modules for the navbar mega-menu and docs UI enhancements.
   clientModules: [
     require.resolve('./src/clients/mega-menu-sticky.js'),
+    require.resolve('./src/clients/localized-static-images.js'),
     require.resolve('./src/clients/navbar-search-toggle.js'),
     require.resolve('./src/clients/navbar-sidebar-cleanup.js'),
     require.resolve('./src/clients/platform-docs-ui.js'),
@@ -70,7 +72,10 @@ const config: Config = {
         },
         blog: false,
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: [
+            './src/css/custom.css',
+            './src/css/ohgym.css',
+          ],
         },
         sitemap: {
           changefreq: 'weekly',
@@ -104,6 +109,7 @@ const config: Config = {
   ],
 
   themeConfig: {
+    image: 'img/og_image.jpg',
     mermaid: {
       options: {
         fontFamily:
@@ -340,6 +346,10 @@ const config: Config = {
                       <h4>DYNAMIXEL Software</h4>
                       <p>Tools and SDKs</p>
                     </div>
+                    <div class="mega-menu__category" data-cat="cyclo" tabindex="0">
+                      <h4>CYCLO</h4>
+                      <p>Physical AI software platform</p>
+                    </div>
                     <div class="mega-menu__category" data-cat="arduino-ide" tabindex="0">
                       <h4>Arduino IDE</h4>
                       <p>Controller development</p>
@@ -378,6 +388,13 @@ const config: Config = {
                         </a>
                         <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/software/dynamixel_workbench">
                           <span>DYNAMIXEL Workbench</span>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="mega-menu__panel" data-panel="cyclo">
+                      <div class="mega-menu__list">
+                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/software/cyclo">
+                          <span>What is CYCLO?</span>
                         </a>
                       </div>
                     </div>
@@ -632,6 +649,11 @@ const config: Config = {
           to: '/docs/common/opensource',
           position: 'left',
           label: 'Open Source',
+        },
+        {
+          to: '/docs/common/oh_project',
+          position: 'left',
+          label: 'OH! Project',
         },
         {
           to: '/docs/common/contact',
