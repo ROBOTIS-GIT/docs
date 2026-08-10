@@ -109,6 +109,7 @@ const config: Config = {
   ],
 
   themeConfig: {
+    image: 'img/og_image.jpg',
     mermaid: {
       options: {
         fontFamily:
