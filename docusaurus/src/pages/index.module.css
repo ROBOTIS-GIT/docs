@@ -376,6 +376,16 @@
   position: relative;
 }
 
+.siteLinkWrap::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: max(100%, 150px);
+  height: 8px;
+  transform: translateX(-50%);
+}
+
 .siteLink {
   display: flex;
   flex-direction: column;
