@@ -5,7 +5,7 @@
 <div style={{position: 'relative', paddingBottom: '56.25%', height: '0', overflow: 'hidden', maxWidth: '100%', margin: '20px 0', borderRadius: '8px'}}>
   <iframe
     style={{position: 'absolute', top: '0', left: '0', width: '100%', height: '100%'}}
-    src="https://www.youtube.com/embed/2Vqnwvggzyw"
+    src="https://www.youtube.com/embed/sO02TZqGeDQ"
     title="AI Worker CenterPose Pick & Place Demo"
     frameBorder="0"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -330,4 +330,4 @@ In our calibration setup, CenterPose's reported dimensions came out roughly five
 ## 8. Known Limitations
 
 - **Depth camera reads slightly tilted**: some offset tuning is usually needed to match your own setup. In our case, the depth camera's readings came out skewed toward one side of the frame, so a position-dependent slope correction may be needed as well.
-- **Requires a wired connection**: operating the arm needs a wired connection between the AI Worker and the user PC; Wi-Fi is not recommended, since communication reliability may be insufficient for arm control.
+- **Requires a wired connection**: getting a stable camera and depth frame stream needs a wired connection between the AI Worker and the user PC — communication isn't reliable enough over Wi-Fi. On-device deployment on an NVIDIA AGX Orin mounted on the robot is needed to remove this dependency.
