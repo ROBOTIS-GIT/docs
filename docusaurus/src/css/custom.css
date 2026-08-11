@@ -2459,3 +2459,103 @@
 .markdown h1 {
   --ifm-h1-font-size: 2.5rem;
 }
+
+/* Software overview page sections */
+.software-overview-nav {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 1.25rem 0 2rem;
+  padding: 0;
+  list-style: none;
+}
+
+.software-overview-nav li {
+  margin: 0;
+}
+
+.software-overview-nav a {
+  display: block;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 10px;
+  background: var(--ifm-background-surface-color);
+  text-decoration: none;
+  color: var(--ifm-heading-color);
+  font-weight: 600;
+  transition: border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.software-overview-nav a:hover {
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  text-decoration: none;
+}
+
+.software-overview-nav span {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--ifm-color-emphasis-700);
+  line-height: 1.4;
+}
+
+.software-overview-section {
+  margin: 2rem 0;
+  padding: 1.5rem 1.75rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 12px;
+  background: var(--ifm-background-surface-color);
+}
+
+.software-overview-section > h2 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--ifm-color-primary);
+}
+
+.software-overview-section > p:first-of-type {
+  margin-top: 0;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.software-overview-links {
+  margin: 1rem 0 1.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.software-overview-links li {
+  margin: 0;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.software-overview-links li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.software-overview-subsection {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.software-overview-subsection > h3:first-child,
+.software-overview-subsection > h4:first-child {
+  margin-top: 0;
+}
+
+@media (max-width: 768px) {
+  .software-overview-nav {
+    grid-template-columns: 1fr;
+  }
+
+  .software-overview-section {
+    padding: 1.25rem;
+  }
+}
