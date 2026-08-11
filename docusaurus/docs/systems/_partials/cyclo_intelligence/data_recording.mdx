@@ -1,0 +1,182 @@
+import CycloDataArchitecture from '@site/src/components/CycloDataArchitecture';
+import Link from '@docusaurus/Link';
+
+Use Data Recording to collect robot demonstrations as rosbag2 episodes. After recording, the dataset can be reviewed, edited, merged, converted, or uploaded from Data Tools.
+
+<details>
+  <summary>Cyclo Data Workflow</summary>
+
+  <CycloDataArchitecture />
+</details>
+
+## Robot Preparation
+
+:::important
+**Before recording, make sure the robot operation and camera nodes are running.** Cyclo Intelligence records the robot, joint, and camera topics that are already being published on the robot network.
+
+For robot operation and camera setup, follow the <strong><Link to={props.robotBringupGuide}>{props.robotPreparationGuideLabel || props.robotName + ' bringup guide'}</Link></strong>. After the robot is ready, return to this page and check the `Camera Views` and `Topic Monitor`.
+:::
+
+## Home Page
+
+
+![Robot Type Selection](/img/systems/_partials/cyclo_intelligence/robot_type_selection.png)
+
+Before opening the `Record` page, select the robot type from the `Home` page.
+
+Only robot types with a config file under `cyclo_intelligence/shared/shared/robot_configs` appear in this list.
+
+<details>
+  <summary>Change Collected Data</summary>
+
+  The robot config file defines the observation data and action data collected for each robot type. Cyclo Intelligence records only the topics listed in this file. If a topic is not included in the robot config, it will not be collected even if the topic is being published on the robot network.
+
+  For example, to add more camera observations, add image entries under `observation.images` as shown below.
+
+  ![Robot config camera example](/img/systems/_partials/cyclo_intelligence/robot_configs_camera_example.png)
+</details>
+
+## Record Page
+
+
+![Record Page with Task Information](/img/systems/_partials/cyclo_intelligence/record_page_task_info.png)
+Use the Record page to collect robot demonstrations as rosbag2 episodes.
+<table>
+  <colgroup>
+    <col style={{width: '20%'}} />
+    <col style={{width: '90%'}} />
+  </colgroup>
+  <thead>
+    <tr>
+      <th style={{textAlign: 'center'}}>Area</th>
+      <th>Use it for</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style={{textAlign: 'center'}}>Camera views</td>
+      <td>Check the scene and selected image topics before recording.</td>
+    </tr>
+    <tr>
+      <td style={{textAlign: 'center'}}>Rosbag Recorder</td>
+      <td>Enter task information, choose single-task or subtask recording, and start recording.</td>
+    </tr>
+    <tr>
+      <td style={{textAlign: 'center'}}>Topic Monitor</td>
+      <td>Check that required topics are alive. Red status means the topic should be checked before collecting data.</td>
+    </tr>
+    <tr>
+      <td style={{textAlign: 'center'}}>3D viewer</td>
+      <td>Confirm the selected robot model and general robot state.</td>
+    </tr>
+  </tbody>
+</table>
+
+Before recording, check the `Camera Views` and the `Topic Monitor`.<br />
+The `camera views` confirm that the robot can see the task scene.<br />
+The `Topic Monitor` confirms that the required robot and camera topics are being received.
+
+
+## Rosbag Recorder Panel
+
+![Rosbag Recorder Panel](/img/systems/_partials/cyclo_intelligence/rosbag_recorder_panel.png)
+
+Use the `Rosbag Recorder` panel to enter the recording information before starting data collection.
+
+<table>
+  <colgroup>
+    <col style={{width: '20%'}} />
+    <col style={{width: '80%'}} />
+  </colgroup>
+  <thead>
+    <tr>
+      <th style={{textAlign: 'center'}}>Field</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style={{textAlign: 'center'}}>Task Num</td>
+      <td>Task number or identifier for the dataset.</td>
+    </tr>
+    <tr>
+      <td style={{textAlign: 'center'}}>Task Name</td>
+      <td>Short task name used to identify the dataset.</td>
+    </tr>
+    <tr>
+      <td style={{textAlign: 'center'}}>Task Instruction</td>
+      <td>Natural-language instruction that describes the demonstration.</td>
+    </tr>
+    <tr>
+      <td style={{textAlign: 'center'}}>Add License</td>
+      <td>Adds ROBOTIS dataset license information. This does not need to be checked for normal recording.</td>
+    </tr>
+    <tr>
+      <td style={{textAlign: 'center'}}>Number of SubTasks</td>
+      <td>Set this to 0 when the episode does not need subtasks.</td>
+    </tr>
+    <tr>
+      <td style={{textAlign: 'center'}}>Sub Task Instruction</td>
+      <td>Fill this in for each subtask when Number of SubTasks is greater than 0.</td>
+    </tr>
+  </tbody>
+</table>
+
+After entering the required information, click `Record Start` to begin recording.
+
+{props.showAiWorkerLeaderControls && (
+  <>
+    <h3>AI Worker Leader Button Controls</h3>
+    <div className="alert alert--info" role="note">
+      <p>When both hands are needed to operate the wearable skeletal leader device, use the leader buttons to control the recording state.</p>
+      <ul>
+        <li><strong>Left button press</strong>: Cancel the current episode.</li>
+        <li><strong>Right button press</strong>: Start recording or save the current episode.</li>
+      </ul>
+      <img src="/img/systems/aiworker/imitation_learning/dataset_preparation/recording/data_collection_button.png" alt="AI Worker leader buttons for data recording" style={{width: '70%', margin: '20px 0 0'}} />
+    </div>
+  </>
+)}
+
+## Recording Sequence
+
+1. In the `Rosbag Recorder` panel, fill in `Task Num`, `Task Name`, `Task Instruction`, and subtask information if needed. Then click `Record Start`.
+
+![Record episode start](/img/systems/_partials/cyclo_intelligence/record_episode_start.png)
+
+2. To save the episode being recorded, click the green `Save Episode` button. To cancel the episode being recorded, click `Discard Episode`.
+
+![Record episode save and discard](/img/systems/_partials/cyclo_intelligence/record_episode_save_discard.png)
+
+
+## Recorded Dataset Location
+
+Recorded rosbag2 datasets are stored under `/workspace/rosbag2` inside the Cyclo Intelligence container.
+
+Container path:
+
+```text
+/workspace/rosbag2/<dataset_name>/<episode_index>/
+```
+
+Host path:
+
+```text
+$HOME/cyclo_intelligence/docker/workspace/rosbag2/<dataset_name>/<episode_index>/
+```
+
+Example:
+
+```text
+/workspace/rosbag2/Task_000081_RecycleBlackPlasticCup_MCAP/0/
+```
+
+Each episode folder contains the recorded MCAP file, task metadata, camera videos, timestamp files, and camera calibration snapshots.
+
+| File or folder | Purpose |
+| --- | --- |
+| `metadata.yaml` | rosbag2 metadata for the recorded episode. |
+| `episode_info.json` | Task information and recording details. |
+| `*.mcap` | Recorded ROS 2 data. |
+| `videos/` | Camera videos and per-camera timestamp files. |
+| `camera_info/` | Camera calibration files captured with the episode. |

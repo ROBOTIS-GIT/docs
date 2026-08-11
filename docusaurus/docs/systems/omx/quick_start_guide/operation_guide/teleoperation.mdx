@@ -1,0 +1,64 @@
+# Teleoperation
+
+Use this page to run OMX leader-follower teleoperation. This is the operation mode normally used before collecting demonstrations with Cyclo Intelligence.
+
+:::info
+At least one **Zenoh daemon** must be running in the communication network. If no Zenoh daemon is running, ROS 2 nodes cannot discover or communicate with each other.
+
+For the recommended setup, run `zenohd` in a terminal inside the **OpenMANIPULATOR Docker container**.
+:::
+
+## Leader-Follower Teleoperation
+
+After entering the OpenMANIPULATOR Docker container, run:
+
+```bash
+ros2 launch open_manipulator_bringup omx_ai.launch.py
+```
+
+:::warning
+Running this command can move OMX immediately. Keep the robot workspace clear before launching teleoperation.
+:::
+
+This command performs the following sequence:
+
+1. Moves the follower to its initial position.
+2. Starts the leader launch file.
+3. Synchronizes the leader and follower.
+
+After these steps, the leader-follower system is ready.
+
+<img src="/img/systems/omx/quick_start_guide/operation_guide/ai_teleop.gif" alt="AI Teleoperation" style={{display: 'block', margin: '0 auto', maxWidth: '100%', width: '720px'}} />
+<p style={{textAlign: 'center'}}><em>Real-time synchronized motion between Leader and Follower</em></p>
+
+:::info
+`Teleoperation` mode does not support `MoveIt 2`, `GUI`, or `Keyboard Teleop`. Use [Robot Control](/docs/systems/omx/quick_start_guide/operation_guide/robot_control) for those features.
+:::
+
+## Camera Node
+
+For demonstration recording, launch the camera node from the machine where the camera is connected.
+
+```bash
+ros2 launch open_manipulator_bringup camera_usb_cam.launch.py
+```
+
+To set the camera topic namespace or video device explicitly, pass the launch arguments:
+
+```bash
+ros2 launch open_manipulator_bringup camera_usb_cam.launch.py name:=camera1 video_device:=/dev/video0
+```
+
+After launching the camera node, check that the camera image topics are visible from the robot network.
+
+## Follower Bringup for Inference
+
+Use follower bringup when another runtime sends commands to the follower robot, such as Cyclo Control or model inference.
+
+:::warning
+Stop leader-follower teleoperation before running follower bringup. The robot can move as soon as bringup starts.
+:::
+
+```bash
+ros2 launch open_manipulator_bringup omx_f_follower_ai.launch.py
+```

@@ -20,8 +20,9 @@ const aisapiensSidebar: SidebarsConfig[string] = [
     label: 'Development Guide',
     collapsed: false,
     items: [
+      {type: 'doc', id: 'systems/aisapiens/development_guide/networking', label: 'Networking'},
       {type: 'doc', id: 'systems/aisapiens/development_guide/ssh', label: 'How to SSH into the Robot'},
-      {type: 'doc', id: 'systems/aisapiens/development_guide/wifi_ap_sta', label: 'Wi-Fi AP/STA Mode Switching'},
+      {type: 'doc', id: 'systems/aisapiens/development_guide/cycloctl', label: 'Bringup with cycloctl'},
       {type: 'doc', id: 'systems/aisapiens/development_guide/dynamixel_q_impedance_control', label: 'DYNAMIXEL-Q and Impedance Control'},
       {type: 'doc', id: 'systems/aisapiens/development_guide/ros2_communication', label: 'ROS 2 Communication'},
       {type: 'doc', id: 'systems/aisapiens/development_guide/ros2_package_structure/ros2_package_structure', label: 'ROS 2 Package Structure and Topic Description'},
@@ -52,6 +53,7 @@ const aisapiensSidebar: SidebarsConfig[string] = [
     label: 'Motion Generation',
     collapsed: false,
     items: [
+      {type: 'doc', id: 'systems/aisapiens/motion_generation/gem-x', label: 'GEM-X'},
       {type: 'doc', id: 'systems/aisapiens/motion_generation_retargeting/kimodo/kimodo', label: 'Kimodo'},
     ],
   },
@@ -70,6 +72,8 @@ const aisapiensSidebar: SidebarsConfig[string] = [
     collapsed: false,
     items: [
       {type: 'doc', id: 'systems/aisapiens/imitation_learning/overview', label: 'Overview', key: 'imitation-learning-overview'},
+      {type: 'doc', id: 'systems/aisapiens/imitation_learning/lerobot', label: 'LeRobot'},
+      {type: 'doc', id: 'systems/aisapiens/imitation_learning/cyclo_intelligence', label: 'Cyclo Intelligence'},
     ],
   },
   {

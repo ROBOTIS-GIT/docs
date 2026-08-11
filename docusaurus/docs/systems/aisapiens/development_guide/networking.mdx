@@ -1,0 +1,196 @@
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Networking
+
+AI Sapiens K1 supports multiple ways to connect to the robot's onboard PC (SBC), depending on your setup and use case.
+
+- USB (RNDIS/ECM)
+- Ethernet
+- Wi-Fi AP/STA Mode Switching
+
+We recommend connecting over [USB (RNDIS/ECM)](#usb-rndisecm) first to [SSH in](./ssh) and [configure Wi-Fi](#wi-fi-apsta-mode-switching), then switching to a [wireless SSH connection](./ssh) afterward.
+
+## USB (RNDIS/ECM)
+
+The onboard SBC's USB-C port (device mode, circled below) exposes a network interface over USB. Connect a USB-A-to-C (or USB-C-to-C) cable between your PC and this port.
+
+<img src="/img/systems/aisapiens/networking/k1_sbc_usb_c_port.webp" alt="AI Sapiens K1 SBC USB-C device-mode port" width="760" style={{width: '70%', height: 'auto', display: 'block', margin: '0 auto'}} />
+
+Once connected, your PC receives an IP address on the `192.168.55.0/24` subnet automatically via DHCP, and the robot can be reached at `192.168.55.1`.
+
+<img src="/img/systems/aisapiens/networking/k1_usb_c_macos_terminal.png" alt="Pinging and connecting to the AI Sapiens K1 over USB from macOS" width="760" style={{width: '80%', height: 'auto', display: 'block', margin: '0 auto'}} />
+
+The robot can also be reached via mDNS instead of the fixed IP address — see [How to SSH into the Robot](./ssh).
+
+## Ethernet
+
+The SBC has two RJ45 ports. The port circled below is a DHCP client, so connect it to the same network as your PC (e.g. via a router or switch) and it will obtain an IP address automatically — see [How to SSH into the Robot](./ssh) for reaching it over mDNS.
+
+:::warning
+The other RJ45 port is already connected to the HAT board over a static address (`192.168.10.2/24`). Do not unplug it — doing so will break that link.
+:::
+
+<img src="/img/systems/aisapiens/networking/k1_sbc_ethernet_port.webp" alt="AI Sapiens K1 SBC Ethernet port" width="760" style={{width: '80%', height: 'auto', display: 'block', margin: '0 auto'}} />
+
+<Tabs groupId="ethernet-connection" queryString>
+<TabItem value="router" label="Via a router">
+
+1. Connect the robot's Ethernet port to your router or switch. It obtains an IP address automatically via DHCP.
+2. Connect your PC to the same router or switch.
+3. Reach it by hostname over mDNS — see [How to SSH into the Robot](./ssh). If mDNS isn't available on your network, check your router's admin page for the list of connected DHCP clients to find the robot's IP address instead.
+
+</TabItem>
+<TabItem value="linux" label="Direct to Linux">
+
+1. Connect an Ethernet cable directly between the robot and your Linux PC (no router needed). If your PC has no built-in Ethernet port, a USB-to-Ethernet adapter/hub works too.
+2. Open **Settings → Network**, find your Ethernet connection, and click its gear icon.
+
+   <img src="/img/systems/aisapiens/networking/k1_ethernet_linux_network_settings.png" alt="GNOME Settings Network page with the Ethernet connection's gear icon highlighted" width="760" style={{width: '80%', height: 'auto', display: 'block', margin: '0 auto'}} />
+
+3. Go to the **IPv4** tab and set the IPv4 Method to **Shared to other computers**, then click **Apply**.
+
+   <img src="/img/systems/aisapiens/networking/k1_ethernet_linux_ipv4_shared.png" alt="GNOME Wired connection settings with IPv4 Method set to Shared to other computers" width="760" style={{width: '80%', height: 'auto', display: 'block', margin: '0 auto'}} />
+
+4. Your PC now runs a DHCP server on that link, so the robot obtains an IP address automatically. Reach it by hostname over mDNS — see [How to SSH into the Robot](./ssh).
+
+</TabItem>
+<TabItem value="macos" label="Direct to macOS">
+
+1. Connect an Ethernet cable directly between the robot and your Mac (no router needed). Most Macs need a USB-to-Ethernet adapter/hub for this, since they don't have a built-in Ethernet port.
+2. Open **System Settings → General → Sharing**, and click the ⓘ next to **Internet Sharing**.
+
+   <img src="/img/systems/aisapiens/networking/k1_ethernet_macos_sharing_info.png" alt="macOS Sharing settings with the Internet Sharing info button highlighted" width="760" style={{width: '80%', height: 'auto', display: 'block', margin: '0 auto'}} />
+
+3. Find your USB-to-Ethernet adapter in the list and turn it on, then click **Done**.
+
+   <img src="/img/systems/aisapiens/networking/k1_ethernet_macos_share_to_device.png" alt="macOS Internet Sharing panel with the Ethernet device toggled on" width="760" style={{width: '80%', height: 'auto', display: 'block', margin: '0 auto'}} />
+
+4. Turn on the **Internet Sharing** toggle.
+
+   <img src="/img/systems/aisapiens/networking/k1_ethernet_macos_sharing_enabled.png" alt="macOS Sharing settings with Internet Sharing turned on" width="760" style={{width: '80%', height: 'auto', display: 'block', margin: '0 auto'}} />
+
+5. Your Mac now runs a DHCP server on that link, so the robot obtains an IP address automatically. Reach it by hostname over mDNS — see [How to SSH into the Robot](./ssh).
+
+</TabItem>
+</Tabs>
+
+## Wi-Fi AP/STA Mode Switching
+
+The robot's Wi-Fi radio runs in one of two mutually exclusive modes: **hotspot** (AP), where the robot broadcasts its own network, or **station** (STA), where it joins an existing Wi-Fi network. Switch modes with `cycloctl wifi` over an SSH session (see [How to SSH into the Robot](./ssh)).
+
+:::info
+Wi-Fi isn't configured yet at this point, so connect over [USB](#usb-rndisecm) or [Ethernet](#ethernet) first, SSH in, and run these commands from there.
+:::
+
+<Tabs groupId="wifi-mode" queryString>
+<TabItem value="hotspot" label="AP (Hotspot)">
+
+Start (or update) the hotspot with specific credentials:
+
+```bash
+cycloctl wifi hotspot --ssid cyclo-hotspot --password my-secret-pass
+```
+
+Start an open (unsecured) hotspot by omitting just `--password`:
+
+```bash
+cycloctl wifi hotspot --ssid cyclo-hotspot
+```
+
+Reuse the last saved hotspot credentials:
+
+```bash
+cycloctl wifi hotspot
+```
+
+Other optional flags: `--channel` (defaults to 6), `--country` (defaults to `US`), `--iface` (defaults to `wlan0`).
+
+:::info
+If the SSID doesn't show up on another computer, turn that computer's Wi-Fi off and back on.
+:::
+
+</TabItem>
+<TabItem value="station" label="Station (Client)">
+
+Join a network with specific credentials:
+
+```bash
+cycloctl wifi connect --ssid office --password my-secret-pass
+```
+
+Join an open network by omitting just `--password`:
+
+```bash
+cycloctl wifi connect --ssid office
+```
+
+Reuse the last saved station credentials:
+
+```bash
+cycloctl wifi connect
+```
+
+Other optional flag: `--iface` (defaults to `wlan0`).
+
+</TabItem>
+</Tabs>
+
+### Checking status
+
+<Tabs groupId="wifi-mode" queryString>
+<TabItem value="hotspot" label="AP (Hotspot)">
+
+```bash
+cycloctl wifi status
+```
+
+```
+Mode: ap
+SSID: cyclo-hotspot
+Applied: yes
+IP: 192.168.50.1
+```
+
+You can also check the underlying radio state directly:
+
+```bash
+ip --color address show wlan0
+```
+
+```bash
+hostapd_cli status
+```
+
+</TabItem>
+<TabItem value="station" label="Station (Client)">
+
+```bash
+cycloctl wifi status
+```
+
+```
+Mode: station
+SSID: office
+Applied: yes
+IP: 192.168.1.42
+```
+
+You can also check the underlying radio state directly:
+
+```bash
+ip --color address show wlan0
+```
+
+```bash
+wpa_cli status
+```
+
+</TabItem>
+</Tabs>
+
+### Turning Wi-Fi off
+
+```bash
+cycloctl wifi stop
+```

@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1760" height="360" viewBox="0 0 1760 360" role="img" aria-labelledby="title desc">
+  <title id="title">Data Tools Workflow</title>
+  <desc id="desc">A workflow diagram showing the Data Tools order: Review Episodes, Delete Episodes, Merge Rosbag Datasets, Convert Dataset, and Hugging Face Upload and Download.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#59606a" />
+    </marker>
+    <style>
+      .background { fill: #ffffff; }
+      .title { fill: #374151; font-family: Arial, Helvetica, sans-serif; font-size: 40px; font-weight: 700; }
+      .card { fill: #ffffff; stroke: #111827; stroke-width: 3; }
+      .step { fill: #2563eb; font-family: Arial, Helvetica, sans-serif; font-size: 20px; font-weight: 700; letter-spacing: 0; }
+      .label { fill: #1f2937; font-family: Arial, Helvetica, sans-serif; font-size: 25px; font-weight: 700; letter-spacing: 0; }
+      .hint { fill: #59606a; font-family: Arial, Helvetica, sans-serif; font-size: 20px; letter-spacing: 0; }
+      .arrow { stroke: #59606a; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+      .accent { fill: #eff6ff; stroke: #bfdbfe; stroke-width: 2; }
+      .icon { fill: none; stroke: #111827; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+  </defs>
+
+  <rect class="background" width="1760" height="360" />
+  <text class="title" x="880" y="56" text-anchor="middle">Data Tools Workflow</text>
+
+  <g transform="translate(50 90)">
+    <rect class="card" x="0" y="0" width="280" height="230" rx="34" />
+    <text class="step" x="140" y="36" text-anchor="middle">STEP 1</text>
+    <rect class="accent" x="101" y="54" width="78" height="78" rx="20" />
+    <g transform="translate(105 58)">
+      <circle class="icon" cx="30" cy="30" r="22" />
+      <path class="icon" d="M46 46 L64 64" />
+      <path class="icon" d="M19 31 L28 40 L44 21" />
+    </g>
+    <text class="label" x="140" y="174" text-anchor="middle">Review</text>
+    <text class="label" x="140" y="207" text-anchor="middle">Episodes</text>
+  </g>
+
+  <line class="arrow" x1="345" y1="205" x2="380" y2="205" />
+
+  <g transform="translate(395 90)">
+    <rect class="card" x="0" y="0" width="280" height="230" rx="34" />
+    <text class="step" x="140" y="36" text-anchor="middle">STEP 2</text>
+    <rect class="accent" x="101" y="54" width="78" height="78" rx="20" />
+    <g transform="translate(101 58)">
+      <path class="icon" d="M15 19 L61 19" />
+      <path class="icon" d="M27 19 L29 11 L47 11 L49 19" />
+      <path class="icon" d="M22 28 L26 64 L54 64 L58 28" />
+      <path class="icon" d="M34 36 L34 56" />
+      <path class="icon" d="M46 36 L46 56" />
+    </g>
+    <text class="label" x="140" y="174" text-anchor="middle">Delete</text>
+    <text class="label" x="140" y="207" text-anchor="middle">Episodes</text>
+  </g>
+
+  <line class="arrow" x1="690" y1="205" x2="725" y2="205" />
+
+  <g transform="translate(740 90)">
+    <rect class="card" x="0" y="0" width="280" height="230" rx="34" />
+    <text class="step" x="140" y="36" text-anchor="middle">STEP 3</text>
+    <rect class="accent" x="101" y="54" width="78" height="78" rx="20" />
+    <g transform="translate(101 58)">
+      <path class="icon" d="M13 28 C24 16 40 16 52 28" />
+      <path class="icon" d="M52 28 L52 15" />
+      <path class="icon" d="M52 28 L39 28" />
+      <path class="icon" d="M63 45 C52 57 36 57 24 45" />
+      <path class="icon" d="M24 45 L24 58" />
+      <path class="icon" d="M24 45 L37 45" />
+    </g>
+    <text class="label" x="140" y="174" text-anchor="middle">Merge Rosbag</text>
+    <text class="label" x="140" y="207" text-anchor="middle">Datasets</text>
+  </g>
+
+  <line class="arrow" x1="1035" y1="205" x2="1070" y2="205" />
+
+  <g transform="translate(1085 90)">
+    <rect class="card" x="0" y="0" width="280" height="230" rx="34" />
+    <text class="step" x="140" y="36" text-anchor="middle">STEP 4</text>
+    <rect class="accent" x="101" y="54" width="78" height="78" rx="20" />
+    <g transform="translate(101 54)">
+      <rect class="icon" x="14" y="16" width="48" height="42" rx="5" />
+      <path class="icon" d="M22 29 L54 29" />
+      <path class="icon" d="M22 42 L43 42" />
+      <path class="icon" d="M47 51 L64 66" />
+      <path class="icon" d="M64 66 L64 52" />
+      <path class="icon" d="M64 66 L50 66" />
+    </g>
+    <text class="label" x="140" y="174" text-anchor="middle">Convert</text>
+    <text class="label" x="140" y="207" text-anchor="middle">Dataset</text>
+  </g>
+
+  <line class="arrow" x1="1380" y1="205" x2="1415" y2="205" />
+
+  <g transform="translate(1430 90)">
+    <rect class="card" x="0" y="0" width="280" height="230" rx="34" />
+    <text class="step" x="140" y="36" text-anchor="middle">STEP 5</text>
+    <rect class="accent" x="101" y="54" width="78" height="78" rx="20" />
+    <g transform="translate(101 54)">
+      <path class="icon" d="M19 45 C8 45 8 29 21 29 C25 16 43 14 51 25 C62 24 69 32 69 43 C69 52 62 59 53 59 L19 59" />
+      <path class="icon" d="M40 52 L40 22" />
+      <path class="icon" d="M30 32 L40 22 L50 32" />
+    </g>
+    <text class="label" x="140" y="174" text-anchor="middle">Hugging Face</text>
+    <text class="hint" x="140" y="204" text-anchor="middle">Upload / Download</text>
+  </g>
+</svg>

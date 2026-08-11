@@ -37,14 +37,18 @@ const config: Config = {
   projectName: 'docs',
 
   onBrokenLinks,
-  // <a id> invisible anchor (inject-heading-anchors.js로 부착)는 빌드 HTML에
-  // 살아있지만 Docusaurus 검증 알고리즘은 heading id만 인식. 실제 브라우저
-  // anchor scroll 동작 정상이므로 워닝을 끄고 진짜 broken은 시각 검증으로 처리.
+  // Invisible <a id> anchors injected by inject-heading-anchors.js remain in
+  // the built HTML, but Docusaurus validation only recognizes heading IDs.
+  // Browser anchor scrolling works, so ignore these warnings and catch real
+  // failures through visual checks.
   onBrokenAnchors: 'ignore',
 
-  // 클라이언트 사이드 모듈: navbar mega-menu / docs UI enhancements
+  // Client-side modules for the navbar mega-menu and docs UI enhancements.
   clientModules: [
     require.resolve('./src/clients/mega-menu-sticky.js'),
+    require.resolve('./src/clients/localized-static-images.js'),
+    require.resolve('./src/clients/navbar-search-toggle.js'),
+    require.resolve('./src/clients/navbar-sidebar-cleanup.js'),
     require.resolve('./src/clients/platform-docs-ui.js'),
   ],
   markdown: {
@@ -68,7 +72,10 @@ const config: Config = {
         },
         blog: false,
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: [
+            './src/css/custom.css',
+            './src/css/ohgym.css',
+          ],
         },
         sitemap: {
           changefreq: 'weekly',
@@ -102,6 +109,7 @@ const config: Config = {
   ],
 
   themeConfig: {
+    image: 'img/og_image.jpg',
     mermaid: {
       options: {
         fontFamily:
@@ -338,90 +346,88 @@ const config: Config = {
                       <h4>DYNAMIXEL Software</h4>
                       <p>Tools and SDKs</p>
                     </div>
+                    <div class="mega-menu__category" data-cat="cyclo" tabindex="0">
+                      <h4>CYCLO</h4>
+                      <p>Physical AI software platform</p>
+                    </div>
                     <div class="mega-menu__category" data-cat="arduino-ide" tabindex="0">
                       <h4>Arduino IDE</h4>
                       <p>Controller development</p>
                     </div>
-                    <div class="mega-menu__category" data-cat="rplus-1-0" tabindex="0">
-                      <h4>R+ 1.0</h4>
-                      <p>Task, Manager, Motion</p>
-                    </div>
-                    <div class="mega-menu__category" data-cat="rplus-manager-2-0" tabindex="0">
-                      <h4>R+ Manager 2.0</h4>
-                      <p>Device management</p>
-                    </div>
-                    <div class="mega-menu__category" data-cat="rplus-task-3-0" tabindex="0">
-                      <h4>R+Task 3.0</h4>
-                      <p>Task and motion programming</p>
+                    <div class="mega-menu__category" data-cat="rplus" tabindex="0">
+                      <h4>R+</h4>
+                      <p>RoboPlus software</p>
                     </div>
                   </div>
                   <div class="mega-menu__right">
                     <div class="mega-menu__panel" data-panel="software-overview">
                       <div class="mega-menu__list">
                         <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/software/overview">
-                          <span>Overview</span>
+                          <span>Software Overview</span>
                         </a>
                       </div>
                     </div>
                     <div class="mega-menu__panel" data-panel="dynamixel-software">
-                      <div class="mega-menu__list">
-                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/software/dynamixel_sdk">
-                          <span>DYNAMIXEL SDK</span>
-                        </a>
-                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/software/dynamixel_wizard_2_0/introduction">
+                      <div class="mega-menu__grid">
+                        <a class="mega-menu__product" href="/docs/software/dynamixel_wizard_2_0/introduction">
+                          <div class="mega-menu__product-thumb"><img src="/img/software/overview/software.webp" alt="DYNAMIXEL Wizard 2.0" /></div>
                           <span>DYNAMIXEL Wizard 2.0</span>
                         </a>
-                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/software/dynamixel_easy_sdk">
+                        <a class="mega-menu__product" href="/docs/software/dynamixel_sdk">
+                          <div class="mega-menu__product-thumb"><img src="/img/software/overview/icon_dynamixel_sdk.webp" alt="DYNAMIXEL SDK" /></div>
+                          <span>DYNAMIXEL SDK</span>
+                        </a>
+                        <a class="mega-menu__product" href="/docs/software/dynamixel_easy_sdk">
+                          <div class="mega-menu__product-thumb"><img src="/img/software/overview/icon_dynamixel_sdk.webp" alt="DYNAMIXEL Easy SDK" /></div>
                           <span>DYNAMIXEL Easy SDK</span>
                         </a>
-                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/software/dynamixel_workbench">
+                        <a class="mega-menu__product" href="/docs/software/dynamixel_workbench">
+                          <div class="mega-menu__product-thumb"><img src="/img/software/overview/DYNAMIXEL_Workbench_LOGO.webp" alt="DYNAMIXEL Workbench" /></div>
                           <span>DYNAMIXEL Workbench</span>
+                        </a>
+                        <a class="mega-menu__product" href="/docs/software/rplus_1_0/dynamixel_wizard">
+                          <div class="mega-menu__product-thumb"><img src="/img/software/overview/wizard10_icon.webp" alt="Dynamixel Wizard 1.0" /></div>
+                          <span>Dynamixel Wizard 1.0</span>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="mega-menu__panel" data-panel="cyclo">
+                      <div class="mega-menu__grid">
+                        <a class="mega-menu__product" href="/docs/software/cyclo">
+                          <div class="mega-menu__product-thumb"><img src="/img/common/CYCLO_Signature_Horiz.svg" alt="CYCLO" /></div>
+                          <span>What is CYCLO?</span>
                         </a>
                       </div>
                     </div>
                     <div class="mega-menu__panel" data-panel="arduino-ide">
-                      <div class="mega-menu__list">
-                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/software/arduino_ide">
+                      <div class="mega-menu__grid">
+                        <a class="mega-menu__product" href="/docs/software/arduino_ide">
+                          <div class="mega-menu__product-thumb"><img src="/img/software/overview/icon_arduino_ide.webp" alt="Arduino IDE" /></div>
                           <span>Arduino IDE</span>
                         </a>
                       </div>
                     </div>
-                    <div class="mega-menu__panel" data-panel="rplus-1-0">
-                      <div class="mega-menu__list">
-                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/software/rplus_1_0/rplus_task/getting_started">
-                          <span>R+ Task</span>
-                        </a>
-                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/software/rplus_1_0/rplus_manager">
-                          <span>R+ Manager</span>
-                        </a>
-                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/software/rplus_1_0/rplus_motion">
-                          <span>R+ Motion</span>
-                        </a>
-                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/software/rplus_1_0/dynamixel_wizard">
-                          <span>Dynamixel Wizard</span>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="mega-menu__panel" data-panel="rplus-manager-2-0">
-                      <div class="mega-menu__list">
-                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/software/rplus_manager_2_0">
-                          <span>R+ Manager 2.0</span>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="mega-menu__panel" data-panel="rplus-task-3-0">
-                      <div class="mega-menu__list">
-                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/software/rplus_task_3_0">
+                    <div class="mega-menu__panel" data-panel="rplus">
+                      <div class="mega-menu__grid">
+                        <a class="mega-menu__product" href="/docs/software/rplus_task_3_0">
+                          <div class="mega-menu__product-thumb"><img src="/img/software/all_software/R+Task3_APP_ICON.webp" alt="R+ Task 3.0" /></div>
                           <span>R+ Task 3.0</span>
                         </a>
-                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/software/rplus_task_3_0/task_programming">
-                          <span>Task Programming</span>
+                        <a class="mega-menu__product" href="/docs/software/rplus_manager_2_0">
+                          <div class="mega-menu__product-thumb"><img src="/img/software/overview/icon_r_manager.webp" alt="R+ Manager 2.0" /></div>
+                          <span>R+ Manager 2.0</span>
                         </a>
-                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/software/rplus_task_3_0/motion_programming">
-                          <span>Motion Programming</span>
+                        <a class="mega-menu__product" href="/docs/software/rplus_1_0/rplus_task/getting_started">
+                          <div class="mega-menu__product-thumb"><img src="/img/software/overview/icon_task10.webp" alt="R+ Task 1.0" /></div>
+                          <span>R+ Task 1.0</span>
                         </a>
-                        <a class="mega-menu__product mega-menu__product--row mega-menu__product--text" href="/docs/software/rplus_task_3_0/python_api">
-                          <span>Python API</span>
+                        <a class="mega-menu__product" href="/docs/software/rplus_1_0/rplus_manager">
+                          <div class="mega-menu__product-thumb"><img src="/img/software/overview/icon_manager10.webp" alt="R+ Manager 1.0" /></div>
+                          <span>R+ Manager 1.0</span>
+                        </a>
+                        <a class="mega-menu__product" href="/docs/software/rplus_1_0/rplus_motion">
+                          <div class="mega-menu__product-thumb"><img src="/img/software/overview/icon_motion10.webp" alt="R+ Motion 1.0" /></div>
+                          <span>R+ Motion 1.0</span>
                         </a>
                       </div>
                     </div>
@@ -630,6 +636,11 @@ const config: Config = {
           to: '/docs/common/opensource',
           position: 'left',
           label: 'Open Source',
+        },
+        {
+          to: '/docs/common/oh_project',
+          position: 'left',
+          label: 'OH! Project',
         },
         {
           to: '/docs/common/contact',

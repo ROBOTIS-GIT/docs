@@ -1,5 +1,5 @@
 /* ============================================================
-   Hero — light/clean Dyte 스타일 (배경색 제거, 가독성 향상)
+   Hero — light, clean Dyte-inspired style with improved readability
    ============================================================ */
 .hero {
   position: relative;
@@ -11,7 +11,7 @@
   isolation: isolate;
 }
 
-/* 옅은 격자 + radial mask (light 모드용 차분한 톤) */
+/* Subtle grid and radial mask for a calm light-mode background. */
 .hero::before {
   content: '';
   position: absolute;
@@ -32,7 +32,7 @@
     linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
 }
 
-/* primary 컬러 글로우 — 은은하게 */
+/* Subtle primary-color glow. */
 .hero::after {
   content: '';
   position: absolute;
@@ -64,7 +64,7 @@
   color: var(--ifm-heading-color);
 }
 
-/* primary 그라데이션 텍스트 (light/dark 모두 적용) */
+/* Primary gradient text for both light and dark modes. */
 .heroTitleAccent {
   background: linear-gradient(135deg, var(--ifm-color-primary), var(--ifm-color-primary-darkest));
   -webkit-background-clip: text;
@@ -95,7 +95,7 @@
   flex-wrap: wrap;
 }
 
-/* Primary CTA — primary 컬러 fill */
+/* Primary CTA — primary-color fill. */
 .heroActions :global(.button--primary) {
   background: var(--ifm-color-primary);
   color: #fff;
@@ -222,7 +222,7 @@
   overflow: hidden;
 }
 
-/* 모던 hover: lift + glow */
+/* Modern hover treatment: lift and glow. */
 .productCard:hover {
   transform: translateY(-4px);
   box-shadow: var(--robotis-card-shadow-hover);
@@ -231,7 +231,7 @@
   color: inherit;
 }
 
-/* 카드 상단의 subtle gradient 라인 (호버 시 활성) */
+/* Subtle gradient line along the card top, revealed on hover. */
 .productCard::before {
   content: '';
   position: absolute;
@@ -376,6 +376,16 @@
   position: relative;
 }
 
+.siteLinkWrap::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: max(100%, 150px);
+  height: 8px;
+  transform: translateX(-50%);
+}
+
 .siteLink {
   display: flex;
   flex-direction: column;
@@ -423,14 +433,14 @@
   padding: 0.35rem 0;
   margin: 0;
   position: absolute;
-  bottom: calc(100% + 8px);
+  top: calc(100% + 8px);
   left: 50%;
-  transform: translateX(-50%) translateY(4px);
+  transform: translateX(-50%) translateY(-4px);
   min-width: 150px;
   background: var(--ifm-background-color);
   border: 1px solid var(--robotis-card-border);
   border-radius: 10px;
-  box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.10);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.10);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.16s ease, transform 0.16s ease;

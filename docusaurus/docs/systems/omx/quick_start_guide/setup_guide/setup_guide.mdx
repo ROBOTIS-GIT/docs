@@ -1,39 +1,40 @@
 # Setup Guide for OMX
 
-This guide will walk you through the process of setting up your OMX hardware and software environment.
+Choose the setup path based on how you want to use OMX.
 
 ## Hardware Setup
+
 ### OMX-F
+
 ![](/img/systems/omx/quick_start_guide/setup_guide/setup_guide/hardware_setup_OMX_F.png)
+
 ### OMX-L
+
 ![](/img/systems/omx/quick_start_guide/setup_guide/setup_guide/hardware_setup_OMX_L.png)
+
 ### OMX-AI
+
 ![](/img/systems/omx/quick_start_guide/setup_guide/setup_guide/hardware_setup_OMX_AI.png)
 
-### Choose Your Workflow
+## Choose Your Setup Path
 
-Two options are available for controlling your OMX robot:
+| Setup path | Use it when |
+| :---: | :--- |
+| [ROS 2 Setup](/docs/systems/omx/quick_start_guide/setup_guide/ros2_setup) | You want to use OMX with ROBOTIS ROS 2 packages, OpenMANIPULATOR, Cyclo Intelligence, Cyclo Control, or Physical AI Tools. |
+| [LeRobot](https://huggingface.co/docs/lerobot/omx) | You want to use OMX directly with the LeRobot workflow. |
 
-#### ROS 2 Workflow with Physical AI Tools (Recommended)
-![](/img/systems/omx/quick_start_guide/setup_guide/setup_guide/physical_ai_tools.png)
-**Physical AI Tools** is a ROS 2 package that provides a comprehensive web-based interface for imitation learning. It works as a ROS 2 workflow that combines the Open Manipulator package with Physical AI Tools to enable every feature of LeRobot and extends them with additional capabilities:
+If you plan to use Cyclo Intelligence, Cyclo Control, or Physical AI Tools, complete **ROS 2 Setup** first. Then continue to the operation guide or imitation learning guide for your workflow.
 
-- **Web-based GUI**: Intuitive browser interface for easy interaction
-- **Complete Imitation Learning Workflow**: End-to-end pipeline from data collection to model deployment
-- **Control Recording**: Capture robot demonstrations through the web interface
-- **Training Interface**: Train imitation learning models with visual feedback
-- **Inference Control**: Deploy and test trained models directly through the GUI
-- **Enhanced Features**: Additional tools and utilities beyond standard LeRobot functionality
+:::info
+The LeRobot workflow does not require the ROS 2 setup on this page.
+:::
 
-**We strongly recommend using Physical AI Tools** as it provides the most user-friendly and feature-rich experience for OMX control and imitation learning.
-
-<a href="/docs/systems/omx/quick_start_guide/setup_guide/physical_ai_tools" class="button-shortcut">
-<span>Physical AI Tools Setup Guide</span>
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '16px', marginTop: '24px'}}>
+<a href="/docs/systems/omx/quick_start_guide/setup_guide/ros2_setup" class="button-shortcut">
+<span>ROS 2 Setup</span>
 </a>
-
-#### LeRobot CLI (Alternative)
-**LeRobot** is the underlying robotics framework that powers Physical AI Tools. While it provides direct command-line control and is fully functional, it requires more technical expertise and lacks the web-based interface that makes robot control more accessible.
 
 <a href="https://huggingface.co/docs/lerobot/omx" class="button-shortcut" target="_blank" rel="noopener noreferrer">
 <span>LeRobot Setup Guide</span>
 </a>
+</div>

@@ -92,3 +92,31 @@ If topics appear but messages are not flowing, check that:
 - [rmw_zenoh design document](https://github.com/ros2/rmw_zenoh/blob/rolling/docs/design.md)
 - [Zenoh overview](https://zenoh.io/docs/overview/what-is-zenoh/)
 - [Zenoh website](https://zenoh.io/)
+
+## Using rmw_fastrtps_cpp
+
+OMX uses Zenoh RMW by default. If you want to use Fast DDS instead, update `RMW_IMPLEMENTATION` in `~/.bashrc` inside every container that runs ROS 2 nodes.(open_manipulator, cyclo intelligence, cyclo manager, etc.)
+
+Enter the container.
+
+```bash
+./{your_ws}/open_manipulator/docker/container.sh enter
+```
+
+Open the `~/.bashrc` file with nano.
+```bash
+nano ~/.bashrc
+```
+
+Find the line that says `export RMW_IMPLEMENTATION=rmw_zenoh_cpp` and change it to `export RMW_IMPLEMENTATION=rmw_fastrtps_cpp`.
+
+Save and exit the file.(ctrl + x, y, enter)
+
+Restart the container from the **host terminal**:
+
+```bash
+exit
+docker restart open_manipulator
+```
+
+If you use cyclo intelligence, you also need to update `RMW_IMPLEMENTATION` in `~/.bashrc` inside the cyclo intelligence container.

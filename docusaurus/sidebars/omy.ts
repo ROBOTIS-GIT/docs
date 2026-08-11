@@ -6,13 +6,13 @@ const omySidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Specifications',
-    collapsed: true,
+    collapsed: false,
     items: [
       {
         type: 'category',
         label: 'Hardware',
         link: {type: 'doc', id: 'systems/omy/specifications/hardware'},
-        collapsed: true,
+        collapsed: false,
         items: [
           {type: 'doc', id: 'systems/omy/specifications/control_table', label: 'Control Table'},
         ],
@@ -23,39 +23,82 @@ const omySidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Quick Start Guide',
-    collapsed: true,
+    collapsed: false,
     items: [
       {type: 'doc', id: 'systems/omy/quick_start_guide/setup_guide', label: 'Setup Guide'},
       {type: 'doc', id: 'systems/omy/quick_start_guide/zenoh_communication', label: 'Zenoh Communication'},
-      {type: 'doc', id: 'systems/omy/quick_start_guide/operation_guide', label: 'Operation Guide'},
+      {
+        type: 'category',
+        label: 'Operation Guide',
+        link: {type: 'doc', id: 'systems/omy/quick_start_guide/operation_guide'},
+        collapsed: false,
+        items: [
+          {
+            type: 'category',
+            label: 'Cyclo Manager',
+            link: {type: 'doc', id: 'systems/omy/quick_start_guide/operation_guide/cyclo_manager/cyclo_manager'},
+            collapsed: false,
+            items: [
+              {type: 'doc', id: 'systems/omy/quick_start_guide/operation_guide/cyclo_manager/install', label: 'Install'},
+              {type: 'doc', id: 'systems/omy/quick_start_guide/operation_guide/cyclo_manager/bringup', label: 'Bringup'},
+              {type: 'doc', id: 'systems/omy/quick_start_guide/operation_guide/cyclo_manager/manage_container', label: 'Manage Containers'},
+              {type: 'doc', id: 'systems/omy/quick_start_guide/operation_guide/cyclo_manager/version_update', label: 'Version Update'},
+              {type: 'doc', id: 'systems/omy/quick_start_guide/operation_guide/cyclo_manager/novnc', label: 'noVNC'},
+            ],
+          },
+          {type: 'doc', id: 'systems/omy/quick_start_guide/operation_guide/teleoperation', label: 'Teleoperation'},
+          {type: 'doc', id: 'systems/omy/quick_start_guide/operation_guide/robot_control', label: 'Robot Control'},
+        ],
+      },
     ],
   },
   {
     type: 'category',
     label: 'Imitation Learning',
-    collapsed: true,
+    collapsed: false,
     items: [
-      {type: 'doc', id: 'systems/omy/imitation_learning/imitation_learning', label: 'Overview', key: 'imitation-learning-overview'},
+      {type: 'doc', id: 'systems/omy/imitation_learning/overview', label: 'Overview', key: 'imitation-learning-overview'},
       {
         type: 'category',
-        label: 'Dataset Preparation',
-        link: {type: 'doc', id: 'systems/omy/imitation_learning/dataset_preparation/dataset_preparation'},
-        collapsed: true,
+        label: 'Cyclo Intelligence',
+        link: {type: 'doc', id: 'systems/omy/imitation_learning/imitation_learning'},
+        collapsed: false,
         items: [
-          {type: 'doc', id: 'systems/omy/imitation_learning/dataset_preparation/prerequisites', label: 'Prerequisites'},
-          {type: 'doc', id: 'systems/omy/imitation_learning/dataset_preparation/recording', label: 'Recording'},
-          {type: 'doc', id: 'systems/omy/imitation_learning/dataset_preparation/visualization', label: 'Visualization'},
+          {type: 'doc', id: 'systems/omy/imitation_learning/setup', label: 'Setup', key: 'cyclo-intelligence-setup'},
+          {type: 'doc', id: 'systems/omy/imitation_learning/data_recording', label: 'Data Recording', key: 'cyclo-intelligence-data-recording'},
+          {type: 'doc', id: 'systems/omy/imitation_learning/data_tools', label: 'Data Tools', key: 'cyclo-intelligence-data-tools'},
+          {type: 'doc', id: 'systems/omy/imitation_learning/model_training', label: 'Model Training Guide', key: 'cyclo-intelligence-model-training'},
+          {type: 'doc', id: 'systems/omy/imitation_learning/model_inference', label: 'Model Inference', key: 'cyclo-intelligence-model-inference'},
         ],
       },
-      {type: 'doc', id: 'systems/omy/imitation_learning/model_training', label: 'Model Training'},
-      {type: 'doc', id: 'systems/omy/imitation_learning/model_inference', label: 'Model Inference'},
-      {type: 'doc', id: 'systems/omy/imitation_learning/data_tools', label: 'Data Tools'},
+      {
+        type: 'category',
+        label: 'Physical AI Tools',
+        link: {type: 'doc', id: 'systems/omy/resources/legacy/physical_ai_tools/imitation_learning'},
+        collapsed: false,
+        items: [
+          {
+            type: 'category',
+            label: 'Dataset Preparation',
+            link: {type: 'doc', id: 'systems/omy/resources/legacy/physical_ai_tools/dataset_preparation/dataset_preparation'},
+            collapsed: false,
+            items: [
+              {type: 'doc', id: 'systems/omy/resources/legacy/physical_ai_tools/dataset_preparation/prerequisites', label: 'Prerequisites'},
+              {type: 'doc', id: 'systems/omy/resources/legacy/physical_ai_tools/dataset_preparation/recording', label: 'Recording'},
+              {type: 'doc', id: 'systems/omy/resources/legacy/physical_ai_tools/dataset_preparation/visualization', label: 'Visualization'},
+            ],
+          },
+          {type: 'doc', id: 'systems/omy/resources/legacy/physical_ai_tools/model_training', label: 'Model Training', key: 'physical-ai-tools-model-training'},
+          {type: 'doc', id: 'systems/omy/resources/legacy/physical_ai_tools/model_inference', label: 'Model Inference', key: 'physical-ai-tools-model-inference'},
+          {type: 'doc', id: 'systems/omy/resources/legacy/physical_ai_tools/data_tools', label: 'Data Tools', key: 'physical-ai-tools-data-tools'},
+        ],
+      },
     ],
   },
   {
     type: 'category',
     label: 'Simulation',
-    collapsed: true,
+    collapsed: false,
     items: [
       {type: 'doc', id: 'systems/omy/simulation/simulation', label: 'Overview', key: 'simulation-overview'},
       {type: 'doc', id: 'systems/omy/simulation/gazebo', label: 'Gazebo'},
@@ -65,7 +108,7 @@ const omySidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Advanced Features',
-    collapsed: true,
+    collapsed: false,
     items: [
       {type: 'doc', id: 'systems/omy/advanced_features/advanced_features', label: 'Overview', key: 'advanced-features-overview'},
       {type: 'doc', id: 'systems/omy/advanced_features/cyclo_control', label: 'Cyclo Control'},
@@ -74,7 +117,7 @@ const omySidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Resources',
-    collapsed: true,
+    collapsed: false,
     items: [
       {type: 'doc', id: 'systems/omy/resources/open_source', label: 'Open Source'},
       {type: 'doc', id: 'systems/omy/resources/release_notes', label: 'Release Notes'},
@@ -83,8 +126,9 @@ const omySidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Support',
-    collapsed: true,
+    collapsed: false,
     items: [
+      {type: 'doc', id: 'systems/omy/support/os_update', label: 'OS Update'},
       {type: 'doc', id: 'systems/omy/support/troubleshooting_guide', label: 'Troubleshooting Guide'},
       {type: 'doc', id: 'systems/omy/support/manual_packing_procedure', label: 'Manual Packing Procedure'},
       {type: 'link', label: 'Discord Server', href: 'https://discord.gg/robotis'},

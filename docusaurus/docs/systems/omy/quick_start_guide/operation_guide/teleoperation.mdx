@@ -1,0 +1,66 @@
+# Teleoperation
+
+Use this page to run OMY leader-follower teleoperation. This is the bringup normally used before collecting demonstrations with Cyclo Intelligence.
+
+:::info
+At least one **Zenoh daemon** must be running in the communication network. If no Zenoh daemon is running, ROS 2 nodes cannot discover or communicate with each other.
+
+For the recommended setup, run `zenohd` in a terminal inside the robot-side **OpenMANIPULATOR Docker container**.
+:::
+
+## Leader-Follower Teleoperation
+
+After entering the OpenMANIPULATOR Docker container on the robot-side machine, run:
+
+```bash
+ros2 launch open_manipulator_bringup omy_ai.launch.py
+```
+
+:::warning
+Running this command can move OMY immediately. Keep the robot workspace clear before launching teleoperation.
+:::
+
+This command performs the following sequence:
+
+1. Moves the follower to its initial position.
+2. Starts leader gravity compensation.
+3. Synchronizes the leader and follower.
+
+After these steps, the leader-follower system is ready. **AI Teleoperation** is supported between OMY_F3M and OMY_L100.
+
+![](/img/systems/omy/quick_start_guide/operation_guide/ai_teleop.gif)
+> _Real-time synchronized motion between Leader and Follower._
+
+Leader-follower mode also enables gravity compensation on the leader. Thanks to friction and static compensation, the leader arm can be moved smoothly. Since inverse kinematics is applied to the leader during operation, gravity compensation is maintained regardless of its position.
+
+![](/img/systems/omy/quick_start_guide/operation_guide/gravity_compensation_demo.gif)
+> _Smooth, gravity-compensated motion of the Leader arm_
+
+## Camera Node
+
+For demonstration recording, launch the camera node from the machine where the camera is connected. In the standard OMY setup, the camera is connected to the `USER PC`, so run the camera node inside the **OpenMANIPULATOR Docker container** on the `USER PC`.
+
+:::tip
+You can find the OMY camera port in [Camera Connection](/docs/systems/omy/quick_start_guide/setup_guide#camera-connection). We recommend connecting that port to the `USER PC` that runs Cyclo Intelligence.
+:::
+
+Enter the open_manipulator container in the `USER PC` and run the following command:
+```bash
+ros2 launch realsense2_camera rs_launch.py camera_name:='cam_wrist'
+```
+
+If `zenohd` is running on the robot-side machine, configure the `USER PC` container to connect to that Zenoh daemon before launching the camera node. See [Zenoh Communication](/docs/systems/omy/quick_start_guide/zenoh_communication#external-pc-control).
+
+You can also use other camera models such as ZED2 or USB cameras. After launching the camera node, check that the camera image topics are visible from the robot network.
+
+## Follower Bringup for Inference
+
+Use follower bringup when another runtime sends commands to the follower robot, such as Cyclo Control or model inference.
+
+:::warning
+Stop leader-follower teleoperation before running follower bringup. The robot can move as soon as bringup starts.
+:::
+
+```bash
+ros2 launch open_manipulator_bringup omy_f3m_follower_ai.launch.py ros2_control_type:=omy_f3m_smooth
+```

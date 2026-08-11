@@ -1,0 +1,88 @@
+# Zenoh Communication
+
+<div className="zenoh-intro">
+  <img src="/img/systems/hx5_d20/quick_start_guide/zenoh_communication/zenoh-dragon-light.png" alt="Zenoh logo" className="zenoh-intro__logo" />
+  <div className="zenoh-intro__text"><strong>Starting from ROBOTIS Hand version 1.0.0, ROBOTIS Hand changes its default ROS 2 middleware from Fast DDS to Zenoh RMW.</strong> This enables more stable communication between robot-side nodes, Docker containers, and external PCs. This page explains Zenoh and how <code>rmw_zenoh</code> fits into the ROS 2 communication stack.</div>
+</div>
+
+:::warning
+At least one **Zenoh daemon** must be running in the communication network. If no Zenoh daemon is running, ROS 2 nodes cannot discover or communicate with each other.
+
+To start the Zenoh daemon manually, run `zenohd` in a terminal.
+:::
+
+## What is rmw_zenoh?
+
+`rmw_zenoh` is the ROS 2 RMW (ROS Middleware) implementation for Zenoh. The implementation package is `rmw_zenoh_cpp`, and it maps the ROS 2 middleware API onto Zenoh APIs. Existing ROS 2 publishers, subscribers, services, clients, parameters, and command-line tools can keep using normal ROS 2 interfaces while Zenoh handles discovery and transport.
+
+Zenoh is a pub/sub/query protocol designed to move data efficiently across local processes, robot networks, edge computers, and cloud systems. For the ROBOTIS Hand, this means the robot control software can use normal ROS 2 topics while Zenoh provides a lightweight communication layer that is easier to route across containers and hosts than multicast-heavy DDS discovery.
+
+## Main Components
+
+| Component | Role |
+| --- | --- |
+| `rmw_zenoh_cpp` | ROS 2 RMW implementation selected by `RMW_IMPLEMENTATION=rmw_zenoh_cpp`. |
+| `rmw_zenohd` | Zenoh router executable packaged with `rmw_zenoh_cpp`. It provides discovery information and host-to-host routing. |
+| Zenoh session | Communication session used internally by ROS 2 contexts. Publishers, subscribers, services, and clients share the session. |
+| Zenoh router configuration | Controls how routers listen, connect, and bridge communication between containers, the robot, and remote PCs. |
+
+## How Communication Works
+
+- ROS 2 nodes continue to publish and subscribe to normal topics such as `/joint_states`, `/tf`, or controller command topics.
+- `rmw_zenoh_cpp` converts the ROS 2 middleware calls into Zenoh operations.
+- A local Zenoh router is normally started so nodes can discover each other.
+- On the same host, message data can use direct peer-to-peer paths instead of forcing every sample through the router.
+- Across multiple hosts, configure the external PC container as a Zenoh client connected to the robot's Zenoh router endpoint.
+
+## Quick Checks
+
+Use these commands inside the `robotis_hand` container to confirm that Zenoh RMW is active and that the ROS graph is visible:
+
+```bash
+echo $RMW_IMPLEMENTATION
+ros2 node list
+ros2 topic list
+ros2 topic echo /joint_states
+```
+
+If topics appear but messages are not flowing, check that:
+
+- The robot and external PC are on the same reachable network.
+- Port `7447` is reachable from the external PC.
+- The `robotis_hand` container is running with the expected network configuration.
+- Old ROS 2 daemon state has been stopped with `ros2 daemon stop`.
+
+## References
+
+- [ros2/rmw_zenoh](https://github.com/ros2/rmw_zenoh)
+- [rmw_zenoh design document](https://github.com/ros2/rmw_zenoh/blob/rolling/docs/design.md)
+- [Zenoh overview](https://zenoh.io/docs/overview/what-is-zenoh/)
+- [Zenoh website](https://zenoh.io/)
+
+## Using rmw_fastrtps_cpp
+
+ROBOTIS Hand uses Zenoh RMW by default. If you want to use Fast DDS instead, update `RMW_IMPLEMENTATION` in `~/.bashrc` inside every container that runs ROS 2 nodes.(robotis_hand, cyclo intelligence, cyclo manager, etc.)
+
+Connect the ssh to the robot and enter the container.
+
+```bash
+./{your_ws}/robotis_hand/docker/container.sh enter
+```
+
+Open the `~/.bashrc` file with nano.
+```bash
+nano ~/.bashrc
+```
+
+Find the line that says `export RMW_IMPLEMENTATION=rmw_zenoh_cpp` and change it to `export RMW_IMPLEMENTATION=rmw_fastrtps_cpp`.
+
+Save and exit the file.(ctrl + x, y, enter)
+
+Restart the container from the **host terminal**:
+
+```bash
+exit
+docker restart robotis_hand
+```
+
+If you use cyclo intelligence, you also need to update `RMW_IMPLEMENTATION` in `~/.bashrc` inside the cyclo intelligence container.

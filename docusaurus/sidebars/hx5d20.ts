@@ -6,13 +6,13 @@ const hx5d20Sidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Specifications',
-    collapsed: true,
+    collapsed: false,
     items: [
       {
         type: 'category',
         label: 'Hardware',
         link: {type: 'doc', id: 'systems/hx5_d20/specifications/hardware'},
-        collapsed: true,
+        collapsed: false,
         items: [
           {type: 'doc', id: 'systems/hx5_d20/specifications/control_table', label: 'Control Table'},
         ],
@@ -23,18 +23,19 @@ const hx5d20Sidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Quick Start Guide',
-    collapsed: true,
+    collapsed: false,
     items: [
       {type: 'doc', id: 'systems/hx5_d20/quick_start_guide/setup_guide', label: 'Setup Guide'},
       {type: 'doc', id: 'systems/hx5_d20/quick_start_guide/operation_guide', label: 'Operation Guide'},
       {type: 'doc', id: 'systems/hx5_d20/quick_start_guide/vr_teleoperation_guide', label: 'VR Teleoperation Guide'},
       {type: 'doc', id: 'systems/hx5_d20/quick_start_guide/dxl_wizard_guide', label: 'DXL Wizard Guide'},
+      {type: 'doc', id: 'systems/hx5_d20/quick_start_guide/zenoh_communication', label: 'Zenoh Communication'},
     ],
   },
   {
     type: 'category',
     label: 'Simulation',
-    collapsed: true,
+    collapsed: false,
     items: [
       {type: 'doc', id: 'systems/hx5_d20/simulation/simulation', label: 'Overview'},
       {type: 'doc', id: 'systems/hx5_d20/simulation/gazebo', label: 'Gazebo'},
@@ -43,7 +44,7 @@ const hx5d20Sidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Resources',
-    collapsed: true,
+    collapsed: false,
     items: [
       {type: 'doc', id: 'systems/hx5_d20/resources/open_source', label: 'Open Source'},
       {type: 'doc', id: 'systems/hx5_d20/resources/release_notes', label: 'Release Notes'},
@@ -51,7 +52,7 @@ const hx5d20Sidebar: SidebarsConfig[string] = [
         type: 'category',
         label: 'Technical Story',
         link: {type: 'doc', id: 'systems/hx5_d20/resources/technical_story/technical_story'},
-        collapsed: true,
+        collapsed: false,
         items: [
           {type: 'doc', id: 'systems/hx5_d20/resources/technical_story/tactile_feedback_grasping', label: 'Tactile Feedback Grasping'},
         ],
@@ -61,7 +62,7 @@ const hx5d20Sidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Support',
-    collapsed: true,
+    collapsed: false,
     items: [
       {type: 'link', label: 'Discord Server', href: 'https://discord.gg/robotis'},
       {type: 'doc', id: 'systems/hx5_d20/support/issues', label: 'Issues'},
