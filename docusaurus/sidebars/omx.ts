@@ -6,7 +6,7 @@ const omxSidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Specifications',
-    collapsed: true,
+    collapsed: false,
     items: [
       {type: 'doc', id: 'systems/omx/specifications/hardware', label: 'Hardware'},
       {type: 'doc', id: 'systems/omx/specifications/software', label: 'Software'},
@@ -16,15 +16,16 @@ const omxSidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Quick Start Guide',
-    collapsed: true,
+    collapsed: false,
     items: [
       {type: 'doc', id: 'systems/omx/quick_start_guide/assembly_guide', label: 'Assembly Guide'},
       {
         type: 'category',
         label: 'Setup Guide',
         link: {type: 'doc', id: 'systems/omx/quick_start_guide/setup_guide/setup_guide'},
-        collapsed: true,
+        collapsed: false,
         items: [
+          {type: 'doc', id: 'systems/omx/quick_start_guide/setup_guide/ros2_setup', label: 'ROS 2 Setup'},
           {type: 'link', label: 'LeRobot', href: 'https://huggingface.co/docs/lerobot/omx'},
         ],
       },
@@ -32,8 +33,21 @@ const omxSidebar: SidebarsConfig[string] = [
         type: 'category',
         label: 'Operation Guide - ROS 2',
         link: {type: 'doc', id: 'systems/omx/quick_start_guide/operation_guide'},
-        collapsed: true,
+        collapsed: false,
         items: [
+          {
+            type: 'category',
+            label: 'Cyclo Manager',
+            link: {type: 'doc', id: 'systems/omx/quick_start_guide/operation_guide/cyclo_manager/cyclo_manager'},
+            collapsed: false,
+            items: [
+              {type: 'doc', id: 'systems/omx/quick_start_guide/operation_guide/cyclo_manager/install', label: 'Install'},
+              {type: 'doc', id: 'systems/omx/quick_start_guide/operation_guide/cyclo_manager/bringup', label: 'Bringup'},
+              {type: 'doc', id: 'systems/omx/quick_start_guide/operation_guide/cyclo_manager/manage_container', label: 'Manage Containers'},
+              {type: 'doc', id: 'systems/omx/quick_start_guide/operation_guide/cyclo_manager/version_update', label: 'Version Update'},
+              {type: 'doc', id: 'systems/omx/quick_start_guide/operation_guide/cyclo_manager/novnc', label: 'noVNC'},
+            ],
+          },
           {type: 'doc', id: 'systems/omx/quick_start_guide/operation_guide/teleoperation', label: 'Teleoperation'},
           {type: 'doc', id: 'systems/omx/quick_start_guide/operation_guide/robot_control', label: 'Robot Control'},
         ],
@@ -43,14 +57,14 @@ const omxSidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Imitation Learning',
-    collapsed: true,
+    collapsed: false,
     items: [
       {type: 'doc', id: 'systems/omx/imitation_learning/overview', label: 'Overview', key: 'imitation-learning-overview'},
       {
         type: 'category',
         label: 'Cyclo Intelligence',
         link: {type: 'doc', id: 'systems/omx/imitation_learning/imitation_learning'},
-        collapsed: true,
+        collapsed: false,
         items: [
           {type: 'doc', id: 'systems/omx/imitation_learning/setup', label: 'Setup', key: 'cyclo-intelligence-setup'},
           {type: 'doc', id: 'systems/omx/imitation_learning/data_recording', label: 'Data Recording', key: 'cyclo-intelligence-data-recording'},
@@ -63,14 +77,14 @@ const omxSidebar: SidebarsConfig[string] = [
         type: 'category',
         label: 'Physical AI Tools',
         link: {type: 'doc', id: 'systems/omx/resources/legacy/physical_ai_tools/imitation_learning'},
-        collapsed: true,
+        collapsed: false,
         items: [
           {type: 'doc', id: 'systems/omx/resources/legacy/physical_ai_tools/setup_guide', label: 'Setup Guide'},
           {
             type: 'category',
             label: 'Dataset Preparation',
             link: {type: 'doc', id: 'systems/omx/resources/legacy/physical_ai_tools/dataset_preparation/dataset_preparation'},
-            collapsed: true,
+            collapsed: false,
             items: [
               {type: 'doc', id: 'systems/omx/resources/legacy/physical_ai_tools/dataset_preparation/prerequisites', label: 'Prerequisites'},
               {type: 'doc', id: 'systems/omx/resources/legacy/physical_ai_tools/dataset_preparation/recording', label: 'Recording'},
@@ -87,7 +101,7 @@ const omxSidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Simulation',
-    collapsed: true,
+    collapsed: false,
     items: [
       {type: 'doc', id: 'systems/omx/simulation/simulation', label: 'Overview', key: 'simulation-overview'},
       {type: 'doc', id: 'systems/omx/simulation/gazebo', label: 'Gazebo'},
@@ -96,7 +110,7 @@ const omxSidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Advanced Features',
-    collapsed: true,
+    collapsed: false,
     items: [
       {type: 'doc', id: 'systems/omx/advanced_features/advanced_features', label: 'Overview', key: 'advanced-features-overview'},
       {type: 'doc', id: 'systems/omx/advanced_features/cyclo_control', label: 'Cyclo Control'},
@@ -105,7 +119,7 @@ const omxSidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Resources',
-    collapsed: true,
+    collapsed: false,
     items: [
       {type: 'doc', id: 'systems/omx/resources/open_source', label: 'Open Source'},
       {type: 'doc', id: 'systems/omx/resources/release_notes', label: 'Release Notes'},
@@ -113,7 +127,7 @@ const omxSidebar: SidebarsConfig[string] = [
         type: 'category',
         label: 'Technical Story',
         link: {type: 'doc', id: 'systems/omx/resources/technical_story/technical_story'},
-        collapsed: true,
+        collapsed: false,
         items: [
           {type: 'doc', id: 'systems/omx/resources/technical_story/drawing_tutorial', label: 'Drawing Tutorial'},
         ],
@@ -123,7 +137,7 @@ const omxSidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Support',
-    collapsed: true,
+    collapsed: false,
     items: [
       {type: 'link', label: 'Discord Server', href: 'https://discord.gg/robotis'},
       {type: 'doc', id: 'systems/omx/support/issues', label: 'Issues'},

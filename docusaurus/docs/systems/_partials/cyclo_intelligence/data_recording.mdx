@@ -26,6 +26,16 @@ Before opening the `Record` page, select the robot type from the `Home` page.
 
 Only robot types with a config file under `cyclo_intelligence/shared/shared/robot_configs` appear in this list.
 
+<details>
+  <summary>Change Collected Data</summary>
+
+  The robot config file defines the observation data and action data collected for each robot type. Cyclo Intelligence records only the topics listed in this file. If a topic is not included in the robot config, it will not be collected even if the topic is being published on the robot network.
+
+  For example, to add more camera observations, add image entries under `observation.images` as shown below.
+
+  ![Robot config camera example](/img/systems/_partials/cyclo_intelligence/robot_configs_camera_example.png)
+</details>
+
 ## Record Page
 
 
@@ -115,18 +125,28 @@ Use the `Rosbag Recorder` panel to enter the recording information before starti
 After entering the required information, click `Record Start` to begin recording.
 
 {props.showAiWorkerLeaderControls && (
-  <details>
-    <summary>AI Worker leader button controls</summary>
+  <>
+    <h3>AI Worker Leader Button Controls</h3>
     <div className="alert alert--info" role="note">
       <p>When both hands are needed to operate the wearable skeletal leader device, use the leader buttons to control the recording state.</p>
       <ul>
         <li><strong>Left button press</strong>: Cancel the current episode.</li>
-        <li><strong>Right button press</strong>: Save the current episode.</li>
+        <li><strong>Right button press</strong>: Start recording or save the current episode.</li>
       </ul>
       <img src="/img/systems/aiworker/imitation_learning/dataset_preparation/recording/data_collection_button.png" alt="AI Worker leader buttons for data recording" style={{width: '70%', margin: '20px 0 0'}} />
     </div>
-  </details>
+  </>
 )}
+
+## Recording Sequence
+
+1. In the `Rosbag Recorder` panel, fill in `Task Num`, `Task Name`, `Task Instruction`, and subtask information if needed. Then click `Record Start`.
+
+![Record episode start](/img/systems/_partials/cyclo_intelligence/record_episode_start.png)
+
+2. To save the episode being recorded, click the green `Save Episode` button. To cancel the episode being recorded, click `Discard Episode`.
+
+![Record episode save and discard](/img/systems/_partials/cyclo_intelligence/record_episode_save_discard.png)
 
 
 ## Recorded Dataset Location

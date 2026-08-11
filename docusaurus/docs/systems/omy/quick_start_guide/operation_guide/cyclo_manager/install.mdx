@@ -1,0 +1,88 @@
+# Install Cyclo Manager
+
+:::info
+After Cyclo Manager is installed and set up once, it starts automatically when the robot boots.
+When you power on the robot later, you only need to open Cyclo Manager from your browser.
+:::
+
+**Cyclo Manager** runs inside Docker containers. The Python package **`cyclo-manager`** on PyPI provides the **`cyclo_manager`** CLI, which uses Docker images and Compose to bring up and configure the container stack.
+
+## How to Install
+
+:::info
+**Cyclo Manager** runs on the **OMY robot PC**. Install it on the robot PC.
+:::
+
+1. Connect to OMY via SSH.
+
+Replace `SNPR44B9999` with the serial number printed on the robot.
+
+```bash
+ssh root@omy-SNPR44B9999.local
+```
+
+2. Install the Python package `cyclo-manager` on the OMY robot PC.
+
+```bash
+pip3 install cyclo-manager
+```
+
+3. Add the CLI to your `PATH` and set up the Cyclo Manager environment.
+
+```bash
+export PATH="$HOME/.local/bin:$PATH"
+cyclo_manager up
+```
+
+:::info
+After you run **`cyclo_manager up`** once to set up the environment, Cyclo Manager keeps running unless you run **`cyclo_manager down`**.
+You do not need to run **`cyclo_manager up`** again after powering the robot off and on.
+:::
+
+:::note[CLI commands]
+Use the **`cyclo_manager`** CLI from your terminal:
+
+```bash
+cyclo_manager up   # optional: --pull to fetch the latest images from the registry
+cyclo_manager down
+cyclo_manager update
+```
+
+- `cyclo_manager up`:
+  - Registers a **host-agent** systemd service so it always runs.
+  - Creates and starts the **cyclo_manager** API and **cyclo_manager_ui** containers.
+  - Creates the **zenoh-daemon** and **novnc-server** containers.
+
+- `cyclo_manager down`:
+  - Stops and removes the containers created by `cyclo_manager up`.
+  - Removes the **host-agent** service from systemd.
+
+- `cyclo_manager update`:
+  - Upgrades the **`cyclo-manager`** package with **pip**.
+  - Stops the running containers and starts new ones with the updated stack.
+  - Restarts the **host-agent** service.
+:::
+
+## Open the Cyclo Manager Web UI
+
+Open the Cyclo Manager **web UI** on **port 3000** in your browser.
+
+:::info
+Connect using the robot IP address or the mDNS hostname. Replace `SNPR44B9999` with your robot's serial number.
+http://omy-SNPR44B9999.local:3000
+:::
+
+![Cyclo Manager App Page](/img/systems/omy/quick_start_guide/operation_guide/cyclo_manager/app_page.png)
+
+From the main page, open the Cyclo Manager dashboard.
+
+![Dashboard Page](/img/systems/omy/quick_start_guide/operation_guide/cyclo_manager/dashboard.png)
+
+## Update the s6 Agent
+
+After the first installation, the s6 agent inside a managed container may not match the installed Cyclo Manager version.
+If the container agent and Cyclo Manager are not compatible, some Cyclo Manager operations may not work as expected.
+
+Check the **Container Agents** section in Version Management after opening the dashboard.
+If an agent update is available, update the s6 agent before using Cyclo Manager for regular operation.
+For details, see [Agent Update](/docs/systems/omy/quick_start_guide/operation_guide/cyclo_manager/version_update#agent-update).
