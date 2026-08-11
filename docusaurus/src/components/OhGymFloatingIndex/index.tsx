@@ -38,6 +38,10 @@ function getCurrentSectionId(sections: HTMLElement[]) {
 
 export default function OhGymFloatingIndex() {
   useEffect(() => {
+    if (window.matchMedia('(max-width: 1019px)').matches) {
+      return undefined;
+    }
+
     const page = document.querySelector<HTMLElement>('.ohgym-page');
     const index = document.querySelector<HTMLElement>('.ohgym-floating-index');
     const panel = document.querySelector<HTMLElement>('.ohgym-floating-index__panel');
@@ -56,11 +60,12 @@ export default function OhGymFloatingIndex() {
 
     const getTargetY = () => {
       const pageRect = page.getBoundingClientRect();
+      const pageHeight = page.offsetHeight;
       const panelHeight = panel.offsetHeight;
       const pageTop = pageRect.top + window.scrollY;
       const viewportOffset = window.innerHeight / 2 - panelHeight / 2;
       const rawY = window.scrollY - pageTop + viewportOffset;
-      const maxY = Math.max(page.offsetHeight - panelHeight, 0);
+      const maxY = Math.max(pageHeight - panelHeight, 0);
 
       return Math.min(Math.max(rawY, 0), maxY);
     };
@@ -115,14 +120,14 @@ export default function OhGymFloatingIndex() {
     updateActiveIndex();
 
     window.addEventListener('scroll', updateIndex, {passive: true});
-    window.addEventListener('resize', updateIndex);
+    window.addEventListener('orientationchange', updateIndex);
     applyLink?.addEventListener('click', handleApplyLinkClick);
 
     return () => {
       cancelAnimationFrame(activeFrameId);
       cancelAnimationFrame(motionFrameId);
       window.removeEventListener('scroll', updateIndex);
-      window.removeEventListener('resize', updateIndex);
+      window.removeEventListener('orientationchange', updateIndex);
       applyLink?.removeEventListener('click', handleApplyLinkClick);
     };
   }, []);
