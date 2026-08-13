@@ -1,0 +1,31 @@
+/* Settings tables: default theme table styling, with bulleted cells. */
+
+.stbl-wrap {
+  margin: 1rem 0 1.5rem;
+  overflow-x: auto;
+}
+
+.stbl {
+  display: table;
+  width: 100%;
+}
+
+.stbl th,
+.stbl td {
+  vertical-align: top;
+}
+
+.stbl th.stbl-name,
+.stbl td.stbl-name {
+  width: 30%;
+  white-space: nowrap;
+}
+
+.stbl td ul {
+  margin: 0;
+  padding-left: 1.05rem;
+}
+
+.stbl td li + li {
+  margin-top: 3px;
+}
