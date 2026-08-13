@@ -126,13 +126,14 @@ lerobot-train \
 <details>
 <summary>SmolVLA</summary>
 
-Fine-tunes from the released base checkpoint, passed with `--policy.path`.
+Fine-tunes from the released base checkpoint. Pass it with `--policy.type` and `--policy.pretrained_path`, not `--policy.path`: `--policy.path` alone loads LeRobot's own config, which fixes the state dimension at 6 (AI Worker needs 16). Training still runs, but the checkpoint it writes does not load cleanly.
 
 **Trains the action expert only by default**, which is what keeps SmolVLA within a single consumer GPU. The two freeze flags below are those defaults, written out. Set both to `false` for a full fine-tune.
 
 ```bash
 lerobot-train \
-  --policy.path=lerobot/smolvla_base \
+  --policy.type=smolvla \
+  --policy.pretrained_path=lerobot/smolvla_base \
   --dataset.repo_id=${HF_USER}/my_dataset \
   --policy.freeze_vision_encoder=true \
   --policy.train_expert_only=true \
@@ -149,7 +150,9 @@ lerobot-train \
 <details>
 <summary>XVLA</summary>
 
-**Defaults to a full fine-tune**, as shown below. Set either flag to `true` to freeze that encoder and train less.
+**Defaults to a full fine-tune**, as shown below. Set either freeze flag to `true` to train less.
+
+XVLA only accepts `--policy.path`, because of its `vision_config`. That means the camera keys come from the base checkpoint, so map your own keys onto them with `--rename_map`.
 
 ```bash
 lerobot-train \
@@ -189,6 +192,8 @@ lerobot-train \
 ```
 
 `--policy.gradient_checkpointing=true` trades speed for memory. Turn it on when the run does not fit on the GPU.
+
+A full fine-tune does not fit on a 24 GB card such as an RTX 4090. Set `--policy.train_expert_only=true` there to freeze the VLM. These policies also pull `google/paligemma-3b-pt-224`, which is a gated model, so request access on Hugging Face first or the download fails.
 
 </details>
 
