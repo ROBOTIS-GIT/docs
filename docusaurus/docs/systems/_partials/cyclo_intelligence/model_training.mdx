@@ -60,6 +60,21 @@ Train only the policies that have a matching inference backend. `Model Inference
       <td style={{textAlign: 'center'}}><code>groot</code></td>
       <td>Fine-tuned from <code>nvidia/GR00T-N1.7-3B</code>.</td>
     </tr>
+    <tr>
+      <td style={{textAlign: 'center'}}>MolmoAct2</td>
+      <td style={{textAlign: 'center'}}><code>molmoact2</code></td>
+      <td>Fine-tuned from <code>allenai/MolmoAct2-LIBERO</code>, or from a LeRobot checkpoint.</td>
+    </tr>
+    <tr>
+      <td style={{textAlign: 'center'}}>FastWAM</td>
+      <td style={{textAlign: 'center'}}><code>fastwam</code></td>
+      <td>World action model. Its visual components start from <code>Wan-AI/Wan2.2-TI2V-5B</code>.</td>
+    </tr>
+    <tr>
+      <td style={{textAlign: 'center'}}>VLA-JEPA</td>
+      <td style={{textAlign: 'center'}}><code>vla_jepa</code></td>
+      <td>Trained from scratch, or fine-tuned from <code>lerobot/VLA-JEPA-Pretrain</code>.</td>
+    </tr>
   </tbody>
 </table>
 
@@ -111,6 +126,8 @@ ACT and Diffusion are not here. They have no pretrained backbone and always trai
 
 Both train from scratch, so they take `--policy.type` and no pretrained path. Swap `act` for `diffusion` to train the other. There is no pretrained backbone here, so nothing to freeze.
 
+Diffusion requires every camera to share one resolution. On a robot whose cameras differ, such as AI Worker, record with a single camera selected.
+
 ```bash
 lerobot-train \
   --dataset.repo_id=${HF_USER}/my_dataset \
@@ -129,6 +146,8 @@ lerobot-train \
 Fine-tunes from the released base checkpoint. Pass it with `--policy.type` and `--policy.pretrained_path`, not `--policy.path`: `--policy.path` alone loads LeRobot's own config, which fixes the state dimension at 6 (AI Worker needs 16). Training still runs, but the checkpoint it writes does not load cleanly.
 
 **Trains the action expert only by default**, which is what keeps SmolVLA within a single consumer GPU. The two freeze flags below are those defaults, written out. Set both to `false` for a full fine-tune.
+
+Fine-tuning from the base checkpoint also needs `--rename_map`, because the base declares its own camera names: SmolVLA expects `camera1`, `camera2` and `camera3`.
 
 ```bash
 lerobot-train \
@@ -152,7 +171,7 @@ lerobot-train \
 
 **Defaults to a full fine-tune**, as shown below. Set either freeze flag to `true` to train less.
 
-XVLA only accepts `--policy.path`, because of its `vision_config`. That means the camera keys come from the base checkpoint, so map your own keys onto them with `--rename_map`.
+XVLA only accepts `--policy.path`, because of its `vision_config`. That means the camera keys come from the base checkpoint, so map your own keys onto them with `--rename_map`. XVLA expects `image`, `image2` and `image3`.
 
 ```bash
 lerobot-train \
@@ -222,6 +241,73 @@ lerobot-train \
 ```
 
 `--policy.embodiment_tag=new_embodiment` tells GR00T the robot is not one of its pretrained embodiments.
+
+</details>
+
+<details>
+<summary>MolmoAct2</summary>
+
+Fine-tunes from the released MolmoAct2 checkpoint, passed with `--policy.checkpoint_path`. It is the one policy here with a separate learning rate per component, so the vision tower, connector and action expert can be tuned at different speeds.
+
+```bash
+lerobot-train \
+  --dataset.repo_id=${HF_USER}/my_dataset \
+  --dataset.video_backend=pyav \
+  --dataset.image_transforms.enable=true \
+  --policy.type=molmoact2 \
+  --policy.checkpoint_path=allenai/MolmoAct2-LIBERO \
+  --policy.action_mode=both \
+  --policy.chunk_size=10 \
+  --policy.n_action_steps=10 \
+  --output_dir=outputs/train/molmoact2_run \
+  --job_name=molmoact2_run \
+  --policy.device=cuda
+```
+
+Tune the parts separately with `--policy.optimizer_vit_lr`, `--policy.optimizer_connector_lr` and `--policy.optimizer_action_expert_lr`.
+
+</details>
+
+<details>
+<summary>FastWAM</summary>
+
+A world action model: it keeps video modelling during training, but predicts actions directly at inference. Its visual components start from `Wan-AI/Wan2.2-TI2V-5B`.
+
+```bash
+lerobot-train \
+  --dataset.repo_id=${HF_USER}/my_dataset \
+  --policy.type=fastwam \
+  --policy.action_dim=7 \
+  --policy.proprio_dim=8 \
+  --policy.action_horizon=32 \
+  --output_dir=outputs/train/fastwam_run \
+  --job_name=fastwam_run \
+  --policy.device=cuda
+```
+
+Set `--policy.action_dim` and `--policy.proprio_dim` to match your robot. FastWAM concatenates the cameras into one image of `--policy.image_size`, resizing each source frame to fit, so cameras recorded at different resolutions are handled for you.
+
+</details>
+
+<details>
+<summary>VLA-JEPA</summary>
+
+Trains from scratch with `--policy.type`, or fine-tunes from the released checkpoint with `--policy.path`.
+
+```bash
+lerobot-train \
+  --policy.path=lerobot/VLA-JEPA-Pretrain \
+  --dataset.repo_id=${HF_USER}/my_dataset \
+  --policy.freeze_qwen=true \
+  --policy.resize_images_to=[224,224] \
+  --output_dir=outputs/train/vla_jepa_run \
+  --job_name=vla_jepa_run \
+  --policy.device=cuda
+```
+
+`--policy.freeze_qwen=true` freezes the `Qwen/Qwen3-VL-2B-Instruct` backbone and trains only the action head. There is no separate learning rate for the backbone, so freezing is all or nothing. Note that freezing it also makes world-model training inactive, since no gradient reaches it.
+
+`--policy.resize_images_to` sets one resolution for every camera. Use it when the cameras were recorded at different sizes.
 
 </details>
 
