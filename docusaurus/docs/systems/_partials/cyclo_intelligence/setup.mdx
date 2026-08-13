@@ -1,113 +1,140 @@
 import Link from '@docusaurus/Link';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Cyclo Intelligence runs as a set of Docker containers with a web UI.
+
+```mermaid
+flowchart LR
+  classDef step fill:#eef6ff,stroke:#2563eb,color:#0f172a,stroke-width:1.5px
+  classDef later fill:#f8fafc,stroke:#64748b,color:#0f172a,stroke-width:1.2px
+
+  Install["1. Install"]
+  Start["2. Start main<br/>container"]
+  Zenoh["3. Connect<br/>Zenoh"]
+  WebUI["4. Open the<br/>web UI"]
+  Record["Record data"]
+  Policy["Run a trained model"]
+
+  Install --> Start --> Zenoh --> WebUI
+  WebUI --> Record
+  WebUI --> Policy
+
+  class Install,Start,Zenoh,WebUI step
+  class Record,Policy later
+```
 
 ## Requirements
 
-Prepare the host machine before starting Cyclo Intelligence.
+The machine that runs Cyclo Intelligence handles the web UI, the containers, recording, dataset conversion, and inference. It needs:
 
 | Requirement | How to check |
 | --- | --- |
-| Docker 24 or later with Docker Compose | docker compose version |
-| Free disk space for Docker images, datasets, and models | Keep at least 35 GB available before the first start. |
-| Available UI port | Make sure port 7080 is free, or set `CYCLO_UI_PORT` to another port before starting. |
-| NVIDIA Container Toolkit | Required for GPU-based policy containers. The main UI and data tools can run without a GPU when the no-GPU compose override is used. |
+| Docker 24 or later, with Compose | `docker compose version` |
+| `git` | `git --version` |
+| 35 GB free disk space | `df -h ~` |
+| Port 7080 free | `ss -ltn 'sport = :7080'` — no output means free |
+| NVIDIA GPU — to run trained models | `nvidia-smi` |
 
-Cyclo Intelligence uses public Docker images by default, so Docker Hub login is not required.
+<details>
+  <summary>More about these requirements</summary>
 
-## Install
+  **The installer only needs `git`.** It does not install Docker or the NVIDIA Container Toolkit for you.
 
-Install Cyclo Intelligence on the machine where the web UI and Docker containers will run.
+  **A GPU is optional at this stage.** Recording data and using Data Tools work without one. A GPU is required only when you run a trained model. To confirm Docker can reach your GPU:
+
+```bash
+docker info | grep -i runtimes
+```
+
+  The `nvidia` runtime should appear in the output.
+
+  **To use a port other than 7080,** set `CYCLO_UI_PORT` before starting the container.
+
+  Cyclo Intelligence uses public Docker images, so you do not need a Docker Hub login.
+</details>
+
+## 1. Install
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/ROBOTIS-GIT/cyclo_intelligence/main/install.sh | bash
 ```
 
-For an existing checkout, update the repository and submodules manually:
+This clones the `cyclo_intelligence` repository and its submodules into `~/cyclo_intelligence`. No container starts yet.
+
+If you already have a checkout, update it instead of reinstalling:
 
 ```bash
-cd $HOME/cyclo_intelligence
+cd ~/cyclo_intelligence
 git pull
 git submodule update --init --recursive
 ```
 
-## Start The Container
+## 2. Start The Main Container
 
-Start the main Cyclo Intelligence container from the repository root:
+The main container provides the web UI, data recording, and Data Tools.
 
 ```bash
-cd $HOME/cyclo_intelligence
+cd ~/cyclo_intelligence
 ./docker/container.sh start
-```
-
-Then enter the container:
-
-```bash
 ./docker/container.sh enter
 ```
 
-If you want to start the LeRobot or GR00T Docker containers provided with Cyclo Intelligence, use the matching command from the repository root:
+## 3. Connect To The Robot Network (Zenoh)
 
-```bash
-./docker/container.sh start-lerobot
-./docker/container.sh start-groot
-```
+Cyclo Intelligence reaches the robot over Zenoh-based ROS 2 communication. Two things must be true:
 
-## Start Zenoh
-
-Cyclo Intelligence uses Zenoh-based ROS 2 communication for all supported robots.
+1. A **Zenoh daemon** is running on the robot network.
+2. Cyclo Intelligence knows where it is, through `ZENOH_CONFIG_OVERRIDE`.
 
 :::important
-Before launching the Cyclo Intelligence ROS 2 process, start the Zenoh daemon for the robot network.
+Start the Zenoh daemon before launching Cyclo Intelligence. Follow the <Link to={props.zenohGuide}>{`${props.robotName} Zenoh Communication`}</Link> guide.
+:::
 
-Follow the <Link to={props.zenohGuide}>{`${props.robotName} Zenoh Communication`}</Link> guide for the robot you are setting up.
+Run the commands below **inside the Cyclo Intelligence container**. First check whether the variable is already set, so you do not end up with two conflicting lines:
 
-Set `ZENOH_CONFIG_OVERRIDE` in `~/.bashrc` inside the Cyclo Intelligence container according to where the Zenoh daemon is running. If `ZENOH_CONFIG_OVERRIDE` already exists in `~/.bashrc`, update the existing line instead of adding another one.
+```bash
+grep ZENOH_CONFIG_OVERRIDE ~/.bashrc
+```
 
-When Cyclo Intelligence and the Zenoh daemon run on the same machine:
+If that prints a line, edit it with `nano ~/.bashrc` instead of appending. If it prints nothing, pick your case:
+
+<Tabs groupId="zenoh-location">
+<TabItem value="same" label="Daemon on the same machine">
 
 ```bash
 echo "export ZENOH_CONFIG_OVERRIDE='transport/shared_memory/enabled=true'" >> ~/.bashrc
 source ~/.bashrc
 ```
 
-To use Cyclo Intelligence on an external PC that is not running the Zenoh daemon, set Cyclo Intelligence to `client` mode and use the IP address of the PC where the Zenoh daemon is running as the endpoint:
+</TabItem>
+<TabItem value="remote" label="Daemon on another machine">
+
+Cyclo Intelligence connects as a client. Replace `192.168.0.42` with the IP address of the machine running the daemon.
 
 ```bash
 echo "export ZENOH_CONFIG_OVERRIDE='transport/shared_memory/enabled=true;mode=\"client\";connect/endpoints=[\"tcp/192.168.0.42:7447\"]'" >> ~/.bashrc
 source ~/.bashrc
 ```
 
-Replace `192.168.0.42` with the actual Zenoh daemon IP address.
-:::
+</TabItem>
+</Tabs>
 
-## Launch Cyclo Intelligence
+## 4. Open The Web UI
 
-Inside the container, run either command:
+Launch Cyclo Intelligence inside the container:
 
 ```bash
 cyclo_intelligence
 ```
 
-or:
-
-```bash
-ros2 launch orchestrator cyclo_intelligence_bringup.launch.py
-```
-
-The `cyclo_intelligence` alias runs the same ROS 2 launch command.
-
-After the launch is running, open the web UI:
+Then open the UI in a browser:
 
 ```text
 http://localhost:7080/
 ```
 
-If Cyclo Intelligence is running on another machine, replace `localhost` with that machine's IP address.
-
-For example, if Cyclo Intelligence is running on a machine with IP address `192.168.0.42`, open:
-
-```text
-http://192.168.0.42:7080/
-```
+If it runs on another machine, replace `localhost` with that machine's IP address, for example `http://192.168.0.42:7080/`.
 
 {props.hostNameExample && (
   <div>
@@ -116,3 +143,9 @@ http://192.168.0.42:7080/
     <pre><code>{props.hostNameExample}</code></pre>
   </div>
 )}
+
+Setup is done — you can now record demonstrations from the `Record` page.
+
+:::note
+`cyclo_intelligence` is an alias for `ros2 launch orchestrator cyclo_intelligence_bringup.launch.py`.
+:::
