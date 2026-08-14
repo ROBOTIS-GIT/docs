@@ -73,9 +73,9 @@ const omySidebar: SidebarsConfig[string] = [
       },
       {
         type: 'category',
-        label: 'Physical AI Tools',
+        label: 'Physical AI Tools(Legacy)',
         link: {type: 'doc', id: 'systems/omy/resources/legacy/physical_ai_tools/imitation_learning'},
-        collapsed: false,
+        collapsed: true,
         items: [
           {
             type: 'category',
