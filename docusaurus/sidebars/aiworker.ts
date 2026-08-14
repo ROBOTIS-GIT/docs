@@ -76,9 +76,9 @@ const aiworkerSidebar: SidebarsConfig[string] = [
       },
       {
         type: 'category',
-        label: 'Physical AI Tools',
+        label: 'Physical AI Tools(Legacy)',
         link: {type: 'doc', id: 'systems/aiworker/resources/legacy/physical_ai_tools/imitation_learning'},
-        collapsed: false,
+        collapsed: true,
         items: [
           {
             type: 'category',
