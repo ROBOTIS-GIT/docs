@@ -385,10 +385,6 @@ const config: Config = {
                           <div class="mega-menu__product-thumb"><img src="/img/software/overview/DYNAMIXEL_Workbench_LOGO.webp" alt="DYNAMIXEL Workbench" /></div>
                           <span>DYNAMIXEL Workbench</span>
                         </a>
-                        <a class="mega-menu__product" href="/docs/software/rplus_1_0/dynamixel_wizard">
-                          <div class="mega-menu__product-thumb"><img src="/img/software/overview/wizard10_icon.webp" alt="Dynamixel Wizard 1.0" /></div>
-                          <span>Dynamixel Wizard 1.0</span>
-                        </a>
                       </div>
                     </div>
                     <div class="mega-menu__panel" data-panel="cyclo">

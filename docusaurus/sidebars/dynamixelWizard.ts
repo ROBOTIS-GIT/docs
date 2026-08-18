@@ -15,7 +15,6 @@ const dynamixelWizardSidebar: SidebarsConfig[string] = [
       doc('software/dynamixel_wizard_2_0/advanced_features', 'Advanced Features'),
     ],
   },
-  doc('software/rplus_1_0/dynamixel_wizard', 'Dynamixel Wizard 1.0'),
 ];
 
 export default dynamixelWizardSidebar;
