@@ -1,13 +1,14 @@
-import CycloDataArchitecture from '@site/src/components/CycloDataArchitecture';
+import CodeBlock from '@theme/CodeBlock';
+import RecordPageAreas from '@site/src/components/cyclo_intelligence/RecordPageAreas';
+import SubtaskFigure from '@site/src/components/cyclo_intelligence/SubtaskFigure';
+import CycloDataArchitecture from '@site/src/components/cyclo_intelligence/CycloDataArchitecture';
 import Link from '@docusaurus/Link';
 
 Use Data Recording to collect robot demonstrations as rosbag2 episodes. After recording, the dataset can be reviewed, edited, merged, converted, or uploaded from Data Tools.
 
-<details>
-  <summary>Cyclo Data Workflow</summary>
+## Cyclo Data Workflow
 
-  <CycloDataArchitecture />
-</details>
+<CycloDataArchitecture />
 
 ## Robot Preparation
 
@@ -26,107 +27,123 @@ Before opening the `Record` page, select the robot type from the `Home` page.
 
 Only robot types with a config file under `cyclo_intelligence/shared/shared/robot_configs` appear in this list.
 
+<details>
+  <summary>Change Collected Data</summary>
+
+  Cyclo Intelligence records only the topics listed in the robot config. A topic missing from it is not collected, even while it is being published.
+
+  There is one config per robot type. Open the matching one:
+
+```bash
+cd ~/cyclo_intelligence/shared/shared/robot_configs
+ls
+nano <your_robot>_config.yaml
+```
+
+  Each camera is one named entry under `observation.images`. To add a second, copy the block and change the name and topic:
+
+```yaml
+observation:
+  images:
+    camera1:
+      topic: /camera1/image_raw/compressed
+      msg_type: sensor_msgs/msg/CompressedImage
+    camera2:
+      topic: /camera2/image_raw/compressed
+      msg_type: sensor_msgs/msg/CompressedImage
+      rotation_deg: 270
+```
+
+  - `camera2` — any name you choose. It becomes the observation key in the dataset.
+  - `topic` — an image topic the robot already publishes.
+  - `msg_type` — `sensor_msgs/msg/CompressedImage` for compressed topics.
+  - `rotation_deg` — optional. Only `0`, `90`, `180`, or `270`.
+
+{props.cameraBringupCommands && (
+  <>
+    <p>Use the commands below only for a camera you added, since a config entry names a topic to record but does not start the camera:</p>
+    <CodeBlock language="bash">{props.cameraBringupCommands}</CodeBlock>
+    <p>Device paths are assigned by the host, so they change between machines and after a replug. One camera often exposes several <code>/dev/videoN</code> nodes; the streaming one is usually the lowest-numbered capture node.</p>
+  </>
+)}
+</details>
+
 ## Record Page
 
+Use the Record page to collect robot demonstrations as rosbag2 episodes. Select an area to see what it is for:
 
-![Record Page with Task Information](/img/systems/_partials/cyclo_intelligence/record_page_task_info.png)
-Use the Record page to collect robot demonstrations as rosbag2 episodes.
-<table>
-  <colgroup>
-    <col style={{width: '20%'}} />
-    <col style={{width: '90%'}} />
-  </colgroup>
-  <thead>
-    <tr>
-      <th style={{textAlign: 'center'}}>Area</th>
-      <th>Use it for</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style={{textAlign: 'center'}}>Camera views</td>
-      <td>Check the scene and selected image topics before recording.</td>
-    </tr>
-    <tr>
-      <td style={{textAlign: 'center'}}>Rosbag Recorder</td>
-      <td>Enter task information, choose single-task or subtask recording, and start recording.</td>
-    </tr>
-    <tr>
-      <td style={{textAlign: 'center'}}>Topic Monitor</td>
-      <td>Check that required topics are alive. Red status means the topic should be checked before collecting data.</td>
-    </tr>
-    <tr>
-      <td style={{textAlign: 'center'}}>3D viewer</td>
-      <td>Confirm the selected robot model and general robot state.</td>
-    </tr>
-  </tbody>
-</table>
-
-Before recording, check the `Camera Views` and the `Topic Monitor`.<br />
-The `camera views` confirm that the robot can see the task scene.<br />
-The `Topic Monitor` confirms that the required robot and camera topics are being received.
-
+<RecordPageAreas />
 
 ## Rosbag Recorder Panel
 
-![Rosbag Recorder Panel](/img/systems/_partials/cyclo_intelligence/rosbag_recorder_panel.png)
-
 Use the `Rosbag Recorder` panel to enter the recording information before starting data collection.
 
-<table>
-  <colgroup>
-    <col style={{width: '20%'}} />
-    <col style={{width: '80%'}} />
-  </colgroup>
-  <thead>
-    <tr>
-      <th style={{textAlign: 'center'}}>Field</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style={{textAlign: 'center'}}>Task Num</td>
-      <td>Task number or identifier for the dataset.</td>
-    </tr>
-    <tr>
-      <td style={{textAlign: 'center'}}>Task Name</td>
-      <td>Short task name used to identify the dataset.</td>
-    </tr>
-    <tr>
-      <td style={{textAlign: 'center'}}>Task Instruction</td>
-      <td>Natural-language instruction that describes the demonstration.</td>
-    </tr>
-    <tr>
-      <td style={{textAlign: 'center'}}>Add License</td>
-      <td>Adds ROBOTIS dataset license information. This does not need to be checked for normal recording.</td>
-    </tr>
-    <tr>
-      <td style={{textAlign: 'center'}}>Number of SubTasks</td>
-      <td>Set this to 0 when the episode does not need subtasks.</td>
-    </tr>
-    <tr>
-      <td style={{textAlign: 'center'}}>Sub Task Instruction</td>
-      <td>Fill this in for each subtask when Number of SubTasks is greater than 0.</td>
-    </tr>
-  </tbody>
-</table>
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '24px', alignItems: 'flex-start', margin: '20px 0'}}>
+<div style={{flex: '0 0 260px', maxWidth: '100%'}}>
+
+![Rosbag Recorder Panel](/img/systems/_partials/cyclo_intelligence/rosbag_recorder_panel.png)
+
+</div>
+<div style={{flex: '1 1 320px', minWidth: 0}}>
+
+| Field | Description |
+| --- | --- |
+| Task Num | Task number or identifier for the dataset. |
+| Task Name | Short task name used to identify the dataset. |
+| Task Instruction | Natural-language instruction that describes the demonstration. |
+| Add License | Adds ROBOTIS dataset license information. Leave it unchecked for normal recording. |
+| Number of SubTasks | Set this to `0` when the episode does not need subtasks. |
+| Sub Task Instruction | Fill this in for each subtask when `Number of SubTasks` is greater than `0`. |
+
+</div>
+</div>
 
 After entering the required information, click `Record Start` to begin recording.
 
+<details>
+  <summary>When to use Number of SubTasks</summary>
+
+  Leave `Number of SubTasks` at `0` for a single continuous demonstration. The whole recording is saved as one episode under one instruction.
+
+  Set it to the number of stages when one demonstration has distinct steps you want labelled separately — for example picking up a cup, then placing it in a bin. The episode is then recorded one stage at a time: record a subtask, save it, record the next, and so on. The episode is only complete once every subtask has been saved.
+
+<SubtaskFigure />
+
+  ### Task Instruction compared with Sub Task Instruction
+
+  | Field | What it describes | When you fill it in |
+  | --- | --- | --- |
+  | `Task Instruction` | The demonstration as a whole. | Always. |
+  | `Sub Task Instruction` | One stage within that demonstration. | Only when `Number of SubTasks` is greater than `0`, once per subtask. |
+
+  :::note
+  Plan the count before you start. `Number of SubTasks` is set before recording, and the episode expects that many subtasks.
+  :::
+</details>
+
 {props.showAiWorkerLeaderControls && (
-  <details>
-    <summary>AI Worker leader button controls</summary>
+  <>
+    <h3>AI Worker Leader Button Controls</h3>
     <div className="alert alert--info" role="note">
       <p>When both hands are needed to operate the wearable skeletal leader device, use the leader buttons to control the recording state.</p>
       <ul>
         <li><strong>Left button press</strong>: Cancel the current episode.</li>
-        <li><strong>Right button press</strong>: Save the current episode.</li>
+        <li><strong>Right button press</strong>: Start recording or save the current episode.</li>
       </ul>
       <img src="/img/systems/aiworker/imitation_learning/dataset_preparation/recording/data_collection_button.png" alt="AI Worker leader buttons for data recording" style={{width: '70%', margin: '20px 0 0'}} />
     </div>
-  </details>
+  </>
 )}
+
+## Recording Sequence
+
+1. In the `Rosbag Recorder` panel, fill in `Task Num`, `Task Name`, `Task Instruction`, and subtask information if needed. Then click `Record Start`.
+
+![Record episode start](/img/systems/_partials/cyclo_intelligence/record_episode_start.png)
+
+2. To save the episode being recorded, click the green `Save Episode` button. To cancel the episode being recorded, click `Discard Episode`.
+
+![Record episode save and discard](/img/systems/_partials/cyclo_intelligence/record_episode_save_discard.png)
 
 
 ## Recorded Dataset Location

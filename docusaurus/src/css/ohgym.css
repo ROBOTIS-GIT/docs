@@ -1,0 +1,1111 @@
+.ohgym-page-frame {
+  --ohgym-content-max: 1120px;
+
+  width: 100%;
+  max-width: 1240px;
+  margin: clamp(1rem, 3vw, 2rem) auto clamp(5rem, 10vw, 8rem);
+}
+
+.ohgym-page {
+  --ohgym-type-scale: 1;
+  --ohgym-text: #111827;
+  --ohgym-accent: #2563eb;
+  --ohgym-surface: #ffffff;
+  --ohgym-surface-soft: #f7f8fb;
+  --ohgym-border-soft: #d9dee7;
+  --ohgym-shadow-soft: 0 10px 28px rgba(17, 24, 39, 0.07);
+  --ohgym-active-bg: #111827;
+  --ohgym-active-text: #ffffff;
+
+  container-type: inline-size;
+  width: 100%;
+  color: var(--ohgym-text);
+  position: relative;
+  touch-action: pan-y;
+}
+
+[data-theme='dark'] .ohgym-page {
+  --ohgym-text: #f4f6fb;
+  --ohgym-accent: #93c5fd;
+  --ohgym-surface: #171a22;
+  --ohgym-surface-soft: #11141b;
+  --ohgym-border-soft: #343b4a;
+  --ohgym-shadow-soft: 0 10px 28px rgba(0, 0, 0, 0.26);
+  --ohgym-active-bg: #f4f6fb;
+  --ohgym-active-text: #111827;
+}
+
+.theme-doc-markdown .ohgym-page h1,
+.theme-doc-markdown .ohgym-page h2,
+.theme-doc-markdown .ohgym-page h3,
+.theme-doc-markdown .ohgym-page p {
+  margin: 0;
+}
+
+.ohgym-section {
+  scroll-margin-top: 96px;
+}
+
+.ohgym-shorts-section {
+  scroll-margin-top: 96px;
+}
+
+.ohgym-floating-index {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  z-index: 999;
+  width: 0;
+  height: 0;
+  margin-left: 1.6rem;
+  overflow: visible;
+  transform: translateY(var(--ohgym-index-y, 0));
+}
+
+.ohgym-floating-index__panel {
+  display: grid;
+  gap: 0.35rem;
+  width: 156px;
+  padding: 0.65rem;
+  border: 1px solid var(--ohgym-border-soft);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--ohgym-surface) 88%, transparent);
+  box-shadow: 0 10px 28px rgba(17, 24, 39, 0.12);
+}
+
+.ohgym-floating-index a {
+  display: block;
+  padding: 0.5rem 0.6rem;
+  border-radius: 6px;
+  color: var(--ohgym-text);
+  font-size: calc(var(--ohgym-type-scale) * 0.82rem);
+  font-weight: 850;
+  line-height: 1.15;
+  text-decoration: none;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.ohgym-floating-index a:hover,
+.ohgym-floating-index a:focus-visible,
+.ohgym-floating-index a.is-active {
+  background: var(--ohgym-accent);
+  color: #fff;
+  transform: translateX(-2px);
+}
+
+.ohgym-floating-index a.ohgym-floating-index__apply {
+  margin-top: 0.45rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid var(--ohgym-border-soft);
+}
+
+@media (max-width: 1019px) {
+  .ohgym-page-frame,
+  .ohgym-page {
+    overflow-x: hidden;
+    overflow-x: clip;
+  }
+
+  .ohgym-floating-index {
+    display: none;
+  }
+
+  .ohgym-shorts-card iframe {
+    pointer-events: none;
+  }
+}
+
+.ohgym-section + .ohgym-section {
+  margin-top: clamp(5rem, 10cqw, 8rem);
+  padding-top: clamp(4rem, 7cqw, 6rem);
+  border-top: 1px solid var(--ohgym-border-soft);
+}
+
+.ohgym-hero + .ohgym-generation {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.ohgym-open-intro {
+  display: grid;
+  gap: clamp(2.2rem, 5cqw, 4rem);
+}
+
+.ohgym-open-logo img {
+  display: block;
+  width: min(100%, var(--ohgym-content-max));
+  height: auto;
+  margin: 0 auto;
+}
+
+.ohgym-open-copy {
+  display: grid;
+  gap: clamp(1.15rem, 2.6cqw, 1.9rem);
+}
+
+.ohgym-open-copy > div {
+  color: var(--ohgym-text);
+  font-size: calc(var(--ohgym-type-scale) * clamp(1.08rem, 2.31cqw, 1.85rem));
+  font-weight: 800;
+  line-height: 1.65;
+}
+
+.ohgym-banner {
+  margin-bottom: clamp(2.5rem, 6cqw, 4.5rem);
+}
+
+.ohgym-banner img,
+.ohgym-section-logo img {
+  display: block;
+  width: min(100%, var(--ohgym-content-max));
+  height: auto;
+  margin: 0 auto;
+}
+
+.ohgym-copy-block,
+.ohgym-open-logo,
+.ohgym-open-copy,
+.ohgym-statement,
+.ohgym-card-grid,
+.ohgym-motion-wall,
+.ohgym-gear-system,
+.ohgym-stat-panel,
+.ohgym-school-gallery,
+.ohgym-media-section,
+.ohgym-section-logo,
+.ohgym-section-copy,
+.ohgym-seminar-image-grid,
+.ohgym-challenge-image-grid,
+.ohgym-training-grid,
+.ohgym-shorts-section,
+.ohgym-closing {
+  max-width: var(--ohgym-content-max);
+}
+
+.ohgym-copy-block {
+  display: grid;
+  gap: clamp(1.2rem, 3cqw, 2rem);
+  max-width: 1040px;
+}
+
+.ohgym-copy-block > div {
+  color: var(--ohgym-text);
+  font-size: calc(var(--ohgym-type-scale) * clamp(1.08rem, 2.31cqw, 1.85rem));
+  font-weight: 800;
+  line-height: 1.65;
+}
+
+.ohgym-copy-block > div:last-child {
+  font-weight: 950;
+}
+
+.ohgym-blue-text {
+  color: var(--ohgym-accent);
+}
+
+.ohgym-statement {
+  margin-top: clamp(3rem, 7cqw, 5.5rem);
+}
+
+.ohgym-statement span,
+.ohgym-challenge-callout span {
+  display: block;
+  margin-bottom: clamp(0.7rem, 1.75cqw, 1.22rem);
+  color: var(--ohgym-accent);
+  font-size: calc(var(--ohgym-type-scale) * clamp(1.65rem, 3.64cqw, 3.04rem));
+  font-weight: 950;
+  line-height: 0.95;
+}
+
+.ohgym-statement > div {
+  margin-top: clamp(1.2rem, 2.6cqw, 1.9rem);
+  color: var(--ohgym-text);
+  font-size: calc(var(--ohgym-type-scale) * clamp(1.35rem, 3cqw, 2.45rem));
+  font-weight: 950;
+  line-height: 1.32;
+}
+
+.ohgym-card-grid {
+  display: grid;
+  gap: clamp(0.8rem, 2cqw, 1.25rem);
+  margin-top: clamp(1.4rem, 3.5cqw, 2.4rem);
+}
+
+.ohgym-card-grid--three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.ohgym-card-grid--two,
+.ohgym-card-grid--four {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.ohgym-card-grid--single {
+  grid-template-columns: minmax(240px, 420px);
+  justify-content: center;
+}
+
+.ohgym-card,
+.ohgym-stat-card {
+  position: relative;
+  display: flex;
+  min-height: 118px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: clamp(0.9rem, 2cqw, 1.35rem);
+  padding-top: clamp(0.7rem, 1.7cqw, 1.05rem);
+  border: 1px solid var(--ohgym-border-soft);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--ohgym-accent) 7%, transparent), transparent 46%),
+    var(--ohgym-surface);
+  box-shadow: var(--ohgym-shadow-soft);
+  color: var(--ohgym-text);
+  font-size: calc(var(--ohgym-type-scale) * clamp(1.1rem, 2cqw, 1.55rem));
+  font-weight: 950;
+  line-height: 1.25;
+  text-align: center;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease;
+}
+
+.ohgym-card::before,
+.ohgym-stat-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: var(--ohgym-accent);
+}
+
+.ohgym-card:hover,
+.ohgym-stat-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--ohgym-accent);
+  box-shadow: 0 14px 34px rgba(17, 24, 39, 0.12);
+}
+
+[data-theme='dark'] .ohgym-card:hover,
+[data-theme='dark'] .ohgym-stat-card:hover {
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.36);
+}
+
+.ohgym-card span:not(.ohgym-card__meta),
+.ohgym-stat-card span:not(.ohgym-card__meta) {
+  font-size: calc(var(--ohgym-type-scale) * clamp(1rem, 1.75cqw, 1.25rem));
+  text-align: center;
+}
+
+.ohgym-card strong {
+  font-size: calc(var(--ohgym-type-scale) * clamp(1.25rem, 2.5cqw, 2rem));
+}
+
+a.ohgym-card,
+a.ohgym-card:hover,
+a.ohgym-card:focus {
+  color: var(--ohgym-text);
+  text-decoration: none;
+}
+
+#ohgym-apply {
+  overflow: visible;
+  scroll-margin-top: 7rem;
+}
+
+#ohgym-apply::after {
+  content: 'CLICK';
+  position: absolute;
+  top: -1.15rem;
+  right: -1.05rem;
+  z-index: 2;
+  padding: 0.63rem 0.93rem;
+  border: 2px solid var(--ohgym-surface);
+  border-radius: 999px;
+  background: var(--ohgym-accent);
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.24);
+  color: #fff;
+  font-size: calc(var(--ohgym-type-scale) * clamp(1.17rem, 2.1cqw, 1.5rem));
+  font-weight: 950;
+  line-height: 1;
+  transform: rotate(9deg);
+}
+
+.ohgym-generation > .ohgym-card-grid--two .ohgym-card span:not(.ohgym-card__meta),
+.ohgym-seminar > .ohgym-card-grid--two .ohgym-card span:not(.ohgym-card__meta) {
+  font-size: calc(var(--ohgym-type-scale) * clamp(1.25rem, 2.5cqw, 2rem));
+  font-weight: 950;
+}
+
+.ohgym-card--active {
+  border-color: var(--ohgym-active-bg);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--ohgym-accent) 18%, transparent), transparent 48%),
+    var(--ohgym-active-bg);
+  color: var(--ohgym-active-text);
+}
+
+.ohgym-card:has(.ohgym-card__meta) {
+  min-height: 132px;
+  padding-top: clamp(2.25rem, 4cqw, 2.8rem);
+}
+
+.ohgym-card__meta {
+  position: absolute;
+  top: clamp(0.75rem, 1.4cqw, 1rem);
+  right: clamp(0.8rem, 1.6cqw, 1.15rem);
+  left: clamp(0.8rem, 1.6cqw, 1.15rem);
+  display: block;
+  color: var(--ohgym-accent);
+  font-size: calc(var(--ohgym-type-scale) * clamp(0.95rem, 1.7cqw, 1.15rem));
+  font-weight: 950;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.ohgym-motion-wall,
+.ohgym-gear-system,
+.ohgym-stat-panel,
+.ohgym-school-gallery,
+.ohgym-media-section,
+.ohgym-section-logo,
+.ohgym-section-copy,
+.ohgym-seminar-image-grid,
+.ohgym-challenge-image-grid,
+.ohgym-training-grid,
+.ohgym-shorts-section,
+.ohgym-closing {
+  margin-top: clamp(2rem, 4.8cqw, 3.6rem);
+}
+
+.ohgym-motion-wall {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.7rem, 1.6cqw, 1rem);
+}
+
+.ohgym-motion-wall img,
+.ohgym-training-card,
+.ohgym-seminar-image-card,
+.ohgym-challenge-image-card,
+.ohgym-contact-card,
+.ohgym-school,
+.ohgym-school__image-card {
+  border-radius: 8px;
+}
+
+.ohgym-motion-wall img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border: 1px solid var(--ohgym-border-soft);
+  background: var(--ohgym-surface);
+  box-shadow: var(--ohgym-shadow-soft);
+}
+
+.ohgym-generation > h2 {
+  color: var(--ohgym-text);
+  font-size: calc(var(--ohgym-type-scale) * clamp(2.2rem, 5.2cqw, 4.2rem));
+  font-weight: 950;
+  line-height: 1.08;
+}
+
+.ohgym-section-lead {
+  margin-top: clamp(1rem, 2.4cqw, 1.6rem);
+  color: var(--ohgym-text);
+  font-size: calc(var(--ohgym-type-scale) * clamp(1.45rem, 3.2cqw, 2.6rem));
+  font-weight: 900;
+  line-height: 1.35;
+}
+
+.ohgym-trainer {
+  margin-top: clamp(2.8rem, 6cqw, 4.2rem);
+}
+
+.ohgym-trainer h3,
+.ohgym-media-section h2,
+.ohgym-seminar > h2,
+.ohgym-shorts-section h2,
+.ohgym-closing h2 {
+  color: var(--ohgym-text);
+  font-weight: 950;
+  line-height: 1.12;
+}
+
+.ohgym-trainer h3 {
+  font-size: calc(var(--ohgym-type-scale) * clamp(1.25rem, 2.6cqw, 2rem));
+}
+
+.ohgym-media-section h2,
+.ohgym-seminar > h2,
+.ohgym-shorts-section h2 {
+  font-size: calc(var(--ohgym-type-scale) * clamp(1.8rem, 4cqw, 3.2rem));
+}
+
+.ohgym-stat-panel {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: min(100%, var(--ohgym-content-max));
+  overflow: hidden;
+  border: 1px solid var(--ohgym-border-soft);
+  border-radius: 8px;
+  background: var(--ohgym-surface);
+  box-shadow: var(--ohgym-shadow-soft);
+}
+
+.ohgym-stat-panel .ohgym-stat-card {
+  min-height: clamp(132px, 18cqw, 190px);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.ohgym-stat-panel .ohgym-stat-card + .ohgym-stat-card {
+  border-left: 1px solid var(--ohgym-border-soft);
+}
+
+.ohgym-stat-panel .ohgym-stat-card::before {
+  height: 0;
+}
+
+.ohgym-stat-card strong {
+  font-size: calc(var(--ohgym-type-scale) * clamp(1.6rem, 4cqw, 3.35rem));
+}
+
+.ohgym-stat-card span {
+  font-size: calc(var(--ohgym-type-scale) * clamp(1rem, 1.75cqw, 1.25rem));
+}
+
+.ohgym-stat-card span.ohgym-roulette-number {
+  font-size: inherit;
+}
+
+.ohgym-stat-card--schools {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.7rem 1rem;
+  align-content: center;
+  justify-items: center;
+}
+
+.ohgym-roulette-number {
+  display: inline-block;
+  color: inherit;
+  font-variant-numeric: tabular-nums;
+  line-height: inherit;
+  text-align: center;
+}
+
+.ohgym-school-trigger {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 2.35rem;
+  border: 1px solid var(--ohgym-border-soft);
+  border-radius: 999px;
+  background: #fff;
+  color: #111827;
+  cursor: pointer;
+  font: inherit;
+  font-size: calc(var(--ohgym-type-scale) * clamp(0.95rem, 1.6cqw, 1.15rem));
+  font-weight: 900;
+  line-height: 1.1;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.ohgym-school-trigger:hover,
+.ohgym-school-trigger:focus-visible,
+.ohgym-school-trigger.is-active {
+  border-color: var(--ohgym-accent);
+  background: var(--ohgym-accent);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.ohgym-school-gallery {
+  display: grid;
+  gap: clamp(1.6rem, 3.8cqw, 3rem);
+}
+
+.ohgym-school-gallery:not(.has-active) {
+  display: none;
+}
+
+.ohgym-school {
+  display: none;
+  grid-template-columns: max-content minmax(0, 1fr);
+  grid-template-areas:
+    "title title"
+    "media content";
+  align-items: stretch;
+  gap: clamp(1rem, 3cqw, 2rem);
+  padding: clamp(0.7rem, 2.1cqw, 1.05rem);
+  border: 1px solid var(--ohgym-border-soft);
+  background: var(--ohgym-surface);
+  box-shadow: var(--ohgym-shadow-soft);
+  text-align: left;
+}
+
+.ohgym-school.is-active {
+  display: grid;
+  animation: ohgym-school-show 360ms ease both;
+}
+
+@keyframes ohgym-school-show {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.ohgym-school__media {
+  grid-area: media;
+  display: grid;
+  gap: clamp(0.55rem, 1.3cqw, 0.85rem);
+  align-content: start;
+  justify-items: start;
+  min-width: 0;
+}
+
+.ohgym-school__title {
+  grid-area: title;
+  color: var(--ohgym-text);
+  font-size: calc(var(--ohgym-type-scale) * clamp(1.05rem, 2cqw, 1.55rem));
+  font-weight: 950;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.ohgym-school__image-card {
+  justify-self: start;
+  width: fit-content;
+  max-width: min(42cqw, 520px);
+  overflow: hidden;
+  border: 1px solid var(--ohgym-border-soft);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--ohgym-accent) 7%, transparent), transparent 52%),
+    var(--ohgym-surface);
+  box-shadow: 0 16px 34px rgba(15, 23, 42, 0.12);
+}
+
+.ohgym-school__image-card img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: clamp(220px, 34cqw, 420px);
+  object-fit: contain;
+}
+
+.ohgym-school__content {
+  grid-area: content;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: clamp(0.65rem, 1.5cqw, 1rem);
+  align-self: stretch;
+  justify-items: start;
+  min-width: 0;
+  width: 100%;
+}
+
+.ohgym-school__names {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(0.45rem, 1.2cqw, 0.75rem);
+}
+
+.ohgym-school__name {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.2rem;
+  padding: clamp(0.4rem, 0.9cqw, 0.55rem) clamp(0.75rem, 1.6cqw, 1rem);
+  border: 1px solid var(--ohgym-border-soft);
+  border-radius: 999px;
+  background: #fff;
+  color: #111827;
+  font-size: calc(var(--ohgym-type-scale) * clamp(1rem, 1.8cqw, 1.35rem));
+  font-weight: 850;
+  line-height: 1.2;
+}
+
+.ohgym-school__description {
+  display: grid;
+  width: 100%;
+  min-height: 100%;
+  align-content: center;
+  gap: clamp(0.35rem, 0.9cqw, 0.55rem);
+  padding: clamp(1.2rem, 3cqw, 2rem);
+  border: 1px solid var(--ohgym-border-soft);
+  border-radius: 8px;
+  background: var(--ohgym-surface);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+  color: var(--ohgym-text);
+  font-size: calc(var(--ohgym-type-scale) * clamp(1rem, 1.8cqw, 1.3rem));
+  font-weight: 750;
+  line-height: 1.55;
+}
+
+.ohgym-school__description-label,
+.ohgym-school__pledge-label {
+  margin-top: clamp(0.55rem, 1.2cqw, 0.9rem);
+  color: var(--ohgym-text);
+  font-size: calc(var(--ohgym-type-scale) * clamp(1rem, 1.7cqw, 1.25rem));
+  font-weight: 850;
+  line-height: 1.25;
+}
+
+.ohgym-school__description-label {
+  margin-top: 0;
+}
+
+.ohgym-school__description strong {
+  font-size: calc(var(--ohgym-type-scale) * clamp(1.65rem, 3.2cqw, 2.55rem));
+  font-weight: 950;
+  line-height: 1.28;
+  overflow-wrap: anywhere;
+}
+
+.ohgym-training-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-auto-flow: dense;
+  gap: clamp(0.7rem, 1.6cqw, 1rem);
+}
+
+.ohgym-training-card,
+.ohgym-seminar-image-card,
+.ohgym-challenge-image-card {
+  overflow: hidden;
+  border: 1px solid var(--ohgym-border-soft);
+  background: var(--ohgym-surface);
+  box-shadow: var(--ohgym-shadow-soft);
+}
+
+.ohgym-training-card--portrait {
+  grid-column: span 2;
+}
+
+.ohgym-training-card--landscape {
+  grid-column: span 3;
+}
+
+.ohgym-training-card img,
+.ohgym-seminar-image-card img,
+.ohgym-challenge-image-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.ohgym-training-card--portrait img {
+  aspect-ratio: 9 / 16;
+}
+
+.ohgym-training-card--landscape img {
+  aspect-ratio: 16 / 9;
+}
+
+.ohgym-section-copy {
+  color: var(--ohgym-text);
+  font-size: calc(var(--ohgym-type-scale) * clamp(1.2rem, 2.5cqw, 2rem));
+  font-weight: 850;
+  line-height: 1.58;
+}
+
+.ohgym-seminar > .ohgym-card-grid--two {
+  margin-top: clamp(3rem, 6cqw, 4.8rem);
+}
+
+.ohgym-seminar > .ohgym-section-copy,
+.ohgym-seminar > .ohgym-card-grid--four {
+  margin-top: clamp(3.2rem, 6.5cqw, 5.2rem);
+}
+
+.ohgym-seminar-image-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(0.7rem, 1.6cqw, 1rem);
+}
+
+.ohgym-seminar-image-card img,
+.ohgym-challenge-image-card img {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.ohgym-challenge-callout {
+  max-width: var(--ohgym-content-max);
+  padding: clamp(1rem, 2.8cqw, 1.75rem);
+  border: 1px solid var(--ohgym-border-soft);
+  border-radius: 8px;
+  background: var(--ohgym-surface-soft);
+  box-shadow: var(--ohgym-shadow-soft);
+}
+
+.ohgym-challenge-callout h2 {
+  color: var(--ohgym-text);
+  font-size: calc(var(--ohgym-type-scale) * clamp(1.8rem, 4cqw, 3.2rem));
+  font-weight: 950;
+  line-height: 1.12;
+}
+
+.ohgym-challenge-callout > div {
+  margin-top: clamp(0.6rem, 1.4cqw, 1rem);
+  color: var(--ohgym-text);
+  font-size: calc(var(--ohgym-type-scale) * clamp(1.35rem, 3cqw, 2.45rem));
+  font-weight: 900;
+  line-height: 1.32;
+}
+
+.ohgym-challenge-image-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.8rem, 2cqw, 1.25rem);
+}
+
+.ohgym-closing {
+  display: grid;
+  gap: clamp(1.2rem, 3cqw, 2rem);
+  justify-items: center;
+  padding-top: clamp(2rem, 5cqw, 4rem);
+  text-align: center;
+}
+
+.ohgym-closing img {
+  width: min(100%, var(--ohgym-content-max));
+  height: auto;
+}
+
+.ohgym-closing h2 {
+  font-size: calc(var(--ohgym-type-scale) * clamp(2.3rem, 6cqw, 5rem));
+}
+
+.ohgym-closing h2 span {
+  color: var(--ohgym-accent);
+}
+
+.ohgym-contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.8rem, 2cqw, 1.2rem);
+  width: min(100%, 760px);
+}
+
+.ohgym-contact-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: clamp(1rem, 2cqw, 1.35rem);
+  border: 1px solid var(--ohgym-border-soft);
+  background: var(--ohgym-surface-soft);
+  box-shadow: var(--ohgym-shadow-soft);
+  text-align: left;
+}
+
+.ohgym-contact-card__icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 8px;
+  background: var(--ohgym-active-bg);
+  color: var(--ohgym-active-text);
+  font-size: calc(var(--ohgym-type-scale) * 0.8rem);
+  font-weight: 950;
+}
+
+.ohgym-contact-card strong {
+  display: block;
+  color: var(--ohgym-accent);
+  font-size: calc(var(--ohgym-type-scale) * 0.95rem);
+}
+
+.ohgym-contact-card__value {
+  color: var(--ohgym-text);
+  font-size: calc(var(--ohgym-type-scale) * clamp(1rem, 1.8cqw, 1.25rem));
+  font-weight: 900;
+}
+
+.ohgym-contact-card .ohgym-contact-card__email,
+.ohgym-contact-card .ohgym-contact-card__email a,
+.ohgym-contact-card a[href^='mailto:'],
+.ohgym-contact-card a[x-apple-data-detectors] {
+  color: var(--ohgym-text) !important;
+  text-decoration: none !important;
+}
+
+.ohgym-shorts-section {
+  display: grid;
+  gap: clamp(1.2rem, 3cqw, 2rem);
+  justify-items: center;
+  padding-top: clamp(1.5rem, 4cqw, 3rem);
+  text-align: center;
+}
+
+.ohgym-shorts-grid {
+  display: grid;
+  grid-template-columns: minmax(220px, 360px);
+  gap: clamp(1rem, 3cqw, 1.6rem);
+  justify-content: center;
+  width: 100%;
+}
+
+.ohgym-shorts-card iframe {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  margin: 0;
+  aspect-ratio: 9 / 16;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.ohgym-shorts-card {
+  aspect-ratio: 9 / 16;
+  overflow: visible;
+}
+
+.ohgym-gear-system {
+  position: relative;
+  width: min(100%, 960px);
+  min-height: clamp(380px, 48cqw, 620px);
+}
+
+.ohgym-gear {
+  --gear-size: 220px;
+  --gear-speed: 18s;
+
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: var(--gear-size);
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+
+.ohgym-gear::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--ohgym-accent);
+  clip-path: polygon(
+      40.55% 9.08%,
+      43.91% 0.37%,
+      56.09% 0.37%,
+      59.45% 9.08%,
+      66.41% 11.34%,
+      74.24% 6.27%,
+      84.10% 13.43%,
+      81.70% 22.45%,
+      86.00% 28.37%,
+      95.32% 28.87%,
+      99.08% 40.46%,
+      91.84% 46.34%,
+      91.84% 53.66%,
+      99.08% 59.54%,
+      95.32% 71.13%,
+      86.00% 71.63%,
+      81.70% 77.55%,
+      84.10% 86.57%,
+      74.24% 93.73%,
+      66.41% 88.66%,
+      59.45% 90.92%,
+      56.09% 99.63%,
+      43.91% 99.63%,
+      40.55% 90.92%,
+      33.59% 88.66%,
+      25.76% 93.73%,
+      15.90% 86.57%,
+      18.30% 77.55%,
+      14.00% 71.63%,
+      4.68% 71.13%,
+      0.92% 59.54%,
+      8.16% 53.66%,
+      8.16% 46.34%,
+      0.92% 40.46%,
+      4.68% 28.87%,
+      14.00% 28.37%,
+      18.30% 22.45%,
+      15.90% 13.43%,
+      25.76% 6.27%,
+      33.59% 11.34%
+    );
+  filter: drop-shadow(0 18px 28px rgba(17, 24, 39, 0.12));
+  animation: ohgym-gear-spin var(--gear-speed) linear infinite;
+}
+
+.ohgym-gear--future::before {
+  animation-direction: reverse;
+}
+
+.ohgym-gear span {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 70%;
+  aspect-ratio: 1;
+  color: var(--ohgym-active-text);
+  font-size: calc(var(--ohgym-type-scale) * clamp(1.65rem, 3.2cqw, 2.6rem));
+  font-weight: 950;
+  line-height: 1;
+  text-align: center;
+}
+
+.ohgym-gear--robotis {
+  --gear-size: clamp(190px, 25cqw, 310px);
+  --gear-speed: 22s;
+  left: 0;
+  top: 18%;
+}
+
+.ohgym-gear--ohgym {
+  --gear-size: clamp(245px, 32cqw, 395px);
+  --gear-speed: 18s;
+  left: 42%;
+  top: 0;
+}
+
+.ohgym-gear--future {
+  --gear-size: clamp(180px, 23cqw, 285px);
+  --gear-speed: 20s;
+  left: 24%;
+  top: 58%;
+}
+
+@keyframes ohgym-gear-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.ohgym-reveal {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  transition:
+    opacity 620ms ease,
+    transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--ohgym-reveal-delay, 0ms);
+}
+
+.ohgym-reveal.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.ohgym-card.ohgym-reveal.is-visible:hover,
+.ohgym-stat-card.ohgym-reveal.is-visible:hover {
+  transform: translate3d(0, -2px, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ohgym-gear::before {
+    animation: none;
+  }
+
+  .ohgym-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .ohgym-page {
+    --ohgym-type-scale: 0.68;
+  }
+
+  .ohgym-section + .ohgym-section {
+    margin-top: clamp(3.5rem, 9cqw, 5rem);
+    padding-top: clamp(2.75rem, 7cqw, 4rem);
+  }
+
+  .ohgym-card,
+  .ohgym-stat-card {
+    min-height: 82px;
+    padding: clamp(0.45rem, 1.9cqw, 0.72rem);
+  }
+
+  .ohgym-card:has(.ohgym-card__meta) {
+    min-height: 88px;
+    padding-top: clamp(1.55rem, 4.6cqw, 1.95rem);
+  }
+
+  .ohgym-hero .ohgym-card strong {
+    font-size: calc(0.8 * var(--ohgym-type-scale) * clamp(1.25rem, 2.5cqw, 2rem));
+  }
+
+  .ohgym-hero .ohgym-card__meta {
+    font-size: calc(0.8 * var(--ohgym-type-scale) * clamp(0.95rem, 1.7cqw, 1.15rem));
+  }
+
+  .ohgym-card-grid--single,
+  .ohgym-shorts-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ohgym-school__name {
+    min-height: 1.8rem;
+    padding: clamp(0.3rem, 0.75cqw, 0.42rem) clamp(0.55rem, 1.25cqw, 0.78rem);
+    font-size: calc(0.82 * var(--ohgym-type-scale) * clamp(1rem, 1.8cqw, 1.35rem));
+    white-space: nowrap;
+  }
+
+  .ohgym-gear-system {
+    min-height: clamp(230px, 55cqw, 330px);
+  }
+
+  .ohgym-gear span {
+    font-size: calc(0.82 * var(--ohgym-type-scale) * clamp(1.65rem, 3.2cqw, 2.6rem));
+  }
+
+  .ohgym-gear--robotis {
+    --gear-size: clamp(112px, 25cqw, 170px);
+  }
+
+  .ohgym-gear--ohgym {
+    --gear-size: clamp(145px, 32cqw, 215px);
+  }
+
+  .ohgym-gear--future {
+    --gear-size: clamp(108px, 23cqw, 160px);
+  }
+
+  .ohgym-contact-card {
+    align-items: flex-start;
+  }
+
+  .ohgym-contact-card__value {
+    font-size: calc(0.82 * var(--ohgym-type-scale) * clamp(1rem, 1.8cqw, 1.25rem));
+  }
+
+  #ohgym-apply::after {
+    right: 0;
+  }
+}

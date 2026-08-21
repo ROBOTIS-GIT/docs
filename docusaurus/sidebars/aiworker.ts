@@ -42,7 +42,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
             items: [
               {type: 'doc', id: 'systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/install', label: 'Install'},
               {type: 'doc', id: 'systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/bringup', label: 'Bringup'},
-              {type: 'doc', id: 'systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/manage_container', label: 'Manage Container'},
+              {type: 'doc', id: 'systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/manage_container', label: 'Manage Containers'},
               {type: 'doc', id: 'systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/version_update', label: 'Version Update'},
               {type: 'doc', id: 'systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/novnc', label: 'noVNC'},
               {type: 'doc', id: 'systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/jog', label: 'Jog'},
@@ -76,9 +76,9 @@ const aiworkerSidebar: SidebarsConfig[string] = [
       },
       {
         type: 'category',
-        label: 'Physical AI Tools',
+        label: 'Physical AI Tools(Legacy)',
         link: {type: 'doc', id: 'systems/aiworker/resources/legacy/physical_ai_tools/imitation_learning'},
-        collapsed: false,
+        collapsed: true,
         items: [
           {
             type: 'category',
@@ -117,7 +117,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
       {type: 'doc', id: 'systems/aiworker/advanced_features/cyclo_control', label: 'Cyclo Control'},
       {type: 'doc', id: 'systems/aiworker/advanced_features/behavior_trees', label: 'Behavior Trees'},
       {type: 'doc', id: 'systems/aiworker/advanced_features/robotis_vuer', label: 'ROBOTIS Vuer'},
-      {type: 'doc', id: 'systems/aiworker/advanced_features/eazy_navi', label: 'Eazy Navi'},
+      {type: 'doc', id: 'systems/aiworker/advanced_features/eazy_navi', label: 'Easy Navi'},
     ],
   },
   {
@@ -136,6 +136,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
           {type: 'doc', id: 'systems/aiworker/resources/technical_story/isaac_gr00t', label: 'Isaac GR00T'},
           {type: 'doc', id: 'systems/aiworker/resources/technical_story/nav2', label: 'Nav2'},
           {type: 'doc', id: 'systems/aiworker/resources/technical_story/isaac_vr_teleoperation', label: 'Isaac VR Teleoperation'},
+          {type: 'doc', id: 'systems/aiworker/resources/technical_story/isaac_centerpose', label: 'Isaac CenterPose'},
         ],
       },
     ],

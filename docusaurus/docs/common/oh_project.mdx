@@ -1,0 +1,434 @@
+---
+title: OH!GYM!
+sidebar_label: OH!GYM!
+hide_title: true
+hide_table_of_contents: true
+pagination_prev: null
+pagination_next: null
+---
+
+import OhGymScrollReveal from '@site/src/components/OhGymScrollReveal';
+import OhGymSchoolSelector from '@site/src/components/OhGymSchoolSelector';
+import OhGymFloatingIndex from '@site/src/components/OhGymFloatingIndex';
+
+<div className="ohgym-page-frame">
+  <div className="ohgym-page">
+  <OhGymScrollReveal />
+  <OhGymSchoolSelector />
+  <OhGymFloatingIndex />
+
+  <nav className="ohgym-floating-index" aria-label="OH! GYM! page sections">
+    <div className="ohgym-floating-index__panel">
+      <a href="#introduction">Introduction</a>
+      <a href="#oh-gym">OH! GYM!</a>
+      <a href="#oh-seminar">OH! Seminar!</a>
+      <a href="#oh-challenge">OH! Challenge!</a>
+      <a href="#oh-showcase">OH! Showcase!</a>
+      <a className="ohgym-floating-index__apply" href="#ohgym-apply">Join OH! GYM! Cohort 2</a>
+    </div>
+  </nav>
+
+  <section id="introduction" className="ohgym-section ohgym-open-intro">
+    <div className="ohgym-open-logo">
+      <img src="/img/common/ohgym/oh_logo.png" alt="ROBOTIS Open Humanoid" />
+    </div>
+
+    <div className="ohgym-open-copy">
+      <div>
+        <span className="ohgym-blue-text">ROBOTIS Open Humanoid</span> is an open-source humanoid platform that anyone can freely develop and expand.
+        From mechanical design to software, simulation, and AI training environments, it provides an open foundation where researchers, developers, and students can learn and build together.
+      </div>
+      <div>
+        Through <span className="ohgym-blue-text">OH! GYM!</span>, <span className="ohgym-blue-text">OH! Seminar!</span>, and <span className="ohgym-blue-text">OH! Challenge!</span>, we build a sustainable ecosystem that connects <span className="ohgym-blue-text">education</span>, <span className="ohgym-blue-text">technical exchange</span>, and <span className="ohgym-blue-text">hands-on experience</span>.<br/>
+        We are creating an <span className="ohgym-blue-text">open humanoid community where anyone can learn, grow, and take on new challenges.</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="oh-gym" className="ohgym-section ohgym-hero">
+    <div className="ohgym-banner">
+      <img src="/img/common/ohgym/ohgym_logo.png" alt="OH! GYM!" />
+    </div>
+
+    <div className="ohgym-copy-block">
+      <div>
+        <span className="ohgym-blue-text">OH! GYM!</span> stands for Open Humanoid GYM.<br />
+        It is a project that trains people to become trainers for ROBOTIS humanoids.
+      </div>
+      <div>
+        An open humanoid platform open to everyone.<br />
+        We learn, grow, and shape the future of the humanoid ecosystem together.
+      </div>
+    </div>
+
+    <div className="ohgym-statement">
+      <span>Why?</span>
+      <div>
+        The future of humanoids is ultimately built by people!<br />
+        OH! GYM! develops talent by providing development environments, mentoring, and open source resources.<br />
+        Together, we are building the K-Humanoid ecosystem.
+      </div>
+    </div>
+
+    <div className="ohgym-card-grid ohgym-card-grid--three">
+      <div className="ohgym-card">
+        <span className="ohgym-card__meta">Mentoring</span>
+        <strong>Mentoring by Industry Engineers</strong>
+      </div>
+      <div className="ohgym-card">
+        <span className="ohgym-card__meta">Environment</span>
+        <strong>Humanoids and<br />Development Environments</strong>
+      </div>
+      <div className="ohgym-card">
+        <span className="ohgym-card__meta">Open Source</span>
+        <strong>Open Source</strong>
+      </div>
+    </div>
+
+    <div className="ohgym-statement">
+      <span>What?</span>
+      <div>
+        Intensive training!<br />
+        We create peak performance.<br />
+        And go all the way to global humanoid competitions!
+      </div>
+    </div>
+
+    <div className="ohgym-card-grid ohgym-card-grid--three">
+      <div className="ohgym-card">
+        <span className="ohgym-card__meta">Simulation</span>
+        <strong>Simulation<br />Environment, Reward, and Policy Design</strong>
+      </div>
+      <div className="ohgym-card">
+        <span className="ohgym-card__meta">Motion</span>
+        <strong>Diverse Motion Generation</strong>
+      </div>
+      <div className="ohgym-card">
+        <span className="ohgym-card__meta">Data</span>
+        <strong>Execution, Iteration, Failure<br />Data Collection</strong>
+      </div>
+    </div>
+
+    <div className="ohgym-motion-wall" aria-label="OH!GYM! motion examples">
+      <img src="/img/common/ohgym/og1.gif" alt="OH! GYM! motion example 1" loading="lazy" decoding="async" />
+      <img src="/img/common/ohgym/og2.gif" alt="OH! GYM! motion example 2" loading="lazy" decoding="async" />
+      <img src="/img/common/ohgym/og3.gif" alt="OH! GYM! motion example 3" loading="lazy" decoding="async" />
+      <img src="/img/common/ohgym/og4.gif" alt="OH! GYM! motion example 4" loading="lazy" decoding="async" />
+    </div>
+
+    <div className="ohgym-statement">
+      <span>How?</span>
+      <div>
+        Build together,<br />
+        grow together,<br />
+        and create the future of the K-Humanoid ecosystem.
+      </div>
+    </div>
+
+    <div className="ohgym-gear-system" aria-label="Animated gears showing ROBOTIS, OH!GYM!, and future talent working together">
+      <div className="ohgym-gear ohgym-gear--robotis">
+        <span>ROBOTIS</span>
+      </div>
+      <div className="ohgym-gear ohgym-gear--ohgym">
+        <span>OH!GYM!</span>
+      </div>
+      <div className="ohgym-gear ohgym-gear--future">
+        <span>Future Talent</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="oh-gym-generation" className="ohgym-section ohgym-generation">
+    <h2>OH! GYM! Cohort 1<br />Now in Progress!</h2>
+    <div className="ohgym-section-lead">
+      Continuing growth with each cohort,<br />
+      we expand the K-Humanoid ecosystem.
+    </div>
+
+    <div className="ohgym-card-grid ohgym-card-grid--two">
+      <div className="ohgym-card ohgym-card--active">
+        <span>OH! GYM! Cohort 1</span>
+        <strong>In Progress 07.21~08.21</strong>
+      </div>
+      <a id="ohgym-apply" className="ohgym-card" href="https://forms.gle/TtndHuEtyPKS8LYS8" target="_blank" rel="noopener noreferrer">
+        <span>OH! GYM! Cohort 2</span>
+        <strong>Apply Now</strong>
+      </a>
+    </div>
+
+    <div className="ohgym-trainer">
+      <h3>OH! GYM! Cohort 1 Trainers</h3>
+      <div className="ohgym-stat-panel">
+        <div className="ohgym-stat-card">
+          <strong><span className="ohgym-roulette-number" data-target="58">58</span> Teams</strong>
+          <span>Applied from 17 Schools</span>
+        </div>
+        <div className="ohgym-stat-card">
+          <strong><span className="ohgym-roulette-number" data-target="4">4</span> Teams</strong>
+          <span>Selected</span>
+        </div>
+        <div className="ohgym-stat-card ohgym-stat-card--schools">
+          <button type="button" className="ohgym-school-trigger" data-ohgym-school-trigger="gacheon" aria-pressed="false">Gachon Univ.</button>
+          <button type="button" className="ohgym-school-trigger" data-ohgym-school-trigger="seoul" aria-pressed="false">Seoul Nat'l Univ.</button>
+          <button type="button" className="ohgym-school-trigger" data-ohgym-school-trigger="yonsei" aria-pressed="false">Yonsei Univ.</button>
+          <button type="button" className="ohgym-school-trigger" data-ohgym-school-trigger="seoul-sci" aria-pressed="false">SeoulTech</button>
+        </div>
+      </div>
+    </div>
+
+    <div className="ohgym-school-gallery">
+      <article className="ohgym-school" data-ohgym-school-card="gacheon">
+        <h3 className="ohgym-school__title">Gachon University Graduate School - iRASC</h3>
+        <div className="ohgym-school__media">
+          <div className="ohgym-school__image-card">
+            <img src="/img/common/ohgym/gacheon.JPG" alt="Gachon University Graduate School OH! GYM! trainers" loading="lazy" decoding="async" />
+          </div>
+        </div>
+        <div className="ohgym-school__content">
+          <div className="ohgym-school__names">
+            <span className="ohgym-school__name">Gu Jiyeon</span>
+            <span className="ohgym-school__name">Seo Jeonghui</span>
+            <span className="ohgym-school__name">Pyo Eunseom</span>
+          </div>
+          <div className="ohgym-school__description">
+            <span className="ohgym-school__description-label">Training Theme:</span>
+            <strong>Obstacle Run</strong>
+            <span className="ohgym-school__pledge-label">A Word of Determination:</span>
+            <strong>No stopping in front of obstacles!</strong>
+          </div>
+        </div>
+      </article>
+
+      <article className="ohgym-school" data-ohgym-school-card="seoul">
+        <h3 className="ohgym-school__title">Seoul National University - SHAPE</h3>
+        <div className="ohgym-school__media">
+          <div className="ohgym-school__image-card">
+            <img src="/img/common/ohgym/seoul.JPG" alt="Seoul National University OH! GYM! trainers" loading="lazy" decoding="async" />
+          </div>
+        </div>
+        <div className="ohgym-school__content">
+          <div className="ohgym-school__names">
+            <span className="ohgym-school__name">Kim Junseo</span>
+            <span className="ohgym-school__name">Jeong Hyewoo</span>
+            <span className="ohgym-school__name">Choi Hamin</span>
+          </div>
+          <div className="ohgym-school__description">
+            <span className="ohgym-school__description-label">Training Theme:</span>
+            <strong>K-POP</strong>
+            <span className="ohgym-school__pledge-label">A Word of Determination:</span>
+            <strong>K1-POP star</strong>
+          </div>
+        </div>
+      </article>
+
+      <article className="ohgym-school" data-ohgym-school-card="yonsei">
+        <h3 className="ohgym-school__title">Yonsei University - RoboIN</h3>
+        <div className="ohgym-school__media">
+          <div className="ohgym-school__image-card">
+            <img src="/img/common/ohgym/yonsei.JPG" alt="Yonsei University OH! GYM! trainers" loading="lazy" decoding="async" />
+          </div>
+        </div>
+        <div className="ohgym-school__content">
+          <div className="ohgym-school__names">
+            <span className="ohgym-school__name">Jeon Hyeongjun</span>
+            <span className="ohgym-school__name">Jeon Seungmin</span>
+            <span className="ohgym-school__name">Lee Hyeonho</span>
+          </div>
+          <div className="ohgym-school__description">
+            <span className="ohgym-school__description-label">Training Theme:</span>
+            <strong>Taekwondo</strong>
+            <span className="ohgym-school__pledge-label">A Word of Determination:</span>
+            <strong>Flashy combos, precise strikes! Tae! Kwon!</strong>
+          </div>
+        </div>
+      </article>
+
+      <article className="ohgym-school" data-ohgym-school-card="seoul-sci">
+        <h3 className="ohgym-school__title">Seoul National University of Science and Technology - RnD</h3>
+        <div className="ohgym-school__media">
+          <div className="ohgym-school__image-card">
+            <img src="/img/common/ohgym/seoul_sci.JPG" alt="SeoulTech OH! GYM! trainers" loading="lazy" decoding="async" />
+          </div>
+        </div>
+        <div className="ohgym-school__content">
+          <div className="ohgym-school__names">
+            <span className="ohgym-school__name">Chae Seungjun</span>
+            <span className="ohgym-school__name">Yoo Taegi</span>
+          </div>
+          <div className="ohgym-school__description">
+            <span className="ohgym-school__description-label">Training Theme:</span>
+            <strong>Parkour / Acrobatics</strong>
+            <span className="ohgym-school__pledge-label">A Word of Determination:</span>
+            <strong>Running over walking, parkour over running.</strong>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div className="ohgym-media-section">
+      <h2>OH! GYM! Trainer Training Scenes</h2>
+      <div className="ohgym-training-grid">
+        <div className="ohgym-training-card ohgym-training-card--portrait">
+          <img src="/img/common/ohgym/train1.gif" alt="OH! GYM! trainer training 1" loading="lazy" decoding="async" />
+        </div>
+        <div className="ohgym-training-card ohgym-training-card--portrait">
+          <img src="/img/common/ohgym/train2.gif" alt="OH! GYM! trainer training 2" loading="lazy" decoding="async" />
+        </div>
+        <div className="ohgym-training-card ohgym-training-card--portrait">
+          <img src="/img/common/ohgym/train3.gif" alt="OH! GYM! trainer training 3" loading="lazy" decoding="async" />
+        </div>
+        <div className="ohgym-training-card ohgym-training-card--landscape">
+          <img src="/img/common/ohgym/train4.gif" alt="OH! GYM! trainer training 4" loading="lazy" decoding="async" />
+        </div>
+        <div className="ohgym-training-card ohgym-training-card--landscape">
+          <img src="/img/common/ohgym/train5.gif" alt="OH! GYM! trainer training 5" loading="lazy" decoding="async" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="oh-seminar" className="ohgym-section ohgym-seminar">
+    <h2>An open seminar connecting ROBOTIS humanoid technology with people</h2>
+
+    <div className="ohgym-section-logo">
+      <img src="/img/common/ohgym/ohseminar_logo.png" alt="OH! Seminar" />
+    </div>
+
+    <div className="ohgym-card-grid ohgym-card-grid--two">
+      <div className="ohgym-card ohgym-card--active">
+        <span>OH! Seminar Session 1</span>
+        <strong>Completed 07.20</strong>
+      </div>
+      <div className="ohgym-card">
+        <span>OH! Seminar Session 2</span>
+        <strong>Coming Soon</strong>
+      </div>
+    </div>
+
+    <div className="ohgym-section-copy">
+      OH! Seminar is an open seminar for sharing humanoid technology and helping students, researchers, and companies grow together.
+      Through talks and networking, we build the K-Humanoid ecosystem together.
+    </div>
+
+    <div className="ohgym-card-grid ohgym-card-grid--four">
+      <div className="ohgym-card">
+        <strong>ROBOTIS Company Tour</strong>
+      </div>
+      <div className="ohgym-card">
+        <strong>Development Experience with Industry Engineers</strong>
+      </div>
+      <div className="ohgym-card">
+        <strong>Humanoid Technology Sharing</strong>
+      </div>
+      <div className="ohgym-card">
+        <strong>Technical Expert Talks</strong>
+      </div>
+    </div>
+
+    <div className="ohgym-seminar-image-grid">
+      <div className="ohgym-seminar-image-card">
+        <img src="/img/common/ohgym/seminar1.jpg" alt="OH! Seminar 1" />
+      </div>
+      <div className="ohgym-seminar-image-card">
+        <img src="/img/common/ohgym/seminar2.jpg" alt="OH! Seminar 2" />
+      </div>
+      <div className="ohgym-seminar-image-card">
+        <img src="/img/common/ohgym/seminar3.jpg" alt="OH! Seminar 3" />
+      </div>
+      <div className="ohgym-seminar-image-card">
+        <img src="/img/common/ohgym/seminar4.jpg" alt="OH! Seminar 4" />
+      </div>
+    </div>
+  </section>
+
+  <section id="oh-challenge" className="ohgym-section ohgym-challenge">
+    <div className="ohgym-challenge-callout">
+      <span>OH! Challenge!</span>
+      <h2>It does not end with a project!</h2>
+      <div>We go together all the way to global humanoid competitions.</div>
+    </div>
+
+    <div className="ohgym-section-logo">
+      <img src="/img/common/ohgym/ohchallenge_logo.png" alt="OH! Challenge" />
+    </div>
+
+    <div className="ohgym-section-copy">
+      Through the 2027 OH! Challenge!, project outcomes are connected to real competitions.
+      Participants are given opportunities to enter competitions, and we support the technologies developed through the project so they can compete on the global stage.
+    </div>
+
+    <div className="ohgym-challenge-image-grid">
+      <div className="ohgym-challenge-image-card">
+        <img src="/img/common/ohgym/fight.png" alt="OH! Challenge fight" />
+      </div>
+      <div className="ohgym-challenge-image-card">
+        <img src="/img/common/ohgym/marathon.png" alt="OH! Challenge marathon" />
+      </div>
+      <div className="ohgym-challenge-image-card">
+        <img src="/img/common/ohgym/obstacle.png" alt="OH! Challenge obstacle" />
+      </div>
+      <div className="ohgym-challenge-image-card">
+        <img src="/img/common/ohgym/soccer.png" alt="OH! Challenge soccer" />
+      </div>
+    </div>
+
+    <div className="ohgym-card-grid ohgym-card-grid--single">
+      <div className="ohgym-card ohgym-card--active">
+        <span>Competition Entry</span>
+        <strong>Coming Soon</strong>
+      </div>
+    </div>
+
+
+    <div className="ohgym-closing">
+      <img src="/img/common/ohgym/emblem.png" alt="OH! GYM! emblem" />
+      <h2>Let's build the future of<br /><span>humanoids, together.</span></h2>
+      <div className="ohgym-contact-grid">
+        <div className="ohgym-contact-card">
+          <span className="ohgym-contact-card__icon">TEL</span>
+          <div>
+            <strong>Phone</strong>
+            <div className="ohgym-contact-card__value">070-8671-2614</div>
+          </div>
+        </div>
+        <div className="ohgym-contact-card">
+          <span className="ohgym-contact-card__icon">MAIL</span>
+          <div>
+            <strong>Email</strong>
+            <div className="ohgym-contact-card__value ohgym-contact-card__email">steamcup@steamcup.org</div>
+          </div>
+        </div>
+      </div>
+      <div id="oh-showcase" className="ohgym-shorts-section">
+        <h2>Watch the performances of<br />OH! GYM! Cohort 1 trainers!</h2>
+        <div className="ohgym-shorts-grid">
+          <div className="ohgym-shorts-card">
+            <iframe
+              width="560"
+              height="315"
+              src="https://www.youtube.com/embed/bZfO50X7K4s?si=H14vdcvq3WG9pxzb"
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+            />
+          </div>
+          <div className="ohgym-shorts-card">
+            <iframe
+              width="560"
+              height="315"
+              src="https://www.youtube.com/embed/dz5WfJy16Mc"
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  </div>
+</div>

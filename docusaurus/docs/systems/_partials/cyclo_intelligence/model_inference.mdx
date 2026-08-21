@@ -1,5 +1,5 @@
-import CycloBrainArchitecture from '@site/src/components/CycloBrainArchitecture';
 import Link from '@docusaurus/Link';
+import SettingsTable from '@site/src/components/cyclo_intelligence/SettingsTable';
 
 Use Model Inference to load a trained policy and test it in simulation mode before moving the real robot. It also supports TensorRT conversion for faster inference and provides both `Async` and `Sync` action request modes.
 
@@ -8,15 +8,22 @@ Use Model Inference to load a trained policy and test it in simulation mode befo
 
   Cyclo Brain runs policy backends as separate Docker containers. The UI sends inference commands to the selected backend, the backend loads the model and computes action chunks, and Cyclo Brain publishes robot commands only when `Real Robot Deploy` is selected.
 
-  <CycloBrainArchitecture />
+  <a href="/img/systems/_partials/cyclo_intelligence/cyclo_brain_architecture.png" target="_blank" rel="noopener noreferrer">
+    <img src="/img/systems/_partials/cyclo_intelligence/cyclo_brain_architecture.png" alt="Cyclo Brain architecture. 1: the host sends a service call with LOAD, START or PAUSE into Main Runtime. 2: InferenceRequester sends EngineCmd to the EngineWorker in Engine Process. 3: Robot Client reads observations from the robot. 4: the InferenceEngine returns an action_list to ActionChunkProcessor. 5: RobotClient sends the command out to the robot." style={{width: '100%', display: 'block', margin: '14px 0'}} />
+  </a>
 
-  | Part | Role |
-  | --- | --- |
-  | UI / Orchestrator | Sends model load, start, stop, and configuration commands. |
-  | `main-runtime` | Owns inference session state, action buffering, and robot command publishing. |
-  | `engine-process` | Loads the policy model and computes action chunks from robot observations. |
-  | Robot | Receives commands only when real robot deployment is enabled. |
+  1. **Service Call** — the host sends `LOAD` / `START` / `PAUSE` into Main Runtime.
+  2. **EngineCmd** — `InferenceRequester` asks the `EngineWorker` for an action.
+  3. **Read** — the engine's `Robot Client` reads observations from the robot.
+  4. **action_list** — the `InferenceEngine` returns predicted actions to `ActionChunkProcessor`.
+  5. **Command Out** — `RobotClient` publishes the commands to the robot.
 </details>
+
+## Inference Workflow
+
+Use 3D Sim Deploy first to run one action chunk from the current robot state in simulation. This helps check whether the first policy motion is normal before sending commands to the real robot.
+
+![Model Inference Workflow](/img/systems/_partials/cyclo_intelligence/model_inference_workflow.svg)
 
 ## Inference Page
 
@@ -28,15 +35,11 @@ Before running inference on the real robot, stop the teleoperation node or any l
 Then launch the robot follower bringup from <strong><Link to={props.robotFollowerBringupGuide}>{props.robotFollowerBringupGuideLabel || 'Follower Bringup for Inference'}</Link></strong> before using `Real Robot Deploy`.
 :::
 
-## Inference Workflow
-
-Use 3D Sim Deploy first to run one action chunk from the current robot state in simulation. This helps check whether the first policy motion is normal before sending commands to the real robot.
-
-![Model Inference Workflow](/img/systems/_partials/cyclo_intelligence/model_inference_workflow.svg)
-
 ## Inference Settings
 
-### Policy Docker Image
+### Select The Model And Pull Its Image
+
+Start by choosing the model you trained. Selecting the model also decides which policy backend has to run, and the panel then tells you whether that backend's Docker image is already on the machine.
 
 When the selected policy Docker image has not been downloaded yet, the backend panel shows `Image missing`. Click `Pull` to download the policy Docker image that matches the selected model.
 
@@ -46,55 +49,49 @@ Pre-built ACT and GR00T policy Docker images are supported only on Blackwell-bas
 
 ### Deploy Target
 
-<table>
-  <colgroup>
-    <col style={{width: '18%'}} />
-    <col style={{width: '82%'}} />
-  </colgroup>
-  <thead>
-    <tr>
-      <th style={{textAlign: 'center'}}>Target</th>
-      <th>Behavior</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style={{textAlign: 'center'}}>3D Sim Deploy</td>
-      <td>Runs one action chunk from the current robot state in simulation and blocks physical robot commands. Use it to check whether the first policy motion is normal.</td>
-    </tr>
-    <tr>
-      <td style={{textAlign: 'center'}}>Real Robot Deploy</td>
-      <td>Sends policy actions to the physical robot. Keep the robot workspace clear before starting.</td>
-    </tr>
-  </tbody>
-</table>
+<SettingsTable
+  columns={['Target', 'What it does']}
+  rows={[
+    {name: '3D Sim Deploy', points: [
+      'Runs one action chunk from the robot\u2019s current state, in simulation.',
+      'Blocks commands to the physical robot.',
+    ]},
+    {name: 'Real Robot Deploy', points: [
+      'Sends the policy\u2019s actions to the physical robot.',
+      'Clear the workspace before you start.',
+    ]},
+  ]}
+/>
 
 ### Action Request
 
-<table>
-  <colgroup>
-    <col style={{width: '18%'}} />
-    <col style={{width: '82%'}} />
-  </colgroup>
-  <thead>
-    <tr>
-      <th style={{textAlign: 'center'}}>Mode</th>
-      <th>Use when</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style={{textAlign: 'center'}}>Async</td>
-      <td>Requests the next action chunk asynchronously while the control loop continues. This mode is not recommended when inference takes a long time.</td>
-    </tr>
-    <tr>
-      <td style={{textAlign: 'center'}}>Sync</td>
-      <td>Waits for the policy response before continuing. Use this when inference timing should be handled synchronously.</td>
-    </tr>
-  </tbody>
-</table>
+<SettingsTable
+  columns={['Mode', 'Use when']}
+  rows={[
+    {name: 'Async', points: [
+      'Asks for the next action chunk while the control loop keeps running.',
+      'Not recommended when inference takes a long time.',
+    ]},
+    {name: 'Sync', points: [
+      'Waits for the policy to respond before continuing.',
+      'Use it when inference timing has to line up step by step.',
+    ]},
+  ]}
+/>
 
-`Inference Hz` sets the model action generation rate. `Control Hz` sets the robot command publish rate.
+### Rates
+
+<SettingsTable
+  columns={['Setting', 'What it controls']}
+  rows={[
+    {name: 'Inference Hz', points: [
+      'How often the model generates a new set of actions.',
+    ]},
+    {name: 'Control Hz', points: [
+      'How often commands are published to the robot.',
+    ]},
+  ]}
+/>
 
 ## LeRobot Inference
 

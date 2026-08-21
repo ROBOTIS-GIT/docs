@@ -1,16 +1,29 @@
+import Link from '@docusaurus/Link';
+
 <div className="ai-sapiens-page">
 
 # AI Sapiens K1
 
 <img src="/img/systems/aisapiens/ai_sapiens_k1_render.webp" alt="AI Sapiens K1" className="ai-sapiens-intro-render" />
 
-AI Sapiens is ROBOTIS's humanoid platform for developing motion, learning, and control on real hardware. It is designed so policies trained with imitation learning and reinforcement learning can move from simulation to physical deployment.
+**AI Sapiens** is ROBOTIS's humanoid platform for developing motion, learning, and control on real hardware. It is designed so policies trained with imitation learning and reinforcement learning can move from simulation to physical deployment.
 
 Here, **Physical AI** means intelligence that closes the loop across hardware, sensing, actuation, and real-world dynamics.
 
-**AI Sapiens K1** is the humanoid robot described throughout this manual. It brings together the hardware, robot software, training assets, and documentation needed to reproduce AI Sapiens workflows in research, education, and product development.
+**AI Sapiens K1** is the humanoid platform covered in this manual. Its hardware, robot software, training assets, and documentation provide the resources needed to reproduce AI Sapiens workflows in research, education, and product development.
 
 AI Sapiens is also an end-to-end open-source project. ROBOTIS plans to share the full stack from mechanical hardware and electrical system resources to robot software, simulation assets, training workflows, and deployment guides. This gives users a clear path to study how the robot is built, modify each layer, and develop new capabilities on top of the same resources used by the platform.
+
+<div className="ai-sapiens-open-source-callout">
+  <div className="ai-sapiens-open-source-callout__content">
+    <span className="ai-sapiens-open-source-callout__eyebrow">Open Source</span>
+    <h3>Explore the AI Sapiens open-source stack</h3>
+    <p>Find public repositories for robot software, simulation, motion, and learning, along with license information and planned resources.</p>
+  </div>
+  <Link className="button button--outline button--primary ai-sapiens-open-source-callout__link" to="/docs/systems/aisapiens/resources/open_source">
+    View Open Source <span aria-hidden="true">→</span>
+  </Link>
+</div>
 
 See the [Hardware](/docs/systems/aisapiens/specifications/hardware) and [Software Architecture](/docs/systems/aisapiens/specifications/software) pages for detailed specifications.
 
@@ -76,6 +89,7 @@ Use the specification pages when you need concrete hardware or software details:
 
 - [Hardware](/docs/systems/aisapiens/specifications/hardware): mechanical layout, actuators, compute, interfaces, power, and hardware resources.
 - [Software Architecture](/docs/systems/aisapiens/specifications/software): OS, containers, ROS 2, communication, and robot-side software stack.
+- [Open Source](/docs/systems/aisapiens/resources/open_source): public repositories grouped by robot software, simulation, motion tools, and shared dependencies.
 
 ---
 ## More Information and Questions

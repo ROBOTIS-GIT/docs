@@ -1,0 +1,434 @@
+---
+title: OH!GYM!
+sidebar_label: OH!GYM!
+hide_title: true
+hide_table_of_contents: true
+pagination_prev: null
+pagination_next: null
+---
+
+import OhGymScrollReveal from '@site/src/components/OhGymScrollReveal';
+import OhGymSchoolSelector from '@site/src/components/OhGymSchoolSelector';
+import OhGymFloatingIndex from '@site/src/components/OhGymFloatingIndex';
+
+<div className="ohgym-page-frame">
+  <div className="ohgym-page">
+  <OhGymScrollReveal />
+  <OhGymSchoolSelector />
+  <OhGymFloatingIndex />
+
+  <nav className="ohgym-floating-index" aria-label="OH! GYM! page sections">
+    <div className="ohgym-floating-index__panel">
+      <a href="#introduction">소개</a>
+      <a href="#oh-gym">OH! GYM!</a>
+      <a href="#oh-seminar">OH! Seminar!</a>
+      <a href="#oh-challenge">OH! Challenge!</a>
+      <a href="#oh-showcase">OH! Showcase!</a>
+      <a className="ohgym-floating-index__apply" href="#ohgym-apply">OH! GYM! 2기 참가</a>
+    </div>
+  </nav>
+
+  <section id="introduction" className="ohgym-section ohgym-open-intro">
+    <div className="ohgym-open-logo">
+      <img src="/img/common/ohgym/oh_logo.png" alt="ROBOTIS Open Humanoid" />
+    </div>
+
+    <div className="ohgym-open-copy">
+      <div>
+        <span className="ohgym-blue-text">ROBOTIS Open Humanoid</span>는 누구나 자유롭게 개발하고 확장할 수 있는 오픈소스 휴머노이드 플랫폼입니다.
+        기구 설계부터 소프트웨어, 시뮬레이션, AI 학습 환경까지 공개하여 연구자, 개발자, 학생들이 함께 배우고 개발할 수 있는 기반을 제공합니다.
+      </div>
+      <div>
+        또한 <span className="ohgym-blue-text">OH! GYM!</span>, <span className="ohgym-blue-text">OH! Seminar!</span>, <span className="ohgym-blue-text">OH! Challenge!</span>를 통해 <span className="ohgym-blue-text">교육</span>, <span className="ohgym-blue-text">기술 교류</span>, <span className="ohgym-blue-text">실전 경험</span>으로 이어지는 선순환 생태계를 구축하고,
+        누구나 휴머노이드 기술을 배우고 성장하며 도전할 수 있는 <br/><span className="ohgym-blue-text">오픈 휴머노이드 커뮤니티를 만들어갑니다.</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="oh-gym" className="ohgym-section ohgym-hero">
+    <div className="ohgym-banner">
+      <img src="/img/common/ohgym/ohgym_logo.png" alt="OH! GYM!" />
+    </div>
+
+    <div className="ohgym-copy-block">
+      <div>
+        <span className="ohgym-blue-text">OH! GYM!</span> 은 Open Humanoid GYM 의 줄임말로<br />
+        로보티즈 휴머노이드를 훈련시킬 트레이너를 양성하는 프로젝트 입니다.
+      </div>
+      <div>
+        누구나 참여할 수 있는 오픈 휴머노이드 플랫폼!<br />
+        함께 배우고, 함께 성장하며 휴머노이드 생태계의 미래를 만듭니다.
+      </div>
+    </div>
+
+    <div className="ohgym-statement">
+      <span>Why?</span>
+      <div>
+        휴머노이드의 미래를 만드는 것은 결국 사람!<br />
+        OH! GYM!은 개발 환경과 멘토링, 오픈소스를 제공하여 인재를 양성하고<br />
+        함께 K-휴머노이드 생태계를 만들어갑니다.
+      </div>
+    </div>
+
+    <div className="ohgym-card-grid ohgym-card-grid--three">
+      <div className="ohgym-card">
+        <span className="ohgym-card__meta">Mentoring</span>
+        <strong>현업 엔지니어 멘토링</strong>
+      </div>
+      <div className="ohgym-card">
+        <span className="ohgym-card__meta">Environment</span>
+        <strong>휴머노이드 및<br />개발환경 제공</strong>
+      </div>
+      <div className="ohgym-card">
+        <span className="ohgym-card__meta">Open Source</span>
+        <strong>오픈소스</strong>
+      </div>
+    </div>
+
+    <div className="ohgym-statement">
+      <span>What?</span>
+      <div>
+        극한의 트레이닝!<br />
+        최상의 퍼포먼스를 만듭니다.<br />
+        더 나아가 글로벌 휴머노이드 대회까지!!
+      </div>
+    </div>
+
+    <div className="ohgym-card-grid ohgym-card-grid--three">
+      <div className="ohgym-card">
+        <span className="ohgym-card__meta">Simulation</span>
+        <strong>시뮬레이션<br />환경·보상·정책 설계</strong>
+      </div>
+      <div className="ohgym-card">
+        <span className="ohgym-card__meta">Motion</span>
+        <strong>다양한 모션제작</strong>
+      </div>
+      <div className="ohgym-card">
+        <span className="ohgym-card__meta">Data</span>
+        <strong>실행·반복·실패<br />데이터 수집</strong>
+      </div>
+    </div>
+
+    <div className="ohgym-motion-wall" aria-label="OH!GYM! motion examples">
+      <img src="/img/common/ohgym/og1.gif" alt="OH! GYM! motion example 1" loading="lazy" decoding="async" />
+      <img src="/img/common/ohgym/og2.gif" alt="OH! GYM! motion example 2" loading="lazy" decoding="async" />
+      <img src="/img/common/ohgym/og3.gif" alt="OH! GYM! motion example 3" loading="lazy" decoding="async" />
+      <img src="/img/common/ohgym/og4.gif" alt="OH! GYM! motion example 4" loading="lazy" decoding="async" />
+    </div>
+
+    <div className="ohgym-statement">
+      <span>How?</span>
+      <div>
+        함께 만들고,<br />
+        함께 성장하며,<br />
+        K-휴머노이드 생태계의 미래를 만들어 갑니다.
+      </div>
+    </div>
+
+    <div className="ohgym-gear-system" aria-label="ROBOTIS, OH!GYM!, 미래인재가 맞물려 움직이는 톱니 그래픽">
+      <div className="ohgym-gear ohgym-gear--robotis">
+        <span>ROBOTIS</span>
+      </div>
+      <div className="ohgym-gear ohgym-gear--ohgym">
+        <span>OH!GYM!</span>
+      </div>
+      <div className="ohgym-gear ohgym-gear--future">
+        <span>미래인재</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="oh-gym-generation" className="ohgym-section ohgym-generation">
+    <h2>OH! GYM! 1기<br />절찬 진행중!!</h2>
+    <div className="ohgym-section-lead">
+      기수별 성장을 이어가며,<br />
+      K-휴머노이드 생태계를 확장합니다.
+    </div>
+
+    <div className="ohgym-card-grid ohgym-card-grid--two">
+      <div className="ohgym-card ohgym-card--active">
+        <span>OH! GYM! 1기</span>
+        <strong>진행중 07.21~08.21</strong>
+      </div>
+      <a id="ohgym-apply" className="ohgym-card" href="https://forms.gle/TtndHuEtyPKS8LYS8" target="_blank" rel="noopener noreferrer">
+        <span>OH! GYM! 2기</span>
+        <strong>참가 신청</strong>
+      </a>
+    </div>
+
+    <div className="ohgym-trainer">
+      <h3>OH! GYM! 1기 트레이너</h3>
+      <div className="ohgym-stat-panel">
+        <div className="ohgym-stat-card">
+          <strong><span className="ohgym-roulette-number" data-target="58">58</span>팀</strong>
+          <span>17개교 접수</span>
+        </div>
+        <div className="ohgym-stat-card">
+          <strong><span className="ohgym-roulette-number" data-target="4">4</span>팀</strong>
+          <span>선발</span>
+        </div>
+        <div className="ohgym-stat-card ohgym-stat-card--schools">
+          <button type="button" className="ohgym-school-trigger" data-ohgym-school-trigger="gacheon" aria-pressed="false">가천대</button>
+          <button type="button" className="ohgym-school-trigger" data-ohgym-school-trigger="seoul" aria-pressed="false">서울대</button>
+          <button type="button" className="ohgym-school-trigger" data-ohgym-school-trigger="yonsei" aria-pressed="false">연세대</button>
+          <button type="button" className="ohgym-school-trigger" data-ohgym-school-trigger="seoul-sci" aria-pressed="false">서울과기대</button>
+        </div>
+      </div>
+    </div>
+
+    <div className="ohgym-school-gallery">
+      <article className="ohgym-school" data-ohgym-school-card="gacheon">
+        <h3 className="ohgym-school__title">가천대학교 대학원-iRASC</h3>
+        <div className="ohgym-school__media">
+          <div className="ohgym-school__image-card">
+            <img src="/img/common/ohgym/gacheon.JPG" alt="가천대학교 대학원 OH! GYM! 트레이너" loading="lazy" decoding="async" />
+          </div>
+        </div>
+        <div className="ohgym-school__content">
+          <div className="ohgym-school__names">
+            <span className="ohgym-school__name">구지연</span>
+            <span className="ohgym-school__name">서정희</span>
+            <span className="ohgym-school__name">표은섬</span>
+          </div>
+          <div className="ohgym-school__description">
+            <span className="ohgym-school__description-label">훈련 테마 :</span>
+            <strong>장애물 달리기</strong>
+            <span className="ohgym-school__pledge-label">각오의 한마디 :</span>
+            <strong>장애물 앞에 멈춤은 없다!</strong>
+          </div>
+        </div>
+      </article>
+
+      <article className="ohgym-school" data-ohgym-school-card="seoul">
+        <h3 className="ohgym-school__title">서울대학교-SHAPE</h3>
+        <div className="ohgym-school__media">
+          <div className="ohgym-school__image-card">
+            <img src="/img/common/ohgym/seoul.JPG" alt="서울대학교 OH! GYM! 트레이너" loading="lazy" decoding="async" />
+          </div>
+        </div>
+        <div className="ohgym-school__content">
+          <div className="ohgym-school__names">
+            <span className="ohgym-school__name">김준서</span>
+            <span className="ohgym-school__name">정혜우</span>
+            <span className="ohgym-school__name">최하민</span>
+          </div>
+          <div className="ohgym-school__description">
+            <span className="ohgym-school__description-label">훈련 테마 :</span>
+            <strong>K-POP</strong>
+            <span className="ohgym-school__pledge-label">각오의 한마디 :</span>
+            <strong>K1-POP star</strong>
+          </div>
+        </div>
+      </article>
+
+      <article className="ohgym-school" data-ohgym-school-card="yonsei">
+        <h3 className="ohgym-school__title">연세대학교-로보인</h3>
+        <div className="ohgym-school__media">
+          <div className="ohgym-school__image-card">
+            <img src="/img/common/ohgym/yonsei.JPG" alt="연세대학교 OH! GYM! 트레이너" loading="lazy" decoding="async" />
+          </div>
+        </div>
+        <div className="ohgym-school__content">
+          <div className="ohgym-school__names">
+            <span className="ohgym-school__name">전형준</span>
+            <span className="ohgym-school__name">전승민</span>
+            <span className="ohgym-school__name">이현호</span>
+          </div>
+          <div className="ohgym-school__description">
+            <span className="ohgym-school__description-label">훈련 테마 :</span>
+            <strong>태권도</strong>
+            <span className="ohgym-school__pledge-label">각오의 한마디 :</span>
+            <strong>화려한 콤보, 정교한 일격! 태!권!</strong>
+          </div>
+        </div>
+      </article>
+
+      <article className="ohgym-school" data-ohgym-school-card="seoul-sci">
+        <h3 className="ohgym-school__title">서울과학기술대학교-RnD</h3>
+        <div className="ohgym-school__media">
+          <div className="ohgym-school__image-card">
+            <img src="/img/common/ohgym/seoul_sci.JPG" alt="서울과학기술대학교 OH! GYM! 트레이너" loading="lazy" decoding="async" />
+          </div>
+        </div>
+        <div className="ohgym-school__content">
+          <div className="ohgym-school__names">
+            <span className="ohgym-school__name">채승준</span>
+            <span className="ohgym-school__name">유태기</span>
+          </div>
+          <div className="ohgym-school__description">
+            <span className="ohgym-school__description-label">훈련 테마 :</span>
+            <strong>파쿠르/아크로바틱</strong>
+            <span className="ohgym-school__pledge-label">각오의 한마디 :</span>
+            <strong>걷기보다 달리기 달리기보다 파쿠르!</strong>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div className="ohgym-media-section">
+      <h2>OH! GYM! 트레이너의 훈련모습</h2>
+      <div className="ohgym-training-grid">
+        <div className="ohgym-training-card ohgym-training-card--portrait">
+          <img src="/img/common/ohgym/train1.gif" alt="OH! GYM! trainer training 1" loading="lazy" decoding="async" />
+        </div>
+        <div className="ohgym-training-card ohgym-training-card--portrait">
+          <img src="/img/common/ohgym/train2.gif" alt="OH! GYM! trainer training 2" loading="lazy" decoding="async" />
+        </div>
+        <div className="ohgym-training-card ohgym-training-card--portrait">
+          <img src="/img/common/ohgym/train3.gif" alt="OH! GYM! trainer training 3" loading="lazy" decoding="async" />
+        </div>
+        <div className="ohgym-training-card ohgym-training-card--landscape">
+          <img src="/img/common/ohgym/train4.gif" alt="OH! GYM! trainer training 4" loading="lazy" decoding="async" />
+        </div>
+        <div className="ohgym-training-card ohgym-training-card--landscape">
+          <img src="/img/common/ohgym/train5.gif" alt="OH! GYM! trainer training 5" loading="lazy" decoding="async" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="oh-seminar" className="ohgym-section ohgym-seminar">
+    <h2>로보티즈의 휴머노이드 기술과 사람을 연결하는 오픈세미나</h2>
+
+    <div className="ohgym-section-logo">
+      <img src="/img/common/ohgym/ohseminar_logo.png" alt="OH! Seminar" />
+    </div>
+
+    <div className="ohgym-card-grid ohgym-card-grid--two">
+      <div className="ohgym-card ohgym-card--active">
+        <span>OH! Seminar 1회</span>
+        <strong>완료 07.20</strong>
+      </div>
+      <div className="ohgym-card">
+        <span>OH!Seminar 2회</span>
+        <strong>Coming Soon</strong>
+      </div>
+    </div>
+
+    <div className="ohgym-section-copy">
+      휴머노이드 기술을 공유하고, 학생·연구자·기업이 함께 성장하는 오픈 세미나입니다.
+      다양한 강연과 네트워킹을 통해 K-휴머노이드 생태계를 함께 만들어갑니다.
+    </div>
+
+    <div className="ohgym-card-grid ohgym-card-grid--four">
+      <div className="ohgym-card">
+        <strong>로보티즈 기업탐방</strong>
+      </div>
+      <div className="ohgym-card">
+        <strong>현업 엔지니어 개발체험</strong>
+      </div>
+      <div className="ohgym-card">
+        <strong>휴머노이드 기술공유</strong>
+      </div>
+      <div className="ohgym-card">
+        <strong>기술 전문가 강연</strong>
+      </div>
+    </div>
+
+    <div className="ohgym-seminar-image-grid">
+      <div className="ohgym-seminar-image-card">
+        <img src="/img/common/ohgym/seminar1.jpg" alt="OH! Seminar 1" />
+      </div>
+      <div className="ohgym-seminar-image-card">
+        <img src="/img/common/ohgym/seminar2.jpg" alt="OH! Seminar 2" />
+      </div>
+      <div className="ohgym-seminar-image-card">
+        <img src="/img/common/ohgym/seminar3.jpg" alt="OH! Seminar 3" />
+      </div>
+      <div className="ohgym-seminar-image-card">
+        <img src="/img/common/ohgym/seminar4.jpg" alt="OH! Seminar 4" />
+      </div>
+    </div>
+  </section>
+
+  <section id="oh-challenge" className="ohgym-section ohgym-challenge">
+    <div className="ohgym-challenge-callout">
+      <span>OH! Challenge!</span>
+      <h2>프로젝트에서 끝나지 않습니다!</h2>
+      <div>글로벌 휴머노이드 대회까지 함께 합니다.</div>
+    </div>
+
+    <div className="ohgym-section-logo">
+      <img src="/img/common/ohgym/ohchallenge_logo.png" alt="OH! Challenge" />
+    </div>
+
+    <div className="ohgym-section-copy">
+      2027 OH! Challenge!를 통해 프로젝트의 성과를 실제 대회로 연결합니다.
+      참가자에게는 대회 참가 기회를 제공하고, 프로젝트에서 개발한 기술이 글로벌 무대에서도 경쟁력을 갖출 수 있도록 지원합니다.
+    </div>
+
+    <div className="ohgym-challenge-image-grid">
+      <div className="ohgym-challenge-image-card">
+        <img src="/img/common/ohgym/fight.png" alt="OH! Challenge fight" />
+      </div>
+      <div className="ohgym-challenge-image-card">
+        <img src="/img/common/ohgym/marathon.png" alt="OH! Challenge marathon" />
+      </div>
+      <div className="ohgym-challenge-image-card">
+        <img src="/img/common/ohgym/obstacle.png" alt="OH! Challenge obstacle" />
+      </div>
+      <div className="ohgym-challenge-image-card">
+        <img src="/img/common/ohgym/soccer.png" alt="OH! Challenge soccer" />
+      </div>
+    </div>
+
+    <div className="ohgym-card-grid ohgym-card-grid--single">
+      <div className="ohgym-card ohgym-card--active">
+        <span>대회참가</span>
+        <strong>Coming Soon</strong>
+      </div>
+    </div>
+
+
+    <div className="ohgym-closing">
+      <img src="/img/common/ohgym/emblem.png" alt="OH! GYM! emblem" />
+      <h2>Let's build the future of<br /><span>humanoids, together.</span></h2>
+      <div className="ohgym-contact-grid">
+        <div className="ohgym-contact-card">
+          <span className="ohgym-contact-card__icon">TEL</span>
+          <div>
+            <strong>Phone</strong>
+            <div className="ohgym-contact-card__value">070-8671-2614</div>
+          </div>
+        </div>
+        <div className="ohgym-contact-card">
+          <span className="ohgym-contact-card__icon">MAIL</span>
+          <div>
+            <strong>Email</strong>
+            <div className="ohgym-contact-card__value ohgym-contact-card__email">steamcup@steamcup.org</div>
+          </div>
+        </div>
+      </div>
+      <div id="oh-showcase" className="ohgym-shorts-section">
+        <h2>OH! GYM! 1기 트레이너들의<br />퍼포먼스를 확인해 보세요!</h2>
+        <div className="ohgym-shorts-grid">
+          <div className="ohgym-shorts-card">
+            <iframe
+              width="560"
+              height="315"
+              src="https://www.youtube.com/embed/bZfO50X7K4s?si=H14vdcvq3WG9pxzb"
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+            />
+          </div>
+          <div className="ohgym-shorts-card">
+            <iframe
+              width="560"
+              height="315"
+              src="https://www.youtube.com/embed/dz5WfJy16Mc"
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  </div>
+</div>
