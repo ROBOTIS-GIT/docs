@@ -127,8 +127,8 @@ const omySidebar: SidebarsConfig[string] = [
         collapsed: false,
         link: {type: 'doc', id: 'systems/omy/resources/technical_story/technical_story'},
         items: [
-          {type: 'doc', id: 'systems/omy/resources/technical_story/graspnet_pick_and_place', label: 'GraspNet'},
           {type: 'doc', id: 'systems/omy/resources/technical_story/vla_lerobotnative', label: 'LeRobot Policies'},
+          {type: 'doc', id: 'systems/omy/resources/technical_story/graspnet_pick_and_place', label: 'GraspNet'},
         ],
       },
     ],
