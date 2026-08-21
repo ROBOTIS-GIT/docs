@@ -30,6 +30,8 @@ We built pick-and-place on OMY using [GraspNet-baseline](https://github.com/gras
 - **Object Classification & Sorting** (`omy_graspnet.launch.py`) — picks any object, and (when AI mode is on) uses Gemini to classify it and route it to a different place based on rules you set live in a command window. With AI mode off, it just picks the best-scoring candidate and places it at one fixed spot — a plain GraspNet-only pick.
 - **Target Grasping** (`omy_target_graspnet.launch.py`) — type what you want (e.g. `"tennis ball"`, `"hammer handle"`), and it finds and picks exactly that.
 
+The full code is on the [`feature-graspnet` branch](https://github.com/ROBOTIS-GIT/open_manipulator/tree/feature-graspnet).
+
 ---
 
 ## 2. System Architecture
