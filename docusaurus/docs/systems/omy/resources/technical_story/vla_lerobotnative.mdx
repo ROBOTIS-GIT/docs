@@ -1,25 +1,19 @@
 ---
-title: "The VLA Showdown: Four 2026 Models on the OMY-F3M"
-description: "GR00T N1.7, MolmoAct2, VLA-JEPA, and FastWAM go head-to-head on one arm and one long-horizon task, and why strong offline numbers were not enough."
-sidebar_label: "VLA Showdown"
+title: "Running Next-Generation Policies on OMY with LeRobot"
+description: "How the LeRobot environment and the ROS 2 Zenoh bridge run any policy on a ROBOTIS arm, shown with four 2026 VLA and world-action models on a long-horizon task."
+sidebar_label: "LeRobot Policies"
 ---
 
 {/* Figures/animations live in static/img/systems/omy/resources/technical_story/vla_showdown/. GIFs animate inline. */}
 
-# The VLA Showdown: Four 2026 Models on the OMY-F3M
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Running Next-Generation Policies on OMY with LeRobot
 
 LeRobot has recently released four new 2026-generation Vision-Language-Action (VLA) and world models (**GR00T N1.7**, **MolmoAct2**, **VLA-JEPA**, and **FastWAM**) and trained them on the
-teleoperation-collected dataset, and ran them on a pick-and-organize long-horizon task on a OMY-F3M arm. This section explains what each model is, how they compare, and the deployment.
+teleoperation-collected dataset, and ran them on a pick-and-organize long-horizon task on a OMY-F3M arm. This page covers the setup, how the models compare, and how they are deployed.
 
-<div style={{textAlign: 'center', margin: '30px 0'}}>
-  <img src="/img/systems/omy/resources/technical_story/vla_showdown/figures/radar_4model.png" alt="Cross-model summary radar" style={{maxWidth: '80%', borderRadius: '8px'}} />
-  <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic'}}>Six standard metrics, each normalized so the outer edge is the ideal (task success 100%, MAE and end-effector error 0, gripper accuracy 100%, smoothness = the human demo, latency 0). GR00T N1.7 is strongest overall but still short of the ideal edge.</p>
-</div>
-
-<div style={{margin: '20px 0', padding: '20px', background: 'rgba(102, 126, 234, 0.1)', borderLeft: '4px solid #667eea', borderRadius: '4px'}}>
-
-**Main Results.** On this three-plate organizing task, **only GR00T N1.7 completed the task** (60% end-to-end with ensembling). MolmoAct2 was nearly as accurate *offline* yet grabbed only the first plate; VLA-JEPA and FastWAM did not grasp at all.
-</div>
 
 ---
 
@@ -33,7 +27,224 @@ teleoperation-collected dataset, and ran them on a pick-and-organize long-horizo
 
 ---
 
-## 1. Task and Data
+## What you'll learn
+
+- **How the LeRobot native environment connects to the OMY robot** through `lerobot_robot_ros2_zenoh`.
+- **How to train and deploy the newest VLA and world-action models** on an OMY.
+- **How these models work, and how they perform** once they are on the arm.
+
+---
+
+## 1. System Architecture
+
+The models are LeRobot policies, trained with `lerobot-train` and run with `lerobot-rollout`. The OMY-F3M
+exposes its state and cameras as ROS 2 topics and accepts `trajectory_msgs/JointTrajectory` commands, so
+the two are joined by a bridge that implements LeRobot's `Robot` interface on top of those topics.
+
+<div style={{textAlign: 'center', margin: '30px 0'}}>
+  <img src="/img/systems/omy/resources/technical_story/vla_showdown/figures/system_architecture.png" alt="OMY-F3M and LeRobot system architecture" style={{maxWidth: '100%', borderRadius: '8px'}} />
+  <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic'}}>The full control loop, from the arm through the bridge to the policy and back.</p>
+</div>
+
+<Tabs groupId="arch-part">
+<TabItem value="arm" label="Robot Arm">
+
+**OMY-F3M** — 6 joints (`joint1`–`joint6`) plus a gripper joint (`rh_r1_joint`).
+
+**Publishes**
+
+| Topic | Type |
+| --- | --- |
+| `/joint_states` | `sensor_msgs/JointState`, 7 positions at 30 Hz |
+| `/camera/cam_wrist/.../compressed` | wrist camera, mounted on the gripper |
+| `/camera1/image_raw/compressed` | external camera, workspace view |
+| `/cam_external2/image_raw/compressed` | external camera, second workspace view |
+
+**Subscribes** to `/leader/joint_trajectory` (`trajectory_msgs/JointTrajectory`).
+
+A `JointTrajectory` is a list of timestamped waypoints, not one setpoint. `ros2_control`'s
+`JointTrajectoryController` interpolates cubic splines between them and closes the servo loop at 400 Hz,
+so the arm stays in motion between waypoints.
+
+</TabItem>
+<TabItem value="bridge" label="Bridge">
+
+[`lerobot_robot_ros2_zenoh`](https://github.com/ROBOTIS-GIT/lerobot_robot_ros2_zenoh) — a LeRobot `Robot`
+implementation whose transport is [Zenoh](/docs/systems/omy/quick_start_guide/zenoh_communication).
+
+It registers as `ros2_zenoh` through `RobotConfig.register_subclass`, which is what makes
+`--robot.type=ros2_zenoh` valid in any LeRobot command.
+
+**Two methods carry the loop**
+
+| Method | Direction |
+| --- | --- |
+| `get_observation()` | Subscribes to the four topics, decodes the images, and returns `observation.state` (7 values) plus `observation.images.rgb.camera1`, `.camera2_external`, `.cam_wrist` |
+| `send_action()` | Takes 7 action values, applies the velocity and acceleration clamp, and publishes a `JointTrajectory` |
+
+The clamp bounds are derived from the training dataset, so commanded motion never exceeds what the
+demonstrations contained.
+
+</TabItem>
+<TabItem value="policy" label="Policy">
+
+Any LeRobot policy, loaded from a checkpoint directory or the Hub via `--policy.path`.
+
+**Per control tick**
+
+1. `get_observation()` returns the observation dict
+2. the preprocessor normalizes it using the dataset statistics
+3. `predict_action_chunk()` returns a chunk of future joint positions
+4. `select_action()` pops one step from that chunk
+
+| Policy | Chunk |
+| --- | --- |
+| GR00T N1.7 | 40 steps (≈1.3 s) |
+| MolmoAct2, VLA-JEPA | 30 steps (≈1.0 s) |
+| FastWAM | 32 steps |
+
+The policy never touches ROS 2. It receives the observation dict the bridge assembled.
+
+</TabItem>
+</Tabs>
+
+
+The VLAs and world-action models on this page are the ones we tested. The bridge runs any policy LeRobot
+has, and the SDK can communicate with other ROBOTIS arms, so an OMX or an AI Worker can expand its
+available models the same way.
+
+---
+
+## 2. Running a Trained Policy
+
+This section assumes a trained checkpoint exists and is ready for inference.
+
+The episodes were recorded by teleoperating the arm through
+[Cyclo Intelligence](/docs/systems/omy/advanced_features/cyclo_control), which writes a LeRobot dataset
+directly; training was `lerobot-train` on that dataset (§3 and §6). With a checkpoint in hand, running it
+on the arm is one command.
+
+**1. Install.** LeRobot, the bridge, and its Zenoh SDK:
+
+```bash
+git clone https://github.com/huggingface/lerobot.git
+git clone https://github.com/ROBOTIS-GIT/lerobot_robot_ros2_zenoh.git
+git clone https://github.com/ROBOTIS-GIT/zenoh_ros2_sdk.git
+pip install -e lerobot -e zenoh_ros2_sdk -e lerobot_robot_ros2_zenoh
+```
+
+**2. Bring up the arm** so it publishes `/joint_states` and the camera topics. See the
+[Zenoh quick start](/docs/systems/omy/quick_start_guide/zenoh_communication).
+
+**3. Run the policy.** `--robot.type=ros2_zenoh` is the bridge; `--policy.path` is any LeRobot
+checkpoint, local or from the Hub:
+
+```bash
+# set these once
+CKPT="path/to/checkpoint/pretrained_model"
+TASK="your task instruction"
+
+JOINTS='[joint1, joint2, joint3, joint4, joint5, joint6, rh_r1_joint]'
+
+CAMS='{
+  <camera_key>: {type: ros2, topic: <image topic>, width: <W>, height: <H>, fps: 30, domain_id: <domain>},
+  ...
+}'
+
+# run
+lerobot-rollout \
+  --robot.discover_packages_path=lerobot_robot_ros2_zenoh \
+  --strategy.type=base \
+  --policy.path="$CKPT" \
+  --robot.type=ros2_zenoh \
+  --robot.joint_names="$JOINTS" \
+  --robot.cameras="$CAMS" \
+  --task="$TASK" \
+  --fps=30 --duration=60
+```
+
+LeRobot loads the checkpoint, the bridge carries observations and actions, the arm moves. Swap
+`--robot.discover_packages_path` registers the bridge with LeRobot; without it `--robot.type=ros2_zenoh`
+is rejected as an unknown robot. `joint_states_topic` and `joint_trajectory_topic` are omitted because
+their defaults already match the OMY.
+
+Swap `CKPT` for another checkpoint and the rest stays the same. Each `<camera_key>` must match a camera
+name the checkpoint was trained with.
+
+<details>
+<summary>If the policy is too slow to keep up: <code>--inference.type=rtc</code></summary>
+
+A policy that takes longer than one control tick to run leaves the arm without a fresh command. LeRobot's
+Real-Time Chunking backend covers that gap: it keeps executing the current chunk while the next one is
+still being computed, and blends the two where they overlap.
+
+```bash
+lerobot-rollout \
+  --robot.discover_packages_path=lerobot_robot_ros2_zenoh \
+  --strategy.type=base \
+  --policy.path=<checkpoint> \
+  --inference.type=rtc \
+  --inference.rtc.execution_horizon=10 \
+  --robot.type=ros2_zenoh \
+  --task="..." --fps=30
+```
+
+Useful for the larger VLAs, whose inference latency does not fit inside one control tick.
+
+</details>
+
+---
+
+## 3. LeRobot v0.6.0
+
+All four models were trained and evaluated on
+[**LeRobot v0.6.0**](https://github.com/huggingface/lerobot/tree/v0.6.0).
+
+They are already implemented in LeRobot. The changes below are the policy-side fixes we needed to train
+and run them on the OMY.
+
+- **NaN-gradient guard** (`lerobot_train.py`): non-finite gradients poison a whole run (VLA-JEPA:
+  248/873 `NaN` tensors in every later checkpoint), and norm-clipping does not stop them. Skip the step.
+- **Mixed-resolution cameras** (`processor_groot.py`): 640×480 externals and 424×240 wrist cannot stack
+  into one tensor. Upscale smaller views first.
+- **FastWAM cameras + proprio** (`fastwam/*`): a 3-camera width that is not a multiple of 16 crashes the
+  Wan VAE (split in units of 16); 7-dim proprio ≠ pretrained dim (pad/truncate).
+- **Inverted gripper** (`processor_vla_jepa.py`): the gripper mapping was flipped for the OMY
+  joint-position convention (gripper MAE 1.58). Flip the sign.
+- **Backbone LR** (`configuration_vla_jepa.py`): add `qwen_lr` for a separate backbone learning rate.
+
+<details>
+<summary>Three of the fixes, in code (NaN guard, mixed-resolution cameras, inverted gripper)</summary>
+
+```python
+# NaN/Inf-gradient guard (lerobot_train.py): a single non-finite step poisons every later checkpoint.
+_skip_step = not torch.isfinite(grad_norm)
+if _skip_step:
+    logging.warning(f"non-finite grad_norm ({grad_norm.item()}); skipping optimizer step")
+    optimizer.zero_grad(set_to_none=True)
+else:
+    optimizer.step()
+```
+
+```python
+# Mixed-resolution camera stacking for GR00T (processor_groot.py).
+# 480x640 externals + 240x424 wrist cannot stack into one (B,T,V,H,W,C) tensor.
+shapes = set(c.shape[2:4] for c in cams)
+if len(shapes) > 1:
+    tgt_h = max(s[0] for s in shapes); tgt_w = max(s[1] for s in shapes)
+    cams = [c if c.shape[2:4] == (tgt_h, tgt_w) else resize_view(c, tgt_h, tgt_w) for c in cams]
+```
+
+```python
+# Inverted-gripper fix for VLA-JEPA (processor_vla_jepa.py).
+# Targets are {0 = closed/low, 1 = open/high}; emit +1 for OPEN, -1 for closed.
+# The original starVLA mapping (1 - 2*(x>thr)) INVERTED this -> gripper MAE 1.58, ~60% agreement.
+a[..., gripper_dim] = 2.0 * (a[..., gripper_dim] > threshold).float() - 1.0
+```
+
+</details>
+
+## 4. Task and Data
 
 The arm starts at a fixed home pose. In front of it are three plates: gray (#1), blue (#2), and green
 (#3), and a rack of slots. The task is to place plate #1 in the first (left-most) slot, plate #2 in the
@@ -162,7 +373,7 @@ List the same `/dev/videoN` devices you launched in place of `DEVICE_A` and `DEV
 
 ---
 
-## 2. Four Models
+## 5. Four Models
 
 Each model is a Vision-Language-Action or World Model policy: it reads the three camera images, the joint state, and
 (if it uses language) the instruction, and outputs a short *chunk* of future joint commands. What
@@ -172,7 +383,7 @@ much of the network is actually trained.
 Also, note that, compared to regular VLAs that directly translate vision or language data as actions, world models
 internally simulates how the physical environment will change over time before deciding what to do.
 
-### 2.1 GR00T N1.7
+### 5.1 GR00T N1.7
 
 GR00T N1.7 is NVIDIA's Isaac GR00T, ported into LeRobot. Its backbone is **Cosmos-Reason2-2B**, a Qwen3-VL-family
 vision-language model; features are read from an intermediate layer. The action head is a
@@ -190,7 +401,7 @@ pretrained priors.
   <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic'}}>GR00T N1.7: Cosmos-Reason2-2B backbone + flow-matching DiT action head.</p>
 </div>
 
-### 2.2 MolmoAct2
+### 5.2 MolmoAct2
 
 MolmoAct2 is AllenAI's Action Reasoning Model, with three parts: a **SigLIP-style vision Transformer**, an
 **OLMo-class 7B language model**, and a separate **flow-matching action expert** that cross-attends to
@@ -205,7 +416,7 @@ word-embedding table (~0.4 B) is frozen, so ~5.0 B are trained. It is the larges
   <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic'}}>MolmoAct2: SigLIP ViT + OLMo LLM + flow-matching action expert.</p>
 </div>
 
-### 2.3 VLA-JEPA
+### 5.3 VLA-JEPA
 
 VLA-JEPA is a world-model. A **frozen Qwen3-VL-2B** fuses the images and the instruction;
 the hidden states of special action tokens condition a **flow-matching DiT-B action head** (16 layers).
@@ -221,7 +432,7 @@ frozen -- using the preconfigured world model but not fine-tuned), so only the ~
   <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic'}}>VLA-JEPA (frozen Qwen3-VL + V-JEPA2 next-latent predictor + DiT flow head), and its teacher-forcing vs. rollout loss (immediate-step versus multi-step autoregressive forecasting).</p>
 </div>
 
-### 2.4 FastWAM
+### 5.4 FastWAM
 
 FastWAM is the largest world model here. Its backbone is **Wan2.2-TI2V-5B**, a video-generation Transformer arranged as a
 Mixture-of-Transformers: a 5 B-parameter *video expert* and a smaller *action expert* share attention,
@@ -230,7 +441,7 @@ must actually *imagine* future video at test time, or whether that step can be s
 
 The action head
 is again flow-matching; action horizon 32. ~6 B trainable (full fine-tune), and it **does not fit on a
-24 GB GPU** — forcing the CPU-offload deployment discussed in §5.
+24 GB GPU** — forcing the CPU-offload deployment discussed in §8.
 
 <div style={{textAlign: 'center', margin: '30px 0'}}>
   <img src="/img/systems/omy/resources/technical_story/vla_showdown/figures/fastwam_arch.png" alt="FastWAM architecture" style={{maxWidth: '70%', borderRadius: '8px'}} />
@@ -250,7 +461,7 @@ $$
 a_{\text{next}} \;=\; a_{\text{now}} \;+\; (\text{small step})\times(\text{direction the network predicts}).
 $$
 
-Running that from noise to a clean chunk is the whole sampling process. More steps mean smaller, finer nudges, so the chunk comes out smoother and more accurate but takes longer to compute. That step count is the `--flow-steps` knob tuned per model in §5.
+Running that from noise to a clean chunk is the whole sampling process. More steps mean smaller, finer nudges, so the chunk comes out smoother and more accurate but takes longer to compute. That step count is the number of denoising steps each policy's flow-matching head takes.
 
 <div style={{textAlign: 'center', margin: '24px 0'}}>
 <svg viewBox="0 0 920 320" style={{width: '100%', maxWidth: '840px', height: 'auto'}} role="img" aria-label="A vision-language backbone encodes images and the instruction into a latent state, which conditions a flow-matching decoder that refines random noise into an action chunk">
@@ -304,7 +515,7 @@ Running that from noise to a clean chunk is the whole sampling process. More ste
 
 </details>
 
-### 2.5 At a glance
+### 5.5 At a glance
 
 | | GR00T N1.7 | MolmoAct2 | VLA-JEPA | FastWAM |
 |---|---|---|---|---|
@@ -324,7 +535,7 @@ Running that from noise to a clean chunk is the whole sampling process. More ste
 
 ---
 
-## 3. Training and Offline Accuracy
+## 6. Training and Offline Accuracy
 
 Each model was trained with its authors' most-recommended or publicly verified configs. The training hardware or GPU count was chosen on size and availability. One thing modified was VLA-JEPA's learning rate ($1\times10^{-4}$, published); it diverged into NaNs on two
 runs, so we used $3\times10^{-5}$.
@@ -360,207 +571,79 @@ held-out episodes and measuring the mean absolute error between commanded and de
 
 <div style={{margin: '20px 0', padding: '20px', background: 'rgba(102, 126, 234, 0.1)', borderLeft: '4px solid #667eea', borderRadius: '4px'}}>
 
-**Offline accuracy is not task success.** MolmoAct2 is nearly as accurate as GR00T *offline* (0.019 vs. 0.017 rad). As §5 shows, that did not translate to the robot at all. Low offline MAE is a necessary standard, but does not promise success.
+**Offline accuracy is not task success.** MolmoAct2 is nearly as accurate as GR00T *offline* (0.019 vs. 0.017 rad). As §8 shows, that did not translate to the robot at all. Low offline MAE is a necessary standard, but does not promise success.
 
 </div>
 
 ---
 
-## 4. Inference Smoothing
+## 7. Inference Smoothing
 
-Every model emits a *chunk* of future joint commands each tick. Turning those chunks into motion the
-arm can actually execute, smoothly and to full grasp depth, is important. This section covers core smoothing strategies. (The other smoothing methods
-(seam-interpolation, Savitzky-Golay, RTC) are in the [Appendix](#12-appendix-other-smoothing-methods--token-pruning).) GR00T is used, as an example, to show the efficacy of smoothing methods.
+A policy returns a chunk of future joint positions each tick, and LeRobot plays it out one step at a
+time. Each new chunk starts wherever the last one ended, so the command stream steps at every re-plan.
 
-The full inference path is: **observe → pre-process → predict →
-post-process → smooth → clamp → send**.
+The full inference path is: **observe → pre-process → predict → post-process → smooth → clamp → send**.
 
 <div style={{textAlign: 'center', margin: '30px 0'}}>
   <img src="/img/systems/omy/resources/technical_story/vla_showdown/figures/pipeline.png" alt="Inference pipeline" style={{maxWidth: '100%', borderRadius: '8px'}} />
   <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic'}}>Each tick, one observation becomes a short chunk of future joint commands, smoothed and rate-limited, published as a single trajectory the controller splines at 400 Hz. The arm is homed and approach-ramped once before the loop begins.</p>
 </div>
 
-<details>
-<summary>The pipeline in detail: nodes, solvers, and helpers</summary>
+### 7.1 Temporal ensembling & age weighting
 
-**Nodes.**
+Smoothing does not affect the policy itself. It takes whatever chunks a model produces and averages the
+overlapping ones, so it works with any chunk-predicting policy.
 
-| Process (node) | What it does |
-| --- | --- |
-| `omy_deploy` policy loop (Python) | Each tick: reads an observation, runs the model, then smooths, clamps, and publishes the predicted chunk as one trajectory. |
-| `lerobot_robot_ros2_zenoh` bridge | Sends the `JointTrajectory` to the controller and relays `joint_states` and camera frames back as the observation. |
-| `JointTrajectoryController` (ros2_control, C++) | Fits cubic splines through the trajectory points and drives the actuators at 400 Hz in hard real time. |
+The version used here comes from ACT temporal ensembling, which LeRobot implements as
+[`ACTTemporalEnsembler`](https://github.com/huggingface/lerobot/blob/main/src/lerobot/policies/act/modeling_act.py),
+referenced to work on these VLA models as well.
 
-One iteration of the loop runs seven stages:
-
-1. **Observe:** `check_observation` reads `joint_states` and the two camera frames, failing loud on a stale or wrong-shaped frame.
-2. **Pre-process:** resize and normalize the images, assemble the state, and tokenize the plate instruction, exactly as in training.
-3. **Predict:** the policy returns a chunk of future joint commands (16 to 32 waypoints).
-4. **Post-process:** un-normalize to radians and snap the gripper to open or closed.
-5. **Smooth:** the chosen mode (whole-chunk, ensembling, seam-blend, and so on) stitches overlapping chunks into one continuous stream.
-6. **Clamp:** bound every waypoint to the joint position and velocity limits.
-7. **Send:** `send_trajectory` publishes the chunk as one multi-point `JointTrajectory` with per-waypoint velocities.
-
-**Solvers.** There is no learned controller in the loop. The one solver is the `JointTrajectoryController`: it fits a cubic spline between consecutive waypoints, so a coarse chunk becomes a smooth 400 Hz command. Each waypoint carries a position and a velocity (a central difference of the chunk), and matching those velocities is what bridges each waypoint smoothly instead of leaving a corner.
-
-<div style={{textAlign: 'center', margin: '24px 0'}}>
-  <img src="/img/systems/omy/resources/technical_story/vla_showdown/figures/cubic_spline.png" alt="Cubic spline through the chunk waypoints" style={{maxWidth: '82%', borderRadius: '8px'}} />
-  <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic'}}>Linear interpolation (grey) leaves a corner at every waypoint. The cubic spline (navy) passes through the same points and matches the attached velocity (gold tangent), so the 400 Hz command stays smooth.</p>
-</div>
-
-**Helpers.** Three pieces sit on top of the bridge: `send_trajectory` does the whole-chunk publish, `install_timed_send_action` times that publish to the right chunk offset (the grab-depth fix in §7), and `check_observation` is the fail-loud reader from stage 1.
-
-</details>
-
-### 4.1 Whole Chunks
-
-A `JointTrajectoryController` interpolates between the points of a trajectory with splines, in C++, on a
-hard real-time loop at 400 Hz. If instead we stream one one-point goal per Python tick, the arm sprints
-to each target in a few milliseconds and then idles waiting for the next command: accelerate, stop,
-accelerate, stop, many times a second. This may cause audible grinding.
-
-<div style={{textAlign: 'center', margin: '30px 0'}}>
-  <img src="/img/systems/omy/resources/technical_story/vla_showdown/figures/chunk_vs_point.png" alt="Whole chunk vs point streaming" style={{maxWidth: '82%', borderRadius: '8px'}} />
-  <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic'}}>Point-by-point (grey) makes the arm sprint to each goal and idle until the next, a stair-stepped command the actuators grind through. Publishing the whole chunk (navy) lets the controller spline all the points at 400 Hz, so the motion is continuous.</p>
-</div>
-
-<details>
-<summary>send_trajectory core (Python)</summary>
-
-```python
-# core of send_trajectory: one multi-point JointTrajectory with per-waypoint velocities (abridged)
-step = dt / speed                        # seconds between chunk points, time-scaled by --speed
-vel = central_difference(chunk) / step   # per-waypoint velocity -> cubic-spline continuity
-vel[:, gripper] = 0.0                    # gripper is near-binary; a huge velocity would be rejected
-points = [JointTrajectoryPoint(positions=q, velocities=v, time_from_start=Duration((i+1)*step))
-          for i, (q, v) in enumerate(zip(chunk, vel))]
-publisher.publish(joint_names=joints, points=points)
-```
-
-</details>
-
-The commands below use two placeholders. `CKPT` is the path to a trained checkpoint (the name differs
-per model and run), and `TASKS` is the per-plate instruction string. For example:
-
-```bash
-CKPT=outputs/train/groot_plates100_10ep/checkpoints/057643/pretrained_model
-TASKS="Place gray plate #1 in the first slot.||Place blue plate #2 in the third slot.||Place green plate #3 in the fifth slot."
-```
-
-### 4.2 More Integration Steps
-
-A dense recorder (logging commanded vs. actual joints at ~250 Hz) split the judder cleanly: about
-**77%** of the velocity dips happen *inside* a chunk, and **23%** *at* its boundaries. The 77% is not
-inherent policy jitter; rather, it is due to the flow-matching head as it builds a chunk by taking `N` small integration steps from
-noise toward the final motion. 
-
-<div style={{textAlign: 'center', margin: '20px 0'}}>
-  <img src="/img/systems/omy/resources/technical_story/vla_showdown/animations/FlowSteps.gif" alt="Flow-integration steps animation" style={{maxWidth: '90%', borderRadius: '8px'}} />
-  <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic'}}>Coarse (N = 4) vs. converged (N = 32) flow integration: fewer steps leave the chunk rippled; more steps track the target cleanly.</p>
-</div>
-
-For example, GR00T's default `N=4` is a quite coarse, so the chunk's *values* carry
-high-frequency ripple — and that ripple *is* the within-chunk dip. Raising denoising steps `N` to 16-32
-(`--flow-steps`) integrates the flow more finely and removes the ripple **at the source**. The inference time runs
-a little longer, but it is minimal next to the vision backbone (per-inference 132 → 135 ms).
-
-
-<div style={{textAlign: 'center', margin: '30px 0'}}>
-  <img src="/img/systems/omy/resources/technical_story/vla_showdown/figures/jerk.png" alt="Within-chunk jerk vs flow steps" style={{maxWidth: '80%', borderRadius: '8px'}} />
-  <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic'}}>Within-chunk command jerk over three GR00T decodes. 4 → 16 roughly halves the jerk; 16 → 32 adds nothing (the solver has converged). Savitzky-Golay filter drives it lower still, but by low-passing the command, which blunts the genuine grasp/place peaks.</p>
-</div>
-
-```bash
-# Run it: more denoising (flow-integration) steps, in chunk mode (for example).
-omy-infer CKPT --chunk-mode --flow-steps 32
-```
-
-### 4.3 Temporal Ensembling
-
-Ensembling gave the best motion. Instead of running one chunk then the next, it re-infers on *every*
-tick and, for each upcoming timestep, averages all the overlapping chunk predictions that cover it. A
-memoryless policy re-plans from a slightly different (lagging) pose each tick, so the chunks disagree a
-little; averaging cancels this out.
+It re-infers every tick, and for each upcoming timestep averages all the overlapping chunk predictions
+that cover it.
 
 <div style={{textAlign: 'center', margin: '20px 0'}}>
   <img src="/img/systems/omy/resources/technical_story/vla_showdown/animations/Ensembling.gif" alt="Ensembling animation" style={{maxWidth: '90%', borderRadius: '8px'}} />
   <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic'}}>Overlapping chunk predictions are blended by an age weight into one smooth command; the coefficient c controls how strongly the older, committed reach is favored — and that sets grab depth.</p>
 </div>
 
-The one catch is **grab depth**: averaging damps the reach peak, so a naive average grabs short. The
-blend weights each prediction by its age, `w = exp(-c·(a_max − age))`. The *oldest* overlapping
-prediction is the committed reach (the tail of an old chunk); the *newest* sits near the current pose.
-The single coefficient `c` sets how strongly the older reach is favored. 
+The predictions covering a timestep are not equal: some come from a chunk planned several ticks ago,
+some from the one just computed. ACT weights each by its age `i` as `wᵢ = exp(-c·i)`, normalised to sum
+to 1, so older predictions count for slightly more.
 
-Across a sweep of `c`, **`c = 0.15` gave the best success rate**, so it is the default.
+This matters most on the grasp, which needs depth. An older chunk already planned the full descent, while
+a chunk re-planned halfway down predicts less descent still to go - so following only the newest one lets
+the gripper creep back up and stop shallow. Keeping weight on the older plans holds the descent to the
+depth the policy first committed to, which is where the gain in success rate comes from.
 
-<details>
-<summary>What each `c` value does (and why it stays non-negative)</summary>
+<Tabs groupId="smoothing-mode">
+<TabItem value="chunk" label="Without ensembling">
 
-Higher `c` favors the oldest, committed plan. Only `c ≥ 0` is valid; reach is a percentage of the committed 0.566 rad.
+  <video controls loop muted playsInline style={{width: '100%', borderRadius: '8px'}}>
+    <source src="/img/systems/omy/resources/technical_story/vla_showdown/videos/joint_speed_chunked.mp4" type="video/mp4" />
+  </video>
 
-| `c` | Oldest plan's share | Weighting | Reach | On the arm |
-| --- | --- | --- | --- | --- |
-| `< 0` | n/a | inverted, favors the newest plan without bound | n/a | disallowed: re-commands the current pose, never reaches depth |
-| `0` | 20% | uniform, every plan counts equally | 96.7% | touches but cannot hold |
-| `0.15` *(deployed)* | 26% | tips to the oldest, still tracks newer plans | 98.4% | near-full depth, smooth |
-| `0.5` | 43% | dominated by the oldest plan | 100% | full depth, but lags the scene and ignores corrections |
+Every joint oscillates while the arm is holding position. The command stream steps at each chunk
+boundary and the controller follows it.
 
-</details> 
+***Joint velocity***, all six arm joints, fixed ±66 deg/s axis.
+
+</TabItem>
+<TabItem value="ensemble" label="With ensembling">
+
+  <video controls loop muted playsInline style={{width: '100%', borderRadius: '8px'}}>
+    <source src="/img/systems/omy/resources/technical_story/vla_showdown/videos/joint_speed_ensembled.mp4" type="video/mp4" />
+  </video>
+
+The same six joints on the same axis. Velocity stays at zero through the holds and ramps into each
+reach.
+
+***Joint velocity***, all six arm joints, fixed ±66 deg/s axis.
+
+</TabItem>
+</Tabs>
 
 
-There are some additions to improve grabbing:
-`--grab-lookahead` (read a few steps ahead during the grab), `--grasp-dwell` (hold at depth as the
-gripper closes), `--grip-hold` (debounce the release); `--dwell-break` handles the ~2.5 s home pause so
-the arm actually starts.
-
-Chunk mode and ensembling track the demonstration almost identically over a full reach; they differ at
-the re-plan seams, where chunk mode dips and ensembling stays continuous:
-
-<div style={{textAlign: 'center', margin: '30px 0'}}>
-  <img src="/img/systems/omy/resources/technical_story/vla_showdown/figures/modes_ie.png" alt="Chunk vs ensembling across the six arm joints" style={{maxWidth: '100%', borderRadius: '8px'}} />
-  <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic'}}>Chunk mode vs. GR00T ensembling, decoded open-loop along held-out episode 5: commanded angle for the six arm joints, demonstration dashed, re-plan seams marked. Both run the same flow-integration (denoising) steps. </p>
-</div>
-
-<div style={{textAlign: 'center', margin: '30px 0'}}>
-  <img src="/img/systems/omy/resources/technical_story/vla_showdown/figures/modes_zoom_ie.png" alt="Chunk vs ensembling at a re-plan seam" style={{maxWidth: '100%', borderRadius: '8px'}} />
-  <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic'}}>The same episode magnified at a seam (joint4, joint5). Both modes use the same integration (denoising) steps; chunk mode still dips away from the demonstration at the seam, while GR00T ensembling stays continuous.</p>
-</div>
-
-Despite the flag name, `--groot-ensemble` is policy-agnostic: age-weighted averaging works for all four policies, not just GR00T.
-
-<div style={{margin: '20px 0', padding: '20px', background: 'rgba(102, 126, 234, 0.1)', borderLeft: '4px solid #667eea', borderRadius: '4px'}}>
-
-**`--speed` scales time, not values.** The actions are absolute joint angles, so scaling the *values* would drive the arm toward its zero pose. `--speed 0.6` plays the same trajectory over more wall-clock. A velocity/acceleration clamp (derived from the dataset) is on by default, so deployed motion is never faster than the demonstrations.
-
-</div>
-
----
-
-## 5. Deployment Results
-
-Success is measured per plate and split into **grab** (did the arm pick the plate up) and **place** (did
-it seat the plate). "Task" is the full three-plate completion; place can never exceed grab. Each rate is
-first-try success over **10 trials per plate** with the robot.
-
-<table>
-<thead>
-<tr style={{background: 'rgba(37,99,235,0.14)'}}>
-<th>Model</th><th>P1 grab</th><th>P1 place</th><th>P2 grab</th><th>P2 place</th><th>P3 grab</th><th>P3 place</th><th>Task</th>
-</tr>
-</thead>
-<tbody>
-<tr><td>GR00T N1.7 (chunk)</td><td>100</td><td>100</td><td>100</td><td>100</td><td>50</td><td>40</td><td>40</td></tr>
-<tr style={{background: 'rgba(217,119,6,0.16)'}}><td><strong>GR00T N1.7 (ensemble)</strong></td><td><strong>100</strong></td><td><strong>100</strong></td><td><strong>100</strong></td><td><strong>100</strong></td><td><strong>60</strong></td><td><strong>60</strong></td><td><strong>60</strong></td></tr>
-<tr><td>MolmoAct2</td><td>20</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-<tr><td>VLA-JEPA</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-<tr><td>FastWAM</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-</tbody>
-</table>
-
-GR00T completed plates 1 and 2 every time. Plate 3 is harder because it requires extending the arm further,
-and the ensemble mode lifted it from 50/40 to 60/60. MolmoAct2 managed only a partial first grab;
-VLA-JEPA and FastWAM did not grasp the first plate at all.
+Not only depth - the motion also comes out much smoother.
 
 <details>
 <summary>Why ensembling moves GR00T from 40% to 60%</summary>
@@ -640,6 +723,78 @@ as the gripper closes.
 
 </details>
 
+<details>
+<summary>Implementing it</summary>
+
+**LeRobot's `ACTTemporalEnsembler`**, for reference. It keeps a running average rather than a history: the weights
+are fixed up front, and each update folds the new chunk into the average it already holds.
+
+```python
+# lerobot/policies/act/modeling_act.py, abridged
+self.ensemble_weights = torch.exp(-temporal_ensemble_coeff * torch.arange(chunk_size))
+self.ensemble_weights_cumsum = torch.cumsum(self.ensemble_weights, dim=0)
+
+def update(self, actions):
+    self.ensembled_actions *= self.ensemble_weights_cumsum[self.ensembled_actions_count - 1]
+    self.ensembled_actions += actions[:, :-1] * self.ensemble_weights[self.ensembled_actions_count]
+    self.ensembled_actions /= self.ensemble_weights_cumsum[self.ensembled_actions_count]
+    self.ensembled_actions_count = torch.clamp(self.ensembled_actions_count + 1, max=self.chunk_size)
+    return self.ensembled_actions[:, 0]     # oldest timestep is executed and popped
+```
+
+**Around a policy that has no such flag**, the same idea written out: keep the chunks still in flight,
+weight each prediction by its age, average.
+
+```python
+import numpy as np
+
+buffer = []                       # [age, chunk] for chunks still in flight
+
+def step(observation, policy, c=0.01):
+    chunk = policy.predict_action_chunk(observation)[0]   # (horizon, n_joints)
+    buffer.append([0, chunk])
+
+    votes = [(age, ch[age]) for age, ch in buffer if age < len(ch)]
+    ages  = np.array([a for a, _ in votes], dtype=np.float32)
+    w     = np.exp(-c * ages); w /= w.sum()               # older predictions weigh more
+    action = np.sum([wi * a for wi, (_, a) in zip(w, votes)], axis=0)
+
+    for entry in buffer:
+        entry[0] += 1
+    buffer[:] = [e for e in buffer if e[0] < len(e[1])]
+    return action
+```
+
+</details>
+
+---
+
+## 8. Deployment Results
+
+Success is measured per plate and split into **grab** (did the arm pick the plate up) and **place** (did
+it seat the plate). "Task" is the full three-plate completion; place can never exceed grab. Each rate is
+first-try success over **10 trials per plate** with the robot.
+
+<table>
+<thead>
+<tr style={{background: 'rgba(37,99,235,0.14)'}}>
+<th>Model</th><th>P1 grab</th><th>P1 place</th><th>P2 grab</th><th>P2 place</th><th>P3 grab</th><th>P3 place</th><th>Task</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>GR00T N1.7</td><td>100</td><td>100</td><td>100</td><td>100</td><td>50</td><td>40</td><td>40</td></tr>
+<tr style={{background: 'rgba(217,119,6,0.16)'}}><td><strong>GR00T N1.7 + ensemble</strong></td><td><strong>100</strong></td><td><strong>100</strong></td><td><strong>100</strong></td><td><strong>100</strong></td><td><strong>60</strong></td><td><strong>60</strong></td><td><strong>60</strong></td></tr>
+<tr><td>MolmoAct2</td><td>20</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>VLA-JEPA</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>FastWAM</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+</tbody>
+</table>
+
+GR00T completed plates 1 and 2 every time. Plate 3 is harder because it requires extending the arm further,
+and the ensemble mode lifted it from 50/40 to 60/60. MolmoAct2 managed only a partial first grab;
+VLA-JEPA and FastWAM did not grasp the first plate at all.
+
+
 **Inference latency** (one `predict_action_chunk` on a single RTX 4090; "per action" divides by chunk
 length). All are at 30 Hz.
 
@@ -650,8 +805,8 @@ length). All are at 30 Hz.
 </tr>
 </thead>
 <tbody>
-<tr><td>GR00T N1.7 (chunk)</td><td>76</td><td>40</td><td>1.90</td><td>n/a</td></tr>
-<tr style={{background: 'rgba(217,119,6,0.16)'}}><td><strong>GR00T N1.7 (ensemble)</strong></td><td><strong>76</strong></td><td><strong>40</strong></td><td><strong>1.90</strong></td><td><strong>no additional latency cost</strong></td></tr>
+<tr><td>GR00T N1.7</td><td>76</td><td>40</td><td>1.90</td><td>n/a</td></tr>
+<tr style={{background: 'rgba(217,119,6,0.16)'}}><td><strong>GR00T N1.7 + ensemble</strong></td><td><strong>76</strong></td><td><strong>40</strong></td><td><strong>1.90</strong></td><td><strong>no additional latency cost</strong></td></tr>
 <tr><td>MolmoAct2</td><td>137</td><td>30</td><td>4.57</td><td>n/a</td></tr>
 <tr><td>VLA-JEPA</td><td>74</td><td>30</td><td>2.47</td><td>n/a</td></tr>
 <tr><td>FastWAM</td><td>240</td><td>32</td><td>7.5</td><td>5B DiT needs CPU offload</td></tr>
@@ -664,145 +819,20 @@ UMT5 text encoder stays on the CPU), carries the highest per-chunk latency, and 
 
 ---
 
-## 6. Limitations
+## 9. Limitations
 
 The table summarizes where each model falls short on this setup.
 
 | Model | Main limitations |
 |---|---|
-| GR00T N1.7 | Plate 3 only ~50-60%; occasionally shows dwell at initial position, needs `--dwell-break`; requires ≥24 GB GPU. |
-| MolmoAct2 | ~5B params; training needs 4×80 GB; 12k checkpoint grasps but never completes; more training showed no clear convergence. |
+| GR00T N1.7 | Plate 3 only ~50-60%; occasionally dwells at the initial position before starting; requires ≥24 GB GPU. |
+| MolmoAct2 | ~5B params; training needs 4×80 GB; 12k checkpoint grasps but never completes; training converged, but further steps did not improve it. |
 | VLA-JEPA | Low offline error; flow head sensitive to learning rate; world model imagination dropped at inference. |
 | FastWAM | ~6B params; highest latency, CPU offload required; native action space mismatched to a joint-space robot. |
 
 ---
 
-## 7. LeRobot v0.6.0
-
-All four models were trained and evaluated on [**LeRobot v0.6.0**](https://github.com/huggingface/lerobot/tree/v0.6.0). The deployment code is separate and
-additive (§7); the changes to the LeRobot fork itself are policy-side. All four reported models were
-*already present*; the changes below fix some issues when using OMY with LeRobot.
-
-- **NaN-gradient guard** (`lerobot_train.py`): non-finite gradients poison a whole run (VLA-JEPA:
-  248/873 `NaN` tensors in every later checkpoint), and norm-clipping does not stop them. Skip the step.
-- **Mixed-resolution cameras** (`processor_groot.py`): 640×480 externals and 424×240 wrist cannot stack
-  into one tensor. Upscale smaller views first.
-- **FastWAM cameras + proprio** (`fastwam/*`): a 3-camera width that is not a multiple of 16 crashes the
-  Wan VAE (split in units of 16); 7-dim proprio ≠ pretrained dim (pad/truncate).
-- **Inverted gripper** (`processor_vla_jepa.py`): the gripper mapping was flipped for the OMY
-  joint-position convention (gripper MAE 1.58). Flip the sign.
-- **Backbone LR** (`configuration_vla_jepa.py`): add `qwen_lr` for a separate backbone learning rate.
-
-<details>
-<summary>Three of the fixes, in code (NaN guard, mixed-resolution cameras, inverted gripper)</summary>
-
-```python
-# NaN/Inf-gradient guard (lerobot_train.py): a single non-finite step poisons every later checkpoint.
-_skip_step = not torch.isfinite(grad_norm)
-if _skip_step:
-    logging.warning(f"non-finite grad_norm ({grad_norm.item()}); skipping optimizer step")
-    optimizer.zero_grad(set_to_none=True)
-else:
-    optimizer.step()
-```
-
-```python
-# Mixed-resolution camera stacking for GR00T (processor_groot.py).
-# 480x640 externals + 240x424 wrist cannot stack into one (B,T,V,H,W,C) tensor.
-shapes = set(c.shape[2:4] for c in cams)
-if len(shapes) > 1:
-    tgt_h = max(s[0] for s in shapes); tgt_w = max(s[1] for s in shapes)
-    cams = [c if c.shape[2:4] == (tgt_h, tgt_w) else resize_view(c, tgt_h, tgt_w) for c in cams]
-```
-
-```python
-# Inverted-gripper fix for VLA-JEPA (processor_vla_jepa.py).
-# Targets are {0 = closed/low, 1 = open/high}; emit +1 for OPEN, -1 for closed.
-# The original starVLA mapping (1 - 2*(x>thr)) INVERTED this -> gripper MAE 1.58, ~60% agreement.
-a[..., gripper_dim] = 2.0 * (a[..., gripper_dim] > threshold).float() - 1.0
-```
-
-</details>
-
-### 7.1 The deployment package
-
-[`lerobot_robot_ros2_zenoh`](https://github.com/ROBOTIS-GIT/lerobot_robot_ros2_zenoh) is ROBOTIS's
-open-source bridge that lets a LeRobot policy talk to a ROS 2 robot over the
-[Zenoh](/docs/systems/omy/quick_start_guide/zenoh_communication) transport: it carries camera images and
-joint states in, and joint commands out.
-
-Our deployment package, `omy_deploy`, is additive: it runs the policy and the smoothing on top of that
-bridge, so LeRobot policies can drive the OMY robot without changing the bridge itself.
-
-Read the diagram as one control loop. `omy_deploy` predicts a chunk and hands the whole chunk to the
-bridge (`send_trajectory`); the bridge forwards it as a `JointTrajectory` to the
-`JointTrajectoryController`, which splines it onto the arm at 400 Hz. The arm's `joint_states` and camera
-frames flow back through the bridge, and `omy_deploy` reads them (`get_observation`) to plan the next chunk.
-
-```mermaid
-flowchart LR
-  P["omy_deploy<br/>policy + smoothing"] -- "send_trajectory (chunk)" --> Z["lerobot_robot_ros2_zenoh<br/>plugin"]
-  Z -- "JointTrajectory" --> C["JointTrajectoryController<br/>splines at 400 Hz"]
-  C --> A["OMY-F3M arm"]
-  A -- "joint_states + 3 total cameras" --> Z
-  Z -- "get_observation" --> P
-```
-
----
-
-## 8. Deployment Code
-
-The deployment code runs against `lerobot_robot_ros2_zenoh`. Reproducing this needs only the
-repositories below: LeRobot, the ROS2/Zenoh plugin, and its SDK, plus our one additional package
-`omy_deploy`. The `pip install -e` step pulls in the Python libraries each repo declares (PyTorch,
-Hugging Face, and so on), so beyond those repos there is no additional code.
-
-```bash
-# one-time: LeRobot (local install), the ROS2/Zenoh plugin, and the SDK
-git clone https://github.com/huggingface/lerobot.git
-git clone https://github.com/ROBOTIS-GIT/lerobot_robot_ros2_zenoh.git
-git clone https://github.com/ROBOTIS-GIT/zenoh_ros2_sdk.git
-pip install -e lerobot -e zenoh_ros2_sdk -e lerobot_robot_ros2_zenoh
-
-# the deployment package -> into the lerobot directory
-cd lerobot
-git clone https://github.com/da-dawit/lerobot-omy-tests.git _dep
-mv _dep/omy_deploy _dep/omy-infer . && rm -rf _dep
-```
-
-```bash
-# generalized: set your dataset root and the three per-plate instructions
-export DATASET=path/to/your/dataset
-export TASKS="<plate 1 instruction>||<plate 2 instruction>||<plate 3 instruction>"
-
-omy-infer CKPT --repo-id your-username/your-dataset --root "$DATASET" \
-  --groot-ensemble 0.15 --flow-steps 32 --grab-lookahead 24 --grip-close-delay 0 \
-  --grasp-dwell 1.0 --grip-hold 9 --dwell-break --speed 0.6 --seconds 300 --tasks "$TASKS"
-```
-
----
-
-```bash
-# example, our best run: GR00T N1.7, ckpt 57643
-export DATASET=datasets/plates100_subtask
-export TASKS="Place gray plate #1 to the first (very left) slot.||Place blue plate #2 to the third slot, a slot after the gray plate.||Place green plate #3 to the fifth slot, a slot after the blue plate."
-
-omy-infer outputs/train/groot_plates100_10ep/checkpoints/057643/pretrained_model \
-  --repo-id dawity/plates100_subtask --root "$DATASET" \
-  --groot-ensemble 0.15 --flow-steps 32 --grab-lookahead 24 --grip-close-delay 0 \
-  --grasp-dwell 1.0 --grip-hold 9 --dwell-break --speed 0.6 --seconds 300 --tasks "$TASKS"
-```
-The `--repo-id` and `--root` do not replay any episodes. Inference reads only the dataset's *metadata*:
-the normalization statistics including mean, standard deviation (used to normalize the live observation and to un-normalize the predicted
-action back to radians) and the feature schema (the camera keys and the joint layout). 
-
-Point them at the
-dataset the checkpoint was trained on, set the checkpoint to yours, and see `omy-infer --help` for the
-full argument list.
-
----
-
-## 9. Practical Tips
+## 10. Practical Tips
 
 <div style={{margin: '24px 0'}}>
   <div style={{display: 'flex', gap: '14px', alignItems: 'flex-start', padding: '12px 2px', borderTop: '1px solid var(--ifm-color-emphasis-200)'}}>
@@ -841,197 +871,10 @@ ros2 launch open_manipulator_bringup omy_f3m_follower_ai.launch.py ros2_control_
 
 ---
 
-## 10. Conclusion
-
-Four 2026 VLA and world models were trained on the same 100-episode, three-camera OMY-F3M dataset and
-evaluated on a three-plate organizing task through a shared deployment pipeline. **GR00T N1.7** achieved
-the best overall performance — the lowest offline error, the fastest practical inference, and the only
-successful completion of the task on the real robot. Motion quality was further improved by inference
-refinements (more flow integration, velocity continuity, cross-fading, temporal ensembling), which
-produced smoother trajectories and more reliable grasps.
-
----
-
 ## 11. Resources
 
 - [LeRobot](https://github.com/huggingface/lerobot): training/inference framework
 - [ROBOTIS lerobot_robot_ros2_zenoh](https://github.com/ROBOTIS-GIT/lerobot_robot_ros2_zenoh): the ROS2/Zenoh transport
-- [**omy_deploy**: OMY-F3M deployment toolkit](https://github.com/da-dawit/lerobot-omy-tests): the `omy-infer` launcher and the LeRobot-fork change log
 - [GR00T N1.7](https://github.com/NVIDIA/Isaac-GR00T) · [MolmoAct2](https://github.com/allenai/molmoact2) · [FastWAM](https://github.com/yuantianyuan01/FastWAM) · [VLA-JEPA](https://github.com/ginwind/VLA-JEPA/) · [LeRobot Policies](https://huggingface.co/docs/lerobot/en/index)
-- Reference (3 Plates) Dataset: [`dawity/plates100_subtask`](https://huggingface.co/datasets/dawity/plates100_subtask)
 
 ---
-
-## 12. Appendix: Other Smoothing Methods and Token Pruning
-
-The two techniques in §4 (whole-chunk publish, flow-steps, ensembling) carried our best run. The
-following are the remaining smoothing methods and a separate attention study.
-
-<details>
-<summary>All five deployment modes</summary>
-
-
-Section 4 showed only chunk mode and ensembling. Here are all five modes together (vanilla, chunk, RTC, seam-interpolation, and ensembling) on the same rollout.
-
-<div style={{textAlign: 'center', margin: '30px 0'}}>
-  <img src="/img/systems/omy/resources/technical_story/vla_showdown/figures/modes.png" alt="All five deployment modes across the six arm joints" style={{maxWidth: '100%', borderRadius: '8px'}} />
-  <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic'}}>All five deployment modes on a live GR00T rollout (held-out episode 5): commanded angle for the six arm joints, demonstration dashed, re-plan seams marked.</p>
-</div>
-
-<div style={{textAlign: 'center', margin: '30px 0'}}>
-  <img src="/img/systems/omy/resources/technical_story/vla_showdown/figures/modes_zoom.png" alt="All five deployment modes at a re-plan seam" style={{maxWidth: '100%', borderRadius: '8px'}} />
-  <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic'}}>The same episode magnified at a seam (joint4, joint5): vanilla stair-steps; chunk mode and RTC bump away from the demonstration at the seam (RTC less than chunk); seam-interpolation and ensembling stay continuous.</p>
-</div>
-
-The three unexplained individual methods:
-
-<details>
-<summary>Seam-interpolation: cross-fade the boundaries</summary>
-
-
-The 23% of dips at chunk boundaries come from stitching consecutive chunks. The smoother resamples each
-chunk from 30 Hz up to the 400 Hz control rate, then *cross-fades* the first few steps of a new chunk
-out of the point the old chunk was still commanding. Because the arm lags the command, each fresh chunk
-(planned from the lagging pose) starts a few hundredths of a radian away from where the last one left off, and that step is what the servo lurches on. 
-
-The cross-fade eases across it so the commanded position
-is *continuous*. It is adaptive per joint: on a sharp reversal (grab → lift) following the old command
-would blunt the turn, so those joints snap to the fresh plan while the rest keep the full cross-fade. A
-companion flag, `--carry-vel`, hands the controller the arm's live velocity so it splines through the
-seam with momentum instead of re-accelerating from rest.
-
-<div style={{textAlign: 'center', margin: '20px 0'}}>
-  <img src="/img/systems/omy/resources/technical_story/vla_showdown/animations/SeamInterpolation.gif" alt="Seam-interpolation animation" style={{maxWidth: '90%', borderRadius: '8px'}} />
-  <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic'}}>The old chunk (blue) is still commanding when the new chunk (amber) arrives a step away; the blend (green) eases across the seam so the command is continuous.</p>
-</div>
-
-```bash
-# Run it: cross-fade N steps at each seam, and carry velocity through it.
-omy-infer CKPT --chunk-mode --seam-blend 6
-```
-
-</details>
-
-<details>
-<summary>Savitzky-Golay: a low-pass filter</summary>
-
-
-A Savitzky-Golay filter fits a low-order polynomial (order `P`) to a sliding window (width `W`) and
-replaces each sample with the fitted value. Unlike a moving average it keeps the height and location of
-peaks — which matters because the grasp and place *are* the sharp peaks we must not flatten. 
-
-Appliednaively it has nothing to fit at a chunk's start and re-introduces a seam; the *seam-aware* variant
-prepends the previous chunk's tail so the fit *bridges* the boundary. It is a cheap backstop: enough
-integration steps remove the same ripple at the source without risking the peaks, so once `--flow-steps`
-is up the window can be small or dropped.
-
-<div style={{textAlign: 'center', margin: '20px 0'}}>
-  <img src="/img/systems/omy/resources/technical_story/vla_showdown/animations/SavGol.gif" alt="Savitzky-Golay animation" style={{maxWidth: '90%', borderRadius: '8px'}} />
-  <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic'}}>The local polynomial fit (green) rides through the noise while keeping the grasp peak; a moving average (rose) rounds the peak off.</p>
-</div>
-
-```bash
-# Run it: Savitzky-Golay smoothing (window W, polynomial order P).
-omy-infer CKPT --chunk-mode --chunk-savgol 13 --chunk-savgol-poly 2
-```
-
-</details>
-
-<details>
-<summary>Real-time chunking (RTC): why it is off</summary>
-
-
-RTC re-generates each chunk so its values are *inpainted* to agree with the previous chunk's tail, making
-the plan continuous across the seam. In principle that attacks the dip; in practice, on this arm, it does
-not help. 
-
-The OMY controller takes *position-only* commands and re-linearizes at every seam regardless of
-how continuous the values were (RTC's continuity is thrown away before the motors see it) while its
-per-chunk re-generation adds one more source of frame-to-frame variation.
-
-```bash
-# RTC (retained for policies that support it; left off for GR00T)
-omy-infer CKPT --chunk-mode --rtc --rtc-horizon 8
-```
-
-</details>
-
-</details>
-
-<details>
-<summary>Best command per model (smoothed)</summary>
-
-```bash
-# set the dataset and the three per-plate instructions once
-export DATASET=datasets/plates100_subtask
-export TASKS="Place gray plate #1 to the first (very left) slot.||Place blue plate #2 to the third slot, a slot after the gray plate.||Place green plate #3 to the fifth slot, a slot after the blue plate."
-
-# GR00T N1.7: tuned ensemble (the best run)
-omy-infer GROOT_CKPT --repo-id dawity/plates100_subtask --root "$DATASET" \
-  --groot-ensemble 0.15 --flow-steps 32 --grab-lookahead 24 --grasp-dwell 1.0 \
-  --grip-hold 9 --dwell-break --speed 0.6 --tasks "$TASKS"
-
-# GR00T N1.7: chunk mode
-omy-infer GROOT_CKPT --repo-id dawity/plates100_subtask --root "$DATASET" \
-  --chunk-mode --execute-steps 45 --grip-hold 5 --dwell-break --speed 0.6 --tasks "$TASKS"
-
-# MolmoAct2 (ckpt 012000)
-omy-infer MOLMO_CKPT --repo-id dawity/plates100_subtask --root "$DATASET" \
-  --groot-ensemble 0.15 --flow-steps 16 --grip-hold 8 --dwell-break --speed 0.6 --tasks "$TASKS"
-
-# VLA-JEPA (last ckpt): emits its plan a few frames late, so drop the lag
-omy-infer JEPA_CKPT --repo-id dawity/plates100_subtask --root "$DATASET" \
-  --chunk-mode --seam-blend 6 --carry-vel --lag-skip 6 --grip-hold 5 --dwell-break --speed 0.6 --tasks "$TASKS"
-
-# FastWAM (ckpt 165000, auto CPU-offload)
-omy-infer FASTWAM_CKPT --repo-id dawity/plates100_subtask --root "$DATASET" \
-  --chunk-mode --execute-steps 10 --flow-steps 16 --chunk-savgol 13 --chunk-savgol-poly 2 \
-  --grip-hold 8 --dwell-break --speed 0.4 --tasks "$TASKS"
-```
-
-</details>
-
-<details>
-<summary>Token pruning and attention (GR00T only)</summary>
-
-
-**Was token pruning used in the reported runs? No.** It is a GR00T-specific background-robustness
-technique we investigated on its own; it was not enabled in any reported deployment, and the other three
-models do not support it (`--prune-bg` is GR00T-only). It is documented here because it may be useful in the future.
-
-**The problem.** When the background changes (a new backdrop, or different lighting), GR00T's attention can
-drift off the plates and slots onto the background, and the arm produces smooth but *wrong* motion with
-no error raised. Each camera image becomes an 8×8 grid of 64 tokens; three cameras give 192 image tokens
-the diffusion head cross-attends to.
-
-**Pixel masking does not work.** Replacing the background *pixels* (blur, gray, or solid black) does not
-move where GR00T attends: attention is set by the learned position/query structure, not pixel content.
-
-<div style={{textAlign: 'center', margin: '30px 0'}}>
-  <img src="/img/systems/omy/resources/technical_story/vla_showdown/figures/fig_pixelmask_fail.png" alt="Pixel masking fails" style={{maxWidth: '90%', borderRadius: '8px'}} />
-  <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic'}}>Left: input with the background set to solid black. Right: attention on that input, still concentrated on the black region; editing pixels does not move attention.</p>
-</div>
-
-**Token pruning seems to work.** Masking the background image *tokens* out of the cross-attention (weight forced
-to zero) does move attention. For fixed cameras the background tokens are identified geometrically.
-Pruning **51 of 192** tokens (external + top cameras; the moving wrist camera left whole) moved attention
-onto the workspace: the wall hotspot vanished and attention landed on the plates and rack. The predicted
-action changed by a mean |Δ| of **0.0147 rad** (max 0.0596, shoulder), on the order of GR00T's own
-offline MAE (0.0166 rad), a real effect, not numerical noise. No retraining, no weight edits.
-
-<div style={{textAlign: 'center', margin: '30px 0'}}>
-  <img src="/img/systems/omy/resources/technical_story/vla_showdown/figures/groot_token_prune_live.png" alt="Token pruning on the live robot" style={{maxWidth: '100%', borderRadius: '8px'}} />
-  <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic'}}>Top: baseline attention per camera. Bottom: after pruning the background tokens, attention moves off the wall and onto the plates and slot rack.</p>
-</div>
-
-```bash
-# GR00T-only background-token pruning (never used in the reported runs)
-omy-infer CKPT --groot-ensemble 0.15 --flow-steps 32 --prune-bg
-```
-
-**Limits.** The model was not trained with pruned tokens, so pruning is mildly off-distribution and can
-help or destabilize. The attention shift is necessary but not sufficient, and task success must be
-confirmed on the arm. The geometric ROI also assumes a fixed camera; the wrist camera moves, so it is
-left unpruned (a moving foreground mask, e.g. SAM2 or a depth threshold, would be needed).
-
-</details>

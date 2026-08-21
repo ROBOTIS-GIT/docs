@@ -111,9 +111,10 @@ const omySidebar: SidebarsConfig[string] = [
       {
         type: 'category',
         label: 'Technical Story',
+        collapsed: false,
         link: {type: 'doc', id: 'systems/omy/resources/technical_story/technical_story'},
         items: [
-          {type: 'doc', id: 'systems/omy/resources/technical_story/vla_showdown', label: 'VLA Showdown'},
+          {type: 'doc', id: 'systems/omy/resources/technical_story/vla_lerobotnative', label: 'LeRobot Policies'},
         ],
       },
     ],
