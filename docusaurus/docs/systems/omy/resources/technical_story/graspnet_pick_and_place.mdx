@@ -51,7 +51,49 @@ At a high level, each detection cycle: captures an RGB-D frame → runs GraspNet
 
 Run these in order, each in its own terminal.
 
-### Step 1 — Set Up the Gemini API Key
+### Step 1 — Get the Code and Build the Container (User PC)
+
+This build is heavier than the base image (CUDA toolkit, torch, graspnet-baseline), so the first run takes a while:
+
+```bash
+git clone -b feature-graspnet https://github.com/ROBOTIS-GIT/open_manipulator.git
+cd open_manipulator/docker
+./container.sh start
+./container.sh enter
+```
+
+You'll also need [Cyclo Control](../../advanced_features/cyclo_control) set up in the same container for Step 4 below, if you haven't already:
+
+```bash
+cd ~/ros2_ws/src
+git clone https://github.com/ROBOTIS-GIT/cyclo_control.git
+vcs import . < cyclo_control/cyclo_control_ci.repos
+cd ~/ros2_ws
+sudo apt update
+rosdep install --from-paths src --ignore-src -r -y --rosdistro jazzy
+# --parallel-workers/MAKEFLAGS capped to avoid OOM on hosts with many cores but limited RAM
+MAKEFLAGS='-j4' colcon build --symlink-install --parallel-workers 4 --cmake-args -DCMAKE_BUILD_TYPE=Release
+source install/setup.bash
+```
+
+To use the gripper, point Cyclo Control at the arm controller's default topic:
+
+```bash
+sed -i 's|joint_command_topic: "/leader/joint_trajectory"|joint_command_topic: "/arm_controller/joint_trajectory"|g' ~/ros2_ws/src/cyclo_control/cyclo_motion_controller_ros/config/omy_config.yaml
+```
+
+The container already sets `ROS_DOMAIN_ID` and `RMW_IMPLEMENTATION` in `~/.bashrc`, but since this container talks to the robot over the network, it also needs to know the robot's Zenoh router address (see [Zenoh Communication](../../../quick_start_guide/zenoh_communication) for details). Add it to `~/.bashrc` too, so it's set in every terminal rather than just the one you type it in:
+
+```bash
+echo "export ZENOH_CONFIG_OVERRIDE='transport/shared_memory/enabled=true;mode=\"client\";connect/endpoints=[\"tcp/robot_ip:7447\"]'" >> ~/.bashrc
+source ~/.bashrc
+```
+
+Replace `robot_ip` with the robot's actual IP address.
+
+The Robot side doesn't need this branch — it just runs OMY's normal bringup, so follow the regular [Setup Guide](../../../quick_start_guide/setup_guide) for that.
+
+### Step 2 — Set Up the Gemini API Key
 
 Both features call the Gemini API — for classification, target localization, or both, depending on which one you run. You'll need your own API key:
 
@@ -64,13 +106,13 @@ Both features call the Gemini API — for classification, target localization, o
 
 If `GEMINI_API_KEY` isn't set, both nodes still run — they just skip the Gemini call and fall back to picking the best-scoring candidate, regardless of what rules or target text you set.
 
-### Step 2 — Bring Up OMY (Robot Container)
+### Step 3 — Bring Up OMY (Robot Container)
 
 ```bash
 ros2 launch open_manipulator_bringup omy_f3m.launch.py
 ```
 
-### Step 3 — Launch Cyclo Control & a GraspNet Feature (User PC Container)
+### Step 4 — Launch Cyclo Control & a GraspNet Feature (User PC Container)
 
 First, launch the MoveL controller:
 
