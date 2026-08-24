@@ -82,16 +82,18 @@ To use the gripper, point Cyclo Control at the arm controller's default topic:
 sed -i 's|joint_command_topic: "/leader/joint_trajectory"|joint_command_topic: "/arm_controller/joint_trajectory"|g' ~/ros2_ws/src/cyclo_control/cyclo_motion_controller_ros/config/omy_config.yaml
 ```
 
-The container already sets `ROS_DOMAIN_ID` and `RMW_IMPLEMENTATION` in `~/.bashrc`, but since this container talks to the robot over the network, it also needs to know the robot's Zenoh router address (see [Zenoh Communication](../../../quick_start_guide/zenoh_communication) for details). Add it to `~/.bashrc` too, so it's set in every terminal rather than just the one you type it in:
+Zenoh setup (see [Zenoh Communication](../../quick_start_guide/zenoh_communication) for details):
 
 ```bash
-echo "export ZENOH_CONFIG_OVERRIDE='transport/shared_memory/enabled=true;mode=\"client\";connect/endpoints=[\"tcp/robot_ip:7447\"]'" >> ~/.bashrc
+cat >> ~/.bashrc << 'EOF'
+export ZENOH_CONFIG_OVERRIDE='transport/shared_memory/enabled=true;mode="client";connect/endpoints=["tcp/robot_ip:7447"]'
+EOF
 source ~/.bashrc
 ```
 
 Replace `robot_ip` with the robot's actual IP address.
 
-The Robot side doesn't need this branch — it just runs OMY's normal bringup, so follow the regular [Setup Guide](../../../quick_start_guide/setup_guide) for that.
+The Robot side doesn't need this branch — it just runs OMY's normal bringup, so follow the regular [Setup Guide](../../quick_start_guide/setup_guide) for that.
 
 ### Step 2 — Set Up the Gemini API Key
 
