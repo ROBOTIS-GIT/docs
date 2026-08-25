@@ -73,9 +73,9 @@ const omySidebar: SidebarsConfig[string] = [
       },
       {
         type: 'category',
-        label: 'Physical AI Tools',
+        label: 'Physical AI Tools(Legacy)',
         link: {type: 'doc', id: 'systems/omy/resources/legacy/physical_ai_tools/imitation_learning'},
-        collapsed: false,
+        collapsed: true,
         items: [
           {
             type: 'category',
@@ -121,6 +121,15 @@ const omySidebar: SidebarsConfig[string] = [
     items: [
       {type: 'doc', id: 'systems/omy/resources/open_source', label: 'Open Source'},
       {type: 'doc', id: 'systems/omy/resources/release_notes', label: 'Release Notes'},
+      {
+        type: 'category',
+        label: 'Technical Story',
+        collapsed: false,
+        link: {type: 'doc', id: 'systems/omy/resources/technical_story/technical_story'},
+        items: [
+          {type: 'doc', id: 'systems/omy/resources/technical_story/vla_lerobotnative', label: 'LeRobot Policies'},
+        ],
+      },
     ],
   },
   {
