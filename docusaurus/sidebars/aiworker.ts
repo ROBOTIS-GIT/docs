@@ -115,9 +115,26 @@ const aiworkerSidebar: SidebarsConfig[string] = [
     items: [
       {type: 'doc', id: 'systems/aiworker/advanced_features/advanced_features', label: 'Overview', key: 'advanced-features-overview'},
       {type: 'doc', id: 'systems/aiworker/advanced_features/cyclo_control', label: 'Cyclo Control'},
-      {type: 'doc', id: 'systems/aiworker/advanced_features/behavior_trees', label: 'Behavior Trees'},
       {type: 'doc', id: 'systems/aiworker/advanced_features/robotis_vuer', label: 'ROBOTIS Vuer'},
       {type: 'doc', id: 'systems/aiworker/advanced_features/eazy_navi', label: 'Easy Navi'},
+    ],
+  },
+  {
+    type: 'category',
+    label: 'Autonomy Studio',
+    collapsed: false,
+    items: [
+      {type: 'doc', id: 'systems/aiworker/autonomy_studio/overview', label: 'Overview', key: 'autonomy-studio-overview'},
+      {type: 'doc', id: 'systems/aiworker/autonomy_studio/action_canvas', label: 'Action Canvas'},
+      {
+        type: 'category',
+        label: 'Mission Canvas',
+        collapsed: false,
+        items: [
+          {type: 'doc', id: 'systems/aiworker/autonomy_studio/mission_canvas/navigation', label: 'Navigation', key: 'autonomy-studio-navigation'},
+          {type: 'doc', id: 'systems/aiworker/autonomy_studio/mission_canvas/mission', label: 'Mission', key: 'autonomy-studio-mission'},
+        ],
+      },
     ],
   },
   {

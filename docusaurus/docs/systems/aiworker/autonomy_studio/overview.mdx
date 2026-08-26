@@ -1,0 +1,65 @@
+---
+title: Autonomy Studio
+description: Combine navigation, visual task design, and VLA models to build robot Tasks for simulation and real-world operation.
+---
+
+# Autonomy Studio
+
+Autonomy Studio is an integrated robot autonomy workspace that brings proven technologies—autonomous navigation and Behavior Trees—together with modern **Vision-Language-Action (VLA)** models in a single visual tool. Instead of switching between separate programs, you can design robot movement, structured task logic, and learned AI actions as one complete Task or Mission.
+
+Its purpose is to make sophisticated robot autonomy practical for anyone who needs it. Build and validate a workflow in simulation, then deploy it to a physical AI Worker in the real world. Combine predictable Steps such as navigation, joint movement, waiting, and repetition with VLA-driven actions that respond to visual and language input—without implementing the entire autonomy system from scratch.
+
+The underlying task logic is presented as reusable **Steps**, so you can focus on what the robot should do and the order in which it should happen. Choose a workspace mainly by whether the robot will work at one location or travel between several work locations:
+
+| Workspace | Use it for |
+| --- | --- |
+| **Action Canvas** | Tasks performed mainly at one work location, such as VLA-based whole-body control or manipulation while the mobile base stays in place. Arrange reusable Steps and run them without depending on a saved map. |
+| **Mission Canvas** | Operations that move the robot between multiple work locations and run the required Task at each waypoint. Create or load a map, define a route, and combine waypoint Tasks to keep complex, long-running work organized and repeatable. |
+
+A **Task** defines what the robot should do at a work location. A **Mission** coordinates where and when Tasks run as the robot moves between work locations.
+
+## Prerequisites
+
+- Complete the [AI Worker setup](/docs/systems/aiworker/quick_start_guide/setup_overview) and bring up the robot.
+- Start Cyclo Intelligence by following the [Cyclo Intelligence Setup](/docs/systems/aiworker/imitation_learning/setup) guide.
+- Confirm that Cyclo Intelligence can communicate with the robot.
+- In the Cyclo Intelligence **Home** page, select `ffw_sg2_rev1` and click **Set Robot Type**.
+
+:::warning
+Autonomy Studio currently supports only the `ffw_sg2_rev1` robot type. The application blocks access when no robot type is selected or when a different type is active.
+:::
+
+:::caution
+Several operations in this guide move the mobile base or robot joints. Keep the Remote E-STOP within reach, verify the intended route before every run, and keep people and obstacles outside the operating area.
+:::
+
+## Open Autonomy Studio
+
+1. Open the Cyclo Intelligence web UI.
+2. In the application sidebar, click **Autonomy Studio**.
+
+   ![Cyclo Intelligence Home page with Autonomy Studio highlighted in the application sidebar](/img/systems/aiworker/autonomy_studio/overview/cyclo_intelligence_home.png)
+
+3. Select a workspace:
+
+   ![Autonomy Studio workspace chooser with Action Canvas and Mission Canvas](/img/systems/aiworker/autonomy_studio/overview/autonomy_studio_home.png)
+
+   - Select [Action Canvas](/docs/systems/aiworker/autonomy_studio/action_canvas) for stationary tasks.
+   - Select **Mission Canvas** for mobile missions. Continue to [Navigation](/docs/systems/aiworker/autonomy_studio/mission_canvas/navigation) to prepare maps and robot movement, or [Mission](/docs/systems/aiworker/autonomy_studio/mission_canvas/mission) to design and run waypoint operations.
+
+## Saved Assets
+
+Autonomy Studio works with three related asset types:
+
+| Asset | Contents | Used by |
+| --- | --- | --- |
+| **Map** | PGM occupancy image, YAML metadata, and optional area annotations | Map Edit, Navigation, Design, Run |
+| **Mission** | Waypoints, route order, route loop state, and Waypoint Task references | Design, Run |
+| **Task** | Connected Steps and their settings | Action Canvas or an individual waypoint |
+
+Map and Mission names accept letters, numbers, `.`, `_`, and `-` and are limited to 128 characters. Use short, descriptive names such as `lab-east` and `morning-patrol`.
+
+:::warning
+Deleting a map also deletes its YAML metadata, area annotations, and every Mission stored under that map. Review the deletion dialog before confirming.
+:::
+

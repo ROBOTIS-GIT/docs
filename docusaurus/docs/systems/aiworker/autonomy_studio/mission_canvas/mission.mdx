@@ -1,0 +1,720 @@
+---
+title: Mission
+description: Design Waypoint Tasks and run map-based AI Worker missions in Autonomy Studio.
+---
+
+# Mission
+
+The **Mission** group in Mission Canvas turns a validated map into an executable mobile workflow. Its complete authoring and execution flow is documented on this page:
+
+```text
+Mission Design → Waypoint Tasks (optional) → Mission Run
+```
+
+| Section | Purpose |
+| --- | --- |
+| **Mission Design** | Create and manage Missions, Waypoints, routes, and route loops. |
+| **Waypoint Tasks** | Build the Task that runs after the robot arrives at each Waypoint. |
+| **Mission Run** | Load a saved Mission, localize the robot, and execute the complete route. |
+
+Prepare and validate the map first in [Navigation](/docs/systems/aiworker/autonomy_studio/mission_canvas/navigation).
+
+## Mission Design
+
+Use the **Design** stage of Mission Canvas to create a mobile Mission on a saved map. A Mission combines:
+
+- Waypoints with a position and heading
+- An ordered route through those Waypoints
+- An optional Waypoint Task for each Waypoint
+- An optional return from the last Waypoint to the first
+
+Design does not run the Mission. Save the Mission, then use [Mission Run](/docs/systems/aiworker/autonomy_studio/mission_canvas/mission#mission-run) to localize the robot and execute it.
+
+### Before You Begin
+
+- Complete the [Autonomy Studio prerequisites](/docs/systems/aiworker/autonomy_studio/overview#prerequisites).
+- Create and save a map in [Mapping](/docs/systems/aiworker/autonomy_studio/mission_canvas/navigation#mapping), or use an existing PGM map.
+- If necessary, correct the occupancy grid or add named areas in [Map Edit](/docs/systems/aiworker/autonomy_studio/mission_canvas/navigation#map-edit).
+- Stop any active Mapping, Navigation, or Run session before using **At Robot** to create a Waypoint.
+
+:::caution
+Design changes remain in the browser until they are saved. Save the Mission before refreshing or closing the page.
+:::
+
+### Design Interface
+
+The Design stage has the following controls:
+
+| Area | Controls | Purpose |
+| --- | --- | --- |
+| **Stage header** | **Load Map** | Select the map and Mission to edit. |
+| **Map toolbar** | **Create Waypoint**, **Edit On Map**, **Undo**, **Redo** | Add Waypoints, edit the route, and restore Design changes. |
+| **Mission hub** | Mission selector, **Save**, **New**, **Rename**, **Duplicate**, **Delete** | Select and manage Missions stored for the loaded map. |
+| **Map** | Waypoint markers, heading arrows, route lines, map areas | Place and adjust the Mission spatially. |
+| **Waypoints** panel | Waypoint list, **Edit Task**, delete | Select, rename, configure, or remove Waypoints. |
+| **Mission Route** panel | Route order, move up/down, remove, loop controls | Review and change the execution order. |
+| **Layers** | Map, Map areas, LiDAR, Robot Footprint, TF | Show or hide the overlays available in Design. |
+
+The Mission hub appears after the selected map and Mission finish loading.
+
+### Load a Map and Mission
+
+Design does not automatically open a Mission from the last stage. Load a complete map-and-Mission document before editing it.
+
+1. Open **Autonomy Studio** and select **Mission Canvas**.
+2. In the **MISSION** group, select **Design**.
+3. Click **Load Map** in the stage header.
+4. Select a saved **Map**.
+5. Select a **Mission** associated with that map.
+6. Click **Load**.
+
+If the selected map has no saved Missions, the Mission field shows `default (new)`. Loading it starts a new in-memory Mission. Confirm the intended Mission name before saving a Waypoint Task or using **Use for Run**. The first **Save** or **Save Task As** for an unregistered Waypoint Task can persist the complete current Mission automatically so that the Task file has an owner.
+
+:::note
+A Mission belongs to one map. Selecting a different map loads that map's own Mission list.
+:::
+
+Design loads the Mission manifest and all of its Waypoint Task files as one document. If a Task file cannot be loaded or the Mission changes during loading, saving is disabled. Reload the map and Mission before continuing so an incomplete document cannot overwrite the saved Mission.
+
+### Manage Missions
+
+Use the Mission hub over the upper-left corner of the map.
+
+| Action | Behavior |
+| --- | --- |
+| **Save** | Saves the current Waypoints, poses, route, loop state, and Waypoint Task references. Task XML changes are also saved. An existing Mission saves in place. |
+| **New** | Clears the current Design canvas and starts `untitled`. If that name exists, Design uses `untitled-2`, `untitled-3`, and so on. The Mission starts unsaved; **Save** persists it, and saving its first unregistered Waypoint Task can also persist the complete Design automatically. |
+| **Rename** | Changes the name of the saved Mission. The current canvas and any in-memory edits remain open under the new name. |
+| **Duplicate** | Copies the last saved state to a new Mission name. Unsaved edits in the current canvas are not included. |
+| **Delete** | Permanently deletes the selected Mission, including its Waypoints, route, and Waypoint Tasks. If another Mission exists, Design loads it; otherwise, Design starts a new Mission. |
+
+:::warning
+Deleting a Mission also discards any unsaved edits currently open for that Mission. This action cannot be undone from Design history.
+:::
+
+#### Mission Name Rules
+
+A Mission name:
+
+- Must contain between 1 and 128 characters
+- May contain letters, numbers, `.`, `_`, and `-`
+- Must not be `.` or `..`, and must not use the reserved names `.revisions`, `.staging`, or `.trash`
+- Must not match another Mission name under the same map when creating, renaming, or duplicating
+
+Examples of valid names include `morning-patrol`, `lab_route_2`, and `demo.v1`.
+
+#### Switch Missions Safely
+
+Use the Mission selector to open another Mission stored for the same map. If the current Mission has unsaved changes, Design asks what to do before replacing the document:
+
+- **Save & continue** saves an existing Mission, then opens the selected Mission.
+- **Discard** removes the in-memory changes, then continues.
+- **Cancel** keeps the current Mission open.
+
+A new Mission that has not been saved does not have a **Save & continue** option. Name and save it first, or discard it.
+
+The same protection applies when loading another map, starting a new Mission, or returning to the Autonomy Studio workspace chooser. Switching temporarily to another Mission Canvas stage does not immediately delete the in-memory Design document, but it does not save it either. When you return to Design, use **Load Map**; the unsaved-change decision appears before the loaded document can replace those edits.
+
+:::warning Concurrent editing
+Every saved Mission has a revision. Save, rename, duplicate, delete, and Waypoint Task file operations are rejected if another browser session changed the Mission after it was loaded. When this happens, reload the Mission before editing or saving again.
+:::
+
+### Create Waypoints
+
+Each new Waypoint receives a name such as `Waypoint 1` and an empty default Waypoint Task. An empty Task makes the Waypoint navigation-only when the Mission runs.
+
+#### Create a Waypoint on the Map
+
+1. Click **Create Waypoint** in the map toolbar.
+2. Select **On Map**.
+3. Click the intended position on the map.
+4. To set the heading, press at the position, drag in the direction the robot should face, and release.
+
+Design creates the Waypoint, selects it, and returns to normal view mode. Repeat the process for each additional Waypoint.
+
+#### Create a Waypoint at the Robot
+
+Use **At Robot** when the robot is physically at the intended Waypoint.
+
+1. Make sure no Mapping, Navigation, Run, or Design-localization session is active.
+2. Click **Create Waypoint**, then select **At Robot**.
+3. Wait for the localization runtime to start.
+4. Click and drag on the map to provide the robot's approximate current position and heading.
+5. Wait while AMCL refines the pose.
+
+Design creates the Waypoint at the localized robot pose and stops the temporary localization runtime.
+
+:::warning
+The position selected in step 4 must represent the robot's actual pose on the loaded map. An incorrect initial pose can produce an incorrect Waypoint and unreliable navigation.
+:::
+
+### Edit Waypoints
+
+#### Select a Waypoint
+
+Click a Waypoint marker on the map or its row in the **Waypoints** panel. The selected marker is highlighted.
+
+#### Move or Rotate a Waypoint
+
+- Drag the Waypoint marker to change its position.
+- Drag its heading arrow to change the direction the robot should face at that Waypoint.
+
+Route lines update with the Waypoint pose. Save the Mission to make the new pose persistent.
+
+#### Rename a Waypoint
+
+1. Double-click the Waypoint name in the **Waypoints** panel.
+2. Enter the new display name.
+3. Press **Enter** or click outside the field to apply it.
+
+Press **Escape** to cancel. Renaming a Waypoint does not rename or replace its Waypoint Task files; their association remains with the Waypoint.
+
+#### Delete a Waypoint
+
+Click the delete button in the Waypoint row. Deleting a Waypoint:
+
+- Removes it from the Design canvas
+- Removes it from the route
+- Reconnects its previous and next route neighbors when possible
+- Keeps a closed route closed when at least two routed Waypoints remain
+- Schedules its Waypoint Task files for removal when the Mission is saved
+
+Use **Undo** before saving if the Waypoint was deleted accidentally.
+
+### Build the Mission Route
+
+A Mission needs at least one route connection before **Run Mission** can start. Waypoints that are not in the route remain stored in the Mission but are not executed.
+
+1. Click **Edit On Map** in the Design toolbar.
+2. Click the first Waypoint. It becomes the route start.
+3. Click each additional Waypoint in execution order.
+4. Review the numbered order in the **Mission Route** panel.
+5. Click **Edit On Map** again when route editing is complete.
+
+A Waypoint can appear only once in an open route. Clicking a Waypoint that is already in the route does not add a duplicate.
+
+#### Reorder the Route
+
+While **Edit On Map** is active, use the up and down buttons beside a routed Waypoint to move it one position earlier or later. The route connections are rebuilt to match the new order.
+
+#### Remove a Waypoint from the Route
+
+Click the `×` button beside a Waypoint in the **Mission Route** panel. This removes only its route membership:
+
+- The Waypoint remains in the **Waypoints** panel and on the map.
+- Its neighboring route entries are connected to each other.
+- A closed route remains closed when enough Waypoints remain.
+
+Use the delete button in the **Waypoints** panel only when the Waypoint itself should also be removed.
+
+#### Clear the Route
+
+While **Edit On Map** is active, click **Clear Route** to remove every route connection. All Waypoints and their Tasks remain in the Mission.
+
+#### Create a Closed Loop
+
+1. Build an open route with at least two Waypoints.
+2. Leave **Edit On Map** active.
+3. Click the first Waypoint from the current route end.
+
+The **Mission Route** panel displays `closed loop` and a **Return to _first waypoint_** row. During Run, the robot returns to the first Waypoint and processes that Waypoint again as the final Mission step.
+
+To reopen the route, click the `×` button in the **Return to** row. The loop closure is removed, and the final Waypoint becomes the route end.
+
+### Assign Waypoint Tasks
+
+Click **Edit Task** beside a Waypoint to open its Task editor. Each Waypoint has its own Task file library and one default Task selected for Run.
+
+- If the default Task is empty, Run labels the Waypoint **Nav only** and does not execute a Task at that Waypoint. The Task Engine can still be active for Tasks assigned to other Waypoints.
+- Saving an alternate Task file does not automatically select it for Mission execution.
+- Use **Use for Run** in the Waypoint Task editor to change the default file.
+- The Mission and the selected Task file must be saved before a different default can be selected.
+
+See [Waypoint Tasks](/docs/systems/aiworker/autonomy_studio/mission_canvas/mission#waypoint-tasks) for Step editing, Task file management, and **Use for Run**.
+
+### Undo, Redo, and Save
+
+Use the toolbar buttons or these shortcuts while the Design map is active:
+
+| Action | Shortcut |
+| --- | --- |
+| Undo | `Ctrl+Z` or `Command+Z` |
+| Redo | `Ctrl+Shift+Z`, `Command+Shift+Z`, `Ctrl+Y`, or `Command+Y` |
+
+Design Undo and Redo are unavailable while a Waypoint Task editor is open or another operation is in progress. The Waypoint Task editor provides its own history controls.
+
+Click **Save** after changing any of the following:
+
+- Waypoint creation, pose, name, or deletion
+- Route order, membership, or loop state
+- Waypoint Task contents or references
+
+Saving establishes a new history baseline. If additional edits are made while a save is still completing, the saved snapshot remains valid and the newer edits remain unsaved; click **Save** again.
+
+### Prepare the Mission for Run
+
+Before leaving Design, confirm that:
+
+1. The intended map and Mission are selected.
+2. Every Waypoint is positioned and oriented correctly.
+3. The Mission Route shows the intended order.
+4. The loop is open or closed as intended.
+5. Each Waypoint has the correct default Task, or is intentionally **Nav only**.
+6. The Mission has been saved successfully.
+
+If a Waypoint needs a Task, continue to [Waypoint Tasks](/docs/systems/aiworker/autonomy_studio/mission_canvas/mission#waypoint-tasks). For a navigation-only Mission, continue directly to [Mission Run](/docs/systems/aiworker/autonomy_studio/mission_canvas/mission#mission-run).
+
+## Waypoint Tasks
+
+A Waypoint Task is a set of connected Steps assigned to one waypoint. During Mission execution, the robot first reaches the waypoint and then runs the selected Task. Each waypoint can keep several saved Task files, but only one is selected for Run.
+
+Waypoint Tasks use the same Flow Controls, Actions, connection rules, and parameter inspector as [Action Canvas](/docs/systems/aiworker/autonomy_studio/action_canvas). Unlike Action Canvas, they are stored inside a Map and Mission rather than in the standalone Task library.
+
+### Prerequisites
+
+- Complete the [Autonomy Studio prerequisites](/docs/systems/aiworker/autonomy_studio/overview#prerequisites).
+- Load a Map and Mission in [Mission Design](/docs/systems/aiworker/autonomy_studio/mission_canvas/mission#mission-design).
+- Create at least one waypoint.
+- Save a new Mission before selecting an alternate Task with **Use for Run**.
+
+Editing a Waypoint Task does not require Navigation or the Mission Runner to be active. The Task Engine is required later when a non-empty Waypoint Task is executed in the Run stage.
+
+### Open a Waypoint Task
+
+1. Open **Autonomy Studio** and select **Mission Canvas**.
+2. In the stage rail, select **Design**.
+3. Click **Load Map** and load the Map and Mission to edit.
+4. In the **Waypoints** panel, find the intended waypoint.
+5. Click **Edit Task**.
+
+The header changes to **Design > waypoint name · Waypoint Task**. The map remains visible as a narrow context area on the left, and the Task editor opens on the right.
+
+To return to Mission Design, click **Back to Map** in the header or click the left map context area. The current in-memory edits remain part of the Design document; returning to the map does not automatically save them to the server.
+
+### Interface Overview
+
+| Area | Functions |
+| --- | --- |
+| **Design header** | Shows the waypoint being edited and provides **Back to Map**. |
+| **Map context** | Keeps the selected waypoint visible and provides another way to return to the Design map. |
+| **Step palette** | Lists the shared **Flow Controls** and **Actions**. |
+| **Task canvas** | Adds, moves, connects, selects, hides, shows, and deletes Steps. |
+| **Parameter panel** | Opens on the right when a Step is selected and edits the Step name and parameters. |
+| **File and edit toolbar** | Provides **Undo**, **Redo**, **Auto layout**, **Clear**, **Open Task**, **Save**, **Save Task As**, and **Use for Run**. |
+
+The Waypoint Task Step list does not include a manual **Refresh Steps** button. If custom Steps were added or removed, turn on the Task Engine and use **Refresh Steps** in [Action Canvas](/docs/systems/aiworker/autonomy_studio/action_canvas#add-steps), then reopen the Waypoint Task editor.
+
+### Build the Waypoint Task
+
+#### Add and Connect Steps
+
+1. Drag a Step from the left palette and drop it on the canvas.
+2. Drag from the connection point below a Flow Control to the connection point above the next Step.
+3. Repeat until all required Steps are connected into one Task.
+
+The editor applies the same connection rules as Action Canvas:
+
+- Only a Flow Control can have Steps connected after it.
+- Each following Step can have only one incoming connection.
+- A Step cannot connect to itself or loop back to an earlier Step.
+- Steps connected to the same Flow Control run from left to right according to their position on the canvas.
+- Separate groups can be saved, but only the connected Task is run.
+
+If a connection is not allowed, the editor explains whether the Step is already connected or the new connection would loop backward.
+
+#### Configure Steps
+
+Select a Step to open the parameter panel. Rename the Step or edit its booleans, selections, numeric values, paths, joints, and positions as appropriate.
+
+The standard Steps are:
+
+| Category | Step | Purpose |
+| --- | --- | --- |
+| Flow Control | `Sequence` | Runs its following Steps from left to right and stops if one fails. |
+| Flow Control | `Loop` | Repeats its following Steps; `max_iterations` of `0` or less repeats indefinitely. |
+| Action | `Rotate` | Rotates the mobile base by a relative angle. |
+| Action | `JointControl` | Moves the selected head, arm, and lift joints and waits until they reach their targets. |
+| Action | `ArmStateGate` | Waits for selected arm positions and optional gripper actions without moving the arms. |
+| Action | `SendCommand` | Prepares, starts, pauses, or removes a trained AI model. |
+| Action | `Wait` | Waits for a configured duration. |
+
+See [Standard Steps in Action Canvas](/docs/systems/aiworker/autonomy_studio/action_canvas#standard-steps) for each Step's settings, default values, model choices, and behavior. The available Step list can also include custom Steps detected by the system.
+
+:::warning
+Motion and AI model Steps work the same way as they do in Action Canvas. In particular, configure both sides of `ArmStateGate`, review all `JointControl` targets, and change `SendCommand.inference_mode` from its `simulation` default only when the model should send commands to the robot.
+:::
+
+#### Arrange, Collapse, and Delete Steps
+
+- Drag a Step to reposition it.
+- Use **Auto layout** to arrange visible Steps.
+- Use a Flow Control's `-` or `+` control to hide or show the Steps grouped below it.
+- Select Steps or connection lines and press `Delete` or `Backspace` to remove them.
+- Click **Clear** twice within four seconds to remove the entire Waypoint Task.
+
+The first **Clear** click only prepares the command. Clearing is disabled while a file is loading, another file operation is active, the Mission is busy, or the Task file cannot be read.
+
+An empty Task is valid. When the empty file is selected with **Use for Run**, the Mission Runner treats that waypoint as navigation-only. Saving an empty alternate file without selecting it leaves the existing default Task unchanged.
+
+#### Undo and Redo
+
+Use the toolbar's **Undo** and **Redo** buttons to restore or reapply changes. The Waypoint Task view currently provides keyboard shortcuts for deleting selected content, but not for Undo or Redo; use the toolbar buttons for those two actions.
+
+Undo and Redo cover Step connections, positions, names, settings, hidden sections, and clearing. Opening another Task starts a new editing history. Saving a file does not clear the current history, so using Undo after saving creates a new unsaved change.
+
+### Understand Waypoint Task Files
+
+Each waypoint keeps its own Task files. A new waypoint normally starts with `main.xml`. Files created with **Save Task As** appear only for that waypoint, and renaming the waypoint keeps its Task files attached.
+
+:::note
+The **Open Task** dialog lists only files owned by the selected waypoint. Standalone Action Canvas files and files belonging to another waypoint are not shown.
+:::
+
+#### Current Edits and Saved Files
+
+| State or action | Effect |
+| --- | --- |
+| **Current edits** | Changes remain available when you select **Back to Map**, but they are not stored on the server until you save. |
+| **Save** | Stores the Task currently open in the editor. For a new Mission or waypoint, Autonomy Studio may save the Mission first so that the Task has a waypoint to belong to. |
+| **Save Task As** | Stores the Task with a new filename and opens that file in the editor. It does not change which Task is used during Mission Run. |
+| **Use for Run** | Selects the current saved Task as the one to run at this waypoint. |
+| **Save Mission** | Stores the Waypoints, route, and related Tasks together. |
+
+Use **Save** when the selected file already has the desired identity. Use **Save Task As** to retain the current file and create an alternate version.
+
+### Open an Existing Waypoint Task
+
+1. Click **Open Task**.
+2. Select one of the files owned by the waypoint.
+3. Click **Open Selected**.
+
+The file currently selected for execution has a **Run Task** badge in the dialog.
+
+:::warning
+Opening another file changes only what the editor displays. It does not change the Task used by Mission Run. Click **Use for Run** after saving if the newly opened file should become the execution default.
+:::
+
+Opening a saved Task replaces the current edits and starts a new editing history. Save the current Task before opening another file if you need to keep it.
+
+### Save the Current File
+
+1. Confirm that every required Step is connected correctly.
+2. Click **Save**.
+3. Wait for the `Saved:` notification before leaving the file.
+
+If another browser changed the Mission first, the save is rejected. Reload the Mission before continuing so that you do not overwrite newer changes.
+
+Save actions are unavailable while another Mission operation is active or when the Mission failed to load completely. Resolve the reported load error and reload the Mission before saving.
+
+### Save an Alternate File
+
+1. Click **Save Task As**.
+2. Enter a new file name.
+3. Click **Save Task As** in the dialog.
+
+The `.xml` extension is added automatically. The filename may contain letters, numbers, `.`, `_`, and `-`. An existing filename cannot be reused; the Waypoint Task editor does not provide an overwrite action for **Save Task As**.
+
+After a successful save, the new file becomes the file displayed in the editor.
+
+:::warning
+**Save Task As does not change Mission execution.** The previous default file remains marked **Run Task** until you select the new saved file and click **Use for Run**.
+:::
+
+### Select the Task Used for Run
+
+1. Use **Open Task** to select the required file, or create it with **Save Task As**.
+2. Save the file and confirm that the Mission already exists on the server.
+3. Click **Use for Run**.
+4. Wait for the `Used for Run:` confirmation.
+5. Reopen **Open Task** if you want to verify that the file now has the **Run Task** badge.
+
+**Use for Run** is disabled when the selected file is already the default. It is also unavailable until both the Mission and the selected file have been saved.
+
+**Use for Run** takes effect immediately and cannot be reversed with Design **Undo**. To switch back, open the previous Task and click **Use for Run** again.
+
+### Navigation-Only Waypoints
+
+A Task with no Steps is treated as empty.
+
+To make a waypoint navigation-only:
+
+1. Open its default Task.
+2. Click **Clear** twice within four seconds.
+3. Click **Save**.
+4. If you cleared an alternate file, click **Use for Run** to make it the default.
+
+During Mission Run, the waypoint is reported as **Nav only**. The robot continues along the route without starting a Task at that waypoint.
+
+### How the Task Executes in a Mission
+
+Only waypoints included in the saved Mission route are executed. For each routed waypoint, the Run stage performs this order:
+
+```text
+Navigate to waypoint → Load default Waypoint Task → Run Task → Continue route
+```
+
+If the default Task is empty, the Task portion is skipped. If the Task fails, does not start, or times out, the Mission fails at that waypoint. The Run stage automatically manages the Task Engine when the Mission contains executable Waypoint Tasks, and shows the active Task read-only with live Step highlighting.
+
+A Waypoint Task must start within 5 seconds and finish within 300 seconds. Otherwise, the Mission fails at that waypoint.
+
+Test the complete saved route by following [Mission Run](/docs/systems/aiworker/autonomy_studio/mission_canvas/mission#mission-run). There is no standalone **Run Task** button inside the Waypoint Task editor.
+
+### Constraints and Cautions
+
+- A waypoint can keep several saved Task files, but only one can be selected for Run.
+- **Open Task** and **Save Task As** change the file shown in the editor, not the Task selected for Run.
+- A Task that is not assigned to a route waypoint is never executed by that Mission.
+- Connect all required Steps into one Task. Separate groups do not run.
+- Save current edits before reloading or switching Missions.
+- If another browser changed the Mission, reload it before continuing.
+- The editor cannot delete an individual Task file. Deleting a waypoint or Mission also removes the Task files that belong to it.
+
+:::caution
+The robot may begin joint motion, base rotation, or AI model control immediately after navigation succeeds. Keep the route endpoint clear and confirm that every waypoint's **Run Task** file is safe for the robot's expected arrival pose.
+:::
+
+### Related Guides
+
+- [Action Canvas](/docs/systems/aiworker/autonomy_studio/action_canvas)
+- [Mission Design](/docs/systems/aiworker/autonomy_studio/mission_canvas/mission#mission-design)
+- [Mission Run](/docs/systems/aiworker/autonomy_studio/mission_canvas/mission#mission-run)
+
+## Mission Run
+
+Use the **Run** stage of Mission Canvas to execute a saved Mission. Run navigates through the Mission route and starts the default Waypoint Task at each applicable Waypoint.
+
+The Run stage uses a separate, read-only snapshot of the saved Mission. Loading or running a Mission does not replace the in-memory document in [Mission Design](/docs/systems/aiworker/autonomy_studio/mission_canvas/mission#mission-design), and unsaved Design changes do not appear in Run.
+
+### Before You Begin
+
+- Complete the [Autonomy Studio prerequisites](/docs/systems/aiworker/autonomy_studio/overview#prerequisites).
+- Create and save the Mission in [Mission Design](/docs/systems/aiworker/autonomy_studio/mission_canvas/mission#mission-design).
+- Confirm that the saved Mission has a connected route.
+- Confirm that each Waypoint uses the intended default [Waypoint Task](/docs/systems/aiworker/autonomy_studio/mission_canvas/mission#waypoint-tasks), or is intentionally navigation-only.
+- Place the robot in a known, unobstructed part of the selected map.
+- Clear people, movable objects, cables, and other hazards from the complete route.
+
+:::danger
+A Mission can move the mobile base, lift, head, and arms and can start inference policies. Keep the Remote E-STOP within reach and do not enter the robot's operating area while the Mission is running.
+:::
+
+### Run Interface
+
+| Area | Controls or information | Purpose |
+| --- | --- | --- |
+| **Stage header** | **Load Map**, navigation status | Load a map-and-Mission snapshot and check whether the navigation runtime is running. |
+| **Run toolbar** | **Localize**, **Run Mission**, **Stop** | Prepare localization, start the sequence, or stop the complete session. |
+| **Map** | Route, active Waypoint, robot pose, navigation overlays | Follow the Mission spatially. |
+| **Run Session** | Runtime, selected map, Mission selector, localization, progress, failure reason | Monitor the current session and each Waypoint. |
+| **Layers** | Map, Map areas, LiDAR, Robot Footprint, costmaps, Global plan, TF | Control Run-stage map overlays. |
+| **Topics** | Navigation and Task topic state | Check whether data for enabled layers and Task visualization is live. |
+
+### Run a Mission
+
+Mission execution has three operator steps:
+
+```text
+Load Map and Mission → Localize → Run Mission
+```
+
+#### 1. Load the Map and Mission
+
+1. Open **Autonomy Studio** and select **Mission Canvas**.
+2. In the **MISSION** group, select **Run**.
+3. Click **Load Map** in the stage header.
+4. Select the saved **Map**.
+5. Select the saved **Mission** associated with that map.
+6. Click **Load**.
+
+Run loads the following as one read-only snapshot:
+
+- The map used by the Mission
+- Saved Waypoints and poses
+- Route order and loop state
+- The default Waypoint Task for each Waypoint
+
+The map and route appear before navigation starts. If any required Mission or default Task file changes during loading, the snapshot is rejected instead of mixing revisions. Load the Mission again.
+
+:::note
+The Mission selector in **Run Session** can load another saved Mission for the same map while no Mission is executing. The selector is disabled during a run or another load operation.
+:::
+
+#### 2. Localize the Robot
+
+1. Click **Localize** in the Run toolbar.
+2. Wait for the navigation runtime to start.
+3. On the map, press at the robot's approximate actual position.
+4. Drag in the direction the robot is facing, then release.
+5. Wait until **Run Session** reports **Localization: Ready**.
+
+Autonomy Studio sends the initial pose to AMCL and requests pose refinement. **Run Mission** remains unavailable until a usable localization result is received.
+
+Clicking **Localize** a second time before placing the pose cancels pose-selection mode. A completed localization remains available until the runtime is restarted or a new pose is submitted.
+
+:::warning
+An incorrect initial pose can make the robot plan from the wrong part of the map. Compare the displayed robot pose and LiDAR alignment with the environment before starting the Mission.
+:::
+
+#### 3. Start the Mission
+
+Before enabling motion, check the complete route, Waypoint headings, and surrounding area. Then click **Run Mission**.
+
+The button is available only when:
+
+- A complete Run snapshot is loaded
+- Localization is ready
+- The Mission contains a connected route
+- No Mission or Task Engine lifecycle operation is already active
+
+If the route is missing, return to [Build the Mission Route](/docs/systems/aiworker/autonomy_studio/mission_canvas/mission#build-the-mission-route), connect the Waypoints, save the Mission, and load it again in Run.
+
+### Mission Execution Order
+
+For each route entry, Run performs this sequence:
+
+```text
+Send navigation goal
+→ Wait for Nav2 success
+→ Mark the Waypoint arrived
+→ Run its default Waypoint Task, if non-empty
+→ Continue to the next route entry
+```
+
+Run advances only after navigation reports success and the Waypoint Task reports completion. A navigation failure or Task failure stops the sequence and marks the affected Waypoint as failed.
+
+#### Navigation-Only Waypoints
+
+A Waypoint whose default Task is blank or contains no Steps is **Nav only**. Run navigates through it without loading a Task.
+
+To reduce separate navigation requests, Run batches route segments as follows:
+
+- It collects up to two consecutive Nav-only Waypoints.
+- If a Waypoint with a Task immediately follows them, that Waypoint is included as the final pose in the same navigation request.
+- All Nav-only Waypoints in the successful batch are marked **Nav only** after navigation succeeds.
+- The Task runs only at the final Waypoint that owns it.
+
+Depending on the route, a batch therefore contains two or three poses and uses NavigateThroughPoses. A standalone Waypoint uses a normal point-to-point navigation goal.
+
+#### Closed Routes
+
+For a closed route, Run adds the first Waypoint to the end of the execution sequence. The robot returns from the last Waypoint to the first, and the first Waypoint's default Task is processed again.
+
+The progress list identifies this final entry as **Return to _first waypoint_**.
+
+### Task Engine Lifecycle
+
+Run manages the Task Engine only when at least one routed Waypoint has a non-empty Task.
+
+| Initial state | Run behavior |
+| --- | --- |
+| Task Engine is down | Run starts it, waits for its ROS services to become ready, and stops the process after the Mission finishes, fails, or is cancelled. |
+| Task Engine is already up and idle | Run borrows it and leaves the process running after the Mission. |
+| Task Engine is running or stopping another Task | Run refuses to replace that Task. Stop the other Task before retrying. |
+| Task Engine state cannot be verified | Run fails closed and asks you to wait or retry. |
+| Every Waypoint is Nav only | Run does not start, stop, or otherwise take ownership of the Task Engine. |
+
+This ownership rule prevents Run from shutting down a Task Engine process that Action Canvas or another client started.
+
+#### Task Execution Safeguards
+
+The current runner uses these default limits for every non-empty Waypoint Task:
+
+| Check | Value | Behavior |
+| --- | --- | --- |
+| Fresh Task start status | 5 seconds | If no fresh status transition arrives, the Waypoint fails with **Waypoint Task did not start**. |
+| Task completion | 300 seconds | If no completion arrives, the Waypoint fails with **Waypoint Task timed out** and Run sends a Task stop request. |
+| Status polling | 250 milliseconds | Run checks the latest subscribed Task status while waiting for a fresh `completed` or `failed` result. |
+
+Run requires a fresh status for the current Task. A terminal status left over from an earlier Task is not accepted as completion for a newly loaded Task.
+
+### Monitor a Mission
+
+#### Run Session
+
+The **Run Session** panel displays:
+
+- Whether the navigation runtime is **Running** or **Idle**
+- The selected map and Mission
+- Whether localization is ready
+- The current Waypoint number and phase
+- A progress row for every route entry
+- A failure or cancellation reason when available
+
+Waypoint rows use these states:
+
+| State | Meaning |
+| --- | --- |
+| Pending | The Waypoint has not started. |
+| Navigating | Nav2 is moving toward this Waypoint or through its batch. |
+| Task | The Waypoint Task is running. |
+| Done | Navigation and the Waypoint Task completed. |
+| Nav only | Navigation completed and no Task was run. |
+| Failed | Navigation or the Waypoint Task failed. |
+
+The phase text can show **Navigating**, **Arrived**, **Starting task**, **Running task**, or **Waypoint done**.
+
+#### Map and Task View
+
+While navigating, the map highlights the active Waypoint and follows the robot. Use **Layers** to inspect LiDAR, robot footprint, costmaps, the global plan, or TF as needed.
+
+When a Waypoint Task runs, Run opens a read-only Task view beside the map. The currently active Steps are highlighted from `/bt/active_nodes`. The Task cannot be edited from Run; make changes in the Waypoint Task editor under Design, save them, and reload the Mission snapshot.
+
+The **Topics** panel includes `/bt/status` and `/bt/active_nodes` in addition to the topics required by the enabled navigation layers.
+
+### Stop the Mission
+
+Click **Stop** to end the complete Run session. Stop:
+
+1. Cancels the active Mission Runner loop.
+2. Cancels the current navigation goal.
+3. Stops a Waypoint Task engaged by this run.
+4. Stops the navigation runtime.
+5. Clears localization and the loaded Run snapshot.
+6. Releases a Task Engine process only if Run started it.
+
+After Stop completes, select **Load Map** again before starting another Run session.
+
+:::warning
+Do not use browser refresh or closing the page as the normal stop procedure. Autonomy Studio sends a best-effort shutdown request on full-page exit and retries a recent pending shutdown when the page returns, but network or browser termination can interrupt that request. Use **Stop** and verify **Status: idle** before leaving the robot.
+:::
+
+### Completion and Failure Behavior
+
+#### After Successful Completion
+
+The progress list remains available and the application reports **Mission complete**. The navigation runtime and loaded snapshot remain active so the operator can inspect the result or run the same Mission again. Click **Stop** when the session is finished.
+
+If Run started the Task Engine, that process is released automatically after the Mission completes. A Task Engine that was already running before the Mission remains running.
+
+#### After a Failure
+
+Run stops advancing and displays the reason in the **Run Session** panel. Common reasons include:
+
+- A navigation request could not be sent
+- Nav2 returned a result other than success
+- A Waypoint Task could not be loaded or was rejected
+- A Waypoint Task reported failure
+- A Waypoint Task did not start or timed out
+- The Task Engine could not be activated or verified as idle
+
+Use this recovery sequence:
+
+1. Read the reason and identify the failed Waypoint.
+2. Click **Stop** to cancel remaining activity and stop the navigation runtime.
+3. Verify the robot is stationary and the route is clear.
+4. Correct the map, Waypoint pose, route, or Waypoint Task in the appropriate stage.
+5. Save the edited asset: use **Save** in Map Edit for map changes, or save the Mission and Waypoint Task from Design for Mission changes.
+6. Return to Run, load a fresh snapshot, localize, and retry.
+
+If Stop reports that the robot may still be executing, use the Remote E-STOP as needed and verify the navigation and Task states before attempting another run.
+
+### Leaving Run Safely
+
+Selecting another Mission Canvas stage while Run navigation is active first requests a complete stop. The stage changes only after that stop succeeds. Returning to the workspace chooser is blocked until the active runtime and other in-progress operations stop.
+
+Before leaving Run, confirm:
+
+- The robot is stationary.
+- **Status** shows `idle`.
+- No Waypoint Task is still active.
+- The Task Engine state is appropriate for the next workflow.
