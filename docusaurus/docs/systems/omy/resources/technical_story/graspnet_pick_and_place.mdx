@@ -136,7 +136,7 @@ ros2 launch open_manipulator_playground omy_graspnet.launch.py
 
 A command window opens with a box per place (`place1`, `place2`, ...):
 
-1. Type a category name (e.g. `doll`) into a place's text box and click **Add** to send that category there. `place2` here is set as `else`, so anything that doesn't match a rule goes there by default — click the **else** radio under a different box to change the default.
+1. Type a category name (e.g. `doll`) into a place's text box and click **Add** to send that category there. `place2` here is set as `else`, so anything that doesn't match a rule goes there by default — select **else** under a different box to make that one the default instead.
 2. Click **Execute** to run one detection cycle, or check **Auto mode** to have it repeat pick-and-place continuously. **Pick** runs the last detected grasp again; **Cancel** stops an in-progress auto loop.
 3. **AI mode** turns Gemini classification on or off. With it off, the rules above are ignored and it just picks the best-scoring candidate and places it at one fixed spot — a plain GraspNet-only pick.
 4. **Clear Rules** removes everything you've added, back to just the default place.
