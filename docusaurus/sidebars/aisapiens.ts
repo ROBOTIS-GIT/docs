@@ -28,6 +28,7 @@ const aisapiensSidebar: SidebarsConfig[string] = [
       {type: 'doc', id: 'systems/aisapiens/development_guide/ros2_package_structure/ros2_package_structure', label: 'ROS 2 Package Structure and Topic Description'},
       {type: 'doc', id: 'systems/aisapiens/development_guide/zenoh_ros2_sdk', label: 'Control with Python SDK'},
       {type: 'doc', id: 'systems/aisapiens/development_guide/sim2real/sim2real', label: 'Sim2Real'},
+      {type: 'doc', id: 'systems/aisapiens/development_guide/sim2sim/sim2sim', label: 'MuJoCo Sim2Sim'},
     ],
   },
   {
