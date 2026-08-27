@@ -4,6 +4,8 @@ title: Mimic Policy Training
 ---
 
 import CodeSnippet from '@site/src/components/CodeSnippet';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 # Mimic Policy Training
 
@@ -13,8 +15,13 @@ import CodeSnippet from '@site/src/components/CodeSnippet';
 
 Train, preview, and export a K1 dance mimic policy from this guide.
 Run the commands inside the Cyclo Lab container from `/workspace/cyclo_lab`.
+Select the same physics backend used during [Cyclo Lab setup](/docs/systems/aisapiens/reinforcement_learning/cyclo_lab/#choose-a-physics-backend).
+The checked-out branch selects the backend; the command-line options below only control visualization.
 
 ## Train
+
+<Tabs groupId="cyclo-lab-physics" queryString>
+<TabItem value="physx" label="PhysX (Default)" default>
 
 ```bash
 python scripts/reinforcement_learning/rsl_rl/train.py \
@@ -22,6 +29,19 @@ python scripts/reinforcement_learning/rsl_rl/train.py \
   --num_envs 4096 \
   --headless
 ```
+
+</TabItem>
+<TabItem value="newton" label="Newton (Experimental)">
+
+```bash
+python scripts/reinforcement_learning/rsl_rl/train.py \
+  --task Cyclo-Mimic-K1-Rev1-Dance1 \
+  --num_envs 4096 \
+  --viz none
+```
+
+</TabItem>
+</Tabs>
 
 Training output is written to:
 
@@ -55,6 +75,9 @@ Run the matching play task after training.
 By default, `play.py` loads the latest run and the latest `model_*.pt` checkpoint for the selected task.
 It runs the policy in simulation and exports `policy.onnx` next to the checkpoint.
 
+<Tabs groupId="cyclo-lab-physics" queryString>
+<TabItem value="physx" label="PhysX (Default)" default>
+
 ```bash
 python scripts/reinforcement_learning/rsl_rl/play.py \
   --task Cyclo-Mimic-K1-Rev1-Dance1-Play \
@@ -62,6 +85,22 @@ python scripts/reinforcement_learning/rsl_rl/play.py \
 ```
 
 Add `--headless` when exporting without the Isaac Sim window.
+
+</TabItem>
+<TabItem value="newton" label="Newton (Experimental)">
+
+```bash
+python scripts/reinforcement_learning/rsl_rl/play.py \
+  --task Cyclo-Mimic-K1-Rev1-Dance1-Play \
+  --num_envs 16
+```
+
+Newton playback opens the native Newton visualizer by default.
+Add `--viz none` to play and export without a window.
+Add `--mouse_drag` to enable right-click dragging of robot bodies in the Newton visualizer.
+
+</TabItem>
+</Tabs>
 
 To play a specific checkpoint instead of the latest one, add `--checkpoint`:
 
