@@ -116,7 +116,6 @@ const aiworkerSidebar: SidebarsConfig[string] = [
       {type: 'doc', id: 'systems/aiworker/advanced_features/advanced_features', label: 'Overview', key: 'advanced-features-overview'},
       {type: 'doc', id: 'systems/aiworker/advanced_features/cyclo_control', label: 'Cyclo Control'},
       {type: 'doc', id: 'systems/aiworker/advanced_features/robotis_vuer', label: 'ROBOTIS Vuer'},
-      {type: 'doc', id: 'systems/aiworker/advanced_features/eazy_navi', label: 'Easy Navi'},
     ],
   },
   {

@@ -13,6 +13,11 @@ The **Navigation** group in Mission Canvas prepares the map and localization nee
 | **Map Edit** | Correct occupancy pixels and define named map areas. |
 | **Navigation** | Localize the robot and test the saved map with a single goal. |
 
+
+Before following this guide, we recommend watching the Navigation UI walkthrough below. It provides an overview of the interface and shows how the Mapping, Map Edit, and Navigation stages fit together. If the embedded player does not open, [watch it on YouTube](https://www.youtube.com/watch?v=Q5DGErmbXY0).
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Q5DGErmbXY0" title="Navigation UI walkthrough" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+
 For a new environment, use this recommended validation sequence:
 
 ```text
@@ -25,174 +30,86 @@ After the map has been validated, continue to [Mission](/docs/systems/aiworker/a
 
 Use the **Mapping** stage of Mission Canvas to build an occupancy-grid map with SLAM. The stage combines a live map viewer, mobile-base teleoperation, map saving, and saved-map deletion in one workspace.
 
-### Prerequisites
-
-- Complete the [Autonomy Studio prerequisites](/docs/systems/aiworker/autonomy_studio/overview#prerequisites).
-- Open **Autonomy Studio**, select **Mission Canvas**, and select **Mapping** in the stage rail.
-- Bring up the AI Worker and confirm that its LiDAR and odometry data are available.
-- Place the robot in the environment that you want to map, with enough clearance to move and rotate safely.
-
-:::caution
-Mapping and Mobile Teleop can move the robot. Keep the Remote E-STOP within reach and make sure that people, cables, and movable objects are outside the robot's path.
-:::
-
-### Interface Overview
-
-| Control or panel | Description |
-| --- | --- |
-| **Start Mapping** | Starts the navigation runtime in mapping mode. It is unavailable while another navigation runtime or operation is active. |
-| **Save Map** | Opens the map-name dialog and saves the current SLAM result. It is available only while mapping is running. |
-| **Stop** | Stops the mapping runtime. |
-| **Delete Map** | Opens the list of saved PGM maps and starts the deletion workflow. |
-| **Mobile Teleop** | Publishes mobile-base velocity commands after you explicitly activate it. |
-| **Mapping Session** | Identifies the source as live mapping and indicates that the current result is not yet saved. |
-| **Layers** | Shows or hides the Map, Lidar, Robot Footprint, and TF overlays. |
-| **Topics** | Reports `live` or `wait` for the ROS 2 data required by the enabled layers. |
-| **Status** | Shows whether the navigation runtime is `running` or `idle`. |
-
-The default Mapping layers are **Map**, **Lidar**, **Robot Footprint**, and **TF**. With those layers enabled, the Topics panel can report the state of `/map`, `/scan`, `/pose`, `/odom`, `/tf`, `/tf_static`, and `/local_costmap/published_footprint`.
-
-:::info
-A topic can remain at `wait` until the mapping runtime and its corresponding sensor or transform publisher are active. Use this panel as a data-flow check when an expected overlay does not appear.
-:::
-
 ### Create a Map
+
+![Mapping button and Mapping canvas in Mission Canvas](/img/systems/aiworker/autonomy_studio/mission_canvas/navigation/mapping_page_mission_canvas.png)
 
 1. Select **Mapping** in the Mission Canvas stage rail.
 2. Click **Start Mapping**.
 3. Confirm that the header status changes to **Status: running**.
 4. Confirm that the live map and LiDAR scan begin to appear in the map viewer.
 5. In **Mobile Teleop**, click **Activate**.
-6. Drive the robot through the environment slowly. Cover entrances, corners, and the boundaries of the usable floor space while avoiding sudden motion.
-7. Return near the starting area when practical and verify that walls and corridors align consistently in the map.
-8. Save the map before stopping the runtime. See [Save the Map](#save-the-map).
-9. Click **Stop** after the map has been saved.
 
-:::warning
-**Save Map** is enabled only while mapping is running. Save the required map before clicking **Stop**.
-:::
+   Mobile Teleop is inactive when you first open the stage. After activation, use the on-screen controls or the keyboard to drive the robot:
 
-### Drive with Mobile Teleop
+   | Control | Motion |
+   | --- | --- |
+   | `W` | Drive forward. |
+   | `S` | Drive backward. |
+   | `A` | Rotate left. |
+   | `D` | Rotate right. |
+   | `0` button | Stop. |
+   | `Space` key | Stop. |
 
-Mobile Teleop is inactive when you first open the stage. Click **Activate** before using either the on-screen controls or the keyboard.
+   Press and hold a direction button, or hold its keyboard key, to continue moving. Releasing the button or key stops the robot. Moving the pointer away from a held on-screen button also stops it.
 
-| Control | Motion |
-| --- | --- |
-| `W` | Drive forward. |
-| `S` | Drive backward. |
-| `A` | Rotate left. |
-| `D` | Rotate right. |
-| `0` button | Stop. |
-| `Space` key | Stop. |
+   The velocity command is refreshed every 200 ms while a direction remains held. The panel publishes a `geometry_msgs/msg/Twist` command to `/cmd_vel`.
 
-Press and hold a direction button, or hold its keyboard key, to continue moving. Releasing a direction button or key sends a stop command. Moving the pointer away from a held on-screen button also stops the command.
+   **Adjust the speed**
 
-The velocity command is refreshed every 200 ms while a direction remains held. The panel publishes a `geometry_msgs/msg/Twist` command to `/cmd_vel`.
+   | Setting | Default | Range | Step |
+   | --- | ---: | ---: | ---: |
+   | **Linear (m/s)** | 0.40 | 0.05–1.20 | 0.05 |
+   | **Angular (rad/s)** | 0.80 | 0.05–2.00 | 0.05 |
 
-#### Adjust the Speed
+   Changing a speed while the robot is moving applies the new value immediately. Start with low values in narrow or unfamiliar spaces.
 
-| Setting | Default | Range | Step |
-| --- | ---: | ---: | ---: |
-| **Linear (m/s)** | 0.40 | 0.05–1.20 | 0.05 |
-| **Angular (rad/s)** | 0.80 | 0.05–2.00 | 0.05 |
+   Click **Deactivate** when Mobile Teleop is no longer needed. Deactivation sends a stop command. The interface also sends a safety stop when an active control is released, when Teleop becomes unavailable, or when the panel closes.
 
-Changing a speed while the robot is moving applies the new value to the active command. Start with low values in narrow or unfamiliar spaces.
+   Mobile Teleop must be activated again for every inactive session. Keyboard input is ignored while the panel is inactive or while focus is in a text input.
 
-Click **Deactivate** when you no longer need Mobile Teleop. Deactivation sends a stop command. The interface also sends a safety stop when an active control is released, when Teleop becomes unavailable, or when the panel closes.
+6. Drive the robot through the environment slowly to complete the map.
 
-:::note
-Mobile Teleop must be activated explicitly for every inactive session. Keyboard input is ignored while the panel is inactive or while focus is in a text input.
-:::
+   ![Live map created while driving with Mobile Teleop](/img/systems/aiworker/autonomy_studio/mission_canvas/navigation/mapping_page_mission_canvas_2.png)
 
-### Save the Map
+7. Save the map before stopping the runtime:
 
-1. While mapping is running, click **Save Map** in the map-viewer toolbar.
-2. Enter a value in **Map name**.
-3. Click **Save**.
-4. Wait for the completion message before stopping mapping or changing stages.
+   1. While mapping is running, click **Save Map** in the map-viewer toolbar.
+   2. Enter a value in **Map name**.
+   3. Click **Save**.
+   4. Wait for the completion message before stopping mapping or changing stages.
 
-The saved map consists of:
+   **Save Map** is available only while mapping is running. The saved map consists of:
 
-- `<map-name>.pgm`, the occupancy-grid image
-- `<map-name>.yaml`, the map metadata used by navigation
+   - `<map-name>.pgm`, the occupancy-grid image
+   - `<map-name>.yaml`, the map metadata used by navigation
 
-A map name must be 1–128 characters and can contain only letters, numbers, `.`, `_`, and `-`. For example, use `lab-east-01` instead of a name containing spaces.
+   A map name must be 1–128 characters and can contain only letters, numbers, `.`, `_`, and `-`. For example, use `lab-east-01` instead of a name containing spaces.
 
-:::warning
-Saving with an existing map name replaces that map's PGM and YAML files. Existing area annotations and Missions under the same name remain unchanged; they are not recreated for the new geometry and their coordinates can become stale. Use a new map name unless you intentionally want to update the map, then recheck every area, Waypoint, and route that uses it.
-:::
-
-After saving, the map is available to **Map Edit**, **Navigation**, **Design**, and **Run**.
-
-### Stop Mapping
-
-Click **Stop** to shut down the active mapping runtime. When shutdown completes:
-
-- The header changes to **Status: idle**.
-- **Start Mapping** becomes available again.
-- **Save Map** and **Stop** become unavailable.
-- **Map Edit** becomes available in the stage rail.
-
-Map Edit is intentionally locked while mapping is active because SLAM can update map data while the editor is modifying a saved PGM file.
-
-If you try to return to the workspace chooser while mapping is running, Autonomy Studio keeps the workspace open and asks you to stop the active runtime first.
+8. Click **Stop** after the map has been saved. Wait until the header shows **Status: idle** before changing stages or leaving the workspace.
 
 ### Delete a Saved Map
 
-1. Click **Delete Map** in the map-viewer toolbar.
-2. Select a PGM file from the **Saved maps** list.
-3. Review the confirmation dialog. It reports the number of Missions when that inventory is available.
-4. Click **Yes** to delete the map, or **No** to keep it.
+![Live map created while driving with Mobile Teleop](/img/systems/aiworker/autonomy_studio/mission_canvas/navigation/delete_map.png)
 
-:::danger
+1. Click the **Delete Map** trash can button in the map-viewer toolbar. The **Saved maps** list opens directly below the button.
+2. Find the PGM map that you want to remove and click the red trash can at the right side of its row.
+3. Review the **Delete this map?** dialog. It shows that the map and its areas will be deleted, along with the number of Missions that will also be removed when that information is available.
+4. Click **Yes** to delete the map, or **No** to keep it. Clicking the red trash can alone does not delete the map; deletion occurs only after you click **Yes**.
+
+:::warning
 Deleting a map permanently removes its PGM image, YAML metadata, area-annotation file, and every Mission stored for that map. This action has no undo operation.
 :::
 
 A map currently protected by an active navigation session is disabled in the deletion list. Stop navigation before deleting that map.
 
-### Troubleshooting
-
-#### The live map does not appear
-
-- Confirm that the header shows **Status: running**.
-- Check `/map`, `/scan`, `/pose`, and `/odom` in **Topics**.
-- Confirm that **Map** and **Lidar** are enabled in **Layers**.
-- Confirm that the AI Worker bringup and LiDAR processes are running.
-
-#### The robot does not respond to Teleop
-
-- Click **Activate** in **Mobile Teleop**.
-- Confirm that the panel shows **Active** rather than **Inactive** or **Unavailable**.
-- Make sure that a map-name field or another text input does not have keyboard focus.
-- Press `0` or `Space`, deactivate Teleop, and activate it again before retrying at a low speed.
-
-#### A map name is rejected
-
-Use 1–128 characters from `A-Z`, `a-z`, `0-9`, `.`, `_`, and `-`. Do not use spaces or path separators.
-
-### Continue from Mapping
-
-- Open [Map Edit](/docs/systems/aiworker/autonomy_studio/mission_canvas/navigation#map-edit) to correct occupancy pixels and define named map areas.
-- Open [Navigation](/docs/systems/aiworker/autonomy_studio/mission_canvas/navigation#navigation-stage) to test localization and a single navigation goal.
-- Open [Mission Design](/docs/systems/aiworker/autonomy_studio/mission_canvas/mission#mission-design) to add waypoints and build a route.
-
 ## Map Edit
 
 Use **Map Edit** to correct a saved PGM occupancy map and add named areas for Mission Canvas. Pixel edits and area annotations share the same canvas, history, and Save action.
 
-### Prerequisites
-
-- Complete the [Autonomy Studio prerequisites](/docs/systems/aiworker/autonomy_studio/overview#prerequisites).
-- Create a map in [Mapping](/docs/systems/aiworker/autonomy_studio/mission_canvas/navigation#mapping), or provide an existing PGM/YAML map in the AI Worker map inventory.
-- Stop active mapping before opening Map Edit.
-
-:::warning
-**Map Edit** is disabled while the mapping runtime is active. Stop mapping before editing a saved map so that SLAM and the editor cannot write the same map at the same time.
-:::
-
 ### Load a Map
 
-Map Edit does not automatically select a saved file.
+![Live map created while driving with Mobile Teleop](/img/systems/aiworker/autonomy_studio/mission_canvas/navigation/map_edit.png)
 
 1. Select **Map Edit** in the Mission Canvas stage rail.
 2. Click **Load Map** in the stage header.
@@ -200,31 +117,15 @@ Map Edit does not automatically select a saved file.
 4. Click **Load**.
 5. Confirm the loaded-file chip in the upper-right corner of the canvas. It shows the path and pixel dimensions of the selected map.
 
-Click **Cancel** to close the dialog without loading a file. If the list says **No maps found**, create and save a map in the Mapping stage first.
-
-### Interface Overview
-
-Map Edit uses the full-width map canvas. All controls are in the floating toolbar.
-
-| Control | Description |
-| --- | --- |
-| **View** | Leaves editing mode so that you can inspect the loaded map without painting. |
-| **Map Edit** | Opens the occupancy-pixel tools and brush-size controls. |
-| **Add Label** | Opens the named-area tools and area list. |
-| **Undo** | Reverts the latest pixel or area operation. Shortcut: `Ctrl`/`Cmd`+`Z`. |
-| **Redo** | Reapplies an undone operation. Shortcuts: `Ctrl`/`Cmd`+`Shift`+`Z` or `Ctrl`/`Cmd`+`Y`. |
-| **Save** | Saves all dirty pixel and area changes, then clears the Undo and Redo history. |
-
-After the first edit, the loaded-file chip shows **unsaved** and the Save button becomes available.
-
 ### Edit Occupancy Pixels
 
-1. Click **Map Edit** in the floating toolbar.
-2. Select an editing tool.
-3. Select a brush size.
-4. Press or drag over the map to paint. A continuous drag paints the cells between pointer positions.
-5. Use **Undo** or **Redo** if necessary.
-6. Click **Save** when the map is correct.
+![Live map created while driving with Mobile Teleop](/img/systems/aiworker/autonomy_studio/mission_canvas/navigation/edit_pixels.png)
+
+1. Select an editing tool.
+2. Select a brush size.
+3. Press or drag over the map to paint. A continuous drag paints the cells between pointer positions.
+4. Use **Undo** or **Redo** if necessary.
+5. Click **Save** when the map is correct.
 
 #### Pixel Tools
 
@@ -261,6 +162,8 @@ Only white free-space cells that are not already claimed by another visible area
 
 #### Create an Area
 
+![Live map created while driving with Mobile Teleop](/img/systems/aiworker/autonomy_studio/mission_canvas/navigation/edit_area.png)
+
 1. Click **Add Label**, then select **Area**.
 2. Optionally enter an **AREA NAME**.
 3. Drag a rectangle over unmarked white free space on the map.
@@ -273,6 +176,9 @@ A selection that contains no available free cells is not created. If this happen
 
 #### Extend an Area
 
+![Live map created while driving with Mobile Teleop](/img/systems/aiworker/autonomy_studio/mission_canvas/navigation/extend_area.png)
+
+
 1. Select the target under **LABELED AREAS**.
 2. Select **Extend**.
 3. Choose **S**, **M**, **L**, or **XL**.
@@ -281,6 +187,8 @@ A selection that contains no available free cells is not created. If this happen
 Extend changes only the selected area. It does not overwrite cells owned by other areas and does not include occupied or unknown map cells.
 
 #### Erase Area Cells
+
+![Live map created while driving with Mobile Teleop](/img/systems/aiworker/autonomy_studio/mission_canvas/navigation/erase_area_cell.png)
 
 1. Select **Erase Area**.
 2. Choose a brush size.
@@ -292,74 +200,20 @@ If all visible cells of an area are erased, that area no longer appears in the l
 
 #### Select and Rename an Area
 
-- Click an item under **LABELED AREAS** to select it.
-- Double-click its name to edit it.
-- Press `Enter` or click outside the field to apply the new name.
-- Press `Escape` to cancel editing.
+![Live map created while driving with Mobile Teleop](/img/systems/aiworker/autonomy_studio/mission_canvas/navigation/rename_area.png)
 
-An empty name is not applied.
+1. Click an item under **LABELED AREAS** to select it.
+2. Double-click its name to edit it.
+3. Press `Enter` or click outside the field to apply the new name.
 
 #### Delete an Area
+
+![Live map created while driving with Mobile Teleop](/img/systems/aiworker/autonomy_studio/mission_canvas/navigation/delete_area.png)
 
 1. Click the delete icon beside the area.
 2. Click it again within four seconds when the button changes to the confirmation state.
 
 Deleting an area removes its label geometry but does not change the map's obstacle, free-space, or unknown pixels. Where stored areas overlap, deleting one preserves the visible cells belonging to the remaining areas.
-
-### Undo and Redo
-
-Undo and Redo share one history for both occupancy-pixel and area operations.
-
-- Click **Undo**, or press `Ctrl`/`Cmd`+`Z`.
-- Click **Redo**, press `Ctrl`/`Cmd`+`Shift`+`Z`, or press `Ctrl`/`Cmd`+`Y`.
-
-Keyboard shortcuts are suspended while the **Load Map** dialog is open and do not trigger while a text field has focus.
-
-Loading another map or successfully saving clears the current Undo and Redo history.
-
-### Save Changes
-
-Click **Save** after completing all pixel and area edits.
-
-- Occupancy edits overwrite the selected PGM file.
-- Area edits are written to the map's `.annotations.json` sidecar file.
-- If both types changed, both assets are saved in one operation.
-- The **unsaved** indicator disappears after the save completes.
-- Undo and Redo history is cleared.
-
-:::caution
-Saving overwrites the selected map assets. There is no separate **Save As** action in Map Edit. Keep a copy under another map name before editing if you need to preserve the original.
-:::
-
-The **Back to workspace chooser** action is blocked while map edits are unsaved. Switching to another Mission Canvas stage clears the Map Edit state and discards unsaved edits. Save before switching stages, loading a different map, refreshing or closing the page, or returning to the workspace chooser.
-
-### Troubleshooting
-
-#### Painting does not change the map
-
-- Confirm that a PGM map is loaded.
-- Open **Map Edit** and select one of the three pixel tools.
-- Make sure the current operation has completed and the editor is not busy.
-- If the status reports **No pixels changed**, paint a cell whose current value differs from the selected tool.
-
-#### Area creation is rejected
-
-- Drag inside the map bounds.
-- Select white free-space cells.
-- Avoid cells that already belong to another area.
-- Use **Clear Space** first if the intended cells are unknown or occupied, then retry **Area**.
-
-#### Extend does not add cells
-
-- Select the intended area in **LABELED AREAS** first.
-- Paint only over unmarked white free space.
-- Reduce the brush size near area boundaries.
-
-### Continue from Map Edit
-
-- Open [Navigation](/docs/systems/aiworker/autonomy_studio/mission_canvas/navigation#navigation-stage) to validate the edited map with localization and a single goal.
-- Open [Mission Design](/docs/systems/aiworker/autonomy_studio/mission_canvas/mission#mission-design) to place waypoints and use the named areas as map context.
-- Return to [Mapping](/docs/systems/aiworker/autonomy_studio/mission_canvas/navigation#mapping) to create a different map.
 
 ## Navigation Stage
 
