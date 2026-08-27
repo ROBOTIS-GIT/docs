@@ -219,31 +219,9 @@ Deleting an area removes its label geometry but does not change the map's obstac
 
 Use the **Navigation** stage to validate a saved map, localize the robot, and drive to one map goal without creating or running a Mission. This is useful for checking map quality, localization, costmaps, and path planning before you build a multi-waypoint route.
 
-### Prerequisites
-
-- Complete the [Autonomy Studio prerequisites](/docs/systems/aiworker/autonomy_studio/overview#prerequisites).
-- Create and save a map in [Mapping](/docs/systems/aiworker/autonomy_studio/mission_canvas/navigation#mapping), and correct it in [Map Edit](/docs/systems/aiworker/autonomy_studio/mission_canvas/navigation#map-edit) if necessary.
-- Place the robot inside the mapped environment.
-- Make sure that the robot's physical location and heading can be identified on the map.
-
-:::caution
-Setting a goal starts autonomous base motion. Clear the intended route, keep the Remote E-STOP within reach, and be prepared to click **Stop**.
-:::
-
-### Interface Overview
-
-| Control or panel | Description |
-| --- | --- |
-| **Load Map** | Selects a saved PGM map. Navigation loads only the map; it does not load a Mission. |
-| **Localize** | Starts the navigation runtime when necessary and arms the map for an initial-pose gesture. |
-| **Set Goal** | Arms the map for one navigation goal. It becomes available after localization succeeds. |
-| **Stop** | Cancels an active goal first; when no goal is driving, it stops the navigation runtime. |
-| **Navigate Session** | Shows the selected Map, Pose state, and Goal state. |
-| **Layers** | Controls map, sensor, robot, costmap, plan, and area overlays. |
-| **Topics** | Reports `live` or `wait` for the ROS 2 data used by the enabled layers. |
-| **Status** | Shows whether the navigation runtime is `running` or `idle`. |
-
 ### Load a Map
+
+![Live map created while driving with Mobile Teleop](/img/systems/aiworker/autonomy_studio/mission_canvas/navigation/nav_load_map.png)
 
 1. Select **Navigation** in the Mission Canvas stage rail.
 2. Click **Load Map** in the stage header.
@@ -259,16 +237,13 @@ The Navigation picker is map-only. Mission selection and Mission execution are h
 
 Localization tells the navigation system where the physical robot is on the loaded map.
 
+![Live map created while driving with Mobile Teleop](/img/systems/aiworker/autonomy_studio/mission_canvas/navigation/nav_localize.png)
+
 1. Click **Localize**.
 2. Wait for the navigation runtime to start. The header changes to **Status: running**.
 3. Press the map at the robot's current position.
 4. Drag in the direction that the robot is facing, then release.
 5. Wait while Autonomy Studio submits the initial pose and requests AMCL no-motion updates.
-6. Confirm that **Navigate Session → Pose** changes from **Not localized** to **Localized**.
-
-A simple click submits the position with the orientation currently shown for the robot pose, or zero if no displayed orientation is available. Click and drag whenever the robot's heading is important.
-
-Clicking **Localize** a second time while pose selection is armed cancels the map gesture without stopping the navigation runtime. A completed pose remains valid until navigation is restarted or another pose is submitted.
 
 :::tip
 Set the pose as close as possible to the robot's real position and heading. A poor initial estimate can cause the scan and map to remain misaligned or can produce an unsafe plan.
@@ -276,110 +251,9 @@ Set the pose as close as possible to the robot's real position and heading. A po
 
 ### Send a Goal
 
-1. Confirm that **Pose** is **Localized**.
-2. Click **Set Goal**.
-3. Press the target position on the map.
-4. Drag in the direction that the robot should face at the destination, then release.
-5. Confirm that **Navigate Session → Goal** changes to **Driving**.
-6. Monitor the robot, costmaps, and Global plan while it moves.
-7. When the robot arrives, confirm that Goal changes to **Reached**.
+![Live map created while driving with Mobile Teleop](/img/systems/aiworker/autonomy_studio/mission_canvas/navigation/nav_goal.png)
 
-Set Goal is a one-shot map action. After a goal is submitted, the interface returns to view mode so that an accidental map click cannot send a second goal. Click **Set Goal** again before selecting another destination.
-
-If the request is rejected, aborted, times out, or otherwise fails, Goal changes to **Failed** and the status message reports the available reason.
-
-### Stop a Goal or Navigation
-
-The meaning of **Stop** depends on the current state.
-
-| Current state | Stop behavior |
-| --- | --- |
-| Goal is **Driving** | Cancels the current goal and stops the robot. The navigation runtime remains running. |
-| No goal is driving | Stops the navigation runtime and clears the localization state. |
-
-After cancelling a driving goal, Goal returns to the idle `—` state. You can click **Set Goal** to send another goal without localizing again, or click **Stop** again to shut down navigation.
-
-When the runtime stops, the header changes to **Status: idle** and Pose returns to **Not localized**. Localize again before sending a new goal.
-
-:::warning
-Do not rely on changing browser pages as the normal stop procedure. Cancel the active goal and stop the runtime before leaving the robot unattended.
-:::
-
-### Session States
-
-The **Navigate Session** panel summarizes the active session.
-
-| Row | Values | Meaning |
-| --- | --- | --- |
-| **Map** | Map name | The map selected in Load Map. |
-| **Pose** | **Not localized**, **Localized** | Whether a usable initial pose has been established for this runtime. |
-| **Goal** | `—`, **Driving**, **Reached**, **Failed** | Current or most recent direct-goal result. |
-
-The stage header separately reports the runtime as **Status: idle** or **Status: running**.
-
-### Layers and Topics
-
-Navigation enables these layers by default:
-
-- **Map**
-- **Map areas**
-- **Lidar**
-- **Robot Footprint**
-- **Global costmap**
-- **Local costmap**
-- **Global plan**
-
-**TF** is available but disabled by default. Turn layers off when you need a clearer view, or enable TF when diagnosing a transform issue.
-
-The Topics panel follows the enabled layers. With the default layers, it can show `/map`, `/scan`, `/amcl_pose`, `/local_costmap/published_footprint`, `/global_costmap/costmap`, `/local_costmap/costmap`, and `/plan`. A row changes from `wait` to `live` when usable data has been received.
-
-Use these indicators to diagnose common symptoms:
-
-| Symptom | Check |
-| --- | --- |
-| No map | `/map` and the **Map** layer |
-| Scan does not align with the map | `/scan`, `/amcl_pose`, and the initial pose |
-| Robot outline is missing | `/local_costmap/published_footprint` |
-| No path appears after setting a goal | `/global_costmap/costmap` and `/plan` |
-| Nearby obstacles are missing | `/local_costmap/costmap` and `/scan` |
-
-### Switching Stages and Leaving
-
-- **Load Map** is unavailable while navigation or another stage operation is active.
-- If you select another Mission Canvas stage while navigation is active, Autonomy Studio first attempts to stop the runtime. The stage changes only after that stop succeeds.
-- **Back to workspace chooser** is blocked while a goal, runtime, shutdown, or related operation is active.
-- Loading a different map clears the Navigation goal state and invalidates any Run snapshot that belongs to another map.
-
-Stop the current goal and runtime explicitly before returning to the workspace chooser.
-
-### Troubleshooting
-
-#### Localize is unavailable
-
-- Load a PGM map first.
-- Wait for the current map load or shutdown operation to finish.
-- Stop any conflicting active runtime.
-
-#### Set Goal is unavailable
-
-- Confirm that a map is loaded.
-- Complete **Localize** and wait for Pose to show **Localized**.
-- Wait for any current operation or goal cancellation to finish.
-
-#### The Goal changes to Failed
-
-- Read the status message for an aborted, rejected, cancelled, or timeout result.
-- Check the global and local costmaps for blocked start or target cells.
-- Confirm that the goal is inside mapped free space.
-- Re-localize if the LiDAR scan does not align with the map.
-- Try a nearer goal before retrying a long route.
-
-#### Stop did not shut down navigation
-
-If a goal was driving, the first click cancels only that goal. Wait for cancellation to finish, then click **Stop** again to stop the navigation runtime.
-
-### Continue from Navigation
-
-- Open [Mission Design](/docs/systems/aiworker/autonomy_studio/mission_canvas/mission#mission-design) to add waypoints and connect a route on the validated map.
-- Open [Mission Run](/docs/systems/aiworker/autonomy_studio/mission_canvas/mission#mission-run) to execute a saved multi-waypoint Mission.
-- Return to [Map Edit](/docs/systems/aiworker/autonomy_studio/mission_canvas/navigation#map-edit) if map artifacts or blocked free space affected planning.
+1. Click **Set Goal**.
+2. Press the target position on the map.
+3. Drag in the direction that the robot should face at the destination, then release.
+4. Confirm that **Navigate Session → Goal** changes to **Driving**.
