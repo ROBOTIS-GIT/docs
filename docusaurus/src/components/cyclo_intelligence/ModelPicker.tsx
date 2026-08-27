@@ -68,7 +68,35 @@ const TREE: Record<string, Node> = {
       {label: 'Adapting to this robot from a small dataset', next: 'xvla'},
       {label: 'Generalizing to new environments and objects', next: 'pi05'},
       {label: 'Matching published \u03c0\u2080 results', next: 'pi0'},
+      {label: 'Something newer to experiment with', next: 'newer'},
     ],
+  },
+  newer: {
+    kind: 'question',
+    text: 'Which direction do you want to try?',
+    options: [
+      {label: 'Predict future video during training', next: 'fastwam'},
+      {label: 'Tune the vision, connector and action parts separately', next: 'molmoact2'},
+      {label: 'Freeze a language backbone and train only the head', next: 'vlajepa'},
+    ],
+  },
+  fastwam: {
+    kind: 'result',
+    models: 'FastWAM',
+    body: 'A world action model. It keeps video modelling during training but predicts actions directly at inference, and it concatenates your cameras into one image, so mixed camera resolutions are handled for you.',
+    href: 'https://huggingface.co/docs/lerobot/en/fastwam',
+  },
+  molmoact2: {
+    kind: 'result',
+    models: 'MolmoAct2',
+    body: 'The only policy here with a separate learning rate for the vision tower, the connector and the action expert, so you can tune each part at its own speed.',
+    href: 'https://huggingface.co/docs/lerobot/en/molmoact2',
+  },
+  vlajepa: {
+    kind: 'result',
+    models: 'VLA-JEPA',
+    body: 'Fine-tunes from lerobot/VLA-JEPA-Pretrain. freeze_qwen trains only the action head, and resize_images_to puts every camera at one resolution.',
+    href: 'https://huggingface.co/docs/lerobot/en/vla_jepa',
   },
   xvla: {
     kind: 'result',
