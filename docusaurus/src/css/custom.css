@@ -970,6 +970,448 @@
   border-color: color-mix(in srgb, var(--ifm-color-primary) 45%, var(--ifm-color-emphasis-200));
 }
 
+/* MuJoCo Sim2Sim architecture comparison */
+.sim2sim-architecture {
+  margin: 1.25rem 0 1.5rem;
+  padding: 1.65rem;
+  overflow: hidden;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--ifm-background-surface-color) 96%, var(--ifm-color-primary));
+  box-shadow: var(--robotis-card-shadow);
+}
+
+.sim2sim-architecture__heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.sim2sim-architecture__heading span,
+.sim2sim-architecture__target-title {
+  color: var(--ifm-color-primary);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.sim2sim-architecture__heading strong {
+  font-size: 1rem;
+  text-align: right;
+}
+
+.sim2sim-architecture__shared {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) auto minmax(0, 1.15fr) auto minmax(0, 1.15fr);
+  align-items: stretch;
+  gap: 0.65rem;
+}
+
+.sim2sim-architecture__node,
+.sim2sim-architecture__interface,
+.sim2sim-architecture__endpoint {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.22rem;
+  min-width: 0;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 10px;
+  background: var(--ifm-background-color);
+}
+
+.sim2sim-architecture__node--primary {
+  border-color: color-mix(in srgb, var(--ifm-color-primary) 55%, var(--ifm-color-emphasis-300));
+  background: color-mix(in srgb, var(--ifm-color-primary) 8%, var(--ifm-background-color));
+}
+
+.sim2sim-architecture__node small,
+.sim2sim-architecture__interface small {
+  color: var(--robotis-muted);
+  font-size: 0.65rem;
+  font-weight: 750;
+  letter-spacing: 0.07em;
+}
+
+.sim2sim-architecture__node strong,
+.sim2sim-architecture__interface strong {
+  overflow-wrap: anywhere;
+  font-size: 0.9rem;
+}
+
+.sim2sim-architecture__node span {
+  color: var(--robotis-muted);
+  font-size: 0.76rem;
+}
+
+.sim2sim-architecture__arrow {
+  display: grid;
+  place-items: center;
+  color: var(--ifm-color-primary);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.sim2sim-architecture__boundary {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 1.2rem 0 0.9rem;
+  color: #c2410c;
+  font-size: 0.73rem;
+  font-weight: 800;
+  letter-spacing: 0.035em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.sim2sim-architecture__boundary::before,
+.sim2sim-architecture__boundary::after {
+  content: '';
+  flex: 1;
+  border-top: 1px dashed #f97316;
+}
+
+.sim2sim-architecture__targets {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.sim2sim-architecture__target {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(7rem, 0.55fr);
+  align-items: stretch;
+  gap: 0.65rem;
+  padding: 0.9rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 12px;
+  background: var(--ifm-background-color);
+}
+
+.sim2sim-architecture__target--sim {
+  border-color: color-mix(in srgb, #f97316 55%, var(--ifm-color-emphasis-300));
+  background: color-mix(in srgb, #f97316 5%, var(--ifm-background-color));
+}
+
+.sim2sim-architecture__target-title {
+  grid-column: 1 / -1;
+}
+
+.sim2sim-architecture__target--sim .sim2sim-architecture__target-title {
+  color: #ea580c;
+}
+
+.sim2sim-architecture__interface {
+  padding: 0.7rem 0.8rem;
+}
+
+.sim2sim-architecture__io {
+  align-self: center;
+  color: var(--robotis-muted);
+  font-size: 0.68rem;
+  line-height: 1.35;
+  text-align: center;
+}
+
+.sim2sim-architecture__endpoint {
+  align-items: center;
+  padding: 0.7rem;
+  font-size: 0.84rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+@media (max-width: 760px) {
+  .sim2sim-architecture__shared {
+    grid-template-columns: 1fr;
+  }
+
+  .sim2sim-architecture__arrow {
+    transform: rotate(90deg);
+  }
+
+  .sim2sim-architecture__targets {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .sim2sim-architecture {
+    padding: 1rem;
+  }
+
+  .sim2sim-architecture__heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .sim2sim-architecture__heading strong {
+    text-align: left;
+  }
+
+  .sim2sim-architecture__boundary::before,
+  .sim2sim-architecture__boundary::after {
+    display: none;
+  }
+
+  .sim2sim-architecture__target {
+    grid-template-columns: 1fr;
+  }
+
+  .sim2sim-architecture__target-title {
+    grid-column: auto;
+  }
+}
+
+/* Vertical shared-stack view: only the final hardware layer branches. */
+.sim2sim-architecture__heading {
+  align-items: center;
+  flex-direction: column;
+  gap: 0.3rem;
+  text-align: center;
+}
+
+.sim2sim-architecture__heading > span {
+  padding: 0.34rem 0.75rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ifm-color-primary) 12%, transparent);
+  font-size: 0.82rem;
+}
+
+.sim2sim-architecture__heading strong {
+  font-size: 1.35rem;
+  line-height: 1.35;
+  text-align: center;
+}
+
+.sim2sim-architecture__heading p {
+  margin: 0;
+  color: var(--robotis-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.sim2sim-architecture__stack {
+  display: grid;
+  justify-items: center;
+  max-width: 650px;
+  margin: 0 auto;
+  padding: 1.05rem;
+  border: 1px solid color-mix(in srgb, var(--ifm-color-primary) 45%, var(--ifm-color-emphasis-300));
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--ifm-color-primary) 6%, var(--ifm-background-color));
+}
+
+.sim2sim-architecture__layer {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 9px;
+  background: var(--ifm-background-color);
+}
+
+.sim2sim-architecture__layer-number {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--ifm-color-primary) 13%, transparent);
+  color: var(--ifm-color-primary);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.sim2sim-architecture__layer small,
+.sim2sim-architecture__layer strong,
+.sim2sim-architecture__layer span {
+  display: block;
+}
+
+.sim2sim-architecture__layer small {
+  margin-bottom: 0.2rem;
+  color: var(--robotis-muted);
+  font-size: 0.75rem;
+  font-weight: 750;
+  letter-spacing: 0.07em;
+}
+
+.sim2sim-architecture__layer strong {
+  font-size: 1.08rem;
+  line-height: 1.4;
+}
+
+.sim2sim-architecture__layer span {
+  margin-top: 0.18rem;
+  color: var(--robotis-muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.sim2sim-architecture__stack-arrow {
+  height: 1.55rem;
+  color: var(--ifm-color-primary);
+  font-size: 1.15rem;
+  font-weight: 800;
+  line-height: 1.55rem;
+}
+
+.sim2sim-architecture__change {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.15rem;
+  color: #c2410c;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.045em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.sim2sim-architecture__change::before,
+.sim2sim-architecture__change::after {
+  content: '';
+  flex: 1;
+  border-top: 1px dashed #f97316;
+}
+
+.sim2sim-architecture__change span {
+  padding: 0.32rem 0.7rem;
+  border: 1px solid color-mix(in srgb, #f97316 55%, var(--ifm-color-emphasis-300));
+  border-radius: 999px;
+  background: color-mix(in srgb, #f97316 8%, var(--ifm-background-color));
+}
+
+.sim2sim-architecture__fork {
+  position: relative;
+  width: 50%;
+  height: 2rem;
+  margin: 0 auto;
+}
+
+.sim2sim-architecture__fork::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: 1rem;
+  border-left: 2px solid var(--ifm-color-emphasis-400);
+}
+
+.sim2sim-architecture__fork::after {
+  content: '';
+  position: absolute;
+  top: 1rem;
+  right: 0;
+  left: 0;
+  border-top: 2px solid var(--ifm-color-emphasis-400);
+}
+
+.sim2sim-architecture__branches {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.sim2sim-architecture__branch {
+  position: relative;
+  display: grid;
+  gap: 0.75rem;
+  padding: 1.05rem;
+  border: 1px solid color-mix(in srgb, #2563eb 45%, var(--ifm-color-emphasis-300));
+  border-radius: 12px;
+  background: color-mix(in srgb, #2563eb 4%, var(--ifm-background-color));
+}
+
+.sim2sim-architecture__branch::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  height: 1rem;
+  border-left: 2px solid var(--ifm-color-emphasis-400);
+}
+
+.sim2sim-architecture__branch--sim {
+  border-color: color-mix(in srgb, #f97316 55%, var(--ifm-color-emphasis-300));
+  background: color-mix(in srgb, #f97316 5%, var(--ifm-background-color));
+}
+
+.sim2sim-architecture__branch-title {
+  color: #2563eb;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-align: center;
+}
+
+.sim2sim-architecture__branch--sim .sim2sim-architecture__branch-title {
+  color: #ea580c;
+}
+
+.sim2sim-architecture__interface,
+.sim2sim-architecture__endpoint {
+  align-items: center;
+  text-align: center;
+}
+
+.sim2sim-architecture__interface {
+  padding: 0.9rem;
+}
+
+.sim2sim-architecture__interface small {
+  font-size: 0.75rem;
+}
+
+.sim2sim-architecture__interface strong {
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.sim2sim-architecture__io {
+  color: var(--robotis-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.sim2sim-architecture__endpoint {
+  padding: 0.85rem;
+  font-size: 0.96rem;
+}
+
+@media (max-width: 700px) {
+  .sim2sim-architecture__fork {
+    display: none;
+  }
+
+  .sim2sim-architecture__branches {
+    grid-template-columns: 1fr;
+    margin-top: 0.9rem;
+  }
+
+  .sim2sim-architecture__branch::before {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .sim2sim-architecture__change::before,
+  .sim2sim-architecture__change::after {
+    display: none;
+  }
+}
+
 .sim2real-asset-map {
   display: grid;
   gap: 0.85rem;
