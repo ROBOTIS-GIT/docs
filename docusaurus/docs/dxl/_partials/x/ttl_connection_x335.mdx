@@ -1,0 +1,21 @@
+{/*
+ttl_connection_x.mdx for XM335-T323.
+The e-Manual uses the X335-specific circuit diagram and pin diagram.
+*/}
+
+## Communication Circuit
+To control the DYNAMIXEL actuators, the main controller needs to convert its UART signals to the half duplex type. The recommended circuit diagram for this is shown below.
+
+
+### TTL Communication
+![](/img/common/x335_ttl_circuit.png)
+
+
+:::note
+
+**NOTE**: Above circuit is designed for 5V or 5V tolerant MCU. Otherwise, use a Level Shifter to match the voltage of MCU.
+
+:::
+
+
+![](/img/common/x335_series_ttl_pin.png)

@@ -1,0 +1,21 @@
+{/*
+XM335-T323 용 ttl_connection_x.mdx.
+e-Manual 은 X335 전용 회로도와 핀 다이어그램을 사용합니다.
+*/}
+
+## Communication Circuit
+DYNAMIXEL 액추에이터를 제어하려면 메인 컨트롤러가 UART 신호를 Half Duplex 방식으로 변환해야 합니다. 권장 회로도는 아래와 같습니다.
+
+
+### TTL Communication
+![](/img/common/x335_ttl_circuit.png)
+
+
+:::note
+
+**참고** : 위 회로는 5V 또는 5V tolerant MCU용으로 설계되었습니다. 그렇지 않은 경우 MCU 전압에 맞도록 Level Shifter를 사용하세요.
+
+:::
+
+
+![](/img/common/x335_series_ttl_pin.png)

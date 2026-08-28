@@ -1,0 +1,72 @@
+{/*
+X540 계열(XD540, XH540, XM540)용 control_table_drivemode.mdx.
+Bit 1 의 Master/Slave Mode 와 Dual Mode 섹션을 추가하고, Normal/Reverse Mode 에서
+반전되는 값을 Position, Velocity, Current, PWM 으로 표기합니다.
+*/}
+
+Drive Mode(10)는 DYNAMIXEL의 구동 방식을 설정합니다.
+
+|     Bit     |                Item                 | 설명 |
+|:-----------:|:-----------------------------------:|:-----|
+| Bit 7(0x80) |                  -                  | 사용하지 않으며 항상 `0`입니다. |
+| Bit 6(0x40) |                  -                  | 사용하지 않으며 항상 `0`입니다. |
+| Bit 5(0x20) |                  -                  | 사용하지 않으며 항상 `0`입니다. |
+| Bit 4(0x10) |                  -                  | 사용하지 않으며 항상 `0`입니다. |
+| Bit 3(0x08) |      Torque On by Goal Update       | **[0]** [Torque Enable(64)] 값이 `1`일 때만 명령을 수행합니다.<br />**[1]** [Torque Enable(64)] 설정값과 관계없이 명령을 수행합니다. Torque Enable(64)이 `0`인 상태에서 명령이 입력되면 Torque Enable(64)이 `1`로 전환된 뒤 명령을 수행합니다. |
+| Bit 2(0x04) |        Profile Configuration        | **[0]** Velocity-based Profile: 속도 기준으로 Profile을 생성합니다.<br />**[1]** Time-based Profile: 시간 기준으로 Profile을 생성합니다.<br />※ [What is the Profile](#what-is-the-profile)을 참고하세요. |
+| Bit 1(0x02) | Master/Slave Mode<br />(Dual Joint) | **[0]** Master Mode: Master DYNAMIXEL로 동작합니다.<br />**[1]** Slave Mode: Slave DYNAMIXEL로 동작합니다. |
+| Bit 0(0x01) |         Normal/Reverse Mode         | **[0]** Normal Mode: CCW(양수), CW(음수)<br />**[1]** Reverse Mode: CCW(음수), CW(양수) |
+
+:::note
+
+**참고** : Time-based Profile은 **firmware V42**부터 사용할 수 있습니다.
+
+:::
+
+:::note
+
+**참고** : Torque On by Goal Update는 **firmware V45**부터 사용할 수 있습니다.
+
+:::
+
+:::note
+
+**참고** : Drive Mode(10)의 Bit 0(Normal/Reverse Mode)을 `1`로 설정하면 회전 방향이 반전됩니다.
+따라서 **Position**, **Velocity**, **Current**, **PWM**의 방향도 반전됩니다.
+이 기능은 좌우 대칭 관절을 구성할 때 유용합니다.
+
+:::
+
+
+#### Dual Mode
+
+Dual Mode는 두 개의 DYNAMIXEL을 하나의 관절로 결합하여 성능을 높이기 위한 기능입니다.
+Dual Mode를 사용하려면 Slave DYNAMIXEL을 Sync Cable로 Master DYNAMIXEL에 연결해야 합니다.
+
+:::note
+
+Slave DYNAMIXEL은 Sync Cable을 통해 Master DYNAMIXEL에서 전달되는 PWM 신호로만 직접 제어됩니다.
+따라서 Slave DYNAMIXEL의 Goal Position, Goal Velocity, Goal Current, Goal PWM은 사용되지 않고 무시됩니다.
+
+Slave DYNAMIXEL의 회전 방향은 Slave DYNAMIXEL의 Normal/Reverse Mode 설정이 아니라 **Sync Cable의 종류**에 의해 결정됩니다.
+일반 Sync Cable은 Slave DYNAMIXEL을 Master DYNAMIXEL과 같은 방향으로 구동하고, 꼬임형 Sync Cable은 반대 방향으로 구동합니다.
+
+:::
+
+![](/img/dxl/model_reference/x_series/x-series_dual_joint.png)
+
+|     Sync Cable     | 설명                                                                                                                                         |
+|:------------------:|:---------------------------------------------------------------------------------------------------------------------------------------------|
+| Regular Sync Cable | Slave DYNAMIXEL은 Master DYNAMIXEL의 `PWM Signal`로 제어됩니다.<br />Master와 Slave DYNAMIXEL은 **같은 방향**으로 회전합니다. |
+| Twisted Sync Cable | Slave DYNAMIXEL은 Master DYNAMIXEL의 반전된 `PWM Signal`로 제어됩니다.<br />Master와 Slave DYNAMIXEL은 **반대 방향**으로 회전합니다. |
+
+:::warning
+
+**주의** : Master와 Slave가 프레임으로 물리적으로 연결되어 있지 않으면 각 DYNAMIXEL에 걸리는 부하 차이로 인해 두 DYNAMIXEL이 완전히 동기화되지 않을 수 있습니다.
+Dual Mode로 DYNAMIXEL을 연결할 때는 적절한 프레임을 사용하세요.
+
+![](/img/dxl/model_reference/x_series/x-series_dual_joint_frame.png)
+
+:::
+
+[Torque Enable(64)]: #torque-enable64

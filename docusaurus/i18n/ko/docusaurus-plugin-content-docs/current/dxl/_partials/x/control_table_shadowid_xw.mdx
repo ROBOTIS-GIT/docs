@@ -1,0 +1,33 @@
+{/*
+XW 시리즈용 control_table_shadowid.mdx.
+XW 시리즈에는 LED(65) 레지스터가 없어, e-Manual 은 Secondary ID 예제를
+LED(65) 대신 Torque Enable(64) 로 설명합니다.
+*/}
+
+Secondary(Shadow) ID(12)는 DYNAMIXEL에 보조 ID를 할당합니다.
+Secondary ID(12)는 고유해야 하는 기본 [ID(7)]와 달리 여러 DYNAMIXEL에 공유할 수 있으며, 그룹화 및 동작 동기화에 사용할 수 있습니다.
+기본 [ID(7)]와 Secondary ID(12) 사이에는 다음과 같은 중요한 차이가 있습니다.
+- [ID(7)]는 Secondary ID(12)보다 우선순위가 높습니다. Secondary ID(12)와 [ID(7)]가 같으면 액추에이터는 기본 [ID(7)]로 명령을 받은 것처럼 응답합니다.
+- Secondary ID(12)로 전송된 제어 패킷으로는 [컨트롤 테이블](#control-table)의 [EEPROM Area](#control-table-of-eeprom-area)를 수정할 수 없습니다.
+- Secondary ID(12)로 전송된 명령에는 Status Packet이 반환되지 않습니다.
+- Secondary ID(12) 값이 253 이상이면 Secondary ID 기능은 비활성화됩니다.
+
+|  값   |                      설명                      |
+|:---------:|:-----------------------------------------------------:|
+|  0 ~ 252  |            Activate Secondary ID Function             |
+| 253 ~ 255 | Deactivate Secondary ID Function, 기본값 `255` |
+
+#### Secondary ID(12) Example
+다음 Secondary ID(12) 예제를 참고하세요. 예제의 DYNAMIXEL에는 [ID(7)] `1`, `2`, `3`, `4`, `5`가 각각 중복 없이 할당되어 있습니다.
+
+1. 연결된 다섯 DYNAMIXEL의 Secondary ID를 `5`로 설정합니다.
+2. Write Instruction Packet([ID(7)] = 1, [Torque Enable(64)] = 1)을 전송합니다.
+3. [ID(7)]가 `1`인 DYNAMIXEL의 토크가 켜지고 Status Packet이 반환됩니다.
+4. Write Instruction Packet([ID(7)] = 5, [Torque Enable(64)] = 1)을 전송합니다.
+5. 모든 DYNAMIXEL의 토크가 켜지지만, [ID(7)]가 `5`인 액추에이터만 Status Packet을 반환합니다.
+6. 모든 DYNAMIXEL의 Secondary ID를 `100`으로 설정합니다.
+7. Write Instruction Packet([ID(7)] = 100, [Torque Enable(64)] = 0)을 전송합니다.
+8. 모든 DYNAMIXEL의 토크가 꺼집니다. ID 100을 사용하는 DYNAMIXEL이 없고 같은 Secondary ID만 사용하므로 Status Packet은 반환되지 않습니다.
+
+[Torque Enable(64)]: #torque-enable64
+[ID(7)]: #id7

@@ -1,0 +1,74 @@
+{/*
+Quick Start prerequisites for the X330 / X335 5V family (XL330, XC330-M181/M288).
+Identical to quick_start.mdx except the power supply line: these models run at
+3.7~6.0V, so a 12V SMPS must not be recommended.
+*/}
+
+### Prerequisites
+
+- DYNAMIXEL Power Supply ([LB-041] or SMPS compatible with DYNAMIXEL)
+  - See [Compatibility Table]
+
+- PC with Windows, Linux or MacOS.
+- Serial converter to communicate between your PC and DYNAMIXEL ([U2D2], [OpenRB-150])
+- [DYNAMIXEL Control Software](#compatible-software-with-dynamixel)
+
+
+:::warning
+
+**WARNING**: 
+- Some software may not support all OS options. Be sure to read the eManual page of any software you wish to use to ensure compatibility.
+
+:::
+
+
+:::note
+
+**NOTE**: 
+- The U2D2 is a small size USB to Serial communication converter that enables control and operation of DYNAMIXEL servos directly from a connected PC.
+- The [U2D2 Power Hub](/docs/parts/interface/u2d2_power_hub) simplifies the process of connecting an external power source to your U2D2 to supply power to your DYNAMIXEL.
+
+:::
+
+
+### Compatible Software with DYNAMIXEL
+#### DYNAMIXEL Wizard 2.0
+[DYNAMIXEL Wizard 2.0] a configuration tool designed to simplify the setup, configuration and management of DYNAMIXEL servos.
+
+The following features are provided by DYNAMIXEL Wizard 2.0:
+
+- DYNAMIXEL Firmware Update
+- DYNAMIXEL Error Diagnosis
+- DYNAMIXEL Configuration and Testing
+- DYNAMIXEL Real-time Data Plotting
+- Generate & Monitor DYNAMIXEL Packets
+
+#### DYNAMIXEL SDK
+[DYNAMIXEL SDK] is a software development kit that provides DYNAMIXEL control functions for a variety of popular programming languages. 
+
+**Supported Programming Laguanges and Features**:
+- C, C++, C#, Python, Java, MATLAB, LabVIEW
+- Windows, Mac, Linux. 
+- ROS
+- Arduino
+
+
+:::note
+
+**NOTE**: You can also use more variety of software. For more information, see the following to check software provided by ROBOTIS.
+- DYNAMIXEL to software Compatibility Table 
+- Controller to software Compatibility Table
+
+:::
+
+
+[U2D2]: /docs/parts/interface/u2d2
+[OpenRB-150]: /docs/parts/controller/openrb-150
+[R+ Manager]: /docs/software/rplus_1_0/rplus_manager
+[R+ Manager 2.0]: /docs/software/dynamixel_wizard_2_0/introduction
+[DYNAMIXEL SDK]: /docs/software/dynamixel_sdk/overview
+[DYNAMIXEL Workbench]: /docs/software/dynamixel_workbench
+
+[Compatibility Table]: /docs/dxl/protocol/faq_protocol_compatibility_table
+[DYNAMIXEL Wizard 2.0]: /docs/software/dynamixel_wizard_2_0/introduction
+[LB-041]: http://en.robotis.com/shop_en/item.php?it_id=903-0220-001

@@ -1,0 +1,21 @@
+{/*
+ttl_connection_x.mdx for the 2X models (2XL430-W250, 2XC430-W250).
+Same circuit as the X series, but the e-Manual shows the 2X pin diagram.
+*/}
+
+## Communication Circuit
+To control the DYNAMIXEL actuators, the main controller needs to convert its UART signals to the half duplex type. The recommended circuit diagram for this is shown below.
+
+
+### TTL Communication
+![](/img/common/ttl_circuit.webp)
+
+
+:::note
+
+**NOTE**: Above circuit is designed for 5V or 5V tolerant MCU. Otherwise, use a Level Shifter to match the voltage of MCU.
+
+:::
+
+
+![](/img/common/2x_series_ttl_pin.png)

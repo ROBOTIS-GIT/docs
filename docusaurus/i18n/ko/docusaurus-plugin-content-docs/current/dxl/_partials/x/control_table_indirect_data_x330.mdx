@@ -1,0 +1,38 @@
+{/*
+X330 / X335 계열(XL330, XC330, XM335) 용 control_table_indirect_data.mdx.
+이 모델들은 Indirect Address/Data 1~28 만 제공하고 지정 가능 범위가 64 ~ 251 이므로,
+다른 X 모델의 64 ~ 661 범위와 "Indirect Address 29 ~ 56" 참고는 해당하지 않습니다.
+*/}
+
+Indirect Address와 Indirect Data는 컨트롤 테이블에서 서로 떨어져 있는 Address를 연속된 Address처럼 사용하기 위한 기능입니다. 연속된 Address를 사용하면 Instruction Packet의 효율을 높일 수 있습니다. Indirect Address로 지정할 수 있는 Address는 RAM 영역(Address 64 ~ 251)으로 제한됩니다.
+- Indirect Address에 특정 Address를 할당하면, Indirect Data는 해당 Address의 Data가 가진 기능과 속성을 상속합니다.
+- 속성에는 Size(Byte 길이), 값의 범위, Access 속성(Read Only, Read/Write)이 포함됩니다.
+- 예를 들어 Indirect Address 1(168)에 LED의 Address인 65를 할당하면 Indirect Data 1(224)은 [LED(65)]와 동일하게 동작합니다.
+
+| Indirect Address 범위 | 설명                                                                           |
+|:-----------------------:|:--------------------------------------------------------------------------------------|
+| 64 ~ 251               | [EEPROM](#control-table-of-eeprom-area) Address는 Indirect Address로 지정할 수 없습니다 |
+
+#### Indirect Address와 Indirect Data 예시
+
+`예제 1` Size 1 byte인 [LED(65)]를 Indirect Data 1(224)로 사용할 경우
+1. Indirect Address 1(168) : LED의 Address인 '65'로 변경합니다.
+2. Indirect Data 1(224)를 '1'로 설정합니다. LED(65)도 '1'이 되어 LED가 켜집니다.
+3. Indirect Data 1(224)를 '0'으로 설정합니다. LED(65)도 '0'이 되어 LED가 꺼집니다.
+
+`예제 2` Size 4 byte인 [Goal Position(116)]을 Indirect Data 2(225)로 사용할 경우, 연속된 4 byte를 모두 할당해야 합니다.
+1. Indirect Address 2(170) : Goal Position의 첫 번째 Address인 '116'으로 변경합니다.
+2. Indirect Address 3(172) : Goal Position의 두 번째 Address인 '117'으로 변경합니다.
+3. Indirect Address 4(174) : Goal Position의 세 번째 Address인 '118'으로 변경합니다.
+4. Indirect Address 5(176) : Goal Position의 네 번째 Address인 '119'으로 변경합니다.
+5. Indirect Data 2에 4 byte 값 '1,024'를 설정합니다. [Goal Position(116)]도 '1024'가 되어 DYNAMIXEL이 구동됩니다.
+
+:::note
+
+**참고** : 컨트롤 테이블에서 2 [byte] 이상의 Data를 Indirect Address에 할당하려면, 위의 예제 2처럼 해당 Data가 사용하는 모든 Address를 Indirect Address로 설정해야 정상 동작합니다.
+
+:::
+
+
+[LED(65)]: #led65
+[Goal Position(116)]: #goal-position116
