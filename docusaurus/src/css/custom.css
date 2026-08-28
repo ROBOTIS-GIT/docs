@@ -2436,6 +2436,123 @@
   --ai-sapiens-telemetry-code-bg: rgba(255, 255, 255, 0.1);
 }
 
+.radiomaster-sb-positions {
+  width: 90%;
+  margin: 1.25rem auto 1.5rem;
+}
+
+.radiomaster-sb-positions img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+}
+
+.radiomaster-velocity-controls {
+  --radiomaster-move-color: #1769d2;
+  --radiomaster-turn-color: #ef7d00;
+  --radiomaster-unused-color: #9ca3af;
+  max-width: 920px;
+  margin: 1.25rem auto 1.5rem;
+}
+
+.radiomaster-velocity-controls__canvas {
+  position: relative;
+}
+
+.radiomaster-velocity-controls__canvas img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+}
+
+.radiomaster-velocity-controls__overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.radiomaster-velocity-controls__line,
+.radiomaster-velocity-controls__unused-line,
+.radiomaster-velocity-controls__unused-mark {
+  fill: none;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 3px #ffffff);
+}
+
+.radiomaster-velocity-controls__line {
+  stroke-width: 7;
+}
+
+.radiomaster-velocity-controls__line--move {
+  stroke: var(--radiomaster-move-color);
+}
+
+.radiomaster-velocity-controls__line--turn {
+  stroke: var(--radiomaster-turn-color);
+}
+
+.radiomaster-velocity-controls__marker--move {
+  fill: var(--radiomaster-move-color);
+}
+
+.radiomaster-velocity-controls__marker--turn {
+  fill: var(--radiomaster-turn-color);
+}
+
+.radiomaster-velocity-controls__unused-line,
+.radiomaster-velocity-controls__unused-mark {
+  stroke: var(--radiomaster-unused-color);
+  stroke-width: 5;
+}
+
+.radiomaster-velocity-controls__unused-line {
+  stroke-dasharray: 14 11;
+}
+
+.radiomaster-velocity-controls__legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.7rem 1.35rem;
+  margin-top: 0.5rem;
+  color: var(--ifm-color-content-secondary);
+  font-size: 0.9rem;
+}
+
+.radiomaster-velocity-controls__legend span {
+  display: inline-flex;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.radiomaster-velocity-controls__key {
+  display: inline-block;
+  width: 1.4rem;
+  height: 0.25rem;
+  border-radius: 999px;
+  background: currentColor;
+}
+
+.radiomaster-velocity-controls__key--move {
+  color: var(--radiomaster-move-color);
+}
+
+.radiomaster-velocity-controls__key--turn {
+  color: var(--radiomaster-turn-color);
+}
+
+.radiomaster-velocity-controls__key--unused {
+  height: 0;
+  color: var(--radiomaster-unused-color);
+  border-top: 2px dashed currentColor;
+  border-radius: 0;
+  background: none;
+}
+
 .ros-interface-grid {
   display: grid;
   grid-template-columns: 1fr;
