@@ -192,7 +192,7 @@ soma = SOMALayer(
 
 The upstream conversion tools use `PoseInversion.fit()` to recover SOMA pose parameters from another body model. Two solver paths are available:
 
-:::important Source checkout required
+:::warning[Source checkout required]
 The `python -m tools.smpl2soma`, `tools.mhr2soma`, and `tools.convert_amass_to_soma` commands below run repository scripts from a cloned SOMA-X source checkout. `pip install py-soma-x` installs the `soma` Python package, but it does not install these top-level `tools.*` command modules. Clone SOMA-X with Git LFS and run the commands from the SOMA-X repository root.
 :::
 

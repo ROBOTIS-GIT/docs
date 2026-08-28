@@ -17,18 +17,13 @@ Run the commands inside the Cyclo MJLab container from `/workspace/cyclo_mjlab`.
 
 ## Train
 
-Cyclo MJLab includes Dance1 and Dance2 reference motions for K1.
-Both tasks use 4,096 parallel environments in the examples below.
-
-### Dance1
-
 ```bash
 python scripts/reinforcement_learning/train.py \
   Cyclo-Mimic-K1-Rev1-Dance1 \
   --env.scene.num-envs 4096
 ```
 
-Training output for both tasks is written to:
+Training output is written to:
 
 ```text
 logs/rsl_rl/k1_mimic/<run>/
