@@ -315,6 +315,8 @@
   "/docs/systems/aisapiens/reinforcement_learning/cyclo_lab/locomotion",
   "/docs/systems/aisapiens/reinforcement_learning/cyclo_lab/mimic",
   "/docs/systems/aisapiens/reinforcement_learning/cyclo_mjlab",
+  "/docs/systems/aisapiens/reinforcement_learning/cyclo_mjlab/locomotion",
+  "/docs/systems/aisapiens/reinforcement_learning/cyclo_mjlab/mimic",
   "/docs/systems/aisapiens/reinforcement_learning/overview",
   "/docs/systems/aisapiens/reinforcement_learning/rl_workflow",
   "/docs/systems/aisapiens/resources/open_source",

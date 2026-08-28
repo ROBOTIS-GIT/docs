@@ -45,7 +45,16 @@ const aisapiensSidebar: SidebarsConfig[string] = [
           {type: 'doc', id: 'systems/aisapiens/reinforcement_learning/cyclo_lab/mimic', label: 'Mimic'},
         ],
       },
-      {type: 'doc', id: 'systems/aisapiens/reinforcement_learning/cyclo_mjlab', label: 'Cyclo MJLab'},
+      {
+        type: 'category',
+        label: 'Cyclo MJLab',
+        collapsed: false,
+        items: [
+          {type: 'doc', id: 'systems/aisapiens/reinforcement_learning/cyclo_mjlab/cyclo_mjlab', label: 'Overview'},
+          {type: 'doc', id: 'systems/aisapiens/reinforcement_learning/cyclo_mjlab/locomotion', label: 'Locomotion'},
+          {type: 'doc', id: 'systems/aisapiens/reinforcement_learning/cyclo_mjlab/mimic', label: 'Mimic'},
+        ],
+      },
     ],
   },
   {

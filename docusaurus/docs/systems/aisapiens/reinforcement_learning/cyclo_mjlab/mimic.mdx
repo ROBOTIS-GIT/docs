@@ -1,0 +1,239 @@
+---
+sidebar_label: Mimic
+title: Mimic Policy Training
+---
+
+# Mimic Policy Training
+
+<video className="ai-sapiens-demo-video" controls autoPlay muted loop playsInline preload="metadata">
+  <source src="/videos/systems/aisapiens/k1_mimic_dance_mjlab.mp4" type="video/mp4" />
+</video>
+
+Train, preview, and export a K1 motion-imitation policy with Cyclo MJLab.
+Run the commands inside the Cyclo MJLab container from `/workspace/cyclo_mjlab`.
+
+## Train
+
+Cyclo MJLab includes Dance1 and Dance2 reference motions for K1.
+Both tasks use 4,096 parallel environments in the examples below.
+
+### Dance1
+
+```bash
+python scripts/reinforcement_learning/train.py \
+  Cyclo-Mimic-K1-Rev1-Dance1 \
+  --env.scene.num-envs 4096
+```
+
+### Dance2
+
+```bash
+python scripts/reinforcement_learning/train.py \
+  Cyclo-Mimic-K1-Rev1-Dance2 \
+  --env.scene.num-envs 4096
+```
+
+Training output for both tasks is written to:
+
+```text
+logs/rsl_rl/k1_mimic/<run>/
+```
+
+`<run>` is the timestamped directory created when training starts.
+The main files in each run directory are:
+
+<div className="docs-folder-tree" role="img" aria-label="Cyclo MJLab mimic training output directory structure">
+  <div className="docs-folder-tree__root">
+    <code>logs/rsl_rl/k1_mimic/&lt;run&gt;/</code>
+  </div>
+  <ul>
+    <li><code>model_*.pt</code></li>
+    <li>
+      <strong>params/</strong>
+      <ul>
+        <li><code>agent.yaml</code></li>
+        <li><code>env.yaml</code></li>
+        <li><code>sim2real.yaml</code></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+The training configuration saves a checkpoint every 500 iterations.
+Because Dance1 and Dance2 use the same `k1_mimic` output root, select the run directory created by the task you trained.
+
+## Play and Export
+
+Select a checkpoint from the matching training run and pass its path to `play.py`.
+
+### Dance1
+
+```bash
+python scripts/reinforcement_learning/play.py \
+  Cyclo-Mimic-K1-Rev1-Dance1 \
+  --checkpoint-file logs/rsl_rl/k1_mimic/<run>/model_<iteration>.pt \
+  --num-envs 1
+```
+
+### Dance2
+
+```bash
+python scripts/reinforcement_learning/play.py \
+  Cyclo-Mimic-K1-Rev1-Dance2 \
+  --checkpoint-file logs/rsl_rl/k1_mimic/<run>/model_<iteration>.pt \
+  --num-envs 1
+```
+
+Replace `<run>` with the timestamped run directory and `<iteration>` with the checkpoint iteration to use.
+
+When a desktop display is available, `play.py` opens the native MuJoCo viewer.
+Otherwise, it uses the Viser viewer.
+Before opening the viewer, it exports the selected policy and its reference motion data to the same training run directory.
+
+### Display the Reference Motion Next to the Policy
+
+Add `--reference-ghost-offset` to display the reference motion as a semi-transparent ghost next to the robot controlled by the trained policy:
+
+```bash
+python scripts/reinforcement_learning/play.py \
+  Cyclo-Mimic-K1-Rev1-Dance1 \
+  --checkpoint-file logs/rsl_rl/k1_mimic/<run>/model_<iteration>.pt \
+  --num-envs 1 \
+  --reference-ghost-offset 1.4,0,0
+```
+
+The three values are the reference ghost offset in the world-frame `x`, `y`, and `z` directions, in meters.
+In this example, `1.4,0,0` moves the reference robot 1.4 m in the positive X direction so that the policy and reference motions can be compared side by side.
+
+Use the same option with the Dance2 task ID to compare a Dance2 policy with its reference motion.
+
+After `play.py` exports the policy, the run directory contains:
+
+<div className="docs-folder-tree" role="img" aria-label="Cyclo MJLab mimic exported policy directory structure">
+  <div className="docs-folder-tree__root">
+    <code>logs/rsl_rl/k1_mimic/&lt;run&gt;/</code>
+  </div>
+  <ul>
+    <li><code>model_*.pt</code></li>
+    <li>
+      <strong>exported/</strong>
+      <ul>
+        <li><code>policy.onnx</code></li>
+        <li><code>policy.pt</code></li>
+      </ul>
+    </li>
+    <li>
+      <span className="docs-folder-tree__label">params/</span>
+      <ul>
+        <li><code>agent.yaml</code></li>
+        <li><code>env.yaml</code></li>
+        <li><code>sim2real.yaml</code></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+## Prepare a Custom Reference Motion
+
+The following example prepares a K1 Rev.1 reference motion named `my_motion` for Cyclo MJLab.
+
+### 1. Export a CSV from Soma-retargeter
+
+First, use [Soma-retargeter](/docs/systems/aisapiens/motion_generation_retargeting/soma_retargeter/) to retarget a SOMA-compatible BVH motion to the AI Sapiens K1 joint layout and export it as CSV.
+Soma-retargeter produces a headered CSV containing the root pose and 23 K1 joint columns.
+
+The Cyclo MJLab converter used below does not retarget a raw BVH file.
+It converts the CSV exported by Soma-retargeter into an NPZ reference trajectory for training and a numeric CSV reference motion for Sim2Real:
+
+```text
+SOMA BVH → Soma-retargeter → my_motion_soma.csv → Cyclo MJLab converter → my_motion.npz + my_motion.csv
+```
+
+Create a directory for the motion under `source/assets/motions/K1_rev1/` and copy the CSV exported by Soma-retargeter into it:
+
+```text
+source/assets/motions/K1_rev1/my_motion/my_motion_soma.csv
+```
+
+### 2. Convert the Motion for Cyclo MJLab
+
+Convert the Soma-retargeter output CSV to the files used by Cyclo MJLab:
+
+```bash
+python scripts/tools/motion/soma_retargeter_csv_converter.py \
+  -f source/assets/motions/K1_rev1/my_motion/my_motion_soma.csv \
+  --output_name source/assets/motions/K1_rev1/my_motion/my_motion.npz
+```
+
+The converter reads the Soma root pose and 23 K1 joint columns, resamples the motion from 30 FPS to 50 FPS by default, and creates both files below:
+
+- `my_motion.npz`: the reference trajectory used for MJLab training and playback.
+- `my_motion.csv`: the matching reference motion used for Sim2Real deployment.
+
+If the source is already a numeric K1 motion CSV containing the root position, root quaternion, and 23 joint positions, use the generic converter instead:
+
+```bash
+python scripts/tools/motion/csv_to_npz.py \
+  -f source/assets/motions/K1_rev1/my_motion/my_motion.csv \
+  --output_name source/assets/motions/K1_rev1/my_motion/my_motion.npz \
+  --input_fps 50 \
+  --output_fps 50
+```
+
+Set `--input_fps` to the actual frame rate of the source motion.
+
+### 3. Validate and Preview the Motion
+
+Check the generated NPZ structure and kinematics before starting a training run:
+
+```bash
+python scripts/tools/motion/replay_npz.py \
+  -f source/assets/motions/K1_rev1/my_motion/my_motion.npz \
+  --validate-only
+```
+
+Preview the NPZ motion in a loop:
+
+```bash
+python scripts/tools/motion/replay_npz.py \
+  -f source/assets/motions/K1_rev1/my_motion/my_motion.npz \
+  --loop
+```
+
+You can also preview the CSV that will be used for Sim2Real:
+
+```bash
+python scripts/tools/motion/replay_csv.py \
+  -f source/assets/motions/K1_rev1/my_motion/my_motion.csv \
+  --loop
+```
+
+Confirm that the robot pose, joint motion, playback speed, and loop transition are correct before training.
+
+After validation, keep the two converted files together in the motion directory:
+
+| File | Use |
+| --- | --- |
+| `my_motion.npz` | Reference trajectory for Cyclo MJLab training and playback. |
+| `my_motion.csv` | Matching reference motion for Sim2Real deployment. |
+
+These steps prepare the reference-motion files only.
+Training requires a corresponding Mimic task ID included in Cyclo MJLab; run `python scripts/list_envs.py --keyword Mimic` to see the tasks available in the current source checkout.
+
+## Prepare for Sim2Real
+
+Cyclo MJLab uses the same Sim2Real deployment process as Cyclo Lab.
+Before deploying a trained Mimic policy, prepare these files from the same task and training run:
+
+- `exported/policy.onnx`
+- `params/sim2real.yaml`
+- The matching motion reference CSV:
+  - Dance1: `source/assets/motions/K1_rev1/dance1/dance1.csv`
+  - Dance2: `source/assets/motions/K1_rev1/dance2/dance2.csv`
+
+Then follow [How to Deploy Your Own Cyclo Lab-Trained Policy](/docs/systems/aisapiens/development_guide/sim2real/#how-to-deploy-your-own-cyclo-lab-trained-policy) to place the files under the Sim2Real asset root and register the new `Mimic` mode.
+
+:::note
+Keep `exported/policy.onnx`, `params/sim2real.yaml`, and the motion reference CSV matched to the same Mimic task.
+For example, do not deploy a Dance1 policy with the Dance2 reference CSV.
+:::
