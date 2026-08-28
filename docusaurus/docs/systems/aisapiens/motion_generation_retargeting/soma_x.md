@@ -100,7 +100,7 @@ python -m pip install "py-soma-x[anny]"
 
 SOMA assets are downloaded from Hugging Face on first use and cached under `~/.cache/huggingface/hub/`.
 
-:::caution License boundaries
+:::caution[License boundaries]
 SOMA-X integration involves separate license layers:
 
 1. The [SOMA-X codebase](https://github.com/NVlabs/SOMA-X/blob/main/LICENSE) is Apache-2.0 licensed.
