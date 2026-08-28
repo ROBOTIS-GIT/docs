@@ -3,6 +3,9 @@ sidebar_label: Locomotion
 title: Locomotion Policy Training
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Locomotion Policy Training
 
 <video className="ai-sapiens-demo-video" controls autoPlay muted loop playsInline preload="metadata">
@@ -52,20 +55,41 @@ The training configuration saves a checkpoint every 100 iterations.
 
 ## Play and Export
 
-Select a checkpoint from the training run and pass its path to `play.py`:
+Select a checkpoint from the training run and pass its path to `play.py`.
+
+<Tabs groupId="cyclo-mjlab-viewer" queryString>
+<TabItem value="native" label="Native MuJoCo Viewer" default>
 
 ```bash
 python scripts/reinforcement_learning/play.py \
   Cyclo-Velocity-Flat-K1-Rev1-v0 \
   --checkpoint-file logs/rsl_rl/k1_velocity/<run>/model_<iteration>.pt \
-  --num-envs 1
+  --num-envs 1 \
+  --viewer native
 ```
+
+Use the native viewer when a desktop display is available.
+
+</TabItem>
+<TabItem value="viser" label="Viser Viewer">
+
+```bash
+python scripts/reinforcement_learning/play.py \
+  Cyclo-Velocity-Flat-K1-Rev1-v0 \
+  --checkpoint-file logs/rsl_rl/k1_velocity/<run>/model_<iteration>.pt \
+  --num-envs 1 \
+  --viewer viser
+```
+
+Open the URL printed by `play.py` in a web browser.
+
+</TabItem>
+</Tabs>
 
 Replace `<run>` with the timestamped run directory and `<iteration>` with the checkpoint iteration to use.
 
-When a desktop display is available, `play.py` opens the native MuJoCo viewer.
-Otherwise, it uses the Viser viewer.
-Before opening the viewer, it exports the selected policy to the same training run directory.
+If `--viewer` is omitted, the default `auto` mode uses the native MuJoCo viewer when a desktop display is available and otherwise uses the Viser viewer.
+Before opening the selected viewer, `play.py` exports the policy to the same training run directory.
 
 To export the policy without opening a viewer, add `--export-only`:
 
