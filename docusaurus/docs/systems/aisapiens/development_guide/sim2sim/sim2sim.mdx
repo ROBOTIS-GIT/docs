@@ -1,11 +1,11 @@
 # MuJoCo Sim2Sim
 
-MuJoCo Sim2Sim lets you run the K1 deployment software with a simulated K1 instead of the
-physical robot. The software responsible for Damping, ReadyPose, Locomotion, Mimic, and safety
+MuJoCo Sim2Sim lets you run the K1 deployment software with a simulated K1 instead of the real
+robot. The software responsible for Damping, ReadyPose, Locomotion, Mimic, and safety
 checks remains unchanged. The same [Sim2Real](/docs/systems/aisapiens/development_guide/sim2real)
-software can control either a physical or simulated K1.
+software can control either the real K1 or the simulated K1.
 
-Only the hardware interface changes. On the physical robot, it exchanges commands and feedback
+Only the hardware interface changes. On the real robot, it exchanges commands and feedback
 with the K1 motors and sensors. In MuJoCo, `mujoco_hardware_interface` exchanges the same
 commands and feedback with the K1 model.
 
@@ -23,11 +23,11 @@ commands and feedback with the K1 model.
 <div
   className="sim2sim-architecture"
   role="img"
-  aria-label="The physical K1 and simulated K1 use the same Sim2Real and ROS 2 control stack. Only the hardware interface selected during bringup changes."
+  aria-label="The same Sim2Real and ROS 2 control stack controls the real K1 and the simulated K1. Only the hardware interface selected during bringup changes."
 >
   <div className="sim2sim-architecture__heading">
     <span>Shared · Unchanged</span>
-    <strong>The same robot software controls the physical or simulated K1</strong>
+    <strong>The same robot software controls the real K1 or the simulated K1</strong>
     <p>There is no simulation-specific copy of the control logic</p>
   </div>
 
@@ -64,7 +64,7 @@ commands and feedback with the K1 model.
         <strong>dynamixel_hardware_interface</strong>
       </div>
       <div className="sim2sim-architecture__io">commands ↓ &nbsp;&nbsp; feedback ↑</div>
-      <div className="sim2sim-architecture__endpoint">Physical K1</div>
+      <div className="sim2sim-architecture__endpoint">Real K1</div>
     </div>
 
     <div className="sim2sim-architecture__branch sim2sim-architecture__branch--sim">
@@ -74,19 +74,19 @@ commands and feedback with the K1 model.
         <strong>mujoco_hardware_interface</strong>
       </div>
       <div className="sim2sim-architecture__io">commands ↓ &nbsp;&nbsp; feedback ↑</div>
-      <div className="sim2sim-architecture__endpoint">K1 in MuJoCo</div>
+      <div className="sim2sim-architecture__endpoint">Simulated K1</div>
     </div>
   </div>
 </div>
 
-Everything above the orange line is the same software. With the physical K1,
+Everything above the orange line is the same software. With the real K1,
 `dynamixel_hardware_interface` sends commands to the actuators and reads the robot sensors. With
 the simulated K1, `mujoco_hardware_interface` sends the same commands to MuJoCo and returns
 simulated joint and IMU states. The shared software above the hardware interface does not need to
-know whether it is controlling the physical or simulated K1.
+know whether it is controlling the real K1 or the simulated K1.
 
 The simulator includes a gantry that can attach, release, raise, and lower the robot. This makes
-it possible to test the same deployment sequence used with the physical K1, including locomotion
+it possible to test the same deployment sequence used with the real robot, including locomotion
 and mimic motions.
 
 ## Set up
@@ -138,25 +138,73 @@ When EdgeTX opens the USB mode menu, select **USB Joystick (HID)** and press the
   />
 </details>
 
-Before starting the simulation, place `SC` in the up position for Damping. See
-[Mode Switching](/docs/systems/aisapiens/quick_start_guide/using_remote_controller/#mode-switching)
-for the switch positions and normal operating sequence.
+Before starting the simulation, place `SC` in the up position for Damping. Operate the transmitter
+as you would on the real robot. See
+[Using the Remote Controller](/docs/systems/aisapiens/quick_start_guide/using_remote_controller/)
+for mode switching, velocity control, and mimic selection.
 
 :::
 
+## Use your own policy
+
+Sim2Sim uses the same policy assets and `ai_sapiens_sim2real` configuration used for the real K1.
+No separate model conversion or simulation-specific policy configuration is required.
+
+1. Follow
+   [How to Deploy Your Own Cyclo Lab-Trained Policy](/docs/systems/aisapiens/development_guide/sim2real/#how-to-deploy-your-own-cyclo-lab-trained-policy)
+   to export the policy, place its files under `assets/k1`, and bind it to a mode in `k1_config.yaml`.
+2. Start MuJoCo with one of the `--sim` commands above, then select the mode assigned to your
+   policy.
+
+The policy runs through the same Sim2Real node used with the real K1, while
+`mujoco_hardware_interface` exchanges its commands and feedback with MuJoCo.
+
 ## Test the deployment flow
 
-Use the same mode sequence as on the physical robot:
+Use the same mode sequence as on the real robot:
 
 1. Change from **Damping** to **ReadyPose**.
 2. Lower the gantry until both feet touch the ground.
 3. Start **Locomotion**, then release the robot from the gantry.
 4. Run the required **Mimic** motions while locomotion is active.
-5. Attach the robot to the gantry again.
-6. Return from **ReadyPose** to **Damping**.
+5. If the robot falls or enters a failsafe state, attach it to the gantry again. If the gantry is
+   lowered, raise it until both feet are clear of the ground, then restart from step 1.
 
-Use the **Gantry** panel in the MuJoCo viewer to raise, lower, attach, or release the robot.
-With the viewer focused, the arrow keys raise and lower the gantry, while `A` and `R`
-attach and release it.
-When keyboard teleoperation is selected, its terminal pane displays the available controls
-and the current mode and mimic selection.
+### Controls
+
+- **Gantry panel:** Use the buttons in the MuJoCo viewer to raise, lower, attach, or release the
+  robot.
+- **MuJoCo viewer keyboard:** With the viewer focused, press `↑` or `↓` to raise or lower the
+  gantry, and press `A` or `R` to attach or release the robot.
+- **Teleoperation terminal:** When keyboard or DualSense teleoperation is selected, displays the
+  available controls and the current mode and mimic selection.
+
+<details>
+  <summary>View teleoperation terminal examples</summary>
+
+  <div
+    style={{
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+      gap: '1rem',
+      marginTop: '1rem',
+    }}
+  >
+    <figure style={{margin: 0, textAlign: 'center'}}>
+      <img
+        src="/img/systems/aisapiens/development_guide/sim2sim/keyboard_teleop_terminal.png"
+        alt="Keyboard teleoperation terminal showing controls, velocity commands, and the current mode and mimic selection"
+        style={{width: '100%', height: 'auto', display: 'block'}}
+      />
+      <figcaption>Keyboard teleoperation</figcaption>
+    </figure>
+    <figure style={{margin: 0, textAlign: 'center'}}>
+      <img
+        src="/img/systems/aisapiens/development_guide/sim2sim/dualsense_teleop_terminal.png"
+        alt="DualSense teleoperation terminal showing connection state, controls, velocity commands, and the current mode and mimic selection"
+        style={{width: '100%', height: 'auto', display: 'block'}}
+      />
+      <figcaption>DualSense teleoperation</figcaption>
+    </figure>
+  </div>
+</details>
