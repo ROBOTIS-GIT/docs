@@ -5,11 +5,11 @@ title: Soma-retargeter
 
 # Soma-retargeter
 
-Soma-retargeter converts SOMA BVH motion files into AI Sapiens CSV joint data. It loads `.bvh` files, solves the target robot pose with Newton and NVIDIA Warp, and writes AI Sapiens `.csv` files.
+Soma-retargeter converts human motion into AI Sapiens CSV joint data. It accepts SOMA BVH, converted SOMA77/Kimodo NPZ, and, with the optional [SOMA-X](/docs/systems/aisapiens/motion_generation_retargeting/soma_x) runtime, raw SMPL-family NPZ motion. It then solves the target robot pose with Newton and NVIDIA Warp and writes AI Sapiens `.csv` files.
 
 For AI Sapiens, use the [ROBOTIS-GIT/soma-retargeter](https://github.com/ROBOTIS-GIT/soma-retargeter) fork. It includes the AI Sapiens retarget target, MJCF generation, and CSV export layout used in the AI Sapiens motion workflow.
 
-Soma-retargeter does not create or export BVH files. Prepare SOMA-compatible BVH files before running this tool.
+Raw SMPL, SMPL-H, and SMPL-X motion can now be converted to SOMA77 and retargeted in one GUI or headless workflow. Existing BVH-only workflows remain available and do not require SOMA-X or a human model file.
 
 :::info
 Use the ROBOTIS soma-retargeter fork for AI Sapiens integration. Upstream research remains from NVIDIA ([NVIDIA/soma-retargeter](https://github.com/NVIDIA/soma-retargeter)). Prefer the ROBOTIS repo and install steps below for the latest fork-specific options.
@@ -27,7 +27,8 @@ Use the ROBOTIS soma-retargeter fork for AI Sapiens integration. Upstream resear
 - [AI Sapiens submodule source](https://github.com/ROBOTIS-GIT/ai_sapiens)
 - [Installation and conversion steps](#installation) on this page
 - [Upstream NVIDIA Soma-retargeter](https://github.com/NVIDIA/soma-retargeter)
-- [SOMA body model](https://github.com/NVlabs/SOMA-X)
+- [SOMA-X preprocessing guide](/docs/systems/aisapiens/motion_generation_retargeting/soma_x)
+- [Official NVIDIA SOMA-X repository](https://github.com/NVlabs/SOMA-X)
 - [Newton physics](https://github.com/newton-physics/newton)
 - [NVIDIA Warp](https://github.com/NVIDIA/warp)
 - [SEED dataset](https://huggingface.co/datasets/bones-studio/seed)
@@ -48,14 +49,24 @@ Key settings:
 | Converter config | `assets/default_ai_sapiens_bvh_to_csv_converter_config.json` |
 | Retargeter config | `soma_retargeter/configs/ai_sapiens/soma_to_ai_sapiens_retargeter_config.json` |
 | Retarget MJCF | `soma_retargeter/configs/ai_sapiens/ai_sapiens_retarget.xml` |
-| Source robot model | `third_party/ai_sapiens/ai_sapiens_description/urdf/k1_rev1/k1.urdf` |
-| Source STL meshes | `third_party/ai_sapiens/ai_sapiens_description/meshes/k1_rev1/` |
+| AI Sapiens target URDF | `third_party/ai_sapiens/ai_sapiens_description/urdf/k1_rev1/k1.urdf` |
+| AI Sapiens visual meshes | `third_party/ai_sapiens/ai_sapiens_description/meshes/k1_rev1/` |
 | CSV output layout | `AISapiens23DOF_CSVConfig` |
+
+The accepted input paths are:
+
+- **SOMA input (`.bvh` or SOMA77/Kimodo `.npz`)**: Load it directly into Soma-retargeter and export AI Sapiens CSV.
+- **Raw SMPL-family NPZ with a matching human model**: Convert it to SOMA with SOMA-X, then retarget it and export AI Sapiens CSV.
+
+The application determines the path from the input extension and NPZ schema. There is no `--input-format` option.
 
 ## Retargeting Pipeline
 
 | Stage | Role |
 | --- | --- |
+| Input classification | Distinguishes SOMA BVH, SOMA77/Kimodo NPZ, and raw SMPL-family NPZ by extension and data schema. |
+| Optional SOMA-X preprocessing | Converts raw SMPL, SMPL-H, or SMPL-X motion into the SOMA77 matrix representation. This stage runs only for raw SMPL-family input. |
+| Fixed SOMA BVH generation | Converts accepted NPZ motion into the SOMA BVH representation used by the existing retargeting pipeline. |
 | SOMA BVH loading | Reads the source skeleton and animation frames from `.bvh` files. |
 | AI Sapiens model loading | Resolves the generated AI Sapiens retarget MJCF. |
 | Human-to-robot scaling | Converts SOMA body proportions into AI Sapiens target bodies using scaler config values. |
@@ -69,10 +80,12 @@ Key settings:
 - Git LFS
 - Git submodule support
 - Windows `x86-64`, Linux `x86-64`, or Linux `aarch64`
-- NVIDIA GPU, Maxwell generation or newer
-- NVIDIA driver `545+` with CUDA 12 runtime support
+- NVIDIA GPU, Maxwell generation or newer, for CUDA acceleration
+- NVIDIA driver `545+` with CUDA 12 runtime support when using CUDA
 - Python environment manager such as conda
-- OpenGL viewer on Linux: `python3.12-tk`
+- Linux OpenGL GUI only: Tkinter system package (`python3-tk` on Ubuntu 24.04)
+
+Headless conversion supports `--device cpu` and does not require Tkinter. The OpenGL viewer requires Tkinter, a working display, and an OpenGL context.
 
 ## Installation
 
@@ -125,8 +138,15 @@ On Ubuntu 24.04 or inside a clean Docker container, install the required Python 
 
 ```bash
 apt-get update
-apt-get install -y python3.12-venv python3.12-dev python3-pip build-essential
+apt-get install -y \
+  python3.12-venv \
+  python3.12-dev \
+  python3-tk \
+  python3-pip \
+  build-essential
 ```
+
+`python3-tk` provides the Tkinter file dialogs used by `--viewer gl`. It is an operating-system package and is not installed by `pip install -e .`. You may omit it on a headless-only system that always uses `--viewer null`.
 
 Then create and activate the environment:
 
@@ -155,6 +175,34 @@ python -m pip install --extra-index-url https://pypi.nvidia.com -e .
 
 Use `-e .` instead of `.`. Editable mode makes Python import `soma_retargeter` from the checked-out repository, so repo-local assets such as `third_party/ai_sapiens`, `assets`, and `tools` stay available.
 
+#### Optional: Install SOMA-X Preprocessing
+
+The base installation is sufficient for SOMA BVH and SOMA77/Kimodo NPZ input. To convert raw SMPL-family motion, install the optional SOMA-X runtime instead:
+
+```bash
+python -m pip install --extra-index-url https://pypi.nvidia.com -e '.[soma-x]'
+```
+
+If you use `uv`:
+
+```bash
+uv sync --extra soma-x
+```
+
+The optional extra installs `py-soma-x[smpl]==0.2.1`. It is imported only when raw SMPL-family input is converted.
+
+SOMA-X also requires a licensed SMPL, SMPL-H, or SMPL-X human model file. Human model files are not included in the repository. Obtain and use them under their respective licenses.
+
+:::caution[License boundaries]
+The optional install combines components with separate terms:
+
+1. The [SOMA-X codebase](https://github.com/NVlabs/SOMA-X/blob/main/LICENSE) is Apache-2.0 licensed.
+2. The [`smplx` Python dependency](https://github.com/vchoutas/smplx/blob/main/LICENSE) uses its own license for non-commercial scientific research and related permitted non-commercial uses. Review that license and its commercial-license contact before use.
+3. SMPL, SMPL-H, and SMPL-X model files are separately licensed assets obtained from their official providers. They are not included or redistributed by Soma-retargeter.
+
+Installing `.[soma-x]` does not replace or expand the rights granted by the dependency and model-file licenses.
+:::
+
 ### 5. Check the Installation
 
 Run the check from the repository root:
@@ -171,9 +219,9 @@ The remaining commands assume the same activated Python environment and the `som
 During conversion, Soma-retargeter loads the AI Sapiens retarget MJCF. The AI Sapiens URDF is used as the generator input when the retarget MJCF is created or regenerated:
 
 ```text
-source URDF  = third_party/ai_sapiens/ai_sapiens_description/urdf/k1_rev1/k1.urdf
-source mesh  = third_party/ai_sapiens/ai_sapiens_description/meshes/k1_rev1/
-output MJCF  = soma_retargeter/configs/ai_sapiens/ai_sapiens_retarget.xml
+generator input URDF = third_party/ai_sapiens/ai_sapiens_description/urdf/k1_rev1/k1.urdf
+visual mesh assets   = third_party/ai_sapiens/ai_sapiens_description/meshes/k1_rev1/
+generated MJCF       = soma_retargeter/configs/ai_sapiens/ai_sapiens_retarget.xml
 ```
 
 The generator:
@@ -212,21 +260,134 @@ python tools/generate_ai_sapiens_retarget_mjcf.py --force
 
 During normal conversion, the default AI Sapiens MJCF is generated only when the default file is missing. User-specified absolute MJCF paths or environment overrides are not auto-generated.
 
-## Input Motion
+## Supported Motion Input
 
-Soma-retargeter expects SOMA BVH files as input. The default AI Sapiens config reads from:
+The application accepts the following motion types:
 
-```text
-assets/motions/bvh
+| Input | Required runtime or model | Processing path |
+| --- | --- | --- |
+| SOMA `.bvh` | Base installation | Retarget directly to AI Sapiens CSV. |
+| SOMA77/Kimodo `.npz` | Base installation | Generate fixed SOMA BVH, then retarget. |
+| Raw SMPL `.npz` | SOMA-X extra and matching SMPL model | Convert to SOMA77, generate BVH, then retarget. |
+| Raw SMPL-H `.npz` | SOMA-X extra and matching SMPL-H model | Convert to SOMA77, generate BVH, then retarget. |
+| Raw SMPL-X `.npz` | SOMA-X extra and matching SMPL-X model | Convert to SOMA77, generate BVH, then retarget. |
+
+Raw SMPL-family motion can use combined or equivalent separated pose fields. Supported combined pose widths are 72 values for SMPL, 156 or body-only 66 values for SMPL-H, and 165, 156, or 66 values for SMPL-X. Kimodo matrix exports with 22 `local_rot_mats` joints are also accepted as raw SMPL-X motion.
+
+Licensed human models may be supplied as `.npz` or `.pkl`, with neutral, male, or female parameters. The selected human model is authoritative. Model type is detected from model topology and parameter structure, not from its filename or motion gender metadata. If the selected model family does not match the motion schema, conversion stops with `Human model and motion do not match.` instead of silently coercing the data.
+
+Human model lookup order is:
+
+1. `--human-model` in the unified CLI, `--model` in the standalone CLI, or the current GUI selection.
+2. `SOMA_RETARGETER_SOMA_X_HUMAN_MODEL`.
+3. `soma_x_human_model` in the converter config.
+
+The legacy SMPL-X settings `SOMA_RETARGETER_SOMA_X_SMPLX_MODEL` and `soma_x_smplx_model` remain fallback options.
+
+## Unified Headless Conversion
+
+Use `app/bvh_to_csv_converter.py` for a single file or a recursive directory. The command classifies each input automatically. Unified mode requires `--input` and `--output-dir` together.
+
+### Retarget Existing SOMA BVH or SOMA77 NPZ
+
+This path starts with motion that is already represented by the SOMA skeleton. It does not run SOMA-X. A SOMA BVH is sent directly to Newton, while a SOMA77/Kimodo NPZ is first converted to a fixed SOMA BVH. Both inputs finish as an AI Sapiens CSV.
+
+```bash-cli-options
+python ./app/bvh_to_csv_converter.py \
+  --config ./assets/default_ai_sapiens_bvh_to_csv_converter_config.json \
+  --viewer null \
+  --input /data/motion.bvh \
+  --output-dir /data/k1-output
 ```
 
-Batch mode recursively finds every `.bvh` file under `import_folder` and converts all of them. Every file in a batch must use the same expected SOMA skeleton joint structure.
+The same command accepts an already converted SOMA77/Kimodo `.npz` file without `--human-model`.
 
-To convert only selected motions, place only those `.bvh` files in a separate folder and set `import_folder` to that folder.
+### Convert Raw SMPL-family Motion and Retarget It
 
-## Run AI Sapiens Batch Conversion
+```bash-cli-options
+python ./app/bvh_to_csv_converter.py \
+  --config ./assets/default_ai_sapiens_bvh_to_csv_converter_config.json \
+  --viewer null \
+  --input /data/motion_stageii.npz \
+  --human-model /models/SMPLX_NEUTRAL.npz \
+  --output-dir /data/k1-output \
+  --device cuda:0
+```
 
-Run headless BVH-to-CSV conversion:
+### Convert a Directory Recursively
+
+```bash-cli-options
+python ./app/bvh_to_csv_converter.py \
+  --config ./assets/default_ai_sapiens_bvh_to_csv_converter_config.json \
+  --viewer null \
+  --input /data/motions \
+  --human-model /models/SMPLX_NEUTRAL.npz \
+  --output-dir /data/k1-output \
+  --device cuda:0
+```
+
+The recursive mode processes `.bvh` and `.npz` files while preserving relative paths. It uses one human model for the entire run and validates all raw inputs against that model before conversion starts. The input and output directories must not overlap. Inputs with the same relative stem, such as `walk.bvh` and `walk.npz`, are rejected because both would produce the same CSV path.
+
+### Output Directory Layout
+
+The unified command preserves each input's relative path below `--output-dir`, but it creates only the artifacts required by that input type:
+
+| Input type | Files written below `--output-dir` |
+| --- | --- |
+| SOMA BVH | `retargeted_csv/<relative-path>.csv` |
+| SOMA77/Kimodo NPZ | `soma_bvh/<relative-path>.bvh`, then `retargeted_csv/<relative-path>.csv` |
+| Raw SMPL-family NPZ with `--human-model` | `soma_npz/<relative-path>.npz`, then `soma_bvh/<relative-path>.bvh`, then `retargeted_csv/<relative-path>.csv` |
+
+For example, raw input `/data/motions/set_a/walk.npz` under an input root of `/data/motions` produces:
+
+```text
+/data/k1-output/
+  soma_npz/set_a/walk.npz
+  soma_bvh/set_a/walk.bvh
+  retargeted_csv/set_a/walk.csv
+```
+
+The intermediate directories are conditional. Direct SOMA BVH input creates neither `soma_npz/` nor `soma_bvh/`. The final robot-motion output is always under `retargeted_csv/`.
+
+### Headless Options
+
+| Option | Purpose |
+| --- | --- |
+| `--input-fps` | Override raw-motion FPS and generated BVH FPS. |
+| `--soma-x-batch-size` | Override the SOMA-X frame batch size. |
+| `--source-coordinate {auto,amass,kimodo}` | Override raw source coordinates. |
+| `--canonicalize-heading` / `--no-canonicalize-heading` | Enable or disable frame-zero heading alignment. |
+| `--heading-yaw-degrees` | Apply an additional heading rotation. |
+| `--rebase-root-horizontal` / `--no-rebase-root-horizontal` | Enable or disable frame-zero horizontal root rebasing. |
+| `--bvh-template` | Select the template used for NPZ-to-BVH conversion. |
+| `--bvh-offsets` | Select SOMA77 rest-pose offsets for fixed-Euler BVH generation. |
+| `--bvh-position-scale` | Override generated BVH root-position scale. |
+| `--force` | Replace stale or invalid retained preprocessing output. |
+
+An explicit `--device` is used by both SOMA-X and Newton. Without it, SOMA-X uses `soma_x_device` from the config, whose default is `auto`. Use `--device cpu` for headless CPU conversion.
+
+### FPS and Coordinate Handling
+
+For unified headless NPZ conversion, FPS is selected in this order:
+
+1. `--input-fps`.
+2. `SOMA_RETARGETER_KIMODO_NPZ_FPS`.
+3. `kimodo_npz_fps` in the converter config.
+4. Motion metadata such as `mocap_frame_rate`, `fps`, `sample_rate`, or `source_fps`.
+5. A same-stem sidecar BVH, such as `walk.bvh` beside `walk.npz`.
+6. A 30 FPS compatibility fallback when no valid value is available.
+
+The GUI has no `--input-fps` argument, so it starts with the environment variable and then follows steps 3 through 6. The converter reports the selected FPS source in headless mode and warns when it reaches the 30 FPS fallback.
+
+With `--source-coordinate auto`, raw parameter NPZ files use AMASS coordinates and 22-joint Kimodo matrix files retain Kimodo coordinates. By default, frame-zero anatomical forward is aligned to Kimodo `+Z`, frame-zero horizontal root position is rebased to the origin, and vertical position plus relative trajectory displacement are preserved.
+
+### Resume and Cache Behavior
+
+Raw SOMA-X conversion stores a signature derived from the source, selected human model, SOMA-X version, and conversion options. A retained `soma_npz` result is reused only when its required fields and signature still match. Stale or invalid intermediates stop with an error; rerun with `--force` only when replacement is intentional. The retained BVH can be regenerated from a valid SOMA77 NPZ without repeating PoseInversion.
+
+## Config-only BVH Batch Conversion
+
+The original BVH batch workflow remains available. Run without `--input` and `--output-dir`:
 
 ```bash
 python ./app/bvh_to_csv_converter.py \
@@ -249,7 +410,29 @@ The default AI Sapiens config contains:
 | `retargeter_config` | `ai_sapiens/soma_to_ai_sapiens_retargeter_config.json` |
 | `ai_sapiens_mjcf` | `ai_sapiens/ai_sapiens_retarget.xml` |
 
-The converter creates `export_folder` if it does not exist, retargets every `.bvh` file found under `import_folder`, and saves matching AI Sapiens `.csv` files while preserving the input folder structure.
+This mode recursively converts every `.bvh` under `import_folder` and writes matching CSV files under `export_folder` while preserving relative paths.
+
+## Generate SOMA77 Input Only with SOMA-X
+
+Use the standalone tool only when raw SMPL-family motion must be converted to a reusable SOMA77 intermediate without running Newton or producing an AI Sapiens CSV:
+
+```bash
+python ./tools/convert_smpl_to_retarget_npz.py \
+  --input /data/motion_stageii.npz \
+  --output /data/converted/motion_stageii.npz \
+  --model /models/SMPLX_NEUTRAL.npz \
+  --device auto
+```
+
+`convert_smpl_to_retarget_npz.py` detects the model family automatically. Add
+`--model-type smpl`, `smplh`, or `smplx` only when an explicit override is
+required.
+
+This is different from **Retarget Existing SOMA BVH or SOMA77 NPZ**: the standalone tool stops after SOMA-X preprocessing, whereas the unified command consumes SOMA motion and finishes robot retargeting.
+
+For a single file, the SOMA77 NPZ is written to the exact `--output` path. With `--emit-bvh`, a same-stem BVH is written beside it unless `--bvh-output` is provided. Directory mode mirrors paths from `--input-dir` below `--output-dir`; `--bvh-output-dir` can place optional BVH files in a separate mirrored tree.
+
+The tool also supports `--input-dir`, `--emit-bvh`, `--exclude-dir`, and `--inspect`. `tools/convert_smplx_to_retarget_npz.py` remains a compatibility entry point that defaults to SMPL-X and delegates to the same implementation.
 
 ## Launch the Interactive Viewer
 
@@ -261,23 +444,47 @@ python ./app/bvh_to_csv_converter.py \
   --viewer gl
 ```
 
-The viewer loads BVH files, runs retargeting, previews the source skeleton and AI Sapiens robot, and saves CSV output. It also provides playback, scrubbing, loop, mesh, skeleton, joint-axis, and gizmo controls.
+The `Motion` panel provides independent controls for `BVH Motion`, `NPZ Motion`, `SOMA-X`, and `CSV Motion`.
 
-### Convert One Motion with the GUI
+### Load BVH or SOMA77 NPZ
 
-Use the GUI when you want to inspect and convert one motion interactively:
+1. Click `Load` next to `BVH Motion` or `NPZ Motion`.
+2. Select a compatible motion file.
+3. Check the source motion in the viewport.
+4. Click the corresponding `Retarget` button.
+5. Preview the result with the playback controls.
+6. Click `Save` next to `CSV Motion` and choose the output path.
 
-1. Run the viewer command above from the repository root.
-2. In the `Motion` section, click `Load` next to `BVH Motion`.
-3. Select one `.bvh` file, for example a file under `assets/motions/bvh`.
-4. Check the loaded source motion in the viewport.
-5. Click `Retarget`.
-6. Use the playback controls to preview the retargeted AI Sapiens motion.
-7. Click `Save` next to `CSV Motion` and choose the output `.csv` path.
+### Convert Raw SMPL-family Motion with SOMA-X
 
-The GUI does not automatically convert every file in `import_folder`. Batch conversion of all `.bvh` files under `import_folder` happens only when running with `--viewer null`.
+The SOMA-X row follows this sequence:
 
-If you run the GUI inside Docker, the container must be started with a valid host display. Confirm that `echo $DISPLAY` is not empty inside the container and that `/tmp/.X11-unix` is mounted.
+```text
+SOMA-X: [Human Model] [Motion] [Retarget]
+```
+
+When the viewer starts, it checks whether the required SOMA-X runtime is
+available. If SOMA-X is not installed, has the wrong version, or is missing a
+required Python module, `Human Model`, `Motion`, and `Retarget` are all
+disabled. The information line below the row shows only the unavailable reason
+in red. Install the optional runtime with the command below from the repository
+root, then restart the viewer:
+
+```bash
+python -m pip install --extra-index-url https://pypi.nvidia.com -e '.[soma-x]'
+```
+
+1. Select a licensed SMPL, SMPL-H, or SMPL-X file with `Human Model`. Before selection, the information line lists the supported model families.
+2. Confirm the detected family and filename shown below the row. A valid model enables `Motion`.
+3. Select matching raw motion. Conversion starts in a subprocess, the controls lock, and frame progress appears as a percentage beside the model information.
+4. Wait until the converted SOMA77 motion is loaded and `100%` is displayed. The `Retarget` button then becomes available.
+5. Click `Retarget`, preview the AI Sapiens result, and save it through `CSV Motion`.
+
+Selecting a different human model invalidates the previously converted motion. A recognized model/motion mismatch appears in red on the information line without opening a traceback popup. Other conversion errors use the normal error popup. Closing the viewer terminates an active GUI conversion subprocess.
+
+The GUI processes one selected motion. Use unified headless directory mode for recursive conversion.
+
+If you run the GUI inside Docker, install `python3-tk` inside the container and provide a valid host display. Confirm that `echo $DISPLAY` is not empty and that `/tmp/.X11-unix` is mounted.
 
 ### Why STL Mesh Files Are Required
 
@@ -302,6 +509,7 @@ git submodule status --recursive
 
 | Field | Description |
 | --- | --- |
+| `ai_sapiens_viewer_default_orientation_yaw_deg` | Viewer-only yaw applied to the displayed AI Sapiens model; it does not modify retargeted or exported motion. |
 | `ai_sapiens_root_translation_yaw_deg` | Yaw rotation applied to exported root translation. |
 | `ai_sapiens_root_orientation_yaw_deg` | Yaw rotation applied to exported root orientation. |
 | `ai_sapiens_root_translation_xy_scale` | Scale applied to exported root XY translation. |
@@ -310,21 +518,52 @@ git submodule status --recursive
 | `ai_sapiens_target_yaw_pivot` | Pivot mode for target yaw correction: `origin`, `first_root`, or `per_frame_root`. |
 | `ai_sapiens_ground_align` | When enabled, applies a root-Z offset based on non-plane geoms. |
 
-The default AI Sapiens converter config sets `ai_sapiens_root_translation_yaw_deg` and `ai_sapiens_root_orientation_yaw_deg` to `90.0`, keeps XY scale at `1.0`, and leaves `ai_sapiens_ground_align` disabled. Retargeter solver options are defined separately in `soma_retargeter/configs/ai_sapiens/soma_to_ai_sapiens_retargeter_config.json`.
+The default AI Sapiens converter config sets root translation, root orientation, target-position, and target-orientation yaw corrections to `0.0`. It sets the viewer-only `ai_sapiens_viewer_default_orientation_yaw_deg` to `-90.0`, keeps XY scale at `1.0`, and leaves `ai_sapiens_ground_align` disabled. The viewer value changes presentation only; it does not rotate the retargeted CSV. Retargeter solver options are defined separately in `soma_retargeter/configs/ai_sapiens/soma_to_ai_sapiens_retargeter_config.json`.
+
+## SOMA-X Integration Config Fields
+
+These fields belong to the Soma-retargeter integration layer that invokes SOMA-X. They are not native SOMA-X configuration fields.
+
+| Field | Default | Description |
+| --- | --- | --- |
+| `soma_x_human_model` | Empty | Default licensed SMPL-family model path. |
+| `soma_x_device` | `auto` | SOMA-X conversion device when `--device` is not supplied. |
+| `soma_x_batch_size` | `32` | Number of frames processed per SOMA-X conversion batch. |
+| `soma_x_source_coordinate` | `auto` | Selects automatic, AMASS, or Kimodo source coordinates. |
+| `soma_x_canonicalize_heading` | `true` | Aligns frame-zero anatomical forward to Kimodo `+Z`. |
+| `soma_x_rebase_root_horizontal` | `true` | Moves frame-zero horizontal root position to the origin. |
+
+## SOMA77 NPZ Conversion Config Fields
+
+After SOMA-X produces SOMA77 NPZ data, or when SOMA77/Kimodo NPZ is loaded directly, Soma-retargeter uses these fields to generate the fixed SOMA BVH consumed by the retargeting pipeline.
+
+| Field | Default | Description |
+| --- | --- | --- |
+| `kimodo_npz_template_bvh` | Example SOMA BVH | Supplies the SOMA hierarchy and channel layout for generated BVH. |
+| `kimodo_npz_offsets` | Empty (automatic fallback) | Optional SOMA77 rest-pose offsets file. An empty value uses the packaged standard offsets when available. |
+| `kimodo_npz_fps` | Empty (automatic detection) | Optional FPS override used before NPZ metadata and a same-stem sidecar BVH. |
+| `kimodo_npz_position_scale` | `100.0` | Scales NPZ root position for BVH output. |
+
+Corresponding CLI options override these integration and conversion config values for the current run. Rest-pose offsets are resolved in this order: `--bvh-offsets` in unified headless mode, `SOMA_RETARGETER_KIMODO_NPZ_OFFSETS`, `kimodo_npz_offsets`, the packaged `soma_retargeter/configs/soma/standard_t_pose_global_offsets_rots.p`, and then a compatible nearby Kimodo checkout. The BVH template follows the equivalent CLI, environment, config, and bundled-example fallback order.
 
 ## Project Structure Reference
 
 | Path | Purpose |
 | --- | --- |
-| `app/bvh_to_csv_converter.py` | Main entry point for OpenGL viewer mode and headless batch mode. |
+| `app/bvh_to_csv_converter.py` | Main entry point for GUI, config-only BVH batch, and unified headless file/directory conversion. |
 | `assets/default_ai_sapiens_bvh_to_csv_converter_config.json` | Default AI Sapiens converter config. |
 | `soma_retargeter/assets/ai_sapiens.py` | AI Sapiens path and CSV root convention helpers. |
 | `soma_retargeter/assets/ai_sapiens_mjcf.py` | URDF-based retarget MJCF generator and validator. |
+| `soma_retargeter/assets/motion_input.py` | Unified BVH/NPZ schema classification and headless input planning. |
+| `soma_retargeter/assets/smplx_motion.py` | SMPL-family model inspection, schema validation, SOMA-X conversion, and cache signatures. |
+| `soma_retargeter/assets/kimodo_npz.py` | SOMA77/Kimodo NPZ FPS detection and fixed BVH conversion. |
 | `soma_retargeter/configs/ai_sapiens/soma_to_ai_sapiens_retargeter_config.json` | AI Sapiens IK body map and solver settings. |
 | `soma_retargeter/configs/ai_sapiens/ai_sapiens_retarget_mjcf_patch.json` | Retarget proxy/TCP body patch data. |
 | `soma_retargeter/configs/ai_sapiens/ai_sapiens_retarget.xml` | Generated AI Sapiens retarget MJCF. |
 | `third_party/ai_sapiens/` | AI Sapiens submodule containing URDF and STL mesh assets. |
 | `tools/generate_ai_sapiens_retarget_mjcf.py` | CLI wrapper for MJCF ensure/check/force generation. |
+| `tools/convert_smpl_to_retarget_npz.py` | Standalone SMPL/SMPL-H/SMPL-X to SOMA77 conversion entry point. |
+| `tools/convert_smplx_to_retarget_npz.py` | SMPL-X-compatible conversion entry point and shared standalone implementation. |
 
 ## Output CSV
 
@@ -395,13 +634,20 @@ Check Python syntax:
 python -m compileall app soma_retargeter tools
 ```
 
+Check the unified and standalone command interfaces:
+
+```bash
+python app/bvh_to_csv_converter.py --help
+python tools/convert_smpl_to_retarget_npz.py --help
+```
+
 Check the retarget MJCF patch JSON:
 
 ```bash
 python -m json.tool soma_retargeter/configs/ai_sapiens/ai_sapiens_retarget_mjcf_patch.json
 ```
 
-Run an optional smoke test after setup if you need to confirm BVH-to-CSV conversion end to end. The default converter config processes every `.bvh` file under `assets/motions/bvh`; for a quick check, use a config copy that points `import_folder` to a folder containing one or a few BVH files.
+Run an optional smoke test after setup to confirm conversion end to end. For BVH, use one input file with unified headless mode. For raw SMPL-family input, also supply a licensed matching human model and verify that `soma_npz`, `soma_bvh`, and `retargeted_csv` contain the expected outputs.
 
 This guide covers setup and conversion only. It does not certify retargeting quality, initial pose equivalence, physical stability, or hardware safety.
 
@@ -411,6 +657,13 @@ This guide covers setup and conversion only. It does not certify retargeting qua
 | --- | --- | --- |
 | `ERROR: Directory '.' is not installable. Neither 'setup.py' nor 'pyproject.toml' found.` | `pip install ... -e .` was run outside the `soma-retargeter` repository root. | Run `cd soma-retargeter` first. Confirm `ls pyproject.toml` succeeds, then rerun the install command. |
 | `ModuleNotFoundError: No module named 'soma_retargeter'` | Soma-retargeter was not installed in the active Python environment, or the wrong environment is active. | Activate the environment and run `pip install --extra-index-url https://pypi.nvidia.com -e .` from the repository root. |
+| All three SOMA-X GUI buttons are disabled and the information line is red | SOMA-X is not installed, has the wrong version, or is missing a required Python module. | Run `python -m pip install --extra-index-url https://pypi.nvidia.com -e '.[soma-x]'` from the repository root, then restart the viewer. BVH and SOMA77 input do not require this extra. |
+| `Human model and motion do not match.` | The selected SMPL, SMPL-H, or SMPL-X model family does not match the raw motion schema. | Select a licensed model from the same family as the motion. Do not rename files to bypass schema validation. |
+| A raw NPZ reports that no human model is configured | None of the CLI, environment, or config model paths resolved to a file. | Pass `--human-model`, set `SOMA_RETARGETER_SOMA_X_HUMAN_MODEL`, or set `soma_x_human_model` in the config. |
+| Input and output directories overlap | Recursive conversion would scan or overwrite its own generated files. | Use separate input and output roots. |
+| Existing preprocessing output has a signature mismatch | The source, human model, SOMA-X version, or conversion options changed. | Confirm the change, then use `--force` only if replacing the retained output is intended. |
+| CUDA device is unavailable | CUDA was requested but the host or container does not expose a compatible GPU. | Expose the GPU correctly or run headless conversion with `--device cpu`. |
+| NPZ-to-BVH conversion reports a rest-pose offset error | The fixed BVH converter cannot resolve SOMA77 offsets. | Configure `kimodo_npz_offsets` or pass `--bvh-offsets` with the standard SOMA rest-pose offsets file. |
 | `python: can't open file '.../tools/generate_ai_sapiens_retarget_mjcf.py': [Errno 2] No such file or directory` | The command was run outside the repository root, or the repository was not cloned. | Run `cd soma-retargeter` first. Confirm `ls tools/generate_ai_sapiens_retarget_mjcf.py` succeeds. |
 | `[ERROR]: Main config json file not found: ...` | The path passed to `--config` does not exist. | Confirm the command uses `./assets/default_ai_sapiens_bvh_to_csv_converter_config.json` or another valid config path. |
 | `[ERROR]: Import folder does not exist ...` | `import_folder` in the config points to a missing directory. | Create the directory or edit `import_folder`. |
@@ -423,8 +676,8 @@ This guide covers setup and conversion only. It does not certify retargeting qua
 | `Compiled AI Sapiens URDF has unexpected dimensions ...` | The URDF compiled into an unexpected MuJoCo model shape. | Confirm the submodule commit and the generator patch JSON. |
 | `AssertionError: [ERROR]: Unexpected number of joints in input motion. Expected ..., got ...` | A BVH file in the batch does not match the skeleton structure of the first BVH file. | Keep one expected SOMA skeleton format per batch. |
 | `[ERROR]: Invalid retarget solver selected [...]. Use 'Newton'.` | The config uses an unsupported `retargeter` value. | Set `retargeter` to `Newton`. |
-| `ModuleNotFoundError: No module named 'tkinter'`, display error, or OpenGL context error when using `--viewer gl` | The interactive viewer dependency or display context is unavailable. | Install `python3.12-tk` and confirm a display/OpenGL context. For headless conversion, use `--viewer null`. |
-| Output appears in a different folder than expected | The config controls output path creation and timestamp behavior. | Check `export_folder` and `timestamp_result_folder`. |
+| `ModuleNotFoundError: No module named 'tkinter'`, display error, or OpenGL context error when using `--viewer gl` | The interactive viewer dependency or display context is unavailable. | Install `python3-tk` and confirm a display/OpenGL context. For headless conversion, use `--viewer null`. |
+| Output appears in a different folder than expected | Unified mode uses `--output-dir`; config-only BVH mode uses `export_folder` and `timestamp_result_folder`. | Check which mode was launched. Unified final CSV files are under `retargeted_csv/`. |
 
 ## Attribution
 

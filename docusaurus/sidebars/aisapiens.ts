@@ -28,6 +28,7 @@ const aisapiensSidebar: SidebarsConfig[string] = [
       {type: 'doc', id: 'systems/aisapiens/development_guide/ros2_package_structure/ros2_package_structure', label: 'ROS 2 Package Structure and Topic Description'},
       {type: 'doc', id: 'systems/aisapiens/development_guide/zenoh_ros2_sdk', label: 'Control with Python SDK'},
       {type: 'doc', id: 'systems/aisapiens/development_guide/sim2real/sim2real', label: 'Sim2Real'},
+      {type: 'doc', id: 'systems/aisapiens/development_guide/sim2sim/sim2sim', label: 'MuJoCo Sim2Sim'},
     ],
   },
   {
@@ -45,7 +46,16 @@ const aisapiensSidebar: SidebarsConfig[string] = [
           {type: 'doc', id: 'systems/aisapiens/reinforcement_learning/cyclo_lab/mimic', label: 'Mimic'},
         ],
       },
-      {type: 'doc', id: 'systems/aisapiens/reinforcement_learning/cyclo_mjlab', label: 'Cyclo MJLab'},
+      {
+        type: 'category',
+        label: 'Cyclo MJLab',
+        collapsed: false,
+        items: [
+          {type: 'doc', id: 'systems/aisapiens/reinforcement_learning/cyclo_mjlab/cyclo_mjlab', label: 'Overview'},
+          {type: 'doc', id: 'systems/aisapiens/reinforcement_learning/cyclo_mjlab/locomotion', label: 'Locomotion', key: 'cyclo-mjlab-locomotion'},
+          {type: 'doc', id: 'systems/aisapiens/reinforcement_learning/cyclo_mjlab/mimic', label: 'Mimic', key: 'cyclo-mjlab-mimic'},
+        ],
+      },
     ],
   },
   {
@@ -62,6 +72,7 @@ const aisapiensSidebar: SidebarsConfig[string] = [
     label: 'Motion Retargeting',
     collapsed: false,
     items: [
+      {type: 'doc', id: 'systems/aisapiens/motion_generation_retargeting/soma_x', label: 'SOMA-X'},
       {type: 'doc', id: 'systems/aisapiens/motion_generation_retargeting/soma_retargeter/soma_retargeter', label: 'Soma-retargeter'},
       {type: 'doc', id: 'systems/aisapiens/motion_generation_retargeting/gmr', label: 'GMR'},
     ],
