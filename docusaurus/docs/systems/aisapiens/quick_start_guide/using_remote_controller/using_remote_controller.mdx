@@ -145,11 +145,12 @@ Use the diagnostic pages when the main status page does not look normal or when 
 The image below shows the `SB` positions from above, with the antenna side at the top and the user side at the bottom.
 `SB` and `SC` use the same `UP`, `MIDDLE`, and `DOWN` orientation.
 
-<img
-  src="/img/systems/aisapiens/quick_start_guide/using_remote_controller/radiomaster_sb_positions_top_view.png"
-  alt="RadioMaster Pocket SB switch positions viewed from above"
-  style={{width: '90%', height: 'auto', display: 'block', margin: '0 auto'}}
-/>
+<figure className="radiomaster-sb-positions">
+  <img
+    src="/img/systems/aisapiens/quick_start_guide/using_remote_controller/radiomaster_sb_positions_top_view.png"
+    alt="Top-view illustration of the RadioMaster Pocket showing the SB switch in its up, middle, and down positions"
+  />
+</figure>
 
 <details className="ai-sapiens-telemetry-details">
 <summary>SC and SB mode combinations</summary>
@@ -173,12 +174,49 @@ Do not start with `SC` down and `SB` in the middle; the startup safety check doe
 
 Move `SC` down and `SB` up to enter Velocity control, then use the gimbals as follows:
 
+<figure
+  className="radiomaster-velocity-controls"
+  role="img"
+  aria-label="The left gimbal controls forward, backward, left, and right movement. The right gimbal controls left and right turning, while its vertical axis is not used."
+>
+  <div className="radiomaster-velocity-controls__canvas">
+    <img
+      src="/img/systems/aisapiens/quick_start_guide/using_remote_controller/radiomaster_velocity_controls_base.png"
+      alt=""
+    />
+    <svg
+      className="radiomaster-velocity-controls__overlay"
+      viewBox="0 0 1672 941"
+      aria-hidden="true"
+    >
+      <defs>
+        <marker id="radiomaster-move-arrow" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto-start-reverse" markerUnits="strokeWidth">
+          <path d="M0,0 L7,3.5 L0,7 Z" className="radiomaster-velocity-controls__marker--move" />
+        </marker>
+        <marker id="radiomaster-turn-arrow" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto-start-reverse" markerUnits="strokeWidth">
+          <path d="M0,0 L7,3.5 L0,7 Z" className="radiomaster-velocity-controls__marker--turn" />
+        </marker>
+      </defs>
+      <line x1="423" y1="457" x2="710" y2="457" className="radiomaster-velocity-controls__line radiomaster-velocity-controls__line--move" markerStart="url(#radiomaster-move-arrow)" markerEnd="url(#radiomaster-move-arrow)" />
+      <line x1="575" y1="335" x2="575" y2="580" className="radiomaster-velocity-controls__line radiomaster-velocity-controls__line--move" markerStart="url(#radiomaster-move-arrow)" markerEnd="url(#radiomaster-move-arrow)" />
+      <line x1="972" y1="457" x2="1228" y2="457" className="radiomaster-velocity-controls__line radiomaster-velocity-controls__line--turn" markerStart="url(#radiomaster-turn-arrow)" markerEnd="url(#radiomaster-turn-arrow)" />
+      <line x1="1095" y1="360" x2="1095" y2="555" className="radiomaster-velocity-controls__unused-line" />
+      <path d="M1081,340 L1109,368 M1109,340 L1081,368" className="radiomaster-velocity-controls__unused-mark" />
+    </svg>
+  </div>
+  <figcaption className="radiomaster-velocity-controls__legend">
+    <span><i className="radiomaster-velocity-controls__key radiomaster-velocity-controls__key--move" />Move</span>
+    <span><i className="radiomaster-velocity-controls__key radiomaster-velocity-controls__key--turn" />Turn</span>
+    <span><i className="radiomaster-velocity-controls__key radiomaster-velocity-controls__key--unused" />Not used</span>
+  </figcaption>
+</figure>
+
 | Gimbal input | Robot movement |
 | --- | --- |
-| Right gimbal up / down | Move forward / backward |
+| Left gimbal up / down | Move forward / backward |
 | Left gimbal left / right | Move left / right |
 | Right gimbal left / right | Turn left / right |
-| Left gimbal up / down | Not used for Velocity control |
+| Right gimbal up / down | Not used for Velocity control |
 
 Move the gimbals gradually and return them to the center to stop the commanded movement.
 
