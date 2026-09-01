@@ -1,3 +1,7 @@
+{/* 파본 있음 — 아래 파일도 함께 고쳐야 합니다.
+   control_table_indirect_data_x330.mdx
+   control_table_indirect_data_xw.mdx
+*/}
 Indirect Address와 Indirect Data는 컨트롤 테이블에서 서로 떨어져 있는 Address를 연속된 Address처럼 사용하기 위한 기능입니다. 연속된 Address를 사용하면 Instruction Packet의 효율을 높일 수 있습니다. Indirect Address로 지정할 수 있는 Address는 RAM 영역(Address 64 ~ 661)으로 제한됩니다.
 - Indirect Address에 특정 Address를 할당하면, Indirect Data는 해당 Address의 Data가 가진 기능과 속성을 상속합니다.
 - 속성에는 Size(Byte 길이), 값의 범위, Access 속성(Read Only, Read/Write)이 포함됩니다.
