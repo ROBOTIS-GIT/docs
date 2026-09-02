@@ -1,0 +1,763 @@
+# Building Humanoid Skills with the NVIDIA Software Stack: From Whole-Body Motion to Manipulation
+
+* By Sungho Woo · Sep 1, 2026 · 15 min read
+
+---
+
+<div style={{display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '16px', margin: '20px 0', alignItems: 'start'}}>
+  <div>
+    <img src="/img/systems/aisapiens/resources/technical_story/building_humanoid_skills/stray_kids_this_that.webp" alt="AI Sapiens mimicking a human dance motion" style={{width: '100%', height: '100%', aspectRatio: '16 / 9', objectFit: 'cover', display: 'block', borderRadius: '8px'}} />
+    <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic', textAlign: 'center'}}>Whole-Body Motion Mimic</p>
+  </div>
+  <div>
+    <img src="/img/systems/aisapiens/resources/technical_story/building_humanoid_skills/groot_success.gif" alt="AI Worker grasping the target after augmented training" style={{width: '100%', height: '100%', aspectRatio: '16 / 9', objectFit: 'cover', display: 'block', borderRadius: '8px'}} />
+    <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic', textAlign: 'center'}}>GR00T N1.7 Manipulation</p>
+  </div>
+</div>
+
+
+Humanoid robots need to master two very different kinds of skills: **whole-body motion** and **manipulation**.
+
+At ROBOTIS, we are exploring both — and NVIDIA software has become a key part of how we build and scale them.
+
+For **[AI Sapiens](/docs/systems/aisapiens/introduction)**, our **23-DoF bipedal K1** stands **1355 mm**, weighs **35 kg**, and is driven by **DYNAMIXEL-Q QDD actuators** — 5-DoF arms, 6-DoF legs, and a 1-DoF waist — with on-device **NVIDIA Jetson Orin NX** compute. Every skill must be executed while maintaining dynamic balance, so **NVIDIA Isaac Lab** provides the large-scale simulation and reinforcement-learning environment needed to train those whole-body skills before deploying them to real hardware.
+
+For **[AI Worker](/docs/systems/aiworker/introduction)**, our **bimanual semi-humanoid** combines **dual 7-DoF arms**, a **swerve-drive mobile base**, RGBD cameras, and on-device **NVIDIA Jetson AGX Orin** compute. The challenge therefore shifts from dynamics to data: **NVIDIA Isaac GR00T N1.7** provides the pretrained robot foundation model, while **NVIDIA Cosmos Transfer** helps broaden the visual diversity of real-robot demonstrations through synthetic augmentation.
+
+<div style={{
+  margin: '28px 0',
+  padding: '20px 24px',
+  background: 'rgba(118, 185, 0, 0.08)',
+  borderLeft: '4px solid #76B900',
+  borderRadius: '8px'
+}}>
+  <div style={{fontSize: '13px', fontWeight: '700', color: '#76B900', marginBottom: '8px'}}>
+    KEY INSIGHT
+  </div>
+
+
+<strong>Whole-body motion benefits from scalable simulation.<br/>
+Manipulation benefits from scalable robot data.</strong>
+
+</div>
+
+This post walks through both pipelines end to end — from motion generation, retargeting, and reinforcement learning to Sim2Real deployment, and from teleoperation and GR00T fine-tuning to Cosmos-based data augmentation.
+
+More importantly, we share what happened when these technologies met real ROBOTIS hardware: what transferred, what failed, and what we changed to make the pipelines work.
+
+In this post, you will learn:
+
+* How an end-to-end **whole-body motion mimic pipeline** turns human motion into policies that can be deployed on a real humanoid.
+* Why closing the **Sim2Real gap** requires both a simulator that better represents real robot dynamics and hardware whose behavior is predictable enough to model.
+* How **NVIDIA Cosmos Transfer** can augment a small real-robot dataset and improve a fine-tuned **NVIDIA Isaac GR00T N1.7** manipulation policy.
+* Why **contact-rich manipulation remains a major challenge**, and why learning real-world interaction dynamics may be the next step toward scaling humanoid manipulation.
+
+**Contents**
+
+* [NVIDIA software across two humanoid pipelines](#nvidia-software-across-two-humanoid-pipelines)
+* [Part 1 — AI Sapiens: whole-body motion](#part-1--ai-sapiens-whole-body-motion)
+  * [Generating and retargeting reference motion](#generating-and-retargeting-reference-motion)
+  * [Training whole-body skills in NVIDIA Isaac Lab](#training-whole-body-skills-in-nvidia-isaac-lab)
+  * [Deploying to AI Sapiens](#deploying-to-ai-sapiens)
+  * [Closing the Sim2Real gap](#closing-the-sim2real-gap)
+* [Part 2 — AI Worker: manipulation](#part-2--ai-worker-manipulation)
+  * [Collecting manipulation demonstrations](#collecting-manipulation-demonstrations)
+  * [Fine-tuning NVIDIA Isaac GR00T N1.7](#fine-tuning-nvidia-isaac-groot-n17)
+  * [Scaling visual diversity with NVIDIA Cosmos Transfer](#scaling-visual-diversity-with-nvidia-cosmos-transfer)
+* [Scaling humanoid skills](#scaling-humanoid-skills)
+* [Bringing the skills together](#bringing-the-skills-together)
+* [Resources](#resources)
+
+---
+
+## NVIDIA software across two humanoid pipelines
+
+Humanoid development does not follow a single pipeline. Whole-body motion and manipulation face different bottlenecks, so we combine different parts of the **NVIDIA Physical AI software stack** for each.
+
+<div style={{display: 'grid', gridTemplateColumns: '1fr', gap: '20px', margin: '24px 0'}}>
+  <div>
+    <div style={{overflow: 'hidden', borderRadius: '30px'}}>
+      <img src="/img/systems/aisapiens/resources/technical_story/building_humanoid_skills/ais_pipeline.png" alt="AI Sapiens whole-body motion pipeline: Kimodo and GEM-X, SOMA-Retargeter, Isaac Lab, Sim2Real" style={{width: '100%', height: 'auto', aspectRatio: '860 / 230', objectFit: 'contain', display: 'block'}} />
+    </div>
+    <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic', textAlign: 'center'}}>AI Sapiens — Kimodo / GEM-X → SOMA-Retargeter → Isaac Lab → Sim2Real</p>
+  </div>
+
+
+  <div>
+    <div style={{overflow: 'hidden', borderRadius: '30px'}}>
+      <img src="/img/systems/aisapiens/resources/technical_story/building_humanoid_skills/aiw_pipeline.png" alt="AI Worker manipulation pipeline: teleoperation, Cosmos Transfer, GR00T N1.7, evaluation" style={{width: '100%', height: 'auto', aspectRatio: '860 / 230', objectFit: 'contain', display: 'block'}} />
+    </div>
+    <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic', textAlign: 'center'}}>AI Worker — Teleoperation → Cosmos Transfer → GR00T N1.7 → Evaluation</p>
+  </div>
+
+</div>
+
+The two development pipelines therefore look similar at a high level, but use different NVIDIA technologies at different stages — from human-motion representation and large-scale simulation to robot foundation models, data augmentation, and on-device deployment.
+
+On **AI Sapiens**, **[NVIDIA Kimodo](https://research.nvidia.com/labs/sil/projects/kimodo/)** and **[NVIDIA GEM-X](https://github.com/NVlabs/GEM-X)** generate 3D human motion from text, video, or kinematic constraints. **[NVIDIA SOMA Retargeter](https://github.com/NVIDIA/soma-retargeter)** maps that motion onto the K1 embodiment, while **[NVIDIA Isaac Lab](https://developer.nvidia.com/isaac/lab)** provides the large-scale simulation environment in which **BeyondMimic**, integrated through Cyclo Lab, learns to track the reference motion. The resulting policy is then transferred to AI Sapiens and executed on real hardware through Sim2Real with DYNAMIXEL-Q impedance control and **[NVIDIA Jetson](https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/)** edge compute.
+
+On **AI Worker**, the pipeline starts from real-robot teleoperation. **[NVIDIA Cosmos Transfer](https://github.com/nvidia-cosmos/cosmos-transfer2.5)** increases the visual diversity of those demonstrations without requiring another round of physical data collection. The combined dataset is then used to fine-tune **[NVIDIA Isaac GR00T N1.7](https://github.com/Nvidia/Isaac-GR00T)**, and the resulting manipulation policy is evaluated on the real robot with on-device inference.
+
+Same destination: better robot skills. Different paths through the NVIDIA software stack.
+
+The rest of this post follows those two pipelines end to end.
+
+---
+
+## Part 1 — AI Sapiens: whole-body motion
+
+One objective, four stages: take human motion, adapt it to the AI Sapiens embodiment, train a policy in simulation, and reproduce the motion on real hardware at 50 Hz without falling.
+
+### Generating and retargeting reference motion
+
+The first challenge is not reinforcement learning. It is getting human motion into a representation that the robot-learning pipeline can consistently consume.
+
+Relying on a single motion-capture source makes every new skill dependent on another data-collection session. Instead, our front end accepts multiple motion sources — video, text-generated motion, existing human-motion datasets, and parametric body representations — and converts them into one common reference format.
+
+<div style={{margin: '24px auto', width: '70%'}}>
+  <div style={{overflow: 'hidden', borderRadius: '16px'}}>
+    <img src="/img/systems/aisapiens/resources/technical_story/building_humanoid_skills/soma.webp" alt="SOMA in Action: SOMA-shape, MHR, SMPL-X, Anny, and garment-measurement bodies driven by one skeleton" style={{width: '100%', height: 'auto', display: 'block'}} />
+  </div>
+  <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic', textAlign: 'center'}}>SOMA provides a unified skeleton across multiple human-body representations.</p>
+</div>
+
+
+**SOMA** provides the common human-motion representation used in this pipeline. Different body models and motion sources can be expressed through the same underlying skeleton, giving the downstream retargeting stage a consistent interface.
+
+<div style={{margin: '24px 0'}}>
+  <div style={{overflow: 'hidden', borderRadius: '16px'}}>
+    <video controls autoPlay muted loop playsInline preload="metadata" style={{width: '100%', height: 'auto', display: 'block', aspectRatio: '2040 / 720'}}>
+      <source src="/img/systems/aisapiens/resources/technical_story/building_humanoid_skills/soma.webm" type="video/webm" />
+    </video>
+  </div>
+  <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic', textAlign: 'center'}}>Human Motion Sources → SOMA → SOMA Retargeter → Robot Reference Motion</p>
+</div>
+
+
+Read the pipeline from left to right.
+
+**1. Motion input.** Multiple sources can feed the same pipeline. ROBOTIS currently provides **[GEM-X](/docs/systems/aisapiens/motion_generation/gem-x)** and **[Kimodo](/docs/systems/aisapiens/motion_generation_retargeting/kimodo)** as supported motion-generation methods; setup and usage manuals are available in this documentation.
+
+* **Video / GEM-X** recovers 3D human motion from unconstrained video.
+* **Text prompt / Kimodo** generates kinematic motion from natural-language descriptions.
+* **SMPL / AMASS** and **MHR / SAM 3D** provide existing human-body and motion representations through SOMA-X.
+* **BONES-SEED** provides ready-to-use motion sequences.
+
+**2. Unified human-motion representation.**
+SOMA maps these heterogeneous inputs onto a common skeleton. The downstream interface is fixed: **77 joint rotations plus a 3D root trajectory**.
+
+**3. Robot retargeting.**
+Human motion cannot be copied directly to a humanoid. Human and robot kinematics differ in joint count, range of motion, link proportions, and body structure. **[SOMA Retargeter](/docs/systems/aisapiens/motion_generation_retargeting/soma_retargeter/)** solves this as a constrained retargeting problem, mapping the human reference onto the 23-DoF K1 embodiment while respecting robot joint limits and kinematic constraints.
+
+**4. Reference motion output.**
+The result is `reference_motion.csv` / `.npz`, containing the 23 robot joint positions and the root pose required for policy training.
+
+This standardized interface is important: motion generation and robot learning remain decoupled. A new motion source can be added upstream as long as it can be converted into the same reference representation, without redesigning the downstream reinforcement-learning pipeline.
+
+**Video, text, or motion datasets in. Robot-ready reference motion out.**
+
+---
+
+### Training whole-body skills in NVIDIA Isaac Lab
+
+<div style={{margin: '24px auto', width: '80%'}}>
+  <div style={{overflow: 'hidden', borderRadius: '16px'}}>
+    <img src="/img/systems/aisapiens/resources/technical_story/building_humanoid_skills/ISAAC_.webp" alt="Thousands of K1 instances training in parallel in NVIDIA Isaac Lab" style={{width: '100%', height: 'auto', display: 'block'}} />
+  </div>
+  <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic', textAlign: 'center'}}>NVIDIA Isaac Lab — 4,096 K1 instances learning the same reference motion across randomized environments.</p>
+</div>
+
+
+Once the human motion has been retargeted to K1, the next challenge is to turn that kinematic reference into a policy that can reproduce the motion while maintaining balance.
+
+This is where **NVIDIA Isaac Lab** becomes the scaling engine of the whole-body motion pipeline.
+
+Through [Cyclo Lab](/docs/systems/aisapiens/reinforcement_learning/cyclo_lab/), we train **4,096 K1 instances in parallel** using the **[BeyondMimic](https://beyondmimic.github.io/)** motion-tracking formulation ([Mimic](/docs/systems/aisapiens/reinforcement_learning/cyclo_lab/mimic)). Each simulated robot tracks the same reference motion while experiencing slightly different physical conditions through domain randomization.
+
+| Parameter                | Value                                                        |
+| ------------------------ | ------------------------------------------------------------ |
+| Parallel environments    | 4,096 K1 instances                                           |
+| Physics rate             | 200 Hz                                                       |
+| Policy rate              | 50 Hz                                                        |
+| Domain randomization     | Ground friction and restitution, default joint offsets, torso center of mass, velocity perturbations |
+| Wall-clock training time | ~4 hours                                                     |
+| Output artifacts         | `policy.onnx`, `sim2real.yaml`                               |
+
+*Table 1. Isaac Lab training configuration for whole-body motion tracking.*
+
+The physics simulation runs at **200 Hz**, while the policy runs at **50 Hz**, matching the control rate used on the real robot. The higher physics rate provides sufficient resolution for contact dynamics, while keeping the policy rate consistent between simulation and deployment removes one source of Sim2Real mismatch.
+
+More importantly, Isaac Lab allows the policy to experience thousands of variations of the robot and its environment simultaneously. Instead of learning to reproduce one motion under one idealized condition, the policy learns to track the same reference while tolerating variations in contact, joint offsets, mass distribution, and external disturbances.
+
+#### BeyondMimic: learning to track the reference
+
+**BeyondMimic** turns the retargeted motion into a whole-body tracking objective. In Cyclo Lab Mimic, we use the same overall tracking formulation across different reference motions, allowing new skills to enter the pipeline primarily as new motion references rather than requiring a new learning setup for every skill.
+
+The reward focuses on three main objectives:
+
+**Anchor and pose.**
+Track the reference body configuration and motion while allowing enough freedom for the robot to adjust its contacts and maintain balance.
+
+**Smoothness.**
+Penalize excessive torque, acceleration, and joint-limit violations to discourage high-frequency or mechanically aggressive behaviors that may transfer poorly to hardware.
+
+**Contact safety.**
+Penalize undesired contacts and encourage physically valid execution, preventing the policy from exploiting unrealistic contact strategies in simulation.
+
+<div style={{
+  margin: '24px 0',
+  padding: '18px 22px',
+  background: 'rgba(107, 114, 128, 0.07)',
+  borderLeft: '4px solid #6B7280',
+  borderRadius: '8px'
+}}>
+  <div style={{fontSize: '13px', fontWeight: '700', color: '#6B7280', marginBottom: '8px'}}>
+    TRAINING OBJECTIVE
+  </div>
+
+
+<strong>Anchor and pose · Smoothness · Contact safety</strong>
+
+  <div style={{marginTop: '8px'}}>
+    The same formulation is reused across different reference motions.
+  </div>
+
+</div>
+
+The combination of **a standardized reference motion, BeyondMimic's tracking formulation, and Isaac Lab's massively parallel simulation** makes the training pipeline reusable across different whole-body skills.
+
+A new reference motion enters the same pipeline, and approximately **four hours** later the output is a deployment-ready pair:
+
+`policy.onnx` + `sim2real.yaml`
+
+<div style={{
+  margin: '28px 0',
+  padding: '20px 24px',
+  background: 'rgba(118, 185, 0, 0.08)',
+  borderLeft: '4px solid #76B900',
+  borderRadius: '8px'
+}}>
+  <div style={{fontSize: '13px', fontWeight: '700', color: '#76B900', marginBottom: '8px'}}>
+    KEY INSIGHT
+  </div>
+
+
+<strong>One reference motion → 4,096 randomized environments → one deployable whole-body policy.</strong>
+
+</div>
+
+The next question is whether a policy that works across thousands of simulated K1 instances will behave the same way on one real K1.
+
+---
+
+### Deploying to AI Sapiens
+
+<div style={{margin: '24px auto', width: '100%'}}>
+  <div style={{overflow: 'hidden', borderRadius: '16px'}}>
+    <video controls autoPlay muted loop playsInline preload="metadata" style={{width: '100%', height: 'auto', display: 'block', aspectRatio: '3254 / 720'}}>
+      <source src="/img/systems/aisapiens/resources/technical_story/building_humanoid_skills/deploy_result.webm" type="video/webm" />
+    </video>
+  </div>
+  <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic', textAlign: 'center'}}>Whole-body policies deployed from simulation to AI Sapiens — dance, crawl, recovery, and dynamic motion.</p>
+</div>
+
+
+After training in **NVIDIA Isaac Lab**, the learned policy is exported and deployed directly on AI Sapiens through [Sim2Real](/docs/systems/aisapiens/development_guide/sim2real/).
+
+The deployment pipeline keeps the observation structure, policy rate, and joint mapping consistent with simulation, while running policy inference on **NVIDIA Jetson Orin NX**.
+
+<div style={{margin: '24px auto', width: '80%'}}>
+  <div style={{overflow: 'hidden', borderRadius: '16px'}}>
+    <img src="/img/systems/aisapiens/resources/technical_story/building_humanoid_skills/sim2real_pipeline.png" alt="AI Sapiens deployment pipeline: motion CSV, IMU, and joint encoders into policy inference, followed by 23 joint targets and DYNAMIXEL-Q impedance control" style={{width: '100%', height: 'auto', aspectRatio: '915 / 274', objectFit: 'contain', display: 'block'}} />
+  </div>
+  <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic', textAlign: 'center'}}>Motion reference + robot state → policy inference → 23 joint targets → DYNAMIXEL-Q impedance control</p>
+</div>
+
+
+Read the pipeline from left to right.
+
+**1. Input.**
+The policy receives the reference **motion CSV** together with real-time **IMU** and **joint encoder** measurements, providing both the target motion and the current robot state.
+
+**2. Exported policy.**
+The trained `policy.onnx` and matched `sim2real.yaml` are deployed on **NVIDIA Jetson Orin NX**. Policy inference runs at **50 Hz**, the same rate used during training.
+
+**3. Output.**
+The policy generates **23 joint-position targets**. Joint ordering, scaling, offsets, and coordinate conventions are kept consistent between the simulated K1 model and the physical robot.
+
+**4. Hardware execution.**
+The joint targets are executed through **DYNAMIXEL-Q-based impedance control**, translating the learned policy into compliant whole-body motion on the real robot.
+
+<div style={{
+  margin: '24px 0',
+  padding: '18px 22px',
+  background: 'rgba(107, 114, 128, 0.07)',
+  borderLeft: '4px solid #6B7280',
+  borderRadius: '8px'
+}}>
+  <div style={{fontSize: '13px', fontWeight: '700', color: '#6B7280', marginBottom: '8px'}}>
+    DEPLOYMENT PIPELINE
+  </div>
+
+
+  <strong>NVIDIA Isaac Lab → NVIDIA Jetson Orin NX → DYNAMIXEL-Q → Real Robot</strong>
+</div>
+
+The deployment interface can be kept consistent between simulation and hardware. The harder problem is whether the **dynamics behind that interface are also consistent**.
+
+A policy that works across thousands of simulated robots can still behave differently on the physical robot because of differences in contact, actuator response, friction, mass distribution, sensor noise, and control latency.
+
+That is the **Sim2Real gap**.
+
+---
+
+### Closing the Sim2Real gap
+
+Our first deployment on real hardware showed the familiar Sim2Real problem: the policy tracked the reference motion well in simulation, but the same behavior did not transfer directly to the physical robot.
+
+For a biped, small mismatches accumulate quickly. Contact behavior, mass distribution, actuator response, friction, sensor noise, and control latency can each shift the closed-loop dynamics away from what the policy experienced during training.
+
+<div style={{
+  margin: '28px 0',
+  padding: '20px 24px',
+  background: 'rgba(59, 130, 246, 0.08)',
+  borderLeft: '4px solid #3B82F6',
+  borderRadius: '8px'
+}}>
+  <div style={{fontSize: '13px', fontWeight: '700', color: '#3B82F6', marginBottom: '8px'}}>
+    ENGINEERING INSIGHT
+  </div>
+
+
+Closing the Sim2Real gap requires work from both directions:
+
+<div style={{marginTop: '8px', fontWeight: '700'}}>
+  Bring simulation closer to the robot. Bring the robot closer to simulation.
+</div>
+
+</div>
+
+Domain randomization helps the policy tolerate uncertainty around the simulated dynamics. But transfer also improves when the nominal simulation itself better represents the robot — and when the physical hardware behaves more predictably.
+
+#### Simulation side: improving physics fidelity
+
+<div style={{display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '16px', width: '60%', margin: '20px auto', alignItems: 'start'}}>
+  <div>
+    <div style={{overflow: 'hidden', borderRadius: '16px', aspectRatio: '276 / 386'}}>
+      <img src="/img/systems/aisapiens/resources/technical_story/building_humanoid_skills/physX.webp" alt="Policy trained under PhysX and evaluated on hardware" style={{width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'right bottom', transform: 'scale(1.3)', transformOrigin: 'right bottom', display: 'block'}} />
+    </div>
+    <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic', textAlign: 'center'}}>PhysX configuration — real-robot evaluation</p>
+  </div>
+  <div>
+    <div style={{overflow: 'hidden', borderRadius: '16px'}}>
+      <img src="/img/systems/aisapiens/resources/technical_story/building_humanoid_skills/newton.webp" alt="Policy trained under Newton and evaluated on the same hardware" style={{width: '100%', height: 'auto', aspectRatio: '276 / 386', objectFit: 'contain', display: 'block'}} />
+    </div>
+    <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic', textAlign: 'center'}}>Newton configuration — improved real-robot behavior</p>
+  </div>
+</div>
+
+
+Same robot and the same overall learning pipeline — but a different physics backend.
+
+Our initial policies were trained using **NVIDIA PhysX**, the default physics engine in Isaac Lab. They tracked the target motion successfully in simulation, but during deployment we observed noticeable differences between simulated and real-robot behavior, particularly in balance and ground-contact response.
+
+We then moved the training environment to **[NVIDIA Newton](https://developer.nvidia.com/newton-physics)**. Newton is an open-source, extensible physics engine built on NVIDIA Warp and OpenUSD, developed by NVIDIA, Google DeepMind, and Disney Research, and managed by the Linux Foundation to advance robot learning and development. With the updated simulation configuration, the resulting policy showed substantially **more stable** and **consistent behavior** on the same physical platform.
+
+For whole-body motion, this matters because intermittent ground contact is part of the task itself. The quality of the simulated contact dynamics directly changes the experience from which the policy learns.
+
+Domain randomization remains important, but randomization and model fidelity solve different problems: one broadens the distribution around the model, while the other improves the model around which that distribution is built.
+
+That is only one half of Sim2Real.
+
+#### Hardware side: predictable real-time execution
+
+<div style={{margin: '24px 0'}}>
+  <div style={{overflow: 'hidden', borderRadius: '16px'}}>
+    <img src="/img/systems/aisapiens/resources/technical_story/building_humanoid_skills/dynamixel_q.png" alt="NVIDIA Jetson Orin NX, disassembled AI Sapiens, and DYNAMIXEL-Q exploded view" style={{width: '100%', height: 'auto', display: 'block'}} />
+  </div>
+  <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic', textAlign: 'center'}}>NVIDIA Jetson Orin NX and DYNAMIXEL-Q form the real-time execution stack on AI Sapiens.</p>
+</div>
+
+
+Improving simulation moves the virtual robot closer to the physical one. The other half is making the physical robot behave as consistently as possible with the dynamics assumed during training.
+
+| Subsystem        | Specification         | Why it matters                                               |
+| ---------------- | --------------------- | ------------------------------------------------------------ |
+| Compute          | NVIDIA Jetson Orin NX | On-device policy inference without an off-board inference round trip |
+| Control loop     | 1 kHz, low latency    | Reduces sense-to-actuate delay                               |
+| Operating system | PREEMPT-RT            | Reduces scheduling jitter in the real-time control loop      |
+| IMU              | 8 kHz update          | Provides fresh orientation estimates to the control stack    |
+
+*Table 2. AI Sapiens real-time execution stack.*
+
+**NVIDIA Jetson Orin NX** runs the learned policy directly on the robot, while the real-time control stack keeps the timing between observation, inference, and actuation consistent and predictable.
+
+But low latency alone does not guarantee that a commanded joint behavior will match the behavior assumed in simulation.
+
+The final part is the actuator.
+
+#### Why QDD matters for Sim2Real
+
+The Sim2Real gap is often discussed primarily as a simulation problem: **how accurately can we reproduce the real robot in a physics engine?**
+
+But the inverse question matters just as much:
+
+**How predictable is the real robot we are trying to simulate?**
+
+For an MIT-style [impedance controller](/docs/systems/aisapiens/development_guide/dynamixel_q_impedance_control), the desired joint torque can be written as:
+
+<div className="control-equation" style={{fontSize: '1.05rem', padding: '0.65rem 1rem'}} aria-label="tau command equals K p times position error plus K d times velocity error plus feedforward torque">
+  <span>&tau;<sub>cmd</sub></span>
+  <span>=</span>
+  <span>K<sub>p</sub>(q<sub>d</sub> − q)</span>
+  <span>+</span>
+  <span>K<sub>d</sub>(q&#775;<sub>d</sub> − q&#775;)</span>
+  <span>+</span>
+  <span>&tau;<sub>ff</sub></span>
+</div>
+
+
+This equation combines **position error**, **velocity error**, and **feedforward torque** to determine the torque the joint should produce.
+
+* **K<sub>p</sub>(q<sub>d</sub> − q)**: Torque generated from position error
+* **K<sub>d</sub>(q̇<sub>d</sub> − q̇)**: Damping torque generated from velocity error
+* **τ<sub>ff</sub>**: Feedforward torque for known effects such as gravity or expected dynamics
+
+For this controller to behave consistently, the commanded torque must produce a reasonably predictable physical torque at the joint.
+
+In an ideal transmission:
+
+<div className="control-equation" style={{fontSize: '1.05rem', padding: '0.65rem 1rem'}} aria-label="joint torque approximately equals gear ratio times torque constant times current">
+  <span>&tau;<sub>joint</sub></span>
+  <span>≈</span>
+  <span>N K<sub>t</sub> I</span>
+</div>
+
+
+In other words, **joint torque should scale predictably with motor current**.
+
+* **τ<sub>joint</sub>**: Joint output torque
+* **N**: Gear reduction ratio
+* **K<sub>t</sub>**: Motor torque constant [Nm/A]
+* **I**: Motor current [A]
+
+A real actuator, however, also introduces friction, backlash, transmission losses, reflected inertia, and other nonlinear effects. These effects distort the relationship between commanded torque and the torque actually delivered at the joint.
+
+The larger and less predictable these effects become, the harder it is for a simulator to reproduce the real joint dynamics — and the larger the **Sim2Real gap** becomes.
+
+This is where **DYNAMIXEL-Q's QDD architecture** becomes important.
+
+
+A relatively low gear ratio, low backlash, high backdrivability, and accurate current control reduce uncertainty between the commanded actuator behavior and the resulting joint response. A lower reduction ratio also reduces reflected motor inertia, which scales approximately with the square of the gear ratio.
+
+The goal is not to make the real actuator ideal. It is to make its behavior **consistent and modelable**.
+
+For policy transfer, what ultimately matters is reducing the difference between:
+
+<div className="control-equation" style={{fontSize: '1.05rem', padding: '0.65rem 1rem'}} aria-label="simulated dynamics approximately equal real dynamics">
+  <span>Dynamics<sub>sim</sub></span>
+  <span>≈</span>
+  <span>Dynamics<sub>real</sub></span>
+</div>
+
+
+During reinforcement learning, the policy experiences millions of interactions with the simulated robot. The closer those simulated dynamics are to the dynamics produced by the physical actuator and control system, the more of that learned experience remains valid after deployment.
+
+<div style={{
+  margin: '28px 0',
+  padding: '20px 24px',
+  background: 'rgba(59, 130, 246, 0.08)',
+  borderLeft: '4px solid #3B82F6',
+  borderRadius: '8px'
+}}>
+  <div style={{fontSize: '13px', fontWeight: '700', color: '#3B82F6', marginBottom: '8px'}}>
+    ENGINEERING TAKEAWAY
+  </div>
+
+
+<strong>Better simulation fidelity → better model of the robot</strong>
+
+  <div style={{marginTop: '6px'}}>
+    <strong>Better QDD → more predictable joint dynamics → easier-to-model hardware</strong>
+  </div>
+
+
+  <div style={{marginTop: '10px'}}>
+    Closing the Sim2Real gap requires both.
+  </div>
+
+</div>
+
+---
+
+## Part 2 — AI Worker: manipulation
+
+AI Worker shifts the bottleneck.
+
+For whole-body motion, we could scale learning by running thousands of simulated robots in parallel. Manipulation is different. The policy must perceive objects, understand the scene, and produce actions that remain reliable across variations in lighting, appearance, geometry, and physical interaction.
+
+For our manipulation pipeline, the first bottleneck was therefore **data**: high-quality real-robot demonstrations are extremely valuable, but expensive to scale.
+
+### Collecting manipulation demonstrations
+
+A useful way to think about robot-learning data is as a pyramid.
+
+<div style={{margin: '24px 0'}}>
+  <div style={{overflow: 'hidden', borderRadius: '16px'}}>
+    <video controls autoPlay muted loop playsInline preload="metadata" style={{width: '100%', height: 'auto', display: 'block', aspectRatio: '1268 / 720'}}>
+      <source src="/img/systems/aisapiens/resources/technical_story/building_humanoid_skills/dataset_pyramid.webm" type="video/webm" />
+    </video>
+  </div>
+  <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic', textAlign: 'center'}}>Robot data pyramid — web-scale human data at the base, simulation and synthetic data in the middle, and high-fidelity real-robot demonstrations at the top.</p>
+</div>
+
+
+| Tier   | Source                     | Scale     | Robot fidelity | Cost                         |
+| ------ | -------------------------- | --------- | -------------- | ---------------------------- |
+| Base   | Human video, web data      | Very high | Low            | Low                          |
+| Middle | Simulation, synthetic data | High      | Medium         | Compute-bound                |
+| Apex   | Real-robot teleoperation   | Limited   | Highest        | Hardware, labor, space, time |
+
+*Table 3. Different robot-data sources trade scalability for fidelity.*
+
+At the top of the pyramid is **real-robot teleoperation**. It provides the observations and actions closest to what the deployed policy will encounter, but every additional episode consumes physical robot time and human effort.
+
+On AI Worker, we collect demonstrations through three teleoperation interfaces: an **exoskeleton**, a **miniature leader arm**, and **VR**. Each provides high-fidelity robot trajectories, but all are ultimately constrained by the same resources:
+
+**hardware · labor · space · time**
+
+This creates a fundamental scaling problem. We want the fidelity of real-robot demonstrations without making every improvement depend on another large round of physical data collection.
+
+That is where pretrained robot foundation models and synthetic data augmentation become useful.
+
+Our next experiment followed a simple progression.
+
+First, we fine-tuned **NVIDIA Isaac GR00T N1.7** on real-robot demonstrations and evaluated the resulting policy on AI Worker.
+
+Then, after identifying a failure mode related to limited visual coverage, we asked:
+
+**Can NVIDIA Cosmos Transfer expand the visual diversity of the dataset without collecting the task again on the physical robot?**
+
+---
+
+### Fine-tuning NVIDIA Isaac GR00T N1.7
+
+Our first manipulation experiment focused on adapting **NVIDIA Isaac GR00T N1.7** to the AI Worker embodiment and evaluating how the fine-tuned policy behaved on the real robot.
+
+We collected **268 teleoperated episodes**, approximately three hours of real-robot demonstrations, and used them to fine-tune **NVIDIA Isaac GR00T N1.7**.
+
+| Parameter                 | Value                                   |
+| ------------------------- | --------------------------------------- |
+| Real-robot demonstrations | 268 teleoperated episodes (~3 hours)    |
+| Base model                | NVIDIA Isaac GR00T N1.7                 |
+| Training hardware         | NVIDIA RTX PRO 6000                     |
+| Training time             | ~4 hours                                |
+| Inference hardware        | NVIDIA Jetson AGX Orin 32 GB, on-device |
+
+*Table 4. GR00T N1.7 fine-tuning configuration for AI Worker.*
+
+Fine-tuning adapts the pretrained GR00T N1.7 model to the **AI Worker embodiment, workspace, and manipulation task** represented in our demonstrations.
+
+The resulting policy was able to perform the task, giving us a real-robot baseline from which we could examine where the learned behavior still failed.
+
+Real-robot evaluation revealed a systematic failure mode.
+
+<div style={{margin: '24px 0'}}>
+  <div style={{overflow: 'hidden', borderRadius: '16px'}}>
+    <video controls autoPlay muted loop playsInline preload="metadata" style={{width: '100%', height: 'auto', display: 'block', aspectRatio: '2828 / 720'}}>
+      <source src="/img/systems/aisapiens/resources/technical_story/building_humanoid_skills/observed_fail.webm" type="video/webm" />
+    </video>
+  </div>
+  <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic', textAlign: 'center'}}>Before augmentation — the fine-tuned GR00T N1.7 policy occasionally reaches toward the gripper's shadow instead of the target object.</p>
+</div>
+
+
+As the gripper approached the table, its cast shadow created a dark region close to the target. In some trials, the policy responded to this visual feature instead of the object itself.
+
+Our diagnosis was **limited visual coverage in the training distribution**. The demonstrations had been collected in a relatively consistent workspace and lighting condition, giving the policy few examples that helped it separate task-relevant object features from scene-specific cues such as shadows.
+
+The straightforward solution would be to collect another round of demonstrations under more diverse lighting and scene conditions. But that brings back the same bottleneck: **hardware, labor, space, and time**.
+
+Instead, we asked whether we could increase visual diversity while preserving the real-robot trajectories we had already collected.
+
+---
+
+### Scaling visual diversity with NVIDIA Cosmos Transfer
+
+We used **NVIDIA Cosmos Transfer 2.5** to augment the existing real-robot demonstrations.
+
+Cosmos Transfer allows us to transform the visual appearance of recorded robot interactions while preserving the underlying motion and task structure. This makes it possible to reuse the original robot trajectory and action labels while exposing the policy to a broader range of visual conditions.
+
+In other words:
+
+**Keep the robot trajectory. Change the world it sees.**
+
+<div style={{margin: '24px 0'}}>
+  <div style={{overflow: 'hidden', borderRadius: '16px'}}>
+    <video controls autoPlay muted loop playsInline preload="metadata" style={{width: '100%', height: 'auto', display: 'block', aspectRatio: '2154 / 720'}}>
+      <source src="/img/systems/aisapiens/resources/technical_story/building_humanoid_skills/augment_transfer.webm" type="video/webm" />
+    </video>
+  </div>
+  <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic', textAlign: 'center'}}>NVIDIA Cosmos Transfer 2.5 — 300 visually augmented demonstrations generated from existing real-robot trajectories.</p>
+</div>
+
+
+From the original **268 real-robot demonstrations**, we generated **300 additional augmented videos** with Cosmos Transfer, creating a combined training set of **568 samples**.
+
+We then fine-tuned GR00T N1.7 again using the expanded dataset.
+
+| Dataset                         | Samples |
+| ------------------------------- | ------: |
+| Real-robot demonstrations       |     268 |
+| Cosmos-augmented demonstrations |     300 |
+| **Combined training set**       | **568** |
+
+The goal was not simply to increase the dataset from 268 to 568 samples. The important change was the **distribution of visual observations** associated with the same manipulation behavior.
+
+After retraining, we observed two improvements in real-robot behavior on AI Worker:
+
+* **Improved shadow robustness.** The policy was less likely to confuse the gripper's shadow with the target and more consistently attended to the actual object.
+* **Improved recovery behavior.** After some missed grasp attempts, the policy re-approached the object instead of remaining stalled.
+
+<div style={{margin: '24px 0'}}>
+  <div style={{overflow: 'hidden', borderRadius: '16px'}}>
+    <video controls autoPlay muted loop playsInline preload="metadata" style={{width: '100%', height: 'auto', display: 'block', aspectRatio: '2210 / 720'}}>
+      <source src="/img/systems/aisapiens/resources/technical_story/building_humanoid_skills/enhanced_result.webm" type="video/webm" />
+    </video>
+  </div>
+  <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic', textAlign: 'center'}}>After Cosmos augmentation and GR00T N1.7 fine-tuning — improved target attention and re-approach behavior after a missed grasp.</p>
+</div>
+
+
+The recovery behavior was not the primary target of the augmentation, so we treat it as an empirical observation rather than a controlled result. One possible explanation is that broader visual diversity encouraged the policy to rely less on scene-specific appearance and more on task-relevant visual structure.
+
+<div style={{
+  margin: '28px 0',
+  padding: '20px 24px',
+  background: 'rgba(13, 148, 136, 0.08)',
+  borderLeft: '4px solid #0D9488',
+  borderRadius: '8px'
+}}>
+  <div style={{fontSize: '13px', fontWeight: '700', color: '#0D9488', marginBottom: '8px'}}>
+    EXPERIMENT RESULT
+  </div>
+
+
+<strong>268 real demonstrations + 300 Cosmos-augmented demonstrations = 568 training samples</strong>
+
+  <div style={{marginTop: '8px'}}>
+    Real-robot data → GR00T N1.7 fine-tuning → real-world failure → Cosmos augmentation → retraining → improved robustness
+  </div>
+
+</div>
+
+For this experiment, **NVIDIA Isaac GR00T N1.7** provided the pretrained foundation we adapted to the AI Worker embodiment and task, while **NVIDIA Cosmos Transfer** provided a way to broaden visual diversity without collecting another 300 demonstrations on the physical robot.
+
+---
+
+## Scaling humanoid skills
+
+<div style={{margin: '24px 0'}}>
+  <div style={{overflow: 'hidden', borderRadius: '16px'}}>
+    <video controls autoPlay muted loop playsInline preload="metadata" style={{width: '100%', height: 'auto', display: 'block', aspectRatio: '1230 / 425'}}>
+      <source src="/img/systems/aisapiens/resources/technical_story/building_humanoid_skills/compare_table.webm" type="video/webm" />
+    </video>
+  </div>
+  <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic', textAlign: 'center'}}>NVIDIA software across the humanoid development pipeline — from motion generation and simulation to foundation models, data augmentation, and real-robot deployment.</p>
+</div>
+
+
+Building these pipelines gave us a clearer view of what it means to **scale humanoid skills**.
+
+For **whole-body motion**, NVIDIA Isaac Lab gives the policy a scalable environment for trial and error. Thousands of simulated humanoids can repeatedly experience different contacts, disturbances, and dynamics before a policy is transferred to the physical robot.
+
+For **manipulation**, NVIDIA Isaac GR00T N1.7 gives us a strong pretrained foundation, while NVIDIA Cosmos Transfer helps us extract more value from expensive real-robot demonstrations by broadening their visual diversity.
+
+But this also reveals the next bottleneck.
+
+Cosmos Transfer can change **what the robot sees** while preserving an existing trajectory. It can generate richer observations of an interaction, but the underlying physical interaction itself remains the same.
+
+Contact-rich manipulation ultimately requires understanding something deeper:
+
+**How will the world change when the robot takes a different action?**
+
+A slightly different grasp can make an object slip. A push can change its pose. A failed grasp can require a completely different recovery action. Scaling these action-dependent outcomes is much harder than scaling visual observations alone.
+
+This is why **[World-Action Models (WAMs)](https://developer.nvidia.com/blog/beyond-vlas-how-world-action-models-reshape-robot-manipulation/)** are particularly interesting. WAMs build on world or video models to learn how scenes evolve over time in relation to the robot actions associated with those changes — providing a possible direction for learning richer physical interaction dynamics.
+
+<div style={{
+  margin: '28px 0',
+  padding: '20px 24px',
+  background: 'rgba(245, 158, 11, 0.08)',
+  borderLeft: '4px solid #F59E0B',
+  borderRadius: '8px'
+}}>
+  <div style={{fontSize: '13px', fontWeight: '700', color: '#F59E0B', marginBottom: '8px'}}>
+    OPEN CHALLENGE
+  </div>
+
+
+  <strong>Whole-body motion already has a scalable environment for trial and error: simulation.</strong>
+
+  <div style={{marginTop: '8px'}}>
+    Contact-rich manipulation still needs a scalable way to learn how robot actions change the physical world.
+  </div>
+
+
+  <div style={{marginTop: '10px', fontWeight: '700'}}>
+    World-Action Models may be one path toward scaling interaction — not just observations.
+  </div>
+
+</div>
+
+---
+
+## Bringing the skills together
+
+ROBOTIS is accelerating development beyond basic motion and manipulation.
+
+For mobility, we are extending **whole-body motion** toward **[whole-body locomotion](/docs/systems/aisapiens/reinforcement_learning/cyclo_lab/locomotion)** — enabling humanoids to maintain balance while walking, recovering, and moving dynamically through real environments.
+
+For interaction, we are extending basic manipulation toward **dexterous manipulation with the [ROBOTIS Hand](/docs/systems/hx5_d20/introduction)** — enabling richer, more precise, and more adaptable object interactions.
+
+<div style={{margin: '24px auto', width: '80%'}}>
+  <div style={{overflow: 'hidden', borderRadius: '16px'}}>
+    <video controls autoPlay muted loop playsInline preload="metadata" style={{width: '100%', height: 'auto', display: 'block', aspectRatio: '1096 / 720'}}>
+      <source src="/img/systems/aisapiens/resources/technical_story/building_humanoid_skills/coming_soon1.webm" type="video/webm" />
+    </video>
+  </div>
+  <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic', textAlign: 'center'}}>Dexterous manipulation + whole-body locomotion → integrated humanoid capabilities.</p>
+</div>
+
+
+With the NVIDIA software stack supporting motion generation, simulation, robot learning, data augmentation, and on-device deployment, we are accelerating both directions.
+
+Our next step is to bring **whole-body locomotion** and **dexterous manipulation** together on a humanoid with hands — toward robots that can move through the world, interact with it, and perform useful tasks in real environments.
+
+<div style={{
+  margin: '36px 0 20px',
+  padding: '10px 20px',
+  textAlign: 'center',
+  fontSize: '1.35rem',
+  fontWeight: '700',
+  lineHeight: '1.5'
+}}>
+  Whole-body locomotion + Dexterous manipulation<br/>
+  → Useful humanoid robots
+</div>
+
+---
+
+## Resources
+
+NVIDIA software used in this post:
+
+* [NVIDIA Kimodo](https://research.nvidia.com/labs/sil/projects/kimodo/) — kinematic motion diffusion model for text- and constraint-driven 3D motion generation
+* [NVIDIA GEM-X](https://github.com/NVlabs/GEM-X) — monocular video-to-3D human motion estimation using the SOMA body model
+* [NVIDIA SOMA Retargeter](https://github.com/NVIDIA/soma-retargeter) — human-to-humanoid motion retargeting built with Newton and NVIDIA Warp
+* [NVIDIA Isaac Lab](https://developer.nvidia.com/isaac/lab) — GPU-accelerated simulation framework for large-scale robot learning
+* [NVIDIA Isaac GR00T](https://github.com/Nvidia/Isaac-GR00T) — pretrained robot foundation model used for AI Worker manipulation
+* [NVIDIA Cosmos Transfer 2.5](https://github.com/nvidia-cosmos/cosmos-transfer2.5) — visual augmentation of real-robot demonstrations
+* [NVIDIA Newton](https://developer.nvidia.com/newton-physics) — physics engine used to improve Sim2Real transfer for whole-body motion
+* [NVIDIA Jetson](https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/) — on-device edge compute for policy inference
+* [World-Action Models](https://developer.nvidia.com/blog/beyond-vlas-how-world-action-models-reshape-robot-manipulation/) — NVIDIA research direction for learning action-dependent interaction dynamics
