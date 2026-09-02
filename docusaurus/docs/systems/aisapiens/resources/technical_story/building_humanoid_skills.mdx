@@ -20,9 +20,9 @@ Humanoid robots need to master two very different kinds of skills: **whole-body 
 
 At ROBOTIS, we are exploring both — and NVIDIA software has become a key part of how we build and scale them.
 
-For **[AI Sapiens](/docs/systems/aisapiens/introduction)**, our 23-DoF bipedal humanoid, **NVIDIA Isaac Lab** provides the large-scale simulation and reinforcement-learning environment needed to train dynamic whole-body skills before deploying them to real hardware.
+For **[AI Sapiens](/docs/systems/aisapiens/introduction)**, our **23-DoF bipedal K1** stands **1355 mm**, weighs **35 kg**, and is driven by **DYNAMIXEL-Q QDD actuators** — 5-DoF arms, 6-DoF legs, and a 1-DoF waist — with on-device **NVIDIA Jetson Orin NX** compute. Every skill must be executed while maintaining dynamic balance, so **NVIDIA Isaac Lab** provides the large-scale simulation and reinforcement-learning environment needed to train those whole-body skills before deploying them to real hardware.
 
-For **[AI Worker](/docs/systems/aiworker/introduction)**, our bimanual semi-humanoid, the challenge shifts from dynamics to data. **NVIDIA Isaac GR00T N1.7** provides the pretrained robot foundation model, while **NVIDIA Cosmos Transfer** helps broaden the visual diversity of real-robot demonstrations through synthetic augmentation.
+For **[AI Worker](/docs/systems/aiworker/introduction)**, our **bimanual semi-humanoid** combines **dual 7-DoF arms**, a **swerve-drive mobile base**, RGBD cameras, and on-device **NVIDIA Jetson AGX Orin** compute. The challenge therefore shifts from dynamics to data: **NVIDIA Isaac GR00T N1.7** provides the pretrained robot foundation model, while **NVIDIA Cosmos Transfer** helps broaden the visual diversity of real-robot demonstrations through synthetic augmentation.
 
 <div style={{
   margin: '28px 0',
@@ -66,6 +66,7 @@ In this post, you will learn:
   * [Scaling visual diversity with NVIDIA Cosmos Transfer](#scaling-visual-diversity-with-nvidia-cosmos-transfer)
 * [Scaling humanoid skills](#scaling-humanoid-skills)
 * [Bringing the skills together](#bringing-the-skills-together)
+* [Resources](#resources)
 
 ---
 
@@ -73,18 +74,12 @@ In this post, you will learn:
 
 Humanoid development does not follow a single pipeline. Whole-body motion and manipulation face different bottlenecks, so we combine different parts of the **NVIDIA Physical AI software stack** for each.
 
-**AI Sapiens** is a 23-DoF bipedal humanoid designed for whole-body motion. Every skill must be executed while maintaining dynamic balance, making simulation fidelity, contact dynamics, and real-time control critical to the learning pipeline.
-
-**AI Worker** is a bimanual semi-humanoid on a wheeled base designed for manipulation. Here, whole-body balance is no longer the dominant bottleneck. The challenge shifts toward perception, data coverage, and generalization across real-world interactions.
-
-The two development pipelines therefore look similar at a high level, but use different NVIDIA technologies at different stages — from human-motion representation and large-scale simulation to robot foundation models, data augmentation, and on-device deployment.
-
 <div style={{display: 'grid', gridTemplateColumns: '1fr', gap: '20px', margin: '24px 0'}}>
   <div>
     <div style={{overflow: 'hidden', borderRadius: '30px'}}>
-      <img src="/img/systems/aisapiens/resources/technical_story/building_humanoid_skills/ais_pipeline.png" alt="AI Sapiens whole-body motion pipeline: Kimodo and GEM-X, SOMA-Retargeter, BeyondMimic, Sim2Real" style={{width: '100%', height: 'auto', aspectRatio: '860 / 230', objectFit: 'contain', display: 'block'}} />
+      <img src="/img/systems/aisapiens/resources/technical_story/building_humanoid_skills/ais_pipeline.png" alt="AI Sapiens whole-body motion pipeline: Kimodo and GEM-X, SOMA-Retargeter, Isaac Lab, Sim2Real" style={{width: '100%', height: 'auto', aspectRatio: '860 / 230', objectFit: 'contain', display: 'block'}} />
     </div>
-    <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic', textAlign: 'center'}}>AI Sapiens — Kimodo / GEM-X → SOMA-Retargeter → BeyondMimic → Sim2Real</p>
+    <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic', textAlign: 'center'}}>AI Sapiens — Kimodo / GEM-X → SOMA-Retargeter → Isaac Lab → Sim2Real</p>
   </div>
 
 
@@ -97,9 +92,11 @@ The two development pipelines therefore look similar at a high level, but use di
 
 </div>
 
-On **AI Sapiens**, Kimodo and GEM-X generate 3D human motion from text, video, or kinematic constraints. SOMA Retargeter maps that motion onto the K1 embodiment, while **NVIDIA Isaac Lab** provides the large-scale simulation environment in which **BeyondMimic**, integrated through Cyclo Lab, learns to track the reference motion. The resulting policy is then transferred to AI Sapiens and executed on real hardware through Sim2Real with DYNAMIXEL-Q impedance control and NVIDIA Jetson edge compute.
+The two development pipelines therefore look similar at a high level, but use different NVIDIA technologies at different stages — from human-motion representation and large-scale simulation to robot foundation models, data augmentation, and on-device deployment.
 
-On **AI Worker**, the pipeline starts from real-robot teleoperation. **NVIDIA Cosmos Transfer** increases the visual diversity of those demonstrations without requiring another round of physical data collection. The combined dataset is then used to fine-tune **NVIDIA Isaac GR00T N1.7**, and the resulting manipulation policy is evaluated on the real robot with on-device inference.
+On **AI Sapiens**, **[NVIDIA Kimodo](https://research.nvidia.com/labs/sil/projects/kimodo/)** and **[NVIDIA GEM-X](https://github.com/NVlabs/GEM-X)** generate 3D human motion from text, video, or kinematic constraints. **[NVIDIA SOMA Retargeter](https://github.com/NVIDIA/soma-retargeter)** maps that motion onto the K1 embodiment, while **[NVIDIA Isaac Lab](https://developer.nvidia.com/isaac/lab)** provides the large-scale simulation environment in which **BeyondMimic**, integrated through Cyclo Lab, learns to track the reference motion. The resulting policy is then transferred to AI Sapiens and executed on real hardware through Sim2Real with DYNAMIXEL-Q impedance control and **[NVIDIA Jetson](https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/)** edge compute.
+
+On **AI Worker**, the pipeline starts from real-robot teleoperation. **[NVIDIA Cosmos Transfer](https://github.com/nvidia-cosmos/cosmos-transfer2.5)** increases the visual diversity of those demonstrations without requiring another round of physical data collection. The combined dataset is then used to fine-tune **[NVIDIA Isaac GR00T N1.7](https://github.com/Nvidia/Isaac-GR00T)**, and the resulting manipulation policy is evaluated on the real robot with on-device inference.
 
 Same destination: better robot skills. Different paths through the NVIDIA software stack.
 
@@ -139,10 +136,10 @@ Relying on a single motion-capture source makes every new skill dependent on ano
 
 Read the pipeline from left to right.
 
-**1. Motion input.** Multiple sources can feed the same pipeline.
+**1. Motion input.** Multiple sources can feed the same pipeline. ROBOTIS currently provides **[GEM-X](/docs/systems/aisapiens/motion_generation/gem-x)** and **[Kimodo](/docs/systems/aisapiens/motion_generation_retargeting/kimodo/kimodo)** as supported motion-generation methods; setup and usage manuals are available in this documentation.
 
-* **Video / [GEM-X](/docs/systems/aisapiens/motion_generation/gem-x)** recovers 3D human motion from unconstrained video.
-* **Text prompt / [Kimodo](/docs/systems/aisapiens/motion_generation_retargeting/kimodo)** generates kinematic motion from natural-language descriptions.
+* **Video / GEM-X** recovers 3D human motion from unconstrained video.
+* **Text prompt / Kimodo** generates kinematic motion from natural-language descriptions.
 * **SMPL / AMASS** and **MHR / SAM 3D** provide existing human-body and motion representations through SOMA-X.
 * **BONES-SEED** provides ready-to-use motion sequences.
 
@@ -748,3 +745,19 @@ Our next step is to bring **whole-body locomotion** and **dexterous manipulation
   Whole-body locomotion + Dexterous manipulation<br/>
   → Useful humanoid robots
 </div>
+
+---
+
+## Resources
+
+NVIDIA software used in this post:
+
+* [NVIDIA Kimodo](https://research.nvidia.com/labs/sil/projects/kimodo/) — kinematic motion diffusion model for text- and constraint-driven 3D motion generation
+* [NVIDIA GEM-X](https://github.com/NVlabs/GEM-X) — monocular video-to-3D human motion estimation using the SOMA body model
+* [NVIDIA SOMA Retargeter](https://github.com/NVIDIA/soma-retargeter) — human-to-humanoid motion retargeting built with Newton and NVIDIA Warp
+* [NVIDIA Isaac Lab](https://developer.nvidia.com/isaac/lab) — GPU-accelerated simulation framework for large-scale robot learning
+* [NVIDIA Isaac GR00T](https://github.com/Nvidia/Isaac-GR00T) — pretrained robot foundation model used for AI Worker manipulation
+* [NVIDIA Cosmos Transfer 2.5](https://github.com/nvidia-cosmos/cosmos-transfer2.5) — visual augmentation of real-robot demonstrations
+* [NVIDIA Newton](https://developer.nvidia.com/newton-physics) — physics engine used to improve Sim2Real transfer for whole-body motion
+* [NVIDIA Jetson](https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/) — on-device edge compute for policy inference
+* [World-Action Models](https://developer.nvidia.com/blog/beyond-vlas-how-world-action-models-reshape-robot-manipulation/) — NVIDIA research direction for learning action-dependent interaction dynamics
