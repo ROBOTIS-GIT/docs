@@ -40,14 +40,23 @@ jobs:
       - name: Type check
         run: npm run typecheck
 
-      - name: Build Docusaurus site
+      - name: Build English site
         env:
           DOCUSAURUS_IGNORE_SSG_WARNINGS: 'true'
           DOCUSAURUS_URL: 'https://docs.robotis.com'
           DOCUSAURUS_BASE_URL: '/'
           DOCUSAURUS_ON_BROKEN_LINKS: 'warn'
           NODE_OPTIONS: --max_old_space_size=4096
-        run: npm run build
+        run: npm run build -- --locale en
+
+      - name: Build Korean site
+        env:
+          DOCUSAURUS_IGNORE_SSG_WARNINGS: 'true'
+          DOCUSAURUS_URL: 'https://docs.robotis.com'
+          DOCUSAURUS_BASE_URL: '/ko/'
+          DOCUSAURUS_ON_BROKEN_LINKS: 'warn'
+          NODE_OPTIONS: --max_old_space_size=4096
+        run: npm run build -- --locale ko --out-dir build/ko
 
       - name: Check build output
         working-directory: ./
