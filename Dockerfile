@@ -19,6 +19,7 @@ COPY . .
 # Docusaurus serving port.
 EXPOSE 5714
 
-# Build all locales, then serve the generated static files.
-# Treat broken links as warnings so they do not stop the build.
-CMD ["/bin/sh", "-c", "DOCUSAURUS_ON_BROKEN_LINKS=warn npm run build && npm run serve -- --host 0.0.0.0 --port 5714"]
+# Match CI/Pages: build each locale separately, then serve the combined output.
+# Explicit locale base URLs in docusaurus.config.ts place Korean in build/ko
+# while preserving the English files in build.
+CMD ["/bin/sh", "-c", "DOCUSAURUS_ON_BROKEN_LINKS=warn npm run build -- --locale en && DOCUSAURUS_ON_BROKEN_LINKS=warn npm run build -- --locale ko && npm run serve -- --host 0.0.0.0 --port 5714"]
