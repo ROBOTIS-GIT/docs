@@ -28,8 +28,10 @@ const config: Config = {
     defaultLocale: 'en',
     locales: ['en', 'ko'],
     localeConfigs: {
-      en: { label: 'English', htmlLang: 'en' },
-      ko: { label: '한국어', htmlLang: 'ko' },
+      // CI builds one locale at a time, which disables Docusaurus' automatic
+      // locale path prefixing. Keep the language-switch URLs explicit.
+      en: { label: 'English', htmlLang: 'en', baseUrl: '/' },
+      ko: { label: '한국어', htmlLang: 'ko', baseUrl: '/ko/' },
     },
   },
 
