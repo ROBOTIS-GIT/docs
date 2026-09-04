@@ -76,7 +76,6 @@ const config: Config = {
         theme: {
           customCss: [
             './src/css/custom.css',
-            './src/css/ohgym.css',
           ],
         },
         sitemap: {
@@ -634,11 +633,6 @@ const config: Config = {
           to: '/docs/common/opensource',
           position: 'left',
           label: 'Open Source',
-        },
-        {
-          to: '/docs/common/oh_project',
-          position: 'left',
-          label: 'OH! Project',
         },
         {
           to: '/docs/common/contact',
