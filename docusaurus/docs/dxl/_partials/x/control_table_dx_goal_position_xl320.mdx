@@ -1,0 +1,20 @@
+{/*
+control_table_dx_goal_position.mdx for XL-320, whose register map differs: Status Return Level is at 17,
+Registered Instruction at 47, Max Torque at 15, Torque Limit at 35, and it has no
+Alarm LED register, so shutdown cross-references name Shutdown(18) alone.
+*/}
+
+Set the DYNAMIXEL's goal position through the Goal Position(30).  
+The available position range is 0 to 1,023 (0x3FF) and the per unit value is 0.29 &deg;  
+If the Goal Position(30) is set over the [CW/CCW Angle Limit(6, 8)](#cwccw-angle-limit6-8), the Status Packet transmits Angle Limit Error Bit (0x01) via its ERROR field. In the case, providing that Angle Limit Error Bit(0x01) in the [Shutdown(18)](#shutdown) is set, the Alarm LED will start blinking and the motor's output will be 0 [%].
+
+![](/img/dxl/model_reference/common/dx_series_goal_position.webp)
+
+> The picture above is the front view of DYNAMIXEL
+
+
+:::note
+
+**NOTE** : If it is set to Wheel Mode, Goal Position value is not used.
+
+:::

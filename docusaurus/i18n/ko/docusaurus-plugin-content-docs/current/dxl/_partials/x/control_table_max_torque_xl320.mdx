@@ -1,0 +1,9 @@
+{/*
+XL-320 용 control_table_max_torque.mdx.
+레지스터 주소가 다릅니다: Status Return Level 17, Registered Instruction 47,
+Max Torque 15, Torque Limit 35. Alarm LED 레지스터가 없어 Shutdown(18) 만 참조합니다.
+*/}
+
+최대 출력 토크 값입니다. 0 ~ 1,023(0x3FF) 값을 사용할 수 있으며 단위는 약 0.1%입니다.
+예를 들어 Data 1,023(0x3FF)은 DYNAMIXEL이 낼 수 있는 최대 토크의 100%를 사용한다는 의미이고, Data 512(0x200)는 최대 토크의 50%를 사용한다는 의미입니다.
+전원이 켜지면 [Torque Limit(35)](#torque-limit)는 Max Torque(15) 값으로 초기화됩니다.

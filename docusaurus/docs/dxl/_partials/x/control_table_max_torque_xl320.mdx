@@ -1,0 +1,9 @@
+{/*
+control_table_max_torque.mdx for XL-320, whose register map differs: Status Return Level is at 17,
+Registered Instruction at 47, Max Torque at 15, Torque Limit at 35, and it has no
+Alarm LED register, so shutdown cross-references name Shutdown(18) alone.
+*/}
+
+It is the torque value of maximum output. 0 to 1,023 (0x3FF) can be used, and the unit is about 0.1%.  
+For example, Data 1,023 (0x3FF) means that DYNAMIXEL will use 100% of the maximum torque it can produce while Data 512 (0x200) means that DYNAMIXEL will use 50% of the maximum torque.  
+When the power is turned on, [Torque Limit(35)](#torque-limit) is reset to the value of Max Torque(15).

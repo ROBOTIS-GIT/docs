@@ -1,0 +1,19 @@
+{/*
+control_table_reg_instruction.mdx for XL-320, whose register map differs: Status Return Level is at 17,
+Registered Instruction at 47, Max Torque at 15, Torque Limit at 35, and it has no
+Alarm LED register, so shutdown cross-references name Shutdown(18) alone.
+*/}
+
+Indicates whether the Write Instruction is registered by [Reg Write Instruction](/docs/dxl/protocol/protocol2#reg-write-0x04)
+
+| Value | Description                                  |
+|:-----:|:---------------------------------------------|
+|   0   | No instruction registered by REG_WRITE.      |
+|   1   | Instruction registered by REG_WRITE exists. |
+
+
+:::note
+
+**NOTE** : If ACTION instruction is executed, the Registered Instruction (47) will be changed to 0.
+
+:::
