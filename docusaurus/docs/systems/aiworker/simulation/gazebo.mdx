@@ -108,17 +108,17 @@ Use Nav2 with the Gazebo simulation to test autonomous navigation before running
 1. **Start Gazebo simulation:** Use one of the Gazebo launch commands.
 
     <Tabs groupId="aiworker-robot-type">
-    <TabItem value="bg2" label="BG2 Type">
-
-    ```bash
-    ros2 launch ffw_bringup ffw_bg2_follower_ai_gazebo.launch.py
-    ```
-
-    </TabItem>
     <TabItem value="sg2" label="SG2 Type">
 
     ```bash
     ros2 launch ffw_bringup ffw_sg2_follower_ai_gazebo.launch.py
+    ```
+
+    </TabItem>
+    <TabItem value="sh5" label="SH5 Type">
+
+    ```bash
+    ros2 launch ffw_bringup ffw_sh5_follower_ai_gazebo.launch.py
     ```
 
     </TabItem>
@@ -134,7 +134,7 @@ Use Nav2 with the Gazebo simulation to test autonomous navigation before running
 
    - **Build a map with SLAM Toolbox:**
      ```bash
-     ros2 launch ffw_navigation navigation.launch.py use_slam:=true use_sim_time:=true
+     ros2 launch ffw_navigation navigation.launch.py use_slam:=true use_sim_time:=true rviz:=true
      ```
      Nav2 starts with SLAM enabled so you can map while driving. In RViz, send goals with `2D Goal Pose` to explore and expand the map.
 
