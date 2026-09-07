@@ -1,0 +1,19 @@
+{/*
+control_table_backup_ready.mdx for the XL330 / XC330 groups, where this feature arrives in firmware V46, not V45.
+*/}
+
+The value in this address indicates whether the backup of the control table exists after sending the [Control Table Backup Packet](/docs/dxl/protocol/protocol2#control-table-backup-0x20).
+
+| Value | Description                    |
+|:-----:|:-------------------------------|
+|   0   | The backup data doesn't exist. |
+|   1   | A saved backup data exists.    |
+
+
+:::note
+
+**NOTE**  
+Backup Ready is available from firmware **V46**.  
+See [Backup and Restore](/docs/software/dynamixel_wizard_2_0/advanced_features#backup-and-restore) for more details.
+
+:::

@@ -1,0 +1,19 @@
+{/*
+XL330 / XC330 계열용 control_table_backup_ready.mdx. 이 기능은 V45 가 아니라 펌웨어 V46 부터 지원됩니다.
+*/}
+
+이 Address의 값은 [Control Table Backup Packet](/docs/dxl/protocol/protocol2#control-table-backup-0x20)을 전송한 뒤 컨트롤 테이블 백업 데이터가 존재하는지 나타냅니다.
+
+| Value | 설명                    |
+|:-----:|:-------------------------------|
+|   0   | 백업 데이터가 없습니다. |
+|   1   | A saved backup data exists.    |
+
+
+:::note
+
+**참고**
+Backup Ready는 펌웨어 **V46**부터 사용할 수 있습니다.
+자세한 내용은 [Backup and Restore](/docs/software/dynamixel_wizard_2_0/advanced_features#backup-and-restore)를 참고하세요.
+
+:::

@@ -1,0 +1,30 @@
+{/*
+control_table_60_startup_configuration.mdx for the XL330 / XC330 groups, where this feature arrives in firmware V46, not V45.
+*/}
+
+The Startup Configuration(60) allows to set up the DYNAMIXEL with specific settings on startup.
+
+|     Bit     |       Item        | Description                                                                                                                            |
+|:-----------:|:-----------------:|:---------------------------------------------------------------------------------------------------------------------------------------|
+| Bit 7(0x80) |         -         | Unused, always ‘0’                                                                                                                     |
+| Bit 6(0x40) |         -         | Unused, always ‘0’                                                                                                                     |
+| Bit 5(0x20) |         -         | Unused, always ‘0’                                                                                                                     |
+| Bit 4(0x10) |         -         | Unused, always ‘0’                                                                                                                     |
+| Bit 3(0x08) |         -         | Unused, always ‘0’                                                                                                                     |
+| Bit 2(0x04) |         -         | Unused, always ‘0’                                                                                                                     |
+| Bit 1(0x02) |    RAM Restore    | **[0]** Deactivate the RAM area restoration on startup.<br />**[1]** On startup, use the backup data to restore the RAM area.            |
+| Bit 0(0x01) | Startup Torque On | **[0]** Torque Off on startup (`Torque Enable(64)` is set to `0`)<br />**[1]** Torque On on startup (`Torque Enable(64)` is set to `1`). |
+
+
+:::note
+
+**NOTE**: Startup Configuration is available from firmware **V46**.
+
+:::
+
+
+:::note
+
+**NOTE**: For more details about restoring the RAM area, see [Restoring RAM Area](/docs/software/dynamixel_wizard_2_0/advanced_features#restoring-ram-area).
+
+:::
