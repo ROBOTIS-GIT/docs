@@ -14,7 +14,7 @@ DYNAMIXEL 내부 제어기의 Velocity P Gain은 K<sub>V</sub>P로, 컨트롤 �
 4. PI 제어기는 목표 속도 궤적을 기반으로 모터에 인가할 PWM 출력을 계산합니다.
 5. [Goal PWM(100)]은 계산된 PWM 출력을 제한하여 최종 PWM 값을 결정합니다.
 6. 최종 PWM 값은 Inverter를 통해 모터에 적용되고 DYNAMIXEL의 Horn이 구동됩니다.
-7. 구동 결과는 [Present Position(132)], [Present Velocity(128)], [Present PWM(124)], [Present Load(126)]에 저장됩니다.
+7. 구동 결과는 [Present Position(132)], [Present Velocity(128)], [Present PWM(124)], [Present Current(126)]에 저장됩니다.
 
 ![](/img/dxl/model_reference/x_series/velocity_controller_pi_gain.webp)
 
@@ -31,3 +31,4 @@ DYNAMIXEL 내부 제어기의 Velocity P Gain은 K<sub>V</sub>P로, 컨트롤 �
 [Goal PWM(100)]: #goal-pwm100
 [Goal Velocity(104)]: #goal-velocity104
 [Present Position(132)]: #present-position132
+[Present Current(126)]: #present-current126

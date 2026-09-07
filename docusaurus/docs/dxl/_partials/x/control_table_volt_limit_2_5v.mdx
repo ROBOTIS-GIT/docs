@@ -1,0 +1,18 @@
+{/*
+control_table_volt_limit_2.mdx for the 5V X330 models (XL330, XC330-M181/M288).
+Their operating range is 3.1 ~ 7.0 V, not the 9.5 ~ 16.0 V of the other X models.
+*/}
+
+The Min Voltage Limit(32) and Max Voltage Limit(34) determine the maximum and minimum operating voltages.  
+When the [Present Input Voltage(144)] indicating the present input voltage to the device exceeds the range of Max Voltage Limit(32) and Min Voltage Limit(34), the Input Voltage error Bit(0x10) in the [Hardware Error Status(70)](#hardware-error-status70) will be set, and the Status Packet will send Alert Bit(0x80) via the Error field.  
+If Input Voltage Error Bit(0x10) in the [Shutdown(63)] is set, [Torque Enable(64)] will be set to ‘0’(Torque OFF).  
+For more details, please refer to the [Shutdown(63)] section.
+
+
+|     Unit      | Value Range |  Description   |
+|:-------------:|:-----------:|:--------------:|
+| About 0.1 [V] |   31 ~ 70   |  3.1 ~ 7.0 [V] |
+
+[Torque Enable(64)]: #torque-enable64
+[Shutdown(63)]: #shutdown63
+[Present Input Voltage(144)]: #present-input-voltage144

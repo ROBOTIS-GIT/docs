@@ -1,0 +1,18 @@
+{/*
+5V X330 모델(XL330, XC330-M181/M288) 용 control_table_volt_limit_2.mdx.
+동작 범위가 다른 X 모델의 9.5 ~ 16.0 V 가 아니라 3.1 ~ 7.0 V 입니다.
+*/}
+
+Min Voltage Limit(32)와 Max Voltage Limit(34)는 동작 전압의 최소값과 최대값을 결정합니다.
+장치의 현재 입력 전압을 나타내는 [Present Input Voltage(144)]가 Max Voltage Limit(32)와 Min Voltage Limit(34)의 범위를 벗어나면 [Hardware Error Status(70)](#hardware-error-status70)의 Input Voltage Error Bit(0x10)가 설정되고, Status Packet은 Error 필드를 통해 Alert Bit(0x80)를 전송합니다.
+[Shutdown(63)]에 Input Voltage Error Bit(0x10)가 설정되어 있으면 [Torque Enable(64)]은 `0`(Torque OFF)으로 설정됩니다.
+자세한 내용은 [Shutdown(63)] 섹션을 참고하세요.
+
+
+|     단위      | 값 범위 |  설명   |
+|:-------------:|:-----------:|:--------------:|
+| About 0.1 [V] |   31 ~ 70   |  3.1 ~ 7.0 [V] |
+
+[Torque Enable(64)]: #torque-enable64
+[Shutdown(63)]: #shutdown63
+[Present Input Voltage(144)]: #present-input-voltage144
