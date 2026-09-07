@@ -1,0 +1,32 @@
+{/*
+XM335-T323 용 control_table_baudrate_2.mdx.
+값 범위는 XL330/XC330 과 같지만 기본값이 1 이 아니라 3(1M bps) 입니다.
+*/}
+
+Baud Rate(8)는 컨트롤러와 DYNAMIXEL 사이의 시리얼 통신 속도를 결정합니다.
+
+
+|   Value    |   Baud Rate   | Margin of Error |
+|:----------:|:-------------:|:---------------:|
+|     6      |   4M [bps]    |    0.000 [%]    |
+|     5      |   3M [bps]    |    0.000 [%]    |
+|     4      |   2M [bps]    |    0.000 [%]    |
+| 3(Default) |   1M [bps]    |    0.000 [%]    |
+|     2      | 115,200 [bps] |   0.0064 [%]    |
+|     1      | 57,600 [bps]  |   0.0016 [%]    |
+|     0      |  9,600 [bps]  |    0.000 [%]    |
+
+
+:::note
+
+**참고** : Baud rate 오차율이 3% 미만이면 UART 통신에 영향을 주지 않습니다.
+
+:::
+
+
+:::note
+
+**참고** : U2D2로 높은 Baudrate에서 안정적으로 통신하려면 USB Latency 값을 낮게 설정하세요.
+[USB Latency Setting](/docs/software/dynamixel_wizard_2_0/advanced_features#usb-latency-setting)
+
+:::
