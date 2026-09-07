@@ -1,0 +1,53 @@
+{/*
+control_table_shutdown.mdx for the PRO(A) models and RH-P12-RN, whose registers sit at
+Shutdown(63), Torque Enable(512) and Hardware Error Status(518) rather than the
+PRO addresses 48 / 562 / 892.
+*/}
+
+The DYNAMIXEL can protect itself by detecting dangerous situations that could occur during the operation.
+Each Bit is inclusively processed with the ‘OR’ logic, therefore, multiple options can be generated.
+For instance, when ‘0x05’ (binary : 00000101) is defined in Shutdown(63), DYNAMIXEL can detect both Input Voltage Error(binary : 00000001) and Overheating Error(binary : 00000100).
+If those errors are detected,  [Torque Enable(512)] is cleared to ‘0’ and the motor's output becomes 0 [%].
+
+
+REBOOT is the only method to reset [Torque Enable(512)] to ‘1’(Torque ON) after the shutdown.
+
+ Check [Alert Bit(0x80)] in an error field of Status Packet or a present status via [Hardware Error Status(518)].  The followings are detectable situations.
+
+
+|  Bit  |               Item               | Description                                                                      |
+|:-----:|:--------------------------------:|:---------------------------------------------------------------------------------|
+| Bit 7 |                -                 | Not used, always '0'                                                             |
+| Bit 6 |                -                 | Not used, always '0'                                                             |
+| Bit 5 |     Overload Error(Default)      | Detects that persistent load exceeds maximum output                              |
+| Bit 4 | Electrical Shock Error(Default)  | Detects electric shock on the circuit or insufficient power to operate the motor |
+| Bit 3 |   Motor Encoder Error(Default)   | Detects malfunction of the motor encoder                                         |
+| Bit 2 |        Overheating Error         | Detects that internal temperature exceeds the configured operating temperature   |
+| Bit 1 | Motor Hall Sensor Error(Default) | Detects that Motor hall sensor value exceeds normal range                        |
+| Bit 0 |       Input Voltage Error        | Detects that input voltage exceeds the configured operating voltage              |
+
+
+:::note
+
+**NOTE** :
+1. If Shutdown occurs, **Dynamic brake** will be activated.
+1. If Shutdown occurs, **LED will flicker every second**. 
+2. If Shutdown occurs, **reboot the device**.
+- H/W REBOOT : Turn off and turn on the power again
+- S/W REBOOT : Transmit REBOOT Instruction (For more details, refer to the [Reboot](/docs/dxl/protocol/protocol2#reboot) section of e-Manual.)
+
+:::
+
+
+[Shutdown(18)]: #shutdown
+[Shutdown(63)]: #shutdown
+[Shutdown(63)]: #shutdown
+[Torque Enable(24)]: #torque-enable
+[Torque Enable(64)]: #torque-enable
+[Torque Enable(512)]: #torque-enable
+[Torque Enable(512)]: #torque-enable
+[Hardware Error Status(70)]: #hardware-error-status
+[Hardware Error Status(518)]: #hardware-error-status
+[Hardware Error Status(518)]: #hardware-error-status
+
+[Alert Bit(0x80)]: /docs/dxl/protocol/protocol2#error
