@@ -163,6 +163,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
     collapsed: false,
     items: [
       {type: 'doc', id: 'systems/aiworker/support/multi_turn_troubleshooting_guide', label: 'Clearing Multi-turn Error'},
+      {type: 'doc', id: 'systems/aiworker/support/jetson_orin_flashing', label: 'Image Reflashing'},
       {type: 'link', label: 'Discord Server', href: 'https://discord.gg/robotis'},
       {type: 'doc', id: 'systems/aiworker/support/issues', label: 'Issues'},
       {type: 'doc', id: 'systems/aiworker/support/faq', label: 'FAQ'},
