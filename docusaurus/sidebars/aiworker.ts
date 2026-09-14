@@ -153,6 +153,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
           {type: 'doc', id: 'systems/aiworker/resources/technical_story/nav2', label: 'Nav2'},
           {type: 'doc', id: 'systems/aiworker/resources/technical_story/isaac_vr_teleoperation', label: 'Isaac VR Teleoperation'},
           {type: 'doc', id: 'systems/aiworker/resources/technical_story/isaac_centerpose', label: 'Isaac CenterPose'},
+          {type: 'doc', id: 'systems/aiworker/resources/technical_story/isaac_cumotion', label: 'Isaac cuMotion'},
         ],
       },
     ],

@@ -1,0 +1,96 @@
+---
+title: "AI Worker x Isaac cuMotion"
+description: "How we use NVIDIA Isaac ROS cuMotion on the AI Worker for GPU-accelerated motion planning, with NvBlox mapping and CenterPose perception in the loop."
+sidebar_label: "Isaac cuMotion"
+---
+
+{/* Figures/animations: static/img/systems/aiworker/resources/technical_story/isaac_cumotion/ */}
+
+# AI Worker x Isaac cuMotion
+
+### Full Demo
+
+{/* TODO: Replace with your demo video embed URL */}
+{/*
+<div style={{position: 'relative', paddingBottom: '56.25%', height: '0', overflow: 'hidden', maxWidth: '100%', margin: '20px 0', borderRadius: '8px'}}>
+  <iframe
+    style={{position: 'absolute', top: '0', left: '0', width: '100%', height: '100%'}}
+    src="https://www.youtube.com/embed/VIDEO_ID"
+    title="AI Worker x Isaac cuMotion Demo"
+    frameBorder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+    allowFullScreen>
+  </iframe>
+</div>
+*/}
+
+---
+
+## 1. Overview
+
+{/* TODO: Lead with cuMotion — what motion problem you solved on AI Worker, and why GPU planning matters. Briefly note NvBlox + CenterPose as supporting packages. */}
+
+This post focuses on running **[Isaac ROS cuMotion](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_cumotion/index.html)** on the AI Worker for GPU-accelerated motion planning.
+
+Around that planner we also use:
+
+- **[Isaac ROS NvBlox](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_nvblox/index.html)** — 3D reconstruction / ESDF for the collision world
+- **[Isaac ROS CenterPose](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_pose_estimation/isaac_ros_centerpose/index.html)** — 6DoF object pose for grasp / place targets
+
+{/* Optional: For a focused write-up of CenterPose pick-and-place, see [Isaac CenterPose](/docs/systems/aiworker/resources/technical_story/isaac_centerpose). */}
+
+---
+
+## 2. System Architecture
+
+{/* TODO: Add architecture diagram under isaac_cumotion/architecture.png */}
+{/*
+<div style={{textAlign: 'center', margin: '20px 0 16px 0'}}>
+  <img src="/img/systems/aiworker/resources/technical_story/isaac_cumotion/architecture.png" alt="Isaac cuMotion on AI Worker architecture" style={{maxWidth: '100%', borderRadius: '8px', background: '#fff'}} />
+  <p style={{marginTop: '8px', fontSize: '14px', color: '#76B900', fontStyle: 'italic'}}>Caption: CenterPose / NvBlox → cuMotion → AI Worker execution.</p>
+</div>
+*/}
+
+{/* TODO: Describe containers, Zenoh RMW, which nodes run where (Orin vs GPU PC). */}
+
+---
+
+## 3. Isaac ROS cuMotion
+
+{/* TODO: Planning goals, collision world (NvBlox ESDF?), integration with AI Worker arms / cyclo_control. */}
+
+### What we use it for
+
+### Setup & launch
+
+### Results
+
+---
+
+## 4. Supporting packages
+
+### NvBlox — collision world
+
+{/* TODO: Sensors used, ESDF / mesh outputs, how cuMotion consumes the map. */}
+
+### CenterPose — pose targets
+
+{/* TODO: Detection pipeline, how pose becomes a planning goal for cuMotion. */}
+
+---
+
+## 5. Putting it together
+
+{/* TODO: End-to-end flow — perceive (CenterPose) → map (NvBlox) → plan (cuMotion) → execute on AI Worker. */}
+
+---
+
+## 6. Lessons learned & limitations
+
+{/* TODO: Wired vs Wi-Fi, GPU placement, planning latency, etc. */}
+
+---
+
+## 7. What's next
+
+{/* TODO: On-device Orin deployment, more tasks, Autonomy Studio integration, etc. */}
