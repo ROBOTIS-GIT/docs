@@ -1,96 +1,446 @@
 ---
-title: "AI Worker x Isaac cuMotion"
-description: "How we use NVIDIA Isaac ROS cuMotion on the AI Worker for GPU-accelerated motion planning, with NvBlox mapping and CenterPose perception in the loop."
-sidebar_label: "Isaac cuMotion"
+title: "AI Worker x NVIDIA Isaac ROS cuMotion"
+description: "Collision-aware motion planning on AI Worker with NVIDIA Isaac ROS cuMotion, Nvblox ESDF mapping, and object attachment."
+sidebar_label: "Isaac ROS cuMotion"
 ---
 
 {/* Figures/animations: static/img/systems/aiworker/resources/technical_story/isaac_cumotion/ */}
 
-# AI Worker x Isaac cuMotion
+# AI Worker x NVIDIA Isaac ROS cuMotion
 
 ### Full Demo
 
-{/* TODO: Replace with your demo video embed URL */}
-{/*
 <div style={{position: 'relative', paddingBottom: '56.25%', height: '0', overflow: 'hidden', maxWidth: '100%', margin: '20px 0', borderRadius: '8px'}}>
   <iframe
     style={{position: 'absolute', top: '0', left: '0', width: '100%', height: '100%'}}
-    src="https://www.youtube.com/embed/VIDEO_ID"
-    title="AI Worker x Isaac cuMotion Demo"
+    src="https://youtu.be/fmZdMV72IR0"
+    title="AI Worker x NVIDIA Isaac ROS cuMotion Demo"
     frameBorder="0"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
     allowFullScreen>
   </iframe>
 </div>
-*/}
 
 ---
 
 ## 1. Overview
 
-{/* TODO: Lead with cuMotion — what motion problem you solved on AI Worker, and why GPU planning matters. Briefly note NvBlox + CenterPose as supporting packages. */}
+Sending a robot arm to a target pose is only part of a manipulation task. The
+robot must also avoid its own body, fixed structures, newly introduced
+obstacles, and any object held by the gripper. This becomes especially
+important for AI Worker, where a lift and two 7-DoF arms operate in the same
+workspace.
 
-This post focuses on running **[Isaac ROS cuMotion](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_cumotion/index.html)** on the AI Worker for GPU-accelerated motion planning.
+[NVIDIA Isaac ROS](https://nvidia-isaac-ros.github.io/) provides GPU-accelerated
+ROS 2 packages for perception, mapping, and manipulation. For motion planning,
+[Isaac ROS cuMotion](https://nvidia-isaac-ros.github.io/v/release-4.6/repositories_and_packages/isaac_ros_cumotion/index.html)
+integrates with MoveIt 2 and generates smooth, collision-free trajectories for
+robot arms. It can also consume an ESDF reconstructed by
+[Isaac ROS Nvblox](https://nvidia-isaac-ros.github.io/v/release-4.6/repositories_and_packages/isaac_ros_nvblox/isaac_ros_nvblox/index.html),
+allowing depth observations to participate directly in collision checking.
 
-Around that planner we also use:
+This project applies these capabilities to AI Worker's dual-arm control stack
+and RViz interface. The demonstration covers four stages:
 
-- **[Isaac ROS NvBlox](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_nvblox/index.html)** — 3D reconstruction / ESDF for the collision world
-- **[Isaac ROS CenterPose](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_pose_estimation/isaac_ros_centerpose/index.html)** — 6DoF object pose for grasp / place targets
+1. **End-effector target poses** for the left arm, right arm, and whole body
+2. **Static-scene collision-aware planning** with predefined obstacle geometry
+3. **Dynamic-scene collision-aware planning** with a depth-based ESDF map
+4. **Attached-object collision-aware planning** that accounts for a carried object
 
-{/* Optional: For a focused write-up of CenterPose pick-and-place, see [Isaac CenterPose](/docs/systems/aiworker/resources/technical_story/isaac_centerpose). */}
+The result is one planning workflow that can move from a simple pose target to
+collision-aware manipulation in a changing workspace.
+
+{/* TODO(image): Add a hero image showing AI Worker, the RViz plan, and the Nvblox map side by side. Suggested file: isaac_cumotion/hero.png */}
 
 ---
 
 ## 2. System Architecture
 
-{/* TODO: Add architecture diagram under isaac_cumotion/architecture.png */}
-{/*
+The system is divided between AI Worker and a GPU workstation. AI Worker runs
+the camera drivers and hardware controllers, while the workstation runs MoveIt
+2, cuMotion, robot segmentation, and Nvblox inside the `cyclo_solution`
+environment.
+
 <div style={{textAlign: 'center', margin: '20px 0 16px 0'}}>
-  <img src="/img/systems/aiworker/resources/technical_story/isaac_cumotion/architecture.png" alt="Isaac cuMotion on AI Worker architecture" style={{maxWidth: '100%', borderRadius: '8px', background: '#fff'}} />
-  <p style={{marginTop: '8px', fontSize: '14px', color: '#76B900', fontStyle: 'italic'}}>Caption: CenterPose / NvBlox → cuMotion → AI Worker execution.</p>
+  <img
+    src="/img/systems/aiworker/resources/technical_story/isaac_cumotion/architecture.png"
+    alt="AI Worker and NVIDIA Isaac ROS cuMotion system architecture"
+    style={{maxWidth: '100%', borderRadius: '8px', background: '#fff'}}
+  />
+  <p style={{marginTop: '8px', fontSize: '14px', color: '#76B900', fontStyle: 'italic'}}>
+    AI Worker streams camera and robot state data to the GPU workstation; cuMotion returns trajectories to the robot controllers.
+  </p>
 </div>
-*/}
 
-{/* TODO: Describe containers, Zenoh RMW, which nodes run where (Orin vs GPU PC). */}
+The data flow is as follows:
 
----
+1. The head-mounted ZED camera and wrist-mounted RealSense D405 cameras publish
+   depth images and camera information.
+2. The robot segmenter uses the robot model, joint states, and TF transforms to
+   remove AI Worker from each depth image.
+3. Nvblox fuses the filtered depth streams and builds a TSDF and ESDF of the
+   workspace.
+4. A target submitted through RViz enters MoveIt 2 as a `MoveGroup` request.
+5. The `isaac_ros_cumotion_moveit` planning plugin forwards the request and the
+   current collision world to the cuMotion backend.
+6. The planned trajectory is sent to the lift and arm controllers through the
+   `FollowJointTrajectory` interface.
 
-## 3. Isaac ROS cuMotion
+Robot state continuously returns through `/joint_states` and `/tf`, keeping the
+planner, depth filtering, visualization, and physical robot synchronized.
 
-{/* TODO: Planning goals, collision world (NvBlox ESDF?), integration with AI Worker arms / cyclo_control. */}
-
-### What we use it for
-
-### Setup & launch
-
-### Results
-
----
-
-## 4. Supporting packages
-
-### NvBlox — collision world
-
-{/* TODO: Sensors used, ESDF / mesh outputs, how cuMotion consumes the map. */}
-
-### CenterPose — pose targets
-
-{/* TODO: Detection pipeline, how pose becomes a planning goal for cuMotion. */}
-
----
-
-## 5. Putting it together
-
-{/* TODO: End-to-end flow — perceive (CenterPose) → map (NvBlox) → plan (cuMotion) → execute on AI Worker. */}
+| Interface | Role in the system |
+| --- | --- |
+| Depth image + `CameraInfo` | Workspace observation from the ZED and D405 cameras |
+| Robot-removed depth | Input to Nvblox without the robot's own geometry |
+| ESDF | Distance-to-obstacle representation used by cuMotion |
+| MoveIt `MoveGroup` request | Target pose, planning group, and planning constraints |
+| `FollowJointTrajectory` | Planned joint trajectory sent to AI Worker |
+| `/joint_states` and `/tf` | Current robot configuration and frame transforms |
 
 ---
 
-## 6. Lessons learned & limitations
+## 3. From the Robot Model to a cuMotion Plan
 
-{/* TODO: Wired vs Wi-Fi, GPU placement, planning latency, etc. */}
+cuMotion uses the robot's URDF for kinematics and an XRDF model for collision
+checking. In the XRDF, each robot link is approximated by a set of collision
+spheres. These spheres provide a lightweight representation for repeatedly
+checking self-collision and world-collision distances during optimization.
+
+For AI Worker, the collision spheres were created and refined in Isaac Sim
+using the
+[Lula Robot Description and XRDF Editor](https://docs.isaacsim.omniverse.nvidia.com/latest/manipulators/manipulators_robot_description_editor.html).
+The editor can generate spheres from each link mesh, supports manual adjustment
+of their positions and radii, and exports the result as a cuMotion XRDF file.
+The exported spheres are then visualized in RViz to verify their alignment with
+the live robot model before planning.
+
+<div style={{textAlign: 'center', margin: '20px 0 16px 0'}}>
+  <img
+    src="/img/systems/aiworker/resources/technical_story/isaac_cumotion/collision_sphere.png"
+    alt="AI Worker collision spheres in Isaac Sim and RViz"
+    style={{maxWidth: '100%', borderRadius: '8px', background: '#fff'}}
+  />
+  <p style={{marginTop: '8px', fontSize: '14px', color: '#76B900', fontStyle: 'italic'}}>
+    XRDF collision spheres in Isaac Sim (left) and the corresponding visualization during motion planning (right).
+  </p>
+</div>
+
+:::tip
+**Collision-sphere tuning:** Collision spheres should cover the robot without becoming unnecessarily
+large. Sparse coverage can miss parts of a link, while oversized spheres make
+the planner overly conservative.
+:::
+
+Separate XRDF configurations are provided for the four MoveIt planning groups
+defined in the SRDF:
+
+| Planning group | Controlled joints |
+| --- | --- |
+| `arm_l` | Left arm |
+| `arm_r` | Right arm |
+| `both_arms` | Left and right arms |
+| `wholebody` | Lift and both arms |
+
+When the planning group changes in RViz, the group router loads the matching
+XRDF and collision spheres into the cuMotion backend. This supports left-arm,
+right-arm, dual-arm, and whole-body planning through a single planning stack.
+
+The
+[Isaac ROS cuMotion MoveIt plugin](https://nvidia-isaac-ros.github.io/v/release-4.6/repositories_and_packages/isaac_ros_cumotion/isaac_ros_cumotion_moveit/index.html)
+allows the operator to set a target in RViz and use cuMotion as the MoveIt
+planning pipeline without changing the standard planning workflow.
+
+### Basic launch
+
+Start and enter the development container, build the workspace, and launch the
+common planning stack:
+
+```bash
+cd cyclo_solution/docker
+./container.sh start
+./container.sh enter
+
+cb
+ros2 launch cyclo_cumotion_bringup cumotion_moveit.launch.py
+```
+
+With this launch, depth-based world collision checking and object attachment
+remain disabled. They can be enabled independently for the demonstrations
+described below.
 
 ---
 
-## 7. What's next
+## 4. Collision-Aware Planning
 
-{/* TODO: On-device Orin deployment, more tasks, Autonomy Studio integration, etc. */}
+### 4.1 End-effector target poses
+
+The first demonstration establishes the basic planning path from RViz to the
+physical robot. An operator selects `arm_l`, `arm_r`, or `wholebody`, defines an
+end-effector target pose, and requests a plan. cuMotion evaluates the robot's
+kinematics and collision model, then returns a valid joint trajectory for the
+selected group.
+
+This is also a useful model-validation step. Incorrect joint limits, frame
+definitions, or collision spheres often appear immediately as an unreachable
+goal or an unexpected detour.
+
+<div style={{textAlign: 'center', margin: '20px 0 16px 0'}}>
+  <img
+    src="/img/systems/aiworker/resources/technical_story/isaac_cumotion/target_pose.gif"
+    alt="AI Worker end-effector target-pose planning"
+    style={{width: '588px', maxWidth: '100%', height: 'auto', borderRadius: '8px', background: '#fff'}}
+  />
+  <p style={{marginTop: '8px', fontSize: '14px', color: '#76B900', fontStyle: 'italic'}}>
+    Target-pose planning for the left arm, right arm, and whole-body planning group.
+  </p>
+</div>
+
+### 4.2 Static-scene collision avoidance
+
+Many workcells contain structures that remain fixed during operation, such as
+tables, shelves, fixtures, and safety barriers. These structures can be added
+to the [MoveIt planning scene](https://moveit.picknik.ai/main/doc/tutorials/planning_around_objects/planning_around_objects.html)
+as collision geometry. cuMotion then plans against both the static scene and
+the robot's self-collision model.
+
+For this demonstration, the static scene models a shelf and its supporting
+desk. Each shelf panel is represented by a box collision object, including the
+top, bottom, side, back, and intermediate panels. The end effector repeatedly
+moves between different shelf compartments. cuMotion must guide it into and out
+of each narrow opening without colliding with the surrounding panels.
+
+#### Creating the static scene
+
+A static scene can be created directly in RViz:
+
+1. Open **MotionPlanning → Scene Objects**.
+2. Add and position box collision objects for the desk and each shelf panel.
+3. Check the dimensions and poses in the planning frame.
+4. Select **Export Scene Geometry** and save the result as a `.scene` file.
+
+The exported file is a text representation of the scene. Each object records
+its name, pose, primitive type, dimensions, and display color. Our shelf model
+is stored at:
+
+```text
+cyclo_cumotion/cyclo_cumotion_moveit_config/config/scene/two_open_boxes.scene
+```
+
+:::tip
+**Scene validation:** When exact dimensions and poses are known, the `.scene` file can also be edited
+manually. Import the result into RViz and compare it with the physical workspace
+before planning.
+:::
+
+#### Loading the static scene
+
+The default shelf scene is loaded by enabling the static-scene option:
+
+```bash
+ros2 launch cyclo_cumotion_bringup cumotion_moveit.launch.py \
+  enable_static_scene:=true
+```
+
+To load another `.scene` file, pass its absolute path inside the container:
+
+```bash
+ros2 launch cyclo_cumotion_bringup cumotion_moveit.launch.py \
+  enable_static_scene:=true \
+  moveit_collision_objects_scene_file:=/absolute/path/to/custom_scene.scene
+```
+
+During startup, the scene is added to the MoveIt planning scene shown in RViz
+and supplied to cuMotion as static collision geometry. The planner can then
+generate trajectories between the shelf compartments while maintaining
+clearance from every modeled panel.
+
+<div style={{textAlign: 'center', margin: '20px 0 16px 0'}}>
+  <img
+    src="/img/systems/aiworker/resources/technical_story/isaac_cumotion/static_scene.gif"
+    alt="AI Worker collision avoidance on static scene"
+    style={{width: '588px', maxWidth: '100%', height: 'auto', borderRadius: '8px', background: '#fff'}}
+  />
+  <p style={{marginTop: '8px', fontSize: '14px', color: '#76B900', fontStyle: 'italic'}}>
+    The end effector moves between shelf compartments represented by static collision geometry.
+  </p>
+</div>
+
+### 4.3 Dynamic-scene collision avoidance with Nvblox
+
+A predefined scene cannot represent a box or person that enters the workspace
+after startup. For these changes, the system builds a live collision map from
+depth data.
+
+The head ZED and two wrist D405 cameras observe the workspace from complementary
+viewpoints. Before fusion, the
+[Isaac ROS cuMotion robot segmenter](https://nvidia-isaac-ros.github.io/v/release-4.6/repositories_and_packages/isaac_ros_cumotion/isaac_ros_cumotion_robot_segmenter/index.html)
+masks pixels occupied by the robot. Without this step, Nvblox could reconstruct
+the moving arms as environmental obstacles and cause the planner to avoid the
+robot's own depth image.
+
+<div style={{textAlign: 'center', margin: '20px 0 16px 0'}}>
+  <img
+    src="/img/systems/aiworker/resources/technical_story/isaac_cumotion/robot_segmentation.png"
+    alt="Robot depth segmentation"
+    style={{maxWidth: '100%', borderRadius: '8px', background: '#fff'}}
+  />
+</div>
+
+Nvblox integrates the robot-removed depth into two related representations:
+
+- A **TSDF** reconstructs observed surfaces in 3D.
+- An **ESDF** stores the signed distance to the nearest obstacle.
+
+The ESDF is especially useful for optimization-based planning because cuMotion
+can query obstacle distance throughout a candidate trajectory. Enable this
+pipeline with:
+
+```bash
+ros2 launch cyclo_cumotion_bringup cumotion_moveit.launch.py \
+  read_esdf_world:=true \
+  nvblox_camera_set:=all
+```
+
+`nvblox_camera_set` can also select only the head camera (`head`) or the two
+wrist cameras (`right`). The launch sequence waits for a usable ESDF before
+starting the planner, preventing an early request from being evaluated against
+an empty map.
+
+In the demonstration, the arm repeatedly plans between two poses. When an
+obstacle is introduced, it appears in the ESDF and the next planning request
+produces a collision-free route around it. After the obstacle is removed and
+the map updates, the planner can return to a more direct, smooth trajectory.
+This is replanning against an updated world model; it is not a claim that the
+executing trajectory is continuously modified in mid-motion.
+
+<div style={{textAlign: 'center', margin: '20px 0 16px 0'}}>
+  <img
+    src="/img/systems/aiworker/resources/technical_story/isaac_cumotion/dynamic_scene.gif"
+    alt="AI Worker collision avoidance on dynamic scene"
+    style={{width: '588px', maxWidth: '100%', height: 'auto', borderRadius: '8px', background: '#fff'}}
+  />
+</div>
+
+---
+
+## 5. Attached-Object Collision Avoidance
+
+Robot-only collision checking is not sufficient after a grasp. A gripper may
+clear an obstacle while the carried object still intersects it. Object
+attachment solves this by making the grasped object part of the robot's
+collision model for subsequent plans.
+
+The
+[Isaac ROS cuMotion object attachment package](https://nvidia-isaac-ros.github.io/v/release-4.6/repositories_and_packages/isaac_ros_cumotion/isaac_ros_cumotion_object_attachment/index.html)
+approximates the attached geometry with collision spheres and adds them to the
+active cuMotion robot description. NVIDIA's interface supports sphere, cuboid,
+and mesh geometry. Our integration adds a predefined-object catalog so that a
+known object can be attached to either end effector with a service call.
+
+The attachment workflow is:
+
+1. Define the object's geometry and pose relative to the grasp frame.
+2. Attach it to the selected end effector.
+3. Update every planning group with the attached collision geometry.
+4. Clear the object's occupied ESDF region when depth-based mapping is active,
+   so the same object is not represented both as carried geometry and as a
+   separate world obstacle.
+5. Plan and execute while checking collisions against both the robot and the
+   carried object.
+6. Detach the object and restore the original collision model after placement.
+
+Start the stack with object attachment enabled:
+
+```bash
+ros2 launch cyclo_cumotion_bringup cumotion_moveit.launch.py \
+  read_esdf_world:=true \
+  enable_object_attachment:=true
+```
+
+The current demo catalog defines `table_box`, including its dimensions, pose,
+and default right-end-effector frame. It can be attached and detached as
+follows:
+
+```bash
+ros2 service call \
+  /cyclo_cumotion/object_attachment/attach_by_name \
+  robotis_interfaces/srv/AttachObjectByName \
+  "{object_name: table_box, attachment_frame: end_effector_r_link}"
+
+ros2 service call \
+  /cyclo_cumotion/object_attachment/detach \
+  std_srvs/srv/Trigger '{}'
+```
+
+The following comparison makes the difference visible. Without attachment,
+the planned robot links avoid the obstacle, but the carried object can collide.
+With attachment, the planner accounts for the object's full motion and selects
+a trajectory that keeps both the robot and carried object clear.
+
+In this demonstration, the object geometry and attachment pose are supplied by
+the predefined-object catalog.
+
+<div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px', margin: '16px 0'}}>
+  <div>
+    <img src="/img/systems/aiworker/resources/technical_story/isaac_cumotion/wo_object_attachment.gif" alt="Object collision without attachment" style={{width: '100%', borderRadius: '8px'}} />
+    <p style={{marginTop: '8px', fontSize: '14px', color: '#76B900', fontStyle: 'italic'}}>
+      Without attachment, carried-object collisions are not considered, and the box hits the obstacle.
+    </p>
+  </div>
+  <div>
+    <img src="/img/systems/aiworker/resources/technical_story/isaac_cumotion/object_attachment.gif" alt="Object collision avoidance with attachment" style={{width: '100%', borderRadius: '8px'}} />
+    <p style={{marginTop: '8px', fontSize: '14px', color: '#76B900', fontStyle: 'italic'}}>
+      With attachment, carried-object collisions are considered, and the box avoids the obstacle.
+    </p>
+  </div>
+</div>
+
+---
+
+## 6. Limitations
+
+### External GPU workstation
+
+The JetPack version currently installed on AI Worker's Orin is not compatible
+with the Isaac ROS environment used by this project. The Isaac ROS pipeline
+therefore runs on an external GPU workstation, while AI Worker continues to run
+the camera drivers and robot controllers.
+
+### Wired depth streaming
+
+Depth-based collision mapping depends on the timely delivery of multiple depth
+streams, camera information, joint states, and TF. Packet loss or latency can
+delay ESDF updates and leave the collision map incomplete. For this reason, AI
+Worker and the GPU workstation are connected through wired Ethernet during the
+demonstration.
+
+### Planning and perception boundaries
+
+Nvblox can reconstruct only the surfaces observed by the cameras, so occlusion,
+limited viewpoints, and noisy depth can produce incomplete geometry. In
+addition, the dynamic-scene demonstration replans against the latest ESDF; it
+does not continuously modify an executing trajectory or replace safety-rated
+sensing and control.
+
+---
+
+## 7. What's Next
+
+Future work will reevaluate on-device deployment when AI Worker's JetPack
+version supports the required Isaac ROS environment. Another possible extension
+is a perception-driven attachment pipeline that converts a detected object's
+3D bounding box and pose into collision geometry, then automatically attaches
+that geometry to the selected end effector. This would connect Isaac ROS
+perception outputs directly to collision-aware manipulation.
+
+---
+
+## References
+
+- [NVIDIA Isaac ROS cuMotion](https://nvidia-isaac-ros.github.io/v/release-4.6/repositories_and_packages/isaac_ros_cumotion/index.html)
+- [Isaac ROS cuMotion MoveIt plugin](https://nvidia-isaac-ros.github.io/v/release-4.6/repositories_and_packages/isaac_ros_cumotion/isaac_ros_cumotion_moveit/index.html)
+- [Isaac ROS cuMotion robot segmenter](https://nvidia-isaac-ros.github.io/v/release-4.6/repositories_and_packages/isaac_ros_cumotion/isaac_ros_cumotion_robot_segmenter/index.html)
+- [Isaac ROS cuMotion object attachment](https://nvidia-isaac-ros.github.io/v/release-4.6/repositories_and_packages/isaac_ros_cumotion/isaac_ros_cumotion_object_attachment/index.html)
+- [NVIDIA Isaac ROS Nvblox](https://nvidia-isaac-ros.github.io/v/release-4.6/repositories_and_packages/isaac_ros_nvblox/isaac_ros_nvblox/index.html)
+- [ROBOTIS Cyclo Solution on GitHub](https://github.com/ROBOTIS-GIT/cyclo_solution)
