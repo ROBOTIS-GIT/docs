@@ -411,9 +411,13 @@ the camera drivers and robot controllers.
 
 Depth-based collision mapping depends on the timely delivery of multiple depth
 streams, camera information, joint states, and TF. Packet loss or latency can
-delay ESDF updates and leave the collision map incomplete. For this reason, AI
-Worker and the GPU workstation are connected through wired Ethernet during the
-demonstration.
+delay ESDF updates and leave the collision map incomplete.
+
+:::tip
+**Stable camera streaming:** Connect AI Worker's rear USB 3.0 port to the user
+PC through a USB-to-Ethernet adapter and an Ethernet cable. This direct
+connection provides a stable camera feed.
+:::
 
 ### Planning and perception boundaries
 
