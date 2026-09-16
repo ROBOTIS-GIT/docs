@@ -50,15 +50,12 @@ and RViz interface. The demonstration covers four stages:
 The result is one planning workflow that can move from a simple pose target to
 collision-aware manipulation in a changing workspace.
 
-{/* TODO(image): Add a hero image showing AI Worker, the RViz plan, and the Nvblox map side by side. Suggested file: isaac_cumotion/hero.png */}
-
 ---
 
 ## 2. System Architecture
 
 The system is divided between AI Worker and a GPU workstation. AI Worker runs
-the camera drivers and hardware controllers, while the workstation runs MoveIt
-2, cuMotion, robot segmentation, and Nvblox inside the `cyclo_solution`
+the camera drivers and hardware controllers, while the workstation runs cuMotion, robot segmentation, and Nvblox inside the `cyclo_solution`
 environment.
 
 <div style={{textAlign: 'center', margin: '20px 0 16px 0'}}>
@@ -112,8 +109,7 @@ using the
 [Lula Robot Description and XRDF Editor](https://docs.isaacsim.omniverse.nvidia.com/latest/manipulators/manipulators_robot_description_editor.html).
 The editor can generate spheres from each link mesh, supports manual adjustment
 of their positions and radii, and exports the result as a cuMotion XRDF file.
-The exported spheres are then visualized in RViz to verify their alignment with
-the live robot model before planning.
+The exported spheres are then visualized in RViz during motion planning process.
 
 <div style={{textAlign: 'center', margin: '20px 0 16px 0'}}>
   <img
@@ -153,7 +149,7 @@ planning pipeline without changing the standard planning workflow.
 
 ### Basic launch
 
-Start and enter the development container, build the workspace, and launch the
+Start and enter the development container, then launch the
 common planning stack:
 
 ```bash
@@ -161,7 +157,6 @@ cd cyclo_solution/docker
 ./container.sh start
 ./container.sh enter
 
-cb
 ros2 launch cyclo_cumotion_bringup cumotion_moveit.launch.py
 ```
 
@@ -215,12 +210,12 @@ of each narrow opening without colliding with the surrounding panels.
 A static scene can be created directly in RViz:
 
 1. Open **MotionPlanning → Scene Objects**.
-2. Add and position box collision objects for the desk and each shelf panel.
+2. Add and position collision objects.
 3. Check the dimensions and poses in the planning frame.
 4. Select **Export Scene Geometry** and save the result as a `.scene` file.
 
 The exported file is a text representation of the scene. Each object records
-its name, pose, primitive type, dimensions, and display color. Our shelf model
+its name, pose, primitive type, dimensions, and display color. Our example scene
 is stored at:
 
 ```text
@@ -303,7 +298,7 @@ ros2 launch cyclo_cumotion_bringup cumotion_moveit.launch.py \
 ```
 
 `nvblox_camera_set` can also select only the head camera (`head`) or the two
-wrist cameras (`right`). The launch sequence waits for a usable ESDF before
+wrist cameras (`wrists`). The launch sequence waits for a usable ESDF before
 starting the planner, preventing an early request from being evaluated against
 an empty map.
 
@@ -443,8 +438,8 @@ perception outputs directly to collision-aware manipulation.
 ## References
 
 - [NVIDIA Isaac ROS cuMotion](https://nvidia-isaac-ros.github.io/v/release-4.6/repositories_and_packages/isaac_ros_cumotion/index.html)
-- [Isaac ROS cuMotion MoveIt plugin](https://nvidia-isaac-ros.github.io/v/release-4.6/repositories_and_packages/isaac_ros_cumotion/isaac_ros_cumotion_moveit/index.html)
-- [Isaac ROS cuMotion robot segmenter](https://nvidia-isaac-ros.github.io/v/release-4.6/repositories_and_packages/isaac_ros_cumotion/isaac_ros_cumotion_robot_segmenter/index.html)
-- [Isaac ROS cuMotion object attachment](https://nvidia-isaac-ros.github.io/v/release-4.6/repositories_and_packages/isaac_ros_cumotion/isaac_ros_cumotion_object_attachment/index.html)
+- [NVIDIA Isaac ROS cuMotion MoveIt plugin](https://nvidia-isaac-ros.github.io/v/release-4.6/repositories_and_packages/isaac_ros_cumotion/isaac_ros_cumotion_moveit/index.html)
+- [NVIDIA Isaac ROS cuMotion robot segmenter](https://nvidia-isaac-ros.github.io/v/release-4.6/repositories_and_packages/isaac_ros_cumotion/isaac_ros_cumotion_robot_segmenter/index.html)
+- [NVIDIA Isaac ROS cuMotion object attachment](https://nvidia-isaac-ros.github.io/v/release-4.6/repositories_and_packages/isaac_ros_cumotion/isaac_ros_cumotion_object_attachment/index.html)
 - [NVIDIA Isaac ROS Nvblox](https://nvidia-isaac-ros.github.io/v/release-4.6/repositories_and_packages/isaac_ros_nvblox/isaac_ros_nvblox/index.html)
 - [ROBOTIS Cyclo Solution on GitHub](https://github.com/ROBOTIS-GIT/cyclo_solution)
