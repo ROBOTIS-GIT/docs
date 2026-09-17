@@ -1,6 +1,9 @@
-{/* 파본 있음 — 아래 파일도 함께 고쳐야 합니다.
-   control_table_shadowid_xw.mdx
+{/* props
+   torque: 예제의 레지스터를 LED(65) 대신 Torque Enable(64)로 적는다(XW).
 */}
+
+export const ExampleReg = ({torque}) => torque ? <a href="#torque-enable64">Torque Enable(64)</a> : <a href="#led65">LED(65)</a>;
+
 The Secondary(Shadow) ID(12) assigns a secondary ID to the DYNAMIXEL.  
 The Secondary ID(12) can be shared to group between DYNAMIXELs and to synchronize their movement, unlike [ID(7)] which must be unique and not be overlapped to use. 
 Be aware of differences between the Secondary ID(12) and ID(7) by reading the following.
@@ -22,13 +25,12 @@ See the following Secondary ID(12) example to understand the address properly. N
 
 
 1. Set Secondary ID of five DYNAMIXELs (Assigned ID(7) of each is '1','2','3','4' or '5', not overlapped) to '5'.
-2. Send Write Instruction Packet([ID(7)] = 1, [LED(65)] = 1).
-3. The DYNAMIXEL with ID '1' turns on its LED by the Instruction Packet, and Status Packet will be returned.
-4. Send Write Instruction Packet([ID(7)] = 5, [LED(65)] = 1).
-5. All DYNAMIXELs turns on their LED, but Status Packet of ID '5' will be returned only.
+2. Send Write Instruction Packet([ID(7)] = 1, <ExampleReg torque={props.torque} /> = 1).
+3. The DYNAMIXEL with ID '1' turns on its {props.torque ? 'torque' : 'LED'} by the Instruction Packet, and Status Packet will be returned.
+4. Send Write Instruction Packet([ID(7)] = 5, <ExampleReg torque={props.torque} /> = 1).
+5. All DYNAMIXELs turns on their {props.torque ? 'torque' : 'LED'}, but Status Packet of ID '5' will be returned only.
 6. Set the Secondary ID of all DYNAMIXELs to ‘100’.
-7. Send Write Instruction Packet([ID(7)] = 100, [LED(65)] = 0).
-8. All DYNAMIXELs turns off their LED. As no DYNAMIXEL uses ID 100, but uses the same Secondary ID, the Status Packet will not be returned.
+7. Send Write Instruction Packet([ID(7)] = 100, <ExampleReg torque={props.torque} /> = 0).
+8. All DYNAMIXELs turns off their {props.torque ? 'torque' : 'LED'}. As no DYNAMIXEL uses ID 100, but uses the same Secondary ID, the Status Packet will not be returned.
 
-[LED(65)]: #led65
 [ID(7)]: #id7

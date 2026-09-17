@@ -1,10 +1,9 @@
-{/* 파본 있음 — 아래 파일도 함께 고쳐야 합니다.
-   quick_start_x330.mdx
+{/* props
+   lb041: 전원 항목을 LB-041 배터리 또는 호환 SMPS로 적는다(X330).
 */}
-
 ### 사전 준비
 
-- DYNAMIXEL 전원 공급 장치(12V SMPS 또는 호환되는 12V 배터리)
+- DYNAMIXEL 전원 공급 장치({props.lb041 ? <><a href="http://en.robotis.com/shop_en/item.php?it_id=903-0220-001">LB-041</a> 또는 DYNAMIXEL 호환 SMPS</> : '12V SMPS 또는 호환되는 12V 배터리'})
   - [Compatibility Table] 참고
 
 - Windows, Linux 또는 MacOS가 설치된 PC

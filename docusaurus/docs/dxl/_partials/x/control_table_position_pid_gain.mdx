@@ -1,3 +1,6 @@
+{/* props
+   load: 주소 126을 Present Load로 적는다(XL430·XC430). 기본은 Present Current.
+*/}
 These Gains are used in Position Control Mode and Extended Position Control Mode. Position P Gain of DYNAMIXEL’s internal controller is abbreviated to K<sub>P</sub>P and that of the Control Table is abbreviated to K<sub>P</sub>P<sub>(TBL)</sub>.
 
 |                          |  Controller Gain  |                   Conversion Equations                   |   Range    | Description                   |
@@ -15,7 +18,7 @@ Below figure is a block diagram describing the position controller in Position C
 4. Feedforward and PID controller calculate PWM output for the motor based on desired trajectories.
 5. [Goal PWM(100)] sets a limit on the calculated PWM output and decides the final PWM value.
 6. The final PWM value is applied to the motor through an Inverter, and the horn of DYNAMIXEL is driven.
-7. Results are stored at [Present Position(132)], [Present Velocity(128)], [Present PWM(124)] and [Present Current(126)].
+7. Results are stored at [Present Position(132)], [Present Velocity(128)], [Present PWM(124)] and {props.load ? <a href="#present-load126">Present Load(126)</a> : <a href="#present-current126">Present Current(126)</a>}.
 
 ![](/img/dxl/model_reference/common/position_controller_pid_gain.webp)
 
@@ -38,4 +41,3 @@ For more details about the PID controller and Feedforward controller, please ref
 [Goal Position(116)]: #goal-position116
 [Position Trajectory(140)]: #position-trajectory140
 [Present Position(132)]: #present-position132
-[Present Current(126)]: #present-current126

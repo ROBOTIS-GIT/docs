@@ -1,4 +1,12 @@
-The Bus Watchdog(98) is a safety device (Fail-safe) to stops the DYNAMIXEL if the communication between the controller and DYNAMIXEL communication (RS-485, TTL) is disconnected due to an unspecified error.
+{/* props
+   bus: 통신 방식 표기. 기본 'RS-485, TTL', RS-485 전용 모델(XD, XW)은 'RS-485'.
+   current: false면 Goal Value 목록에서 Goal Current(102)를 뺀다(XL430·XC430).
+   fwNote: false면 펌웨어 v38 안내를 숨긴다(XL330).
+*/}
+
+import Show from '@site/src/components/Show';
+
+The Bus Watchdog(98) is a safety device (Fail-safe) to stops the DYNAMIXEL if the communication between the controller and DYNAMIXEL communication ({props.bus ?? 'RS-485, TTL'}) is disconnected due to an unspecified error.
 The communication is defined as all the Instruction Packet in the DYNAMIXEL Protocol.
 
 |       | Values  | Description                                                |
@@ -9,7 +17,7 @@ The communication is defined as all the Instruction Packet in the DYNAMIXEL Prot
 
 The Bus Watchdog function monitors the communication interval (time) between the controller and DYNAMIXEL when [Torque Enable(64)] is '1'(Torque ON).  
 If the measured communication interval (time) is larger than the set value of Bus Watchdog(98), the DYNAMIXEL will stop. Bus Watchdog(98) will be changed to '-1' (Bus Watchdog Error).
-If the Bus Watchdog Error screen appears, the Goal Value ([Goal PWM(100)], [Goal Current(102)], [Goal Velocity(104)], [Goal Position(116)]) will be changed to read-only-access.
+If the Bus Watchdog Error screen appears, the Goal Value ([Goal PWM(100)], {props.current !== false && <><a href="#goal-current102">Goal Current(102)</a>, </>}[Goal Velocity(104)], [Goal Position(116)]) will be changed to read-only-access.
 Therefore, if a new value is written to the Goal Value, the Status Packet will send the Data Range Error via its Error field.
 If the value of Bus Watchdog(98) is changed to '0', Bus Watchdog Error will be cleared.
 
@@ -21,11 +29,15 @@ If the value of Bus Watchdog(98) is changed to '0', Bus Watchdog Error will be c
 :::
 
 
+<Show when={props.fwNote !== false}>
+
 :::note
 
 **NOTE**: Bus Watchdog (98) is available from firmware v38.
 
 :::
+
+</Show>
 
 
 #### Bus Watchdog (98) Example
@@ -50,4 +62,3 @@ The following is the example of the operation of the Bus Watchdog function.
 [Goal Velocity(104)]: #goal-velocity104
 [Bus Watchdog(98)]: #bus-watchdog98
 [Operating Mode(11)]: #operating-mode11
-[Goal Current(102)]: #goal-current102

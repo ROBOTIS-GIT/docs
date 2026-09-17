@@ -1,22 +1,22 @@
-import Warning from '@site/docs/dxl/_partials/x/warning_xc330_t.mdx';
+import Warning from '@site/docs/dxl/_partials/x/warning_x330.mdx';
 import NotePerformanceGraph from '@site/docs/dxl/_partials/x/note_performance_graph.mdx';
 import ControlTable from '@site/docs/dxl/_partials/x/control_table.mdx';
 import ControlTableId from '@site/docs/dxl/_partials/x/control_table_id.mdx';
 import ControlTableBaudrate2 from '@site/docs/dxl/_partials/x/control_table_baudrate_2_x330.mdx';
 import ControlTableReturnDelayTime from '@site/docs/dxl/_partials/x/control_table_return_delay_time.mdx';
-import ControlTableDrivemode from '@site/docs/dxl/_partials/x/control_table_drivemode_x330.mdx';
+import ControlTableDrivemode from '@site/docs/dxl/_partials/x/control_table_drivemode.mdx';
 import ControlTableOpmodeSix2 from '@site/docs/dxl/_partials/x/control_table_opmode_six_2.mdx';
 import ControlTableShadowid from '@site/docs/dxl/_partials/x/control_table_shadowid.mdx';
 import ProtocolTypeRc from '@site/docs/dxl/_partials/x/protocol_type_rc.mdx';
 import ControlTableHomingoffset from '@site/docs/dxl/_partials/x/control_table_homingoffset.mdx';
 import ControlTableMovingthreshold from '@site/docs/dxl/_partials/x/control_table_movingthreshold.mdx';
 import ControlTableTempLimit2 from '@site/docs/dxl/_partials/x/control_table_temp_limit_2.mdx';
-import ControlTableVoltLimit2 from '@site/docs/dxl/_partials/x/control_table_volt_limit_2_12v.mdx';
+import ControlTableVoltLimit2 from '@site/docs/dxl/_partials/x/control_table_volt_limit_2.mdx';
 import ControlTablePwmLimit from '@site/docs/dxl/_partials/x/control_table_pwm_limit.mdx';
 import ControlTableCurrentLimit from '@site/docs/dxl/_partials/x/control_table_current_limit.mdx';
-import ControlTableVellimit from '@site/docs/dxl/_partials/x/control_table_vellimit_x330.mdx';
+import ControlTableVellimit from '@site/docs/dxl/_partials/x/control_table_vellimit.mdx';
 import ControlTablePositionlimit from '@site/docs/dxl/_partials/x/control_table_positionlimit.mdx';
-import ControlTable60StartupConfiguration from '@site/docs/dxl/_partials/x/control_table_60_startup_configuration_x330.mdx';
+import ControlTable60StartupConfiguration from '@site/docs/dxl/_partials/x/control_table_60_startup_configuration.mdx';
 import ControlTableShutdown from '@site/docs/dxl/_partials/x/control_table_shutdown.mdx';
 import ControlTableTorqueEnable from '@site/docs/dxl/_partials/x/control_table_torque_enable.mdx';
 import ControlTableLed from '@site/docs/dxl/_partials/x/control_table_led.mdx';
@@ -40,8 +40,8 @@ import ControlTableVelocityTrajectory from '@site/docs/dxl/_partials/x/control_t
 import ControlTablePositionTrajectory from '@site/docs/dxl/_partials/x/control_table_position_trajectory.mdx';
 import ControlTablePresentVolt2 from '@site/docs/dxl/_partials/x/control_table_present_volt_2.mdx';
 import ControlTablePresentTemp2 from '@site/docs/dxl/_partials/x/control_table_present_temp_2.mdx';
-import ControlTableBackupReady from '@site/docs/dxl/_partials/x/control_table_backup_ready_x330.mdx';
-import ControlTableIndirectData from '@site/docs/dxl/_partials/x/control_table_indirect_data_x330.mdx';
+import ControlTableBackupReady from '@site/docs/dxl/_partials/x/control_table_backup_ready.mdx';
+import ControlTableIndirectData from '@site/docs/dxl/_partials/x/control_table_indirect_data.mdx';
 import DrawingX330Drawing from '@site/docs/dxl/_partials/x/drawing_x330_drawing.mdx';
 import ProfileDescription from '@site/docs/dxl/_partials/x/profile_description.mdx';
 import FccClassA from '@site/docs/dxl/_partials/x/fcc_class_a.mdx';
@@ -215,7 +215,7 @@ import CompatibleX330 from '@site/docs/dxl/_partials/x/compatible_dxl/compatible
 <ControlTableReturnDelayTime />
 <a id="drive-mode"></a>
 #### Drive Mode(10)
-<ControlTableDrivemode />
+<ControlTableDrivemode torqueOnFw={46} />
 <a id="operating-mode"></a>
 #### Operating Mode(11)
 <ControlTableOpmodeSix2 />
@@ -237,7 +237,7 @@ import CompatibleX330 from '@site/docs/dxl/_partials/x/compatible_dxl/compatible
 <a id="minmax-voltage-limit"></a>
 <a id="max-voltage-limit"></a>
 #### Min/Max Voltage Limit(34, 32)
-<ControlTableVoltLimit2 />
+<ControlTableVoltLimit2 min={55} max={140} />
 <a id="pwm-limit"></a>
 #### PWM Limit(36)
 <ControlTablePwmLimit />
@@ -260,13 +260,13 @@ import CompatibleX330 from '@site/docs/dxl/_partials/x/compatible_dxl/compatible
 :::
 <a id="velocity-limit"></a>
 #### Velocity Limit(44)
-<ControlTableVellimit />
+<ControlTableVellimit max="2,047" fwNote={false} />
 <a id="minmax-position-limit"></a>
 #### Min/Max Position Limit(52, 48)
 <ControlTablePositionlimit />
 <a id="startup-configuration"></a>
 #### Startup Configuration(60)
-<ControlTable60StartupConfiguration />
+<ControlTable60StartupConfiguration fw={46} />
 <a id="pwm-slope"></a>
 #### PWM Slope(62)
 The PWM duty will be linearly interpolated with a set slope by PWM Slope(62) and be forwarded to the motor's inverter.
@@ -398,9 +398,9 @@ The Present Velocity(128) indicates current Velocity. For more details, see the 
 <ControlTablePresentTemp2 />
 <a id="backup-ready"></a>
 #### Backup Ready(147)
-<ControlTableBackupReady />
+<ControlTableBackupReady fw={46} />
 #### Indirect Address, Indirect Data
-<ControlTableIndirectData />
+<ControlTableIndirectData ramEnd={251} protocolNote={false} />
 
 
 ## How to Assemble

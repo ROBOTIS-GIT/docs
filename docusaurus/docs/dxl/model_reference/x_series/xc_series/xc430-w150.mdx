@@ -13,16 +13,16 @@ import ControlTableMovingthreshold from '@site/docs/dxl/_partials/x/control_tabl
 import ControlTableTempLimit2 from '@site/docs/dxl/_partials/x/control_table_temp_limit_2.mdx';
 import ControlTablePwmLimit from '@site/docs/dxl/_partials/x/control_table_pwm_limit.mdx';
 import ControlTableVellimit from '@site/docs/dxl/_partials/x/control_table_vellimit.mdx';
-import ControlTablePositionlimit from '@site/docs/dxl/_partials/x/control_table_positionlimit_xl430.mdx';
+import ControlTablePositionlimit from '@site/docs/dxl/_partials/x/control_table_positionlimit.mdx';
 import ControlTable60StartupConfiguration from '@site/docs/dxl/_partials/x/control_table_60_startup_configuration.mdx';
 import ControlTableShutdown from '@site/docs/dxl/_partials/x/control_table_shutdown.mdx';
 import ControlTableTorqueEnable from '@site/docs/dxl/_partials/x/control_table_torque_enable.mdx';
 import ControlTableLed from '@site/docs/dxl/_partials/x/control_table_led.mdx';
 import ControlTableStatusReturnLv from '@site/docs/dxl/_partials/x/control_table_status_return_lv.mdx';
 import ControlTableRegInstruction from '@site/docs/dxl/_partials/x/control_table_reg_instruction.mdx';
-import ControlTableVelocityPiGain from '@site/docs/dxl/_partials/x/control_table_velocity_pi_gain_xl430.mdx';
-import ControlTablePositionPidGain from '@site/docs/dxl/_partials/x/control_table_position_pid_gain_xl430.mdx';
-import ControlTableBuswatchdog from '@site/docs/dxl/_partials/x/control_table_buswatchdog_xl430.mdx';
+import ControlTableVelocityPiGain from '@site/docs/dxl/_partials/x/control_table_velocity_pi_gain.mdx';
+import ControlTablePositionPidGain from '@site/docs/dxl/_partials/x/control_table_position_pid_gain.mdx';
+import ControlTableBuswatchdog from '@site/docs/dxl/_partials/x/control_table_buswatchdog.mdx';
 import ControlTableGoalPwm from '@site/docs/dxl/_partials/x/control_table_goal_pwm.mdx';
 import ControlTableGoalVelocity from '@site/docs/dxl/_partials/x/control_table_goal_velocity.mdx';
 import ControlTableProfileAcceleration from '@site/docs/dxl/_partials/x/control_table_profile_acceleration.mdx';
@@ -30,17 +30,17 @@ import ControlTableProfileVelocity from '@site/docs/dxl/_partials/x/control_tabl
 import ControlTableGoalPosition2 from '@site/docs/dxl/_partials/x/control_table_goal_position_2_xl430.mdx';
 import ControlTableRealtimeTick from '@site/docs/dxl/_partials/x/control_table_realtime_tick.mdx';
 import ControlTableMoving2 from '@site/docs/dxl/_partials/x/control_table_moving_2.mdx';
-import ControlTableMovingStatus from '@site/docs/dxl/_partials/x/control_table_moving_status_xl430.mdx';
+import ControlTableMovingStatus from '@site/docs/dxl/_partials/x/control_table_moving_status.mdx';
 import ControlTablePresentLoad2 from '@site/docs/dxl/_partials/x/control_table_present_load_2.mdx';
 import ControlTablePresentPosition from '@site/docs/dxl/_partials/x/control_table_present_position.mdx';
-import ControlTablePositionTrajectory from '@site/docs/dxl/_partials/x/control_table_position_trajectory_xl430.mdx';
+import ControlTablePositionTrajectory from '@site/docs/dxl/_partials/x/control_table_position_trajectory.mdx';
 import ControlTablePresentVolt2 from '@site/docs/dxl/_partials/x/control_table_present_volt_2.mdx';
 import ControlTablePresentTemp2 from '@site/docs/dxl/_partials/x/control_table_present_temp_2.mdx';
 import ControlTableBackupReady from '@site/docs/dxl/_partials/x/control_table_backup_ready.mdx';
 import ControlTableIndirectData from '@site/docs/dxl/_partials/x/control_table_indirect_data.mdx';
 import AssemblyXlXc430HornAssembly from '@site/docs/dxl/_partials/x/assembly_xl_xc430_horn_assembly.mdx';
 import AssemblyXc430FrameAssembly from '@site/docs/dxl/_partials/x/assembly_xc430_frame_assembly.mdx';
-import ProfileDescription from '@site/docs/dxl/_partials/x/profile_description_xl430.mdx';
+import ProfileDescription from '@site/docs/dxl/_partials/x/profile_description.mdx';
 import FccClassB from '@site/docs/dxl/_partials/x/fcc_class_b.mdx';
 import QuickStart from '@site/docs/dxl/_partials/x/quick_start.mdx';
 import JstTtl from '@site/docs/dxl/_partials/x/jst_ttl.mdx';
@@ -260,7 +260,7 @@ For more details, please refer to the [Shutdown(63)] section.
 <ControlTableVellimit />
 <a id="minmax-position-limit"></a>
 #### Min/Max Position Limit(52, 48)
-<ControlTablePositionlimit />
+<ControlTablePositionlimit currentBased={false} />
 <a id="startup-configuration"></a>
 #### Startup Configuration(60)
 <ControlTable60StartupConfiguration />
@@ -286,14 +286,14 @@ The Hardware Error Status(70) indicates hardware error status.
 <ControlTableShutdown />
 <a id="velocity-pi-gain"></a>
 #### Velocity PI Gain(76, 78)
-<ControlTableVelocityPiGain />
+<ControlTableVelocityPiGain load />
 <a id="position-pid-gain-feedforward-1st2nd-gains"></a>
 <a id="position-pid-gain80-82-84"></a>
 #### Position PID Gain(80, 82, 84), Feedforward 1st/2nd Gains(88, 90)
-<ControlTablePositionPidGain />
+<ControlTablePositionPidGain load />
 <a id="bus-watchdog"></a>
 #### Bus Watchdog(98)
-<ControlTableBuswatchdog />
+<ControlTableBuswatchdog current={false} />
 <a id="goal-pwm"></a>
 #### Goal PWM(100)
 <ControlTableGoalPwm />
@@ -318,7 +318,7 @@ The Hardware Error Status(70) indicates hardware error status.
 <ControlTableMoving2 />
 <a id="moving-status"></a>
 #### Moving Status(123)
-<ControlTableMovingStatus />
+<ControlTableMovingStatus currentBased={false} />
 <a id="present-pwm"></a>
 #### Present PWM(124)
 This value indicates present PWM. For more details, please refer to the [Goal PWM(100)].
@@ -339,7 +339,7 @@ This is a target velocity trajectory created by Profile. Operating method can be
 2. **Position Control Mode, Extended Position Control Mode** : Velocity Trajectory is used to create [Position Trajectory(140)]. When Profile reaches to an endpoint, [Velocity Trajectory(136)] is cleared to '0'.
 <a id="position-trajectory"></a>
 #### Position Trajectory(140)
-<ControlTablePositionTrajectory />
+<ControlTablePositionTrajectory currentBased={false} />
 <a id="present-input-voltage"></a>
 #### Present Input Voltage(144)
 <ControlTablePresentVolt2 />
@@ -373,7 +373,7 @@ This is a target velocity trajectory created by Profile. Operating method can be
 
 
 ### What is the Profile
-<ProfileDescription />
+<ProfileDescription currentBased={false} />
 
 
 ### Certifications

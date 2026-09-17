@@ -1,9 +1,12 @@
 {/* 파본 있음 — 아래 파일도 함께 고쳐야 합니다.
    control_table_drivemode_x540.mdx
-   control_table_drivemode_xw.mdx
 */}
-
-Drive Mode(10)는 DYNAMIXEL의 구동 방식을 설정합니다.
+{/* props
+   since: 값을 주면 "Drive Mode는 펌웨어 V(since)부터 지원" 문장을 덧붙인다. X430은 38.
+   torqueOnFw: Torque On by Goal Update 지원 시작 펌웨어. 기본 45, X330은 46.
+   invertsAll: 반전되는 항목을 Position/Velocity/Current/PWM으로 적는다(XW). 기본은 Goal/Present Position.
+*/}
+Drive Mode(10)는 DYNAMIXEL의 구동 방식을 설정{props.since ? <>하며, <strong>펌웨어 V{props.since}</strong>부터 지원됩니다.</> : '합니다.'}
 
 |     Bit     |                Item                 | 설명 |
 |:-----------:|:-----------------------------------:|:-----|
@@ -24,14 +27,14 @@ Drive Mode(10)는 DYNAMIXEL의 구동 방식을 설정합니다.
 
 :::note
 
-**참고** : Torque On by Goal Update는 **firmware V45**부터 사용할 수 있습니다.
+**참고** : Torque On by Goal Update는 **firmware V{props.torqueOnFw ?? 45}**부터 사용할 수 있습니다.
 
 :::
 
 :::note
 
 **참고** : Drive Mode(10)의 Bit 0(Normal/Reverse Mode)을 `1`로 설정하면 회전 방향이 반전됩니다.
-따라서 **Goal Position**, **Present Position**의 방향도 반전됩니다.
+따라서 {props.invertsAll ? <><strong>Position</strong>, <strong>Velocity</strong>, <strong>Current</strong>, <strong>PWM</strong></> : <><strong>Goal Position</strong>, <strong>Present Position</strong></>}의 방향도 반전됩니다.
 이 기능은 좌우 대칭 관절을 구성할 때 유용합니다.
 
 :::

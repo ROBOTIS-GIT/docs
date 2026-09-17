@@ -1,13 +1,14 @@
+{/* XL-320 전용. 이 partial을 쓰는 모델은 XL-320뿐이라 XL-320 주소로 적는다. */}
 It is the value of the maximum torque limit.  
 0 ~ 1,023(0x3FF) is available, and the unit is about 0.1%.  
 For example, if the value is 512, it is about 50%; that means only 50% of the maximum torque will be used.  
-When the power is turned on, Torque Limit(34) is reset to the value of [Max Torque(14)].  
+When the power is turned on, Torque Limit(35) is reset to the value of [Max Torque(15)].  
 
 
 :::note
 
-**NOTE** : If the function of [Alarm LED(17)/Shutdown(18)](#shutdown) is triggered, the motor loses its torque because Torque Limit(34) becomes 0. Once error conditions are resolved and Torque Limit(34) is changed to the value other than 0, the motor can be operated again.
+**NOTE** : If the function of [Shutdown(18)](#shutdown) is triggered, the motor loses its torque because Torque Limit(35) becomes 0. Once error conditions are resolved and Torque Limit(35) is changed to the value other than 0, the motor can be operated again.
 
 :::
 
-[Max Torque(14)]: #max-torque
+[Max Torque(15)]: #max-torque

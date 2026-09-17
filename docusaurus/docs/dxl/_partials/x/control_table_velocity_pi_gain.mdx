@@ -1,3 +1,6 @@
+{/* props
+   load: 주소 126을 Present Load로 적는다(XL430·XC430). 기본은 Present Current.
+*/}
 The Velocity PI Gains(76, 78) indicate gains of Velocity Control Mode.  
 Velocity P Gain of DYNAMIXEL’s internal controller is abbreviated to K<sub>V</sub>P and that of the Control Table is abbreviated to K<sub>V</sub>P<sub>(TBL)</sub>.
 
@@ -13,7 +16,7 @@ Below figure is a block diagram describing the velocity controller in Velocity C
 4. PI controller calculates PWM output for the motor based on the desired velocity trajectory.
 5. [Goal PWM(100)] sets a limit on the calculated PWM output and decides the final PWM value.
 6. The final PWM value is applied to the motor through an Inverter, and the horn of DYNAMIXEL is driven.
-7. Results are stored at [Present Position(132)], [Present Velocity(128)], [Present PWM(124)] and [Present Current(126)].
+7. Results are stored at [Present Position(132)], [Present Velocity(128)], [Present PWM(124)] and {props.load ? <a href="#present-load126">Present Load(126)</a> : <a href="#present-current126">Present Current(126)</a>}.
 
 ![](/img/dxl/model_reference/x_series/velocity_controller_pi_gain.webp)
 
@@ -31,4 +34,3 @@ Below figure is a block diagram describing the velocity controller in Velocity C
 [Goal PWM(100)]: #goal-pwm100
 [Goal Velocity(104)]: #goal-velocity104
 [Present Position(132)]: #present-position132
-[Present Current(126)]: #present-current126

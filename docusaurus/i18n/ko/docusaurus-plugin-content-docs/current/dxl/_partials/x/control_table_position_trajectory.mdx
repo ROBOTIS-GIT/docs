@@ -1,5 +1,8 @@
+{/* props
+   currentBased: false면 Current-based Position Control Mode를 뺀다(XL430·XC430).
+*/}
 Position Trajectory(140)은 [Profile](#what-is-the-profile)에 의해 생성된 목표 위치 궤적입니다.
-Position Trajectory(140)은 [Operating Mode(11)]가 **Position Control Mode**, **Extended Position Control Mode**, **Current-based Position Control Mode**일 때만 사용됩니다.
+Position Trajectory(140)은 [Operating Mode(11)]가 **Position Control Mode**, **Extended Position Control Mode**{props.currentBased !== false && <>, <strong>Current-based Position Control Mode</strong></>}일 때만 사용됩니다.
 자세한 내용은 [Profile이란?](#what-is-the-profile)을 참고하세요.
 
 [Operating Mode(11)]: #operating-mode11

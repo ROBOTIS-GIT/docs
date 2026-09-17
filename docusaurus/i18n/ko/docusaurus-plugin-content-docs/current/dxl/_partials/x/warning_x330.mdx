@@ -1,7 +1,9 @@
-{/*
-warning.mdx 와 동일. XM335-T323 은 국문 e-Manual 에서 별도 전원 문구가 없습니다.
-영문 파본과 파일 구성을 맞추기 위해 분리해 둡니다.
+{/* warning.mdx의 XL330·XC330·XM335용 파본. CAUTION 목록에 안정적인 전원 공급 항목이 들어간다. */}
+{/* props
+   ttl33Note: 3.3V TTL 로직 레벨 안내를 표시한다(XL330).
 */}
+
+import Show from '@site/src/components/Show';
 
 :::danger
 
@@ -26,6 +28,8 @@ warning.mdx 와 동일. XM335-T323 은 국문 e-Manual 에서 별도 전원 문�
 (이 경고를 무시하면 가벼운 상해 또는 제품 손상이 발생할 수 있습니다)
 
 - 입력 전압, 전류, 동작 온도 등 제품의 공식 동작 환경 사양을 항상 준수하세요.
+- 안정적인 전원 공급을 위해 ROBOTIS 제어기나 [리튬이온 배터리(LB-041)](https://www.robotis.com/shop/item.php?it_id=903-0220-001) 또는 별도의 파워 서플라이를 통한 전원 공급을 권장합니다.
+- 전원이 꺼진 상태에서 장치와 전원을 연결하고, 스위치로 ON/OFF 하세요.
 - 제품 작동 중 칼날이나 기타 날카로운 물체를 넣지 마세요.
 
 :::
@@ -42,3 +46,14 @@ warning.mdx 와 동일. XM335-T323 은 국문 e-Manual 에서 별도 전원 문�
 - 전원이 공급되는 동안 DYNAMIXEL 케이블을 연결하거나 분리하지 마세요.
 
 :::
+
+
+<Show when={props.ttl33Note}>
+
+:::note
+
+**참고** : XL330의 통신 버스 전압은 다른 DYNAMIXEL과 달리 3.3V이지만, 5V 통신 버스와 호환됩니다.
+
+:::
+
+</Show>

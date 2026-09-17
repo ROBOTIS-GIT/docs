@@ -1,13 +1,24 @@
+{/* props
+   max: 값 범위 상한. 기본 '1,023', X330·XM335는 '2,047'.
+   fwNote: false면 펌웨어 V42 안내를 숨긴다(X330·XM335).
+*/}
+
+import Show from '@site/src/components/Show';
+
 Velocity Limit(44) indicates the maximum value of Goal Velocity(104). For more details, see [Goal Velocity(104)](#goal-velocity104).
 
 
 |   Unit   | Value Range |
 |:--------:|:-----------:|
-| 0.229rpm |  0 ~ 1,023  |
+| 0.229rpm | 0 ~ {props.max ?? '1,023'} |
 
+
+<Show when={props.fwNote !== false}>
 
 :::note
 
 **NOTE**: The default value of Velocity Limit(44) has been decreased since Firmware V42.
 
 :::
+
+</Show>

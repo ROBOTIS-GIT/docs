@@ -26,7 +26,7 @@ import ControlTableBusWatchdog from '@site/docs/dxl/_partials/mx2/control_table_
 import ControlTableGoalPwm from '@site/docs/dxl/_partials/mx2/control_table_goal_pwm.mdx';
 import ControlTableGoalVelocity from '@site/docs/dxl/_partials/mx2/control_table_goal_velocity.mdx';
 import ControlTableProfileAcceleration from '@site/docs/dxl/_partials/mx2/control_table_profile_acceleration.mdx';
-import ControlTableProfileVelocity from '@site/docs/dxl/_partials/mx2/control_table_profile_velocity_mx28.mdx';
+import ControlTableProfileVelocity from '@site/docs/dxl/_partials/mx2/control_table_profile_velocity.mdx';
 import ControlTableGoalPosition2 from '@site/docs/dxl/_partials/mx2/control_table_goal_position_2_mx28.mdx';
 import ControlTableRealtimeTick from '@site/docs/dxl/_partials/mx2/control_table_realtime_tick.mdx';
 import ControlTableMoving2 from '@site/docs/dxl/_partials/mx2/control_table_moving_2.mdx';
@@ -290,7 +290,7 @@ The Hardware Error Status(70) indicates hardware error status.
 <ControlTableProfileAcceleration />
 <a id="profile-velocity"></a>
 #### Profile Velocity(112)
-<ControlTableProfileVelocity />
+<ControlTableProfileVelocity currentBased={false} />
 <a id="goal-position"></a>
 #### Goal Position(116)
 <ControlTableGoalPosition2 />

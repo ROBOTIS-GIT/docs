@@ -1,3 +1,6 @@
+{/* props
+   addr: Registered Instruction 주소. 기본 69, XL-320은 47.
+*/}
 [Reg Write Instruction](/docs/dxl/protocol/protocol2#reg-write-0x04)에 의해 Write Instruction이 등록되었는지 나타냅니다.
 
 | Value | 설명                                  |
@@ -8,6 +11,6 @@
 
 :::note
 
-**참고** : ACTION Instruction이 실행되면 Registered Instruction(69)은 0으로 변경됩니다.
+**참고** : ACTION Instruction이 실행되면 Registered Instruction({props.addr ?? 69})은 0으로 변경됩니다.
 
 :::

@@ -1,14 +1,15 @@
 {/* 파본 있음 — 아래 파일도 함께 고쳐야 합니다.
    ttl_connection_x330.mdx
-   ttl_connection_x335.mdx
-   ttl_connection_2x.mdx
+*/}
+{/* props
+   circuitImg, pinImg: 회로도와 핀맵 이미지 경로. XM335는 둘 다, 2X는 pinImg만 바꾼다.
 */}
 ## Communication Circuit
 To control the DYNAMIXEL actuators, the main controller needs to convert its UART signals to the half duplex type. The recommended circuit diagram for this is shown below.
 
 
 ### TTL Communication
-![](/img/common/ttl_circuit.webp)
+<img src={props.circuitImg ?? '/img/common/ttl_circuit.webp'} alt="" />
 
 
 :::note
@@ -18,4 +19,4 @@ To control the DYNAMIXEL actuators, the main controller needs to convert its UAR
 :::
 
 
-![](/img/common/x_series_ttl_pin.webp)
+<img src={props.pinImg ?? '/img/common/x_series_ttl_pin.webp'} alt="" />

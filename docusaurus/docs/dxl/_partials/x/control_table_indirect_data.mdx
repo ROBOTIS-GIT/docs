@@ -1,21 +1,26 @@
-{/* 파본 있음 — 아래 파일도 함께 고쳐야 합니다.
-   control_table_indirect_data_x330.mdx
-   control_table_indirect_data_xw.mdx
+{/* props
+   ramEnd: Indirect Address로 지정할 수 있는 RAM 영역의 끝 주소. 기본 661, X330·XM335는 251.
+   torque: 예제의 레지스터를 LED(65) 대신 Torque Enable(64)로 적는다(XW).
+   protocolNote: false면 Indirect Address 29 ~ 56의 Protocol 2.0 안내를 숨긴다(X330·XM335).
 */}
-Indirect Address and Indirect Data are useful when accessing two remote addresses in the Control Table as sequential addresses. - Sequential addresses increase Instruction Packet efficiency. Addresses that can be defined as Indirect Address is limited to RAM area(Address 64 ~ 661).
+
+import Show from '@site/src/components/Show';
+export const ExampleReg = ({torque}) => torque ? <a href="#torque-enable64">Torque Enable(64)</a> : <a href="#led65">LED(65)</a>;
+
+Indirect Address and Indirect Data are useful when accessing two remote addresses in the Control Table as sequential addresses. - Sequential addresses increase Instruction Packet efficiency. Addresses that can be defined as Indirect Address is limited to RAM area(Address 64 ~ {props.ramEnd ?? 661}).
 - If specific address is allocated to Indirect Address, Indirect Address inherits features and properties of the Data from the specific Address. 
 - Property includes Size(Byte length), value range, and Access property(Read Only, Read/Write). 
-- For instance, allocating 65(Address of LED) to Indirect Address 1(168), Indirect Data 1(224) can perform exactly same as [LED(65)].
+- For instance, allocating {props.torque ? '64(Address of Torque Enable)' : '65(Address of LED)'} to Indirect Address 1(168), Indirect Data 1(224) can perform exactly same as <ExampleReg torque={props.torque} />.
 
 | Indirect Address Range | Description                                                                           |
 |:-----------------------:|:--------------------------------------------------------------------------------------|
-| 64 ~ 661               | [EEPROM](#control-table-of-eeprom-area) address can't be assigned to Indirect Address |
+| 64 ~ {props.ramEnd ?? 661}               | [EEPROM](#control-table-of-eeprom-area) address can't be assigned to Indirect Address |
 
 #### Indirect Address and Indirect Data Examples
-`Example 1` Allocating Size 1 byte [LED(65)] to Indirect Data 1(224).
-1. Indirect Address 1(168) : change the value to '65' which is the address of LED.
-2. Set Indirect Data 1(224) to ‘1’ : LED(65) also becomes '1' and LED is turned on.
-3. Set Indirect Data 1(224) to ‘0’ : LED(65) also becomes ‘0’ and LED is turned off.
+`Example 1` Allocating Size 1 byte <ExampleReg torque={props.torque} /> to Indirect Data 1(224).
+1. Indirect Address 1(168) : change the value to {props.torque ? "'64' which is the address of Torque Enable" : "'65' which is the address of LED"}.
+2. Set Indirect Data 1(224) to ‘1’ : {props.torque ? "Torque Enable(64) also becomes '1' and the torque is turned on" : "LED(65) also becomes '1' and LED is turned on"}.
+3. Set Indirect Data 1(224) to ‘0’ : {props.torque ? "Torque Enable(64) also becomes ‘0’ and the torque is turned off" : "LED(65) also becomes ‘0’ and LED is turned off"}.
 
 
 `Example 2` Allocating Size 4 byte [Goal Position(116)] to Indirect Data 2(225), 4 sequential bytes have to be allocated.
@@ -33,12 +38,15 @@ Indirect Address and Indirect Data are useful when accessing two remote addresse
 :::
 
 
+<Show when={props.protocolNote !== false}>
+
 :::note
 
 **NOTE** : Indirect Address 29 ~ 56 and Indirect Data 29 ~ 56 can only be accessed with [Protocol 2.0].
 
 :::
 
+</Show>
+
 [Goal Position(116)]: #goal-position116
-[LED(65)]: #led65
 [Protocol 2.0]: /docs/dxl/protocol/protocol2#status-packet

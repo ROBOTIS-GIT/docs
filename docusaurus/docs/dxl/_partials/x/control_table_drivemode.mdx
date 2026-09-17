@@ -1,8 +1,12 @@
 {/* 파본 있음 — 아래 파일도 함께 고쳐야 합니다.
    control_table_drivemode_x540.mdx
-   control_table_drivemode_xw.mdx
 */}
-The Drive Mode(10) configures Drive Mode of DYNAMIXEL.
+{/* props
+   since: 값을 주면 "Drive Mode는 펌웨어 V(since)부터 지원" 문장을 덧붙인다. X430은 38.
+   torqueOnFw: Torque On by Goal Update 지원 시작 펌웨어. 기본 45, X330은 46.
+   invertsAll: 반전되는 항목을 Position/Velocity/Current/PWM으로 적는다(XW). 기본은 Goal/Present Position.
+*/}
+The Drive Mode(10) configures Drive Mode of DYNAMIXEL.{props.since && <> Drive Mode is available from the <strong>firmware V{props.since}</strong>.</>}
 
 
 |     Bit     |                Item                 | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
@@ -26,7 +30,7 @@ The Drive Mode(10) configures Drive Mode of DYNAMIXEL.
 
 :::note
 
-**NOTE**: Torque On by Goal Update is available from firmware **V45**.
+**NOTE**: Torque On by Goal Update is available from firmware **V{props.torqueOnFw ?? 45}**.
 
 :::
 
@@ -34,7 +38,7 @@ The Drive Mode(10) configures Drive Mode of DYNAMIXEL.
 :::note
 
 **NOTE** : If the value of Bit 0(Normal/Reverse Mode) of the Drive Mode(10) is set to `1`, rotational direction is inverted.  
-Thus, **Goal Position**, **Present Position** will have a inverted direction.  
+Thus, {props.invertsAll ? <><strong>Position</strong>, <strong>Velocity</strong>, <strong>Current</strong>, <strong>PWM</strong></> : <><strong>Goal Position</strong>, <strong>Present Position</strong></>} will have a inverted direction.  
 This feature can be very useful when configuring symmetrical joint.
 
 :::

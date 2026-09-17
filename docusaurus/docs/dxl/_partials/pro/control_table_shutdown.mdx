@@ -1,12 +1,15 @@
+{/* props
+   shutdown, torqueEnable, hwError: 레지스터 주소. 기본 48 / 562 / 892 (PRO). PRO(A)와 RH-P12-RN은 63 / 512 / 518.
+*/}
 The DYNAMIXEL can protect itself by detecting dangerous situations that could occur during the operation.
 Each Bit is inclusively processed with the ‘OR’ logic, therefore, multiple options can be generated.
-For instance, when ‘0x05’ (binary : 00000101) is defined in Shutdown(48), DYNAMIXEL can detect both Input Voltage Error(binary : 00000001) and Overheating Error(binary : 00000100).
-If those errors are detected,  [Torque Enable(562)] is cleared to ‘0’ and the motor's output becomes 0 [%].
+For instance, when ‘0x05’ (binary : 00000101) is defined in Shutdown({props.shutdown ?? 48}), DYNAMIXEL can detect both Input Voltage Error(binary : 00000001) and Overheating Error(binary : 00000100).
+If those errors are detected,  [Torque Enable({props.torqueEnable ?? 562})](#torque-enable) is cleared to ‘0’ and the motor's output becomes 0 [%].
 
 
-REBOOT is the only method to reset [Torque Enable(562)] to ‘1’(Torque ON) after the shutdown.
+REBOOT is the only method to reset [Torque Enable({props.torqueEnable ?? 562})](#torque-enable) to ‘1’(Torque ON) after the shutdown.
 
- Check [Alert Bit(0x80)] in an error field of Status Packet or a present status via [Hardware Error Status(892)].  The followings are detectable situations.
+ Check [Alert Bit(0x80)] in an error field of Status Packet or a present status via [Hardware Error Status({props.hwError ?? 892})](#hardware-error-status).  The followings are detectable situations.
 
 
 |  Bit  |               Item               | Description                                                                      |
@@ -34,14 +37,11 @@ REBOOT is the only method to reset [Torque Enable(562)] to ‘1’(Torque ON) af
 
 
 [Shutdown(18)]: #shutdown
-[Shutdown(48)]: #shutdown
 [Shutdown(63)]: #shutdown
 [Torque Enable(24)]: #torque-enable
 [Torque Enable(64)]: #torque-enable
 [Torque Enable(512)]: #torque-enable
-[Torque Enable(562)]: #torque-enable
 [Hardware Error Status(70)]: #hardware-error-status
 [Hardware Error Status(518)]: #hardware-error-status
-[Hardware Error Status(892)]: #hardware-error-status
 
 [Alert Bit(0x80)]: /docs/dxl/protocol/protocol2#error

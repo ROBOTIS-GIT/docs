@@ -7,10 +7,10 @@ import DxlPControlTable12SecondaryId from '@site/docs/dxl/_partials/pro/p_contro
 import DxlPControlTable13ProtocolType from '@site/docs/dxl/_partials/pro/p_control_table_13_protocol_type.mdx';
 import DxlPControlTable24MovingThreshold from '@site/docs/dxl/_partials/pro/p_control_table_24_moving_threshold.mdx';
 import DxlPControlTable31TemperatureLimit from '@site/docs/dxl/_partials/pro/p_control_table_31_temperature_limit.mdx';
-import DxlPControlTable32VoltageLimit from '@site/docs/dxl/_partials/pro/p_control_table_32_voltage_limit_rh.mdx';
+import DxlPControlTable32VoltageLimit from '@site/docs/dxl/_partials/pro/p_control_table_32_voltage_limit.mdx';
 import DxlPControlTable36PwmLimit from '@site/docs/dxl/_partials/pro/p_control_table_36_pwm_limit.mdx';
-import DxlPControlTable56ExternalPort from '@site/docs/dxl/_partials/pro/p_control_table_56_external_port_rh.mdx';
-import DxlControlTableShutdown from '@site/docs/dxl/_partials/pro/control_table_shutdown_proa.mdx';
+import DxlPControlTable56ExternalPort from '@site/docs/dxl/_partials/pro/p_control_table_56_external_port.mdx';
+import DxlControlTableShutdown from '@site/docs/dxl/_partials/pro/control_table_shutdown.mdx';
 import DxlPControlTable168Indirect from '@site/docs/dxl/_partials/pro/p_control_table_168_indirect.mdx';
 import DxlControlTableTorqueEnable from '@site/docs/dxl/_partials/pro/control_table_torque_enable.mdx';
 import DxlPControlTable513Led from '@site/docs/dxl/_partials/pro/p_control_table_513_led.mdx';
@@ -260,7 +260,7 @@ Present Position(580) = Actual Position + Homing Offset(20).
 <a id="max-voltage-limit"></a>
 <a id="min-voltage-limit"></a>
 ### Max/Min Voltage Limit(32, 34)
-<DxlPControlTable32VoltageLimit />
+<DxlPControlTable32VoltageLimit max={300} />
 
 
 <a id="pwm-limit"></a>
@@ -307,12 +307,12 @@ Therefore, Goal Position(564) should not exceed the limit range. Attempting to w
 
 ###**[External Port Mode](#external-port-mode)**, **[External Port Data](#external-port-data)**
 
-<DxlPControlTable56ExternalPort />
+<DxlPControlTable56ExternalPort img="/img/common/rh_p12_rn_external_port.png" />
 
 
 <a id="shutdown"></a>
 ### Shutdown(63)
-<DxlControlTableShutdown />
+<DxlControlTableShutdown shutdown={63} torqueEnable={512} hwError={518} />
 
 
 ###**[Indirect Address](#indirect-address)**, **[Indirect Data](#indirect-data)**

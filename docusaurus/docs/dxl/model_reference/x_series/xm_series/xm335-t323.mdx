@@ -1,4 +1,4 @@
-import Warning from '@site/docs/dxl/_partials/x/warning_xm335.mdx';
+import Warning from '@site/docs/dxl/_partials/x/warning_x330.mdx';
 import NotePerformanceGraph from '@site/docs/dxl/_partials/x/note_performance_graph.mdx';
 import ControlTable from '@site/docs/dxl/_partials/x/control_table.mdx';
 import ControlTableId from '@site/docs/dxl/_partials/x/control_table_id.mdx';
@@ -11,10 +11,10 @@ import ProtocolTypeRc from '@site/docs/dxl/_partials/x/protocol_type_rc.mdx';
 import ControlTableHomingoffset from '@site/docs/dxl/_partials/x/control_table_homingoffset.mdx';
 import ControlTableMovingthreshold from '@site/docs/dxl/_partials/x/control_table_movingthreshold.mdx';
 import ControlTableTempLimit2 from '@site/docs/dxl/_partials/x/control_table_temp_limit_2.mdx';
-import ControlTableVoltLimit2 from '@site/docs/dxl/_partials/x/control_table_volt_limit_2_12v.mdx';
+import ControlTableVoltLimit2 from '@site/docs/dxl/_partials/x/control_table_volt_limit_2.mdx';
 import ControlTablePwmLimit from '@site/docs/dxl/_partials/x/control_table_pwm_limit.mdx';
 import ControlTableCurrentLimit from '@site/docs/dxl/_partials/x/control_table_current_limit.mdx';
-import ControlTableVellimit from '@site/docs/dxl/_partials/x/control_table_vellimit_x330.mdx';
+import ControlTableVellimit from '@site/docs/dxl/_partials/x/control_table_vellimit.mdx';
 import ControlTablePositionlimit from '@site/docs/dxl/_partials/x/control_table_positionlimit.mdx';
 import ControlTable60StartupConfiguration from '@site/docs/dxl/_partials/x/control_table_60_startup_configuration.mdx';
 import ControlTableShutdown from '@site/docs/dxl/_partials/x/control_table_shutdown.mdx';
@@ -41,13 +41,13 @@ import ControlTablePositionTrajectory from '@site/docs/dxl/_partials/x/control_t
 import ControlTablePresentVolt2 from '@site/docs/dxl/_partials/x/control_table_present_volt_2.mdx';
 import ControlTablePresentTemp2 from '@site/docs/dxl/_partials/x/control_table_present_temp_2.mdx';
 import ControlTableBackupReady from '@site/docs/dxl/_partials/x/control_table_backup_ready.mdx';
-import ControlTableIndirectData from '@site/docs/dxl/_partials/x/control_table_indirect_data_x330.mdx';
+import ControlTableIndirectData from '@site/docs/dxl/_partials/x/control_table_indirect_data.mdx';
 import DrawingX335Drawing from '@site/docs/dxl/_partials/x/drawing_x335_drawing.mdx';
 import ProfileDescription from '@site/docs/dxl/_partials/x/profile_description.mdx';
 import FccClassA from '@site/docs/dxl/_partials/x/fcc_class_a.mdx';
 import QuickStart from '@site/docs/dxl/_partials/x/quick_start.mdx';
 import HrsTtl from '@site/docs/dxl/_partials/x/hrs_ttl.mdx';
-import TtlConnectionX from '@site/docs/dxl/_partials/x/ttl_connection_x335.mdx';
+import TtlConnectionX from '@site/docs/dxl/_partials/x/ttl_connection_x.mdx';
 import DownloadCenterNotice from '@site/docs/dxl/_partials/x/download_center_notice.mdx';
 import CommonLink from '@site/docs/dxl/_partials/x/common_link.mdx';
 
@@ -217,7 +217,7 @@ import CommonLink from '@site/docs/dxl/_partials/x/common_link.mdx';
 <a id="maxmin-voltage-limit"></a>
 <a id="max-voltage-limit"></a>
 #### Max/Min Voltage Limit(32, 34)
-<ControlTableVoltLimit2 />
+<ControlTableVoltLimit2 min={55} max={140} />
 <a id="pwm-limit"></a>
 #### PWM Limit(36)
 <ControlTablePwmLimit />
@@ -240,7 +240,7 @@ import CommonLink from '@site/docs/dxl/_partials/x/common_link.mdx';
 :::
 <a id="velocity-limit"></a>
 #### Velocity Limit(44)
-<ControlTableVellimit />
+<ControlTableVellimit max="2,047" fwNote={false} />
 <a id="minmax-position-limit"></a>
 #### Min/Max Position Limit(52, 48)
 <ControlTablePositionlimit />
@@ -380,7 +380,7 @@ The Present Velocity(128) indicates current Velocity. For more details, see the 
 #### Backup Ready(147)
 <ControlTableBackupReady />
 #### Indirect Address, Indirect Data
-<ControlTableIndirectData />
+<ControlTableIndirectData ramEnd={251} protocolNote={false} />
 
 
 ## How to Assemble
@@ -416,7 +416,7 @@ Please inquire us for information regarding unlisted certifications.
 <HrsTtl />
 
 
-<TtlConnectionX />
+<TtlConnectionX circuitImg="/img/common/x335_ttl_circuit.png" pinImg="/img/common/x335_series_ttl_pin.png" />
 
 
 ### Drawings

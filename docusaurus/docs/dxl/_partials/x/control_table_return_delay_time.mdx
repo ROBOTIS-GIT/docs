@@ -1,5 +1,8 @@
-If the DYNAMIXEL receives an Instruction Packet, it will return the Status Packet after the time of the set Return Delay Time(9).  
-Note that the range of values is 0 to 254 (0XFE) and its unit is 2 [μsec]. For instance, if the Return Delay Time(9) is set to ‘10’, the Status Packet will be returned after 20[μsec] when the Instruction Packet is received.
+{/* props
+   addr: Return Delay Time 주소. 기본 9, XL-320은 5.
+*/}
+If the DYNAMIXEL receives an Instruction Packet, it will return the Status Packet after the time of the set Return Delay Time({props.addr ?? 9}).  
+Note that the range of values is 0 to 254 (0XFE) and its unit is 2 [μsec]. For instance, if the Return Delay Time({props.addr ?? 9}) is set to ‘10’, the Status Packet will be returned after 20[μsec] when the Instruction Packet is received.
 
 |  Unit   | Value Range | Description                                                    |
 |:-------:|:-----------:|:---------------------------------------------------------------|

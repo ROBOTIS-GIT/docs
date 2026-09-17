@@ -1,4 +1,7 @@
-Status Return Level(68)은 DYNAMIXEL이 Instruction Packet을 수신했을 때 Status Packet을 반환하는 방식을 설정합니다.
+{/* props
+   addr: Status Return Level 주소. 기본 68, XL-320은 17.
+*/}
+Status Return Level({props.addr ?? 68})은 DYNAMIXEL이 Instruction Packet을 수신했을 때 Status Packet을 반환하는 방식을 설정합니다.
 
 | Value |        Responding Instructions         | 설명                                                    |
 |:-----:|:--------------------------------------:|:-------------------------------------------------------:|
@@ -8,7 +11,7 @@ Status Return Level(68)은 DYNAMIXEL이 Instruction Packet을 수신했을 때 S
 
 :::note
 
-**참고** : Instruction Packet ID가 Broadcast ID(0xFE)로 설정된 경우 Status Return Level(68) 값과 관계없이 READ 또는 WRITE Instruction에 대한 Status Packet은 반환되지 않습니다. 자세한 내용은 [DYNAMIXEL Protocol 2.0]의 `Status Packet` 항목을 참고하세요.
+**참고** : Instruction Packet ID가 Broadcast ID(0xFE)로 설정된 경우 Status Return Level({props.addr ?? 68}) 값과 관계없이 READ 또는 WRITE Instruction에 대한 Status Packet은 반환되지 않습니다. 자세한 내용은 [DYNAMIXEL Protocol 2.0]의 `Status Packet` 항목을 참고하세요.
 
 :::
 

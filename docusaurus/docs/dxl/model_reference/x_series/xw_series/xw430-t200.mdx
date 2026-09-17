@@ -4,9 +4,9 @@ import ControlTable from '@site/docs/dxl/_partials/x/control_table.mdx';
 import ControlTableId from '@site/docs/dxl/_partials/x/control_table_id.mdx';
 import ControlTableBaudrate2 from '@site/docs/dxl/_partials/x/control_table_baudrate_2.mdx';
 import ControlTableReturnDelayTime from '@site/docs/dxl/_partials/x/control_table_return_delay_time.mdx';
-import ControlTableDrivemode from '@site/docs/dxl/_partials/x/control_table_drivemode_xw.mdx';
+import ControlTableDrivemode from '@site/docs/dxl/_partials/x/control_table_drivemode.mdx';
 import ControlTableOpmodeSix2 from '@site/docs/dxl/_partials/x/control_table_opmode_six_2.mdx';
-import ControlTableShadowid from '@site/docs/dxl/_partials/x/control_table_shadowid_xw.mdx';
+import ControlTableShadowid from '@site/docs/dxl/_partials/x/control_table_shadowid.mdx';
 import ControlTableProtocolversion from '@site/docs/dxl/_partials/x/control_table_protocolversion.mdx';
 import ControlTableHomingoffset from '@site/docs/dxl/_partials/x/control_table_homingoffset.mdx';
 import ControlTableMovingthreshold from '@site/docs/dxl/_partials/x/control_table_movingthreshold.mdx';
@@ -40,13 +40,13 @@ import ControlTablePositionTrajectory from '@site/docs/dxl/_partials/x/control_t
 import ControlTablePresentVolt2 from '@site/docs/dxl/_partials/x/control_table_present_volt_2.mdx';
 import ControlTablePresentTemp2 from '@site/docs/dxl/_partials/x/control_table_present_temp_2.mdx';
 import ControlTableBackupReady from '@site/docs/dxl/_partials/x/control_table_backup_ready.mdx';
-import ControlTableIndirectData from '@site/docs/dxl/_partials/x/control_table_indirect_data_xw.mdx';
+import ControlTableIndirectData from '@site/docs/dxl/_partials/x/control_table_indirect_data.mdx';
 import HornBearingReplacementX from '@site/docs/dxl/_partials/x/horn_bearing_replacement_x.mdx';
 import ProfileDescription from '@site/docs/dxl/_partials/x/profile_description.mdx';
 import FccClassA from '@site/docs/dxl/_partials/x/fcc_class_a.mdx';
 import QuickStart from '@site/docs/dxl/_partials/x/quick_start.mdx';
 import Jst485Xw from '@site/docs/dxl/_partials/x/jst_485_xw.mdx';
-import X485TtlConnectionX from '@site/docs/dxl/_partials/x/485_ttl_connection_x_xw.mdx';
+import X485TtlConnectionX from '@site/docs/dxl/_partials/x/485_ttl_connection_x.mdx';
 import Ip68Cable from '@site/docs/dxl/_partials/x/ip68_cable.mdx';
 import DownloadCenterNotice from '@site/docs/dxl/_partials/x/download_center_notice.mdx';
 import CommonLink from '@site/docs/dxl/_partials/x/common_link.mdx';
@@ -230,13 +230,13 @@ This address stores firmware version of DYNAMIXEL.
 <ControlTableReturnDelayTime />
 <a id="drive-mode"></a>
 #### Drive Mode(10)
-<ControlTableDrivemode />
+<ControlTableDrivemode invertsAll />
 <a id="operating-mode"></a>
 #### Operating Mode(11)
 <ControlTableOpmodeSix2 />
 <a id="secondary-id"></a>
 #### Secondary(Shadow) ID(12)
-<ControlTableShadowid />
+<ControlTableShadowid torque />
 <a id="protocol-type"></a>
 #### Protocol Type(13)
 <ControlTableProtocolversion />
@@ -386,7 +386,7 @@ This value indicates current Velocity. For more details, please refer to the [Go
 #### Backup Ready(147)
 <ControlTableBackupReady />
 #### Indirect Address, Indirect Data
-<ControlTableIndirectData />
+<ControlTableIndirectData torque />
 
 
 ## How to Assemble
@@ -434,7 +434,7 @@ Please inquire us for information regarding unlisted certifications.
 <Jst485Xw />
 
 
-<X485TtlConnectionX />
+<X485TtlConnectionX xw />
 
 
 ### How to Use the Water Proof Cable

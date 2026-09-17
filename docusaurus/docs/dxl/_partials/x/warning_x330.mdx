@@ -1,6 +1,9 @@
-{/*
-warning.mdx + the stable-power-supply bullet and the 3.3V TTL logic note that the e-Manual shows only for XL330.
+{/* warning.mdx의 XL330·XC330·XM335용 파본. CAUTION 목록에 안정적인 전원 공급 항목이 들어간다. */}
+{/* props
+   ttl33Note: 3.3V TTL 로직 레벨 안내를 표시한다(XL330).
 */}
+
+import Show from '@site/src/components/Show';
 
 :::danger
 
@@ -41,8 +44,12 @@ warning.mdx + the stable-power-supply bullet and the 3.3V TTL logic note that th
 :::
 
 
+<Show when={props.ttl33Note}>
+
 :::note
 
 **NOTE**: Though the XL330 series has a 3.3 V TTL logic level, the XL330 is tolerant of 5V TTL logic level communications.
 
 :::
+
+</Show>
