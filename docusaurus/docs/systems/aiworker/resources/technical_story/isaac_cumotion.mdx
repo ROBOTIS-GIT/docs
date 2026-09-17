@@ -395,13 +395,6 @@ the predefined-object catalog.
 
 ## 6. Limitations
 
-### External GPU workstation
-
-The JetPack version currently installed on AI Worker's Orin is not compatible
-with the Isaac ROS environment used by this project. The Isaac ROS pipeline
-therefore runs on an external GPU workstation, while AI Worker continues to run
-the camera drivers and robot controllers.
-
 ### Wired depth streaming
 
 Depth-based collision mapping depends on the timely delivery of multiple depth
@@ -426,12 +419,16 @@ sensing and control.
 
 ## 7. What's Next
 
-Future work will reevaluate on-device deployment when AI Worker's JetPack
-version supports the required Isaac ROS environment. Another possible extension
-is a perception-driven attachment pipeline that converts a detected object's
-3D bounding box and pose into collision geometry, then automatically attaches
-that geometry to the selected end effector. This would connect Isaac ROS
-perception outputs directly to collision-aware manipulation.
+AI Worker currently runs JetPack 6.2, so the Isaac ROS pipeline used in this
+project runs on an external GPU workstation rather than on the robot's Orin.
+To run the pipeline on the robot, users can upgrade AI Worker to a JetPack
+release compatible with the required Isaac ROS environment.
+
+Another possible extension is a perception-driven attachment pipeline that
+converts a detected object's 3D bounding box and pose into collision geometry,
+then automatically attaches that geometry to the selected end effector. This
+would connect Isaac ROS perception outputs directly to collision-aware
+manipulation.
 
 ---
 
