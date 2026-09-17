@@ -11,7 +11,7 @@
   </div>
   <div>
     <img src="/img/systems/aisapiens/resources/technical_story/building_humanoid_skills/groot_success.gif" alt="AI Worker grasping the target after augmented training" style={{width: '100%', height: '100%', aspectRatio: '16 / 9', objectFit: 'cover', display: 'block', borderRadius: '8px'}} />
-    <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic', textAlign: 'center'}}>GR00T N1.7 Manipulation</p>
+    <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic', textAlign: 'center'}}>GR00T 1.7 Manipulation</p>
   </div>
 </div>
 
@@ -22,7 +22,7 @@ At ROBOTIS, we are exploring both — and NVIDIA software has become a key part 
 
 For **[AI Sapiens](/docs/systems/aisapiens/introduction)**, our **23-DoF bipedal K1** stands **1355 mm**, weighs **35 kg**, and is driven by **DYNAMIXEL-Q QDD actuators** — 5-DoF arms, 6-DoF legs, and a 1-DoF waist — with on-device **NVIDIA Jetson Orin NX** compute. Every skill must be executed while maintaining dynamic balance, so **NVIDIA Isaac Lab** provides the large-scale simulation and reinforcement-learning environment needed to train those whole-body skills before deploying them to real hardware.
 
-For **[AI Worker](/docs/systems/aiworker/introduction)**, our **bimanual semi-humanoid** combines **dual 7-DoF arms**, a **swerve-drive mobile base**, RGBD cameras, and on-device **NVIDIA Jetson AGX Orin** compute. The challenge therefore shifts from dynamics to data: **NVIDIA Isaac GR00T N1.7** provides the pretrained robot foundation model, while **NVIDIA Cosmos Transfer** helps broaden the visual diversity of real-robot demonstrations through synthetic augmentation.
+For **[AI Worker](/docs/systems/aiworker/iFntroduction)**, our **bimanual semi-humanoid** combines **dual 7-DoF arms**, a **swerve-drive mobile base**, RGBD cameras, and on-device **NVIDIA Jetson AGX Orin** compute. The challenge therefore shifts from dynamics to data: **NVIDIA Isaac GR00T 1.7** provides the pretrained robot foundation model, while **NVIDIA Cosmos Transfer** helps broaden the visual diversity of real-robot demonstrations through synthetic augmentation.
 
 <div style={{
   margin: '28px 0',
@@ -49,7 +49,7 @@ In this post, you will learn:
 
 * How an end-to-end **whole-body motion mimic pipeline** turns human motion into policies that can be deployed on a real humanoid.
 * Why closing the **Sim2Real gap** requires both a simulator that better represents real robot dynamics and hardware whose behavior is predictable enough to model.
-* How **NVIDIA Cosmos Transfer** can augment a small real-robot dataset and improve a fine-tuned **NVIDIA Isaac GR00T N1.7** manipulation policy.
+* How **NVIDIA Cosmos Transfer** can augment a small real-robot dataset and improve a fine-tuned **NVIDIA Isaac GR00T 1.7** manipulation policy.
 * Why **contact-rich manipulation remains a major challenge**, and why learning real-world interaction dynamics may be the next step toward scaling humanoid manipulation.
 
 **Contents**
@@ -62,7 +62,7 @@ In this post, you will learn:
   * [Closing the Sim2Real gap](#closing-the-sim2real-gap)
 * [Part 2 — AI Worker: manipulation](#part-2--ai-worker-manipulation)
   * [Collecting manipulation demonstrations](#collecting-manipulation-demonstrations)
-  * [Fine-tuning NVIDIA Isaac GR00T N1.7](#fine-tuning-nvidia-isaac-groot-n17)
+  * [Fine-tuning NVIDIA Isaac GR00T 1.7](#fine-tuning-nvidia-isaac-groot-17)
   * [Scaling visual diversity with NVIDIA Cosmos Transfer](#scaling-visual-diversity-with-nvidia-cosmos-transfer)
 * [Scaling humanoid skills](#scaling-humanoid-skills)
 * [Bringing the skills together](#bringing-the-skills-together)
@@ -85,9 +85,9 @@ Humanoid development does not follow a single pipeline. Whole-body motion and ma
 
   <div>
     <div style={{overflow: 'hidden', borderRadius: '30px'}}>
-      <img src="/img/systems/aisapiens/resources/technical_story/building_humanoid_skills/aiw_pipeline.png" alt="AI Worker manipulation pipeline: teleoperation, Cosmos Transfer, GR00T N1.7, evaluation" style={{width: '100%', height: 'auto', aspectRatio: '860 / 230', objectFit: 'contain', display: 'block'}} />
+      <img src="/img/systems/aisapiens/resources/technical_story/building_humanoid_skills/aiw_pipeline.png" alt="AI Worker manipulation pipeline: teleoperation, Cosmos Transfer, GR00T 1.7, evaluation" style={{width: '100%', height: 'auto', aspectRatio: '860 / 230', objectFit: 'contain', display: 'block'}} />
     </div>
-    <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic', textAlign: 'center'}}>AI Worker — Teleoperation → Cosmos Transfer → GR00T N1.7 → Evaluation</p>
+    <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic', textAlign: 'center'}}>AI Worker — Teleoperation → Cosmos Transfer → GR00T 1.7 → Evaluation</p>
   </div>
 
 </div>
@@ -96,7 +96,7 @@ The two development pipelines therefore look similar at a high level, but use di
 
 On **AI Sapiens**, **[NVIDIA Kimodo](https://research.nvidia.com/labs/sil/projects/kimodo/)** and **[NVIDIA GEM-X](https://github.com/NVlabs/GEM-X)** generate 3D human motion from text, video, or kinematic constraints. **[NVIDIA SOMA Retargeter](https://github.com/NVIDIA/soma-retargeter)** maps that motion onto the K1 embodiment, while **[NVIDIA Isaac Lab](https://developer.nvidia.com/isaac/lab)** provides the large-scale simulation environment in which **BeyondMimic**, integrated through Cyclo Lab, learns to track the reference motion. The resulting policy is then transferred to AI Sapiens and executed on real hardware through Sim2Real with DYNAMIXEL-Q impedance control and **[NVIDIA Jetson](https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/)** edge compute.
 
-On **AI Worker**, the pipeline starts from real-robot teleoperation. **[NVIDIA Cosmos Transfer](https://github.com/nvidia-cosmos/cosmos-transfer2.5)** increases the visual diversity of those demonstrations without requiring another round of physical data collection. The combined dataset is then used to fine-tune **[NVIDIA Isaac GR00T N1.7](https://github.com/Nvidia/Isaac-GR00T)**, and the resulting manipulation policy is evaluated on the real robot with on-device inference.
+On **AI Worker**, the pipeline starts from real-robot teleoperation. **[NVIDIA Cosmos Transfer](https://github.com/nvidia-cosmos/cosmos-transfer2.5)** increases the visual diversity of those demonstrations without requiring another round of physical data collection. The combined dataset is then used to fine-tune **[NVIDIA Isaac GR00T 1.7](https://github.com/Nvidia/Isaac-GR00T)**, and the resulting manipulation policy is evaluated on the real robot with on-device inference.
 
 Same destination: better robot skills. Different paths through the NVIDIA software stack.
 
@@ -180,7 +180,7 @@ Through [Cyclo Lab](/docs/systems/aisapiens/reinforcement_learning/cyclo_lab/), 
 | Physics rate             | 200 Hz                                                       |
 | Policy rate              | 50 Hz                                                        |
 | Domain randomization     | Ground friction and restitution, default joint offsets, torso center of mass, velocity perturbations |
-| Wall-clock training time | ~4 hours                                                     |
+| Wall-clock training time | ~4 hours (measured for the “Red Red Dance” motion)           |
 | Output artifacts         | `policy.onnx`, `sim2real.yaml`                               |
 
 *Table 1. Isaac Lab training configuration for whole-body motion tracking.*
@@ -361,7 +361,7 @@ Same robot and the same overall learning pipeline — but a different physics ba
 
 Our initial policies were trained using **NVIDIA PhysX**, the default physics engine in Isaac Lab. They tracked the target motion successfully in simulation, but during deployment we observed noticeable differences between simulated and real-robot behavior, particularly in balance and ground-contact response.
 
-We then moved the training environment to **[NVIDIA Newton](https://developer.nvidia.com/newton-physics)**. Newton is an open-source, extensible physics engine built on NVIDIA Warp and OpenUSD, developed by NVIDIA, Google DeepMind, and Disney Research, and managed by the Linux Foundation to advance robot learning and development. With the updated simulation configuration, the resulting policy showed substantially **more stable** and **consistent behavior** on the same physical platform.
+We then moved the training environment to **[Newton](https://developer.nvidia.com/newton-physics)**. Newton is an open-source, extensible physics engine built on NVIDIA Warp and OpenUSD, developed by NVIDIA, Google DeepMind, and Disney Research, and managed by the Linux Foundation to advance robot learning and development. With the updated simulation configuration, the resulting policy showed substantially **more stable** and **consistent behavior** on the same physical platform.
 
 For whole-body motion, this matters because intermittent ground contact is part of the task itself. The quality of the simulated contact dynamics directly changes the experience from which the policy learns.
 
@@ -532,7 +532,7 @@ That is where pretrained robot foundation models and synthetic data augmentation
 
 Our next experiment followed a simple progression.
 
-First, we fine-tuned **NVIDIA Isaac GR00T N1.7** on real-robot demonstrations and evaluated the resulting policy on AI Worker.
+First, we fine-tuned **NVIDIA Isaac GR00T 1.7** on real-robot demonstrations and evaluated the resulting policy on AI Worker.
 
 Then, after identifying a failure mode related to limited visual coverage, we asked:
 
@@ -540,23 +540,23 @@ Then, after identifying a failure mode related to limited visual coverage, we as
 
 ---
 
-### Fine-tuning NVIDIA Isaac GR00T N1.7
+### Fine-tuning NVIDIA Isaac GR00T 1.7
 
-Our first manipulation experiment focused on adapting **NVIDIA Isaac GR00T N1.7** to the AI Worker embodiment and evaluating how the fine-tuned policy behaved on the real robot.
+Our first manipulation experiment focused on adapting **NVIDIA Isaac GR00T 1.7** to the AI Worker embodiment and evaluating how the fine-tuned policy behaved on the real robot.
 
-We collected **268 teleoperated episodes**, approximately three hours of real-robot demonstrations, and used them to fine-tune **NVIDIA Isaac GR00T N1.7**.
+We collected **268 teleoperated episodes**, approximately three hours of real-robot demonstrations, and used them to fine-tune **NVIDIA Isaac GR00T 1.7**.
 
 | Parameter                 | Value                                   |
 | ------------------------- | --------------------------------------- |
 | Real-robot demonstrations | 268 teleoperated episodes (~3 hours)    |
-| Base model                | NVIDIA Isaac GR00T N1.7                 |
+| Base model                | NVIDIA Isaac GR00T 1.7                  |
 | Training hardware         | NVIDIA RTX PRO 6000                     |
 | Training time             | ~4 hours                                |
 | Inference hardware        | NVIDIA Jetson AGX Orin 32 GB, on-device |
 
-*Table 4. GR00T N1.7 fine-tuning configuration for AI Worker.*
+*Table 4. GR00T 1.7 fine-tuning configuration for AI Worker.*
 
-Fine-tuning adapts the pretrained GR00T N1.7 model to the **AI Worker embodiment, workspace, and manipulation task** represented in our demonstrations.
+Fine-tuning adapts the pretrained GR00T 1.7 model to the **AI Worker embodiment, workspace, and manipulation task** represented in our demonstrations.
 
 The resulting policy was able to perform the task, giving us a real-robot baseline from which we could examine where the learned behavior still failed.
 
@@ -568,7 +568,7 @@ Real-robot evaluation revealed a systematic failure mode.
       <source src="/img/systems/aisapiens/resources/technical_story/building_humanoid_skills/observed_fail.webm" type="video/webm" />
     </video>
   </div>
-  <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic', textAlign: 'center'}}>Before augmentation — the fine-tuned GR00T N1.7 policy occasionally reaches toward the gripper's shadow instead of the target object.</p>
+  <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic', textAlign: 'center'}}>Before augmentation — the fine-tuned GR00T 1.7 policy occasionally reaches toward the gripper's shadow instead of the target object.</p>
 </div>
 
 
@@ -604,7 +604,7 @@ In other words:
 
 From the original **268 real-robot demonstrations**, we generated **300 additional augmented videos** with Cosmos Transfer, creating a combined training set of **568 samples**.
 
-We then fine-tuned GR00T N1.7 again using the expanded dataset.
+We then fine-tuned GR00T 1.7 again using the expanded dataset.
 
 | Dataset                         | Samples |
 | ------------------------------- | ------: |
@@ -625,7 +625,7 @@ After retraining, we observed two improvements in real-robot behavior on AI Work
       <source src="/img/systems/aisapiens/resources/technical_story/building_humanoid_skills/enhanced_result.webm" type="video/webm" />
     </video>
   </div>
-  <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic', textAlign: 'center'}}>After Cosmos augmentation and GR00T N1.7 fine-tuning — improved target attention and re-approach behavior after a missed grasp.</p>
+  <p style={{marginTop: '10px', fontSize: '14px', color: '#888', fontStyle: 'italic', textAlign: 'center'}}>After Cosmos augmentation and GR00T 1.7 fine-tuning — improved target attention and re-approach behavior after a missed grasp.</p>
 </div>
 
 
@@ -646,12 +646,12 @@ The recovery behavior was not the primary target of the augmentation, so we trea
 <strong>268 real demonstrations + 300 Cosmos-augmented demonstrations = 568 training samples</strong>
 
   <div style={{marginTop: '8px'}}>
-    Real-robot data → GR00T N1.7 fine-tuning → real-world failure → Cosmos augmentation → retraining → improved robustness
+    Real-robot data → GR00T 1.7 fine-tuning → real-world failure → Cosmos augmentation → retraining → improved robustness
   </div>
 
 </div>
 
-For this experiment, **NVIDIA Isaac GR00T N1.7** provided the pretrained foundation we adapted to the AI Worker embodiment and task, while **NVIDIA Cosmos Transfer** provided a way to broaden visual diversity without collecting another 300 demonstrations on the physical robot.
+For this experiment, **NVIDIA Isaac GR00T 1.7** provided the pretrained foundation we adapted to the AI Worker embodiment and task, while **NVIDIA Cosmos Transfer** provided a way to broaden visual diversity without collecting another 300 demonstrations on the physical robot.
 
 ---
 
@@ -659,7 +659,7 @@ For this experiment, **NVIDIA Isaac GR00T N1.7** provided the pretrained foundat
 
 <div style={{margin: '24px 0'}}>
   <div style={{overflow: 'hidden', borderRadius: '16px'}}>
-    <video controls autoPlay muted loop playsInline preload="metadata" style={{width: '100%', height: 'auto', display: 'block', aspectRatio: '1230 / 425'}}>
+    <video controls autoPlay muted loop playsInline preload="metadata" style={{width: '100%', height: 'auto', display: 'block', aspectRatio: '1202 / 628', objectFit: 'contain'}}>
       <source src="/img/systems/aisapiens/resources/technical_story/building_humanoid_skills/compare_table.webm" type="video/webm" />
     </video>
   </div>
@@ -671,7 +671,7 @@ Building these pipelines gave us a clearer view of what it means to **scale huma
 
 For **whole-body motion**, NVIDIA Isaac Lab gives the policy a scalable environment for trial and error. Thousands of simulated humanoids can repeatedly experience different contacts, disturbances, and dynamics before a policy is transferred to the physical robot.
 
-For **manipulation**, NVIDIA Isaac GR00T N1.7 gives us a strong pretrained foundation, while NVIDIA Cosmos Transfer helps us extract more value from expensive real-robot demonstrations by broadening their visual diversity.
+For **manipulation**, NVIDIA Isaac GR00T 1.7 gives us a strong pretrained foundation, while NVIDIA Cosmos Transfer helps us extract more value from expensive real-robot demonstrations by broadening their visual diversity.
 
 But this also reveals the next bottleneck.
 
@@ -758,6 +758,6 @@ NVIDIA software used in this post:
 * [NVIDIA Isaac Lab](https://developer.nvidia.com/isaac/lab) — GPU-accelerated simulation framework for large-scale robot learning
 * [NVIDIA Isaac GR00T](https://github.com/Nvidia/Isaac-GR00T) — pretrained robot foundation model used for AI Worker manipulation
 * [NVIDIA Cosmos Transfer 2.5](https://github.com/nvidia-cosmos/cosmos-transfer2.5) — visual augmentation of real-robot demonstrations
-* [NVIDIA Newton](https://developer.nvidia.com/newton-physics) — physics engine used to improve Sim2Real transfer for whole-body motion
+* [Newton](https://developer.nvidia.com/newton-physics) — physics engine used to improve Sim2Real transfer for whole-body motion
 * [NVIDIA Jetson](https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/) — on-device edge compute for policy inference
 * [World-Action Models](https://developer.nvidia.com/blog/beyond-vlas-how-world-action-models-reshape-robot-manipulation/) — NVIDIA research direction for learning action-dependent interaction dynamics
