@@ -27,7 +27,14 @@ For seamless integration with the ROS ecosystem, URDF (Unified Robot Description
 ### MuJoCo (MJCF)
 For high-fidelity physics simulation, particularly favored in reinforcement learning research and biomechanics, models in MJCF (MuJoCo XML Format) are available. MuJoCo offers fast and accurate physics, ideal for training complex behaviors.
 
-![AI Worker MJCF model in MuJoCo](/img/systems/aiworker/simulation/simulation/ffw_bg2_mujoco.png)
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '1rem'}}>
+  {['BG2', 'SG2', 'SH5'].map(model => (
+    <figure key={model} style={{flex: '1 1 160px', margin: 0, textAlign: 'center'}}>
+      <img src={`/img/systems/aiworker/simulation/simulation/ffw_${model.toLowerCase()}_mjcf.png`} alt={`AI Worker ${model} loaded in MuJoCo`} style={{width: '100%', height: 'auto'}} />
+      <figcaption>{model}</figcaption>
+    </figure>
+  ))}
+</div>
 
 *   **Model Format**: [MJCF](https://mujoco.readthedocs.io/en/stable/XMLreference.html)
 *   **Primary Tool**: [MuJoCo (by Google DeepMind)](https://mujoco.org/)
