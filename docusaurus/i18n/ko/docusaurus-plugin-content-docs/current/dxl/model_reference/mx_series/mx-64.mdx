@@ -215,7 +215,7 @@ import CommonLink from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl
 - Join Mode, Multi-Turn mode
 
   Goal Position으로 이동하는 속도입니다.
-  0~1023(0X3FF)까지 사용할 수 있으며, 단위는 약 0.114rpm입니다.
+  0 ~ 1023(0X3FF)까지 사용할 수 있으며, 단위는 약 0.114rpm입니다.
   0으로 설정하면 속도 제어를 하지 않고 모터의 최대 rpm을 사용한다는 의미입니다.
   1023으로 설정하면 약 116.62rpm입니다.
   예를 들어 300으로 설정하면 약 34.2rpm입니다.
@@ -224,9 +224,9 @@ import CommonLink from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl
 - Wheel Mode
 
   Goal 방향으로 이동하는 속도입니다.
-  0~2047(0X7FF)까지 사용할 수 있으며, 단위는 약 0.114rpm입니다.
-  0~1023 범위의 값을 사용하면 CCW 방향으로 회전하며, 0으로 설정하면 정지합니다.
-  1024~2047 범위의 값을 사용하면 CW 방향으로 회전하며, 1024로 설정하면 정지합니다.
+  0 ~ 2047(0X7FF)까지 사용할 수 있으며, 단위는 약 0.114rpm입니다.
+  0 ~ 1023 범위의 값을 사용하면 CCW 방향으로 회전하며, 0으로 설정하면 정지합니다.
+  1024 ~ 2047 범위의 값을 사용하면 CW 방향으로 회전하며, 1024로 설정하면 정지합니다.
   즉, 10번째 bit가 방향을 제어하는 Direction bit입니다.
 
   :::note

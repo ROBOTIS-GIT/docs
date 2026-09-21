@@ -1,3 +1,12 @@
+{/* props
+   encoderError: false면 Bit 3(Motor Encoder Error)을 미사용으로 표기(XL330, XC330, XM335).
+   inputVoltageDefault: true면 Bit 0을 Input Voltage Error(default)로 표기(XL330, XC330-M).
+   fw41Note: false면 LED 점멸 항목의 "Firmware v41 이상" 표기를 뺀다(XL330, XC330, XM335).
+   led: false면 LED 점멸 항목 없이 reboot 안내만 보여준다(XW, LED 없음).
+*/}
+
+import Show from '@site/src/components/Show';
+
 The DYNAMIXEL can protect itself by detecting dangerous situations that could occur during the operation.
 Each Bit is inclusively processed with the ‘OR’ logic, therefore, multiple options can be generated.
 For instance, when ‘0x05’ (binary : 00000101) is defined in Shutdown(63), DYNAMIXEL can detect both Input Voltage Error(binary : 00000001) and Overheating Error(binary : 00000100).
@@ -15,22 +24,38 @@ REBOOT is the only method to reset [Torque Enable(64)] to ‘1’(Torque ON) aft
 | Bit 6 |                -                | Unused, Always '0'                                                                                                    |
 | Bit 5 |     Overload Error(default)     | Detects that persistent load that exceeds maximum output                                                              |
 | Bit 4 | Electrical Shock Error(default) | Detects electric shock on the circuit or insufficient power to operate the motor                                      |
-| Bit 3 |       Motor Encoder Error       | Detects malfunction of the motor encoder                                                                              |
+| Bit 3 | {props.encoderError === false ? '-' : 'Motor Encoder Error'} | {props.encoderError === false ? '-' : 'Detects malfunction of the motor encoder'} |
 | Bit 2 |   Overheating Error(default)    | Detects that internal temperature exceeds the configured operating temperature                                        |
-| Bit 1 |                -                | Unused, Always '0'                                                              |                     |
-| Bit 0 |       Input Voltage Error       | Detects that input voltage exceeds the configured operating voltage                   |                    |
+| Bit 1 |                -                | Unused, Always '0'                                                                                                    |
+| Bit 0 | Input Voltage Error{props.inputVoltageDefault && ' (default)'} | Detects that input voltage exceeds the configured operating voltage |
 
+
+<Show when={props.led !== false}>
 
 :::note
 
 **NOTE** :
 
-1. If Shutdown occurs, **LED will flicker every second**. (**Firmware v41 or above**)
+1. If Shutdown occurs, **LED will flicker every second**.{props.fw41Note !== false && <> (<strong>Firmware v41 or above</strong>)</>}
 2. If Shutdown occurs, **reboot the device**.
 - H/W REBOOT : Turn off and turn on the power again
 - S/W REBOOT : Transmit REBOOT Instruction (For more details, refer to the [Reboot](/docs/dxl/protocol/protocol2#reboot) section of e-Manual.)
 
 :::
+
+</Show>
+
+<Show when={props.led === false}>
+
+:::note
+
+**NOTE** : If Shutdown occurs, **reboot the device**.
+- H/W REBOOT : Turn off and turn on the power again
+- S/W REBOOT : Transmit REBOOT Instruction (For more details, refer to the [Reboot](/docs/dxl/protocol/protocol2#reboot) section of e-Manual.)
+
+:::
+
+</Show>
 
 
 [Shutdown(18)]: #shutdown

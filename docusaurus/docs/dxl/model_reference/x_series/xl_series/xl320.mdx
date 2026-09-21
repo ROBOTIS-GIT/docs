@@ -1,20 +1,4 @@
 import Warning from '@site/docs/dxl/_partials/x/warning.mdx';
-import ControlTable from '@site/docs/dxl/_partials/x/control_table.mdx';
-import ControlTableId from '@site/docs/dxl/_partials/x/control_table_id.mdx';
-import ControlTableReturnDelayTime from '@site/docs/dxl/_partials/x/control_table_return_delay_time.mdx';
-import ControlTableTempLimit from '@site/docs/dxl/_partials/x/control_table_temp_limit.mdx';
-import ControlTableMaxTorque from '@site/docs/dxl/_partials/x/control_table_max_torque.mdx';
-import ControlTableStatusReturnLv from '@site/docs/dxl/_partials/x/control_table_status_return_lv.mdx';
-import ControlTableTorqueEnable from '@site/docs/dxl/_partials/x/control_table_torque_enable.mdx';
-import ControlTableMxPid from '@site/docs/dxl/_partials/x/control_table_mx_pid.mdx';
-import ControlTableDxGoalPosition from '@site/docs/dxl/_partials/x/control_table_dx_goal_position.mdx';
-import ControlTableTorqueLimit from '@site/docs/dxl/_partials/x/control_table_torque_limit.mdx';
-import ControlTableDxPresentPosition from '@site/docs/dxl/_partials/x/control_table_dx_present_position.mdx';
-import ControlTablePresentLoad from '@site/docs/dxl/_partials/x/control_table_present_load.mdx';
-import ControlTableRegInstruction from '@site/docs/dxl/_partials/x/control_table_reg_instruction.mdx';
-import ControlTableMoving from '@site/docs/dxl/_partials/x/control_table_moving.mdx';
-import ControlTablePunch from '@site/docs/dxl/_partials/x/control_table_punch.mdx';
-import MolexXl320 from '@site/docs/dxl/_partials/x/molex_xl320.mdx';
 import TtlConnectionX from '@site/docs/dxl/_partials/x/ttl_connection_x.mdx';
 import DownloadCenterNotice from '@site/docs/dxl/_partials/x/download_center_notice.mdx';
 import CommonLink from '@site/docs/dxl/_partials/x/common_link.mdx';
@@ -23,13 +7,11 @@ import CommonLink from '@site/docs/dxl/_partials/x/common_link.mdx';
 
 # XL320
 
-
 :::warning
 
 **CAUTION** : XL-320 is a different product from the OLLO Geared and Servo Motor.
 
 :::
-
 
 ## Specifications
 | Item                   | Specifications                                                                |
@@ -53,20 +35,56 @@ import CommonLink from '@site/docs/dxl/_partials/x/common_link.mdx';
 | Case Material          | Engineering Plastic                                                           |
 | Gear Material          | Engineering Plastic                                                           |
 
-
 :::note
 
 **NOTE** : Stall torque is the maximum instantaneous and static torque. Stable motions are possible with robots designed for loads with 1/5 or less of the stall torque.
 
 :::
 
-
 <Warning />
 
+# Control Table
+The Control Table is a data structure used by DYNAMIXEL actuators to manage the state of the device. Users can read data registers to get information about the status of the device with Read Instruction Packets, and modify data registers to control the device with Write Instruction Packets.
 
-<ControlTable />
+:::warning
 
+**WARNING** : The DYNAMIXEL-X series Control Table configuration may differ depending on the model and firmware. Verify the Address and supported features in the Control Table of the specific model you are using.
 
+:::
+
+## Control Table, Data, Address
+The Control Table is a structure that consists of multiple Data fields to store status or to control the device. Users can check current status of the device by reading a specific Data from the Control Table with Read Instruction Packets. WRITE Instruction Packets enable users to control the device by changing specific Data in the Control Table. The Address is a unique value when accessing a specific Data in the Control Table with Instruction Packets. In order to read or write data, users must designate a specific Address in the Instruction Packet. Please refer to [DYNAMIXEL Protocol 2.0] for more details about Instruction Packets.
+
+:::note
+
+**NOTE** : Two's complement is applied for the negative value. For more information, please refer to [Two's complement] from Wikipedia.
+
+:::
+
+### Area (EEPROM, RAM)
+The Control Table is divided into 2 Areas. Data in the RAM Area is reset to initial values when the power is reset(Volatile). On the other hand, data in the EEPROM Area is maintained even when the device is powered off(Non-Volatile).  
+
+ 
+
+:::warning
+
+**Data in the EEPROM Area can only be written to if Torque Enable(24) is cleared to '0'(Torque OFF).**
+
+:::
+
+### Size
+The Size of data varies from 1 ~ 2 bytes depend on their usage. Please check the size of data when updating the data with an Instruction Packet. For data larger than 2 bytes will be saved according to [Little Endian].
+
+### Access
+The Control Table has two different access properties. ‘RW’ property stands for read and write access permission while ‘R’ stands for read only access permission. Data with the read only property cannot be changed by the WRITE Instruction. Read only property(‘R’) is generally used for measuring and monitoring purpose, and read write property(‘RW’) is used for controlling device.
+
+### Initial Value
+Each data in the Control Table is restored to initial values when the device is turned on. Default values in the EEPROM area are initial values of the device (factory default settings). If any values in the EEPROM area are modified by a user, modified values will be restored as initial values when the device is turned on. Initial Values in the RAM area are restored when the device is turned on.
+
+[DYNAMIXEL Protocol 1.0]: /docs/dxl/protocol/protocol1
+[DYNAMIXEL Protocol 2.0]: /docs/dxl/protocol/protocol2
+[Two's complement]: https://en.wikipedia.org/wiki/Two%27s_complement
+[Little Endian]: https://en.wikipedia.org/wiki/Endianness#Little
 
 ### Control Table of EEPROM Area
 | Address | Size(Byte) | Data Name                                   | Description                        | Access | Initial<br />Value | Min | Max  |
@@ -85,7 +103,6 @@ import CommonLink from '@site/docs/dxl/_partials/x/common_link.mdx';
 |   15    |     2      | [Max Torque](#max-torque15)                   | Maximum Torque                     |   RW   |        1023        |  0  | 1023 |
 |   17    |     1      | [Status Return Level](#status-return-level17) | Select Types of Status Return      |   RW   |         2          |  0  |  2   |
 |   18    |     1      | [Shutdown](#shutdown18)                       | Shutdown Error Information         |   RW   |         3          |  0  |  7   |
-
 
 ### Control Table of RAM Area
 | Address | Size(Byte) | Data Name                                         | Description                   | Access | Initial<br />Value | Min | Max  |
@@ -117,7 +134,24 @@ import CommonLink from '@site/docs/dxl/_partials/x/common_link.mdx';
  This address stores firmware version of DYNAMIXEL.
 <a id="id"></a>
 #### ID (3)
-<ControlTableId srl={17} />
+
+The ID is a unique value in the network to identify each DYNAMIXEL with an Instruction Packet.
+0 ~ 252 (0xFC) values can be used as an ID, and 254(0xFE) is occupied as a broadcast ID. The Broadcast ID(254, 0xFE) can send an Instruction Packet to all connected DYNAMIXEL simultaneously.
+
+:::note
+
+**NOTE** : Please avoid using an identical ID for multiple DYNAMIXEL. You may face communication failure or may not be able to detect DYNAMIXEL with an identical ID.
+
+:::
+
+:::note
+
+**NOTE** : If the Instruction Packet ID is set to the Broadcast ID(0xFE), Status Packets will not be returned for READ or WRITE Instructions regardless of the set value of Status Return Level (17). For more details, please refer to the `Status Packet` section for [DYNAMIXEL Protocol 2.0]
+
+:::
+
+[DYNAMIXEL Protocol 2.0]: /docs/dxl/protocol/protocol2
+
 <a id="baud-rate"></a>
 #### Baud Rate (4)
 Baud Rate determines serial communication speed between a controller and DYNAMIXEL's.
@@ -129,7 +163,6 @@ Baud Rate determines serial communication speed between a controller and DYNAMIX
 |   2   | 115,200 bps |
 |   3   |   1 Mbps    |
 
-
 :::note
 
 **NOTE** : For the stable communication with higher baudrate, configure USB Latency value to the lower.  
@@ -138,7 +171,14 @@ Baud Rate determines serial communication speed between a controller and DYNAMIX
 :::
 <a id="return-delay-time"></a>
 #### Return Delay Time (5)
-<ControlTableReturnDelayTime addr={5} />
+
+If the DYNAMIXEL receives an Instruction Packet, it will return the Status Packet after the time of the set Return Delay Time(5).  
+Note that the range of values is 0 to 254 (0XFE) and its unit is 2 [μsec]. For instance, if the Return Delay Time(5) is set to ‘10’, the Status Packet will be returned after 20[μsec] when the Instruction Packet is received.
+
+|  Unit   | Value Range | Description                                                    |
+|:-------:|:-----------:|:---------------------------------------------------------------|
+| 2[μsec] |   0 ~ 254   | Default value ‘250’(500[μsec]) <br /> Maximum value: '508'[μsec] |
+
 <a id="cwccw-angle-limit"></a>
 #### CW/CCW Angle Limit(6, 8)
 The angle limit allows the motion to be restrained.  
@@ -153,7 +193,22 @@ The range and the unit of the value is the same as [Goal Position(30)](#goal-pos
 |   2   | Joint Mode |
 <a id="temperature-limit"></a>
 #### Temperature Limit(12)
-<ControlTableTempLimit />
+
+The operating temperature's upper bound of the DYNAMIXEL.
+
+For instance, if the value of the Temperature Limit(11) is set as '80', it means 80 &deg;C
+If the operating DYNAMIXEL's internal temperature is over the Temperature Limit(11), the Status Packet transmits Overheating Error Bit (Bit2) via the ERROR field. Providing that Overheating flag is set in the [Shutdown(18)](#shutdown), the Alarm LED will start blinking and the motor's output will be 0 [%].
+
+|     Unit      | Value Range |
+|:-------------:|:-----------:|
+| About 1&deg;C |   0 ~ 100   |
+
+:::warning
+
+**CAUTION** : Do not set the temperature higher than the default value. When the temperature alarm shutdown occurs, wait 20 minutes to cool the temperature before re-use. Keep using the product when the temperature is high can cause severe damage.
+
+:::
+
 <a id="minmax-voltage-limit"></a>
 #### Min/Max Voltage Limit(13, 14)
 It is the operation range of voltage.
@@ -172,10 +227,31 @@ For more details, please refer to the [Shutdown(18)] section.
 [Shutdown(18)]: #shutdown18
 <a id="max-torque"></a>
 #### Max Torque(15)
-<ControlTableMaxTorque />
+
+It is the torque value of maximum output. 0 to 1,023 (0x3FF) can be used, and the unit is about 0.1%.  
+For example, Data 1,023 (0x3FF) means that DYNAMIXEL will use 100% of the maximum torque it can produce while Data 512 (0x200) means that DYNAMIXEL will use 50% of the maximum torque.  
+When the power is turned on, [Torque Limit(35)](#torque-limit) is reset to the value of Max Torque(15).
+
 <a id="status-return-level"></a>
 #### Status Return Level(17)
-<ControlTableStatusReturnLv addr={17} />
+
+The Status Return Level (17) decides how to return Status Packet when DYNAMIXEL receives an Instruction Packet.
+
+| Value |        Responding Instructions         |                       Description                       |
+|:-----:|:--------------------------------------:|:-------------------------------------------------------:|
+|   0   |            PING Instruction            |   Returns the Status Packet for PING Instruction only   |
+|   1   | PING Instruction<br />READ Instruction | Returns the Status Packet for PING and READ Instruction |
+|   2   |            All Instructions            |     Returns the Status Packet for all Instructions      |
+
+:::note
+
+**NOTE** : If the Instruction Packet ID is set to the Broadcast ID(0xFE), Status Packet will not be returned for READ or WRITE Instructions regardless of Status Return Level (17). For more details, please refer to the `Status Packet` section for [DYNAMIXEL Protocol 2.0].
+
+:::
+
+[DYNAMIXEL Protocol 1.0]: /docs/dxl/protocol/protocol1
+[DYNAMIXEL Protocol 2.0]: /docs/dxl/protocol/protocol2
+
 <a id="shutdown"></a>
 #### Shutdown(18)
 DYNAMIXEL can protect itself by detecting errors occur during the operation.
@@ -183,7 +259,7 @@ The errors can be set are as the table below.
 
 |   Bit   |        Item         | Description                                                         |
 |:-------:|:-------------------:|:--------------------------------------------------------------------|
-| Bit 3~7 |          -          | -                                                                   |
+| Bit 3 ~ 7 |          -          | -                                                                   |
 |  Bit 2  | Input Voltage Error | Voltage is out of operational voatage range                         |
 |  Bit 1  | OverHeating Error  | Temperature is out of operational temperature range                 |
 |  Bit 0  |   Overload Error    | Motor cannot output max load due to load being applied continouosly |
@@ -192,7 +268,14 @@ It is possible to make duplicate set since the function of each bit is run by  t
 If errors occur, in case of Alarm LED, the LED blinks; in case of Alarm Shutdown, the motor output becomes 0 % by making the value of Torque Limit(35) to 0.
 <a id="torque-enable"></a>
 #### Torque Enable(24)
-<ControlTableTorqueEnable />
+
+Torque Enable(24) determines Torque ON/OFF. Writing ‘1’ to Torque Enable's address will turn on the Torque and all Data in the EEPROM area will be locked.
+
+|   Value    | Description                    |
+|:----------:|:-------------------------------|
+| 0(Default) | Torque Off                     |
+|     1      | Torque On and lock EEPROM area |
+
 <a id="led"></a>
 #### LED(25)
 The combination of bit changes the output color of XL-320.
@@ -208,7 +291,6 @@ The combination of bit changes the output color of XL-320.
 |    Bit 0, Bit 2 (101)     |       5       |    Purple    |
 | Bit 0, Bit 1, Bit 2 (111) |       7       |    White     |
 
-
 :::info
 
 **NOTE** : The LED indicates present status of the device.
@@ -223,15 +305,61 @@ The combination of bit changes the output color of XL-320.
 :::
 <a id="pid-gains"></a>
 #### PID Gains(27, 28, 29)
-<ControlTableMxPid />
+
+The following is the block-diagram for the PID controller.
+- `P gain` : value of proportional band.
+- `I gain` : value of integral action.
+- `D Gain` : value of derivative action.
+Gains values are in between 0 ~ 254.
+
+![](/img/dxl/model_reference/mx_series/mx-12_pid_control.webp)
+
+- **K<sub>p</sub>** : P Gain / 8
+- **K<sub>i</sub>** : I Gain * 1,000 / 2,048
+- **K<sub>d</sub>** : D Gain * 4 / 1,000
+
+**The relationship between Compliance Slop and PID**
+
+|Slope|P Gain|
+| :---: | :---: |
+|8|128|
+|16|64|
+|32|32|
+|64|16|
+|128|8|
+
+The less the P gain, The larger the back lash, and the weaker the amount of output near goal position.  
+At some extent, it is like a combined concept of margine and slope.  
+It does not exactly match the previous concept of compliance. So it is obvious if you see the difference in terms of motion.  
+
+:::note
+
+**NOTE**: PID control theory is not only limited to the control of motor(actuator) but is a generic theory that can be applied to all kinds of control. For more details about the PID controller, see [PID Controller](http://en.wikipedia.org/wiki/PID_controller).
+
+:::
+
 <a id="goal-position"></a>
 #### Goal Position(30)
-<ControlTableDxGoalPosition />
+
+Set the DYNAMIXEL's goal position through the Goal Position(30).  
+The available position range is 0 to 1,023 (0x3FF) and the per unit value is 0.29 &deg;  
+If the Goal Position(30) is set over the [CW/CCW Angle Limit(6, 8)](#cwccw-angle-limit6-8), the Status Packet transmits Angle Limit Error Bit (0x01) via its ERROR field. In the case, providing that Angle Limit Error Bit(0x01) in the [Shutdown(18)](#shutdown) is set, the Alarm LED will start blinking and the motor's output will be 0 [%].
+
+![](/img/dxl/model_reference/common/dx_series_goal_position.webp)
+
+> The picture above is the front view of DYNAMIXEL
+
+:::note
+
+**NOTE** : If it is set to Wheel Mode, Goal Position value is not used.
+
+:::
+
 <a id="moving-speed"></a>
 #### Moving Speed(32)
 - Join Mode, Multi-Turn mode
   It is a moving speed to Goal Position.
-  0~1,023 (0x3FF) can be used, and the unit is about 0.111rpm.
+  0 ~ 1,023 (0x3FF) can be used, and the unit is about 0.111rpm.
   If it is set to 0, it means the maximum rpm of the motor is used without controlling the speed.
   If it is 1,023, it is about 114rpm.
   For example, if it is set to 300, it is about 33.3 rpm.
@@ -239,12 +367,11 @@ The combination of bit changes the output color of XL-320.
 
 - Wheel Mode
   It is a moving speed to Goal direction.
-  0~2,047 (0x7FF) can be used, and the unit is about 0.1%.
-  If a value in the range of 0~1,023 is used, it is stopped by setting to 0 while rotating to CCW direction.
-  If a value in the range of 1,024~2,047 is used, it is stopped by setting to 1,024 while rotating to CW direction.
+  0 ~ 2,047 (0x7FF) can be used, and the unit is about 0.1%.
+  If a value in the range of 0 ~ 1,023 is used, it is stopped by setting to 0 while rotating to CCW direction.
+  If a value in the range of 1,024 ~ 2,047 is used, it is stopped by setting to 1,024 while rotating to CW direction.
   That is, the 10th bit becomes the direction bit to control the direction.
   For example, if it is set to 512, it means the output is controlled by 50% of the maximum output.
-
 
 :::note
 
@@ -253,16 +380,42 @@ The combination of bit changes the output color of XL-320.
 :::
 <a id="torque-limit"></a>
 #### Torque Limit(35)
-<ControlTableTorqueLimit />
+
+It is the value of the maximum torque limit.  
+0 ~ 1,023(0x3FF) is available, and the unit is about 0.1%.  
+For example, if the value is 512, it is about 50%; that means only 50% of the maximum torque will be used.  
+When the power is turned on, Torque Limit(35) is reset to the value of [Max Torque(15)].  
+
+:::note
+
+**NOTE** : If the function of [Shutdown(18)](#shutdown) is triggered, the motor loses its torque because Torque Limit(35) becomes 0. Once error conditions are resolved and Torque Limit(35) is changed to the value other than 0, the motor can be operated again.
+
+:::
+
+[Max Torque(15)]: #max-torque
+
 <a id="present-position"></a>
 #### Present Position(37)
-<ControlTableDxPresentPosition />
+
+It is the present position value of DYNAMIXEL.
+The range of Present Position(37) is 0 ~ 1,023 (0x3FF), and the unit is 0.29 [&deg;].
+
+![](/img/dxl/model_reference/common/dx_series_goal_position.webp)
+
+> The picture above is the front view of DYNAMIXEL.
+
+:::warning
+
+**CAUTION** : If it is set to Wheel Mode, the Present Position(37) cannot be used to measure the moving distance and the rotation frequency.
+
+:::
+
 <a id="present-speed"></a>
 #### Present Speed(39)
 Is the present moving speed.
-0~2,047 (0x000 ~ 0x7FF) can be used.
-If a value is in the rage of 0~1,023 then the motor rotates to the CCW direction.
-If a value is in the rage of 1,024~2,047 then the motor rotates to the CW direction.
+0 ~ 2,047 (0x000 ~ 0x7FF) can be used.
+If a value is in the rage of 0 ~ 1,023 then the motor rotates to the CCW direction.
+If a value is in the rage of 1,024 ~ 2,047 then the motor rotates to the CW direction.
 The 10th bit becomes the direction bit to control the direction; 0 and 1,024 are equal.
 The unit of this value varies depending on operation mode.
 
@@ -275,7 +428,30 @@ The unit of this value varies depending on operation mode.
   For example, if it is set to 512, it means that the torque is controlled by 50% of the maximum torque to the CCW direction.
 <a id="present-load"></a>
 #### Present Load(41)
-<ControlTablePresentLoad />
+
+It means currently applied load.
+The range of the value is 0 ~ 2047, and the unit is about 0.1%.
+If the value is 0 ~ 1,023, it means the load works to the CCW direction.
+If the value is 1,024 ~ 2,047, it means the load works to the CW direction.
+That is, the 10th bit becomes the direction bit to control the direction, and 1,024 is equal to 0.
+For example, the value is 512, it means the load is detected in the direction of CCW about 50% of the maximum torque.
+
+| Bit | 15 ~ 11  | 10 | 9 ~ 0|
+| :----: | :---: | :---: | :---: |
+| Value | 0 | Load Direction | Data (Load Ratio)|
+
+:::note
+
+**NOTE** : CCW Load : Load Direction = 0, CW Load : Load Direction = 1
+
+:::
+
+:::note
+
+**NOTE** : Present load is an inferred value based on the internal output value; not a measured value using torque sensor, etc. Therefore, it may be inaccurate for measuring weight or torque. It is recommended to use it for predicting the direction and size of the force being applied to the joint.
+
+:::
+
 <a id="present-voltage"></a>
 #### Present Voltage(45)
 It is the size of the present voltage supplied.
@@ -290,17 +466,35 @@ Data value is identical to the actual temperature in Celsius. For example, if th
 For more details, see [Temperature Limit(12)](#temperature-limit12).
 <a id="registered-instruction"></a>
 #### Registered Instruction(47)
-<ControlTableRegInstruction addr={47} />
+
+Indicates whether the Write Instruction is registered by [Reg Write Instruction](/docs/dxl/protocol/protocol2#reg-write-0x04)
+
+| Value | Description                                  |
+|:-----:|:---------------------------------------------|
+|   0   | No instruction registered by REG_WRITE.      |
+|   1   | Instruction registered by REG_WRITE exists. |
+
+:::note
+
+**NOTE** : If ACTION instruction is executed, the Registered Instruction (47) will be changed to 0.
+
+:::
+
 <a id="moving"></a>
 #### Moving(49)
-<ControlTableMoving />
+
+|Value|Description|
+| :---:| :---|
+|0|Goal position command execution is completed|
+|1|Goal position command execution is in progress|
+
 <a id="hardware-error-status"></a>
 #### Hardware Error Status(50)
 Present hardware error staus. Alarm shutdown error value.
 <a id="punch"></a>
 #### Punch(51)
-<ControlTablePunch />
 
+Minimum current to drive motor. This value ranges from 0x20 to 0x3FF.
 
 ## Reference
 :::note
@@ -311,13 +505,22 @@ Present hardware error staus. Alarm shutdown error value.
 
 :::
 
-
 ### Connector Information
-<MolexXl320 />
 
+|           Item           |                                 TTL                                 |
+|:------------------------:|:-------------------------------------------------------------------:|
+|          Pinout          |                   `1` GND<br />`2` VDD<br />`3` DATA                    |
+|         Diagram          |         ![](/img/common/molex_532530370_diagram.webp)         |
+|         Housing          | ![](/img/common/molex_510650300.webp)<br />[MOLEX 51065-0300] |
+|        PCB Header        | ![](/img/common/molex_532530370.webp)<br />[MOLEX 53253-0370] |
+|      Crimp Terminal      |                         [MOLEX 50212-8000]                          |
+| Wire Gauge for DYNAMIXEL |                               24 AWG                                |
+
+[MOLEX 51065-0300]: https://www.molex.com/molex/products/datasheet.jsp?part=active/0510650300_CRIMP_HOUSINGS.xml&channel=Product
+[MOLEX 53253-0370]: https://www.molex.com/molex/products/datasheet.jsp?part=active/0532530370_PCB_HEADERS.xml
+[MOLEX 50212-8000]: https://www.molex.com/molex/products/datasheet.jsp?part=active/0502128000_CRIMP_TERMINALS.xml
 
 <TtlConnectionX />
-
 
 ### Drawings
 - `Download` [XL-320.pdf]
@@ -325,9 +528,7 @@ Present hardware error staus. Alarm shutdown error value.
 - `Download` [XL-320.stp]
 - `Download` [XL-320.iges]
 
-
 <DownloadCenterNotice />
-
 
 [XL-320.pdf]: http://www.robotis.com/service/download.php?no=150
 [XL-320.dwg]: http://www.robotis.com/service/download.php?no=149

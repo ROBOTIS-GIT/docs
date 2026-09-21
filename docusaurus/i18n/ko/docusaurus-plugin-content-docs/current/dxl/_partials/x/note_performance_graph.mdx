@@ -1,3 +1,9 @@
+{/* props
+   highVoltage: 24V 모델(XH430-V, XH540-V, XW540-H260). SMPS2DYNAMIXEL 권장 항목 대신 24V 전원 포트 안내를 보여준다.
+*/}
+
+import Show from '@site/src/components/Show';
+
 :::note
 
 **참고** : Servo의 Stall torque 사양은 연속 출력 사양과 다르며, 실제 사용 환경에서 기대할 수 있는 성능과도 다를 수 있습니다.
@@ -14,7 +20,18 @@ Stall torque는 Servo가 순간적으로 낼 수 있는 최대 토크이며, 일
 
 **주의 - 전원 공급 시:**
 
+<Show when={!props.highVoltage}>
+
 - 안정적인 전원 공급을 위해 ROBOTIS Controller 또는 SMPS2DYNAMIXEL 전원 어댑터 사용을 권장합니다.
 - 전원이 공급되는 동안 DYNAMIXEL actuator cable을 연결하거나 분리하지 마십시오.
+
+</Show>
+
+<Show when={props.highVoltage}>
+
+- 전원이 공급되는 동안 DYNAMIXEL actuator cable을 연결하거나 분리하지 마십시오.
+- DYNAMIXEL PRO 및 DYNAMIXEL-P의 경우 반드시 전원 포트를 통해 24V 전원을 공급하세요.
+
+</Show>
 
 :::

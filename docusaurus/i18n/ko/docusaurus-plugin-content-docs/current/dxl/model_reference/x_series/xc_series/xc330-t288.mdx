@@ -215,7 +215,7 @@ import CompatibleX330 from '@site/i18n/ko/docusaurus-plugin-content-docs/current
 <ControlTableReturnDelayTime />
 <a id="drive-mode"></a>
 #### Drive Mode(10)
-<ControlTableDrivemode torqueOnFw={46} />
+<ControlTableDrivemode torqueOnFw={46} timeBasedNote={false} />
 <a id="operating-mode"></a>
 #### Operating Mode(11)
 <ControlTableOpmodeSix2 />
@@ -284,7 +284,7 @@ PWM Slope(62)의 설정값이 '255' (equal to 1,008.47 [mV/msec]), and the value
 > PWM Slope Example
 <a id="shutdown"></a>
 #### Shutdown(63)
-<ControlTableShutdown />
+<ControlTableShutdown encoderError={false} fw41Note={false} />
 <a id="torque-enable"></a>
 #### Torque Enable(64)
 <ControlTableTorqueEnable />
@@ -301,7 +301,7 @@ PWM Slope(62)의 설정값이 '255' (equal to 1,008.47 [mV/msec]), and the value
 #### Hardware Error Status(70)
 Hardware Error Status(70)는 하드웨어 오류 상태를 나타냅니다.
 
-<ControlTableShutdown />
+<ControlTableShutdown encoderError={false} fw41Note={false} />
 <a id="velocity-pi-gain"></a>
 #### Velocity PI Gain(76, 78)
 <ControlTableVelocityPiGain />

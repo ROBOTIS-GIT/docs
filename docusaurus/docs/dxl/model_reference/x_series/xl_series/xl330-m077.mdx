@@ -209,7 +209,7 @@ import CompatibleX330 from '@site/docs/dxl/_partials/x/compatible_dxl/compatible
 <ControlTableReturnDelayTime />
 <a id="drive-mode"></a>
 #### Drive Mode(10)
-<ControlTableDrivemode torqueOnFw={46} />
+<ControlTableDrivemode torqueOnFw={46} timeBasedNote={false} />
 <a id="operating-mode"></a>
 #### Operating Mode(11)
 <ControlTableOpmodeSix2 />
@@ -278,7 +278,7 @@ If the set value of PWM Slope(62) is '140' (equal to 276.84 [mV/msec]), and the 
 > PWM Slope Example
 <a id="shutdown"></a>
 #### Shutdown(63)
-<ControlTableShutdown />
+<ControlTableShutdown encoderError={false} inputVoltageDefault fw41Note={false} />
 <a id="torque-enable"></a>
 #### Torque Enable(64)
 <ControlTableTorqueEnable />
@@ -295,7 +295,7 @@ If the set value of PWM Slope(62) is '140' (equal to 276.84 [mV/msec]), and the 
 #### Hardware Error Status(70)
 The Hardware Error Status(70) indicates hardware error status.  
 
-<ControlTableShutdown />
+<ControlTableShutdown encoderError={false} inputVoltageDefault fw41Note={false} />
 <a id="velocity-pi-gain"></a>
 #### Velocity PI Gain(76, 78)
 <ControlTableVelocityPiGain />

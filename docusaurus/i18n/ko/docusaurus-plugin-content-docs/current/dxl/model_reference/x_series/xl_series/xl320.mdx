@@ -1,20 +1,4 @@
 import Warning from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/warning.mdx';
-import ControlTable from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table.mdx';
-import ControlTableId from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_id.mdx';
-import ControlTableReturnDelayTime from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_return_delay_time.mdx';
-import ControlTableTempLimit from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_temp_limit.mdx';
-import ControlTableMaxTorque from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_max_torque.mdx';
-import ControlTableStatusReturnLv from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_status_return_lv.mdx';
-import ControlTableTorqueEnable from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_torque_enable.mdx';
-import ControlTableMxPid from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_mx_pid.mdx';
-import ControlTableDxGoalPosition from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_dx_goal_position.mdx';
-import ControlTableTorqueLimit from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_torque_limit.mdx';
-import ControlTableDxPresentPosition from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_dx_present_position.mdx';
-import ControlTablePresentLoad from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_present_load.mdx';
-import ControlTableRegInstruction from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_reg_instruction.mdx';
-import ControlTableMoving from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_moving.mdx';
-import ControlTablePunch from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_punch.mdx';
-import MolexXl320 from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/molex_xl320.mdx';
 import TtlConnectionX from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/ttl_connection_x.mdx';
 import DownloadCenterNotice from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/download_center_notice.mdx';
 import CommonLink from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/common_link.mdx';
@@ -23,13 +7,11 @@ import CommonLink from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl
 
 # XL320
 
-
 :::warning
 
 **주의** : XL-320은 OLLO Geared Motor 및 Servo Motor와 다른 제품입니다.
 
 :::
-
 
 ## 사양
 | 항목                   | 사양                                                                |
@@ -53,20 +35,61 @@ import CommonLink from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl
 | Case Material          | Engineering Plastic                                                           |
 | Gear Material          | Engineering Plastic                                                           |
 
-
 :::note
 
 **참고** : Stall Torque는 순간적으로 낼 수 있는 최대 정지 토크입니다. 안정적인 동작을 위해 Stall Torque의 1/5 이하 부하로 로봇을 설계하는 것을 권장합니다.
 
 :::
 
-
 <Warning />
 
+# 컨트롤 테이블
 
-<ControlTable />
+컨트롤 테이블은 다이나믹셀 액추에이터가 장치 상태를 관리하기 위해 사용하는 데이터 구조입니다. 사용자는 Read Instruction Packet으로 데이터 레지스터를 읽어 장치 상태 정보를 확인하고, Write Instruction Packet으로 데이터 레지스터를 변경해 장치를 제어할 수 있습니다.
 
+:::warning
 
+**주의**
+DYNAMIXEL-X 시리즈는 모델 및 펌웨어에 따라 컨트롤 테이블 구성이 다를 수 있습니다. 제어 프로그램에서 사용하는 Address와 지원 기능을 해당 모델의 컨트롤 테이블에서 확인하세요.
+
+:::
+
+## 컨트롤 테이블, Data, Address
+
+컨트롤 테이블은 장치 상태를 저장하거나 장치를 제어하기 위한 여러 Data 필드로 구성됩니다. 사용자는 Read Instruction Packet으로 컨트롤 테이블의 특정 Data를 읽어 현재 상태를 확인할 수 있습니다. WRITE Instruction Packet은 컨트롤 테이블의 특정 Data를 변경해 장치를 제어할 때 사용합니다. Address는 Instruction Packet으로 컨트롤 테이블의 특정 Data에 접근할 때 사용하는 고유 값입니다. 데이터를 읽거나 쓰려면 Instruction Packet에 특정 Address를 지정해야 합니다. Instruction Packet에 대한 자세한 내용은 [DYNAMIXEL Protocol 2.0]을 참고하세요.
+
+:::note
+
+**참고** : 음수 값에는 2의 보수가 적용됩니다. 자세한 내용은 Wikipedia의 [Two's complement]를 참고하세요.
+
+:::
+
+### Area (EEPROM, RAM)
+
+컨트롤 테이블은 두 영역으로 나뉩니다. RAM 영역의 Data는 전원이 재인가되면 초기값으로 재설정됩니다(Volatile). 반면 EEPROM 영역의 Data는 장치 전원이 꺼져도 유지됩니다(Non-Volatile).
+
+:::warning
+
+**EEPROM 영역의 Data는 Torque Enable(24)이 `0`(Torque OFF)일 때만 쓸 수 있습니다.**
+
+:::
+
+### Size
+
+Data의 Size는 용도에 따라 1 ~ 2 byte로 달라집니다. Instruction Packet으로 Data를 갱신할 때는 Data의 Size를 확인하세요. 2 byte보다 큰 Data는 [Little Endian] 방식으로 저장됩니다.
+
+### Access
+
+컨트롤 테이블에는 두 가지 Access 속성이 있습니다. `RW`는 읽기와 쓰기가 가능함을 의미하고, `R`은 읽기만 가능함을 의미합니다. 읽기 전용 속성의 Data는 WRITE Instruction으로 변경할 수 없습니다. 읽기 전용 속성(`R`)은 일반적으로 측정 및 모니터링에 사용되며, 읽기/쓰기 속성(`RW`)은 장치 제어에 사용됩니다.
+
+### Initial Value
+
+컨트롤 테이블의 각 Data는 장치 전원이 켜질 때 초기값으로 복원됩니다. EEPROM 영역의 기본값은 장치의 초기값(공장 출하 설정)입니다. 사용자가 EEPROM 영역의 값을 변경한 경우, 장치 전원이 켜질 때 변경된 값이 초기값으로 복원됩니다. RAM 영역의 초기값은 장치 전원이 켜질 때 복원됩니다.
+
+[DYNAMIXEL Protocol 1.0]: /docs/dxl/protocol/protocol1
+[DYNAMIXEL Protocol 2.0]: /docs/dxl/protocol/protocol2
+[Two's complement]: https://en.wikipedia.org/wiki/Two%27s_complement
+[Little Endian]: https://en.wikipedia.org/wiki/Endianness#Little
 
 ### EEPROM Area 컨트롤 테이블
 | Address | Size(Byte) | Data Name                                   | 설명                        | Access | 초기<br />값 | Min | Max  |
@@ -85,7 +108,6 @@ import CommonLink from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl
 |   15    |     2      | [Max Torque](#max-torque15)                   | Maximum Torque                     |   RW   |        1023        |  0  | 1023 |
 |   17    |     1      | [Status Return Level](#status-return-level17) | Select Types of Status Return      |   RW   |         2          |  0  |  2   |
 |   18    |     1      | [Shutdown](#shutdown18)                       | Shutdown Error Information         |   RW   |         3          |  0  |  7   |
-
 
 ### RAM Area 컨트롤 테이블
 | Address | Size(Byte) | Data Name                                         | 설명                   | Access | 초기<br />값 | Min | Max  |
@@ -117,7 +139,24 @@ import CommonLink from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl
  이 Address에는 DYNAMIXEL의 펌웨어 버전이 저장됩니다.
 <a id="id"></a>
 #### ID (3)
-<ControlTableId srl={17} />
+
+ID는 네트워크에서 Instruction Packet으로 각 DYNAMIXEL을 식별하기 위한 고유 값입니다.
+ID는 0 ~ 252(0xFC) 값을 사용할 수 있으며, 254(0xFE)는 Broadcast ID로 사용됩니다. Broadcast ID(254, 0xFE)를 사용하면 연결된 모든 DYNAMIXEL에 Instruction Packet을 동시에 전송할 수 있습니다.
+
+:::note
+
+**참고** : 여러 DYNAMIXEL에 동일한 ID를 사용하지 마십시오. 동일한 ID를 사용하면 통신 오류가 발생하거나 해당 DYNAMIXEL을 검색하지 못할 수 있습니다.
+
+:::
+
+:::note
+
+**참고** : Instruction Packet ID가 Broadcast ID(0xFE)로 설정된 경우 Status Return Level(17) 설정값과 관계없이 READ 또는 WRITE Instruction에 대한 Status Packet은 반환되지 않습니다. 자세한 내용은 [DYNAMIXEL Protocol 2.0]의 `Status Packet` 항목을 참고하세요.
+
+:::
+
+[DYNAMIXEL Protocol 2.0]: /docs/dxl/protocol/protocol2
+
 <a id="baud-rate"></a>
 #### Baud Rate (4)
 Baud Rate는 컨트롤러와 DYNAMIXEL 사이의 시리얼 통신 속도를 결정합니다.
@@ -129,7 +168,6 @@ Baud Rate는 컨트롤러와 DYNAMIXEL 사이의 시리얼 통신 속도를 결�
 |   2   | 115,200 bps |
 |   3   |   1 Mbps    |
 
-
 :::note
 
 **참고** : 높은 Baud Rate에서 안정적으로 통신하려면 USB Latency 값을 낮게 설정하세요.
@@ -138,7 +176,14 @@ Baud Rate는 컨트롤러와 DYNAMIXEL 사이의 시리얼 통신 속도를 결�
 :::
 <a id="return-delay-time"></a>
 #### Return Delay Time (5)
-<ControlTableReturnDelayTime addr={5} />
+
+DYNAMIXEL이 Instruction Packet을 수신하면 설정된 Return Delay Time(5)이 지난 뒤 Status Packet을 반환합니다.
+설정 가능한 값의 범위는 0 ~ 254(0xFE)이며 단위는 2[μsec]입니다. 예를 들어 Return Delay Time(5)을 `10`으로 설정하면 Instruction Packet을 수신한 뒤 20[μsec] 후에 Status Packet이 반환됩니다.
+
+|  Unit   | 값 범위 | 설명                                                    |
+|:-------:|:-----------:|:---------------------------------------------------------------|
+| 2[μsec] |   0 ~ 254   | Default value ‘250’(500[μsec]) <br /> Maximum value: '508'[μsec] |
+
 <a id="cwccw-angle-limit"></a>
 #### CW/CCW Angle Limit(6, 8)
 Angle Limit은 동작 범위를 제한합니다.
@@ -153,7 +198,22 @@ Angle Limit은 동작 범위를 제한합니다.
 |   2   | Joint Mode |
 <a id="temperature-limit"></a>
 #### Temperature Limit(12)
-<ControlTableTempLimit />
+
+DYNAMIXEL 동작 온도의 상한값입니다.
+
+예를 들어 Temperature Limit(11) 값을 `80`으로 설정하면 80&deg;C를 의미합니다.
+동작 중인 DYNAMIXEL의 내부 온도가 Temperature Limit(11)을 초과하면 Status Packet은 ERROR 필드를 통해 Overheating Error Bit(Bit2)를 전송합니다. [Shutdown(18)](#shutdown)에 Overheating flag가 설정되어 있으면 Alarm LED가 점멸하고 모터 출력은 0[%]가 됩니다.
+
+|     단위      | 값 범위 |
+|:-------------:|:-----------:|
+| About 1&deg;C |   0 ~ 100   |
+
+:::warning
+
+**주의** : 온도를 기본값보다 높게 설정하지 마세요. 온도 알람으로 Shutdown이 발생하면 재사용하기 전에 20분간 온도를 식히세요. 고온 상태에서 제품을 계속 사용하면 심각한 손상이 발생할 수 있습니다.
+
+:::
+
 <a id="minmax-voltage-limit"></a>
 #### Min/Max Voltage Limit(13, 14)
 동작 전압 범위입니다.
@@ -172,10 +232,30 @@ Min Voltage Limit(13)과 Max Voltage Limit(14)는 동작 전압의 최솟값과 
 [Shutdown(18)]: #shutdown18
 <a id="max-torque"></a>
 #### Max Torque(15)
-<ControlTableMaxTorque />
+
+최대 출력 토크 값입니다. 0 ~ 1,023(0x3FF) 값을 사용할 수 있으며 단위는 약 0.1%입니다.
+예를 들어 Data 1,023(0x3FF)은 DYNAMIXEL이 낼 수 있는 최대 토크의 100%를 사용한다는 의미이고, Data 512(0x200)는 최대 토크의 50%를 사용한다는 의미입니다.
+전원이 켜지면 [Torque Limit(35)](#torque-limit)는 Max Torque(15) 값으로 초기화됩니다.
+
 <a id="status-return-level"></a>
 #### Status Return Level(17)
-<ControlTableStatusReturnLv addr={17} />
+
+Status Return Level(17)은 DYNAMIXEL이 Instruction Packet을 수신했을 때 Status Packet을 반환하는 방식을 설정합니다.
+
+| Value |        Responding Instructions         | 설명                                                    |
+|:-----:|:--------------------------------------:|:-------------------------------------------------------:|
+|   0   |            PING Instruction            | PING Instruction에 대해서만 Status Packet을 반환합니다  |
+|   1   | PING Instruction<br />READ Instruction | PING과 READ Instruction에 대해 Status Packet을 반환합니다 |
+|   2   |            All Instructions            | 모든 Instruction에 대해 Status Packet을 반환합니다      |
+
+:::note
+
+**참고** : Instruction Packet ID가 Broadcast ID(0xFE)로 설정된 경우 Status Return Level(17) 값과 관계없이 READ 또는 WRITE Instruction에 대한 Status Packet은 반환되지 않습니다. 자세한 내용은 [DYNAMIXEL Protocol 2.0]의 `Status Packet` 항목을 참고하세요.
+
+:::
+
+[DYNAMIXEL Protocol 2.0]: /docs/dxl/protocol/protocol2
+
 <a id="shutdown"></a>
 #### Shutdown(18)
 DYNAMIXEL은 동작 중 발생하는 오류를 감지하여 스스로를 보호할 수 있습니다.
@@ -183,7 +263,7 @@ DYNAMIXEL은 동작 중 발생하는 오류를 감지하여 스스로를 보호�
 
 |   Bit   |        항목         | 설명                                                         |
 |:-------:|:-------------------:|:--------------------------------------------------------------------|
-| Bit 3~7 |          -          | -                                                                   |
+| Bit 3 ~ 7 |          -          | -                                                                   |
 |  Bit 2  | Input Voltage Error | 전압이 동작 전압 범위를 벗어난 경우                         |
 |  Bit 1  | OverHeating Error  | 온도가 동작 온도 범위를 벗어난 경우                 |
 |  Bit 0  |   Overload Error    | 부하가 지속적으로 가해져 모터가 최대 부하를 출력할 수 없는 경우 |
@@ -192,7 +272,14 @@ DYNAMIXEL은 동작 중 발생하는 오류를 감지하여 스스로를 보호�
 오류가 발생하면 Alarm LED 설정 시 LED가 깜박이고, Alarm Shutdown 설정 시 Torque Limit(35) 값이 0이 되어 모터 출력이 0 %가 됩니다.
 <a id="torque-enable"></a>
 #### Torque Enable(24)
-<ControlTableTorqueEnable />
+
+Torque Enable(24)은 Torque ON/OFF를 결정합니다. Torque Enable Address에 `1`을 쓰면 Torque가 켜지고 EEPROM Area의 모든 Data가 잠깁니다.
+
+|   Value    | 설명                    |
+|:----------:|:-------------------------------|
+| 0(Default) | Torque Off                     |
+|     1      | Torque On and lock EEPROM area |
+
 <a id="led"></a>
 #### LED(25)
 Bit 조합에 따라 XL-320의 LED 출력 색상이 변경됩니다.
@@ -208,7 +295,6 @@ Bit 조합에 따라 XL-320의 LED 출력 색상이 변경됩니다.
 |    Bit 0, Bit 2 (101)     |       5       |    Purple    |
 | Bit 0, Bit 1, Bit 2 (111) |       7       |    White     |
 
-
 :::info
 
 **참고** : LED는 장치의 현재 상태를 나타냅니다.
@@ -223,15 +309,61 @@ Bit 조합에 따라 XL-320의 LED 출력 색상이 변경됩니다.
 :::
 <a id="pid-gains"></a>
 #### PID Gains(27, 28, 29)
-<ControlTableMxPid />
+
+PID 제어기의 블럭다이어그램은 다음과 같습니다.
+- `P Gain`은 Propotional Gain값 입니다.
+- `I Gain`은 Integral Gain값 입니다.
+- `D Gain`은, Derivative Gain값 입니다.
+값의 범위는 0 ~ 254 입니다.
+
+![](/img/dxl/model_reference/mx_series/mx-12_pid_control.webp)
+
+- **K<sub>p</sub>** = P Gain / 8
+- **K<sub>i</sub>** = I Gain * 1,000 / 2,048
+- **K<sub>d</sub>** = D Gain * 4 / 1,000
+
+**PID 와 컴플라이언스 슬로프와의 관계**
+
+| Slope | P Gain |
+|:-----:|:------:|
+|   8   |  128   |
+|  16   |   64   |
+|  32   |   32   |
+|  64   |   16   |
+|  128  |   8    |
+
+P Gain이 작을수록 유격이 커지고 목표위치 근처에서의 출력이 약해집니다.
+즉, Margin과 Slope를 합친 것과 같은 개념입니다.
+구형 다이나믹셀의 Compliance의 개념과 매칭되지 않습니다.
+
+:::note
+
+**참고** : PID 제어론은 단순히 모터 제어에만 국한되지 않고, 모든 제어에 적용할 수 있는 일반적인 이론입니다. PID 제어에 대한 자세한 정보는 [PID Controller](http://en.wikipedia.org/wiki/PID_controller)를 참고하세요.
+
+:::
+
 <a id="goal-position"></a>
 #### Goal Position(30)
-<ControlTableDxGoalPosition />
+
+Goal Position(30)을 통해 DYNAMIXEL의 목표 위치를 설정합니다.
+사용 가능한 위치 범위는 0 ~ 1,023(0x3FF)이며 단위값은 0.29&deg;입니다.
+Goal Position(30)이 [CW/CCW Angle Limit(6, 8)](#cwccw-angle-limit6-8)를 벗어나도록 설정되면 Status Packet은 ERROR 필드로 Angle Limit Error Bit(0x01)를 전송합니다. 이때 [Shutdown(18)](#shutdown)에 Angle Limit Error Bit(0x01)가 설정되어 있으면 Alarm LED가 점멸하고 모터 출력은 0[%]가 됩니다.
+
+![](/img/dxl/model_reference/common/dx_series_goal_position.webp)
+
+> 위 그림은 DYNAMIXEL을 정면에서 본 모습입니다.
+
+:::note
+
+**참고** : Wheel Mode로 설정하면 Goal Position 값은 사용되지 않습니다.
+
+:::
+
 <a id="moving-speed"></a>
 #### Moving Speed(32)
 - Join Mode, Multi-Turn mode
   Goal Position까지 이동하는 속도입니다.
-  0~1,023(0x3FF)을 사용할 수 있으며 단위는 약 0.111rpm입니다.
+  0 ~ 1,023(0x3FF)을 사용할 수 있으며 단위는 약 0.111rpm입니다.
   0으로 설정하면 속도를 제어하지 않고 모터의 최대 rpm을 사용한다는 의미입니다.
   1,023이면 약 114rpm입니다.
   예를 들어 300으로 설정하면 약 33.3 rpm입니다.
@@ -239,12 +371,11 @@ Bit 조합에 따라 XL-320의 LED 출력 색상이 변경됩니다.
 
 - Wheel Mode
   Goal 방향으로 이동하는 속도입니다.
-  0~2,047(0x7FF)을 사용할 수 있으며 단위는 약 0.1%입니다.
-  0~1,023 범위의 값을 사용하면 CCW 방향으로 회전하며, 0으로 설정하면 정지합니다.
-  1,024~2,047 범위의 값을 사용하면 CW 방향으로 회전하며, 1,024로 설정하면 정지합니다.
+  0 ~ 2,047(0x7FF)을 사용할 수 있으며 단위는 약 0.1%입니다.
+  0 ~ 1,023 범위의 값을 사용하면 CCW 방향으로 회전하며, 0으로 설정하면 정지합니다.
+  1,024 ~ 2,047 범위의 값을 사용하면 CW 방향으로 회전하며, 1,024로 설정하면 정지합니다.
   즉, 10번째 bit가 방향을 제어하는 방향 bit가 됩니다.
   예를 들어 512로 설정하면 최대 출력의 50%로 제어한다는 의미입니다.
-
 
 :::note
 
@@ -253,16 +384,42 @@ Bit 조합에 따라 XL-320의 LED 출력 색상이 변경됩니다.
 :::
 <a id="torque-limit"></a>
 #### Torque Limit(35)
-<ControlTableTorqueLimit />
+
+최대 토크 제한값입니다.
+0 ~ 1,023(0x3FF) 값을 사용할 수 있으며 단위는 약 0.1%입니다.
+예를 들어 값이 512이면 약 50%이며, 최대 토크의 50%만 사용한다는 의미입니다.
+전원이 켜지면 Torque Limit(35)는 [Max Torque(15)] 값으로 리셋됩니다.
+
+:::note
+
+**참고** : [Shutdown(18)](#shutdown) 기능이 동작하면 Torque Limit(35)가 0이 되어 모터의 토크가 사라집니다. 오류 조건이 해제된 뒤 Torque Limit(35)를 0이 아닌 값으로 변경하면 모터를 다시 동작시킬 수 있습니다.
+
+:::
+
+[Max Torque(15)]: #max-torque
+
 <a id="present-position"></a>
 #### Present Position(37)
-<ControlTableDxPresentPosition />
+
+DYNAMIXEL의 현재 위치값입니다.
+Present Position(37)의 범위는 0 ~ 1,023(0x3FF)이며 단위는 0.29[&deg;]입니다.
+
+![](/img/dxl/model_reference/common/dx_series_goal_position.webp)
+
+> 위 그림은 DYNAMIXEL을 정면에서 본 모습입니다..
+
+:::warning
+
+**주의** : Wheel Mode로 설정하면 Present Position(37)을 이동 거리나 회전수 측정에 사용할 수 없습니다.
+
+:::
+
 <a id="present-speed"></a>
 #### Present Speed(39)
 현재 이동 속도입니다.
-0~2,047(0x000 ~ 0x7FF)을 사용할 수 있습니다.
-0~1,023 범위의 값이면 모터는 CCW 방향으로 회전합니다.
-1,024~2,047 범위의 값이면 모터는 CW 방향으로 회전합니다.
+0 ~ 2,047(0x000 ~ 0x7FF)을 사용할 수 있습니다.
+0 ~ 1,023 범위의 값이면 모터는 CCW 방향으로 회전합니다.
+1,024 ~ 2,047 범위의 값이면 모터는 CW 방향으로 회전합니다.
 10번째 bit는 방향을 제어하는 방향 bit이며, 0과 1,024는 같은 값으로 취급됩니다.
 이 값의 단위는 Operation Mode에 따라 달라집니다.
 
@@ -275,7 +432,30 @@ Bit 조합에 따라 XL-320의 LED 출력 색상이 변경됩니다.
   예를 들어 512로 설정하면 최대 토크의 50%로 CCW 방향 토크가 제어된다는 의미입니다.
 <a id="present-load"></a>
 #### Present Load(41)
-<ControlTablePresentLoad />
+
+현재 적용되는 하중을 의미합니다.
+이 값의 범위는 0 ~ 2,047이며, 단위는 약 0.1 [%]입니다.
+0 ~ 1,023 범위의 값은 CCW 방향으로 하중이 작용한다는 의미입니다.
+1,024 ~ 2,047 범위의 값은 CW 방향으로 하중이 작용한다는 의미입니다.
+즉, 10번째 bit가 방향을 제어하는 direction bit가 되며, 1,024는 0과 같습니다.
+예를 들어, 값이 512이면 CCW 방향으로 최대 출력 대비 약 50 [%]로 하중이 감지된다는 의미입니다.
+
+| Bit | 15 ~ 11  | 10 | 9 ~ 0|
+| :----: | :---: | :---: | :---: |
+| 값 | 0 | 하중 방향 | 데이터 (하중 비율)|
+
+:::note
+
+**참고** : CCW 하중 : 하중 방향 비트(Bit 10) = 0, CW 하중 : 하중 방향 비트(Bit 10) = 1
+
+:::
+
+:::note
+
+**참고** : 현재하중은 토크센서 등을 이용하여 측정된 값이 아니라 내부 출력 값을 기반으로 유추된 값 입니다. 따라서 무게나 토크를 측정하는 용도로는 부정확 할 수 있습니다. 해당 관절에 가해지는 힘의 방향과 크기를 예측하는 용도로 사용하시기를 권장합니다.
+
+:::
+
 <a id="present-voltage"></a>
 #### Present Voltage(45)
 현재 공급되는 전압의 크기입니다.
@@ -290,17 +470,35 @@ Data 값은 실제 섭씨 온도와 동일합니다. 예를 들어 Data 값이 8
 자세한 내용은 [Temperature Limit(12)](#temperature-limit12)를 참고하세요.
 <a id="registered-instruction"></a>
 #### Registered Instruction(47)
-<ControlTableRegInstruction addr={47} />
+
+[Reg Write Instruction](/docs/dxl/protocol/protocol2#reg-write-0x04)에 의해 Write Instruction이 등록되었는지 나타냅니다.
+
+| Value | 설명                                  |
+|:-----:|:---------------------------------------------|
+|   0   | No instruction registered by REG_WRITE.      |
+|   1   | Instruction registered by REG_WRITE exists. |
+
+:::note
+
+**참고** : ACTION Instruction이 실행되면 Registered Instruction(47)은 0으로 변경됩니다.
+
+:::
+
 <a id="moving"></a>
 #### Moving(49)
-<ControlTableMoving />
+
+|값|설명|
+| :---:| :---|
+|0|Goal position 명령 수행을 완료했습니다.|
+|1|Goal position 명령을 수행중입니다.|
+
 <a id="hardware-error-status"></a>
 #### Hardware Error Status(50)
 현재 하드웨어 오류 상태와 Alarm Shutdown 오류 값을 나타냅니다.
 <a id="punch"></a>
 #### Punch(51)
-<ControlTablePunch />
 
+구동시에 모터에 공급되는 최소 전류량 입니다. 기본값은 0x00이며 최고 0x3FF까지 설정할 수 있습니다.
 
 ## 참고 자료
 :::note
@@ -311,13 +509,22 @@ Data 값은 실제 섭씨 온도와 동일합니다. 예를 들어 Data 값이 8
 
 :::
 
-
 ### 커넥터 정보
-<MolexXl320 />
 
+|     항목     |                                 TTL                                 |
+|:----------:|:-------------------------------------------------------------------:|
+|    핀 번     |                   `1` GND<br />`2` VDD<br />`3` DATA                    |
+|   다이어그램    |         ![](/img/common/molex_532530370_diagram.webp)         |
+|    하우징     | ![](/img/common/molex_510650300.webp)<br />[MOLEX 51065-0300] |
+|   PCB Header   | ![](/img/common/molex_532530370.webp)<br />[MOLEX 53253-0370] |
+| Crimp Terminal  |                         [MOLEX 50212-8000]                          |
+| Wire Gauge for DYNAMIXEL |                               24 AWG                                |
+
+[MOLEX 51065-0300]: https://www.molex.com/molex/products/datasheet.jsp?part=active/0510650300_CRIMP_HOUSINGS.xml&channel=Product
+[MOLEX 53253-0370]: https://www.molex.com/molex/products/datasheet.jsp?part=active/0532530370_PCB_HEADERS.xml
+[MOLEX 50212-8000]: https://www.molex.com/molex/products/datasheet.jsp?part=active/0502128000_CRIMP_TERMINALS.xml
 
 <TtlConnectionX />
-
 
 ### 도면
 - `다운로드` [XL-320.pdf]
@@ -325,9 +532,7 @@ Data 값은 실제 섭씨 온도와 동일합니다. 예를 들어 Data 값이 8
 - `다운로드` [XL-320.stp]
 - `다운로드` [XL-320.iges]
 
-
 <DownloadCenterNotice />
-
 
 [XL-320.pdf]: http://www.robotis.com/service/download.php?no=150
 [XL-320.dwg]: http://www.robotis.com/service/download.php?no=149

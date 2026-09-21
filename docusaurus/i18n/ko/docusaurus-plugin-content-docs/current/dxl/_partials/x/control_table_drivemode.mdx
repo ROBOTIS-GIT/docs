@@ -4,8 +4,12 @@
 {/* props
    since: 값을 주면 "Drive Mode는 펌웨어 V(since)부터 지원" 문장을 덧붙인다. X430은 38.
    torqueOnFw: Torque On by Goal Update 지원 시작 펌웨어. 기본 45, X330은 46.
+   timeBasedNote: false면 Time-based Profile 펌웨어 V42 안내를 숨긴다(XL330, XC330, XM335).
    invertsAll: 반전되는 항목을 Position/Velocity/Current/PWM으로 적는다(XW). 기본은 Goal/Present Position.
 */}
+
+import Show from '@site/src/components/Show';
+
 Drive Mode(10)는 DYNAMIXEL의 구동 방식을 설정{props.since ? <>하며, <strong>펌웨어 V{props.since}</strong>부터 지원됩니다.</> : '합니다.'}
 
 |     Bit     |                Item                 | 설명 |
@@ -19,11 +23,15 @@ Drive Mode(10)는 DYNAMIXEL의 구동 방식을 설정{props.since ? <>하며, <
 | Bit 1(0x02) |                  -                  | 사용하지 않으며 항상 `0`입니다. |
 | Bit 0(0x01) |         Normal/Reverse Mode         | **[0]** Normal Mode: CCW(양수), CW(음수)<br />**[1]** Reverse Mode: CCW(음수), CW(양수) |
 
+<Show when={props.timeBasedNote !== false}>
+
 :::note
 
 **참고** : Time-based Profile은 **firmware V42**부터 사용할 수 있습니다.
 
 :::
+
+</Show>
 
 :::note
 

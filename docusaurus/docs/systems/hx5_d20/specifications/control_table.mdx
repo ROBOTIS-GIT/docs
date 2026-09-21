@@ -431,7 +431,7 @@ Represents the current status of ROBOTIS Hand.
 | 0 | Input Voltage Error | When the applied voltage is outside the set operating voltage range |
 
 
-### Indirect Address (122~632), Indirect Data (634~889)
+### Indirect Address (122 ~ 632), Indirect Data (634 ~ 889)
 Users can use this function to collect and use necessary control tables.  
 When a specific address is set in the Indirect Address Table, the Indirect Data Table will have the same function as that specific address.  
 For example, if '65' is written to Indirect Address 1 (122) and '1' is written to Indirect Data 1 (634), the LED will turn on. The value of LED (65) will also be written as '1'.  
@@ -464,7 +464,7 @@ To assign data of 2 bytes or more to Indirect Address, all data addresses must b
 :::
 
 
-### TableSync [ID, Read Address, Read Size, Write Address, Write Size, Read Data, Write Data] (1024~2013)
+### TableSync [ID, Read Address, Read Size, Write Address, Write Size, Read Data, Write Data] (1024 ~ 2013)
 
 Users can use this function to map specific areas of DYNAMIXEL's control table to ROBOTIS Hand's Table Sync Read Data and Table Sync Write Data areas.  
 ROBOTIS Hand's TableSync consists of 5 channels in total, with channel 1 assigned to the thumb, channel 2 to the index finger, channel 3 to the middle finger, channel 4 to the ring finger, and channel 5 to the little finger.  
@@ -484,7 +484,7 @@ For example, to map Present Position and Goal Position of 2 DYNAMIXELs with IDs 
  TableSync1 Write Size 1 : 4  
  TableSync1 Write Size 2 : 4
 :::
-When TableSync Enable is set to 1, TableSync1 Read Data 1~4 will be the same as ID1's Present Position value, and TableSync Read Data 5~8 will be the same as ID2's Present Position value. Also, writing values to TableSync Write Data 1~4 will write to ID1's Goal Position, and writing values to TableSync Write Data 5~8 will write to ID2's Goal Position.
+When TableSync Enable is set to 1, TableSync1 Read Data 1 ~ 4 will be the same as ID1's Present Position value, and TableSync Read Data 5 ~ 8 will be the same as ID2's Present Position value. Also, writing values to TableSync Write Data 1 ~ 4 will write to ID1's Goal Position, and writing values to TableSync Write Data 5 ~ 8 will write to ID2's Goal Position.
 
 :::info
 Set TableSync Read Size and TableSync Write Size according to the size of the control table you want to map. Incorrect size settings may cause data corruption.

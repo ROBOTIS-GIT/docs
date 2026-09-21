@@ -1,10 +1,13 @@
+{/* props
+   rh: RH-P12-RN(A) 페이지용 경고 문구로 바꾼다.
+*/}
 # Control Table
 The Control Table is a data structure used by DYNAMIXEL actuators to manage the state of the device. Users can read data registers to get information about the status of the device with Read Instruction Packets, and modify data registers to control the device with Write Instruction Packets.
 
 
 :::warning
 
-**WARNING** : PRO(A) series use different Control Table from DYNAMIXEL PRO series. Please pay attention when upgrading DYNAMIXEL PRO to PRO(A).
+**WARNING** : {props.rh ? 'RH-P12-RN(A) uses different Control Table from RH-P12-RN. Please pay attention when upgrading RH-P12-RN to RH-P12-RN(A).' : 'PRO(A) series use different Control Table from DYNAMIXEL PRO series. Please pay attention when upgrading DYNAMIXEL PRO to PRO(A).'}
 
 :::
 

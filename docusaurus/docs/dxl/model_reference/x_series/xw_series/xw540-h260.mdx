@@ -105,7 +105,7 @@ import CompatibleX540 from '@site/docs/dxl/_partials/x/compatible_dxl/compatible
 </details>
 
 
-<NotePerformanceGraph />
+<NotePerformanceGraph highVoltage />
 
 
 <ControlTable />
@@ -283,7 +283,7 @@ This address stores firmware version of DYNAMIXEL.
 <ControlTable60StartupConfiguration />
 <a id="shutdown"></a>
 #### Shutdown(63)
-<ControlTableShutdown />
+<ControlTableShutdown led={false} />
 <a id="torque-enable"></a>
 #### Torque Enable(64)
 <ControlTableTorqueEnable />
@@ -298,7 +298,7 @@ This address stores firmware version of DYNAMIXEL.
 The Hardware Error Status(70) indicates hardware error status.
 
 
-<ControlTableShutdown />
+<ControlTableShutdown led={false} />
 <a id="velocity-pi-gain"></a>
 #### Velocity PI Gain(76, 78)
 <ControlTableVelocityPiGain />
