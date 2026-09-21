@@ -1,32 +1,91 @@
+import GitHubRepositoryLink from '@site/src/components/GitHubRepositoryLink';
+
 # Open Source
 
-AI Sapiens is designed as an open platform. Find the licenses and resources for inspecting, modifying, and building on the robot here.
+AI Sapiens is designed as an open platform. This page lists the public repositories used to inspect, modify, simulate, and build applications for the robot.
 
-## Open Source License
+:::tip[Where should I start?]
 
-| Area | License |
-|:-----|:--------|
-| Hardware | CERN-OHL-P-2.0 |
-| Software | Apache License 2.0 |
-| Documentation | CC BY 4.0 |
+- For the K1 ROS 2 software stack, start with [`ai_sapiens`](https://github.com/ROBOTIS-GIT/ai_sapiens).
+- To train or test policies in simulation, start with [`cyclo_lab`](https://github.com/ROBOTIS-GIT/cyclo_lab).
 
-<div class="ai-sapiens-open-source-blocks">
-<div class="ai-sapiens-coming-soon-banner">Coming Soon</div>
+:::
+
+## AI Sapiens Repositories
+
+These repositories are maintained by ROBOTIS and provide the main software and documentation for AI Sapiens.
+
+| Category | Repository | What it provides | Guide |
+|:-----|:-----------|:-----------------|:------|
+| <span className="repository-category-list"><span className="badge badge--secondary repository-category-badge">Robot platform</span><span className="badge badge--secondary repository-category-badge">ROS 2</span></span> | <GitHubRepositoryLink href="https://github.com/ROBOTIS-GIT/ai_sapiens">ROBOTIS-GIT/ai_sapiens</GitHubRepositoryLink> | K1 robot description, bringup, controllers, interfaces, Docker environment, and Sim2Real runtime | <span className="repository-guide-list"><a href="/docs/systems/aisapiens/specifications/software">Software Architecture</a><a href="/docs/systems/aisapiens/development_guide/ros2_package_structure/">ROS 2 Package Structure</a></span> |
+| <span className="repository-category-list"><span className="badge badge--secondary repository-category-badge">Simulation</span><span className="badge badge--secondary repository-category-badge">Reinforcement learning</span></span> | <GitHubRepositoryLink href="https://github.com/ROBOTIS-GIT/cyclo_lab">ROBOTIS-GIT/cyclo_lab</GitHubRepositoryLink> | Isaac Lab environments, task definitions, policy training, motion imitation, and Sim2Real workflows for ROBOTIS robots | [Cyclo Lab](/docs/systems/aisapiens/reinforcement_learning/cyclo_lab/) |
+
+## Simulation Models
+
+The currently available robot-description and simulation models for AI Sapiens K1 are listed below.
+
+| Format | Repository location | Use |
+|:-------|:--------------------|:----|
+| <span className="badge badge--secondary repository-category-badge">URDF</span> | <GitHubRepositoryLink href="https://github.com/ROBOTIS-GIT/ai_sapiens/tree/main/ai_sapiens_description/urdf/k1_rev1">ai_sapiens_description/urdf/k1_rev1</GitHubRepositoryLink> | ROS 2 robot description, RViz visualization, and downstream model conversion |
+| <span className="badge badge--secondary repository-category-badge">MJCF</span> | <GitHubRepositoryLink href="https://github.com/ROBOTIS-GIT/ai_sapiens/tree/main/ai_sapiens_description/mujoco/k1">ai_sapiens_description/mujoco/k1</GitHubRepositoryLink> | MuJoCo simulation model and scene configuration |
+
+USD is not yet publicly available. Its repository location will be added here when it is released.
+
+## Motion Generation and Retargeting
+
+These ROBOTIS repositories provide K1-specific integration for the AI Sapiens motion workflow.
+
+| Category | Repository | AI Sapiens role |
+|:---------|:-----------|:----------------|
+| <span className="badge badge--secondary repository-category-badge">Video-to-motion generation</span> | <span className="repository-with-origin"><GitHubRepositoryLink href="https://github.com/ROBOTIS-GIT/GEM-X">ROBOTIS-GIT/GEM-X</GitHubRepositoryLink><span className="repository-fork-origin">Forked from <code>NVlabs/GEM-X</code></span></span> | Recovers SOMA-format human motion from monocular video and adds the `ai_sapiens_k1` retargeting path |
+| <span className="badge badge--secondary repository-category-badge">Motion retargeting</span> | <span className="repository-with-origin"><GitHubRepositoryLink href="https://github.com/ROBOTIS-GIT/soma-retargeter">ROBOTIS-GIT/soma-retargeter</GitHubRepositoryLink><span className="repository-fork-origin">Forked from <code>NVIDIA/soma-retargeter</code></span></span> | Converts SOMA/BVH motion to K1 joint trajectories using the AI Sapiens robot description and mesh assets |
+| <span className="badge badge--secondary repository-category-badge">Text-to-motion generation</span> | <span className="repository-with-origin"><GitHubRepositoryLink href="https://github.com/ROBOTIS-GIT/kimodo">ROBOTIS-GIT/kimodo</GitHubRepositoryLink><span className="repository-fork-origin">Forked from <code>nv-tlabs/kimodo</code></span></span> | Generates source motion from text and kinematic constraints for conversion or retargeting in the K1 motion workflow |
+
+See [GEM-X](/docs/systems/aisapiens/motion_generation/gem-x), [Soma-retargeter](/docs/systems/aisapiens/motion_generation_retargeting/soma_retargeter/), and [Kimodo](/docs/systems/aisapiens/motion_generation_retargeting/kimodo/) for installation and AI Sapiens workflow details.
+
+## Shared ROBOTIS Software
+
+These ROBOTIS repositories provide actuator-control and learning components used by the wider AI Sapiens stack.
+
+| Category | Repository | Role |
+|:-----|:-----------|:-----|
+| <span className="badge badge--secondary repository-category-badge">ROS 2 hardware interface</span> | <GitHubRepositoryLink href="https://github.com/ROBOTIS-GIT/dynamixel_hardware_interface">ROBOTIS-GIT/dynamixel_hardware_interface</GitHubRepositoryLink> | Connects ROS 2 control command and state interfaces to DYNAMIXEL actuators |
+| <span className="badge badge--secondary repository-category-badge">Actuator communication SDK</span> | <GitHubRepositoryLink href="https://github.com/ROBOTIS-GIT/DynamixelSDK">ROBOTIS-GIT/DynamixelSDK</GitHubRepositoryLink> | Implements DYNAMIXEL packet communication used by the hardware interface |
+| <span className="badge badge--secondary repository-category-badge">Imitation learning platform</span> | <GitHubRepositoryLink href="https://github.com/ROBOTIS-GIT/cyclo_intelligence">ROBOTIS-GIT/cyclo_intelligence</GitHubRepositoryLink> | Data recording, dataset conversion, policy training, inference, and robot execution; the AI Sapiens guide is coming soon |
+
+## Additional Resources
+
+| Resource | Available files | Guide |
+|:---------|:----------------|:------|
+| **AI Sapiens K1 hardware drawing** | [PDF](/files/systems/aisapiens/hardware/ai_sapiens_k1_hardware_drawing.pdf) | [Hardware Specifications](/docs/systems/aisapiens/specifications/hardware) |
+
+## Planned Resources
+
+The source-code repositories are available above. The following additional resources are planned for future release.
+
+<div className="ai-sapiens-open-source-blocks">
+<div className="ai-sapiens-coming-soon-banner">Coming Soon</div>
 
 ### Hardware BoM
 
-The complete Bill of Materials for K1 (parts list, quantities, and references) will be published for reproducible builds.
+The complete Bill of Materials for K1, including parts, quantities, and references, will be published for reproducible builds.
 
 ### STEP Files
 
-Mechanical STEP files for core assemblies are planned so teams can inspect, modify, and integrate hardware quickly.
+Mechanical STEP files for core assemblies are planned so teams can inspect, customize, and integrate K1 hardware.
 
-### Source Code
+### Tutorial Videos
 
-Core software repositories, setup instructions, and example pipelines will be released for direct use and extension.
-
-### Tutorials
-
-Step-by-step tutorials from bring-up to policy deployment will help new users get started quickly.
+Tutorial videos covering bring-up through policy deployment will be added to help new users get started.
 
 </div>
+
+## Open Source Licenses
+
+| Area | Default license |
+|:-----|:----------------|
+| Hardware resources released by ROBOTIS | CERN-OHL-P-2.0 |
+| Software released by ROBOTIS | Apache License 2.0 |
+| Documentation | CC BY 4.0 |
+
+Always check the `LICENSE`, notices, and third-party license files in each repository before use. Those files are the source of truth and may contain additional terms for dependencies, models, datasets, or other bundled assets.

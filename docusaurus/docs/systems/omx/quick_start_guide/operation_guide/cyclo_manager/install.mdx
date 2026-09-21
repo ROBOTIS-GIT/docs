@@ -1,0 +1,83 @@
+# Install Cyclo Manager
+
+:::info
+After Cyclo Manager is installed and set up once, it starts automatically when the robot boots.
+For OMX, Cyclo Manager runs on the user's PC because the OMX robot stack runs on the user's PC.
+After the PC is set up, you only need to open Cyclo Manager from your browser.
+:::
+
+**Cyclo Manager** runs inside Docker containers. The Python package **`cyclo-manager`** on PyPI provides the **`cyclo_manager`** CLI, which uses Docker images and Compose to bring up and configure the container stack.
+
+## How to Install
+
+:::info
+**Cyclo Manager** runs on the **user PC** for OMX. Install it on the PC that will run the OMX Docker containers.
+:::
+
+1. Install the Python package `cyclo-manager` on the user PC.
+
+```bash
+pip install cyclo-manager
+```
+
+2. Add the CLI to your `PATH` and set up the Cyclo Manager environment.
+
+```bash
+export PATH="$HOME/.local/bin:$PATH"
+cyclo_manager up
+```
+
+:::info
+After you run **`cyclo_manager up`** once to set up the environment, Cyclo Manager keeps running unless you run **`cyclo_manager down`**.
+You do not need to run **`cyclo_manager up`** again after powering the robot off and on.
+:::
+
+:::note[CLI commands]
+Use the **`cyclo_manager`** CLI from your terminal:
+
+```bash
+cyclo_manager up   # optional: --pull to fetch the latest images from the registry
+cyclo_manager down
+cyclo_manager update
+```
+
+- `cyclo_manager up`:
+  - Registers a **host-agent** systemd service so it always runs.
+  - Creates and starts the **cyclo_manager** API and **cyclo_manager_ui** containers.
+  - Creates the **zenoh-daemon** and **novnc-server** containers.
+
+- `cyclo_manager down`:
+  - Stops and removes the containers created by `cyclo_manager up`.
+  - Removes the **host-agent** service from systemd.
+
+- `cyclo_manager update`:
+  - Upgrades the **`cyclo-manager`** package with **pip**.
+  - Stops the running containers and starts new ones with the updated stack.
+  - Restarts the **host-agent** service.
+:::
+
+## Open the Cyclo Manager Web UI
+
+Open the Cyclo Manager **web UI** on **port 3000** in your browser.
+
+:::info
+If you open the web UI on the same user PC, use `localhost`.
+If you open it from another device on the same network, use the user PC's IP address.
+
+http://localhost:3000
+:::
+
+![Cyclo Manager App Page](/img/systems/omx/quick_start_guide/operation_guide/cyclo_manager/app_page.png)
+
+From the main page, open the Cyclo Manager dashboard.
+
+![Dashboard Page](/img/systems/omx/quick_start_guide/operation_guide/cyclo_manager/dashboard.png)
+
+## Update the s6 Agent
+
+After the first installation, the s6 agent inside a managed container may not match the installed Cyclo Manager version.
+If the container agent and Cyclo Manager are not compatible, some Cyclo Manager operations may not work as expected.
+
+Check the **Container Agents** section in Version Management after opening the dashboard.
+If an agent update is available, update the s6 agent before using Cyclo Manager for regular operation.
+For details, see [Agent Update](/docs/systems/omx/quick_start_guide/operation_guide/cyclo_manager/version_update#agent-update).

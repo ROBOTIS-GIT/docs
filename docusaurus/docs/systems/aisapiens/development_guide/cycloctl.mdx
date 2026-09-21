@@ -1,0 +1,157 @@
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Bringup with cycloctl
+
+`cyclod` is the daemon that runs on the robot and owns Wi-Fi mode switching and service management. `cycloctl` is its command-line client, documented here.
+
+`cycloctl` talks to `cyclod` over its local Unix socket, so it only works when run directly on the robot — connect over USB, Ethernet, or Wi-Fi and [SSH in](./ssh) first.
+
+## Workspace and container shell
+
+On the robot SBC, the AI Sapiens source lives at `/data/ai_sapiens`. That host directory is volume-mounted into the `ai_sapiens` container at `/root/ros2_ws/src/ai_sapiens`.
+
+To open a shell inside the running container:
+
+```bash
+cd /data/ai_sapiens
+./docker/container.sh enter
+```
+
+Or:
+
+```bash
+docker exec -it ai_sapiens bash
+```
+
+## Wi-Fi
+
+`cycloctl wifi` switches the robot's Wi-Fi radio between hotspot (AP) and station (client) mode — see [Networking → Wi-Fi AP/STA Mode Switching](./networking#wi-fi-apsta-mode-switching).
+
+## Services
+
+`cycloctl service` manages the services running inside the robot's containers (e.g. `zenoh_daemon` and `ai_sapiens_bringup` in the `ai_sapiens` container). `--container` is only required when the service name exists in more than one container, so you can omit it in normal use.
+
+### Status
+
+Show every service's status:
+
+```bash
+cycloctl service status
+```
+
+```
+ai_sapiens/ai_sapiens_bringup: down
+ai_sapiens/ai_sapiens_sim2real: down
+ai_sapiens/zenoh_daemon: down
+```
+
+### Start
+
+Start the services in order — `zenoh_daemon`, then `ai_sapiens_bringup`, then `ai_sapiens_sim2real` — waiting about 3 seconds between each so the previous one is up before the next depends on it.
+
+<Tabs groupId="cycloctl-vs-raw" queryString>
+<TabItem value="cycloctl" label="With cycloctl">
+
+```bash
+cycloctl service start --container ai_sapiens --name zenoh_daemon
+sleep 3
+cycloctl service start --container ai_sapiens --name ai_sapiens_bringup
+sleep 3
+cycloctl service start --container ai_sapiens --name ai_sapiens_sim2real
+```
+
+</TabItem>
+<TabItem value="raw" label="Without cycloctl">
+
+In each terminal, open a shell in the `ai_sapiens` container first (see [Workspace and container shell](#workspace-and-container-shell)):
+
+```bash
+cd /data/ai_sapiens
+./docker/container.sh enter
+```
+
+Or:
+
+```bash
+docker exec -it ai_sapiens bash
+```
+
+Then run one command per terminal, waiting about 3 seconds before starting the next one:
+
+```bash
+ros2 run rmw_zenoh_cpp rmw_zenohd
+```
+
+```bash
+ros2 launch ai_sapiens_bringup k1.launch.py
+```
+
+```bash
+ros2 launch ai_sapiens_sim2real ai_sapiens_sim2real.launch.py
+```
+
+</TabItem>
+</Tabs>
+
+### Stop
+
+Stop them in the reverse order.
+
+<Tabs groupId="cycloctl-vs-raw" queryString>
+<TabItem value="cycloctl" label="With cycloctl">
+
+```bash
+cycloctl service stop --container ai_sapiens --name ai_sapiens_sim2real
+cycloctl service stop --container ai_sapiens --name ai_sapiens_bringup
+cycloctl service stop --container ai_sapiens --name zenoh_daemon
+```
+
+</TabItem>
+<TabItem value="raw" label="Without cycloctl">
+
+Press Ctrl-C in each terminal, in reverse order: `ai_sapiens_sim2real` first, then `ai_sapiens_bringup`, then `rmw_zenohd`.
+
+</TabItem>
+</Tabs>
+
+### Logs
+
+Fetch recent log lines:
+
+```bash
+cycloctl service logs --container ai_sapiens --name zenoh_daemon --tail 200
+```
+
+```bash
+cycloctl service logs --container ai_sapiens --name ai_sapiens_bringup --tail 200
+```
+
+```bash
+cycloctl service logs --container ai_sapiens --name ai_sapiens_sim2real --tail 200
+```
+
+You can also read a service's log file directly instead of going through `cycloctl`. Open a shell in the `ai_sapiens` container (see [Workspace and container shell](#workspace-and-container-shell)) and tail the file:
+
+```bash
+cd /data/ai_sapiens
+./docker/container.sh enter
+```
+
+Or:
+
+```bash
+docker exec -it ai_sapiens bash
+```
+
+```bash
+tail -f /var/log/zenoh_daemon/current
+```
+
+```bash
+tail -f /var/log/ai_sapiens_bringup/current
+```
+
+```bash
+tail -f /var/log/ai_sapiens_sim2real/current
+```

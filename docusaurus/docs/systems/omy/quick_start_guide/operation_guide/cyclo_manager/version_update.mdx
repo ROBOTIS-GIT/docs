@@ -1,0 +1,85 @@
+# Version Update
+
+Use Version Update to update OMY software packages and container images from Cyclo Manager.
+
+The Version Management section shows three update targets:
+
+- **Package Update**: Updates the software repository and recreates the related container. Use this when the robot package has a newer release.
+- **Agent Update**: Updates the Cyclo Manager agent inside a managed container. The agent receives service control requests, streams logs, and reports service status to Cyclo Manager.
+- **Cyclo Manager Update**: Updates the Cyclo Manager CLI, API server, and web UI stack. Use this when a new Cyclo Manager release is available.
+
+## Package Update
+
+Use **Package Update** when the OMY software repository has a newer supported version.
+This updates the robot package source code and recreates the related robot container so the updated software can run with the configured Docker environment.
+
+During the update, Cyclo Manager performs the following tasks:
+
+1. Stops the running container and removes it.
+2. Checks the local Git repository state.
+3. Lets you choose how to handle local changes.
+4. Lets you choose files to preserve before the update.
+5. Pulls the selected package version.
+6. Recreates the container.
+
+If there is a new version of the package, you can update the version by clicking the **Update** button.
+
+![Version Management](/img/systems/omy/quick_start_guide/operation_guide/cyclo_manager/version_management.png)
+
+When you click the **Update** button, Cyclo Manager runs the update workflow:
+
+![Update1](/img/systems/omy/quick_start_guide/operation_guide/cyclo_manager/version_update1.png)
+
+1. Stop the running containers.
+
+![Update2](/img/systems/omy/quick_start_guide/operation_guide/cyclo_manager/version_update2.png)
+
+2. Choose a strategy for local changes.
+
+![Update3](/img/systems/omy/quick_start_guide/operation_guide/cyclo_manager/version_update3.png)
+
+3. Choose the files you want to preserve.
+
+![Update4](/img/systems/omy/quick_start_guide/operation_guide/cyclo_manager/version_update4.png)
+
+4. The Git repository is pulled and the container is created.
+
+:::note
+When Cyclo Manager starts the updated container, it may need to download the required Docker image first.
+Depending on the network connection, this step can take about 5 minutes.
+:::
+
+![Update5](/img/systems/omy/quick_start_guide/operation_guide/cyclo_manager/version_update5.png)
+
+## Cyclo Manager Update
+
+Use **Cyclo Manager Update** when a new Cyclo Manager version is available.
+
+![Cyclo Manager Update](/img/systems/omy/quick_start_guide/operation_guide/cyclo_manager/cyclo_manager_update.png)
+
+This updates the `cyclo-manager` CLI package on the robot host and restarts the Cyclo Manager stack with the matching API server and web UI images.
+
+1. Updates the `cyclo-manager` package.
+2. Stops the running Cyclo Manager containers.
+3. Pulls or starts the configured Cyclo Manager API and web UI images.
+4. Restarts the host agent service.
+5. Starts Cyclo Manager again with the updated stack.
+
+After the update finishes, reopen the Cyclo Manager web UI in your browser.
+
+If the update fails from the web UI, connect to the robot over SSH and run the update manually:
+
+```bash
+cyclo-manager update
+```
+
+## Agent Update
+
+Use **Agent Update** when the s6 agent inside a managed container is older than, or not compatible with, the installed Cyclo Manager version.
+The s6 agent handles service control, log streaming, and status reporting from inside the container, so a version mismatch can cause Cyclo Manager operations to fail or behave unexpectedly.
+
+When Cyclo Manager detects an incompatible container agent, the **Container Agents** section shows an **Update** button.
+Click **Update** to update the in-container agent to a version compatible with the current Cyclo Manager.
+The container may restart during the update.
+
+![Agent Version Update](/img/systems/omy/quick_start_guide/operation_guide/cyclo_manager/agent_version_update.png)

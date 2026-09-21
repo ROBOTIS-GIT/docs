@@ -2,13 +2,13 @@ services:
   docs:
     container_name: robotis-docs
     build:
-      # 컨텍스트는 docusaurus 폴더, Dockerfile 은 레포 루트(상위)에 위치
+      # The build context is docusaurus; the Dockerfile is in the repository root.
       context: ./docusaurus
       dockerfile: ../Dockerfile
     volumes:
-      # 소스 전체를 마운트 (빌드 시 최신 소스 반영, i18n 포함)
+      # Mount all source files, including i18n, so builds use the latest content.
       - ./docusaurus:/app
-      # 호스트엔 node_modules 가 없으므로 이미지 안의 것을 보존
+      # Preserve node_modules from the image because it is absent on the host.
       - /app/node_modules
     ports:
       - "5714:5714"

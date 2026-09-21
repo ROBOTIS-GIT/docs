@@ -2,6 +2,7 @@ import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
 import arduinoIdeSidebar from './sidebars/arduinoIde';
 import aiworkerSidebar from './sidebars/aiworker';
 import aisapiensSidebar from './sidebars/aisapiens';
+import cycloSidebar from './sidebars/cyclo';
 import dynamixelEasySdkSidebar from './sidebars/dynamixelEasySdk';
 import dynamixelSdkSidebar from './sidebars/dynamixelSdk';
 import dynamixelWizardSidebar from './sidebars/dynamixelWizard';
@@ -41,6 +42,7 @@ const sidebars: SidebarsConfig = {
   openmanipulatorXSidebar,
   turtlebot3Sidebar,
   arduinoIdeSidebar,
+  cycloSidebar,
   dynamixelSdkSidebar,
   dynamixelWizardSidebar,
   dynamixelEasySdkSidebar,

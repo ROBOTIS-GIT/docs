@@ -1,0 +1,143 @@
+---
+sidebar_label: Locomotion
+title: Locomotion Policy Training
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Locomotion Policy Training
+
+<video className="ai-sapiens-demo-video" controls autoPlay muted loop playsInline preload="metadata">
+  <source src="/videos/systems/aisapiens/k1_rl_locomotion_mjlab.mp4" type="video/mp4" />
+</video>
+
+Train, preview, and export a K1 velocity policy with Cyclo MJLab.
+Run the commands inside the Cyclo MJLab container from `/workspace/cyclo_mjlab`.
+
+## Train
+
+Run the velocity task with 4,096 parallel environments:
+
+```bash
+python scripts/reinforcement_learning/train.py \
+  Cyclo-Velocity-Flat-K1-Rev1-v0 \
+  --env.scene.num-envs 4096
+```
+
+Training output is written to:
+
+```text
+logs/rsl_rl/k1_velocity/<run>/
+```
+
+`<run>` is the timestamped directory created when training starts.
+The main files in each run directory are:
+
+<div className="docs-folder-tree" role="img" aria-label="Cyclo MJLab locomotion training output directory structure">
+  <div className="docs-folder-tree__root">
+    <code>logs/rsl_rl/k1_velocity/&lt;run&gt;/</code>
+  </div>
+  <ul>
+    <li><code>model_*.pt</code></li>
+    <li>
+      <strong>params/</strong>
+      <ul>
+        <li><code>agent.yaml</code></li>
+        <li><code>env.yaml</code></li>
+        <li><code>sim2real.yaml</code></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+The training configuration saves a checkpoint every 100 iterations.
+
+## Play and Export
+
+Select a checkpoint from the training run and pass its path to `play.py`.
+
+<Tabs groupId="cyclo-mjlab-viewer" queryString>
+<TabItem value="native" label="Native MuJoCo Viewer" default>
+
+```bash
+python scripts/reinforcement_learning/play.py \
+  Cyclo-Velocity-Flat-K1-Rev1-v0 \
+  --checkpoint-file logs/rsl_rl/k1_velocity/<run>/model_<iteration>.pt \
+  --num-envs 1 \
+  --viewer native
+```
+
+Use the native viewer when a desktop display is available.
+
+</TabItem>
+<TabItem value="viser" label="Viser Viewer">
+
+```bash
+python scripts/reinforcement_learning/play.py \
+  Cyclo-Velocity-Flat-K1-Rev1-v0 \
+  --checkpoint-file logs/rsl_rl/k1_velocity/<run>/model_<iteration>.pt \
+  --num-envs 1 \
+  --viewer viser
+```
+
+Open the URL printed by `play.py` in a web browser.
+
+</TabItem>
+</Tabs>
+
+Replace `<run>` with the timestamped run directory and `<iteration>` with the checkpoint iteration to use.
+
+If `--viewer` is omitted, the default `auto` mode uses the native MuJoCo viewer when a desktop display is available and otherwise uses the Viser viewer.
+Before opening the selected viewer, `play.py` exports the policy to the same training run directory.
+
+To export the policy without opening a viewer, add `--export-only`:
+
+```bash
+python scripts/reinforcement_learning/play.py \
+  Cyclo-Velocity-Flat-K1-Rev1-v0 \
+  --checkpoint-file logs/rsl_rl/k1_velocity/<run>/model_<iteration>.pt \
+  --num-envs 1 \
+  --export-only
+```
+
+After `play.py` exports the policy, the run directory contains:
+
+<div className="docs-folder-tree" role="img" aria-label="Cyclo MJLab locomotion exported policy directory structure">
+  <div className="docs-folder-tree__root">
+    <code>logs/rsl_rl/k1_velocity/&lt;run&gt;/</code>
+  </div>
+  <ul>
+    <li><code>model_*.pt</code></li>
+    <li>
+      <strong>exported/</strong>
+      <ul>
+        <li><code>policy.onnx</code></li>
+        <li><code>policy.pt</code></li>
+      </ul>
+    </li>
+    <li>
+      <span className="docs-folder-tree__label">params/</span>
+      <ul>
+        <li><code>agent.yaml</code></li>
+        <li><code>env.yaml</code></li>
+        <li><code>sim2real.yaml</code></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+## Prepare for Sim2Real
+
+Cyclo MJLab uses the same Sim2Real deployment process as Cyclo Lab.
+Before deploying the trained velocity policy, prepare these files from the same training run:
+
+- `exported/policy.onnx`
+- `params/sim2real.yaml`
+
+Then follow [How to Deploy Your Own Cyclo Lab-Trained Policy](/docs/systems/aisapiens/development_guide/sim2real/#how-to-deploy-your-own-cyclo-lab-trained-policy) to place the files under the Sim2Real asset root and connect the policy to the `Velocity` mode.
+
+:::note
+`exported/policy.onnx` and `params/sim2real.yaml` are a matched pair from one `logs/rsl_rl/k1_velocity/<run>/` directory.
+Do not combine `policy.onnx` from one run with `sim2real.yaml` from another run.
+:::

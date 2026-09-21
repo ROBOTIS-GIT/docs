@@ -1,7 +1,9 @@
-# Setup Guide — ROS 2 (Physical AI Tools)
+# Setup Guide — Physical AI Tools
 
 ## Overview
-This guide shows how to set up and operate OMX using Physical AI Tools (Web UI). Follow the steps to prepare repositories, configure Docker, and run the teleoperation node.
+This guide covers Physical AI Tools-specific setup for OMX.
+
+Before starting this page, complete [ROS 2 Setup](/docs/systems/omx/quick_start_guide/setup_guide/ros2_setup). It prepares the OpenMANIPULATOR Docker container and the leader/follower serial port settings required for Physical AI Tools.
 
 :::info
 ### System Requirements
@@ -46,117 +48,6 @@ This guide shows how to set up and operate OMX using Physical AI Tools (Web UI).
       4. Restart Docker daemon
 
     * For detailed configuration, see the [Docker configuration guide](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html#configuring-docker)
-
-### Docker Volume Configuration
-
-The Docker container uses volume mappings for **hardware access**, **development**, and **data persistence**:
-
-```bash
-volumes:
-  # Hardware and system access
-  - /dev:/dev
-  - /tmp/.X11-unix:/tmp/.X11-unix:rw
-  - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
-
-  # Development and data directories
-  - ./workspace:/workspace
-  - ../:/root/ros2_ws/src/open_manipulator/
-```
-
-:::tip
-Store your development code in `/workspace` to preserve your codes.
-:::
-
-## Set up Open Manipulator Docker Container
-
-### 1. Start the Docker Container:
-
-Clone the repository:
-
-`USER PC`
-```bash
-git clone https://github.com/ROBOTIS-GIT/open_manipulator
-```
-Start the **Open Manipulator** container with the following command:
-
-```bash
-cd open_manipulator/docker && ./container.sh start
-```
-
-### 2. Set up launch file port
-
-Enter the **Open Manipulator** Docker container:
-
-`USER PC`
-```bash
-./container.sh enter
-```
-:::info
-First, connect only the **'Leader'** USB to the port, then check and copy the OpenRB serial ID.
-
-`USER PC` or `USER PC` `🐋 OPEN MANIPULATOR`
-```bash
-ls -al /dev/serial/by-id/
-```
-<div style={{maxWidth: '650px', margin: '12px auto', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-  <img src="/img/systems/omx/quick_start_guide/setup_guide/physical_ai_tools/setup_port_name_L.png" alt="Serial device by-id listing example" style={{width: '100%', height: 'auto', objectFit: 'contain', display: 'block', borderRadius: '6px'}} />
-</div>
-
-As shown in the image below, paste the serial ID you noted above into the port name parameter for the **[leader]** then save.
-
-`USER PC` `🐋 OPEN MANIPULATOR`
-
-```bash
-sudo nano ~/ros2_ws/src/open_manipulator/open_manipulator_bringup/launch/omx_l_leader_ai.launch.py
-```
-
-<pre class="language-python"><code># omx_l_leader_ai.launch.py
-DeclareLaunchArgument(
-    'port_name',
-    default_value='<mark style={{backgroundColor: '#fff176', color: '#000'}}>/dev/serial/by-id/</mark><mark style={{backgroundColor: '#90caf9', color: '#000'}}>{'{'}your_leader_serial_id{'}'}</mark>',
-    description='Port name for hardware connection.',
-)</code></pre>
-:::
-
-:::info
-Second, connect only the **'Follower'** USB to the port, then check and copy the OpenRB serial ID.
-
-`USER PC` or `USER PC` `🐋 OPEN MANIPULATOR`
-```bash
-ls -al /dev/serial/by-id/
-```
-<div style={{maxWidth: '650px', margin: '12px auto', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-  <img src="/img/systems/omx/quick_start_guide/setup_guide/physical_ai_tools/setup_port_name_F.png" alt="Serial device by-id listing example" style={{width: '100%', height: 'auto', objectFit: 'contain', display: 'block', borderRadius: '6px'}} />
-</div>
-
-As shown in the image below, paste the serial ID you noted above into the port name parameter for the **[follower]**, then save.
-
-`USER PC` `🐋 OPEN MANIPULATOR`
-
-```bash
-sudo nano ~/ros2_ws/src/open_manipulator/open_manipulator_bringup/launch/omx_f_follower_ai.launch.py
-```
-
-<pre class="language-python"><code># omx_f_follower_ai.launch.py
-DeclareLaunchArgument(
-    'port_name',
-    default_value='<mark style={{backgroundColor: '#fff176', color: '#000'}}>/dev/serial/by-id/</mark><mark style={{backgroundColor: '#90caf9', color: '#000'}}>{'{'}your_follower_serial_id{'}'}</mark>',
-    description='Port name for hardware connection.',
-)</code></pre>
-
-:::
-
-:::info
-Ultimately, it will be changed as shown below.
-
-<div style={{maxWidth: '650px', margin: '12px auto', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-  <img src="/img/systems/omx/quick_start_guide/setup_guide/physical_ai_tools/setup_port_name.png" alt="Serial device by-id listing example" style={{width: '100%', height: 'auto', objectFit: 'contain', display: 'block', borderRadius: '6px'}} />
-</div>
-:::
-
-🎉 Open Manipulator Container Setup Complete!
-
-Please exit the Docker container and return to your host terminal for the next steps.
 
 ## Set up Physical AI Tools Docker Container
 
@@ -211,11 +102,11 @@ Note: The topic you set must always end with `compressed` <br />(for example, `c
 
 🎉 Physical AI Tools Container Setup Complete!
 
-Click the button below to start Imitation Learning.
+Before recording demonstrations, launch the camera node, Physical AI Server, and ROS 2 teleoperation node from Dataset Preparation.
 
 <div style={{display: 'flex', justifyContent: 'flex-start', gap: '30px', marginTop: '24px'}}>
-<a href="/docs/systems/omx/resources/legacy/physical_ai_tools/imitation_learning" class="button-shortcut">
-<span>Imitation Learning</span>
-<span>Overview</span>
+<a href="/docs/systems/omx/resources/legacy/physical_ai_tools/dataset_preparation/prerequisites" class="button-shortcut">
+<span>Dataset Preparation</span>
+<span>Prerequisites</span>
 </a>
 </div>

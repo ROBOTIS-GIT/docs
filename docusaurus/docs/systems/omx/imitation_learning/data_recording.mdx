@@ -9,4 +9,8 @@ import CycloIntelligenceDataRecording from '../../_partials/cyclo_intelligence/d
   robotName="OMX"
   robotBringupGuide="/docs/systems/omx/quick_start_guide/operation_guide/teleoperation"
   robotPreparationGuideLabel="OMX Teleoperation guide"
+  cameraBringupCommands={`# check which device the camera is on
+v4l2-ctl --list-devices
+
+ros2 launch open_manipulator_bringup camera_usb_cam.launch.py name:=camera2 video_device:=/dev/video1`}
 />

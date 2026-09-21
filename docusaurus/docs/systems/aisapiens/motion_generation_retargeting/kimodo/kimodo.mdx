@@ -15,7 +15,7 @@ Kimodo is developed and maintained by NVIDIA Research. Use this guide to install
 
 ## AI Sapiens Kimodo Demo
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/2xAJzQ8V9p8" title="Open Humanoid ROBOTIS AI Sapiens #2: Text-Generated Motion with NVIDIA Kimodo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/2xAJzQ8V9p8" title="Open Humanoid ROBOTIS AI Sapiens #2: Text-Generated Motion with NVIDIA Kimodo" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowFullScreen></iframe>
 
 ## Official Resources
 
@@ -25,6 +25,10 @@ Kimodo is developed and maintained by NVIDIA Research. Use this guide to install
 - [Kimodo installation guide](https://research.nvidia.com/labs/sil/projects/kimodo/docs/getting_started/installation.html)
 - [Kimodo quick start](https://research.nvidia.com/labs/sil/projects/kimodo/docs/getting_started/quick_start.html)
 - [Kimodo command-line interface](https://research.nvidia.com/labs/sil/projects/kimodo/docs/user_guide/cli.html)
+
+:::note[Kimodo Repository Used in This Guide]
+The installation commands in this guide use [`ROBOTIS-GIT/kimodo`](https://github.com/ROBOTIS-GIT/kimodo), forked from [`nv-tlabs/kimodo`](https://github.com/nv-tlabs/kimodo). The ROBOTIS fork includes a BVH export fix used in the AI Sapiens motion-retargeting workflow.
+:::
 
 ## Requirements
 
@@ -64,7 +68,7 @@ Docker is the recommended setup path for AI Sapiens users because it keeps Kimod
 Clone Kimodo and enter the repository:
 
 ```bash
-git clone https://github.com/nv-tlabs/kimodo.git
+git clone https://github.com/ROBOTIS-GIT/kimodo.git
 cd kimodo
 ```
 
@@ -112,13 +116,13 @@ Install a PyTorch build that matches your CUDA version. Follow the [official PyT
 Install Kimodo:
 
 ```bash
-pip install git+https://github.com/nv-tlabs/kimodo.git
+pip install git+https://github.com/ROBOTIS-GIT/kimodo.git
 ```
 
 To include the interactive demo dependencies:
 
 ```bash
-pip install "kimodo[all] @ git+https://github.com/nv-tlabs/kimodo.git"
+pip install "kimodo[all] @ git+https://github.com/ROBOTIS-GIT/kimodo.git"
 ```
 
 ## Install Option 3: Source Install
@@ -128,7 +132,7 @@ Use this option when you plan to inspect, modify, or extend Kimodo.
 Clone the repository:
 
 ```bash
-git clone https://github.com/nv-tlabs/kimodo.git
+git clone https://github.com/ROBOTIS-GIT/kimodo.git
 cd kimodo
 ```
 
@@ -314,3 +318,10 @@ Use the following workflow when preparing Kimodo motion for AI Sapiens:
 :::warning
 Do not execute generated Kimodo motion directly on AI Sapiens hardware. Create the motion with a SOMA model, export it, retarget it with Soma-retargeter, and validate the result before running it on the robot.
 :::
+
+## Attribution and Terms
+
+This page is an independent integration guide for AI Sapiens based on publicly available Kimodo documentation from NVIDIA.
+
+- Kimodo software, documentation, and model usage are governed by NVIDIA's official repository, documentation, and license/terms.
+- Use this page as operational guidance, and verify final legal or deployment requirements in official Kimodo sources before production or redistribution.

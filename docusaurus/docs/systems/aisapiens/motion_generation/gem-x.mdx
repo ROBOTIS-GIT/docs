@@ -1,0 +1,253 @@
+---
+sidebar_label: GEM-X
+title: GEM-X
+---
+
+# GEM-X
+
+GEM-X is a monocular whole-body 3D human motion estimation pipeline originally developed by NVIDIA. It recovers SOMA-format full-body motion (77 joints including body, hands, and face) from a single RGB video, then can retarget the recovered motion to humanoid robots.
+
+For AI Sapiens, use the [ROBOTIS-GIT/GEM-X](https://github.com/ROBOTIS-GIT/GEM-X) fork. It wires retargeting through [ROBOTIS-GIT/soma-retargeter](https://github.com/ROBOTIS-GIT/soma-retargeter) and supports both `unitree_g1` and `ai_sapiens_k1`. GEM-X output still needs conversion and validation in the AI Sapiens motion workflow before hardware execution.
+
+:::info
+Use the ROBOTIS GEM-X fork for AI Sapiens integration. Upstream research and pretrained checkpoints remain from NVIDIA ([NVlabs/GEM-X](https://github.com/NVlabs/GEM-X), [Hugging Face](https://huggingface.co/nvidia/GEM-X)). Prefer ROBOTIS docs and install steps below for the latest fork-specific options.
+:::
+
+## AI Sapiens GEM-X Demo
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/NeL2BmgcFJs" title="Open Humanoid ROBOTIS AI Sapiens #4: Learning from Videos" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowFullScreen></iframe>
+
+## Resources
+
+- [ROBOTIS GEM-X repository](https://github.com/ROBOTIS-GIT/GEM-X) (recommended)
+- [Installation guide](https://github.com/ROBOTIS-GIT/GEM-X/blob/main/docs/INSTALL.md)
+- [Demo guide](https://github.com/ROBOTIS-GIT/GEM-X/blob/main/docs/DEMO.md)
+- [Model overview](https://github.com/ROBOTIS-GIT/GEM-X/blob/main/docs/MODEL_OVERVIEW.md)
+- [Training and evaluation](https://github.com/ROBOTIS-GIT/GEM-X/blob/main/docs/TRAINING.md)
+- [macOS setup guide](https://github.com/ROBOTIS-GIT/GEM-X/blob/main/docs/INSTALL_MACOS.md)
+- [Pretrained checkpoint and ONNX assets](https://huggingface.co/nvidia/GEM-X)
+- [Upstream NVIDIA GEM-X](https://github.com/NVlabs/GEM-X)
+
+## What GEM-X Does
+
+- Recovers full-body SOMA motion from monocular video.
+- Produces 77-joint 2D keypoints and 3D pose outputs.
+- Recovers global/world motion trajectory from dynamic camera video.
+- Optionally retargets recovered human motion to `unitree_g1` or `ai_sapiens_k1` through ROBOTIS soma-retargeter.
+
+## Requirements
+
+Linux setup baseline for the ROBOTIS fork:
+
+- Python `3.12+`
+- CUDA-compatible NVIDIA GPU (recommended for full pipeline speed)
+- CUDA-compatible PyTorch build (`cu129` recommended for RTX 50-series / Blackwell; `cu126` also works on older GPUs)
+- `git-lfs` for SOMA assets
+- `uv` package manager
+
+macOS Apple Silicon is supported through ONNX Runtime acceleration for demo usage. For full details, use the macOS installation guide in the ROBOTIS repository.
+
+## Install on Linux
+
+Clone the ROBOTIS GEM-X fork with submodules:
+
+```bash
+git clone --recursive https://github.com/ROBOTIS-GIT/GEM-X.git
+cd GEM-X
+```
+
+If the repo was cloned without submodules:
+
+```bash
+git submodule update --init --recursive
+```
+
+Create and activate virtual environment:
+
+```bash
+pip install uv
+uv venv .venv --python 3.12
+source .venv/bin/activate
+```
+
+Install PyTorch matching your CUDA stack:
+
+```bash
+# Recommended for RTX 50-series / Blackwell
+uv pip install torch torchvision --index-url https://download.pytorch.org/whl/cu129
+
+# Or CUDA 12.6 on older GPUs
+# uv pip install torch torchvision --index-url https://download.pytorch.org/whl/cu126
+```
+
+Install SOMA body model and pull LFS assets:
+
+```bash
+uv pip install -e third_party/soma
+cd third_party/soma && git lfs pull && cd ../..
+```
+
+Install GEM and dependencies:
+
+```bash
+bash scripts/install_env.sh
+```
+
+Optional: install soma-retargeter for `--retarget` mode:
+
+```bash
+uv pip install -e third_party/soma-retargeter
+```
+
+## Download Pretrained Model
+
+GEM-X can auto-download checkpoints when needed, or you can download manually:
+
+```bash
+huggingface-cli download nvidia/GEM-X gem_soma.ckpt --local-dir inputs/pretrained
+```
+
+Expected checkpoint path:
+
+```text
+inputs/pretrained/gem_soma.ckpt
+```
+
+## Run Full 3D Inference
+
+Run the standard pipeline:
+
+```bash
+python scripts/demo/demo_soma.py \
+  --video path/to/video.mp4 \
+  --output_root outputs \
+  --ckpt inputs/pretrained/gem_soma.ckpt
+```
+
+If `--ckpt` is omitted, GEM-X attempts automatic download from Hugging Face.
+
+### Useful Flags
+
+| Option | Description |
+| --- | --- |
+| `--video` | Input video path (required). |
+| `--ckpt` | GEM pretrained checkpoint path. |
+| `--output_root` | Output root directory. |
+| `--static_cam` | Treat camera as static (disables VO). |
+| `--verbose` | Save debug overlays and intermediate views. |
+| `--retarget` | Retarget recovered motion (requires ROBOTIS soma-retargeter). |
+| `--robot` | `unitree_g1` (default) or `ai_sapiens_k1`. |
+
+## Run ONNX-Accelerated Demo
+
+Use ONNX/TensorRT-capable path:
+
+```bash
+python scripts/demo/demo_soma_onnx.py \
+  --video path/to/video.mp4
+```
+
+This path can also run well on Apple Silicon with ONNX Runtime and CoreML (see the macOS guide in the ROBOTIS repository).
+
+## Run 2D Keypoint-Only Demo
+
+If you only need tracked SOMA 77-joint keypoints:
+
+```bash
+python scripts/demo/demo_2d_keypoints.py \
+  --video path/to/video.mp4
+```
+
+## Output Files
+
+For `demo_soma.py`, GEM-X writes outputs under:
+
+```text
+<output_root>/<video_name>/
+```
+
+Common outputs:
+
+- `0_kp2d77_overlay.mp4`: 2D keypoint overlay
+- `<video_name>_1_incam.mp4`: in-camera mesh render
+- `<video_name>_2_global.mp4`: world/global render
+- `<video_name>_3_incam_global_horiz.mp4`: combined preview
+- `preprocess/bbx.pt`: tracked person bounding boxes
+- `preprocess/vitpose.pt`: 77-joint 2D keypoints
+- `preprocess/hpe_results.pt`: estimated 3D motion results
+
+With `--retarget` enabled, additional outputs include:
+
+| `--robot` | CSV | Preview video |
+| --- | --- | --- |
+| `unitree_g1` (default) | `<video_name>_retarget_unitree_g1.csv` | `<video_name>_4_unitree_g1_retarget.mp4` |
+| `ai_sapiens_k1` | `<video_name>_retarget_ai_sapiens_k1.csv` | `<video_name>_4_ai_sapiens_k1_retarget.mp4` |
+
+Also exported: matching `.bvh` next to the CSV stem.
+
+## Humanoid Retargeting (`--retarget`)
+
+GEM-X uses [ROBOTIS-GIT/soma-retargeter](https://github.com/ROBOTIS-GIT/soma-retargeter) for optional humanoid retargeting.
+
+Supported robots:
+
+- `unitree_g1` — Unitree G1 (29 DOF CSV)
+- `ai_sapiens_k1` — AI Sapiens K1 / `ai_sapiens` target (23 DOF CSV)
+
+Examples:
+
+```bash
+# Unitree G1
+python scripts/demo/demo_soma.py --video path/to/video.mp4 --retarget --robot unitree_g1
+
+# AI Sapiens K1
+python scripts/demo/demo_soma.py --video path/to/video.mp4 --retarget --robot ai_sapiens_k1
+```
+
+Install retargeter deps once:
+
+```bash
+uv pip install -e third_party/soma-retargeter
+# For K1, also ensure the AI Sapiens submodule/assets are present:
+# git -C third_party/soma-retargeter submodule update --init --recursive
+python third_party/soma-retargeter/tools/generate_ai_sapiens_retarget_mjcf.py --check
+```
+
+## AI Sapiens Workflow
+
+Use the following workflow when preparing GEM-X motion for AI Sapiens:
+
+1. Prepare and clean monocular source video.
+2. Run GEM-X (`demo_soma.py` or `demo_soma_onnx.py`) to recover SOMA motion.
+3. Inspect outputs, especially 2D keypoint quality and global trajectory stability.
+4. Retarget with `--retarget --robot ai_sapiens_k1`, or convert exported BVH through [Soma-retargeter](/docs/systems/aisapiens/motion_generation_retargeting/soma_retargeter/).
+5. Convert the soma-retargeter CSV to Cyclo Lab motion NPZ/CSV with `scripts/tools/motion/soma_retargeter_csv_converter.py`, then validate with `replay_csv.py` (see [Mimic](/docs/systems/aisapiens/reinforcement_learning/cyclo_lab/mimic/)).
+6. Validate in simulation before hardware execution.
+7. Execute on robot only after confirming limits, contacts, and stability.
+
+:::warning
+Do not run recovered motion on AI Sapiens hardware without retargeting and validation. Always test in simulation first and confirm safety constraints before real-robot execution.
+:::
+
+## Troubleshooting
+
+Common fixes:
+
+- `git lfs` pointer files instead of assets: run `cd third_party/soma && git lfs pull`.
+- CUDA/PyTorch mismatch: install the PyTorch build matching `nvidia-smi` driver capability (`cu129` for RTX 50-series).
+- `ModuleNotFoundError: gem`: activate venv and rerun `bash scripts/install_env.sh`.
+- OpenGL/EGL rendering issues: set `PYOPENGL_PLATFORM=egl` and `EGL_PLATFORM=surfaceless`.
+- Empty `third_party/soma-retargeter`: run `git submodule update --init --recursive third_party/soma-retargeter`.
+
+## Notes on Training
+
+NVIDIA's upstream training recipe in GEM-X uses internal data (`Bones RigPlay-1`) and is not fully reproducible with public data only. Most AI Sapiens users should focus on inference and retargeting workflows unless they have appropriate dataset access.
+
+## Attribution and Terms
+
+This page is an AI Sapiens integration guide for the [ROBOTIS-GIT/GEM-X](https://github.com/ROBOTIS-GIT/GEM-X) fork, based on NVIDIA's publicly available GEM-X release.
+
+- The ROBOTIS fork builds on NVIDIA GEM-X ([NVlabs/GEM-X](https://github.com/NVlabs/GEM-X)).
+- GEM-X source code is released under Apache 2.0.
+- GEM-X model artifacts and checkpoints are governed by NVIDIA model terms on Hugging Face and the upstream release pages.
+- Verify the latest license and model terms before production deployment, redistribution, or commercial release.

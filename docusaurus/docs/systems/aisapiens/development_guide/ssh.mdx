@@ -4,9 +4,11 @@ AI Sapiens supports mDNS, allowing you to connect without manually checking the 
 
 1. Connect the robot's SBC (onboard PC) to the same network as your PC using a LAN cable.
 
-2. Check the serial number printed on the back of the robot body. In this example, the serial number is **SNPR50A1004**.
+2. Check the robot serial number. It is printed on the back of the robot body and also appears on the controller LCD during startup. To display it again after startup, press the controller's `SE` button once. In this example, the serial number is **SNPR50A1004**.
 
 <img src="/img/systems/aisapiens/k1_serial_number_label.webp" alt="AI Sapiens K1 serial number label" width="760" />
+
+<img src="/img/systems/aisapiens/radiomaster_serial_number_lcd.png" alt="AI Sapiens K1 serial number shown on the RadioMaster controller LCD" width="760" />
 
 3. On your PC terminal, run:
 
@@ -14,6 +16,6 @@ AI Sapiens supports mDNS, allowing you to connect without manually checking the 
    ssh root@k1-SNPR50A1004.local
    ```
 
-Replace `SNPR50A1004` with the serial number printed on the back of your robot body.
+Replace `SNPR50A1004` with your robot's serial number.
 
 The root account has no password by default.

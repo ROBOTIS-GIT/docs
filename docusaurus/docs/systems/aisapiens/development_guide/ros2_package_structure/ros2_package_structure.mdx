@@ -1,19 +1,24 @@
 # ROS 2 Package Structure and Topic Description
 
-This section describes the ROS 2 package structure and related topics for AI Sapiens.
+This section describes the ROS 2 packages and main control interfaces for AI Sapiens.
 
-## Bringup Options
+## Package Overview
 
-<div class="coming-soon">
-  <div class="coming-soon-content">
-    <h3>Coming Soon</h3>
-    <p>Bringup option details will be added here.</p>
-  </div>
-</div>
+| Package | Role |
+| --- | --- |
+| `ai_sapiens` | Meta package that pulls in the AI Sapiens ROS 2 stack |
+| `ai_sapiens_interfaces` | Shared messages and services for impedance commands, RC status, mode control, and API heartbeat |
+| `ai_sapiens_bringup` | Launch files and controller manager configuration for K1 |
+| `ai_sapiens_description` | URDF, meshes, MuJoCo assets, and ros2_control xacro |
+| `ai_sapiens_joint_group_impedance_controller` | ros2_control joint-group impedance command controller |
+| `ai_sapiens_rc_broadcaster` | Publishes remote-controller Joy and RC status from the HAT board |
+| `ai_sapiens_sim2real` | Realtime policy runtime, mode FSM, and hardware command publisher |
+
+AI Sapiens-specific message and service types live in `ai_sapiens_interfaces`. Controllers and Sim2Real depend on that package instead of defining their own interface types.
 
 ## Control Topic Description (Impedance Control Mode)
 
-AI Sapiens uses a ROS 2 control controller configuration file to define the joint command order for Impedance Control Mode. The controller manager loads this YAML file at bringup time, and the `joint_group_position_controller` reads the `joints` list as the command array order.
+AI Sapiens uses a ROS 2 control controller configuration file to define the joint command order for Impedance Control Mode. The controller manager loads this YAML file at bringup time, and the `joint_group_impedance_controller` reads the `joints` list as the command array order.
 
 For the AI Sapiens K1 configuration, the controller file is:
 
@@ -30,33 +35,33 @@ ai_sapiens_bringup/config/k1_rev1/k1_rev1_controllers.yaml
   <div className="impedance-command-flow__arrow" />
   <div className="impedance-command-flow__node impedance-command-flow__node--message">
     <strong>Command Message</strong>
-    <code>JointPositionGainsCommand</code>
+    <code>JointImpedanceCommand</code>
     <span>Publishes position, feedforward torque, stiffness, and damping arrays.</span>
   </div>
   <div className="impedance-command-flow__arrow" />
   <div className="impedance-command-flow__node">
     <strong>Impedance Control Mode</strong>
-    <code>/joint_group_position_controller/commands</code>
+    <code>/joint_group_impedance_controller/commands</code>
     <span>Applies each array value to the matching joint index.</span>
   </div>
 </div>
 
-When the controller is named `joint_group_position_controller`, its private command topic resolves to:
+When the controller is named `joint_group_impedance_controller`, its private command topic resolves to:
 
 ```text
-/joint_group_position_controller/commands
+/joint_group_impedance_controller/commands
 ```
 
 Each index in `positions`, `feedforward`, `kp`, and `kd` must match the same index in the YAML `joints` list. For example, index `0` commands `left_hip_pitch_joint`, index `1` commands `left_hip_roll_joint`, and so on.
 
 ### Controller YAML
 
-The controller manager receives the controller parameters from the bringup package. The important part for command indexing is the `joints` list under `joint_group_position_controller.ros__parameters`.
+The controller manager receives the controller parameters from the bringup package. The important part for command indexing is the `joints` list under `joint_group_impedance_controller.ros__parameters`.
 
 ```yaml
-joint_group_position_controller:
+joint_group_impedance_controller:
   ros__parameters:
-    # === Command array order (/joint_group_position_controller/commands JointPositionGainsCommand) ===
+    # === Command array order (~/commands JointImpedanceCommand) ===
     joints:
       - left_hip_pitch_joint
       - left_hip_roll_joint
@@ -85,22 +90,15 @@ joint_group_position_controller:
 
 ### Command Message
 
-The command topic uses `ai_sapiens_controller_msgs/msg/JointPositionGainsCommand.msg`.
+The command topic uses `ai_sapiens_interfaces/msg/JointImpedanceCommand.msg`.
 
 ```text
 std_msgs/Header header
 
-# Desired joint positions [rad]
-float64[] positions
-
-# Feedforward torque [N*m]
-float64[] feedforward
-
-# Position gains [N*m/rad]
-float64[] kp
-
-# Damping gains [N*m*s/rad]
-float64[] kd
+float64[] positions    # rad
+float64[] feedforward  # N*m
+float64[] kp           # N*m/rad
+float64[] kd           # N*m/(rad/s)
 ```
 
 The four arrays are parallel arrays:
@@ -110,8 +108,8 @@ The four arrays are parallel arrays:
 | `positions[i]` | Desired joint position for `joints[i]` in $\mathrm{rad}$. |
 | `feedforward[i]` | Feedforward torque for `joints[i]` in $\mathrm{N}\cdot\mathrm{m}$. |
 | `kp[i]` | Position gain for `joints[i]` in $\mathrm{N}\cdot\mathrm{m}/\mathrm{rad}$. |
-| `kd[i]` | Damping gain for `joints[i]` in $\mathrm{N}\cdot\mathrm{m}\cdot\mathrm{s}/\mathrm{rad}$. |
+| `kd[i]` | Damping gain for `joints[i]` in $\mathrm{N}\cdot\mathrm{m}/(\mathrm{rad}/\mathrm{s})$. |
 
 All four arrays should have the same length as the configured `joints` list. If the array lengths or order do not match the controller YAML, commands may be applied to the wrong joint or rejected by the controller.
 
-In short, the YAML file is the source of truth for joint indexing. Any node publishing `JointPositionGainsCommand` should build its arrays in exactly this order before sending commands to the impedance controller.
+In short, the YAML file is the source of truth for joint indexing. Any node publishing `JointImpedanceCommand` should build its arrays in exactly this order before sending commands to the impedance controller.

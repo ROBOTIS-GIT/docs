@@ -110,12 +110,12 @@ If the robot and the external PC are connected to the same reachable network, th
 The impedance controller command topic is:
 
 ```text
-/joint_group_position_controller/commands
+/joint_group_impedance_controller/commands
 ```
 
 This example publishes a full command message with all desired positions, feedforward torque, position gains, and damping gains set to zero. Use it as a connectivity and message-format example before sending real motion commands.
 
-For the detailed joint order and `JointPositionGainsCommand` message definition, see [ROS 2 Package Structure and Topic Description](/docs/systems/aisapiens/development_guide/ros2_package_structure/).
+For the detailed joint order and `JointImpedanceCommand` message definition, see [ROS 2 Package Structure and Topic Description](/docs/systems/aisapiens/development_guide/ros2_package_structure/).
 
 The current command message includes `std_msgs/Header`, so the script sends an empty header with zero timestamp.
 
@@ -160,8 +160,8 @@ Header = get_message_class("std_msgs/msg/Header")
 Time = get_message_class("builtin_interfaces/msg/Time")
 
 publisher = ROS2Publisher(
-    topic="/joint_group_position_controller/commands",
-    msg_type="ai_sapiens_controller_msgs/msg/JointPositionGainsCommand",
+    topic="/joint_group_impedance_controller/commands",
+    msg_type="ai_sapiens_interfaces/msg/JointImpedanceCommand",
 )
 
 zero_positions = np.zeros(len(JOINTS), dtype=np.float64)

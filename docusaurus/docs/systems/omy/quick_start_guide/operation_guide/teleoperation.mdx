@@ -40,6 +40,11 @@ Leader-follower mode also enables gravity compensation on the leader. Thanks to 
 
 For demonstration recording, launch the camera node from the machine where the camera is connected. In the standard OMY setup, the camera is connected to the `USER PC`, so run the camera node inside the **OpenMANIPULATOR Docker container** on the `USER PC`.
 
+:::tip
+You can find the OMY camera port in [Camera Connection](/docs/systems/omy/quick_start_guide/setup_guide#camera-connection). We recommend connecting that port to the `USER PC` that runs Cyclo Intelligence.
+:::
+
+Enter the open_manipulator container in the `USER PC` and run the following command:
 ```bash
 ros2 launch realsense2_camera rs_launch.py camera_name:='cam_wrist'
 ```

@@ -1,0 +1,115 @@
+---
+sidebar_label: Overview
+title: Cyclo MJLab
+---
+
+# Cyclo MJLab
+
+Cyclo MJLab is the MuJoCo-based environment for training AI Sapiens K1 policies in simulation.
+Built on [MJLab](https://github.com/mujocolab/mjlab) and [MuJoCo](https://mujoco.org/), it provides reinforcement learning environments, task configurations, and motion-processing tools for K1 locomotion and motion imitation.
+
+Cyclo MJLab currently provides:
+
+- **Velocity** for flat-ground velocity-tracking locomotion.
+- **Mimic** for tracking Dance1 and Dance2 reference motions.
+
+Cyclo MJLab uses the same Sim2Real deployment process as Cyclo Lab.
+For robot-side deployment after training, follow [How to Deploy Your Own Cyclo Lab-Trained Policy](/docs/systems/aisapiens/development_guide/sim2real/#how-to-deploy-your-own-cyclo-lab-trained-policy).
+
+## Set Up the Docker Container
+
+Run Cyclo MJLab inside the provided Docker container.
+The container includes Python, MJLab, MuJoCo, the required GPU configuration, and the Python dependencies used by the training and playback scripts.
+A separate Conda or host Python environment is not required.
+
+Install these on the host PC first:
+
+- Docker Engine with Docker Compose.
+- An NVIDIA GPU with an appropriate NVIDIA driver.
+- NVIDIA Container Toolkit.
+
+Clone Cyclo MJLab with its submodules:
+
+```bash
+git clone --recurse-submodules https://github.com/ROBOTIS-GIT/cyclo_mjlab.git
+cd cyclo_mjlab
+```
+
+If the repository was cloned without submodules, initialize them before starting the container:
+
+```bash
+git submodule update --init --recursive
+```
+
+Start and enter the container:
+
+```bash
+./docker/container.sh start
+./docker/container.sh enter
+```
+
+The start command builds the Docker image when it is not already available, starts the container, and verifies the Python and NVIDIA GPU environment.
+
+Inside the container, the repository is mounted at:
+
+```text
+/workspace/cyclo_mjlab
+```
+
+Useful host-side commands:
+
+| Command | Use |
+| --- | --- |
+| `./docker/container.sh start` | Build the image if needed, initialize submodules, and start the container. |
+| `./docker/container.sh enter` | Open a shell inside the running container. |
+| `./docker/container.sh stop` | Stop the container. |
+| `./docker/container.sh logs` | Follow the container logs. |
+| `./docker/container.sh clean` | Remove the container and image while preserving cache volumes. |
+
+:::note
+The project source and `logs/` directory are shared with the host PC, so training results remain available after the container is stopped or removed.
+:::
+
+:::info
+The current environment uses Python 3.11, MJLab 1.2.0, MuJoCo and MuJoCo Warp 3.5.0, and Warp 1.12.0.
+:::
+
+## List Available Tasks
+
+Run the task-listing script inside the container to see the task IDs supported by the current source checkout:
+
+```bash
+python scripts/list_envs.py
+```
+
+The current Cyclo MJLab tasks are:
+
+```text
+Cyclo-Mimic-K1-Rev1-Dance1
+Cyclo-Mimic-K1-Rev1-Dance2
+Cyclo-Velocity-Flat-K1-Rev1-v0
+```
+
+Use `--keyword` to filter the list. For example, list only the Mimic tasks with:
+
+```bash
+python scripts/list_envs.py --keyword Mimic
+```
+
+Use the displayed task ID as the first positional argument to `train.py` or `play.py`.
+
+## Choose a Viewer
+
+The playback script accepts `--viewer auto`, `--viewer native`, or `--viewer viser`.
+The default `auto` mode uses the native MuJoCo viewer when a desktop display is available and otherwise starts the browser-based Viser viewer.
+
+To select a viewer explicitly, append `--viewer native` or `--viewer viser` to a `play.py` command.
+
+Use `native` when running locally with a desktop display.
+Use `viser` for a headless or remote environment, and open the URL printed by `play.py` in a web browser.
+
+## Next Steps
+
+- Train and export a velocity policy with the [Locomotion guide](./locomotion).
+- Train and export a motion-imitation policy with the [Mimic guide](./mimic).
+- Deploy the exported policy and configuration by following [How to Deploy Your Own Cyclo Lab-Trained Policy](/docs/systems/aisapiens/development_guide/sim2real/#how-to-deploy-your-own-cyclo-lab-trained-policy).

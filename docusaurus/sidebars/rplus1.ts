@@ -16,7 +16,6 @@ const rplus1Sidebar: SidebarsConfig[string] = [
   },
   doc('software/rplus_1_0/rplus_manager', 'R+ Manager'),
   doc('software/rplus_1_0/rplus_motion', 'R+ Motion'),
-  doc('software/rplus_1_0/dynamixel_wizard', 'Dynamixel Wizard'),
 ];
 
 export default rplus1Sidebar;

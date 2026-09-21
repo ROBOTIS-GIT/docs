@@ -1,7 +1,62 @@
----
-title: Open Source
----
+import GitHubRepositoryLink from '@site/src/components/GitHubRepositoryLink';
 
-import OpenSourceContent from '@site/docs/common/_partials/opensource.mdx';
+# Open Source
 
-<OpenSourceContent />
+The AI Worker open-source stack combines the robot's ROS 2 software with an end-to-end imitation learning workflow, control packages, and supporting simulation resources maintained by ROBOTIS.
+
+:::tip[Where should I start?]
+
+- To set up and operate the robot, start with [`ai_worker`](https://github.com/ROBOTIS-GIT/ai_worker).
+- To record demonstrations, prepare datasets, train policies, and run inference, start with the [Imitation Learning Overview](/docs/systems/aiworker/imitation_learning/overview) and continue with [Cyclo Intelligence](/docs/systems/aiworker/imitation_learning).
+- For constraint-aware arm motion, bimanual control, and VR teleoperation, use [Cyclo Control](/docs/systems/aiworker/advanced_features/cyclo_control).
+- For Isaac Lab simulation and robot assets, see [`cyclo_lab`](https://github.com/ROBOTIS-GIT/cyclo_lab).
+
+:::
+
+## AI Worker Repositories
+
+| Category | Repository | What it provides | Guide |
+|:---------|:-----------|:-----------------|:------|
+| <span className="repository-category-list"><span className="badge badge--secondary repository-category-badge">Robot platform</span><span className="badge badge--secondary repository-category-badge">ROS 2</span></span> | <GitHubRepositoryLink href="https://github.com/ROBOTIS-GIT/ai_worker">ROBOTIS-GIT/ai_worker</GitHubRepositoryLink> | Robot descriptions, bringup, controllers, navigation, teleoperation, and hardware integration for the AI Worker lineup | [Software Overview](/docs/systems/aiworker/specifications/software) |
+| <span className="repository-category-list"><span className="badge badge--secondary repository-category-badge">Imitation learning</span><span className="badge badge--secondary repository-category-badge">Data workflow</span></span> | <GitHubRepositoryLink href="https://github.com/ROBOTIS-GIT/cyclo_intelligence">ROBOTIS-GIT/cyclo_intelligence</GitHubRepositoryLink> | Demonstration recording, dataset preparation, training guidance, policy backend control, and robot inference from a web UI | [Cyclo Intelligence](/docs/systems/aiworker/imitation_learning) |
+| <span className="repository-category-list"><span className="badge badge--secondary repository-category-badge">Motion control</span><span className="badge badge--secondary repository-category-badge">QP controller</span></span> | <GitHubRepositoryLink href="https://github.com/ROBOTIS-GIT/cyclo_control">ROBOTIS-GIT/cyclo_control</GitHubRepositoryLink> | MoveL, MoveJ, bimanual controllers, constraint handling, and trajectory filtering for real-robot motion | [Cyclo Control](/docs/systems/aiworker/advanced_features/cyclo_control) |
+| <span className="repository-category-list"><span className="badge badge--secondary repository-category-badge">Simulation</span><span className="badge badge--secondary repository-category-badge">Isaac Lab</span></span> | <GitHubRepositoryLink href="https://github.com/ROBOTIS-GIT/cyclo_lab">ROBOTIS-GIT/cyclo_lab</GitHubRepositoryLink> | Isaac Lab-based simulation environments, tasks, and USD robot assets for AI Worker | [Simulation Overview](/docs/systems/aiworker/simulation) |
+
+## Simulation Models
+
+These robot-description and simulation models support visualization, testing, and simulation work around the primary imitation learning workflow.
+
+| Format | Repository location | Use |
+|:-------|:--------------------|:----|
+| <span className="badge badge--secondary repository-category-badge">URDF</span> | <GitHubRepositoryLink href="https://github.com/ROBOTIS-GIT/ai_worker/tree/main/ffw_description/urdf">ai_worker/ffw_description/urdf</GitHubRepositoryLink> | ROS 2 robot description and visualization |
+| <span className="badge badge--secondary repository-category-badge">MJCF</span> | <GitHubRepositoryLink href="https://github.com/ROBOTIS-GIT/robotis_mujoco_menagerie/tree/main/robotis_ffw">robotis_mujoco_menagerie/robotis_ffw</GitHubRepositoryLink> | MuJoCo models and scene configurations |
+| <span className="badge badge--secondary repository-category-badge">USD</span> | <GitHubRepositoryLink href="https://github.com/ROBOTIS-GIT/cyclo_lab/tree/main/source/cyclo_lab/data/robots/FFW">cyclo_lab/data/robots/FFW</GitHubRepositoryLink> | Isaac Sim and Isaac Lab robot assets |
+
+See the [Simulation Overview](/docs/systems/aiworker/simulation) for format descriptions and setup guidance.
+
+## Additional Resources
+
+| Resource | Available files | Guide |
+|:---------|:----------------|:------|
+| **FFW-BG2 drawings** | [PDF](https://www.robotis.com/service/download.php?no=2214) · [DWG](https://www.robotis.com/service/download.php?no=2231) · [STEP](https://www.robotis.com/service/download.php?no=2227) | [Hardware Specifications](/docs/systems/aiworker/specifications/hardware) |
+| **FFW-SG2 drawings** | [PDF](https://www.robotis.com/service/download.php?no=2215) · [DWG](https://www.robotis.com/service/download.php?no=2232) · [STEP](https://www.robotis.com/service/download.php?no=2228) | [Hardware Specifications](/docs/systems/aiworker/specifications/hardware) |
+| **FFW-LG2 drawings** | [STEP](https://www.robotis.com/service/download.php?no=2229) | [Hardware Specifications](/docs/systems/aiworker/specifications/hardware) |
+| **Docker image** | [robotis/ai-worker](https://hub.docker.com/r/robotis/ai-worker) | [Software Setup](/docs/systems/aiworker/quick_start_guide/setup_overview/software) |
+| **Tutorial videos** | [ROBOTIS Open Source Team](https://www.youtube.com/@ROBOTISOpenSourceTeam) | [Video Gallery](/docs/systems/aiworker/video_gallery) |
+
+## Open Source Licenses
+
+| Area | Default license or source |
+|:-----|:--------------------------|
+| ROBOTIS software repositories | Apache License 2.0 |
+| Simulation models | Check the `LICENSE` file in each model directory |
+| Hardware drawings and downloads | Check the terms supplied with each downloadable resource |
+| Docker images and bundled dependencies | Check the image notices and the licenses of included components |
+
+Always check the `LICENSE`, notices, and third-party license files in each repository before use. Those files are the source of truth and may contain additional terms.
+
+:::info[Looking for the full ROBOTIS catalog?]
+
+See the [ROBOTIS Open Source catalog](/docs/common/opensource) for CYCLO, shared software, models, datasets, and resources for other ROBOTIS products.
+
+:::

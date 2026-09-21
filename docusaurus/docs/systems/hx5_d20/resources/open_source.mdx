@@ -1,7 +1,56 @@
----
-title: Open Source
----
+import GitHubRepositoryLink from '@site/src/components/GitHubRepositoryLink';
 
-import OpenSourceContent from '@site/docs/common/_partials/opensource.mdx';
+# Open Source
 
-<OpenSourceContent />
+The ROBOTIS Hand open-source stack provides the ROS 2 software, robot description, and supporting resources needed to operate and integrate the hand.
+
+:::tip[Where should I start?]
+
+- To set up and operate the hand, start with [`robotis_hand`](https://github.com/ROBOTIS-GIT/robotis_hand) and the [Setup Guide](/docs/systems/hx5_d20/quick_start_guide/setup_guide).
+- For the currently available simulation model, see the [Simulation Overview](/docs/systems/hx5_d20/simulation).
+
+:::
+
+## ROBOTIS Hand Repositories
+
+| Category | Repository | What it provides | Guide |
+|:---------|:-----------|:-----------------|:------|
+| <span className="repository-category-list"><span className="badge badge--secondary repository-category-badge">Robot platform</span><span className="badge badge--secondary repository-category-badge">ROS 2</span></span> | <GitHubRepositoryLink href="https://github.com/ROBOTIS-GIT/robotis_hand">ROBOTIS-GIT/robotis_hand</GitHubRepositoryLink> | Robot description, bringup, controllers, MoveIt configuration, teleoperation, and pressure-sensor integration for the ROBOTIS Hand | [Software Overview](/docs/systems/hx5_d20/specifications/software) |
+| <span className="repository-category-list"><span className="badge badge--secondary repository-category-badge">Motion control</span><span className="badge badge--secondary repository-category-badge">ROS 2</span></span> | <GitHubRepositoryLink href="https://github.com/ROBOTIS-GIT/cyclo_control">ROBOTIS-GIT/cyclo_control</GitHubRepositoryLink> | Reusable control packages used by ROBOTIS Hand teleoperation workflows | [VR Teleoperation](/docs/systems/hx5_d20/quick_start_guide/vr_teleoperation_guide) |
+
+## Simulation Models
+
+The following robot-description model is publicly available for ROBOTIS Hand.
+
+| Format | Repository location | Use |
+|:-------|:--------------------|:----|
+| <span className="badge badge--secondary repository-category-badge">URDF</span> | <GitHubRepositoryLink href="https://github.com/ROBOTIS-GIT/robotis_hand/tree/main/robotis_hand_description/urdf">robotis_hand_description/urdf</GitHubRepositoryLink> | ROS 2 robot description and visualization |
+
+MJCF and USD models are not currently listed for ROBOTIS Hand.
+
+See the [Simulation Overview](/docs/systems/hx5_d20/simulation) for the available format description.
+
+## Additional Resources
+
+| Resource | Available files | Guide |
+|:---------|:----------------|:------|
+| **HX5-D20-MRT drawings** | [PDF](https://www.robotis.com/service/download.php?no=2239) · [DWG](https://www.robotis.com/service/download.php?no=2238) · [STEP](https://www.robotis.com/service/download.php?no=2240) | [Hardware Specifications](/docs/systems/hx5_d20/specifications/hardware) |
+| **HX5-D20-MLT drawings** | [PDF](https://www.robotis.com/service/download.php?no=2242) · [DWG](https://www.robotis.com/service/download.php?no=2241) · [STEP](https://www.robotis.com/service/download.php?no=2243) | [Hardware Specifications](/docs/systems/hx5_d20/specifications/hardware) |
+| **Docker image** | [robotis/robotis-hand](https://hub.docker.com/r/robotis/robotis-hand) | [Setup Guide](/docs/systems/hx5_d20/quick_start_guide/setup_guide) |
+| **Tutorial videos** | [ROBOTIS Open Source Team](https://www.youtube.com/@ROBOTISOpenSourceTeam) | [Video Gallery](/docs/systems/hx5_d20/video_gallery) |
+
+## Open Source Licenses
+
+| Area | Default license or source |
+|:-----|:--------------------------|
+| ROBOTIS software repositories | Apache License 2.0 |
+| Hardware drawings and downloads | Check the terms supplied with each downloadable resource |
+| Docker images and bundled dependencies | Check the image notices and the licenses of included components |
+
+Always check the `LICENSE`, notices, and third-party license files in each repository before use. Those files are the source of truth and may contain additional terms.
+
+:::info[Looking for the full ROBOTIS catalog?]
+
+See the [ROBOTIS Open Source catalog](/docs/common/opensource) for CYCLO, shared software, models, datasets, and resources for other ROBOTIS products.
+
+:::

@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const matter = require('gray-matter');
 
 const siteDir = path.resolve(__dirname, '..');
 const docsDir = path.join(siteDir, 'docs');
@@ -43,7 +44,7 @@ function withoutExtension(relativePath) {
   return relativePath.replace(/\.(md|mdx)$/, '');
 }
 
-function toDocRoute(relativePath) {
+function toDefaultDocRoute(relativePath) {
   const normalized = withoutExtension(relativePath).split(path.sep).join('/');
   const parts = normalized.split('/');
   const basename = parts[parts.length - 1];
@@ -54,6 +55,23 @@ function toDocRoute(relativePath) {
   }
 
   return `/docs/${parts.join('/')}`.replace(/\/$/, '');
+}
+
+function toDocRoute(relativePath) {
+  const defaultRoute = toDefaultDocRoute(relativePath);
+  const sourcePath = path.join(docsDir, relativePath);
+  const {data} = matter(fs.readFileSync(sourcePath, 'utf8'));
+  const slug = typeof data.slug === 'string' ? data.slug.trim() : '';
+
+  if (!slug) {
+    return defaultRoute;
+  }
+
+  if (slug.startsWith('/')) {
+    return path.posix.join('/docs', slug).replace(/\/$/, '');
+  }
+
+  return path.posix.join(path.posix.dirname(defaultRoute), slug).replace(/\/$/, '');
 }
 
 const koDocFiles = new Set(walkDocs(koDocsDir));

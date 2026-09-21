@@ -1,7 +1,61 @@
----
-title: Open Source
----
+import GitHubRepositoryLink from '@site/src/components/GitHubRepositoryLink';
 
-import OpenSourceContent from '@site/docs/common/_partials/opensource.mdx';
+# Open Source
 
-<OpenSourceContent />
+The OMY open-source stack combines ROS 2 packages for the manipulator with an end-to-end imitation learning workflow, control packages, and supporting simulation resources maintained by ROBOTIS.
+
+:::tip[Where should I start?]
+
+- To set up and operate OMY, start with [`open_manipulator`](https://github.com/ROBOTIS-GIT/open_manipulator).
+- To record demonstrations, prepare datasets, train policies, and run inference, start with the [Imitation Learning Overview](/docs/systems/omy/imitation_learning/overview) and continue with [Cyclo Intelligence](/docs/systems/omy/imitation_learning).
+- For constraint-aware Cartesian and joint-space motion on the real robot, use [Cyclo Control](/docs/systems/omy/advanced_features/cyclo_control).
+- For Isaac Lab simulation and robot assets, see [`cyclo_lab`](https://github.com/ROBOTIS-GIT/cyclo_lab).
+
+:::
+
+## OMY Repositories
+
+| Category | Repository | What it provides | Guide |
+|:---------|:-----------|:-----------------|:------|
+| <span className="repository-category-list"><span className="badge badge--secondary repository-category-badge">Robot platform</span><span className="badge badge--secondary repository-category-badge">ROS 2</span></span> | <GitHubRepositoryLink href="https://github.com/ROBOTIS-GIT/open_manipulator">ROBOTIS-GIT/open_manipulator</GitHubRepositoryLink> | Robot descriptions, bringup, controllers, MoveIt configuration, teleoperation, and hardware integration for OMY | [Software Overview](/docs/systems/omy/specifications/software) |
+| <span className="repository-category-list"><span className="badge badge--secondary repository-category-badge">Imitation learning</span><span className="badge badge--secondary repository-category-badge">Data workflow</span></span> | <GitHubRepositoryLink href="https://github.com/ROBOTIS-GIT/cyclo_intelligence">ROBOTIS-GIT/cyclo_intelligence</GitHubRepositoryLink> | Demonstration recording, dataset preparation, training guidance, policy backend control, and robot inference from a web UI | [Cyclo Intelligence](/docs/systems/omy/imitation_learning) |
+| <span className="repository-category-list"><span className="badge badge--secondary repository-category-badge">Motion control</span><span className="badge badge--secondary repository-category-badge">QP controller</span></span> | <GitHubRepositoryLink href="https://github.com/ROBOTIS-GIT/cyclo_control">ROBOTIS-GIT/cyclo_control</GitHubRepositoryLink> | MoveL and MoveJ controllers with interpolation, constraint handling, and self-collision avoidance for real-robot motion | [Cyclo Control](/docs/systems/omy/advanced_features/cyclo_control) |
+| <span className="repository-category-list"><span className="badge badge--secondary repository-category-badge">Simulation</span><span className="badge badge--secondary repository-category-badge">Isaac Lab</span></span> | <GitHubRepositoryLink href="https://github.com/ROBOTIS-GIT/cyclo_lab">ROBOTIS-GIT/cyclo_lab</GitHubRepositoryLink> | Isaac Lab-based simulation environments, tasks, and USD robot assets for OMY | [Simulation Overview](/docs/systems/omy/simulation) |
+
+## Simulation Models
+
+These robot-description and simulation models support visualization, testing, and simulation work around the primary imitation learning workflow.
+
+| Format | Repository location | Use |
+|:-------|:--------------------|:----|
+| <span className="badge badge--secondary repository-category-badge">URDF</span> | <GitHubRepositoryLink href="https://github.com/ROBOTIS-GIT/open_manipulator/tree/main/open_manipulator_description/urdf">open_manipulator_description/urdf</GitHubRepositoryLink> | ROS 2 robot description and visualization |
+| <span className="badge badge--secondary repository-category-badge">MJCF</span> | <GitHubRepositoryLink href="https://github.com/ROBOTIS-GIT/robotis_mujoco_menagerie/tree/main/robotis_omy">robotis_mujoco_menagerie/robotis_omy</GitHubRepositoryLink> | MuJoCo model and scene configuration |
+| <span className="badge badge--secondary repository-category-badge">USD</span> | <GitHubRepositoryLink href="https://github.com/ROBOTIS-GIT/cyclo_lab/tree/main/source/cyclo_lab/data/robots/OMY">cyclo_lab/data/robots/OMY</GitHubRepositoryLink> | Isaac Sim and Isaac Lab robot assets |
+
+See the [Simulation Overview](/docs/systems/omy/simulation) for format descriptions and setup guidance.
+
+## Additional Resources
+
+| Resource | Available files | Guide |
+|:---------|:----------------|:------|
+| **OMY-F3M drawings** | [PDF](https://www.robotis.com/service/download.php?no=2217) · [DWG](https://www.robotis.com/service/download.php?no=2216) · [STEP](https://www.robotis.com/service/download.php?no=2218) | [Hardware Specifications](/docs/systems/omy/specifications/hardware) |
+| **OMY-L100 drawings** | [PDF](https://www.robotis.com/service/download.php?no=2220) · [DWG](https://www.robotis.com/service/download.php?no=2219) · [STEP](https://www.robotis.com/service/download.php?no=2221) | [Hardware Specifications](/docs/systems/omy/specifications/hardware) |
+| **Docker image** | [robotis/open-manipulator](https://hub.docker.com/r/robotis/open-manipulator) | [Setup Guide](/docs/systems/omy/quick_start_guide/setup_guide) |
+| **Tutorial videos** | [ROBOTIS Open Source Team](https://www.youtube.com/@ROBOTISOpenSourceTeam) | [Video Gallery](/docs/systems/omy/video_gallery) |
+
+## Open Source Licenses
+
+| Area | Default license or source |
+|:-----|:--------------------------|
+| ROBOTIS software repositories | Apache License 2.0 |
+| Simulation models | Check the `LICENSE` file in each model directory |
+| Hardware drawings and downloads | Check the terms supplied with each downloadable resource |
+| Docker images and bundled dependencies | Check the image notices and the licenses of included components |
+
+Always check the `LICENSE`, notices, and third-party license files in each repository before use. Those files are the source of truth and may contain additional terms.
+
+:::info[Looking for the full ROBOTIS catalog?]
+
+See the [ROBOTIS Open Source catalog](/docs/common/opensource) for CYCLO, shared software, models, datasets, and resources for other ROBOTIS products.
+
+:::

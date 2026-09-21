@@ -31,15 +31,15 @@ flowchart LR
   subgraph Runtime["Robot Runtime"]
     Command["Policy / User Command"]
     Sim2Real["ai_sapiens_sim2real"]
-    CmdTopic["/joint_group_position_controller/commands"]
+    CmdTopic["/joint_group_impedance_controller/commands"]
   end
 
   subgraph Control["ROS 2 Control"]
     ControllerManager["controller_manager<br/>1 kHz"]
-    JointController["ai_sapiens_joint_group_position_controller"]
+    JointController["joint_group_impedance_controller"]
     StateBroadcaster["joint_state_broadcaster"]
     ImuBroadcaster["imu_sensor_broadcaster"]
-    RcBroadcaster["ai_sapiens_rc_broadcaster"]
+    RcBroadcaster["rc_broadcaster"]
     HardwareInterface["dynamixel_hardware_interface"]
     SDK["DynamixelSDK"]
   end
@@ -103,7 +103,7 @@ flowchart LR
   classDef hardware fill:#fff7ed,stroke:#ea580c,color:#0f172a,stroke-width:1.5px
 
   Command["Policy / User Command"] --> Sim2Real["ai_sapiens_sim2real"]
-  Sim2Real --> Controller["joint_group_position_controller"]
+  Sim2Real --> Controller["joint_group_impedance_controller"]
   Controller --> HardwareInterface["dynamixel_hardware_interface"]
   HardwareInterface --> SDK["DynamixelSDK"]
   SDK --> Bus["RS-485 Bus"]
@@ -114,7 +114,7 @@ flowchart LR
   class Bus,Actuator hardware
 ```
 
-`ai_sapiens_sim2real` produces robot joint commands from policy output, mode logic, and user command inputs. The `joint_group_position_controller` receives those commands and exposes them to [`dynamixel_hardware_interface`](https://github.com/ROBOTIS-GIT/dynamixel_hardware_interface) through ROS 2 control command interfaces. The hardware interface uses [DynamixelSDK](https://github.com/ROBOTIS-GIT/DynamixelSDK) to write position, feedforward torque, and impedance-control gains to the DYNAMIXEL-Q actuators.
+`ai_sapiens_sim2real` produces robot joint commands from policy output, mode logic, and user command inputs. The `joint_group_impedance_controller` receives those commands and exposes them to [`dynamixel_hardware_interface`](https://github.com/ROBOTIS-GIT/dynamixel_hardware_interface) through ROS 2 control command interfaces. The hardware interface uses [DynamixelSDK](https://github.com/ROBOTIS-GIT/DynamixelSDK) to write position, feedforward torque, and impedance-control gains to the DYNAMIXEL-Q actuators.
 
 ## State Flow
 
@@ -131,7 +131,7 @@ flowchart LR
   SDK --> HardwareInterface["dynamixel_hardware_interface"]
   HardwareInterface --> JointState["joint_state_broadcaster"]
   HardwareInterface --> Imu["imu_sensor_broadcaster"]
-  HardwareInterface --> RC["ai_sapiens_rc_broadcaster"]
+  HardwareInterface --> RC["rc_broadcaster"]
   JointState --> JointTopic["/joint_states"]
   Imu --> ImuTopic["/imu_sensor_broadcaster/imu"]
   RC --> RcTopic["/ai_sapiens_rc/status"]
@@ -141,7 +141,7 @@ flowchart LR
   class JointTopic,ImuTopic,RcTopic topic
 ```
 
-DYNAMIXEL-Q actuators report present position, present velocity, and present current through the hardware interface. The HAT board and IMU board are also exposed through the same ROS 2 control hardware layer, so battery state, emergency-stop state, remote-controller channels, and IMU measurements can be published as ROS 2 topics.
+DYNAMIXEL-Q actuators report present position, present velocity, and present current through the hardware interface. The HAT board and IMU board are also exposed through the same ROS 2 control hardware layer, so emergency-stop state, remote-controller channels, and IMU measurements can be published as ROS 2 topics. Battery monitoring interfaces are available on the HAT board hardware layer.
 
 ## ROS 2 Control Layer
 
@@ -151,8 +151,8 @@ AI Sapiens K1 uses `controller_manager` at a 1 kHz update rate. The controller l
 |---|---|
 | `joint_state_broadcaster` | Publishes actuator position, velocity, and effort as `/joint_states` |
 | `imu_sensor_broadcaster` | Publishes IMU orientation, angular velocity, and linear acceleration |
-| `ai_sapiens_rc_broadcaster` | Publishes remote-controller input and RC link status from the HAT board state interfaces |
-| `ai_sapiens_joint_group_position_controller` | Receives joint position, feedforward, `kp`, and `kd` commands for impedance control mode |
+| `rc_broadcaster` | Publishes remote-controller input and RC link status from the HAT board state interfaces (`ai_sapiens_rc_broadcaster` plugin) |
+| `joint_group_impedance_controller` | Receives joint position, feedforward, `kp`, and `kd` commands for impedance control mode (`ai_sapiens_joint_group_impedance_controller` plugin) |
 | [`dynamixel_hardware_interface`](https://github.com/ROBOTIS-GIT/dynamixel_hardware_interface) | Bridges ROS 2 control command/state interfaces to DynamixelSDK |
 | [`DynamixelSDK`](https://github.com/ROBOTIS-GIT/DynamixelSDK) | Handles packet communication with DYNAMIXEL-Q actuators and boards over RS-485 |
 
@@ -187,12 +187,12 @@ The controller command order is defined by the bringup controller configuration.
 
   <article className="ros-interface-card">
     <div className="ros-interface-card__header">
-      <code>/joint_group_position_controller/commands</code>
+      <code>/joint_group_impedance_controller/commands</code>
       <span>ROS 2 to controller</span>
     </div>
     <div className="ros-interface-card__type">
       <span>Type</span>
-      <code>ai_sapiens_controller_msgs/msg/JointPositionGainsCommand</code>
+      <code>ai_sapiens_interfaces/msg/JointImpedanceCommand</code>
     </div>
     <p>Joint position, feedforward torque, and impedance-control gain command.</p>
   </article>
@@ -216,7 +216,7 @@ The controller command order is defined by the bringup controller configuration.
     </div>
     <div className="ros-interface-card__type">
       <span>Type</span>
-      <code>ai_sapiens_rc_broadcaster/msg/AiSapiensRcStatus</code>
+      <code>ai_sapiens_interfaces/msg/RcStatus</code>
     </div>
     <p>RC link, failsafe, and HAT-board status.</p>
   </article>
@@ -235,12 +235,24 @@ The controller command order is defined by the bringup controller configuration.
 
   <article className="ros-interface-card">
     <div className="ros-interface-card__header">
-      <code>/ai_sapiens/request_mode_by_name</code>
+      <code>/ai_sapiens/api_heartbeat</code>
       <span>User/API to runtime</span>
     </div>
     <div className="ros-interface-card__type">
       <span>Type</span>
-      <code>ai_sapiens_sim2real/srv/RequestModeByName</code>
+      <code>ai_sapiens_interfaces/msg/ApiHeartbeat</code>
+    </div>
+    <p>Advancing-sequence heartbeat required while API authority is active.</p>
+  </article>
+
+  <article className="ros-interface-card">
+    <div className="ros-interface-card__header">
+      <code>/ai_sapiens/set_mode_by_name</code>
+      <span>User/API to runtime</span>
+    </div>
+    <div className="ros-interface-card__type">
+      <span>Type</span>
+      <code>ai_sapiens_interfaces/srv/SetModeByName</code>
     </div>
     <p>Requests a named robot control mode.</p>
   </article>
@@ -252,7 +264,7 @@ The controller command order is defined by the bringup controller configuration.
     </div>
     <div className="ros-interface-card__type">
       <span>Type</span>
-      <code>ai_sapiens_sim2real/srv/ListModes</code>
+      <code>ai_sapiens_interfaces/srv/ListModes</code>
     </div>
     <p>Lists available robot control modes.</p>
   </article>
@@ -264,7 +276,7 @@ The controller command order is defined by the bringup controller configuration.
     </div>
     <div className="ros-interface-card__type">
       <span>Type</span>
-      <code>ai_sapiens_sim2real/msg/ModeStatus</code>
+      <code>ai_sapiens_interfaces/msg/ModeStatus</code>
     </div>
     <p>Current mode and command authority status.</p>
   </article>

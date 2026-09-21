@@ -1,0 +1,72 @@
+/* Single-task vs subtask episode structure.
+   The Task Instruction spans the whole episode; subtask instructions label stages. */
+
+.sf {
+  margin: 20px 0;
+}
+
+.sf-row {
+  display: flex;
+  align-items: stretch;
+  gap: 14px;
+}
+
+.sf-row + .sf-row {
+  margin-top: 14px;
+}
+
+.sf-count {
+  flex: 0 0 34px;
+  align-self: center;
+  text-align: right;
+}
+
+.sf-episode {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid var(--ifm-color-emphasis-400);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.sf-task {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--ifm-color-emphasis-300);
+  background: var(--ifm-background-surface-color);
+  font-size: 0.92rem;
+}
+
+.sf-whole {
+  padding: 14px 12px;
+  background: color-mix(in srgb, var(--ifm-color-primary) 8%, var(--ifm-background-surface-color));
+  color: var(--ifm-color-emphasis-700);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.sf-segments {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.sf-segment {
+  flex: 1 1 120px;
+  min-width: 0;
+  padding: 10px 12px;
+  background: color-mix(in srgb, var(--ifm-color-primary) 8%, var(--ifm-background-surface-color));
+  font-size: 0.9rem;
+}
+
+.sf-segment + .sf-segment {
+  border-left: 1px dashed var(--ifm-color-emphasis-400);
+}
+
+.sf-label {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--ifm-color-emphasis-600);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}

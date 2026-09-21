@@ -6,22 +6,7 @@ This section covers advanced control and autonomy features that extend the AI Wo
 
 ## Available Features
 
-### 1. Behavior Trees
-
-Behavior Trees provide a modular, hierarchical framework for organizing robot control logic. They enable:
-
-- **Task Decomposition**: Break complex tasks into manageable subtasks
-- **Reactive Control**: Respond dynamically to sensor inputs and state changes
-- **Reusability**: Share behaviors across different tasks and scenarios
-- **Visual Design with Groot 2**: Design and edit behavior trees graphically using Groot 2, then export to XML format for execution
-
-Behavior Trees are particularly powerful when combined with imitation learning models, where learned policies serve as action nodes within a larger decision-making structure. The AI Worker uses XML-based behavior tree definitions created with [Groot 2](https://www.behaviortree.dev/groot), providing a visual workflow for designing complex robot behaviors.
-
-<a href="/docs/systems/aiworker/advanced_features/behavior_trees" class="button-shortcut">
-<span>Learn More About Behavior Trees</span>
-</a>
-
-### 2. Cyclo Control
+### 1. Cyclo Control
 
 Cyclo Control is the software layer that turns easier robot commands, such as target hand poses or joint commands, into joint trajectories that the real robot can execute. It is useful when you want higher-level motion commands while still relying on the controller to generate safe robot motion.
 
@@ -35,7 +20,7 @@ On AI Worker, this is especially helpful when you want motion that is easier to 
 <span>Learn More About Cyclo Motion Controller</span>
 </a>
 
-### 3. ROBOTIS Vuer
+### 2. ROBOTIS Vuer
 
 ROBOTIS Vuer lets AI Worker use a **Meta Quest 3** headset together with a browser-based **Vuer** client for immersive robot interaction. The headset connects to the robot-side ROS 2 system through **HTTPS/WSS**, allowing the system to exchange pose, visualization, and control data in real time.
 

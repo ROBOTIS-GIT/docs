@@ -1,0 +1,89 @@
+/* Record page areas: four tabs, each swapping the highlighted screenshot
+   and its description. Colours follow the Docusaurus theme variables. */
+
+.rpa {
+  margin: 1rem 0 1.5rem;
+}
+
+.rpa-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.rpa-tab {
+  display: flex;
+  flex: 1 1 170px;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 6px;
+  background: var(--ifm-background-surface-color);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.rpa-tab:hover {
+  border-color: var(--ifm-color-primary);
+}
+
+.rpa-tab:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}
+
+.rpa-tab--active {
+  border-color: var(--ifm-color-primary);
+  box-shadow: inset 0 0 0 1px var(--ifm-color-primary);
+}
+
+.rpa-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.rpa-badge {
+  color: var(--ifm-color-primary);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.rpa-panel {
+  margin-top: 10px;
+  padding: 12px 16px;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-left: 3px solid var(--ifm-color-primary);
+  border-radius: 0 6px 6px 0;
+  background: var(--ifm-background-surface-color);
+}
+
+.rpa-desc {
+  margin: 0 0 10px;
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.rpa-figure {
+  display: block;
+}
+
+.rpa-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 4px;
+}
+
+@media (max-width: 720px) {
+  .rpa-tabs {
+    flex-direction: column;
+  }
+}

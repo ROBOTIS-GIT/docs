@@ -1,0 +1,182 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="960" viewBox="0 0 1600 960" role="img" aria-labelledby="title desc">
+  <title id="title">Cyclo Manager Software Architecture</title>
+  <desc id="desc">Manual-ready overview of Cyclo Manager runtime boundaries and communication channels.</desc>
+  <defs>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#15803d"/>
+    </marker>
+    <marker id="arrow-slate" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#475569"/>
+    </marker>
+    <style>
+      .bg { fill: #f8fafc; }
+      .title { font: 700 34px "DejaVu Sans", Arial, sans-serif; fill: #0f172a; }
+      .subtitle { font: 400 15px "DejaVu Sans", Arial, sans-serif; fill: #64748b; }
+      .lane { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; stroke-dasharray: 7 7; }
+      .lane-title { font: 700 14px "DejaVu Sans", Arial, sans-serif; letter-spacing: 1px; fill: #475569; }
+      .card { fill: #ffffff; stroke-width: 2; }
+      .blue { stroke: #60a5fa; }
+      .green { stroke: #4ade80; }
+      .purple { stroke: #a78bfa; }
+      .rose { stroke: #fb7185; }
+      .amber { stroke: #f59e0b; }
+      .cyan { stroke: #38bdf8; }
+      .box-title { font: 700 19px "DejaVu Sans", Arial, sans-serif; fill: #0f172a; }
+      .box-subtitle { font: 700 14px "DejaVu Sans", Arial, sans-serif; fill: #334155; }
+      .body { font: 400 13px "DejaVu Sans", Arial, sans-serif; fill: #475569; }
+      .small { font: 400 12px "DejaVu Sans", Arial, sans-serif; fill: #64748b; }
+      .label { font: 700 12px "DejaVu Sans", Arial, sans-serif; fill: #334155; }
+      .flow-blue { fill: none; stroke: #2563eb; stroke-width: 2.3; marker-end: url(#arrow-blue); }
+      .flow-green { fill: none; stroke: #15803d; stroke-width: 2.3; marker-end: url(#arrow-green); }
+      .flow-slate { fill: none; stroke: #475569; stroke-width: 2.1; marker-end: url(#arrow-slate); }
+      .flow-dashed { fill: none; stroke: #64748b; stroke-width: 2; stroke-dasharray: 8 7; marker-end: url(#arrow-slate); }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1600" height="960"/>
+  <text class="title" x="800" y="52" text-anchor="middle">Cyclo Manager Software Architecture</text>
+  <text class="subtitle" x="800" y="80" text-anchor="middle">Runtime boundaries and primary communication channels for robot container management</text>
+
+  <rect class="lane" x="55" y="115" width="345" height="390" rx="18"/>
+  <text class="lane-title" x="85" y="148">CLIENTS AND DEPLOYMENT</text>
+
+  <rect class="lane" x="470" y="115" width="600" height="465" rx="18"/>
+  <text class="lane-title" x="500" y="148">CONTROL PLANE</text>
+
+  <rect class="lane" x="1150" y="115" width="395" height="465" rx="18"/>
+  <text class="lane-title" x="1180" y="148">MANAGED CONTAINERS</text>
+
+  <rect class="lane" x="55" y="635" width="500" height="230" rx="18"/>
+  <text class="lane-title" x="85" y="668">HOST MACHINE</text>
+
+  <rect class="lane" x="595" y="635" width="430" height="230" rx="18"/>
+  <text class="lane-title" x="625" y="668">ROS 2 RUNTIME</text>
+
+  <rect class="lane" x="1065" y="635" width="480" height="230" rx="18"/>
+  <text class="lane-title" x="1095" y="668">OPTIONAL SERVICES</text>
+
+  <rect class="card blue" x="90" y="180" width="275" height="112" rx="14"/>
+  <text class="box-title" x="118" y="215">Next.js Web UI</text>
+  <text class="body" x="118" y="242">Dashboard, System, Topics</text>
+  <text class="body" x="118" y="265">Terminal, noVNC, Apps hub</text>
+
+  <rect class="card amber" x="90" y="350" width="275" height="112" rx="14"/>
+  <text class="box-title" x="118" y="385">pip CLI</text>
+  <text class="body" x="118" y="412">cyclo_manager up / down / update</text>
+  <text class="body" x="118" y="435">Compose stack and host agent setup</text>
+
+  <rect class="card blue" x="510" y="175" width="520" height="365" rx="18"/>
+  <text class="box-title" x="548" y="213">cyclo_manager API Container</text>
+  <text class="body" x="548" y="240">FastAPI server on host network, port 8081</text>
+  <text class="body" x="548" y="263">Startup loads config.yml and initializes shared adapters</text>
+
+  <rect class="card blue" x="545" y="302" width="210" height="78" rx="12"/>
+  <text class="box-subtitle" x="568" y="331">REST API Routers</text>
+  <text class="small" x="568" y="354">System, Services, Docker</text>
+  <text class="small" x="568" y="371">ROS 2, Host, Version</text>
+
+  <rect class="card blue" x="785" y="302" width="210" height="78" rx="12"/>
+  <text class="box-subtitle" x="808" y="331">WebSocket Routers</text>
+  <text class="small" x="808" y="354">Service logs, ROS topics</text>
+  <text class="small" x="808" y="371">Interactive terminal sessions</text>
+
+  <rect class="card blue" x="545" y="410" width="130" height="88" rx="12"/>
+  <text class="box-subtitle" x="568" y="439">Agent Pool</text>
+  <text class="small" x="568" y="462">UDS HTTP</text>
+  <text class="small" x="568" y="479">s6 agents</text>
+
+  <rect class="card blue" x="695" y="410" width="130" height="88" rx="12"/>
+  <text class="box-subtitle" x="718" y="439">Docker</text>
+  <text class="small" x="718" y="462">Docker SDK</text>
+  <text class="small" x="718" y="479">docker.sock</text>
+
+  <rect class="card blue" x="845" y="410" width="150" height="88" rx="12"/>
+  <text class="box-subtitle" x="868" y="439">ROS 2 Bridge</text>
+  <text class="small" x="868" y="462">rclpy spin thread</text>
+  <text class="small" x="868" y="479">topic cache + publish</text>
+
+  <rect class="card green" x="1190" y="180" width="315" height="335" rx="18"/>
+  <text class="box-title" x="1222" y="218">Robot Containers</text>
+  <text class="body" x="1222" y="246">ai_worker, open_manipulator</text>
+  <text class="body" x="1222" y="269">optional service containers</text>
+
+  <rect class="card green" x="1225" y="305" width="245" height="76" rx="12"/>
+  <text class="box-subtitle" x="1248" y="335">In-container s6 Agent</text>
+  <text class="small" x="1248" y="358">FastAPI over Unix domain socket</text>
+
+  <rect class="card green" x="1225" y="415" width="245" height="76" rx="12"/>
+  <text class="box-subtitle" x="1248" y="445">s6-overlay Services</text>
+  <text class="small" x="1248" y="468">bringup, launch args, logs</text>
+
+  <rect class="card purple" x="90" y="700" width="210" height="92" rx="12"/>
+  <text class="box-subtitle" x="118" y="733">Docker Daemon</text>
+  <text class="small" x="118" y="756">Container lifecycle, logs</text>
+  <text class="small" x="118" y="773">images, exec, process control</text>
+
+  <rect class="card purple" x="325" y="700" width="195" height="92" rx="12"/>
+  <text class="box-subtitle" x="353" y="733">cyclo_host_agent</text>
+  <text class="small" x="353" y="756">systemd service on UDS</text>
+  <text class="small" x="353" y="773">git repos, manager update</text>
+
+  <rect class="card rose" x="635" y="700" width="160" height="92" rx="12"/>
+  <text class="box-subtitle" x="663" y="733">Topic Graph</text>
+  <text class="small" x="663" y="756">discovery and info</text>
+  <text class="small" x="663" y="773">subscription cache</text>
+
+  <rect class="card rose" x="830" y="700" width="160" height="92" rx="12"/>
+  <text class="box-subtitle" x="858" y="733">Robot Control</text>
+  <text class="small" x="858" y="756">/cmd_vel publish</text>
+  <text class="small" x="858" y="773">URDF, joint states</text>
+
+  <rect class="card cyan" x="1105" y="700" width="122" height="92" rx="12"/>
+  <text class="box-subtitle" x="1133" y="733">Zenoh</text>
+  <text class="small" x="1133" y="756">created by CLI</text>
+  <text class="small" x="1133" y="773">UI control</text>
+
+  <rect class="card cyan" x="1250" y="700" width="122" height="92" rx="12"/>
+  <text class="box-subtitle" x="1278" y="733">noVNC</text>
+  <text class="small" x="1278" y="756">created by CLI</text>
+  <text class="small" x="1278" y="773">browser access</text>
+
+  <rect class="card cyan" x="1395" y="700" width="122" height="92" rx="12"/>
+  <text class="box-subtitle" x="1423" y="733">External UI</text>
+  <text class="small" x="1423" y="756">Cyclo Intelligence</text>
+  <text class="small" x="1423" y="773">external link</text>
+
+  <path class="flow-blue" d="M365 236 L510 236"/>
+  <text class="label" x="395" y="221">REST + WebSocket</text>
+
+  <path class="flow-slate" d="M228 462 L228 610 L195 700"/>
+  <text class="label" x="245" y="606">compose stack</text>
+
+  <path class="flow-slate" d="M365 406 L460 406 L460 700 L422 700"/>
+  <text class="label" x="377" y="390">systemd host agent</text>
+
+  <path class="flow-green" d="M1030 342 L1190 342"/>
+  <text class="label" x="1080" y="327">UDS HTTP via /agents</text>
+
+  <path class="flow-slate" d="M760 498 L760 602 L195 602 L195 700"/>
+  <text class="label" x="420" y="587">Docker SDK via mounted docker.sock</text>
+
+  <path class="flow-slate" d="M610 498 L610 618 L422 618 L422 700"/>
+  <text class="label" x="445" y="635">host-agent UDS</text>
+
+  <path class="flow-blue" d="M920 498 L920 700"/>
+  <text class="label" x="940" y="608">rclpy</text>
+
+  <path class="flow-green" d="M1348 515 L1348 608 L715 608 L715 700"/>
+  <text class="label" x="1010" y="592">robot topic publish/subscribe</text>
+
+  <text class="small" x="1105" y="838">Created by CLI stack; started, stopped, or opened from the Web UI.</text>
+
+  <rect x="80" y="892" width="1440" height="42" rx="13" fill="#ffffff" stroke="#e2e8f0"/>
+  <line x1="112" y1="913" x2="172" y2="913" class="flow-blue"/>
+  <text class="small" x="184" y="917">Browser/API traffic</text>
+  <line x1="365" y1="913" x2="425" y2="913" class="flow-green"/>
+  <text class="small" x="437" y="917">Robot container and ROS data</text>
+  <line x1="655" y1="913" x2="715" y2="913" class="flow-slate"/>
+  <text class="small" x="727" y="917">Host control path</text>
+</svg>
