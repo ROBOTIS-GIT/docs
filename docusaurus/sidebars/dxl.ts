@@ -117,7 +117,6 @@ const dxlSidebar: SidebarsConfig[string] = [
         items: [
           doc('dxl/model_reference/x_series/xw_series/xw430-t200', 'XW430-T200'),
           doc('dxl/model_reference/x_series/xw_series/xw430-t333', 'XW430-T333'),
-          doc('dxl/model_reference/x_series/xw_series/xw540-h260', 'XW540-H260-R'),
           doc('dxl/model_reference/x_series/xw_series/xw540-t140', 'XW540-T140-R'),
           doc('dxl/model_reference/x_series/xw_series/xw540-t260', 'XW540-T260-R'),
         ],
