@@ -85,18 +85,18 @@ Pre-built ACT and GR00T policy Docker images are supported only on Blackwell-bas
   columns={['Setting', 'What it does']}
   rows={[
     {name: 'Enable', points: [
-      'Available only with Real Robot Deploy.',
-      'Before inference starts, moves the robot slowly to the first pose predicted by the model. Mobile base velocity commands are held at zero during the move.',
-      'Once it has finished, it does not run again until the model is loaded again, so resuming a paused inference skips it.',
+      'Off by default. Available only with Real Robot Deploy.',
+      'Before inference starts, moves the robot to the first pose predicted by the model over the set duration. If the policy commands a mobile base, its velocity is held at zero during the move.',
+      'Once it has finished, it does not run again until the model is loaded again, so resuming a paused inference skips it. If Stop interrupts the move, resuming runs it again.',
       'Needs a recent joint state from the robot. Otherwise Start fails.',
     ]},
     {name: 'Duration (s)', points: [
-      'Time for the move to the first pose, from 1 to 60 seconds. The default is 5.',
+      'Shown when Enable is checked. Time for the move to the first pose, from 1 to 60 seconds. The default is 5.',
     ]},
   ]}
 />
 
-While the robot moves, the panel shows `Synchronizing initial robot pose...`. `Stop` and `Clear` stay available and hold the robot at its current pose. If the hold fails, the panel stays in this state so that `Stop` can be retried.
+While the robot moves, the panel shows `Synchronizing initial robot pose...`. `Stop` and `Clear` stay available and hold the robot at its current pose. If the hold fails, the panel shows the error and stays in this state so that `Stop` or `Clear` can be retried.
 
 ### Rates
 
@@ -105,7 +105,7 @@ While the robot moves, the panel shows `Synchronizing initial robot pose...`. `S
   rows={[
     {name: 'Dataset FPS', points: [
       'Frame rate of the dataset the model was trained on. It sets the time between the action waypoints the model predicts.',
-      'Set it to the FPS of the training dataset. The default is 15.',
+      'Set it to the FPS of the training dataset (the target FPS used when the dataset was converted in Data Tools). The default is 15.',
     ]},
     {name: 'Control Hz', points: [
       'How often commands are published to the robot. The default is 100.',
