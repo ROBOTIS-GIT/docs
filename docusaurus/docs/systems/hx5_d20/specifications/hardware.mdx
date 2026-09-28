@@ -1,5 +1,7 @@
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import HXUrdfViewer from '@site/src/components/HXUrdfViewer';
+import {HX5_D20_RIGHT_VIEWER} from '@site/src/components/HXUrdfViewer/presets';
 
 # ROBOTIS Hand
 
@@ -14,6 +16,10 @@ High-DOF multi-finger robot hands designed for AI Worker / OMY platforms.
 
 <Tabs groupId="robot-type">
 <TabItem value="hx5-d20" label="HX5-D20">
+
+<div style={{marginBottom: '2rem'}}>
+  <HXUrdfViewer {...HX5_D20_RIGHT_VIEWER} />
+</div>
 
 ### Main Specifications
 
@@ -54,6 +60,9 @@ High-DOF multi-finger robot hands designed for AI Worker / OMY platforms.
 | Command Format    | DYNAMIXEL Protocol 2.0, Modbus-RTU       |
 
 > \* Exact low-level control mode and interfaces will be finalized with the ROS 2 drivers.
+
+<Tabs groupId="robot-type">
+<TabItem value="hx5-d20" label="HX5-D20">
 
 ### Device ID Assignment
 
@@ -122,3 +131,6 @@ High-DOF multi-finger robot hands designed for AI Worker / OMY platforms.
 | 162 |  Left Pinky MCP Pitch | finger_l_joint18 |    0° ~ 115°|
 | 163 |  Left Pinky PIP       | finger_l_joint19 |    0° ~ 90° |
 | 164 |  Left Pinky DIP       | finger_l_joint20 |    0° ~ 90° |
+
+</TabItem>
+</Tabs>
