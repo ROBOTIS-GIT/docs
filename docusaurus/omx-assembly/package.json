@@ -1,0 +1,29 @@
+{
+  "name": "omx-interactive-assembly",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "prepare:models": "node scripts/prepare-models.mjs",
+    "predev": "npm run prepare:models",
+    "dev": "vite --host 127.0.0.1 --port 5190",
+    "prebuild": "npm run prepare:models",
+    "build": "tsc --noEmit && vite build",
+    "pretest": "npm run prepare:models",
+    "test": "node --test tests/*.test.mjs",
+    "format": "prettier --write src tests scripts vite.config.ts",
+    "format:check": "prettier --check src tests scripts vite.config.ts"
+  },
+  "dependencies": {
+    "three": "0.185.1"
+  },
+  "devDependencies": {
+    "@types/three": "0.185.4",
+    "typescript": "6.0.2",
+    "vite": "8.2.2",
+    "prettier": "3.8.3"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}
