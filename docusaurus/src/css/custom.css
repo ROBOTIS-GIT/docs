@@ -2855,7 +2855,7 @@
 
 .ecosystem-project-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
   gap: 1.25rem;
   margin-top: 1.25rem;
 }
@@ -2884,7 +2884,8 @@
   height: 180px;
   margin-bottom: 1rem;
   border-radius: 8px;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
   background: var(--ifm-color-emphasis-100);
 }
 

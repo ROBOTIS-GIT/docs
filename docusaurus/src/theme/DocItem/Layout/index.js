@@ -10,6 +10,7 @@ import DocItemContent from '@theme/DocItem/Content';
 import DocBreadcrumbs from '@theme/DocBreadcrumbs';
 import ContentVisibility from '@theme/ContentVisibility';
 import ZenohRmwNoticeModal from '@site/src/components/ZenohRmwNoticeModal';
+import AutonomyStudioImageZoom from '@site/src/components/AutonomyStudioImageZoom';
 import unsupportedRoutes from '@site/src/data/koUnsupportedDocRoutes.json';
 import './styles.css';
 
@@ -82,6 +83,9 @@ export default function DocItemLayoutWrapper(props) {
     <>
       <ZenohRmwNoticeModal />
       <DocItemLayout {...props} />
+      {normalizedPath.startsWith('/docs/systems/aiworker/autonomy_studio/') && (
+        <AutonomyStudioImageZoom key={normalizedPath} />
+      )}
     </>
   );
 }
