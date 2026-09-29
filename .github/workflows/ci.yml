@@ -30,12 +30,19 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
-          cache-dependency-path: docusaurus/package-lock.json
+          cache-dependency-path: |
+            docusaurus/package-lock.json
+            docusaurus/omx-assembly/package-lock.json
 
       - name: Install dependencies
-        run: npm ci
+        run: |
+          npm ci
+          npm ci --prefix omx-assembly
+
+      - name: Test interactive assembly guide
+        run: npm run test:omx
 
       - name: Type check
         run: npm run typecheck
@@ -65,6 +72,8 @@ jobs:
           test -f docusaurus/build/index.html
           test -d docusaurus/build/ko
           test -f docusaurus/build/ko/index.html
+          test -f docusaurus/build/interactive/omx/index.html
+          test ! -d docusaurus/build/ko/interactive/omx
 
       - name: Upload build artifacts on failure
         uses: actions/upload-artifact@v4
