@@ -1,0 +1,111 @@
+import HXUrdfViewer from '@site/src/components/HXUrdfViewer';
+import HXFriendsClip from '@site/src/components/HXFriendsClip';
+import {
+  HX1_VIEWER,
+  HX3_D11_RIGHT_VIEWER,
+  HX4_D12_RIGHT_VIEWER,
+  HX5_D20_RIGHT_VIEWER,
+} from '@site/src/components/HXUrdfViewer/presets';
+
+# HX Friends
+
+HX Friends is a collection of robotic hand designs built on the **[DYNAMIXEL](/docs/dxl/model_reference/)** ecosystem.
+
+The [Community Showcase](/docs/common/ecosystem) shows how individuals, universities, and companies already use DYNAMIXEL actuators to build open-source robots — including many robotic hands. HX Friends continues that idea: explore diverse hand layouts on the same modular foundation, then invent your own.
+
+## Why the DYNAMIXEL Ecosystem
+
+| Strength | What it means for hand builders |
+| :------- | :------------------------------ |
+| **Versatile actuators** | One actuator family scales from a simple finger or gripper to high-DOF anthropomorphic hands and full robot platforms |
+| **Open-source culture** | Labs and companies publish DYNAMIXEL-based designs and tools you can study, remix, and extend |
+| **Proven for hands** | Peer projects such as MIDAS Hand, Orca Hand, Leap Hand, House of Dextra, OpenHand, and others already choose DYNAMIXEL for dexterous manipulation |
+| **Modular building blocks** | Familiar protocols and replaceable joints keep designs maintainable as you iterate |
+| **Global community** | A worldwide network of makers and researchers sharing projects proudly **Powered by DYNAMIXEL** |
+
+Together, these strengths give you an **open, modular, and practical** path to invent the hand that fits your robot and your problem.
+
+## HX Friends: HX5-D20
+
+A **20 DOF** anthropomorphic reference with a thumb and four fingers — useful when you want to explore human-like coverage and fine multi-finger coordination.
+
+<HXFriendsClip
+  title="HX5-D20 clips"
+  clips={[
+    {src: '/videos/systems/hx_friends/hx5_preset.gif', caption: 'Preset Movements'},
+    {src: '/videos/systems/hx_friends/hx5_vr.gif', caption: 'VR Teleoperation'},
+  ]}
+/>
+
+<HXUrdfViewer {...HX5_D20_RIGHT_VIEWER} />
+
+## HX Friends: HX4-D12
+
+A **12 DOF** design with a thumb and three fingers — a middle ground between dexterity and mechanical simplicity.
+
+<HXFriendsClip
+  title="HX4-D12 clips"
+  clips={[
+    {src: '/videos/systems/hx_friends/hx4_preset.gif', caption: 'Preset Movements'},
+    {src: '/videos/systems/hx_friends/hx4_vr.gif', caption: 'VR Teleoperation'},
+  ]}
+/>
+
+<HXUrdfViewer {...HX4_D12_RIGHT_VIEWER} />
+
+## HX Friends: HX3-D11
+
+An **11 DOF** three-finger reference — a more compact multi-finger option with fewer parts to manage.
+
+<HXFriendsClip
+  title="HX3-D11 clips"
+  clips={[
+    {src: '/videos/systems/hx_friends/hx3_preset.gif', caption: 'Preset Movements'},
+    {src: '/videos/systems/hx_friends/hx3_vr.gif', caption: 'VR Teleoperation'},
+  ]}
+/>
+
+<HXUrdfViewer {...HX3_D11_RIGHT_VIEWER} />
+
+## HX Friends: HX2-D01
+
+A gripper built with **[XM430-W210-R](/docs/dxl/model_reference/x_series/xm_series/xm430-w210)** — an example of using a different DYNAMIXEL series for a simpler, robust grasp form factor.
+
+<HXFriendsClip
+  title="HX2-D1-X clip"
+  clips={[
+    {src: '/videos/systems/hx_friends/hx2_motion.gif', caption: 'Gripper Motion'},
+  ]}
+/>
+
+:::info
+Interactive 3D model coming soon.
+:::
+
+## HX Friends: HX1-D03
+
+A **3 DOF** all-pitch finger — a minimal block for studying joint stacking and finger motion before you scale to a full hand.
+
+<HXFriendsClip
+  title="HX1-D3 clips"
+  clips={[
+    {src: '/videos/systems/hx_friends/hx1_wave.gif', caption: 'Wave Motion'},
+    {src: '/videos/systems/hx_friends/hx1_grasp.gif', caption: 'Grasp Motion'},
+  ]}
+/>
+
+<HXUrdfViewer {...HX1_VIEWER} />
+
+## Get Inspired
+
+Use these designs as references, not rules. Pose the joints, compare layouts, and notice how actuator choice and DOF change the feel of a hand.
+
+Then invent something we have not shown: a new finger arrangement, a lighter gripper, a task-specific mechanism, or a hybrid that only your application needs. The best next HX Friend is the one you create.
+
+## Explore More from the Community
+
+HX Friends is one slice of a larger DYNAMIXEL world. See what universities, companies, and makers are already building — and bring your own project into that circle.
+
+→ **[Community Showcase / Ecosystem](/docs/common/ecosystem)**
+
+You can also dig into ROBOTIS Hand open-source resources: [Open Source](/docs/systems/hx5_d20/resources/open_source) · [Discord](https://discord.gg/robotis)

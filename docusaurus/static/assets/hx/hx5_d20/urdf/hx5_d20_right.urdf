@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot name="hx5_d20_right">
+   <link name="hx5_d20_right_base">
+      <visual>
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <geometry>
+            <mesh filename="package://hx5_d20/meshes/hx5_d20_base_unit.stl" scale="0.001 0.001 0.001" />
+         </geometry>
+         <material name="grey">
+            <color rgba="0.2 0.2 0.2 1" />
+         </material>
+      </visual>
+   </link>
+   <!-- THUMB -->
+   <joint name="finger_r_joint_1" type="revolute">
+      <parent link="hx5_d20_right_base" />
+      <child link="finger_r_link1" />
+      <origin xyz="-0.0125 0.03493 0.04475" rpy="0 0 0" />
+      <axis xyz="1 0 0" />
+      <limit velocity="4.8" effort="1000" lower="-1.57" upper="1.57" />
+      <dynamics damping="0.05" />
+   </joint>
+   <link name="finger_r_link1">
+      <visual>
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <geometry>
+            <mesh filename="package://hx5_d20/meshes/hx5_d20_thumb_mcp.stl" scale="0.001 0.001 0.001" />
+         </geometry>
+         <material name="grey">
+            <color rgba="0.2 0.2 0.2 1" />
+         </material>
+      </visual>
+   </link>
+   <joint name="finger_r_joint_2" type="revolute">
+      <parent link="finger_r_link1" />
+      <child link="finger_r_link2" />
+      <origin xyz="0.039 0.0 0.0" rpy="0 0 0" />
+      <axis xyz="0 0 1" />
+      <limit velocity="4.8" effort="1000" lower="-1.57" upper="0.0" />
+      <dynamics damping="0.05" />
+   </joint>
+   <link name="finger_r_link2">
+      <visual>
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <geometry>
+            <mesh filename="package://hx5_d20/meshes/hx5_d20_thumb_mcp2.stl" scale="0.001 0.001 0.001" />
+         </geometry>
+         <material name="grey">
+            <color rgba="0.2 0.2 0.2 1" />
+         </material>
+      </visual>
+   </link>
+   <joint name="finger_r_joint_3" type="revolute">
+      <parent link="finger_r_link2" />
+      <child link="finger_r_link3" />
+      <origin xyz="0.0 0.028 0.0" rpy="0 0 0" />
+      <axis xyz="1 0 0" />
+      <limit velocity="4.8" effort="1000" lower="0.0" upper="1.57" />
+      <dynamics damping="0.05" />
+   </joint>
+   <link name="finger_r_link3">
+      <visual>
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <geometry>
+            <mesh filename="package://hx5_d20/meshes/hx5_d20_thumb_ip.stl" scale="0.001 0.001 0.001" />
+         </geometry>
+         <material name="grey">
+            <color rgba="0.2 0.2 0.2 1" />
+         </material>
+      </visual>
+   </link>
+   <joint name="finger_r_joint_4" type="revolute">
+      <parent link="finger_r_link3" />
+      <child link="finger_r_link4" />
+      <origin xyz="0.0 0.0355 0.0" rpy="0 0 0" />
+      <axis xyz="1 0 0" />
+      <limit velocity="4.8" effort="1000" lower="0.0" upper="1.57" />
+      <dynamics damping="0.05" />
+   </joint>
+   <link name="finger_r_link4">
+      <visual>
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <geometry>
+            <mesh filename="package://hx5_d20/meshes/hx5_d20_thumb_tip.stl" scale="0.001 0.001 0.001" />
+         </geometry>
+         <material name="grey">
+            <color rgba="0.2 0.2 0.2 1" />
+         </material>
+      </visual>
+   </link>
+   <!-- INDEX -->
+   <joint name="finger_r_joint_5" type="revolute">
+      <parent link="hx5_d20_right_base" />
+      <child link="finger_r_link5" />
+      <origin xyz="-0.0015 0.03608 0.09575" rpy="0 0 0" />
+      <axis xyz="1 0 0" />
+      <limit velocity="4.8" effort="1000" lower="-0.6" upper="0.6"/>
+      <dynamics damping="0.05" />
+   </joint>
+   <link name="finger_r_link5">
+      <visual>
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <geometry>
+            <mesh filename="package://hx5_d20/meshes/hx5_d20_finger_mcp.stl" scale="0.001 0.001 0.001" />
+         </geometry>
+         <material name="grey">
+            <color rgba="0.2 0.2 0.2 1" />
+         </material>
+      </visual>
+   </link>
+   <joint name="finger_r_joint_6" type="revolute">
+      <parent link="finger_r_link5" />
+      <child link="finger_r_link6" />
+      <origin xyz="0.0165 0.0 0.0235" rpy="0 0 0" />
+      <axis xyz="0 1 0" />
+      <limit velocity="4.8" effort="1000" lower="0.0" upper="2.0" />
+      <dynamics damping="0.05" />
+   </joint>
+   <link name="finger_r_link6">
+      <visual>
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <geometry>
+            <mesh filename="package://hx5_d20/meshes/hx5_d20_finger_pip.stl" scale="0.001 0.001 0.001" />
+         </geometry>
+         <material name="grey">
+            <color rgba="0.2 0.2 0.2 1" />
+         </material>
+      </visual>
+   </link>
+   <joint name="finger_r_joint_7" type="revolute">
+      <parent link="finger_r_link6" />
+      <child link="finger_r_link7" />
+      <origin xyz="0.0 0.0 0.0355" rpy="0 0 0" />
+      <axis xyz="0 1 0" />
+      <limit velocity="4.8" effort="1000" lower="0.0" upper="1.57" />
+      <dynamics damping="0.05" />
+   </joint>
+   <link name="finger_r_link7">
+      <visual>
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <geometry>
+            <mesh filename="package://hx5_d20/meshes/hx5_d20_finger_dip.stl" scale="0.001 0.001 0.001" />
+         </geometry>
+         <material name="grey">
+            <color rgba="0.2 0.2 0.2 1" />
+         </material>
+      </visual>
+   </link>
+   <joint name="finger_r_joint_8" type="revolute">
+      <parent link="finger_r_link7" />
+      <child link="finger_r_link8" />
+      <origin xyz="0.0 0.0 0.0355" rpy="0 0 0" />
+      <axis xyz="0 1 0" />
+      <limit velocity="4.8" effort="1000" lower="0.0" upper="1.57" />
+      <dynamics damping="0.05" />
+   </joint>
+   <link name="finger_r_link8">
+      <visual>
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <geometry>
+            <mesh filename="package://hx5_d20/meshes/hx5_d20_finger_tip.stl" scale="0.001 0.001 0.001" />
+         </geometry>
+         <material name="grey">
+            <color rgba="0.2 0.2 0.2 1" />
+         </material>
+      </visual>
+   </link>
+   <!-- MIDDLE -->
+   <joint name="finger_r_joint_9" type="revolute">
+      <parent link="hx5_d20_right_base" />
+      <child link="finger_r_link9" />
+      <origin xyz="-0.0015 0.00908 0.10353" rpy="0 0 0" />
+      <axis xyz="1 0 0" />
+      <limit velocity="4.8" effort="1000" lower="-0.6" upper="0.6"/>
+      <dynamics damping="0.05" />
+   </joint>
+   <link name="finger_r_link9">
+      <visual>
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <geometry>
+            <mesh filename="package://hx5_d20/meshes/hx5_d20_finger_mcp.stl" scale="0.001 0.001 0.001" />
+         </geometry>
+         <material name="grey">
+            <color rgba="0.2 0.2 0.2 1" />
+         </material>
+      </visual>
+   </link>
+   <joint name="finger_r_joint_10" type="revolute">
+      <parent link="finger_r_link9" />
+      <child link="finger_r_link10" />
+      <origin xyz="0.0165 0.0 0.0235" rpy="0 0 0" />
+      <axis xyz="0 1 0" />
+      <limit velocity="4.8" effort="1000" lower="0.0" upper="2.0" />
+      <dynamics damping="0.05" />
+   </joint>
+   <link name="finger_r_link10">
+      <visual>
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <geometry>
+            <mesh filename="package://hx5_d20/meshes/hx5_d20_finger_pip.stl" scale="0.001 0.001 0.001" />
+         </geometry>
+         <material name="grey">
+            <color rgba="0.2 0.2 0.2 1" />
+         </material>
+      </visual>
+   </link>
+   <joint name="finger_r_joint_11" type="revolute">
+      <parent link="finger_r_link10" />
+      <child link="finger_r_link11" />
+      <origin xyz="0.0 0.0 0.0355" rpy="0 0 0" />
+      <axis xyz="0 1 0" />
+      <limit velocity="4.8" effort="1000" lower="0.0" upper="1.57" />
+      <dynamics damping="0.05" />
+   </joint>
+   <link name="finger_r_link11">
+      <visual>
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <geometry>
+            <mesh filename="package://hx5_d20/meshes/hx5_d20_finger_dip.stl" scale="0.001 0.001 0.001" />
+         </geometry>
+         <material name="grey">
+            <color rgba="0.2 0.2 0.2 1" />
+         </material>
+      </visual>
+   </link>
+   <joint name="finger_r_joint_12" type="revolute">
+      <parent link="finger_r_link11" />
+      <child link="finger_r_link12" />
+      <origin xyz="0.0 0.0 0.0355" rpy="0 0 0" />
+      <axis xyz="0 1 0" />
+      <limit velocity="4.8" effort="1000" lower="0.0" upper="1.57" />
+      <dynamics damping="0.05" />
+   </joint>
+   <link name="finger_r_link12">
+      <visual>
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <geometry>
+            <mesh filename="package://hx5_d20/meshes/hx5_d20_finger_tip.stl" scale="0.001 0.001 0.001" />
+         </geometry>
+         <material name="grey">
+            <color rgba="0.2 0.2 0.2 1" />
+         </material>
+      </visual>
+   </link>
+   <!-- RING -->
+   <joint name="finger_r_joint_13" type="revolute">
+      <parent link="hx5_d20_right_base" />
+      <child link="finger_r_link13" />
+      <origin xyz="-0.0015 -0.01792 0.09775" rpy="0 0 0" />
+      <axis xyz="1 0 0" />
+      <limit velocity="4.8" effort="1000" lower="-0.6" upper="0.6"/>
+      <dynamics damping="0.05" />
+   </joint>
+   <link name="finger_r_link13">
+      <visual>
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <geometry>
+            <mesh filename="package://hx5_d20/meshes/hx5_d20_finger_mcp.stl" scale="0.001 0.001 0.001" />
+         </geometry>
+         <material name="grey">
+            <color rgba="0.2 0.2 0.2 1" />
+         </material>
+      </visual>
+   </link>
+   <joint name="finger_r_joint_14" type="revolute">
+      <parent link="finger_r_link13" />
+      <child link="finger_r_link14" />
+      <origin xyz="0.0165 0.0 0.0235" rpy="0 0 0" />
+      <axis xyz="0 1 0" />
+      <limit velocity="4.8" effort="1000" lower="0.0" upper="2.0" />
+      <dynamics damping="0.05" />
+   </joint>
+   <link name="finger_r_link14">
+      <visual>
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <geometry>
+            <mesh filename="package://hx5_d20/meshes/hx5_d20_finger_pip.stl" scale="0.001 0.001 0.001" />
+         </geometry>
+         <material name="grey">
+            <color rgba="0.2 0.2 0.2 1" />
+         </material>
+      </visual>
+   </link>
+   <joint name="finger_r_joint_15" type="revolute">
+      <parent link="finger_r_link14" />
+      <child link="finger_r_link15" />
+      <origin xyz="0.0 0.0 0.0355" rpy="0 0 0" />
+      <axis xyz="0 1 0" />
+      <limit velocity="4.8" effort="1000" lower="0.0" upper="1.57" />
+      <dynamics damping="0.05" />
+   </joint>
+   <link name="finger_r_link15">
+      <visual>
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <geometry>
+            <mesh filename="package://hx5_d20/meshes/hx5_d20_finger_dip.stl" scale="0.001 0.001 0.001" />
+         </geometry>
+         <material name="grey">
+            <color rgba="0.2 0.2 0.2 1" />
+         </material>
+      </visual>
+   </link>
+   <joint name="finger_r_joint_16" type="revolute">
+      <parent link="finger_r_link15" />
+      <child link="finger_r_link16" />
+      <origin xyz="0.0 0.0 0.0355" rpy="0 0 0" />
+      <axis xyz="0 1 0" />
+      <limit velocity="4.8" effort="1000" lower="0.0" upper="1.57" />
+      <dynamics damping="0.05" />
+   </joint>
+   <link name="finger_r_link16">
+      <visual>
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <geometry>
+            <mesh filename="package://hx5_d20/meshes/hx5_d20_finger_tip.stl" scale="0.001 0.001 0.001" />
+         </geometry>
+         <material name="grey">
+            <color rgba="0.2 0.2 0.2 1" />
+         </material>
+      </visual>
+   </link>
+   <!-- PINKY -->
+   <joint name="finger_r_joint_17" type="revolute">
+      <parent link="hx5_d20_right_base" />
+      <child link="finger_r_link17" />
+      <origin xyz="-0.0015 -0.04492 0.07875" rpy="0 0 0" />
+      <axis xyz="1 0 0" />
+      <limit velocity="4.8" effort="1000" lower="-0.6" upper="0.6"/>
+      <dynamics damping="0.05" />
+   </joint>
+   <link name="finger_r_link17">
+      <visual>
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <geometry>
+            <mesh filename="package://hx5_d20/meshes/hx5_d20_finger_mcp.stl" scale="0.001 0.001 0.001" />
+         </geometry>
+         <material name="grey">
+            <color rgba="0.2 0.2 0.2 1" />
+         </material>
+      </visual>
+   </link>
+   <joint name="finger_r_joint_18" type="revolute">
+      <parent link="finger_r_link17" />
+      <child link="finger_r_link18" />
+      <origin xyz="0.0165 0.0 0.0235" rpy="0 0 0" />
+      <axis xyz="0 1 0" />
+      <limit velocity="4.8" effort="1000" lower="0.0" upper="2.0" />
+      <dynamics damping="0.05" />
+   </joint>
+   <link name="finger_r_link18">
+      <visual>
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <geometry>
+            <mesh filename="package://hx5_d20/meshes/hx5_d20_finger_pip.stl" scale="0.001 0.001 0.001" />
+         </geometry>
+         <material name="grey">
+            <color rgba="0.2 0.2 0.2 1" />
+         </material>
+      </visual>
+   </link>
+   <joint name="finger_r_joint_19" type="revolute">
+      <parent link="finger_r_link18" />
+      <child link="finger_r_link19" />
+      <origin xyz="0.0 0.0 0.0355" rpy="0 0 0" />
+      <axis xyz="0 1 0" />
+      <limit velocity="4.8" effort="1000" lower="0.0" upper="1.57" />
+      <dynamics damping="0.05" />
+   </joint>
+   <link name="finger_r_link19">
+      <visual>
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <geometry>
+            <mesh filename="package://hx5_d20/meshes/hx5_d20_finger_dip.stl" scale="0.001 0.001 0.001" />
+         </geometry>
+         <material name="grey">
+            <color rgba="0.2 0.2 0.2 1" />
+         </material>
+      </visual>
+   </link>
+   <joint name="finger_r_joint_20" type="revolute">
+      <parent link="finger_r_link19" />
+      <child link="finger_r_link20" />
+      <origin xyz="0.0 0.0 0.0355" rpy="0 0 0" />
+      <axis xyz="0 1 0" />
+      <limit velocity="4.8" effort="1000" lower="0.0" upper="1.57" />
+      <dynamics damping="0.05" />
+   </joint>
+   <link name="finger_r_link20">
+      <visual>
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <geometry>
+            <mesh filename="package://hx5_d20/meshes/hx5_d20_finger_tip.stl" scale="0.001 0.001 0.001" />
+         </geometry>
+         <material name="grey">
+            <color rgba="0.2 0.2 0.2 1" />
+         </material>
+      </visual>
+   </link>
+</robot>
