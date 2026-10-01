@@ -9,11 +9,11 @@ For more information about Zenoh, see [Zenoh Communication](/docs/systems/aiwork
 Use the **System** page in Cyclo Manager to start and stop the AI Worker robot stack.
 From this page, you can bring up the Zenoh daemon, follower robot, LG2 leader, and related services while checking logs and ROS 2 status from the browser.
 
-![System Page](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/system_page.png)
+![System Page](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/bringup/system_page.png)
 
 ## Bringup the Zenoh Daemon
 
-AI Worker uses Zenoh as the default RMW. So you need to start the Zenoh daemon before bringing up the robot stack for ROS 2 communication.
+AI Worker uses Zenoh as the default RMW. So you **need to start the Zenoh daemon before bringing up** the robot stack for ROS 2 communication.
 
 The **Zenoh Daemon** control box controls the `zenoh-daemon` Docker container.
 When you start this container, the Zenoh daemon process starts automatically inside it.
@@ -21,7 +21,7 @@ When you start this container, the Zenoh daemon process starts automatically ins
 Click the arrow icon in the **Zenoh Daemon** control box to start the Zenoh daemon.
 Click the log icon if you need to inspect daemon logs.
 
-![Zenoh Daemon](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/zenoh_daemon.png)
+![Zenoh Daemon](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/bringup/zenoh_daemon.png)
 
 :::info
 - Red light indicates the Zenoh daemon is not running. Green light indicates the Zenoh daemon is running.
@@ -35,10 +35,10 @@ Click the log icon if you need to inspect daemon logs.
 Select the robot model to bring up and click the **Robot Bringup(▶️)** button.  
 Parameter is set to the default value. You can change the parameter by clicking the **Parameter Setup(⚙️)** button.
 
-![Robot Bringup Button](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/robot_bringup_button.png)
+![Robot Bringup Button](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/bringup/robot_bringup_button.png)
 
-Available follower types: **SG2**, **BG2**, **SH5**, **BH5**, **Mobile**.
-(Mobile starts only the mobile base stack. Use this when you only need base movement, such as Jog.)
+Available follower types: **SG2**, **BG2**, **F1**, **F2**, **SH5**, **BH5**, **Mobile**.
+(Mobile starts only the mobile base stack. Use this when you only need base movement.)
 
 The control box provides:
 
@@ -52,7 +52,7 @@ The control box provides:
 Cyclo Manager and the AI Worker container must use the same `ROS_DOMAIN_ID` for 3D model display, joint states, and ROS 2 topic status. [(How to change ROS_DOMAIN_ID)](/docs/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/manage_container#change-ros_domain_id)
 :::
 
-![System Bringup](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/system_page_bringup.png)
+![System Bringup](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/bringup/system_page_bringup.png)
 
 After the robot stack starts, the 3D model and robot status panels update automatically.
 If the model or joint states do not update, check `ROS_DOMAIN_ID`, the robot bringup logs, and the relevant ROS 2 topics.
@@ -65,7 +65,7 @@ If the model or joint states do not update, check `ROS_DOMAIN_ID`, the robot bri
 </div>
 <div class="cyclo-bringup-legend__media">
 
-<img src="/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/log_clear_button.png" alt="log clear button" loading="lazy" />
+<img src="/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/bringup/log_clear_button.png" alt="log clear button" loading="lazy" />
 
 </div>
 </div>
@@ -73,10 +73,10 @@ If the model or joint states do not update, check `ROS_DOMAIN_ID`, the robot bri
 
 ## Configure Launch Arguments
 
-Click the gear icon to configure launch arguments before starting a service.
+Click the gear icon to configure launch arguments before bringup the robot.
 Cyclo Manager stores the selected values in the browser and sends them to the container agent when you start the bringup service.
 
-![Parameter setup dialog](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/parameter_setup.png)
+![Parameter setup dialog](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/bringup/parameter_setup.png)
 
 Common arguments include:
 
@@ -101,6 +101,6 @@ To move the robot to the pack position during bringup:
 3. Start **Robot Bringup**.
 4. Stop the robot after it reaches the pack position.
 
-![Parameter setup dialog](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/parameter_setup_pack_position.png)
+![Parameter setup dialog](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/bringup/parameter_setup_pack_position.png)
 
 The robot moves to the pose defined in `pack_position.yaml` during startup.

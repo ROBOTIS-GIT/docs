@@ -15,11 +15,13 @@ When you power on the robot later, you only need to open Cyclo Manager from your
 
 1. Connect to the AI Worker Orin via SSH.
 
-Replace `SNPR48A0000` with the serial number printed on the back of the robot body.
+Replace `<serial-number>` with the serial number printed on the back of the robot body.
 
 ```bash
-ssh robotis@ffw-SNPR48A0000.local
+ssh robotis@ffw-<serial-number>.local
 ```
+
+For example: `ssh robotis@ffw-snpr48a0000.local`.
 
 2. Install the Python package `cyclo-manager` on the AI Worker Orin.
 
@@ -50,16 +52,18 @@ cyclo_manager update
 - `cyclo_manager up`:
   - Registers a **host-agent** systemd service so it always runs.
   - Creates and starts the **cyclo_manager** (API) and **cyclo_manager_ui** containers.
-  - Creates the **docker daemon** and **novnc-server** containers but does **not** start them yet (start them later when needed).
+  - Creates the **Zenoh daemon** and **novnc-server** containers but does **not** start them yet (start them later when needed).
 
 - `cyclo_manager down`:
   - **Stops and removes** the containers created by `cyclo_manager up`.
   - Removes the **host-agent** service from systemd.
 
 - `cyclo_manager update`:
+  - Stops and removes the running Cyclo Manager stack containers.
   - Upgrades the **`cyclo-manager`** package with **pip**.
-  - Stops the running containers and starts new ones with the updated stack.
-  - Restarts the **host-agent** service.
+  - Downloads the Docker images for the updated stack.
+  - Starts the API and UI containers and creates the Zenoh daemon and noVNC containers without starting them.
+  - Refreshes the **host-agent** service configuration and restarts the service.
 :::
 
 ## Open the Cyclo Manager Web UI
@@ -67,19 +71,21 @@ cyclo_manager update
 Open the Cyclo Manager **web UI** on **port 3000** in your browser.
 
 :::info
-**Connect using the robot IP address or the mDNS hostname.** Replace `SNPR48A0000` with your robot's serial number.
+**Connect using the robot IP address or the mDNS hostname.** Replace `<serial-number>` with the serial number printed on your robot.
 
-http://192.168.6.2:3000  
-http://ffw-SNPR48A0000.local:3000
+- `http://<robot-ip>:3000`
+- `http://ffw-<serial-number>.local:3000`
+
+For example: `http://192.168.6.2:3000` or `http://ffw-snpr48a0000.local:3000`.
 :::
 
-![Cyclo Manager App Page](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/app_page.png)
+![Cyclo Manager App Page](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/install/app_page.png)
 
 This is the main page of the Cyclo Manager web UI. From here, you can open the Cyclo Manager or Cyclo Intelligence pages.  
 Enter the Cyclo Manager.
 
 Click the Cyclo Manager button to open the Cyclo Manager dashboard page.
-![Dashboard Page](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/dashboard.png)
+![Dashboard Page](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/install/dashboard.png)
 
 ## Update the s6 Agent
 

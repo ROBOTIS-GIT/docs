@@ -3,6 +3,7 @@
 **Cyclo Manager** is a web-based operation and maintenance tool for the **AI Worker, OMY, and OMX**.
 It runs on the robot computer and provides a browser UI for common robot-side tasks such as
 bringup, container management, version updates, noVNC access, and manual jog control.
+It also supports individual joint control, joint command recording and playback, and host file management.
 
 Instead of entering the robot container and running several commands by hand, you can open Cyclo Manager from a browser and use each operation feature directly.
 This is useful during setup, daily operation, and software updates.
@@ -10,18 +11,25 @@ This is useful during setup, daily operation, and software updates.
 :::info
 Cyclo Manager is installed on the **AI Worker Orin** and is accessed from a PC, tablet, or phone on the same network.
 The web UI runs on port **3000**, and the API server runs on port **8081**.
+
+Open `http://<robot-ip>:3000` or `http://ffw-<serial-number>.local:3000` to access the web UI.
+
+Replace `<serial-number>` with the serial number printed on your robot.
+For example: `http://ffw-snpr48a0000.local:3000`.
 :::
 
 ## What You Can Do
 
-Use Cyclo Manager to:
-
-- Bring up the AI Worker robot stack and related services from the browser.
-- Start, stop, restart, and inspect Docker containers running on the robot.
-- Monitor robot status, Docker status, storage usage, and version status.
-- Open a browser-based terminal into docker containers.
-- Use noVNC to run GUI tools such as **Dynamixel Wizard 2.0** without connecting a monitor.
-- Jog the mobile base from a PC or phone browser.
+| Page | What you can do |
+| --- | --- |
+| **Dashboard** | Check CPU, memory, and storage usage; manage Docker containers and images; check and update software versions. |
+| **System** | Start and stop the Zenoh daemon, follower, leader, and related services; configure launch arguments; inspect service logs and robot status. |
+| **Jog** | Move the mobile base with a joystick or keyboard, and adjust individual joints such as the arms, grippers, neck, and lift. Available controls depend on the robot configuration. |
+| **Record & Play** | Record joint command topics as rosbags, manage saved recordings, and replay them with speed control, repeat settings, and automatic movement to the start pose. |
+| **Files** | Browse, upload, download, and edit files on the robot host; create, rename, and delete files or folders; inspect Git changes. |
+| **Topics** | Inspect available ROS 2 topics and their latest message data. |
+| **Terminal** | Run commands inside a selected container from the browser. |
+| **noVNC** | Open a browser-based desktop and use tools such as **DYNAMIXEL Wizard 2.0**. |
 
 ## How It Runs
 
@@ -34,9 +42,12 @@ Cyclo Manager is composed of a Python CLI, a web UI, an API server, and small ag
 - The **s6 agent** inside each robot container starts and stops ROS 2 services and reports service status.
 - The **host agent** handles host-level operations such as repository update workflows.
 
+The API server also communicates with ROS 2 for Jog and runs recording and playback jobs.
+The host agent provides host resource statistics and file access for the Dashboard and Files pages.
+
 ## Software Architecture
 
-![Cyclo Manager Software Architecture](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/sw_architecture.svg)
+![Cyclo Manager Software Architecture](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/overview/sw_architecture.svg)
 
 At a high level, Cyclo Manager separates user-facing controls from the robot runtime:
 
