@@ -46,6 +46,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
               {type: 'doc', id: 'systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/version_update', label: 'Version Update'},
               {type: 'doc', id: 'systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/novnc', label: 'noVNC'},
               {type: 'doc', id: 'systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/jog', label: 'Jog'},
+              {type: 'doc', id: 'systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/record_play', label: 'Record & Play'},
             ],
           },
           {type: 'doc', id: 'systems/aiworker/quick_start_guide/operation_guide/teleoperation', label: 'Teleoperation'},
