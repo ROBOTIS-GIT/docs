@@ -97,7 +97,7 @@ export const HX1_JOINT_META: Record<string, HXJointMeta> = {
 };
 
 export const HX1_VIEWER: HXUrdfViewerProps = {
-  title: 'HX1',
+  title: 'HX1-D03',
   urdfUrl: `${HX1_ASSET_BASE}/urdf/hx1.urdf`,
   packages: {
     hx1: HX1_ASSET_BASE,
