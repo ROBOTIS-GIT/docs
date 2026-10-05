@@ -397,20 +397,23 @@ export class Viewer {
   private apply() {
     if (!this.manual) return;
     const visible = this.step
-      ? new Set(this.step.visible)
+      ? new Set([...this.step.visible, ...(this.step.ghostParts ?? [])])
       : new Set(this.parts.keys());
     const active = new Set(this.step ? activeParts(this.step) : []);
     this.applyPositions();
     for (const [id, o] of this.map) {
       const selected = this.selected.includes(id);
       const isActive = active.has(id);
+      const cutaway = !!this.step?.ghostParts?.includes(id) && !isActive;
+      o.userData.cutaway = cutaway;
       o.visible =
         visible.has(id) &&
         (this.context !== "hide" || !this.step || isActive || selected);
       o.traverse((c) => {
         if (!(c instanceof T.Mesh)) return;
         const ghost =
-          !!this.step && this.context === "ghost" && !isActive && !selected;
+          cutaway ||
+          (!!this.step && this.context === "ghost" && !isActive && !selected);
         c.castShadow = !ghost;
         c.receiveShadow = !ghost;
         const materials = Array.isArray(c.material) ? c.material : [c.material];
@@ -423,7 +426,7 @@ export class Viewer {
           m.opacity = orig.opacity;
           m.transparent = orig.transparent;
           m.depthWrite = orig.depthWrite;
-          if (this.step && this.context === "ghost" && !isActive && !selected) {
+          if (ghost) {
             m.opacity = 0.15;
             m.transparent = true;
             m.depthWrite = false;
@@ -762,7 +765,12 @@ export class Viewer {
             if (hit.distance >= distance - 0.004) return false;
             let o: T.Object3D | null = hit.object;
             while (o) {
-              if (!o.visible || o.userData.partId === m.id) return false;
+              if (
+                !o.visible ||
+                o.userData.cutaway ||
+                o.userData.partId === m.id
+              )
+                return false;
               o = o.parent;
             }
             return true;
@@ -807,7 +815,7 @@ export class Viewer {
       let id: number | undefined;
       let hidden = false;
       while (o) {
-        if (!o.visible) hidden = true;
+        if (!o.visible || o.userData.cutaway) hidden = true;
         if (o.userData.partId !== undefined) id = o.userData.partId;
         o = o.parent;
       }

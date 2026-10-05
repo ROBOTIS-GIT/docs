@@ -104,3 +104,31 @@ test("v010 completed labels still identify the same operations after drive-jaw r
     [53, 55, 51],
   );
 });
+
+test("Both follower variants finish all six base screws before OpenRB installation", () => {
+  for (const kind of ["follower", "follower-xl4015"]) {
+    const manual = data(kind);
+    const board = manual.steps.findIndex((s) => s.title === "Fit controller");
+    const boardIds = manual.steps[board].active;
+    const screws = [155, 156, 157, 158, 159, 160];
+    assert.equal(board, 5);
+    for (const id of screws) {
+      const fastening = manual.steps.findIndex((s) => s.active.includes(id));
+      assert(fastening < board, `screw ${id} must precede the controller`);
+      assert(manual.steps[board].visible.includes(id));
+    }
+    for (const s of manual.steps.slice(0, board))
+      for (const id of boardIds) assert(!s.visible.includes(id));
+    for (const s of manual.steps.slice(board, 8))
+      for (const id of screws) assert(s.visible.includes(id));
+    assert.deepEqual(manual.steps[6].active, [137, 138, 139, 140]);
+    assert.deepEqual(
+      completedStepIndices({ completed: [4, 5, 6] }, manual),
+      [5, 6, 4],
+    );
+    assert.deepEqual(
+      completedStepIndices({ completedLabels: ["07"] }, manual),
+      [4],
+    );
+  }
+});

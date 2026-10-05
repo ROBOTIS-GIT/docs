@@ -39,6 +39,8 @@ export interface Step {
   wiringCable?: number;
   duration: number;
   visible: number[];
+  /** Explanatory cutaway context, independent of the surrounding-parts setting. */
+  ghostParts?: number[];
   active: number[];
   offsets: Record<string, Vec3>;
   tracks: Record<string, number[][]>;

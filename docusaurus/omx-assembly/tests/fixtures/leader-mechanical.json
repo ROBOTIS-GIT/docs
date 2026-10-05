@@ -3396,8 +3396,8 @@
       "quantity": "4",
       "instructions": [
         "Move to the next working face.",
-        "Insert the underside screws. Base shown as an outline for visibility.",
-        "Check the recessed fasteners. Base outline is an explanatory view."
+        "Insert the underside screws. Base shown translucent for visibility.",
+        "Check the recessed fasteners. The translucent base is an explanatory view."
       ],
       "sourceFrames": {
         "start": 1094,
@@ -3540,7 +3540,8 @@
         "direction": [0.46713448, -0.75071347, 0.46713457],
         "scale": 0.2170506082935098
       },
-      "isJoin": false
+      "isJoin": false,
+      "ghostParts": [0]
     },
     {
       "index": 5,
@@ -7134,7 +7135,9 @@
         256, 257, 258, 259, 260, 261, 262, 263, 264, 265, 266, 267
       ],
       "active": [256, 257, 258, 259, 260, 261, 262, 263, 264, 265, 266, 267],
-      "offsets": { "247": [-0.0, 0.18650001, 0.28549999] },
+      "offsets": {
+        "247": [-0.0, 0.18650001, 0.28549999]
+      },
       "tracks": {
         "256": [
           [0.0, -0.0, 0.18650001, 0.36720002],
