@@ -1,0 +1,16 @@
+{
+  "source": "ROBOTIS_LOGO_EN_RGB.ai",
+  "source_sha256": "ed1327c24ae596abc296e8bb42b6d87384984eadb1e9fb6bcb483bcc73a3aa38",
+  "conversion": "Local Poppler rasterization of Illustrator PDF-compatible content; removed blank artboard; preserved black mark, proportions and antialiasing",
+  "texture": "ROBOTIS_LOGO_EN_RGB_decal.png",
+  "size": [
+    2022,
+    363
+  ],
+  "crop_box": [
+    1989,
+    1940,
+    4011,
+    2303
+  ]
+}
