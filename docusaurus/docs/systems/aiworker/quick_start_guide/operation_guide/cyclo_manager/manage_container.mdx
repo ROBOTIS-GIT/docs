@@ -3,7 +3,7 @@
 Use container management to check and control Docker containers running on the robot.
 You can start, stop, restart, inspect, and configure containers without connecting to the robot with separate Docker commands.
 
-![Container Management](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/container_management.png)
+![Container Management](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/manage_container/container_management.png)
 
 ## Features
 
@@ -22,14 +22,14 @@ The image list shows image tags, size, creation time, and whether each image is 
 You can delete unused images one by one, or prune dangling images that are no longer referenced by a tag.
 Images that are still used by a container cannot be deleted from this screen.
 
-![Image Management](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/image_management.png)
+![Image Management](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/manage_container/image_management.png)
 
 ## Change ROS_DOMAIN_ID
 
 Click the `.bashrc` button.  
 Set `ROS_DOMAIN_ID` to the same value on every container that must communicate over ROS 2 (for example `export ROS_DOMAIN_ID=30`).
 
-![Editing container .bashrc](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/modifying_bashrc_cyclo_manager.png)
+![Editing container .bashrc](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/manage_container/modifying_bashrc_cyclo_manager.png)
 
 If you change the `ROS_DOMAIN_ID` for Cyclo Manager, you must **restart** the Cyclo Manager container. Cyclo Manager is already running, so the new value takes effect only after a restart.
 
@@ -41,6 +41,6 @@ If you change the `ROS_DOMAIN_ID` for Cyclo Manager, you must **restart** the Cy
 
 On the Terminal page, select the container where you want to run the command.
 
-![Terminal page](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/terminal_page.png)
+![Terminal page](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/manage_container/terminal_page.png)
 
 Use a bash terminal to run commands and manage processes inside the container without using SSH to access the container.
