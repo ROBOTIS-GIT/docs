@@ -60,8 +60,8 @@ together. The checked-in gzip streams decode byte-for-byte to the exported GLBs.
 
 The source geometry is derived from ROBOTIS OMX engineering assemblies, including
 the `OMX_260915` drawing release, the legacy `OMX_Follower.stp`, OpenRB-150 Rev-B,
-and BIC30_A01_E001_REV02. Original STEP/Gerber/Blender files and rendered films are
-not included. OpenRB source resources are linked in the
+BIC30_A01_E001_REV02, and the SMPS2DYNAMIXEL assembly. Original STEP/Gerber/Blender
+files and rendered films are not included. OpenRB source resources are linked in the
 [official controller manual](https://emanual.robotis.com/docs/en/parts/controller/openrb-150/).
 Package labels and legacy converter terminal order follow the existing OMX
 assembly videos. Cable shape, screw turns and insertion motion are instructional
@@ -120,3 +120,25 @@ components are included in the actuator mesh, not separate assembly steps.
 The illustration pairs the complete actuator with separate upper and lower
 macro views. Teal section labels are instructional graphics, not physical paint
 on the actuator. XL330 retains its existing single and paired CAD grooves.
+
+## Follower external power
+
+Both converter variants end with three common power steps: check the OpenRB-150
+VIN(DXL) jumper, connect the SMPS2DYNAMIXEL three-pin conversion cable to a spare
+OpenRB DYNAMIXEL port, then insert the 12 V adapter plug with mains disconnected.
+The two motor branches remain connected. The four-pin SMPS sockets and converter
+output are not used for this power input. Connection order follows the official
+OMX cable assembly video; the board geometry follows the supplied STEP and its
+54 × 27 mm drawing. Warm ivory housings follow the supplied hardware photographs.
+The adapter brick is not modeled; cable curves are illustrative rather than
+cut-length specifications. A standard 2.54 mm shunt shows the required VIN(DXL)
+position. Existing mechanical step labels and saved completion remain stable.
+
+Leader uses the same shunt on the +5V pair and carries it with the controller
+during installation. The original shunt visual uses the 5.00 × 2.54 × 6.50 mm
+closed-type envelope in the [Conexcon 5461 drawing](https://www.conectronics.de/fileadmin/user_upload/254/5461.pdf).
+The molded pull lip, recessed neck, softened edges, insertion mouth and spring
+contacts are reconstructed geometry. Fine molding and contact details are visual
+approximations guided by the hardware reference photograph; they do not identify
+the supplied part's manufacturer or electrical rating. No third-party shunt CAD
+is redistributed.

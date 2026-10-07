@@ -48,6 +48,7 @@ export interface Step {
   isJoin: boolean;
 }
 export interface CableEnd {
+  inspectionDirection?: Vec3;
   label: string;
   base: Vec3;
   normal: Vec3;

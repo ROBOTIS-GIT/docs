@@ -296,7 +296,8 @@ root.innerHTML = /* HTML */ ` <header class="app-header">
       Mechanical assembly and TTL cable connections. Actuator IDs are preset
       before shipping. Match the actuator ID to its joint and check horn
       reference marks before assembly. Disconnect power while plugging cables.
-      USB camera, external power and software setup are separate.
+      Follower external power is included. USB camera and software setup are
+      separate.
     </p>
     <p class="license-note">
       Three.js · MIT License. Inter · SIL Open Font License.
@@ -706,7 +707,7 @@ $("next").onclick = () => {
     go(-1);
     toast(
       completed.size === manual.steps.length
-        ? "All steps marked complete. Review your assembly before the separate power and software setup."
+        ? "All steps marked complete. Review your wiring before powering on and continuing to software setup."
         : `${completed.size} of ${manual.steps.length} steps complete. Review unchecked steps in the list.`,
     );
   } else go(current + 1);

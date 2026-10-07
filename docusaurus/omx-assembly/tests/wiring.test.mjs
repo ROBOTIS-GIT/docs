@@ -36,6 +36,22 @@ for (const kind of ["leader", "follower"])
         ({ officialLabel, officialLabelSource, officialLabelNote, ...step }) =>
           step,
       );
+    // The added Leader shunt follows the existing board, verified in power.test.
+    // Keep the original mechanical regression comparison for every existing part.
+    if (kind === "leader") {
+      for (const s of mechanical) {
+        s.visible = s.visible.filter((id) => id !== 1303);
+        s.active = s.active.filter((id) => id !== 1303);
+        s.tracks = { ...s.tracks };
+        s.offsets = { ...s.offsets };
+        delete s.tracks["1303"];
+        delete s.offsets["1303"];
+        if (s.title === "Fit controller") {
+          s.instructions = before.steps[s.index].instructions;
+          delete s.prepareInstruction;
+        }
+      }
+    }
     assert.deepEqual(mechanical, before.steps);
     const used = new Set();
     for (const [i, c] of m.cables.entries()) {
@@ -47,7 +63,7 @@ for (const kind of ["leader", "follower"])
       const s = m.steps[c.stepIndex];
       assert.equal(s.wiringCable, c.partId);
       assert.deepEqual(
-        s.visible.filter((id) => id >= 1000),
+        s.visible.filter((id) => m.cables.some((c) => c.partId === id)),
         m.cables.slice(0, i + 1).map((x) => x.partId),
       );
       assert.equal(c.provisional, false);
