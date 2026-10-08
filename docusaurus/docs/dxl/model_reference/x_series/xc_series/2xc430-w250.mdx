@@ -29,7 +29,7 @@ import ControlTableGoalPwm from '@site/docs/dxl/_partials/x/control_table_goal_p
 import ControlTableGoalVelocity from '@site/docs/dxl/_partials/x/control_table_goal_velocity.mdx';
 import ControlTableProfileAcceleration from '@site/docs/dxl/_partials/x/control_table_profile_acceleration.mdx';
 import ControlTableProfileVelocity from '@site/docs/dxl/_partials/x/control_table_profile_velocity.mdx';
-import ControlTableGoalPosition2 from '@site/docs/dxl/_partials/x/control_table_goal_position_2.mdx';
+import ControlTableGoalPosition2 from '@site/docs/dxl/_partials/x/control_table_goal_position_2_xl430.mdx';
 import ControlTableRealtimeTick from '@site/docs/dxl/_partials/x/control_table_realtime_tick.mdx';
 import ControlTableMoving2 from '@site/docs/dxl/_partials/x/control_table_moving_2.mdx';
 import ControlTableMovingStatus from '@site/docs/dxl/_partials/x/control_table_moving_status.mdx';
@@ -57,7 +57,7 @@ import Compatible2x430 from '@site/docs/dxl/_partials/x/compatible_dxl/compatibl
 # 2XC430-W250
 
 ## Specifications
-<X2xIntro />
+<X2xIntro model="2XC430-W250" />
 
 | Item                    | Specifications                                                     |
 |:------------------------|:-------------------------------------------------------------------|
@@ -203,7 +203,7 @@ import Compatible2x430 from '@site/docs/dxl/_partials/x/compatible_dxl/compatibl
 
 
 ### Control Table Description
-<ControlTable2xWarning />
+<ControlTable2xWarning model="2XC430" />
 <a id="model-number"></a>
 #### Model Number(0)
  This address stores model number of DYNAMIXEL.
@@ -281,7 +281,7 @@ For more details, please refer to the [Shutdown(63)] section.
 <ControlTableVellimit />
 <a id="minmax-position-limit"></a>
 #### Min/Max Position Limit(52, 48)
-<ControlTablePositionlimit />
+<ControlTablePositionlimit currentBased={false} />
 <a id="startup-configuration"></a>
 #### Startup Configuration(60)
 <ControlTable60StartupConfiguration />
@@ -307,14 +307,14 @@ The Hardware Error Status(70) indicates hardware error status.
 <ControlTableShutdown />
 <a id="velocity-pi-gain"></a>
 #### Velocity PI Gain(76, 78)
-<ControlTableVelocityPiGain />
+<ControlTableVelocityPiGain load />
 <a id="position-pid-gain-feedforward-1st2nd-gains"></a>
 <a id="position-pid-gain80-82-84"></a>
 #### Position PID Gain(80, 82, 84), Feedforward 1st/2nd Gains(88, 90)
-<ControlTablePositionPidGain />
+<ControlTablePositionPidGain load />
 <a id="bus-watchdog"></a>
 #### Bus Watchdog(98)
-<ControlTableBuswatchdog />
+<ControlTableBuswatchdog current={false} />
 <a id="goal-pwm"></a>
 #### Goal PWM(100)
 <ControlTableGoalPwm />
@@ -339,7 +339,7 @@ The Hardware Error Status(70) indicates hardware error status.
 <ControlTableMoving2 />
 <a id="moving-status"></a>
 #### Moving Status(123)
-<ControlTableMovingStatus />
+<ControlTableMovingStatus currentBased={false} />
 <a id="present-pwm"></a>
 #### Present PWM(124)
 The Present PWM(124) indicates current PWM. For more details, please refer to the [Goal PWM(100)](#goal-pwm100).
@@ -355,10 +355,10 @@ This value indicates current Velocity. For more details, please refer to the [Go
 <ControlTablePresentPosition />
 <a id="velocity-trajectory"></a>
 #### Velocity Trajectory(136)
-<ControlTableVelocityTrajectory />
+<ControlTableVelocityTrajectory currentBased={false} />
 <a id="position-trajectory"></a>
 #### Position Trajectory(140)
-<ControlTablePositionTrajectory />
+<ControlTablePositionTrajectory currentBased={false} />
 <a id="present-input-voltage"></a>
 #### Present Input Voltage(144)
 <ControlTablePresentVolt2 />
@@ -392,7 +392,7 @@ This value indicates current Velocity. For more details, please refer to the [Go
 
 
 ### What is the Profile
-<ProfileDescription />
+<ProfileDescription currentBased={false} />
 
 
 ### Certifications
@@ -410,7 +410,7 @@ Please inquire us for information regarding unlisted certifications.
 <JstTtl />
 
 
-<TtlConnectionX />
+<TtlConnectionX pinImg="/img/common/2x_series_ttl_pin.png" />
 
 
 ### Drawings

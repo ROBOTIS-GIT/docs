@@ -1,3 +1,9 @@
+{/* props
+   xw: RS-485 핀 사진을 XW 시리즈 커넥터 사진 두 장으로 바꾼다.
+*/}
+
+import Show from '@site/src/components/Show';
+
 ## Communication Circuit
 To control the DYNAMIXEL actuators, the main controller needs to convert its UART signals to the half duplex type. The recommended circuit diagram for this is shown below.
 
@@ -30,7 +36,23 @@ To control the DYNAMIXEL actuators, the main controller needs to convert its UAR
 :::
 
 
+<Show when={!props.xw}>
+
 ![](/img/common/x_series_485_pin.webp)
+
+</Show>
+
+<Show when={props.xw}>
+
+![](/img/dxl/model_reference/x_series/xw_series/xw_series_485_pin.png)
+
+> XW540-Series Connector
+
+![](/img/dxl/model_reference/x_series/xw_series/xw_series_485_pin_connector.png)
+
+> Dust and Water Proof Data Cable
+
+</Show>
 
 
 The power of DYNAMIXEL is supplied via Pin1(-), Pin2(+).  

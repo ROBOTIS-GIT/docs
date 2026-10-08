@@ -1,3 +1,9 @@
+{/* props
+   fwNote: false면 펌웨어 버전 42 안내를 숨긴다(XL330).
+*/}
+
+import Show from '@site/src/components/Show';
+
 When the [Drive Mode(10)] is **Velocity-based Profile**, Profile Acceleration(108) sets acceleration of the Profile.  
  When the [Drive Mode(10)] is **Time-based Profile**, Profile Acceleration(108) sets acceleration time of the Profile.  
  The Profile Acceleration(108) is to be applied in all control mode except **Current Control Mode** or **PWM Control Mode** on the [Operating Mode(11)].  
@@ -15,11 +21,15 @@ When the [Drive Mode(10)] is **Velocity-based Profile**, Profile Acceleration(10
 |       Range        | 0 ~ 32737 | '0' represents an infinite acceleration time('0 [msec]').<br />Profile Acceleration(108, Acceleration time) will not exceed 50% of Profile Velocity (112, the time span to reach the velocity of the Profile) value. |
 
 
+<Show when={props.fwNote !== false}>
+
 :::note
 
 **NOTE** : Time-based Profile is available from the firmware version 42.
 
 :::
+
+</Show>
 
 [Drive Mode(10)]: #drive-mode
 [Operating Mode(11)]: #operating-mode11

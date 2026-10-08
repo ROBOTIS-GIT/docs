@@ -180,7 +180,7 @@ For BPS over 250 values :
 - Join Mode, Multi-Turn mode
 
   It is a moving speed to Goal Position.
-  0~1023 (0X3FF) can be used, and the unit is about 0.916rpm.
+  0 ~ 1023 (0X3FF) can be used, and the unit is about 0.916rpm.
   If it is set to 0, it means the maximum rpm of the motor is used without controlling the speed.
   If it is 1023, it is about 937.1rpm.
   For example, if it is set to 300, it is about 274.8 rpm.
@@ -189,9 +189,9 @@ For BPS over 250 values :
 - Wheel Mode
 
   It is a moving speed to Goal direction.
-  0~2047 (0X7FF) can be used, and the unit is about 0.916rpm.
-  If a value in the range of 0~1023 is used, it is stopped by setting to 0 while rotating to CCW direction.
-  If a value in the range of 1024~2047 is used, it is stopped by setting to 1024 while rotating to CW direction.
+  0 ~ 2047 (0X7FF) can be used, and the unit is about 0.916rpm.
+  If a value in the range of 0 ~ 1023 is used, it is stopped by setting to 0 while rotating to CCW direction.
+  If a value in the range of 1024 ~ 2047 is used, it is stopped by setting to 1024 while rotating to CW direction.
   That is, the 10th bit becomes the direction bit to control the direction.
 
   :::note
@@ -208,9 +208,9 @@ For BPS over 250 values :
 <a id="present-speed"></a>
 #### Present Speed (38)
 Is the current moving speed.
-0~2047 (0x000 ~ 0x7FF) can be used.
-If a value is in the rage of 0~1023 then the motor rotates to the CCW direction.
-If a value is in the rage of 1024~2047 then the motor rotates to the CW direction.
+0 ~ 2047 (0x000 ~ 0x7FF) can be used.
+If a value is in the rage of 0 ~ 1023 then the motor rotates to the CCW direction.
+If a value is in the rage of 1024 ~ 2047 then the motor rotates to the CW direction.
 The 10th bit becomes the direction bit to control the direction; 0 and 1024 are equal.
 The value unit is about 0.916rpm.
 For example, if it is set to 300 then the motor is moving to the CCW direction at a rate of about 274.8rpm.

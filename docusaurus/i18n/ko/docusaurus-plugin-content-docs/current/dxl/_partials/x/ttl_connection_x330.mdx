@@ -1,0 +1,21 @@
+{/*
+3.3V 로직 X330 모델(XL330, XC330-M181/M288)용 ttl_connection_x.mdx.
+e-Manual 은 이 모델들에 5V 회로 대신 전용 3.3V 회로도를 사용합니다.
+*/}
+
+## Communication Circuit
+DYNAMIXEL 액추에이터를 제어하려면 메인 컨트롤러가 UART 신호를 Half Duplex 방식으로 변환해야 합니다. 권장 회로도는 아래와 같습니다.
+
+
+### TTL Communication (3.3V Logic, 5V Compatible)
+![](/img/common/3v3_ttl_circuit.png)
+
+
+:::note
+
+**참고** : 이 모델들의 통신 버스 전압은 다른 DYNAMIXEL과 달리 3.3V이지만, 5V 통신 버스와도 호환됩니다.
+
+:::
+
+
+![](/img/common/x_series_ttl_pin.webp)
