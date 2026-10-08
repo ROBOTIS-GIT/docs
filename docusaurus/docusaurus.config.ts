@@ -12,6 +12,7 @@ const config: Config = {
   title: 'ROBOTIS Docs',
   tagline: 'ROBOTIS product documentation',
   favicon: 'img/favicon.ico',
+  staticDirectories: ['static', 'generated'],
 
   future: {
     v4: true,

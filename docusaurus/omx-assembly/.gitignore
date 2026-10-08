@@ -1,0 +1,8 @@
+node_modules/
+dist/
+public/models/*.glb
+tests/.viewer-*.mjs
+
+# Local Python illustration tooling
+__pycache__/
+*.pyc

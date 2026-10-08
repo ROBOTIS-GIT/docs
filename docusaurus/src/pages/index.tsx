@@ -183,7 +183,7 @@ function RelatedSites(): ReactNode {
             label={<Translate id="home.sites.shop">Shop</Translate>}
             entries={[
               {label: 'International', href: 'https://en.robotis.com/shop_en/'},
-              {label: 'Korea',         href: 'https://en.robotis.com/shop/'},
+              {label: 'Korea',         href: 'https://www.robotis.com/shop/'},
               {label: 'US',            href: 'https://robotis.us/'},
               {label: 'Japan',         href: 'https://e-shop.robotis.co.jp/'},
             ]}

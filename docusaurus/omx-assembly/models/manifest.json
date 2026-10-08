@@ -1,0 +1,17 @@
+{
+  "leader": {
+    "sha256": "790b9044f2080fc73cc00cb1f3523ad4c47fd53512ebd45ffa0cb753b0e71ddd",
+    "bytes": 16933432,
+    "revision": "v025-materials-v027"
+  },
+  "follower": {
+    "sha256": "b5855122a954893d27060044df1a5fb4567f3d775aeef414d91fbdb9c87dccdd",
+    "bytes": 27917712,
+    "revision": "v027-horn-v032-bic30-green-v033"
+  },
+  "follower-xl4015": {
+    "sha256": "71d72ffae3dc53120c6689da1ac315654318e529c34262598dd718e20b853253",
+    "bytes": 70943132,
+    "revision": "hardware-v004-materials-v027-timing-v029-horn-v032"
+  }
+}
