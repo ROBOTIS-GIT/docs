@@ -1,57 +1,74 @@
 ---
 title: "HX5-D20: ACT with Tactile Sensors"
-description: "How tactile observations are collected, encoded, and used by ACT for contact-rich manipulation with the HX5-D20."
+description: "How fingertip pressure helps ACT interpret contact when objects are hidden by the hand during pick-and-place tasks."
 draft: false
 ---
 
-A camera can show where a cup is, but not always whether a fingertip has made contact with it. To give ACT direct access to that missing signal, we added the HX5-D20 fingertip pressure sensors as a new input modality. We call the resulting policy **Tactile ACT**.
+<div style={{position: 'relative', paddingBottom: '56.25%', height: '0', overflow: 'hidden', maxWidth: '100%', margin: '20px 0', borderRadius: '8px'}}>
+  <iframe
+    style={{position: 'absolute', top: '0', left: '0', width: '100%', height: '100%'}}
+    src="https://www.youtube.com/embed/YFk0du_6Bwc"
+    title="HX5-D20 tactile manipulation technical report video"
+    frameBorder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+    allowFullScreen>
+  </iframe>
+</div>
 
-## 1. System Overview
+## 1. When the Hand Hides the Object
 
-The system combines an AI Worker, two 7-DoF arms, two HX5-D20 hands, and a ZED head camera. Demonstrations are collected through Meta Quest 3 teleoperation and converted into trajectories containing camera images, robot state, tactile pressure, and the operator's actions.
-
-Our primary task is right-handed cup stacking. The model retains the full state and action layout for both sides of the robot, while deployment limits commands to the right arm and right hand.
-
-## 2. Motivation for Tactile Integration
-
-Contact often occurs on the inner side of the hand, where the fingers and object can occlude the head camera's view. Before and after contact, the RGB image may look almost identical even though the correct next action is different. The same ambiguity appears when the robot lifts a cup, adjusts its grip, or releases it.
-
-The HX5-D20 fingertip sensors provide a local measurement of these interactions. Vision describes the scene and hand pose; tactile pressure describes where contact occurs and how it changes during manipulation.
-
-That same motivation underlies [ViTacFormer](https://arxiv.org/abs/2506.15953v2), a policy built on ACT that learns dexterous manipulation from human demonstrations. It combines camera images, fingertip sensing, and joint state, then predicts future contact signals to help generate a sequence of actions.
-
-<figure style={{margin: '28px 0'}}>
-  <img
-    src="/img/systems/hx5_d20/resources/technical_story/tactile_inference/vitacformer_architecture.png"
-    alt="ViTacFormer architecture: an action-and-state encoder produces latent z; a cross-attention network combines vision and touch, predicts future tactile signals, and uses them to generate actions"
-    width={2200}
-    height={800}
-    loading="lazy"
-    decoding="async"
-    style={{display: 'block', width: '100%', height: 'auto', padding: '12px', boxSizing: 'border-box', background: '#fff', borderRadius: '14px', border: '1px solid var(--ifm-color-emphasis-200)'}}
+<figure style={{margin: '24px 0 36px'}}>
+  <video
+    src="/img/systems/hx5_d20/resources/technical_story/tactile_inference/jelly_tactile_recovery.mp4"
+    poster="/img/systems/hx5_d20/resources/technical_story/tactile_inference/jelly_tactile_recovery.jpg"
+    aria-label="Baseline ACT attempting another pick without completing placement of a jelly package"
+    autoPlay
+    loop
+    muted
+    playsInline
+    controls
+    preload="metadata"
+    width={592}
+    height={592}
+    style={{display: 'block', width: '100%', height: 'auto', maxWidth: '480px', margin: '0 auto', borderRadius: '14px', border: '1px solid var(--ifm-color-emphasis-200)'}}
   />
   <figcaption style={{textAlign: 'center', marginTop: '10px', color: 'var(--ifm-color-emphasis-700)', fontSize: '14px'}}>
-    ViTacFormer architecture. Figure 2 from Heng et al., <a href="https://arxiv.org/pdf/2506.15953v2#page=3">ViTacFormer</a> (cropped from the paper).
+    Baseline ACT: placement fails, followed by another pick attempt.
   </figcaption>
 </figure>
 
-The left side of the diagram is used during training. It encodes the demonstrated action sequence and current joint state into a small vector, `z`, that captures variation in how the task is performed. When the robot runs the policy, this encoder is bypassed and `z` is fixed to zero.
+As the fingers close around the jelly package, the hand can hide it from the head camera. The image and joint positions alone may not reveal whether the robot is holding the package. In the Baseline ACT clip above, the robot fails to complete placement and attempts another pick.
 
-On the right, **cross-attention** lets visual features draw on relevant tactile features, and vice versa. This allows the model to relate the hand–object arrangement seen by the cameras to contact sensed at the fingertips. For example, a partially hidden grasp can be represented using both the visible finger positions and the measured contact signals.
+This ambiguity motivated us to add HX5-D20 fingertip pressure readings to ACT alongside camera images and robot state. The resulting policy, **Tactile ACT**, receives contact information even when the object is hidden.
 
-The model then forecasts future tactile signals and uses them together with the current observations to generate actions. The “Predicted Touch” arrow shows how these forecasts feed back into the network. Training the model to predict touch encourages it to learn how contact changes over time, providing additional information for action prediction.
+### What Tactile Information Adds
 
-Our HX5-D20 implementation uses a smaller extension of ACT: each current pressure reading becomes a tactile token in the shared encoder. ViTacFormer's dedicated vision–touch cross-attention modules and future-touch prediction head are not part of this implementation. The following sections describe how we collect these measurements and use them in Tactile ACT.
+| Task stage | Ambiguity in the camera view | Additional evidence from touch |
+| :--- | :--- | :--- |
+| Closing the hand | The fingers hide the package as they close. | Fingertip pressure indicates where contact is occurring. |
+| Lifting and carrying | The held package may remain hidden behind the hand. | The pressure distribution provides evidence of continued contact or changes in contact. |
+| Placing and releasing | Finger pose alone does not show whether contact with the package remains. | Pressure changes during opening provide evidence that contact is changing or ending. |
 
-## 3. Tactile Dataset
+The policy learns to interpret these pressure readings together with vision and joint state when choosing the next action.
 
-Each HX5-D20 hand has five fingertip sensors, and each sensor produces a 3×3 pressure array. This gives 45 taxels per hand and 90 across both hands. Each demonstration uses the following feature layout:
+## 2. System and Tactile Dataset
+
+The system combines an AI Worker, two 7-DoF arms, two HX5-D20 hands, and a ZED head camera. Demonstrations are collected through Meta Quest 3 teleoperation and converted into trajectories containing camera images, robot state, tactile pressure, and the operator's actions.
+
+The demonstrations use the right arm and hand. Jelly pickup focuses on grasping an occluded object; cup stacking adds placement and release.
+
+Each HX5-D20 hand has five fingertip sensors, and each sensor produces a 3×3 pressure array. This gives 45 pressure-sensing elements, or **taxels**, per hand. Before training and inference, we subtract each taxel's unloaded baseline so that the input reflects contact pressure.
+
+<details>
+<summary>Dataset layout and pressure calibration</summary>
+
+The dataset retains both arms and hands in its 54-dimensional state and action vectors, with 90 taxels across the two hands:
 
 | Feature | Shape | Description |
 | :--- | :---: | :--- |
 | Head RGB | `[3, 720, 1280]` | ZED head-camera image |
 | Robot state | `[54]` | 14 arm joints and 40 hand joints |
-| Left tactile | `[5, 3, 3]` | Zero-filled for the right-handed task |
+| Left tactile | `[5, 3, 3]` | Zero-filled for these right-hand tasks |
 | Right tactile | `[5, 3, 3]` | Baseline-corrected fingertip pressure |
 | Action | `[54]` | Demonstrated targets for both arms and hands |
 
@@ -69,9 +86,11 @@ baseline[i] = round(median(first 20 samples[i]))
 corrected[i] = max(raw[i] - baseline[i], 0)
 ```
 
-Because the task uses only the right hand, the left tactile feature remains in the shared dataset schema but is filled with zeros. Keeping the same feature shapes and preprocessing at training and inference prevents the policy from seeing a different tactile representation after deployment.
+The left tactile tensor is filled with zeros for these right-hand tasks. Training and inference use the same feature layout and baseline correction.
 
-## 4. Tactile ACT Architecture
+</details>
+
+## 3. Tactile ACT Architecture
 
 Tactile ACT adds a tactile token encoder to ACT while retaining the ResNet-18 vision backbone, Transformer decoder, and action head.
 
@@ -86,16 +105,9 @@ Tactile ACT adds a tactile token encoder to ACT while retaining the ResNet-18 vi
   </figcaption>
 </figure>
 
-### 4.1 Token-Based Tactile Sensor Encoding
+### 3.1 Token-Based Tactile Sensor Encoding
 
-For each `observation.tactile.*` feature, the policy creates an independent MLP. Within a feature, every taxel shares the same MLP:
-
-```text
-scalar taxel → Linear(1, 128) → ReLU
-             → Linear(128, 512) → LayerNorm(512)
-```
-
-Flattening one `[5, 3, 3]` hand tensor produces 45 tactile tokens. A learned positional embedding identifies each taxel, preserving which finger and grid location produced the value. With one tactile feature per hand, the ACT encoder receives 90 tactile tokens in total.
+Each hand has its own small neural network (MLP), shared across that hand's 45 taxels. It converts each pressure value into a token. A learned positional embedding identifies the finger and grid location, so the policy can distinguish where contact occurs. The two hand tensors produce 90 tactile tokens in total.
 
 <figure style={{margin: '28px 0'}}>
   <img
@@ -108,15 +120,32 @@ Flattening one `[5, 3, 3]` hand tensor produces 45 tactile tokens. A learned pos
   </figcaption>
 </figure>
 
-### 4.2 Multi-modal Decoding
+### 3.2 Multimodal Fusion and Action Prediction
 
-The encoder sequence contains the latent token, a projected robot-state token, the tactile tokens, and spatial features from the ResNet-18 backbone. A four-layer Transformer encoder fuses these inputs through self-attention, so visual context and local contact can influence the same representation.
+The Transformer encoder combines tactile tokens with image features, robot state, and a latent token. The decoder uses this combined representation to predict a sequence of joint targets—an **action chunk**. Tactile input therefore influences the same action prediction process used by ACT.
 
-The one-layer decoder uses 16 zero-initialized slots with learned query-position embeddings to cross-attend to the encoded context. A shared linear action head then produces a chunk with shape `[B, 16, 54]`. There is no tactile-specific decoder or output head; touch changes the context used to predict the same joint actions as standard ACT.
+<details>
+<summary>Encoder and decoder configuration</summary>
 
-### 4.3 Training with Imitation Learning
+For each `observation.tactile.*` feature, the shared per-taxel MLP is:
 
-Tactile ACT is trained by behavior cloning on the teleoperated demonstrations. At each sampled timestep, the main Transformer receives the current RGB image, robot state, and tactile tensors, and learns to reconstruct the demonstrated 16-step action chunk.
+```text
+scalar taxel → Linear(1, 128) → ReLU
+             → Linear(128, 512) → LayerNorm(512)
+```
+
+A four-layer Transformer encoder fuses the latent token, projected robot state, tactile tokens, and ResNet-18 image features. The one-layer decoder uses 16 zero-initialized slots with learned query-position embeddings. A shared linear action head produces a `[B, 16, 54]` chunk, where `B` is the batch size.
+
+</details>
+
+## 4. Training and Real-Robot Deployment
+
+### 4.1 Training with Imitation Learning
+
+Tactile ACT learns from teleoperated demonstrations: given the current image, joint state, and tactile readings, it predicts the demonstrated action chunk. This teaches the policy how contact relates to the operator's next movements.
+
+<details>
+<summary>Training objective</summary>
 
 Training follows ACT's conditional-VAE objective. The posterior encoder receives the current robot state and demonstrated action chunk, then produces a latent sample for the main Transformer. The loss combines a padding-masked L1 action loss with KL regularization:
 
@@ -125,78 +154,107 @@ L = L1(predicted chunk, demonstrated chunk)
     + 10 · KL(q(z | state, action chunk) || N(0, I))
 ```
 
-At inference time, the latent is fixed to zero—the mean of the prior. The policy predicts 16 actions, the runtime executes four, and the next prediction uses a fresh visual, proprioceptive, and tactile observation.
+</details>
 
-## 5. Real-Robot Deployment
+### 4.2 Deployment Method
 
-### 5.1 Deployment Method
+At startup, the LeRobot runtime loads the checkpoint, validates the tactile feature shapes, and calibrates the right-hand pressure baseline. It supplies zeros for the left tactile input and fixes the latent variable to zero.
 
-The checkpoint is loaded through the same LeRobot inference path used by standard ACT, with the tactile encoder reconstructed from the checkpoint metadata. At startup, the runtime validates the tactile feature shapes, collects the right-hand baseline, and creates the zero-filled left-hand tensor expected by the model.
+In the configuration described here, the model predicts 16 actions and the runtime executes the first four. Each command contains the 27 right-arm and right-hand targets selected from the model's 54-dimensional output. It then obtains fresh observations and predicts again.
 
-The model predicts the complete 54-dimensional action layout used during training. Deployment then selects only the right arm and right hand before publishing commands to the robot:
+## 5. Real-Robot Demonstrations
 
-```text
-[B, 16, 54] prediction
-  → execute the first 4 steps
-  → select right arm + right hand
-  → publish a 27-D command
-```
+### 5.1 Jelly Pickup with Tactile ACT
 
-This keeps the learned action space unchanged while making command ownership explicit at the hardware boundary.
-
-### 5.2 Experimental Setup and Results
-
-The primary experiment asks the robot to grasp one cup, lift it, place it on a second cup, and release. The sequence includes several contact transitions that are difficult to observe from the head camera alone.
+In the Tactile ACT example below, the robot grasps the jelly package, lifts it, and moves toward the placement area. Fingertip pressure is included at each policy update.
 
 <figure style={{margin: '24px 0 36px'}}>
-  <img
-    src="/img/systems/hx5_d20/resources/technical_story/tactile_inference/stack_cup_inference.gif"
-    alt="AI Worker grasping a cup with its right hand and stacking it on another cup"
-    loading="lazy"
-    decoding="async"
-    style={{display: 'block', width: '100%', maxWidth: '900px', margin: '0 auto', borderRadius: '14px', border: '1px solid var(--ifm-color-emphasis-200)'}}
+  <video
+    src="/img/systems/hx5_d20/resources/technical_story/tactile_inference/jelly_tactile_recovery_2.mp4"
+    poster="/img/systems/hx5_d20/resources/technical_story/tactile_inference/jelly_tactile_recovery_2.jpg"
+    aria-label="Tactile ACT grasping and lifting a jelly package"
+    autoPlay
+    loop
+    muted
+    playsInline
+    controls
+    preload="metadata"
+    width={1080}
+    height={1080}
+    style={{display: 'block', width: '100%', height: 'auto', maxWidth: '480px', margin: '0 auto', borderRadius: '14px', border: '1px solid var(--ifm-color-emphasis-200)'}}
+  />
+  <figcaption style={{textAlign: 'center', marginTop: '10px', color: 'var(--ifm-color-emphasis-700)', fontSize: '14px'}}>
+    Tactile ACT: the robot grasps and lifts the jelly package toward the placement area.
+  </figcaption>
+</figure>
+
+The clips illustrate behavior with and without tactile input; they are qualitative examples, not a controlled measurement of success-rate improvement.
+
+### 5.2 Cup Stacking
+
+The robot grasps one cup, lifts it, places it on a second cup, and releases it. Vision provides the target arrangement, while touch provides contact information as the hand closes, carries the cup, and opens.
+
+<figure style={{margin: '24px 0 36px'}}>
+  <video
+    src="/img/systems/hx5_d20/resources/technical_story/tactile_inference/stack_cup_inference.mp4"
+    poster="/img/systems/hx5_d20/resources/technical_story/tactile_inference/stack_cup_inference.jpg"
+    aria-label="AI Worker grasping a cup with its right hand and stacking it on another cup"
+    autoPlay
+    loop
+    muted
+    playsInline
+    controls
+    preload="metadata"
+    width={1280}
+    height={592}
+    style={{display: 'block', width: '100%', height: 'auto', maxWidth: '900px', margin: '0 auto', borderRadius: '14px', border: '1px solid var(--ifm-color-emphasis-200)'}}
   />
   <figcaption style={{textAlign: 'center', marginTop: '10px', color: 'var(--ifm-color-emphasis-700)', fontSize: '14px'}}>
     A real-robot cup-stacking run using Tactile ACT.
   </figcaption>
 </figure>
 
-The black-jelly pickup provides a direct qualitative comparison between the two policies. In the representative Baseline ACT run, the robot closes its hand but does not establish a stable grasp on the package. In the Tactile ACT run, fingertip pressure becomes part of the observation, allowing the policy to respond to contact and maintain the grasp as it lifts the package. These clips illustrate the behavioral difference in one pair of runs rather than a quantitative performance benchmark.
+## 6. Tactile ACT's Limitation: Contact Changes Between Updates
 
-<div style={{
-  display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-  gap: '18px',
-  margin: '28px 0 36px'
-}}>
-  <figure style={{margin: 0, padding: '14px', border: '1px solid var(--ifm-color-emphasis-200)', borderRadius: '14px', background: 'var(--ifm-background-surface-color)'}}>
-    <img
-      src="/img/systems/hx5_d20/resources/technical_story/tactile_inference/jelly_tactile_recovery.gif"
-      alt="Baseline ACT attempting to grasp a black jelly package"
-      loading="lazy"
-      decoding="async"
-      style={{display: 'block', width: '100%', maxWidth: '360px', margin: '0 auto', borderRadius: '10px'}}
-    />
-    <figcaption style={{textAlign: 'center', marginTop: '10px', color: 'var(--ifm-color-emphasis-700)', fontSize: '14px'}}>
-      <strong>Baseline ACT</strong>
-    </figcaption>
-  </figure>
-  <figure style={{margin: 0, padding: '14px', border: '1px solid var(--ifm-color-emphasis-200)', borderRadius: '14px', background: 'var(--ifm-background-surface-color)'}}>
-    <img
-      src="/img/systems/hx5_d20/resources/technical_story/tactile_inference/jelly_tactile_recovery_2.gif"
-      alt="Tactile ACT grasping and lifting a black jelly package"
-      loading="lazy"
-      decoding="async"
-      style={{display: 'block', width: '100%', maxWidth: '360px', margin: '0 auto', borderRadius: '10px'}}
-    />
-    <figcaption style={{textAlign: 'center', marginTop: '10px', color: 'var(--ifm-color-emphasis-700)', fontSize: '14px'}}>
-      <strong>Tactile ACT</strong>
-    </figcaption>
-  </figure>
-</div>
+Tactile ACT uses the pressure readings available when it predicts an action chunk. Contact may then change as the queued actions execute: the object may shift or the fingers may lose contact. The sensors continue measuring, but those new readings cannot change the queued commands until the next policy update.
 
-Together, the cup-stacking and black-jelly trials show the complete tactile pipeline—from calibration and preprocessing to multimodal inference and joint command publication—operating on the real robot.
+If a runtime executes an entire **100-step chunk at 15 Hz** before re-inference, the interval is:
 
-## 6. Conclusion
+```text
+100 steps / 15 steps per second ≈ 6.67 seconds
+```
 
-Tactile ACT extends ACT with localized contact information by representing each HX5-D20 taxel as a Transformer token. The policy learns from synchronized visual, proprioceptive, tactile, and action data through imitation learning, while the standard ACT decoder and action space remain unchanged. The real-robot experiments demonstrate an end-to-end path for using tactile observations in contact-rich manipulation; a controlled comparison with vision-only ACT is the next step for measuring their contribution.
+A contact change during those 6.67 seconds is not reflected in the remaining commands. The interval depends on **how many actions are executed before re-inference**, not just how many the model predicts. The configuration above predicts 16 steps but updates after four, shortening the interval without eliminating it.
+
+This limitation motivated us to use ViTacFormer to model how contact would change over the action sequence, extending the information available from the initial tactile observation.
+
+## 7. ViTacFormer: Modeling Contact over the Action Horizon
+
+[ViTacFormer](https://arxiv.org/abs/2506.15953v2) combines vision and touch through cross-attention, predicts future tactile signals, and conditions action generation on those predictions. Its tactile forecast gives the action generator information about expected contact changes beyond the current observation.
+
+<figure style={{margin: '28px 0'}}>
+  <img
+    src="/img/systems/hx5_d20/resources/technical_story/tactile_inference/vitacformer_architecture.png"
+    alt="ViTacFormer architecture: an action-and-state encoder produces latent z; a cross-attention network combines vision and touch, predicts future tactile signals, and uses them to generate actions"
+    width={2200}
+    height={800}
+    loading="lazy"
+    decoding="async"
+    style={{display: 'block', width: '100%', height: 'auto', padding: '12px', boxSizing: 'border-box', background: '#fff', borderRadius: '14px', border: '1px solid var(--ifm-color-emphasis-200)'}}
+  />
+  <figcaption style={{textAlign: 'center', marginTop: '10px', color: 'var(--ifm-color-emphasis-700)', fontSize: '14px'}}>
+    ViTacFormer architecture. Figure 2 from Heng et al., <a href="https://arxiv.org/pdf/2506.15953v2#page=3">ViTacFormer</a> (cropped from the paper).
+  </figcaption>
+</figure>
+
+The architecture follows three steps:
+
+1. **Fuse vision and touch.** Cross-attention relates the visible scene to fingertip contact.
+2. **Forecast tactile signals.** The model predicts future touch from the current observations, robot state, and latent variable.
+3. **Generate actions using the forecast.** Predicted tactile signals are combined with the current inputs to produce the action sequence.
+
+The tactile forecast helps the model anticipate contact changes during grasping, lifting, and placement. Unexpected changes still require fresh measurements and a policy update; prediction complements measured feedback.
+
+## 8. Conclusion
+
+Tactile ACT adds contact information when the hand hides an object from the camera. ViTacFormer extends this approach by predicting how contact will evolve and using those predictions to generate actions. Together, these ideas address both what the robot is touching now and how that interaction may change as it moves.
