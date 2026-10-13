@@ -1,7 +1,7 @@
 ---
 title: "HX5-D20: ACT with Tactile Sensors"
 description: "How tactile observations are collected, encoded, and used by ACT for contact-rich manipulation with the HX5-D20."
-draft: true
+draft: false
 ---
 
 A camera can show where a cup is, but not always whether a fingertip has made contact with it. To give ACT direct access to that missing signal, we added the HX5-D20 fingertip pressure sensors as a new input modality. We call the resulting policy **Tactile ACT**.
@@ -16,7 +16,32 @@ Our primary task is right-handed cup stacking. The model retains the full state 
 
 Contact often occurs on the inner side of the hand, where the fingers and object can occlude the head camera's view. Before and after contact, the RGB image may look almost identical even though the correct next action is different. The same ambiguity appears when the robot lifts a cup, adjusts its grip, or releases it.
 
-The HX5-D20 fingertip sensors provide a local measurement of these interactions. Vision describes the scene and hand pose; tactile pressure describes where contact occurs and how it changes during manipulation. Tactile ACT brings both signals into the same policy rather than handling touch with a separate controller.
+The HX5-D20 fingertip sensors provide a local measurement of these interactions. Vision describes the scene and hand pose; tactile pressure describes where contact occurs and how it changes during manipulation.
+
+That same motivation underlies [ViTacFormer](https://arxiv.org/abs/2506.15953v2), a policy built on ACT that learns dexterous manipulation from human demonstrations. It combines camera images, fingertip sensing, and joint state, then predicts future contact signals to help generate a sequence of actions.
+
+<figure style={{margin: '28px 0'}}>
+  <img
+    src="/img/systems/hx5_d20/resources/technical_story/tactile_inference/vitacformer_architecture.png"
+    alt="ViTacFormer architecture: an action-and-state encoder produces latent z; a cross-attention network combines vision and touch, predicts future tactile signals, and uses them to generate actions"
+    width={2200}
+    height={800}
+    loading="lazy"
+    decoding="async"
+    style={{display: 'block', width: '100%', height: 'auto', padding: '12px', boxSizing: 'border-box', background: '#fff', borderRadius: '14px', border: '1px solid var(--ifm-color-emphasis-200)'}}
+  />
+  <figcaption style={{textAlign: 'center', marginTop: '10px', color: 'var(--ifm-color-emphasis-700)', fontSize: '14px'}}>
+    ViTacFormer architecture. Figure 2 from Heng et al., <a href="https://arxiv.org/pdf/2506.15953v2#page=3">ViTacFormer</a> (cropped from the paper).
+  </figcaption>
+</figure>
+
+The left side of the diagram is used during training. It encodes the demonstrated action sequence and current joint state into a small vector, `z`, that captures variation in how the task is performed. When the robot runs the policy, this encoder is bypassed and `z` is fixed to zero.
+
+On the right, **cross-attention** lets visual features draw on relevant tactile features, and vice versa. This allows the model to relate the hand–object arrangement seen by the cameras to contact sensed at the fingertips. For example, a partially hidden grasp can be represented using both the visible finger positions and the measured contact signals.
+
+The model then forecasts future tactile signals and uses them together with the current observations to generate actions. The “Predicted Touch” arrow shows how these forecasts feed back into the network. Training the model to predict touch encourages it to learn how contact changes over time, providing additional information for action prediction.
+
+Our HX5-D20 implementation uses a smaller extension of ACT: each current pressure reading becomes a tactile token in the shared encoder. ViTacFormer's dedicated vision–touch cross-attention modules and future-touch prediction head are not part of this implementation. The following sections describe how we collect these measurements and use them in Tactile ACT.
 
 ## 3. Tactile Dataset
 
