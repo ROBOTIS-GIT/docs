@@ -154,7 +154,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
           {type: 'doc', id: 'systems/aiworker/resources/technical_story/isaac_vr_teleoperation', label: 'Isaac VR Teleoperation'},
           {type: 'doc', id: 'systems/aiworker/resources/technical_story/isaac_centerpose', label: 'Isaac ROS CenterPose'},
           {type: 'doc', id: 'systems/aiworker/resources/technical_story/isaac_cumotion', label: 'Isaac ROS cuMotion'},
-          {type: 'doc',id: 'systems/aiworker/resources/technical_story/tactile_inference_revision_1',label: 'Tactile ACT'},
+          {type: 'doc',id: 'systems/aiworker/resources/technical_story/tactile_inference',label: 'Tactile ACT'},
         ],
       },
     ],
