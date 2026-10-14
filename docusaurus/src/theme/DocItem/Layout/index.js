@@ -9,7 +9,6 @@ import DocItemFooter from '@theme/DocItem/Footer';
 import DocItemContent from '@theme/DocItem/Content';
 import DocBreadcrumbs from '@theme/DocBreadcrumbs';
 import ContentVisibility from '@theme/ContentVisibility';
-import ZenohRmwNoticeModal from '@site/src/components/ZenohRmwNoticeModal';
 import AutonomyStudioImageZoom from '@site/src/components/AutonomyStudioImageZoom';
 import unsupportedRoutes from '@site/src/data/koUnsupportedDocRoutes.json';
 import './styles.css';
@@ -70,18 +69,14 @@ export default function DocItemLayoutWrapper(props) {
 
   if (isUnsupportedKoreanDoc) {
     return (
-      <>
-        <ZenohRmwNoticeModal />
-        <UnsupportedKoreanDocLayout>
-          <UnsupportedKoreanDocNotice englishPath={normalizedPath} />
-        </UnsupportedKoreanDocLayout>
-      </>
+      <UnsupportedKoreanDocLayout>
+        <UnsupportedKoreanDocNotice englishPath={normalizedPath} />
+      </UnsupportedKoreanDocLayout>
     );
   }
 
   return (
     <>
-      <ZenohRmwNoticeModal />
       <DocItemLayout {...props} />
       {normalizedPath.startsWith('/docs/systems/aiworker/autonomy_studio/') && (
         <AutonomyStudioImageZoom key={normalizedPath} />
