@@ -1,3 +1,6 @@
+{/* props
+   img: 외부 포트 사진 경로. 기본 PRO 사진, RH-P12-RN은 /img/common/rh_p12_rn_external_port.png.
+*/}
 External ports that can be used for various purposes are provided.  
 The property of each port is configured by the External Port Mode (56 ~ 59) and data of external port is controlled by the External Port Data(600 ~ 607).  
 The signal of External Port can be controlled or checked via External Port Data.  
@@ -37,7 +40,7 @@ If the electrical specification is exceeded or there is a problem with the signa
 Remove bolts and cover plate to reveal External Port connector.
 
 
-![](/img/common/pro_external_port.webp)
+<img src={props.img ?? '/img/common/pro_external_port.webp'} alt="" />
 
 
 ![](/img/common/external_port_pinout.webp)

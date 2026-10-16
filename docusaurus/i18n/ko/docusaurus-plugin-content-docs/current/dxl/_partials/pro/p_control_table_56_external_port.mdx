@@ -1,3 +1,6 @@
+{/* props
+   img: 외부 포트 사진 경로. 기본 PRO 사진, RH-P12-RN은 /img/common/rh_p12_rn_external_port.png.
+*/}
 다양한 용도로 사용할 수 있는 External Port가 제공됩니다.
 각 포트의 속성은 External Port Mode(56 ~ 59)로 설정하며, External Port의 Data는 External Port Data(600 ~ 607)로 제어합니다.
 External Port의 신호는 External Port Data를 통해 제어하거나 확인할 수 있습니다.
@@ -34,7 +37,7 @@ Shielded Cable 또는 Twisted Pair Cable을 사용하면 신호 노이즈와 오
 #### External 확장 포트 위치 및 Pin 기능
 볼트와 커버 플레이트를 제거하면 External Port 커넥터가 나타납니다.
 
-![](/img/common/pro_external_port.webp)
+<img src={props.img ?? '/img/common/pro_external_port.webp'} alt="" />
 
 ![](/img/common/external_port_pinout.webp)
 

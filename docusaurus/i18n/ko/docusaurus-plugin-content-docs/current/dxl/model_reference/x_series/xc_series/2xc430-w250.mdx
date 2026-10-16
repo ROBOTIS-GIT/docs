@@ -29,7 +29,7 @@ import ControlTableGoalPwm from '@site/i18n/ko/docusaurus-plugin-content-docs/cu
 import ControlTableGoalVelocity from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_goal_velocity.mdx';
 import ControlTableProfileAcceleration from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_profile_acceleration.mdx';
 import ControlTableProfileVelocity from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_profile_velocity.mdx';
-import ControlTableGoalPosition2 from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_goal_position_2.mdx';
+import ControlTableGoalPosition2 from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_goal_position_2_xl430.mdx';
 import ControlTableRealtimeTick from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_realtime_tick.mdx';
 import ControlTableMoving2 from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_moving_2.mdx';
 import ControlTableMovingStatus from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_moving_status.mdx';
@@ -57,7 +57,7 @@ import Compatible2x430 from '@site/i18n/ko/docusaurus-plugin-content-docs/curren
 # 2XC430-W250
 
 ## 사양
-<X2xIntro />
+<X2xIntro model="2XC430-W250" />
 
 | 항목                    | 사양                                                     |
 |:------------------------|:-------------------------------------------------------------------|
@@ -203,7 +203,7 @@ import Compatible2x430 from '@site/i18n/ko/docusaurus-plugin-content-docs/curren
 
 
 ### 컨트롤 테이블 설명
-<ControlTable2xWarning />
+<ControlTable2xWarning model="2XC430" />
 <a id="model-number"></a>
 #### Model Number(0)
  이 Address에는 DYNAMIXEL의 모델 번호가 저장됩니다.
@@ -281,7 +281,7 @@ Min Voltage Limit(34)과 Max Voltage Limit(32)는 동작 전압의 최솟값과 
 <ControlTableVellimit />
 <a id="minmax-position-limit"></a>
 #### Min/Max Position Limit(52, 48)
-<ControlTablePositionlimit />
+<ControlTablePositionlimit currentBased={false} />
 <a id="startup-configuration"></a>
 #### Startup Configuration(60)
 <ControlTable60StartupConfiguration />
@@ -307,14 +307,14 @@ Hardware Error Status(70)는 하드웨어 오류 상태를 나타냅니다.
 <ControlTableShutdown />
 <a id="velocity-pi-gain"></a>
 #### Velocity PI Gain(76, 78)
-<ControlTableVelocityPiGain />
+<ControlTableVelocityPiGain load />
 <a id="position-pid-gain-feedforward-1st2nd-gains"></a>
 <a id="position-pid-gain80-82-84"></a>
 #### Position PID Gain(80, 82, 84), Feedforward 1st/2nd Gains(88, 90)
-<ControlTablePositionPidGain />
+<ControlTablePositionPidGain load />
 <a id="bus-watchdog"></a>
 #### Bus Watchdog(98)
-<ControlTableBuswatchdog />
+<ControlTableBuswatchdog current={false} />
 <a id="goal-pwm"></a>
 #### Goal PWM(100)
 <ControlTableGoalPwm />
@@ -339,7 +339,7 @@ Hardware Error Status(70)는 하드웨어 오류 상태를 나타냅니다.
 <ControlTableMoving2 />
 <a id="moving-status"></a>
 #### Moving Status(123)
-<ControlTableMovingStatus />
+<ControlTableMovingStatus currentBased={false} />
 <a id="present-pwm"></a>
 #### Present PWM(124)
 Present PWM(124)는 현재 PWM을 나타냅니다. 자세한 내용은 [Goal PWM(100)](#goal-pwm100)을 참고하세요.
@@ -355,10 +355,10 @@ Present PWM(124)는 현재 PWM을 나타냅니다. 자세한 내용은 [Goal PWM
 <ControlTablePresentPosition />
 <a id="velocity-trajectory"></a>
 #### Velocity Trajectory(136)
-<ControlTableVelocityTrajectory />
+<ControlTableVelocityTrajectory currentBased={false} />
 <a id="position-trajectory"></a>
 #### Position Trajectory(140)
-<ControlTablePositionTrajectory />
+<ControlTablePositionTrajectory currentBased={false} />
 <a id="present-input-voltage"></a>
 #### Present Input Voltage(144)
 <ControlTablePresentVolt2 />
@@ -394,7 +394,7 @@ Present PWM(124)는 현재 PWM을 나타냅니다. 자세한 내용은 [Goal PWM
 <a id="what-is-the-profile"></a>
 
 ### Profile이란?
-<ProfileDescription />
+<ProfileDescription currentBased={false} />
 
 
 ### 인증
@@ -412,7 +412,7 @@ Present PWM(124)는 현재 PWM을 나타냅니다. 자세한 내용은 [Goal PWM
 <JstTtl />
 
 
-<TtlConnectionX />
+<TtlConnectionX pinImg="/img/common/2x_series_ttl_pin.png" />
 
 
 ### 도면
