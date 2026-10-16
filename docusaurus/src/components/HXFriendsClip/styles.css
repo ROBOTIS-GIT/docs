@@ -1,0 +1,64 @@
+.hx-friends-clip {
+  width: 100%;
+  margin: 1rem 0 1.35rem;
+}
+
+.hx-friends-clip__row {
+  display: grid;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.hx-friends-clip__row--1 {
+  grid-template-columns: minmax(0, 720px);
+}
+
+.hx-friends-clip__row--2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.hx-friends-clip__row--3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.hx-friends-clip__item {
+  margin: 0;
+  min-width: 0;
+}
+
+.hx-friends-clip__frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px solid #d8dee8;
+  border-radius: 10px;
+  background: #0f172a;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+}
+
+.hx-friends-clip__gif {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hx-friends-clip__caption {
+  margin: 0.55rem 0 0;
+  color: #475569;
+  font-size: 0.88rem;
+  font-weight: 650;
+  line-height: 1.35;
+  text-align: center;
+}
+
+@media (max-width: 720px) {
+  .hx-friends-clip__row--2,
+  .hx-friends-clip__row--3 {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
