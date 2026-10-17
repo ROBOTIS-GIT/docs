@@ -1,17 +1,17 @@
 {
   "leader": {
-    "sha256": "790b9044f2080fc73cc00cb1f3523ad4c47fd53512ebd45ffa0cb753b0e71ddd",
-    "bytes": 16933432,
-    "revision": "v025-materials-v027"
+    "sha256": "984f96feaf601cb6570d8018258fb8610bda9c4f341e5bf1ef86feb7fe246987",
+    "bytes": 17083732,
+    "revision": "v025-materials-v027-leader-5v-jumper-v037"
   },
   "follower": {
-    "sha256": "b5855122a954893d27060044df1a5fb4567f3d775aeef414d91fbdb9c87dccdd",
-    "bytes": 27917712,
-    "revision": "v027-horn-v032-bic30-green-v033"
+    "sha256": "2dd18949251207933db54a93c2a7f66f14dfa1f794444c1b5404d49e7fabd852",
+    "bytes": 30564840,
+    "revision": "v025-materials-v027-smps-v037"
   },
   "follower-xl4015": {
-    "sha256": "71d72ffae3dc53120c6689da1ac315654318e529c34262598dd718e20b853253",
-    "bytes": 70943132,
-    "revision": "hardware-v004-materials-v027-timing-v029-horn-v032"
+    "sha256": "62384e7ba98a4c82d8cf7bd4ed10eeaccfbddd423f6342215a68166202a57b7a",
+    "bytes": 73590332,
+    "revision": "hardware-v004-materials-v027-timing-v029-smps-v037"
   }
 }
