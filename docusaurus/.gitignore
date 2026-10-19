@@ -19,3 +19,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Generated interactive guide (built from omx-assembly/).
+/generated/

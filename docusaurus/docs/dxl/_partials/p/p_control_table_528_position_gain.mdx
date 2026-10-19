@@ -10,7 +10,7 @@ These Gains are used in Position Control Mode and Extended Position Control Mode
 Below figure is a block diagram describing the position controller in Position Control Mode and Extended Position Control Mode. When the instruction is received by the device, it takes following steps until driving the device.
 
 
-<div class="notice--success">
+<div className="notice--success">
 1. An Instruction from the user is transmitted via communication bus, then registered to Goal Position(564).
 2. Goal Position(564) is converted to desired position trajectory and desired velocity trajectory by Profile Velocity(560) and Profile Acceleration(556).
 3. The desired position trajectory and desired velocity trajectory is stored at Position Trajectory(588) and Velocity Trajectory(584) respectively.

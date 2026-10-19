@@ -7,6 +7,7 @@ services:
     volumes:
       - ./docusaurus:/app
       - /app/node_modules
+      - /app/omx-assembly/node_modules
     ports:
       - "5715:5715"
     environment:

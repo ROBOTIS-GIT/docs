@@ -50,7 +50,7 @@ import FccClassA from '@site/docs/dxl/_partials/x/fcc_class_a.mdx';
 import QuickStart from '@site/docs/dxl/_partials/x/quick_start.mdx';
 import Jst485 from '@site/docs/dxl/_partials/x/jst_485.mdx';
 import X485ConnectionX from '@site/docs/dxl/_partials/x/485_connection_x.mdx';
-import DrawingX430Drawing from '@site/docs/dxl/_partials/x/drawing_x430_drawing.mdx';
+import DrawingX430Drawing from '@site/docs/dxl/_partials/x/drawing_x430_drawing_xd.mdx';
 import DownloadCenterNotice from '@site/docs/dxl/_partials/x/download_center_notice.mdx';
 import CommonLink from '@site/docs/dxl/_partials/x/common_link.mdx';
 import CompatibleX430 from '@site/docs/dxl/_partials/x/compatible_dxl/compatible_x430.mdx';
@@ -244,7 +244,7 @@ This address stores firmware version of DYNAMIXEL.
 <ControlTableReturnDelayTime />
 <a id="drive-mode"></a>
 #### Drive Mode(10)
-<ControlTableDrivemode />
+<ControlTableDrivemode since={38} />
 <a id="operating-mode"></a>
 #### Operating Mode(11)
 <ControlTableOpmodeSix2 />
@@ -326,7 +326,7 @@ The Hardware Error Status(70) indicates hardware error status.
 <ControlTableCurrentPositionPidGain />
 <a id="bus-watchdog"></a>
 #### Bus Watchdog(98)
-<ControlTableBuswatchdog />
+<ControlTableBuswatchdog bus="RS-485" />
 <a id="goal-pwm"></a>
 #### Goal PWM(100)
 <ControlTableGoalPwm />
@@ -361,7 +361,7 @@ The Hardware Error Status(70) indicates hardware error status.
 <a id="profile-velocity"></a>
 <a id="profile-verlocity112"></a>
 #### Profile Velocity(112)
-<ControlTableProfileVelocity />
+<ControlTableProfileVelocity currentBased />
 <a id="goal-position"></a>
 #### Goal Position(116)
 <ControlTableGoalPosition2 />

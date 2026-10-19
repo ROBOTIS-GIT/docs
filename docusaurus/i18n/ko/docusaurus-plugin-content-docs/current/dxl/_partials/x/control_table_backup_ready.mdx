@@ -1,3 +1,6 @@
+{/* props
+   fw: 지원 시작 펌웨어 버전. 기본 45, X330은 46.
+*/}
 이 Address의 값은 [Control Table Backup Packet](/docs/dxl/protocol/protocol2#control-table-backup-0x20)을 전송한 뒤 컨트롤 테이블 백업 데이터가 존재하는지 나타냅니다.
 
 | Value | 설명                    |
@@ -9,7 +12,7 @@
 :::note
 
 **참고**
-Backup Ready는 펌웨어 **V45**부터 사용할 수 있습니다.
+Backup Ready는 펌웨어 **V{props.fw ?? 45}**부터 사용할 수 있습니다.
 자세한 내용은 [Backup and Restore](/docs/software/dynamixel_wizard_2_0/advanced_features#backup-and-restore)를 참고하세요.
 
 :::

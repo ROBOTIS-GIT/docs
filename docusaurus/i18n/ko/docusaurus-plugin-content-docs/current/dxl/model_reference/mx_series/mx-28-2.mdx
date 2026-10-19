@@ -2,7 +2,7 @@ import Warning from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_p
 import ControlTable from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table.mdx';
 import ControlTableId from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_id.mdx';
 import ControlTableBaudrate2 from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_baudrate_2.mdx';
-import ControlTableReturnDelayTime from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/control_table_return_delay_time.mdx';
+import ControlTableReturnDelayTime from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_return_delay_time.mdx';
 import ControlTableDriveMode from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_drivemode.mdx';
 import ControlTableMxOpmode2 from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_mx_opmode_2.mdx';
 import ControlTableShadowId from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/control_table_shadowid.mdx';
@@ -41,7 +41,7 @@ import HornBearingReplacement from '@site/i18n/ko/docusaurus-plugin-content-docs
 import FccClassA from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/fcc_class_a.mdx';
 import Molex485Ttl from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx/molex_485_ttl.mdx';
 import DownloadCenterNotice from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/download_center_notice.mdx';
-import TtlConnection from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/485_ttl_connection.mdx';
+import TtlConnection from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/485_ttl_connection_mx.mdx';
 import CommonLink from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/ax/common_link.mdx';
 import ProfileDescription from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/mx2/profile_description.mdx';
 
@@ -290,7 +290,7 @@ Hardware Error Status(70)는 하드웨어 오류 상태를 나타냅니다.
 <ControlTableProfileAcceleration />
 <a id="profile-velocity"></a>
 #### Profile Velocity(112)
-<ControlTableProfileVelocity />
+<ControlTableProfileVelocity currentBased={false} />
 <a id="goal-position"></a>
 #### Goal Position(116)
 <ControlTableGoalPosition2 />

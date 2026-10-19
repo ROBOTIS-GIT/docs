@@ -128,7 +128,7 @@ This address stores firmware version of DYNAMIXEL.
 <a id="id"></a>
 #### ID (3)
 The ID is a unique value in the network to identify each DYNAMIXEL with an Instruction Packet.
-0~253 (0xFD) values can be used as an ID, and 254(0xFE) is occupied as a broadcast ID. The Broadcast ID(254, 0xFE) can send an Instruction Packet to all connected DYNAMIXEL's simultaneously.
+0 ~ 253 (0xFD) values can be used as an ID, and 254(0xFE) is occupied as a broadcast ID. The Broadcast ID(254, 0xFE) can send an Instruction Packet to all connected DYNAMIXEL's simultaneously.
 
 :::note
 
@@ -242,7 +242,7 @@ When Instruction Packet is Broadcast ID, Status Packet is not returned regardles
 <a id="compliance-margin"></a>
 #### Compliance Margin (26, 27)
 It exists in each direction of CW/CCW and means the error between goal position and present position.
-The range of the value is 0~255, and the unit is the same as Goal Position.(Address 30,31)
+The range of the value is 0 ~ 255, and the unit is the same as Goal Position.(Address 30,31)
 The greater the value, the more difference occurs.
 <a id="compliance-slope"></a>
 #### Compliance Slope (28, 29)
@@ -284,15 +284,15 @@ It is a moving speed to Goal Position.
 The range and the unit of the value may vary depending on the operation mode.
 
 + Join Mode
-  0~1023 (0X3FF) can be used, and the unit is about 0.111rpm.
+  0 ~ 1023 (0X3FF) can be used, and the unit is about 0.111rpm.
   If it is set to 0, it means the maximum rpm of the motor is used without controlling the speed.
   If it is 1023, it is about 114rpm.
   For example, if it is set to 300, it is about 33.3 rpm.
 
 + Wheel Mode
-  0~2047( 0X7FF) can be used, the unit is about 0.1%.
-  If a value in the range of 0~1023 is used, it is stopped by setting to 0 while rotating to CCW direction.
-  If a value in the range of 1024~2047 is used, it is stopped by setting to 1024 while rotating to CW direction.
+  0 ~ 2047( 0X7FF) can be used, the unit is about 0.1%.
+  If a value in the range of 0 ~ 1023 is used, it is stopped by setting to 0 while rotating to CCW direction.
+  If a value in the range of 1024 ~ 2047 is used, it is stopped by setting to 1024 while rotating to CW direction.
   That is, the 10th bit becomes the direction bit to control the direction.
   In Wheel Mode, only the output control is possible, not speed.
   For example, if it is set to 512, it means the output is controlled by 50% of the maximum output.
@@ -317,13 +317,13 @@ If the power is turned on, the value of Max Torque (Address 14, 15) is used as t
 <a id="present-position"></a>
 #### Present Position (36)
 It is the current position value of DYNAMIXEL.
-The range of the value is 0~1023 (0x3FF), and the unit is 0.29 degree.
+The range of the value is 0 ~ 1023 (0x3FF), and the unit is 0.29 degree.
 
 ![](/img/dxl/model_reference/ex_series/ex-106+/ex-106_goal_position.webp)
 The picture above is the front view of DYNAMIXEL.
 
 + Wheel Mode
-  The range of the value is 0~65535(0XFFFF), and the unit is 0.06 degree. In case of Wheel Mode, only the moving distance can be measured since the present location outputs the value of Encoder. It is increased or decreased by 1 depending on the moving direction of wheel. If it is decreased when the value is 0, it becomes 65535; if it is increased when it is 65535, the value becomes 0.
+  The range of the value is 0 ~ 65535(0XFFFF), and the unit is 0.06 degree. In case of Wheel Mode, only the moving distance can be measured since the present location outputs the value of Encoder. It is increased or decreased by 1 depending on the moving direction of wheel. If it is decreased when the value is 0, it becomes 65535; if it is increased when it is 65535, the value becomes 0.
 
   **Total Moved Angle = (The value currently measured - The value measured in the past) x 0.06**
   According to the formula above, if the total moved angle is greater than 0, it is turned to the direction of CCW; if it is less than 0, it is turned to the direction of CW.
@@ -331,9 +331,9 @@ The picture above is the front view of DYNAMIXEL.
 <a id="present-speed"></a>
 #### Present Speed (38)
 It is the current moving speed.
-0~2047 (0X7FF) can be used.
-If a value is in the rage of 0~1023, it means that the motor rotates to the CCW direction.
-If a value is in the rage of 1024~2047, it means that the motor rotates to the CW direction.
+0 ~ 2047 (0X7FF) can be used.
+If a value is in the rage of 0 ~ 1023, it means that the motor rotates to the CCW direction.
+If a value is in the rage of 1024 ~ 2047, it means that the motor rotates to the CW direction.
 That is, the 10th bit becomes the direction bit to control the direction, and 0 and 1024 are equal.
 The unit of this value varies depending on operation mode.
 
@@ -347,9 +347,9 @@ The unit of this value varies depending on operation mode.
 <a id="present-load"></a>
 #### Present Load (40)
 It means currently applied load.
-The range of the value is 0~2047, and the unit is about 0.1%.
-If the value is 0~1023, it means the load works to the CCW direction.
-If the value is 1024~2047, it means the load works to the CW direction.
+The range of the value is 0 ~ 2047, and the unit is about 0.1%.
+If the value is 0 ~ 1023, it means the load works to the CCW direction.
+If the value is 1024 ~ 2047, it means the load works to the CW direction.
 That is, the 10th bit becomes the direction bit to control the direction, and 1024 is equal to 0.
 For example, the value is 512, it means the load is detected in the direction of CCW about 50% of the maximum torque.
 
