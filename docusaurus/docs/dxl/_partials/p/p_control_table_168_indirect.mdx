@@ -4,7 +4,7 @@ For instance, allocating 513(which is the Address of red LED) to Indirect Addres
 If a specific item has address longer than 2 byte, each address byte has to be sequentially configured in the Indirect Address.
 
 
-<div class="notice--success">
+<div className="notice--success">
 **Example 1** : Allocating 1 byte LED Red(513) to Indirect Data 1(634).
 1. Indirect Address 1(168) : write `513` which is the address of LED Red.
 2. Set Indirect Data 1(634) to `255` : The value of LED Red(513) will automatically set as `255` and LED will be turned on.
@@ -12,7 +12,7 @@ If a specific item has address longer than 2 byte, each address byte has to be s
 </div>
 
 
-<div class="notice--success">
+<div className="notice--success">
 **Example 2** : To allocate 4 byte Goal Position(564) to Indirect Data 2(635), 4 sequential bytes have to be allocated.
 1. Indirect Address 2(170) : Write `564` which is the first address of Goal Position.
 2. Indirect Address 3(172) : Write `565` which is the second address of Goal Position.

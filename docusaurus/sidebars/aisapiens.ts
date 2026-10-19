@@ -94,6 +94,15 @@ const aisapiensSidebar: SidebarsConfig[string] = [
     items: [
       {type: 'doc', id: 'systems/aisapiens/resources/open_source', label: 'Open Source'},
       {type: 'doc', id: 'systems/aisapiens/resources/release_notes', label: 'Release Notes'},
+      {
+        type: 'category',
+        label: 'Technical Story',
+        link: {type: 'doc', id: 'systems/aisapiens/resources/technical_story/technical_story'},
+        collapsed: false,
+        items: [
+          {type: 'doc', id: 'systems/aisapiens/resources/technical_story/building_humanoid_skills', label: 'Building Humanoid Skills'},
+        ],
+      },
       {type: 'doc', id: 'systems/aisapiens/resources/support', label: 'Support'},
     ],
   },

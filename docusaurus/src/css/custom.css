@@ -1823,6 +1823,16 @@
   width: 50%;
 }
 
+/* DYNAMIXEL model pages: the Performance Graph image directly under the
+   "Performance Graph" / "성능 그래프" heading. The source images come in a
+   dozen pixel sizes (365px to 647px wide), so render them all at one width. */
+.markdown h3[id^="performance-graph"] + p > img,
+.markdown h3[id^="성능-그래프"] + p > img {
+  width: 700px;
+  max-width: 100%;
+  height: auto;
+}
+
 .model-comparison {
   display: flex;
   gap: 20px;
@@ -2855,7 +2865,7 @@
 
 .ecosystem-project-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
   gap: 1.25rem;
   margin-top: 1.25rem;
 }
@@ -2884,7 +2894,8 @@
   height: 180px;
   margin-bottom: 1rem;
   border-radius: 8px;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
   background: var(--ifm-color-emphasis-100);
 }
 

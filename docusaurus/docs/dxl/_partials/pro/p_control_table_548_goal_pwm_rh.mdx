@@ -1,0 +1,15 @@
+{/*
+p_control_table_548_goal_pwm.mdx for RH-P12-RN(A).
+The RH-P12-RN has no PWM Control Mode, so the e-Manual describes Goal PWM(548)
+only as an output power limit rather than as a direct motor command.
+*/}
+
+Goal PWM(548) cannot exceed [PWM Limit(36)] and is used to limit the output power.  
+Please refer to the Gain section in order to see how Goal PWM(548) affects to internal controller.
+
+
+|      Unit       |               Range                |
+|:---------------:|:----------------------------------:|
+| about 0.0498 [%] | -[PWM Limit(36)] ~ [PWM Limit(36)] |
+
+[PWM Limit(36)]: #pwm-limit36

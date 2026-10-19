@@ -12,6 +12,7 @@ const config: Config = {
   title: 'ROBOTIS Docs',
   tagline: 'ROBOTIS product documentation',
   favicon: 'img/favicon.ico',
+  staticDirectories: ['static', 'generated'],
 
   future: {
     v4: true,
@@ -28,8 +29,10 @@ const config: Config = {
     defaultLocale: 'en',
     locales: ['en', 'ko'],
     localeConfigs: {
-      en: { label: 'English', htmlLang: 'en' },
-      ko: { label: '한국어', htmlLang: 'ko' },
+      // CI builds one locale at a time, which disables Docusaurus' automatic
+      // locale path prefixing. Keep the language-switch URLs explicit.
+      en: { label: 'English', htmlLang: 'en', baseUrl: '/' },
+      ko: { label: '한국어', htmlLang: 'ko', baseUrl: '/ko/' },
     },
   },
 
@@ -74,7 +77,6 @@ const config: Config = {
         theme: {
           customCss: [
             './src/css/custom.css',
-            './src/css/ohgym.css',
           ],
         },
         sitemap: {
@@ -271,6 +273,10 @@ const config: Config = {
                         <a class="mega-menu__product" href="/docs/systems/hx5_d20/introduction">
                           <div class="mega-menu__product-thumb"><img src="/img/mega-menu/hx5-d20.webp" alt="HX5-D20" /></div>
                           <span>HX5-D20</span>
+                        </a>
+                        <a class="mega-menu__product" href="/docs/systems/hx_friends/">
+                          <div class="mega-menu__product-thumb"><img src="/img/mega-menu/hx_friends.png" alt="HX Friends" /></div>
+                          <span>HX Friends</span>
                         </a>
                         <a class="mega-menu__product" href="/docs/systems/rh_p12_rn/">
                           <div class="mega-menu__product-thumb"><img src="/img/mega-menu/rh-p12-rn.webp" alt="RH-P12-RN(A)" /></div>
@@ -632,11 +638,6 @@ const config: Config = {
           to: '/docs/common/opensource',
           position: 'left',
           label: 'Open Source',
-        },
-        {
-          to: '/docs/common/oh_project',
-          position: 'left',
-          label: 'OH! Project',
         },
         {
           to: '/docs/common/contact',

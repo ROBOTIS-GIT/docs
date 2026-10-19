@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
-    "prestart": "node scripts/generate-ko-unsupported-routes.js",
+    "prestart": "npm run build:omx && node scripts/generate-ko-unsupported-routes.js",
     "start": "docusaurus start",
-    "prebuild": "node scripts/generate-ko-unsupported-routes.js",
+    "prebuild": "npm run build:omx && node scripts/generate-ko-unsupported-routes.js",
     "build": "docusaurus build",
     "generate-ko-unsupported-routes": "node scripts/generate-ko-unsupported-routes.js",
     "swizzle": "docusaurus swizzle",
@@ -15,7 +15,10 @@
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "build:omx": "npm run build --prefix omx-assembly",
+    "test:omx": "npm test --prefix omx-assembly",
+    "postbuild": "node scripts/check-omx-output.mjs"
   },
   "dependencies": {
     "@docusaurus/core": "3.10.1",
@@ -54,6 +57,6 @@
     ]
   },
   "engines": {
-    "node": ">=20.0"
+    "node": ">=22.12.0"
   }
 }

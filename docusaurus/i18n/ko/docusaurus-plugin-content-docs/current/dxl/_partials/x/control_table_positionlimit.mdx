@@ -1,6 +1,9 @@
+{/* props
+   currentBased: false면 Current-based Position Control Mode를 뺀다(XL430·XC430).
+*/}
 Min/Max Position Limit(52, 48)은 Position Control Mode(Joint Mode)에서 1회전(0 ~ 4,095) 범위 내의 최소/최대 위치를 제한합니다.
 [Goal Position(116)]도 이 Position Limit 범위에 의해 제한됩니다.
-이 값은 Extended Position Control Mode와 Current-based Position Control Mode에서는 사용되지 않습니다.
+이 값은 Extended Position Control Mode{props.currentBased !== false && '와 Current-based Position Control Mode'}에서는 사용되지 않습니다.
 
 |     단위      |          범위         |
 |:-------------:|:---------------------:|

@@ -152,7 +152,9 @@ const aiworkerSidebar: SidebarsConfig[string] = [
           {type: 'doc', id: 'systems/aiworker/resources/technical_story/isaac_gr00t', label: 'Isaac GR00T'},
           {type: 'doc', id: 'systems/aiworker/resources/technical_story/nav2', label: 'Nav2'},
           {type: 'doc', id: 'systems/aiworker/resources/technical_story/isaac_vr_teleoperation', label: 'Isaac VR Teleoperation'},
-          {type: 'doc', id: 'systems/aiworker/resources/technical_story/isaac_centerpose', label: 'Isaac CenterPose'},
+          {type: 'doc', id: 'systems/aiworker/resources/technical_story/isaac_centerpose', label: 'Isaac ROS CenterPose'},
+          {type: 'doc', id: 'systems/aiworker/resources/technical_story/isaac_cumotion', label: 'Isaac ROS cuMotion'},
+          {type: 'doc',id: 'systems/aiworker/resources/technical_story/tactile_inference',label: 'Tactile ACT'},
         ],
       },
     ],
@@ -163,6 +165,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
     collapsed: false,
     items: [
       {type: 'doc', id: 'systems/aiworker/support/multi_turn_troubleshooting_guide', label: 'Clearing Multi-turn Error'},
+      {type: 'doc', id: 'systems/aiworker/support/jetson_orin_flashing', label: 'Image Reflashing'},
       {type: 'link', label: 'Discord Server', href: 'https://discord.gg/robotis'},
       {type: 'doc', id: 'systems/aiworker/support/issues', label: 'Issues'},
       {type: 'doc', id: 'systems/aiworker/support/faq', label: 'FAQ'},

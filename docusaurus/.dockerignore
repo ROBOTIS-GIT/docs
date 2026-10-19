@@ -4,3 +4,6 @@ build
 .cache-loader
 npm-debug.log*
 .DS_Store
+generated
+omx-assembly/node_modules
+omx-assembly/public/models/*.glb
