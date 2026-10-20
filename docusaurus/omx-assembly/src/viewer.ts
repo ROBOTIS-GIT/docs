@@ -580,8 +580,9 @@ export class Viewer {
         .fromArray(e.base)
         .addScaledVector(new T.Vector3().fromArray(e.normal), 0.004);
     // Oblique to the insertion axis: expose both the socket mouth and the plug shoulder.
-    const direction =
-      Math.abs(e.normal[0]) > 0.9
+    const direction = e.inspectionDirection
+      ? new T.Vector3().fromArray(e.inspectionDirection)
+      : Math.abs(e.normal[0]) > 0.9
         ? new T.Vector3(e.normal[0], 0.25, -0.65)
         : new T.Vector3()
             .fromArray(e.normal)

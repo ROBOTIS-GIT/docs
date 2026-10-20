@@ -26,7 +26,7 @@ for (const kind of ["leader", "follower"])
     const m = data(kind);
     const ids = new Set(m.parts.map((p) => p.id));
     assert.equal(ids.size, m.parts.length);
-    assert.equal(m.steps.length, kind === "leader" ? 58 : 72);
+    assert.equal(m.steps.length, kind === "leader" ? 58 : 75);
     const glb = readFileSync(
       new URL(`../public/models/${kind}.glb`, import.meta.url),
     );
@@ -67,9 +67,9 @@ for (const kind of ["leader", "follower"])
       }
     }
     const board = m.parts.filter((p) => p.group === 2);
-    assert.equal(board.length, 136);
+    assert.equal(board.length, kind === "leader" ? 137 : 136);
     const fit = m.steps.find((s) => s.title === "Fit controller");
-    assert.equal(fit.active.length, 136);
+    assert.equal(fit.active.length, board.length);
     assert(board.every((p) => fit.active.includes(p.id)));
   });
 test("Module joining animates the whole subassembly without resetting its staged pose", () => {
