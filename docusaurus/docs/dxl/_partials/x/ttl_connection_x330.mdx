@@ -1,0 +1,21 @@
+{/*
+ttl_connection_x.mdx for the 3.3V-logic X330 models (XL330, XC330-M181/M288).
+The e-Manual shows a dedicated 3.3V circuit for these models instead of the 5V one.
+*/}
+
+## Communication Circuit
+To control the DYNAMIXEL actuators, the main controller needs to convert its UART signals to the half duplex type. The recommended circuit diagram for this is shown below.
+
+
+### TTL Communication (3.3V Logic, 5V Compatible)
+![](/img/common/3v3_ttl_circuit.png)
+
+
+:::note
+
+**NOTE**: Though the communication bus of these models is 3.3 V TTL logic level unlike other DYNAMIXELs, they can be also compatible with 5V TTL logic level.
+
+:::
+
+
+![](/img/common/x_series_ttl_pin.webp)

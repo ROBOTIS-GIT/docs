@@ -1,3 +1,6 @@
+{/* props
+   load: 주소 126을 Present Load로 적는다(XL430·XC430). 기본은 Present Current.
+*/}
 Position Control Mode와 Extended Position Control Mode에서 동작하는 위치 제어기의 Gain입니다.
 DYNAMIXEL 내부 제어기의 Position P Gain은 K<sub>P</sub>P로, 컨트롤 테이블의 Gain은 K<sub>P</sub>P<sub>(TBL)</sub>로 표기합니다.
 
@@ -17,7 +20,7 @@ DYNAMIXEL 내부 제어기의 Position P Gain은 K<sub>P</sub>P로, 컨트롤 �
 4. Feedforward와 PID 제어기는 목표 궤적을 기반으로 모터에 인가할 PWM 출력을 계산합니다.
 5. [Goal PWM(100)]은 계산된 PWM 출력을 제한하여 최종 PWM 값을 결정합니다.
 6. 최종 PWM 값은 Inverter를 통해 모터에 적용되고 DYNAMIXEL의 Horn이 구동됩니다.
-7. 구동 결과는 [Present Position(132)], [Present Velocity(128)], [Present PWM(124)], [Present Current(126)]에 저장됩니다.
+7. 구동 결과는 [Present Position(132)], [Present Velocity(128)], [Present PWM(124)], {props.load ? <a href="#present-load126">Present Load(126)</a> : <a href="#present-current126">Present Current(126)</a>}에 저장됩니다.
 
 ![](/img/dxl/model_reference/common/position_controller_pid_gain.webp)
 
@@ -38,4 +41,3 @@ PID 제어기와 Feedforward 제어기에 대한 자세한 내용은 [PID Contro
 [Present Position(132)]: #present-position132
 [Present Velocity(128)]: #present-velocity128
 [Present PWM(124)]: #present-pwm124
-[Present Current(126)]: #present-current126
