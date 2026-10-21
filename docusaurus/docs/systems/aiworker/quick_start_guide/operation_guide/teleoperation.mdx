@@ -1,10 +1,13 @@
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import RunZenohDaemon from '@site/docs/systems/aiworker/_partials/run_zenoh_daemon.mdx';
+import A1A2Operation from '@site/docs/systems/aiworker/_partials/a1_a2_operation.mdx';
 
 # Teleoperation
 
 This guide explains how to set up and operate the AI Worker using teleoperation.
+
+Select your **Leader** (A1, A2, or LG2) for setup and button instructions. Select your **Follower** (the robot being controlled) separately for its launch commands.
 
 ## Prerequisites
 
@@ -13,13 +16,39 @@ Before starting teleoperation, make sure:
 
 ### Steps for Teleoperation Setup (Leader)
 (*The term `Leader` refers to the control device in the AI WORKER system)
+
+<Tabs groupId="aiworker-leader-type">
+  <TabItem value="lg2" label="LG2">
+
 ![Back of the LG2 Leader](/img/systems/aiworker/quick_start_guide/operation_guide/teleoperation/back_of_the_LG2_leader.png)
 1. `Power Cable`: Connect the power adapter to supply power to the U2D2 device.
 2. `U2D2 ON/OFF`: This switch is located inside a small recessed hole. The device is turned on when the inner white-dotted button is pressed.
 3. `USB Cable`: Connect a USB cable from the U2D2 to one of the USB ports on the back of the `Follower`.
 
+  </TabItem>
+  <TabItem value="a1" label="A1">
+
+![Back of the a1 Leader](/img/systems/aiworker/quick_start_guide/operation_guide/teleoperation/back_of_the_A1_leader.png)
+
+1. `Power Cable`: Connect the power adapter to supply power to the leader controller.
+2. `USB Cable`: Connect a USB cable from the leader controller to one of the USB ports on the back of the `Follower`.
+
+  </TabItem>
+  <TabItem value="a2" label="A2">
+
+![Bottom of the a2 Leader](/img/systems/aiworker/quick_start_guide/operation_guide/teleoperation/bottom_of_the_A2_leader.png)
+
+1. `Power Cable`: Connect the power adapter to supply power to the leader controller.
+2. `USB Cable`: Connect a USB cable from the leader controller to one of the USB ports on the back of the `Follower`.
+
+  </TabItem>
+</Tabs>
 
 ### How to Wear the Leader
+
+<Tabs groupId="aiworker-leader-type">
+  <TabItem value="lg2" label="LG2">
+
 **First Leader Version**
 ![Leader's wearing appearance](/img/systems/aiworker/quick_start_guide/operation_guide/teleoperation/leader_wearing_appearance.png)
 
@@ -51,6 +80,42 @@ When aligning the first joint, pay particular attention to the motor's orientati
 <img src="/img/systems/aiworker/quick_start_guide/operation_guide/teleoperation/leader_align3.png" alt="Correct alignment of the Leader joint stickers (view 3)" style={{width: '40%', borderRadius: '8px'}} />
 :::
 
+  </TabItem>
+  <TabItem value="a1" label="A1">
+
+![A1 wearing appearance](/img/systems/aiworker/quick_start_guide/operation_guide/teleoperation/a1_wearing_appearance.png)
+
+1. First, pull the inner belt tightly and fasten it around the waist.
+2. Then, pull the outer belt and attach it over the inner belt using the Velcro.
+
+![Secure upper arm strap](/img/systems/aiworker/quick_start_guide/operation_guide/teleoperation/a1_upper_arm_strap.png)
+
+3. Wrap the strap around your upper arm and fasten the magnetic closure to secure your arm to the Leader link.
+
+![Adjust the link lengths](/img/systems/aiworker/quick_start_guide/operation_guide/teleoperation/a1_adjust_link_lengths.png)
+
+4. Adjust the shoulder, upper arm, and forearm links to fit your body. Pull and hold the spring-loaded pin, slide the link to the desired length, then align the pin with a locking hole and release it.
+
+:::tip[Releasing the Upper Arm Strap]
+When taking off the Leader, grasp the pull cord on the magnetic closure and lift it upward to release the upper arm strap.
+
+![Release arm strap](/img/systems/aiworker/quick_start_guide/operation_guide/teleoperation/a1_release_arm_strap.gif)
+:::
+
+  </TabItem>
+  <TabItem value="a2" label="A2">
+
+![A2 wearing appearance](/img/systems/aiworker/quick_start_guide/operation_guide/teleoperation/a2_wearing_appearance.png)
+
+1. Adjust the tripod to a comfortable operating height.
+
+![Secure elbow strap](/img/systems/aiworker/quick_start_guide/operation_guide/teleoperation/a2_elbow_strap.png)
+
+2. Put on and fasten the elbow straps to secure your arms to the Leader.
+
+  </TabItem>
+</Tabs>
+
 ## Running Teleoperation
 The following teleoperation commands are executed on the `robot PC`.
 You can either connect a keyboard and mouse directly to the Nvidia Orin, or access it via SSH (see the Setup Guide for instructions).<br />
@@ -66,11 +131,13 @@ cd ~/ai_worker
 
 ### Option 1: All-in-One Launch
 
-:::tip
-After execution, the follower will not move until you push both hand triggers for more than 2 seconds. Once you do, the follower will slowly move toward the leader's position, and after reaching a certain proximity, it will move more quickly. This behavior is the same even when launching the leader and follower separately.
+The commands below start an **LG2 Leader** with the selected Follower. For **A1 or A2**, use [Option 2: Separate Launches](#option-2-separate-launches). Do not run both options at the same time.
+
+:::tip[LG2 arm control]
+After startup initialization finishes, the follower will not follow the LG2 until you push both hand triggers for more than 2 seconds. Once you do, the follower will slowly move toward the leader's position, and after reaching a certain proximity, it will move more quickly. This LG2 behavior is the same when launching the leader and follower separately.
 :::
 
-To start both the `Leader` and `Follower(BG2/SG2)` simultaneously:
+To start both the `LG2 Leader` and `Follower (BG2/SG2/F1/F2)` simultaneously:
 
 <Tabs groupId="aiworker-robot-type">
   <TabItem value="bg2" label="BG2 Type">
@@ -84,6 +151,20 @@ ros2 launch ffw_bringup ffw_bg2_ai.launch.py
 
 ```bash
 ros2 launch ffw_bringup ffw_sg2_ai.launch.py
+```
+
+  </TabItem>
+  <TabItem value="f1" label="F1 Type">
+
+```bash
+ros2 launch ffw_bringup ffw_f1_ai.launch.py
+```
+
+  </TabItem>
+  <TabItem value="f2" label="F2 Type">
+
+```bash
+ros2 launch ffw_bringup ffw_f2_ai.launch.py
 ```
 
   </TabItem>
@@ -106,10 +187,26 @@ ffw_sg2_ai
 ```
 
   </TabItem>
+  <TabItem value="f1" label="F1 Type">
+
+```bash
+ffw_f1_ai
+```
+
+  </TabItem>
+  <TabItem value="f2" label="F2 Type">
+
+```bash
+ffw_f2_ai
+```
+
+  </TabItem>
 </Tabs>
 
 ### Option 2: Separate Launches
 If you want to run the `Leader` and `Follower` separately in different terminals:
+
+Use this option for A1/A2. Enter the AI Worker container in each terminal, start the Follower first, and wait for its startup initialization to finish before starting the Leader. The required teleoperation software starts with the Follower; no separate Cyclo launch command is needed.
 
 1. **Launch the teleoperation `Follower`**:
 
@@ -125,6 +222,20 @@ ros2 launch ffw_bringup ffw_bg2_follower_ai.launch.py
 
 ```bash
 ros2 launch ffw_bringup ffw_sg2_follower_ai.launch.py
+```
+
+  </TabItem>
+  <TabItem value="f1" label="F1 Type">
+
+```bash
+ros2 launch ffw_bringup ffw_f1_follower_ai.launch.py
+```
+
+  </TabItem>
+  <TabItem value="f2" label="F2 Type">
+
+```bash
+ros2 launch ffw_bringup ffw_f2_follower_ai.launch.py
 ```
 
   </TabItem>
@@ -144,6 +255,20 @@ ffw_bg2_follower_ai
 
 ```bash
 ffw_sg2_follower_ai
+```
+
+  </TabItem>
+  <TabItem value="f1" label="F1 Type">
+
+```bash
+ffw_f1_follower_ai
+```
+
+  </TabItem>
+  <TabItem value="f2" label="F2 Type">
+
+```bash
+ffw_f2_follower_ai
 ```
 
   </TabItem>
@@ -165,6 +290,16 @@ To start the system without initializing the position, set the `init_position` p
 ros2 launch ffw_bringup ffw_bg2_follower_ai.launch.py init_position:=false
 ```
 
+**Enable Automatic Camera Assignment**
+To automatically assign the connected RealSense cameras without manually configuring their serial numbers, set the `auto_assign_cameras` parameter to `true`:
+```bash
+ros2 launch ffw_bringup ffw_bg2_follower_ai.launch.py auto_assign_cameras:=true
+```
+
+:::warning
+Automatic camera assignment may not work on some older BG2 and SG2 models. If this occurs, set `auto_assign_cameras:=false` and use your existing manual camera configuration.
+:::
+
 **Combine Multiple Parameters**
 You can use both parameters together:
 ```bash
@@ -172,18 +307,44 @@ ros2 launch ffw_bringup ffw_bg2_follower_ai.launch.py launch_cameras:=false init
 ```
 
 2. **Launch the teleoperation `Leader`**:
-   ```bash
-   ros2 launch ffw_bringup ffw_lg2_leader_ai.launch.py
-   ```
 
-   Or use the shortcut:
-   ```bash
-   ffw_lg2_leader_ai
-   ```
+<Tabs groupId="aiworker-leader-type">
+  <TabItem value="a1" label="A1">
+
+```bash
+ros2 launch ffw_bringup ffw_a1_leader_ai.launch.py
+```
+
+  </TabItem>
+  <TabItem value="a2" label="A2">
+
+```bash
+ros2 launch ffw_bringup ffw_a2_leader_ai.launch.py
+```
+
+  </TabItem>
+  <TabItem value="lg2" label="LG2">
+
+```bash
+ros2 launch ffw_bringup ffw_lg2_leader_ai.launch.py
+```
+
+Or use the shortcut:
+
+```bash
+ffw_lg2_leader_ai
+```
+
+  </TabItem>
+</Tabs>
+
+Continue to [Basic Operation](#basic-operation) to start arm teleoperation. Launching the programs alone does not start teleoperation for either A1/A2 arm.
 
 ## Follower Bringup for Inference
 
-For model inference, stop the teleoperation leader node and run only the follower bringup. Do not command the robot from teleoperation and model inference at the same time.
+For **LG2**, stop the teleoperation leader node and run only the follower bringup. Do not command the robot from teleoperation and model inference at the same time.
+
+With **A1/A2**, the Leader can remain running so you can switch between Teleoperation mode and External control mode when using a compatible inference program. See the mode descriptions and button instructions under [Basic Operation](#basic-operation).
 
 <Tabs groupId="aiworker-robot-type">
   <TabItem value="bg2" label="BG2 Type">
@@ -197,6 +358,20 @@ ros2 launch ffw_bringup ffw_bg2_follower_ai.launch.py
 
 ```bash
 ros2 launch ffw_bringup ffw_sg2_follower_ai.launch.py
+```
+
+  </TabItem>
+  <TabItem value="f1" label="F1 Type">
+
+```bash
+ros2 launch ffw_bringup ffw_f1_follower_ai.launch.py
+```
+
+  </TabItem>
+  <TabItem value="f2" label="F2 Type">
+
+```bash
+ros2 launch ffw_bringup ffw_f2_follower_ai.launch.py
 ```
 
   </TabItem>
@@ -219,42 +394,73 @@ ffw_sg2_follower_ai
 ```
 
   </TabItem>
+  <TabItem value="f1" label="F1 Type">
+
+```bash
+ffw_f1_follower_ai
+```
+
+  </TabItem>
+  <TabItem value="f2" label="F2 Type">
+
+```bash
+ffw_f2_follower_ai
+```
+
+  </TabItem>
 </Tabs>
 
 ## Basic Operation
+
+<Tabs groupId="aiworker-leader-type">
+  <TabItem value="a1" label="A1">
+
+{/* PHOTO PLACEHOLDER: A1 hand controls with the left/right joystick buttons and triggers labeled. Clearly distinguish pressing a joystick button from pushing a trigger forward. */}
+
+<A1A2Operation model="a1" />
+
+  </TabItem>
+  <TabItem value="a2" label="A2">
+
+{/* PHOTO PLACEHOLDER: A2 hand controls with the left/right joystick buttons and triggers labeled. Clearly distinguish pressing a joystick button from pushing a trigger forward. */}
+
+<A1A2Operation model="a2" />
+
+  </TabItem>
+  <TabItem value="lg2" label="LG2">
+
 :::tip
 You must push **both hand triggers** for more than 2 seconds for the follower to start moving. When you push both triggers forward, the follower will slowly move to the leader's position, and once it comes within a certain error range, it will move quickly.
 
 <img src="/img/systems/aiworker/quick_start_guide/operation_guide/teleoperation/push_trigger_ai_worker.gif" alt="Push Trigger" className="doc-img-50" />
 :::
 
-### FFW_BG2
 1. Once both systems are running, the `Follower` will begin to mirror your movements.
 2. Start with slow, gentle movements to get familiar with the response.
 3. The grip buttons on the `Leader` control the gripper actions on the `Follower`.
 4. The `right joystick` controls the up and down motion of the `lift`,
 while the `left joystick` controls the`head` section of the robot.
+5. For Followers with a mobile base, press both joystick buttons simultaneously to switch to `SWERVE DRIVE MODE`. Use the joystick directions shown below to move the base.
 
-### FFW_SG2
-1. Once both systems are running, the `Follower` will begin to mirror your movements.
-2. Start with slow, gentle movements to get familiar with the response.
-3. The grip buttons on the `Leader` control the gripper actions on the `Follower`.
-4. The `right joystick` controls the up and down motion of the `lift`,
-while the `left joystick` controls the`head` section of the robot.
-5. Pressing both switches simultaneously switches to `SWERVE DRIVE MODE`.
-6. In `SWERVE DRIVE MODE`, the left joystick controls: X-axis: Linear x, Y-axis: Linear y
-   The right joystick controls: Y-axis: Angular z
-![Swerve joystick Control](/img/systems/aiworker/quick_start_guide/operation_guide/teleoperation/LG2_Joystick.png)
+![Mobile-base joystick directions: left joystick for translation and right joystick for turning](/img/systems/aiworker/quick_start_guide/operation_guide/teleoperation/LG2_Joystick.png)
 
 :::warning
 In swerve mode, the arms continue to move. Please be careful.
 :::
 
-## Pause Teleoperation
+<h3 id="lg2-pausing-teleoperation">Pausing Teleoperation</h3>
 
 To temporarily pause teleoperation:
-1. Push both hand triggers for more than 2 seconds
-2. The follower will stop and hold its current position
+
+1. Push both hand triggers forward for more than 2 seconds.
+2. The Follower will stop and hold its current position.
+
+  </TabItem>
+</Tabs>
+
+:::warning
+Pausing arm teleoperation is not an emergency stop and does not stop an independently running inference program or other program. Use the robot's emergency-stop procedure if unexpected motion occurs.
+:::
 
 ## Stopping Teleoperation
 
@@ -267,4 +473,4 @@ To stop teleoperation:
 - **Delayed movements**: Check for any obstructions or if you're reaching joint limits
 - **Unresponsive gripper**: Ensure proper calibration and connection
 - **System unresponsive**: Check ROS topic connections with `ros2 topic list` and `ros2 topic echo`
-- **Trigger pause function not available or robot moves immediately upon startup**: Please update the ai_worker source code to version `1.1.10` or higher
+- **Teleoperation does not pause as expected**: For A1 and A2, update the `ai_worker` source to the latest release ([`2.3.0`](https://github.com/ROBOTIS-GIT/ai_worker/releases/tag/2.3.0)). On LG2, push both hand triggers forward for more than 2 seconds to pause active teleoperation. On A1/A2, hold each active arm's joystick button alone for 0.5 seconds to pause that arm in Teleoperation mode.

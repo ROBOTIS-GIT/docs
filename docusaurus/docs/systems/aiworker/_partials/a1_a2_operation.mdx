@@ -1,0 +1,199 @@
+A1 and A2 use the same button operations. The system has two control modes:
+
+- **External control mode** (`external`): The Leader remains connected but does not publish motion commands from its inputs. The Follower instead follows commands sent to its trajectory command topics by an external program, such as an inference program or your own custom control node.
+- **Teleoperation mode** (`teleop`): The Leader's inputs are used to generate motion commands for the Follower.
+
+Before switching to Teleoperation mode, stop your external program from publishing motion commands.
+
+<h3 id={props.model + '-starting-arm-control'}>Starting and Pausing Arm Teleoperation</h3>
+
+![Switch control modes](/img/systems/aiworker/quick_start_guide/operation_guide/teleoperation/a1_double_long_press.gif)
+
+1. Wait for Follower initialization to finish.
+2. At a fresh startup, the system is in **External control mode**. Hold **both joystick buttons together for 0.5 seconds**, then release them, to switch to **Teleoperation mode**. Wait for `Control source: teleop` in the Leader terminal.
+
+![Activate arm](/img/systems/aiworker/quick_start_guide/operation_guide/teleoperation/a1_single_long_press.gif)
+
+3. Start teleoperation **one arm at a time, in either order**, by holding that arm's joystick button **alone for 0.5 seconds**, then releasing it.
+4. To pause teleoperation, pause the arms **one at a time**. Hold the joystick button for an active arm **alone for 0.5 seconds**, then release it. Only that arm stops following the Leader and holds its current position; repeat for the other arm if needed.
+
+To resume teleoperation for a paused arm, keep the Leader steady and hold that arm's joystick button alone for 0.5 seconds again. When teleoperation is paused for both arms, the Leader terminal reports `arms=none`.
+
+:::tip
+Teleoperation is paused for both arms immediately after switching to Teleoperation mode. Start teleoperation for each arm separately when you are ready.
+:::
+
+In Teleoperation mode, holding both joystick buttons together for 0.5 seconds stops arm teleoperation and switches to External control mode. To pause arm teleoperation without changing modes, use each arm's joystick button separately.
+
+<h3 id={props.model + '-trigger-and-joystick-controls'}>Using the Triggers and Joysticks</h3>
+
+Use these controls in Teleoperation mode.
+
+<h4 id={props.model + '-gripper-controls'}>Opening and Closing the Grippers</h4>
+
+While teleoperation is active for an arm, use its trigger to open and close the gripper: the left trigger controls the left gripper, and the right trigger controls the right gripper.
+
+<h4 id={props.model + '-trigger-initial-pose'}>Moving an Arm to Its Initial Pose</h4>
+
+![Send to initial pose](/img/systems/aiworker/quick_start_guide/operation_guide/teleoperation/a1_trigger_forward.gif)
+
+Push a trigger forward and hold it for **2 seconds** to move that arm to its initial pose, if one is configured.
+
+:::warning
+Unlike LG2, pushing the triggers forward on A1/A2 is **not a start/pause gesture**. It can cause an arm to move to a configured pose. Check the surrounding space before using it.
+:::
+
+<h4 id={props.model + '-joystick-controls'}>Switching Between Head/Lift and Mobile-Base Control</h4>
+
+![Switch modes](/img/systems/aiworker/quick_start_guide/operation_guide/teleoperation/a1_double_short_press.gif)
+
+Briefly press both joystick buttons together and release them **before 0.5 seconds** to switch the joysticks between head/lift control and mobile-base control. This short press changes what the joysticks operate. Check the selected function in the Leader terminal before moving a joystick.
+
+In head/lift control (`head_control`), the left joystick controls the head and the right joystick controls the lift.
+
+In mobile-base control (`swerve`), use the joystick directions shown below. The image shows LG2 controls, but the same mobile-base joystick directions apply to A1 and A2.
+
+![Mobile-base joystick directions for A1 and A2, illustrated using LG2 controls](/img/systems/aiworker/quick_start_guide/operation_guide/teleoperation/LG2_Joystick.png)
+
+Mobile-base control applies only to Followers with a mobile base, such as SG2 or F2.
+
+<h3 id={props.model + '-button-controls'}>Button Controls at a Glance</h3>
+
+These timings use the supplied default settings. A **joystick button** is pressed down; a **trigger** is a separate control.
+
+| Operation | Result |
+| --- | --- |
+| Briefly press the right joystick button alone and release it before 0.5 seconds | Start recording, or save the current recording if already recording, when used with `physical_ai_tools` or `cyclo_intelligence` |
+| Briefly press the left joystick button alone and release it before 0.5 seconds | Cancel the current recording when used with `physical_ai_tools` or `cyclo_intelligence` |
+| Hold the left joystick button alone for 0.5 seconds | Start, pause, or resume teleoperation for the left arm in Teleoperation mode |
+| Hold the right joystick button alone for 0.5 seconds | Start, pause, or resume teleoperation for the right arm in Teleoperation mode |
+| Hold both joystick buttons together for 0.5 seconds | Switch between Teleoperation mode and External control mode. Switching to External control mode also stops arm teleoperation. |
+| Briefly press both joystick buttons together and release them before 0.5 seconds | Switch the joysticks between head/lift and mobile-base control |
+| Push one trigger forward and hold it for 2 seconds | Move that arm to the current arm-following mode's configured initial pose, if available, in Teleoperation mode |
+
+<h3 id={props.model + '-additional-controls'}>Additional Controls</h3>
+
+These features are optional. For basic arm teleoperation, keep the default arm-following mode and skip this section. Run any commands below in another terminal inside the same AI Worker container, leaving the Leader and Follower running.
+
+<details>
+  <summary>Changing how the arms follow the Leader</summary>
+
+Within Teleoperation mode, the supplied configuration provides two **arm-following modes**. These determine how the arms follow the Leader and are separate from switching between Teleoperation mode and External control mode:
+
+- **Mode 1 — Joint following:** The Follower follows the Leader's joint movements. This is the default.
+- **Mode 2 — Relative end-effector movement:** The Follower's end effector follows changes in the Leader's end-effector position and orientation from the starting reference.
+
+1. Stay in Teleoperation mode and pause teleoperation for each active arm separately.
+2. To select relative end-effector movement, run:
+
+```bash
+ros2 service call /set_control_mode robotis_interfaces/srv/SetControlMode "{control_mode: 2}"
+```
+
+3. Check the response. `accepted: true` means the request was accepted. Wait for the Leader terminal to report `Cyclo state=holding mode=2 arms=none`.
+4. Start teleoperation for the required arm by holding its joystick button alone for 0.5 seconds.
+
+To return to joint following, pause teleoperation for each active arm separately and repeat with `control_mode: 1`. Wait for `mode=1` before resuming arm teleoperation.
+
+**Configuration**
+
+The available modes and startup default are defined in your Follower's teleoperation YAML. For SG2, this is `ffw_bringup/config/ffw_sg2_rev1_follower/ffw_sg2_teleoperation.yaml`:
+
+```yaml
+cyclo_teleoperation:
+  ros__parameters:
+    available_control_modes: [1, 2]
+    default_control_mode: 1  # 1: joint following, 2: relative end-effector movement
+```
+
+If you change `default_control_mode`, use the same value in your Leader's `ffw_a1_leader_ai_hardware_controller.yaml` or `ffw_a2_leader_ai_hardware_controller.yaml`.
+
+{/* PHOTO PLACEHOLDER: Joint-following and relative end-effector movement examples, with matching starting positions and movement arrows. */}
+
+</details>
+
+<details>
+  <summary>Moving an arm to its initial pose</summary>
+
+1. Switch to Teleoperation mode.
+2. Push that arm's trigger forward and hold it for **2 seconds**, then release it.
+3. Wait for the movement to finish before resuming teleoperation for that arm with its joystick button.
+
+The arm moves to the **final pose of the current arm-following mode's configured initialization sequence**, not through the entire sequence. If no initial pose is configured for that arm, the request is not executed; check the Leader terminal message.
+
+In the supplied configuration, arm-following mode 2 has an initial pose and mode 1 does not.
+
+**Configuration**
+
+The target pose is defined under `control_modes` → `"2"` → `initial_pose` in your Follower's teleoperation YAML, for example `ffw_bringup/config/ffw_sg2_rev1_follower/ffw_sg2_teleoperation.yaml`:
+
+```yaml
+cyclo_teleoperation:
+  ros__parameters:
+    control_modes:
+      "2":
+        initial_pose:
+          enabled: false  # Do not automatically move on mode entry
+          step_names: [step0, step1]
+          steps:
+            # step0 is omitted here; keep its existing settings.
+            step1:  # The trigger requests this final step
+              left:
+                positions: [0.0, 0.0, 0.0, -1.57, 0.0, 0.0, 0.0]
+                gripper_position: 0.0
+              right:
+                positions: [0.0, 0.0, 0.0, -1.57, 0.0, 0.0, 0.0]
+                gripper_position: 0.0
+```
+
+Edit the final step's `positions` to change the target joint angles (joints 1–7, in radians). `gripper_position` sets the gripper joint position separately. The trigger can use this pose even with `enabled: false`; set `enabled: true` only if you also want the full initialization sequence to run automatically when entering this arm-following mode.
+
+{/* PHOTO PLACEHOLDER: The final initial pose for each documented Follower in mode 2. Distinguish it from the ready/home presets. */}
+
+</details>
+
+<details>
+  <summary>Moving to a saved pose (preset)</summary>
+
+A preset is a saved arm pose. The supplied configuration includes **1: ready** and **2: home** by default. Check the target pose and workspace before using a preset.
+
+1. Stay in Teleoperation mode and wait for any previous pose movement to finish.
+2. To move only the left arm to the ready pose, run:
+
+```bash
+ros2 service call /set_preset robotis_interfaces/srv/SetPreset \
+  "{target_arm: 'left', left_preset_id: 1, right_preset_id: 1}"
+```
+
+3. Check that the request is accepted, then wait for the movement to finish. Teleoperation is paused for the selected arm while it moves to the saved pose. **The other arm is unaffected and may still be following the Leader.**
+4. To resume teleoperation for the selected arm, hold its joystick button alone for 0.5 seconds.
+
+For the right arm, use `target_arm: 'right'` and set `right_preset_id`. To move both arms, use `target_arm: 'both'` and set both preset IDs. These are arm poses, not hand-grasp presets.
+
+**Configuration**
+
+Presets are defined under `presets` in your Follower's teleoperation YAML, for example `ffw_bringup/config/ffw_sg2_rev1_follower/ffw_sg2_teleoperation.yaml`. This excerpt shows preset `1` (**ready**):
+
+```yaml
+cyclo_teleoperation:
+  ros__parameters:
+    available_presets: [1, 2]
+    presets:
+      "1":
+        name: ready
+        step_names: [step0]
+        steps:
+          step0:
+            left:
+              positions: [0.431, 0.304, 0.152, -2.457, -0.267, 0.686, -0.948]
+              gripper_position: 0.0
+            right:
+              positions: [0.431, -0.304, -0.152, -2.457, 0.267, 0.686, 0.948]
+              gripper_position: 0.0
+```
+
+Edit `positions` to change the saved joint angles (joints 1–7, in radians), or `gripper_position` to change the gripper joint position. To add a preset, copy a complete existing preset block under a new ID and add that ID to `available_presets`; use the new ID in the service request.
+
+{/* PHOTO PLACEHOLDER: Labeled ready and home poses for each documented Follower, so users can check the destination before requesting movement. */}
+
+</details>
