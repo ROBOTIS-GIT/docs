@@ -1,27 +1,119 @@
 # Jog
 
-Use Jog to move the AI Worker mobile base manually from the browser.
-Jog is useful for moving the mobile base during mapping, inspection, and setup without keyboard teleoperation or RViz.
+Use the **Jog** page to move the AI Worker mobile base and individual joints from the browser.
+Control the base with a joystick or keyboard, and adjust the neck, lift, arms, and grippers with joint controls. Available controls depend on the running robot model and its ROS 2 feedback.
 
-![Jog page](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/jog_page.png)
+![Jog page](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/jog/jog_page.png)
 
-## Bringup the Robot
+## Before You Start
 
-Make sure the robot stack is brought up. See [Bringup](/docs/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/bringup).
+1. Start the Zenoh daemon and bring up the follower robot on the **System** page. See [Bringup the Robot](/docs/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/bringup).
+2. Stop leader publishing and any other application sending motion commands to the robot.
+3. Open **Jog** from the side menu.
+4. Check that the header shows **Server connected** and **Robot bringup: Running**.
+5. Select **Enable jog** to use the controls.
 
-If you only need to move the mobile base, bring up the robot with the **Mobile** type to start only the mobile base stack.
+Opening the page or selecting **Enable jog** does not move the robot. Movement starts when you operate a control.
 
-![Mobile base bringup](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/mobile_base_bringup.png)
+:::caution
+Use Jog with leader publishing stopped. Cyclo Manager prevents simultaneous Jog and playback commands from its own clients, but does not stop external publishers from commanding the robot.
+:::
+
+## Check the Page Status
+
+| Indicator or control | Meaning |
+| --- | --- |
+| **Server connected** | The browser's Jog WebSocket connection to the Cyclo Manager server is active and receiving status messages. This alone does not mean the robot is ready to move. |
+| **Robot bringup: Running** | Cyclo Manager has verified the selected container's supported robot bringup. Controls are disabled when bringup is unavailable. |
+| **/joint_states** | The indicator in Joint Jog turns green while fresh joint position feedback is available. |
+| **Enable jog** | Allows motion input. Select it again after Jog is disabled. |
+| **Stop jog** | Ends active Jog operation and clears Enable jog. |
+| **Reconnect** | Reopens the Jog connection after a disconnection. Enable jog must be selected again afterward. |
 
 ## Move the Mobile Base
 
-![Jog page description](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/jog_page_description.png)
+The **Mobile base** panel appears when the running model supports base movement and its command interface is detected. It is available for SG2, SH5, F2, and Mobile bringup types.
 
-1. On the top of right side, you can check the robot bringup status.  
-2. Control Button is used to move the mobile base.  
-3. Sensitivity Adjustment Button is used to adjust the sensitivity of the mobile base movement.  
+Choose **Joystick** or **Keyboard**. Only the selected mode accepts base movement input; changing modes stops the current operation.
 
-:::tip
-You can use jog in mobile browsing in your phone after connecting your phone to the AI Worker's WiFi.  
-![jog_mobile](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/jog_mobile.png)
+![Mobile base controls](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/jog/joystick.png)
+
+### Joystick
+
+1. Drag the joystick in the direction you want the robot to move. Up means robot-forward, left means robot-left, and diagonal dragging combines the two directions.
+2. Drag farther from the center to increase translation speed, up to **0.3 m/s**. The area near the center is a dead zone.
+3. Release the joystick to stop translation.
+4. Hold **Rotate left** or **Rotate right** to turn, and release to stop. Use **Rotation speed** to set the turning speed from **0.1 to 0.6 rad/s**.
+
+Joystick translation speed comes from the drag distance. The **Translation speed** slider is shown only in Keyboard mode.
+
+![Mobile base controls](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/jog/keyboard.png)
+### Keyboard
+
+Select **Keyboard**, enable Jog, and click inside the keyboard control area before pressing a movement key.
+
+| Key | Movement |
+| --- | --- |
+| **W** or **↑** | Forward |
+| **S** or **↓** | Backward |
+| **A** or **←** | Left |
+| **D** or **→** | Right |
+| **Q** | Rotate left |
+| **E** | Rotate right |
+| **Space** | Stop and disable Jog when focus is outside an input or button |
+
+Hold a key to move and release it to stop that input. Use **Translation speed** to set **0.05–0.3 m/s** and **Rotation speed** to set **0.1–0.6 rad/s**. Changing either speed stops the current operation.
+
+## Move Individual Joints
+
+Use **Joint jog** to adjust one joint at a time.
+The group tabs can include **Neck**, **Lift**, **Left arm + gripper**, **Right arm + gripper**, and hand groups on supported models. Groups and joint cards depend on the robot description and controller feedback received from the running robot.
+
+![Mobile base controls](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/jog/joints_jog.png)
+
+1. Select the group containing the joint you want to move.
+2. Select an **Increment** from the dropdown.
+3. Hold **+** to increase the joint position, or **−** to decrease it.
+4. Release the button to stop updating its target.
+
+| Increment option | Lift and other linear joints | Rotational joints |
+| --- | --- | --- |
+| **0.2 mm / 0.1°** | 0.2 mm | 0.1° |
+| **0.6 mm / 0.3°** | 0.6 mm | 0.3° |
+| **1 mm / 0.5°** | 1 mm | 0.5° |
+
+Movement starts continuously as soon as you press a button. There is no separate single-step mode.
+The first target starts from the measured position. While you hold the button, Cyclo Manager adds the selected increment to the previous target at a nominal **10 ms** interval. The increment is the amount added per update, not a fixed total movement per click. Actual movement depends on the robot controller and processing delays.
+
+Each joint card shows:
+
+- **Current**: The measured position from `/joint_states`.
+- **Target**: The most recent target sent by Jog. A dash means Jog has not sent a target for that joint in the current session.
+- **Position bar and end values**: The measured position within the joint limits from the robot description.
+
+Rotational joints use degrees and linear joints use millimeters. Outgoing targets stay within the joint limits. Other joints on the same controller keep targets captured at the start of the press, so operating one joint does not continuously update the others from changing feedback.
+
+:::info
+Releasing a joint button stops new target updates; the joint can continue to the last target already sent. A short press can generate several updates. Start with the smallest increment and watch both **Current** and **Target**, especially if the joint is slow to follow its target.
 :::
+
+## Stop and Resume Jog
+
+Click **Stop jog** or clear **Enable jog** to end active operation. For base movement, Cyclo Manager sends a zero-velocity command. During an active joint-button press, it attempts to hold that joint at its latest measured position when fresh feedback is available.
+
+After an ordinary joint-button release, the last target remains in effect. A later Stop jog does not replace that already-released target.
+
+Jog also disables when the browser loses focus, you switch to another browser tab, or the robot bringup changes. Returning to the page requires selecting **Enable jog** again.
+Switching browser tabs keeps the stopped connection open. Leaving the Jog page closes the connection and ends its session. Connection loss or an input timeout also ends active operation; use **Reconnect** if the connection has closed.
+
+:::caution
+**Stop jog** is a software control, not the robot's hardware emergency stop. If communication or joint feedback is unavailable, Cyclo Manager may be unable to send a hold command, and the last joint target can remain active.
+:::
+
+## Use Jog on a Phone
+
+Connect your phone to the AI Worker's network and open Cyclo Manager in the browser.
+Use the **Base** and **Joints** tabs to switch panels on a narrow screen. **Enable jog** and **Stop jog** remain in the page header. Drag the joystick or hold the joint buttons with one finger, then release to end the input.
+
+{/* Replace with the current mobile Jog layout. */}
+![Jog on a phone](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/jog/jog_mobile.png)

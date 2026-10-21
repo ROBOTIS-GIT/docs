@@ -1,0 +1,136 @@
+# Record & Play
+
+Use **Record & Play** to record joint commands from the leader then replay the motion from the browser.
+You can select the joint groups to record, manage saved recordings,and repeat a motion with an automatic return to its start pose.
+
+This page records ROS 2 `JointTrajectory` command topics as rosbag files. It does not record camera images, measured `/joint_states`, or mobile base velocity commands.
+
+![record_play_page](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/record_play/record_play_page.png)
+
+## Before You Start
+
+1. Start the Zenoh daemon and bring up the follower robot and leader robot on the **System** page. See [Bringup the Robot](/docs/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/bringup).
+2. Open **Record & Play** from the side menu.
+3. Choose **New recording** to capture commands, or **Playback** to select a saved recording.
+
+For recording, use the leader to supply the commands you want to capture. Recording can start before messages arrive and does not require controller feedback.
+For playback, stop leader publishing and other motion commands first. The robot must provide its description, fresh joint positions, and controller feedback.
+
+:::caution
+Cyclo Manager prevents its own Jog and playback operations from commanding motion at the same time. It does not stop external leaders or other applications from publishing commands. Stop those publishers before clicking **Play**.
+:::
+
+## Check the Page Status
+
+| Indicator | Meaning |
+| --- | --- |
+| **Server connected** | The browser is successfully communicating with the Cyclo Manager server through HTTP API requests. This indicator is based on status requests, rather than the Jog WebSocket connection. |
+| **Controller feedback: Available** | At least one discovered trajectory topic has matching controller feedback. Playback still checks the selected recording's joints, topics, limits, and current feedback before moving. |
+| **Publisher detected** | A publisher exists for the listed trajectory topic. This does not confirm that messages are currently arriving. |
+| **No publisher** | No publisher is currently detected for that topic. You can still select a discovered topic and start recording before its publisher starts. |
+
+Record & Play uses the ROS topics visible to Cyclo Manager. It does not select a robot from a Docker container or use the System page's bringup status to permit playback. Use it with the intended robot's ROS connection and matching `ROS_DOMAIN_ID`.
+
+## Record a Motion
+
+![new_recording](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/record_play/new_recording.png)
+
+1. Open **New recording**.
+2. Enter a **Recording name**, such as `pick-and-place-01`.
+3. Under **Trajectory topics**, select the checkboxes for the groups you want to record.
+4. Expand **Topic** under a group to check its actual ROS topic name.
+5. Click **recording start**.
+6. Perform the motion with the leader or Jog. Check that the message count increases.
+7. Click **stop and save** when finished. The saved recording appears in the **Playback** tab.
+
+Known AI Worker topics have labels such as **Neck**, **Lift**, **Left arm + gripper**, and **Right arm + gripper**, with a **Recommended** label. Other discovered `JointTrajectory` topics are listed by topic name. Select only the groups needed for the motion.
+
+The recorder saves commands as they arrive. Starting recording does not move the robot or generate commands from its measured joint positions.
+
+If a selected topic receives no messages, it is excluded from the saved recording and noted under **Recording details**. If none of the selected topics receives any messages, the empty capture is not added to the playback list.
+
+:::info
+Recording continues when you leave this page, including when you open Jog to perform a motion. Return to **New recording** and click **stop and save** to finish. Only one recording or playback job can run in Cyclo Manager at a time.
+:::
+
+## Play a Recording
+
+![playback](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/record_play/playback.png)
+
+1. Stop leader publishing and any active Jog operation.
+2. Open **Playback** and select an item from **Recordings**.
+3. Set **Speed**, **Playback**, and **Arrival tolerance**.
+4. Click **Play**.
+5. Watch the phase, progress bar, and play count. Click **Stop** to interrupt the operation.
+
+Playback proceeds through these stages:
+
+1. **Checking recording**: Validates recorded joint names, command topics, and target positions against the current robot configuration.
+2. **Moving to start pose**: Moves from the measured joint positions to the first recorded positions for each topic.
+3. **Playing**: Sends the recorded commands at their recorded relative times, adjusted for the selected speed.
+4. **Checking target arrival**: Checks that the robot has reached the final target.
+5. **Playback complete**, or **Returning to start pose** before another play.
+
+The move to the start pose is included in **Play**; there is no separate start-pose button.
+If a controller includes joints that are absent from the recording, Cyclo Manager holds those joints at positions captured during playback preparation.
+
+### Playback Settings
+
+| Setting | Options and behavior |
+| --- | --- |
+| **Speed** | **1×** uses the recorded timing. **0.5×** slows playback by doubling the intervals between recorded messages and scaling trajectory timing. |
+| **Playback: Once** | Plays the recording once. |
+| **Playback: Repeat** | Plays it the number of times specified in **Total plays**. |
+| **Playback: Infinite** | Continues repeating until stopped or an error occurs. |
+| **Total plays** | The total number of plays, including the first one. For example, **3** means three plays, with two returns between them. |
+| **Arrival tolerance** | Select **0.5°**, **1°**, **2°**, or **3°** for rotational joints. Linear joints, including the lift, use a fixed **1 mm** tolerance. |
+
+Settings are locked while a recording or playback job is active.
+
+### Repetition and Start-Pose Return
+
+Between plays, Cyclo Manager waits for the final target, moves back to the recording's start pose, and checks arrival before replaying the bag again. It does not immediately jump from the last command to the first command.
+
+After the last requested play, the robot remains at the final target. There is no additional return to the start pose, and the saved bag is not modified by repetition.
+
+:::caution
+The automatic return moves joints between poses; it does not plan around obstacles. For grasping or contact tasks, include object release and a suitable return path in the recorded motion so the remaining automatic transition is clear.
+:::
+
+### Arrival Tolerance
+
+Arrival tolerance determines when the start pose, repeat return, and final pose are considered reached. All involved joints must remain within tolerance for **0.3 seconds**. If arrival is not confirmed within the **10-second** arrival-check timeout, playback stops and reports the affected joints.
+
+Choose a tolerance that matches the required accuracy and the robot's actual tracking error. Increasing it allows a larger difference between the target and measured position; it does not change the saved targets or the robot's joint limits.
+
+## Stop and Leave the Page
+
+Click **Stop** in Playback to interrupt playback or a start-pose return. Cyclo Manager attempts to hold the involved joints at their latest measured positions. **Stop** ends the job; it is not pause. Clicking **Play** again begins with preparation and the move to the start pose.
+
+Unlike Jog, recording and playback continue when you change pages, switch browser tabs, or close the browser. Reopening Record & Play displays the server's current job, and another browser can stop it. Infinite playback continues until explicitly stopped or an error occurs.
+
+:::caution
+Leaving the page does not stop motion. Use **Stop** before leaving if you want playback to end. This is a software stop: if fresh feedback or ROS communication is unavailable, the hold command may fail and the controller can retain its last target.
+:::
+
+A Cyclo Manager server restart does not automatically resume a previous recording or playback job.
+
+## Manage Saved Recordings
+
+The **Recordings** list is inside **Playback**. Select an item to see its groups and duration, then expand **Recording details** to view the recording date, message count, storage location, and recorded topics.
+
+To remove a recording, click **Delete** beside it and confirm. This permanently deletes its rosbag files and metadata. Stop playback or finish recording before deleting an item.
+
+With the supplied Docker Compose configuration, recordings are stored on the host at:
+
+```text
+~/cyclo_manager_ros_bags/<recording-id>/
+├── recording.json
+└── bag/
+    ├── metadata.yaml
+    └── *.mcap
+```
+
+The directory is mounted at `/cyclo_manager_ros_bags` inside the Cyclo Manager container. The home directory is the one used when starting the Compose stack. Saved recordings therefore remain available after a container update or recreation when the same host directory is mounted.
+
+The generated recording ID is the folder name; **Recording name** is its display name in the UI.
