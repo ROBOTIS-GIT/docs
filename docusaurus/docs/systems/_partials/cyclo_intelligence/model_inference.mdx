@@ -79,19 +79,42 @@ Pre-built ACT and GR00T policy Docker images are supported only on Blackwell-bas
   ]}
 />
 
+### Initial Pose Sync
+
+<SettingsTable
+  columns={['Setting', 'What it does']}
+  rows={[
+    {name: 'Enable', points: [
+      'Off by default. Available only with Real Robot Deploy.',
+      'Before inference starts, moves the robot to the first pose predicted by the model over the set duration. If the policy commands a mobile base, its velocity is held at zero during the move.',
+      'Once it has finished, it does not run again until the model is loaded again, so resuming a paused inference skips it. If Stop interrupts the move, resuming runs it again.',
+      'Needs a recent joint state from the robot. Otherwise Start fails.',
+    ]},
+    {name: 'Duration (s)', points: [
+      'Shown when Enable is checked. Time for the move to the first pose, from 1 to 60 seconds. The default is 5.',
+    ]},
+  ]}
+/>
+
+While the robot moves, the panel shows `Synchronizing initial robot pose...`. `Stop` and `Clear` stay available and hold the robot at its current pose. If the hold fails, an error message appears and the panel stays in this state so that `Stop` or `Clear` can be retried.
+
 ### Rates
 
 <SettingsTable
   columns={['Setting', 'What it controls']}
   rows={[
-    {name: 'Inference Hz', points: [
-      'How often the model generates a new set of actions.',
+    {name: 'Dataset FPS', points: [
+      'Frame rate of the dataset the model was trained on. It sets the time between the action waypoints the model predicts.',
+      'Set it to the FPS of the training dataset (the target FPS used when the dataset was converted in Data Tools). The default is 15.',
     ]},
     {name: 'Control Hz', points: [
-      'How often commands are published to the robot.',
+      'How often commands are published to the robot. The default is 100.',
+      'By default, the predicted waypoints are interpolated to this rate.',
     ]},
   ]}
 />
+
+The panel shows a warning, without blocking `Start`, when `Dataset FPS` is above 120, `Control Hz` is above 1000, or `Dataset FPS` is higher than `Control Hz` (the waypoints are then downsampled). The same warnings appear in the `Real Robot Deploy` confirmation.
 
 ## LeRobot Inference
 
