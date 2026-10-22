@@ -27,22 +27,35 @@ You only need to set the pose for the **joint(s) you plan to clear** (for exampl
 Home positions (joint index, Dynamixel ID): the figures below are **left arm** references. Use the same idea for the **right arm** if you are clearing servos on that side.
 
 - **Joint 1** (ID 1, 31)  
+
   <img src="/img/systems/aiworker/support/troubleshooting_guide/ai_worker_31.png" alt="Joint 1, Dynamixel ID 31, home position reference" style={{maxWidth: '360px', width: '100%', height: 'auto', display: 'block'}} />
+
 - **Joint 2** (ID 2, 32)  
+
   <img src="/img/systems/aiworker/support/troubleshooting_guide/ai_worker_32.png" alt="Joint 2, Dynamixel ID 32, home position reference" style={{maxWidth: '360px', width: '100%', height: 'auto', display: 'block'}} />
+
 - **Joint 3** (ID 3, 33)  
+
   <img src="/img/systems/aiworker/support/troubleshooting_guide/ai_worker_33.png" alt="Joint 3, Dynamixel ID 33, home position reference" style={{maxWidth: '360px', width: '100%', height: 'auto', display: 'block'}} />
+
 - **Joint 4** (ID 4, 34)  
+
   <img src="/img/systems/aiworker/support/troubleshooting_guide/ai_worker_34.png" alt="Joint 4, Dynamixel ID 34, home position reference" style={{maxWidth: '360px', width: '100%', height: 'auto', display: 'block'}} />
+
 - **Joint 5** (ID 5, 35)  
+
   <img src="/img/systems/aiworker/support/troubleshooting_guide/ai_worker_35.png" alt="Joint 5, Dynamixel ID 35, home position reference" style={{maxWidth: '360px', width: '100%', height: 'auto', display: 'block'}} />
+
 - **Joint 6** (ID 6, 36)  
+
   <img src="/img/systems/aiworker/support/troubleshooting_guide/ai_worker_36.png" alt="Joint 6, Dynamixel ID 36, home position reference" style={{maxWidth: '360px', width: '100%', height: 'auto', display: 'block'}} />
 
 - **Lift Joint** (ID 81) - Make sure the top of the slider is 9 cm below the top of the linear rail
+
   <img src="/img/systems/aiworker/support/troubleshooting_guide/ai_worker_lift.png" alt="Lift Joint, Dynamixel ID 81, home position reference" style={{maxWidth: '360px', width: '100%', height: 'auto', display: 'block'}} />
 
 - **Wheels** (ID 101, 103, 105) - Align the wheels straight
+
   <img src="/img/systems/aiworker/support/troubleshooting_guide/ai_worker_wheels.png" alt="Wheels, Dynamixel ID 101, home position reference" style={{maxWidth: '720px', width: '100%', height: 'auto', display: 'block'}} />
 
 ### 2. Set up and start the noVNC container
@@ -58,10 +71,12 @@ Previously, the AI Worker repository provided noVNC compose directly. After Cycl
 
 1. In a web browser(like Chrome), open `http://ffw-snpr48a{serial-number}.local:3000`, substituting your robot’s serial number for `{serial-number}`. (e.g. `http://ffw-snpr48a0000.local:3000`)  
 2. Navigate to Cyclo Manager -> AI worker -> noVNC Page and click the NOVNC Server Start button on the top and reload the page(F5).
-![noVNC Desktop](/img/systems/aiworker/support/troubleshooting_guide/novnc_desktop.png)
+
+   ![noVNC Desktop](/img/systems/aiworker/support/troubleshooting_guide/novnc_desktop.png)
 
 3. Click the `Dynamixel Wizard 2.0` icon to open the Dynamixel Wizard 2.0.
-![noVNC Page](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/novnc_page.png)
+
+   ![noVNC Page](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/novnc_page.png)
 
 4. Check the `Dynamixel Wizard 2.0` version. The current latest version is `v2.12.2.2`. If an update is needed, stop `cyclo_manager` and start it again with the `--pull` option.
 
@@ -103,6 +118,7 @@ cyclo_manager up --pull
 
   Then run `docker compose -f docker/docker-compose.novnc.yml up` to start the noVNC container, and browse to `http://ffw-snpr48a{serial-number}.local:8090` in a web browser.
   Click the connect button and open the Dynamixel Wizard 2.0.
+
   ![noVNC connect](/img/systems/aiworker/support/troubleshooting_guide/novnc_connect.png)
 
 ### 3. Configure Dynamixel Wizard 2.0 and run Scan
@@ -110,6 +126,7 @@ In **Dynamixel Wizard 2.0**, configure the following and run **Scan**:
     - Select protocol to scan: **Protocol 2.0**  
     - Select port to scan: `/dev/ttyUSB4` **(When connecting an LG2 leader, scan ports from `ttyUSB4` to `ttyUSB6`)**  
     - Baud rate: **4000000 bps**  
+
 ![wizard options](/img/systems/aiworker/support/troubleshooting_guide/wizard_options_ai_worker.png)
 
 ### 4. Select the Dynamixel that reported the error
@@ -142,20 +159,25 @@ Then, navigate to **Tools → Encoder Battery Change** from the top menu.
 
 ### 5. Clear the multi-turn error
 Proceed with **Encoder Battery Change**. Make sure the slit marks remain aligned during this process.
+
   ![multi turn encoder battery change](/img/systems/aiworker/support/troubleshooting_guide/wizard_encoder_battery_change.png)
 
 ### 6. Verify position
 Check if the position is within ±1.5° while the slits are still aligned. If it is not, double-check and re-align the slit marks, then repeat the **Clear the multi-turn error** process.
+
   ![check position](/img/systems/aiworker/support/troubleshooting_guide/wizard_check_position.png)
 
 :::info
 ⚠️ At this point, the multi-turn error is now cleared. However, for **IDs 1, 3, 31, and 33**, you must set the `Homing Offset` value to `32768` (22.5°).
+
   ![homing offset](/img/systems/aiworker/support/troubleshooting_guide/wizard_homing_offset.png)
 
 ⚠️ For **ID 81 (lift joint)**, set `Max Position Limit (76)` to `0` and `Min Position Limit (84)` to `-50000`.
+
   ![lift limit](/img/systems/aiworker/support/troubleshooting_guide/lift_pos_limit.png)
 
 ⚠️ For **ID 81 (lift joint)**, under the `Advanced` section, set `Gear Ratio Numerator (96)` to `131072`, and `Gear Ratio Denominator (100)` to `125`.
+
   ![lift gear ratio](/img/systems/aiworker/support/troubleshooting_guide/lift_gear_ratio.png)
 :::
 
