@@ -131,13 +131,15 @@ cd ~/ai_worker
 
 ### Option 1: All-in-One Launch
 
-The commands below start an **LG2 Leader** with the selected Follower. For **A1 or A2**, use [Option 2: Separate Launches](#option-2-separate-launches). Do not run both options at the same time.
+These commands start an **LG2 Leader with BG2/SG2**, or an **A1 Leader with F1/F2**. For other combinations, use [Option 2: Separate Launches](#option-2-separate-launches).
 
 :::tip[LG2 arm control]
-After startup initialization finishes, the follower will not follow the LG2 until you push both hand triggers for more than 2 seconds. Once you do, the follower will slowly move toward the leader's position, and after reaching a certain proximity, it will move more quickly. This LG2 behavior is the same when launching the leader and follower separately.
+After execution, the follower will not move until you push both hand triggers for more than 2 seconds. Once you do, the follower will slowly move toward the leader's position, and after reaching a certain proximity, it will move more quickly. This behavior is the same even when launching the leader and follower separately.
 :::
 
-To start both the `LG2 Leader` and `Follower (BG2/SG2/F1/F2)` simultaneously:
+For A1, follow the A1 instructions in [Basic Operation](#basic-operation) after startup.
+
+To start both the `Leader` and `Follower (BG2/SG2/F1/F2)` simultaneously:
 
 <Tabs groupId="aiworker-robot-type">
   <TabItem value="bg2" label="BG2 Type">
@@ -206,7 +208,7 @@ ffw_f2_ai
 ### Option 2: Separate Launches
 If you want to run the `Leader` and `Follower` separately in different terminals:
 
-Use this option for A1/A2. Enter the AI Worker container in each terminal, start the Follower first, and wait for its startup initialization to finish before starting the Leader. The required teleoperation software starts with the Follower; no separate Cyclo launch command is needed.
+Wait for Follower initialization to finish before starting the Leader. The required teleoperation software starts with the Follower; no separate Cyclo launch command is needed.
 
 1. **Launch the teleoperation `Follower`**:
 
@@ -276,7 +278,7 @@ ffw_f2_follower_ai
 
 #### Optional Parameters
 
-You can customize the follower launch behavior with optional parameters:
+You can customize the follower launch behavior with optional parameters: For other models, use their Follower launch file.
 
 **Disable Camera Launch**
 To run the system without launching the cameras, set the `launch_cameras` parameter to `false`:
@@ -295,6 +297,8 @@ To automatically assign the connected RealSense cameras without manually configu
 ```bash
 ros2 launch ffw_bringup ffw_bg2_follower_ai.launch.py auto_assign_cameras:=true
 ```
+
+F1/F2 use RealSense cameras for both the head and wrists, and automatic assignment is enabled by default.
 
 :::warning
 Automatic camera assignment may not work on some older BG2 and SG2 models. If this occurs, set `auto_assign_cameras:=false` and use your existing manual camera configuration.
@@ -473,4 +477,4 @@ To stop teleoperation:
 - **Delayed movements**: Check for any obstructions or if you're reaching joint limits
 - **Unresponsive gripper**: Ensure proper calibration and connection
 - **System unresponsive**: Check ROS topic connections with `ros2 topic list` and `ros2 topic echo`
-- **Teleoperation does not pause as expected**: For A1 and A2, update the `ai_worker` source to the latest release ([`2.3.0`](https://github.com/ROBOTIS-GIT/ai_worker/releases/tag/2.3.0)). On LG2, push both hand triggers forward for more than 2 seconds to pause active teleoperation. On A1/A2, hold each active arm's joystick button alone for 0.5 seconds to pause that arm in Teleoperation mode.
+- **Teleoperation does not pause as expected**: For A1 and A2, update the `ai_worker` source to the latest release ([`2.3.0`](https://github.com/ROBOTIS-GIT/ai_worker/releases/tag/2.3.0)). On LG2, push both hand triggers forward for more than 2 seconds to pause active teleoperation. On A1/A2, press and hold each active arm's joystick button alone for 0.5 seconds to pause that arm in Teleoperation mode.

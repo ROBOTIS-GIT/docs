@@ -12,8 +12,8 @@ This guide covers the physical setup steps required before operating AI Worker, 
 
 ## Power On and Check Ports
 
-<Tabs groupId="robot-type">
-<TabItem value="ffw-bg2" label="FFW-BG2">
+<Tabs groupId="aiworker-robot-type">
+<TabItem value="bg2" label="FFW-BG2">
 
 #### Powering On the FFW_BG2 Follower
 ![Back of the BG2 Base](/img/systems/aiworker/quick_start_guide/setup_overview/hardware/back_of_the_BG2_base.png)
@@ -29,7 +29,7 @@ The back of the Follower body includes several ports for system access and exter
 - `HDMI Port`: Allows direct video output for connecting a monitor.
 
 </TabItem>
-<TabItem value="ffw-sg2" label="FFW-SG2">
+<TabItem value="sg2" label="FFW-SG2">
 
 #### Powering On the FFW_SG2 Follower
 ![Back of the SG2 Base](/img/systems/aiworker/quick_start_guide/setup_overview/hardware/back_of_the_SG2_base.png)
@@ -48,6 +48,54 @@ The back of the Follower body includes several ports for system access and exter
 - `USB Ports`: For connecting peripherals such as a keyboard, mouse, or USB drive.
 - `HDMI Port`: Allows direct video output for connecting a monitor.
 - `Charge Port`: Used for battery charging.
+
+</TabItem>
+<TabItem value="f1" label="FFW-F1">
+
+#### Powering On the FFW_F1 Follower
+
+{/* PHOTO TODO (F1): Replace the reused BG2 base image with the F1 power-control photo, which has no key switch. */}
+![Back of the F1 Base](/img/systems/aiworker/quick_start_guide/setup_overview/hardware/back_of_the_F1_base.png)
+
+1. Toggle the `Power Supply Switch` to the right.
+2. Press and hold the `Power Button` for 3 seconds. When you hear a beep, the system is powered on. You should see the robot's head light up at this point.
+
+#### Hardware Ports (FFW_F1 Follower)
+
+{/* PHOTO TODO (F1): Replace the reused BG2 body image with the F1 port photo. */}
+![Back of the F1 Body](/img/systems/aiworker/quick_start_guide/setup_overview/hardware/back_of_the_BG2_body.png)
+
+The back of the Follower body includes several ports for system access and external connections:
+
+- `LAN Port`: Used to access the robot PC via SSH or remote desktop.
+- `USB Ports`: For connecting peripherals such as a keyboard, mouse, or USB drive.
+- `HDMI Port`: Allows direct video output for connecting a monitor.
+
+</TabItem>
+<TabItem value="f2" label="FFW-F2">
+
+#### Powering On the FFW_F2 Follower
+
+![Back of the F2 Base](/img/systems/aiworker/quick_start_guide/setup_overview/hardware/back_of_the_F2_base.png)
+
+1. Press and hold the `Power Button` for 3 seconds. When you hear a beep, the system is powered on. You should see the robot's head light up at this point.
+
+:::warning[Do Not Connect Both Charging Ports to a Single Charger]
+Each charging port on the FFW-F2 is connected directly to its own battery. **Do not connect both charging ports to a single charger.** Use a separate charger for each port.
+:::
+
+#### Hardware Ports (FFW_F2 Follower)
+
+![Back of the F2 Body](/img/systems/aiworker/quick_start_guide/setup_overview/hardware/back_of_the_SG2_body.png)
+
+The back of the Follower body includes several ports for system access and external connections:
+
+- `WAN Port`: Used to connect the robot to an external network or the internet.
+- `LAN Port`: Used to access the robot PC via SSH or remote desktop.
+- `USB Ports`: For connecting peripherals such as a keyboard, mouse, or USB drive.
+- `HDMI Port`: Allows direct video output for connecting a monitor.
+- `Charge Port`: Used for battery charging.
+- `Emergency Stop`: Used to immediately stop the robot's motion in an emergency.
 
 </TabItem>
 </Tabs>

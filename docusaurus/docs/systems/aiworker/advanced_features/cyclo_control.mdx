@@ -58,11 +58,15 @@ cd ~/ai_worker
 
 <RunZenohDaemon />
 
+The example below uses SG2. For BG2, F1, or F2, replace `sg2` in the launch filename with `bg2`, `f1`, or `f2`, respectively.
+
 ```bash
 ros2 launch ffw_bringup ffw_sg2_follower_ai.launch.py
 ```
 
 Keep that terminal running. Open a new terminal for the motion controller commands below.
+
+The controller commands below use SG2 by default. For BG2, F1, or F2, add `model:=bg2`, `model:=f1`, or `model:=f2`, respectively, to each controller launch command.
 
 ## Launch MoveL Controller
 
@@ -324,6 +328,7 @@ robot_controller_spawner = Node(
 
 Common launch arguments:
 
+- `model`: Selects the Follower model (`bg2`, `sg2`, `f1`, or `f2`) and its URDF/SRDF files. Default: `sg2`.
 - `controller_type`: Selects `movel`, `movej`, `bimanual_movel`, `bimanual_movej`, `vr`, or `leader`. Default: `movel`.
 - `config_file`: Controller configuration yaml file. Default: `cyclo_motion_controller_ros/config/ai_worker_config.yaml`.
 - `follower_urdf_path`: Follower robot URDF path.

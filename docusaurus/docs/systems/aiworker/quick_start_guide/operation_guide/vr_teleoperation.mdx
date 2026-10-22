@@ -8,7 +8,7 @@ This guide explains how to set up and operate the `AI Worker` using a VR device.
 
 VR Teleoperation is compatible with all `AI Worker` models.
 
-- Gripper Models: `BG2`, `SG2`
+- Gripper Models: `BG2`, `SG2`, `F1`, `F2`
 - Hand Models: `BH5`, `SH5`
 
 For more information on the models, please refer to **[Product Models](/docs/systems/aiworker/specifications/hardware#product-models)**.
@@ -118,6 +118,8 @@ Or use the shortcut:
 vr model:=sg2
 ```
 
+For F1/F2, replace `model:=sg2` with `model:=f2` in the commands above.
+
 </TabItem>
 <TabItem value="hand-type" label="Hand Type">
 
@@ -204,9 +206,11 @@ cd ~/ai_worker
 <TabItem value="gripper-type" label="Gripper Type">
 
 Note that `sg2` model is used here as an example.
-If you are using a `bg2`, use the `sg2` launch commands in this section.
+For the VR motion controller, BG2 uses the SG2 launch settings, and F1 uses the F2 launch settings. BG2 and F1 do not have mobile-base movement.
 
 ### 1. Bring up the robot.
+
+For BG2, F1, or F2, replace `sg2` in the launch filename or shortcut below with `bg2`, `f1`, or `f2`, respectively.
 
 ```bash
 ros2 launch ffw_bringup ffw_sg2_follower_ai.launch.py
@@ -228,6 +232,8 @@ Or use shortcut:
 ```bash
 motion_controller controller_type:=vr
 ```
+
+For F1/F2, add `model:=f2` to either command above.
 
 ### 3. Activate VR Publisher
 

@@ -1,0 +1,29 @@
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+On the **Home** page, select your **Follower** model and click **Set Robot Type**. This is separate from choosing an A1, A2, or LG2 Leader.
+
+<Tabs groupId="aiworker-robot-type">
+  <TabItem value="bg2" label="BG2 Type">
+
+Select **`ffw_bg2_rev4`** for the BG2 Rev. 4 Follower.
+
+  </TabItem>
+  <TabItem value="sg2" label="SG2 Type">
+
+Select **`ffw_sg2_rev1`** for the SG2 Rev. 1 Follower.
+
+  </TabItem>
+  <TabItem value="f1" label="F1 Type">
+
+Select **`f1`** for the F1 Follower.
+
+  </TabItem>
+  <TabItem value="f2" label="F2 Type">
+
+Select **`f2`** for the F2 Follower.
+
+  </TabItem>
+</Tabs>
+
+Check that the **head**, **left-wrist**, and **right-wrist** camera views are available and correctly assigned. Before inference, also confirm that the policy was prepared for your robot model and camera setup.
