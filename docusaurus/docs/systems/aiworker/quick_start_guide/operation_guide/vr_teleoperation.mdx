@@ -118,7 +118,7 @@ Or use the shortcut:
 vr model:=sg2
 ```
 
-For F1/F2, replace `model:=sg2` with `model:=f2` in the commands above.
+BG2 and SG2 share the `model:=sg2` VR publisher. For F1/F2, replace it with `model:=f2`. The Cyclo Motion Controller uses a separate model setting that must match the actual Follower, as shown under [Running VR Teleoperation](#running-vr-teleoperation).
 
 </TabItem>
 <TabItem value="hand-type" label="Hand Type">
@@ -206,7 +206,14 @@ cd ~/ai_worker
 <TabItem value="gripper-type" label="Gripper Type">
 
 Note that `sg2` model is used here as an example.
-For the VR motion controller, BG2 uses the SG2 launch settings, and F1 uses the F2 launch settings. BG2 and F1 do not have mobile-base movement.
+The VR publisher can be shared between models, but Cyclo Motion Controller must use the actual Follower model. BG2 and F1 do not have mobile-base movement.
+
+| Follower | VR Publisher (`vr.launch.py`) | Cyclo Motion Controller (`ai_worker_controller.launch.py`) |
+| --- | --- | --- |
+| BG2 | `model:=sg2` | `model:=bg2` |
+| SG2 | `model:=sg2` | `model:=sg2` |
+| F1 | `model:=f2` | `model:=f1` |
+| F2 | `model:=f2` | `model:=f2` |
 
 ### 1. Bring up the robot.
 
@@ -225,15 +232,15 @@ ffw_sg2_follower_ai
 Once the robot reaches its initial position, start Cyclo Motion Controller with `controller_type` parameter set as `vr`:
 
 ```bash
-ros2 launch cyclo_motion_controller_ros ai_worker_controller.launch.py controller_type:=vr
+ros2 launch cyclo_motion_controller_ros ai_worker_controller.launch.py model:=sg2 controller_type:=vr
 ```
 
 Or use shortcut:
 ```bash
-motion_controller controller_type:=vr
+motion_controller model:=sg2 controller_type:=vr
 ```
 
-For F1/F2, add `model:=f2` to either command above.
+For BG2, F1, or F2, replace `model:=sg2` with `model:=bg2`, `model:=f1`, or `model:=f2`, respectively. This selects the robot model used for motion calculation and collision checking.
 
 ### 3. Activate VR Publisher
 

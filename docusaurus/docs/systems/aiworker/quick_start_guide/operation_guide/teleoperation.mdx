@@ -1,13 +1,13 @@
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import RunZenohDaemon from '@site/docs/systems/aiworker/_partials/run_zenoh_daemon.mdx';
-import A1A2Operation from '@site/docs/systems/aiworker/_partials/a1_a2_operation.mdx';
+import LeaderOperation from '@site/docs/systems/aiworker/_partials/leader_operation.mdx';
 
 # Teleoperation
 
 This guide explains how to set up and operate the AI Worker using teleoperation.
 
-Select your **Leader** (A1, A2, or LG2) for setup and button instructions. Select your **Follower** (the robot being controlled) separately for its launch commands.
+Select your **Leader** (A1, A2, or LG2) for setup and launch instructions. Select your **Follower** (the robot being controlled) separately for its launch commands. Button controls are shared across all three Leaders.
 
 ## Prerequisites
 
@@ -136,11 +136,9 @@ cd ~/ai_worker
 
 These commands start an **LG2 Leader with BG2/SG2**, or an **A1 Leader with F1/F2**. For other combinations, use [Option 2: Separate Launches](#option-2-separate-launches).
 
-:::tip[LG2 arm control]
-After execution, the follower will not move until you push both hand triggers for more than 2 seconds. Once you do, the follower will slowly move toward the leader's position, and after reaching a certain proximity, it will move more quickly. This behavior is the same even when launching the leader and follower separately.
+:::tip[Default arm controls]
+Launching the programs does not start arm teleoperation. On A1, A2, and LG2, push both triggers forward together for 2 seconds, then release them, to start both arms. Repeat the action to pause both arms. See [Basic Operation](#basic-operation) before starting.
 :::
-
-For A1, follow the A1 instructions in [Basic Operation](#basic-operation) after startup.
 
 To start both the `Leader` and `Follower (BG2/SG2/F1/F2)` simultaneously:
 
@@ -345,13 +343,43 @@ ffw_lg2_leader_ai
   </TabItem>
 </Tabs>
 
-Continue to [Basic Operation](#basic-operation) to start arm teleoperation. Launching the programs alone does not start teleoperation for either A1/A2 arm.
+#### Optional: Advanced Button Controls
+
+All three Leaders use `style:=default` unless specified otherwise. To start and pause each arm separately and switch between Teleoperation mode and External control mode with the joystick buttons, add `style:=advanced` to the Leader launch command:
+
+<Tabs groupId="aiworker-leader-type">
+  <TabItem value="a1" label="A1">
+
+```bash
+ros2 launch ffw_bringup ffw_a1_leader_ai.launch.py style:=advanced
+```
+
+  </TabItem>
+  <TabItem value="a2" label="A2">
+
+```bash
+ros2 launch ffw_bringup ffw_a2_leader_ai.launch.py style:=advanced
+```
+
+  </TabItem>
+  <TabItem value="lg2" label="LG2">
+
+```bash
+ros2 launch ffw_bringup ffw_lg2_leader_ai.launch.py style:=advanced
+```
+
+  </TabItem>
+</Tabs>
+
+Choose one Leader command; do not run the default and advanced commands together. If the Leader is already running, stop it before relaunching with a different `style`.
+
+Continue to [Basic Operation](#basic-operation) to start arm teleoperation. Launching the programs alone does not start arm teleoperation on A1, A2, or LG2.
 
 ## Follower Bringup for Inference
 
-For **LG2**, stop the teleoperation leader node and run only the follower bringup. Do not command the robot from teleoperation and model inference at the same time.
+To run inference without a Leader, run only the Follower bringup below.
 
-With **A1/A2**, the Leader can remain running so you can switch between Teleoperation mode and External control mode when using a compatible inference program. See the mode descriptions and button instructions under [Basic Operation](#basic-operation).
+On **A1, A2, and LG2**, the Leader can also remain connected. To switch to External control mode using the Leader's joystick buttons, launch it with `style:=advanced` and follow [Basic Operation](#basic-operation). Pausing the arms alone does not switch to External control mode. Confirm the mode before starting a compatible inference program.
 
 <Tabs groupId="aiworker-robot-type">
   <TabItem value="bg2" label="BG2 Type">
@@ -419,47 +447,7 @@ ffw_f2_follower_ai
 
 ## Basic Operation
 
-<Tabs groupId="aiworker-leader-type">
-  <TabItem value="a1" label="A1">
-
-<A1A2Operation model="a1" />
-
-  </TabItem>
-  <TabItem value="a2" label="A2">
-
-<A1A2Operation model="a2" />
-
-  </TabItem>
-  <TabItem value="lg2" label="LG2">
-
-:::tip
-You must push **both hand triggers** for more than 2 seconds for the follower to start moving. When you push both triggers forward, the follower will slowly move to the leader's position, and once it comes within a certain error range, it will move quickly.
-
-<img src="/img/systems/aiworker/quick_start_guide/operation_guide/teleoperation/push_trigger_ai_worker.gif" alt="Push Trigger" className="doc-img-50" />
-:::
-
-1. Once both systems are running, the `Follower` will begin to mirror your movements.
-2. Start with slow, gentle movements to get familiar with the response.
-3. The grip buttons on the `Leader` control the gripper actions on the `Follower`.
-4. The `right joystick` controls the up and down motion of the `lift`,
-while the `left joystick` controls the`head` section of the robot.
-5. For Followers with a mobile base, press both joystick buttons simultaneously to switch to `SWERVE DRIVE MODE`. Use the joystick directions shown below to move the base.
-
-![Mobile-base joystick directions: left joystick for translation and right joystick for turning](/img/systems/aiworker/quick_start_guide/operation_guide/teleoperation/LG2_Joystick.png)
-
-:::warning
-In swerve mode, the arms continue to move. Please be careful.
-:::
-
-<h3 id="lg2-pausing-teleoperation">Pausing Teleoperation</h3>
-
-To temporarily pause teleoperation:
-
-1. Push both hand triggers forward for more than 2 seconds.
-2. The Follower will stop and hold its current position.
-
-  </TabItem>
-</Tabs>
+<LeaderOperation />
 
 :::warning
 Pausing arm teleoperation is not an emergency stop and does not stop an independently running inference program or other program. Use the robot's emergency-stop procedure if unexpected motion occurs.
@@ -476,4 +464,4 @@ To stop teleoperation:
 - **Delayed movements**: Check for any obstructions or if you're reaching joint limits
 - **Unresponsive gripper**: Ensure proper calibration and connection
 - **System unresponsive**: Check ROS topic connections with `ros2 topic list` and `ros2 topic echo`
-- **Teleoperation does not pause as expected**: For A1 and A2, update the `ai_worker` source to the latest release ([`2.3.0`](https://github.com/ROBOTIS-GIT/ai_worker/releases/tag/2.3.0)). On LG2, push both hand triggers forward for more than 2 seconds to pause active teleoperation. On A1/A2, press and hold each active arm's joystick button alone for 0.5 seconds to pause that arm in Teleoperation mode.
+- **Teleoperation does not pause as expected**: Check the `style` used to launch the Leader. On A1, A2, and LG2, `style:=default` uses both triggers held forward for 2 seconds to pause both arms; `style:=advanced` uses each active arm's joystick button held alone for 0.5 seconds to pause that arm. Release both triggers or all joystick buttons before repeating an action. If `style` is unavailable, update and rebuild the `ai_worker` source to a version that includes these controls.

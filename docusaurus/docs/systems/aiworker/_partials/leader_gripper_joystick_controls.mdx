@@ -1,0 +1,19 @@
+<h3 id={props.idPrefix + '-trigger-and-joystick-controls'}>Using the Triggers and Joysticks</h3>
+
+<h4 id={props.idPrefix + '-gripper-controls'}>Opening and Closing the Grippers</h4>
+
+While teleoperation is active for an arm, use its trigger to open and close the gripper: the left trigger controls the left gripper, and the right trigger controls the right gripper.
+
+<h4 id={props.idPrefix + '-joystick-controls'}>Switching Between Head/Lift and Mobile-Base Control</h4>
+
+<img src="/img/systems/aiworker/quick_start_guide/operation_guide/teleoperation/a1_double_short_press.gif" alt="Briefly press both joystick buttons to change what the joysticks control" style={{width: '694px', maxWidth: '100%', height: 'auto'}} />
+
+Briefly press both joystick buttons together and release them **before 0.5 seconds** to switch the joysticks between head/lift control and mobile-base control. Check the selected function in the Leader terminal before moving a joystick.
+
+In head/lift control (`head_control`), the left joystick controls the head and the right joystick controls the lift.
+
+In mobile-base control (`swerve`), use the joystick directions shown below. Switching joystick functions does not pause arm teleoperation.
+
+![Mobile-base joystick directions: left joystick for translation and right joystick for turning](/img/systems/aiworker/quick_start_guide/operation_guide/teleoperation/LG2_Joystick.png)
+
+Mobile-base control applies only to Followers with a mobile base, such as SG2 or F2.
