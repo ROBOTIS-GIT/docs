@@ -3,7 +3,7 @@
 <div style={{position: 'relative', paddingBottom: '56.25%', height: '0', overflow: 'hidden', maxWidth: '100%', margin: '20px 0', borderRadius: '8px'}}>
   <iframe
     style={{position: 'absolute', top: '0', left: '0', width: '100%', height: '100%'}}
-    src="https://www.youtube.com/embed/DOjpnAeFu4Y"
+    src="https://youtu.be/ZQXV_ngVG20?si=N_vgV8ETdhkMMBNt"
     title="GPT-6 Astra on the AI Worker"
     frameBorder="0"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
@@ -13,15 +13,18 @@
 
 ## 1. Overview
 
-This project uses **GPT-6 Astra to enable AI Worker** to perform tasks described in natural language. The model decides its next action based on camera images and robot state, then calls a robot control tool. The harness validates the tool inputs and execution conditions, executes the command, and returns the result along with updated observations to the model.
+This technical story explains how we connected **GPT-6 Astra to AI Worker** so the robot could carry out natural-language instructions using camera images and robot state. It walks through the system, shows how to run it, and shares what we learned from pick-and-place tasks.
 
-The demos show pick-and-place tasks and different approaches to achieving the same goal.
+By the end, you will understand how to:
 
-- **Picking objects from a shelf and placing them in a basket:** The robot uses both hands to pick up a coffee bottle and a snack bag and transfer them to a basket. When an object is out of reach, it adjusts the lift height and tries again.
-- **Placing a ball in a basket without moving the base:** The robot holds the ball in one hand, pulls the basket closer with the other, and adjusts its wrist orientation to place the ball inside.
-- **Placing a ball in a basket by moving the base:** The robot moves its base to approach the ball, picks it up, and carries it to the basket before placing it inside.
+- **Connect model decisions to robot actions.** Follow the loop from the Codex App Server through the harness to ROS 2 commands, and see how execution results and new observations guide the next action (Section 2).
+- **Run a task in simulation or on a real robot.** Set up Codex, launch Gazebo or a real SG2, start an episode, and follow it in the live viewer (Section 3).
+- **Work with the robot tools.** Understand the available actions, coordinate conventions, units, and observation checks used by the harness (Section 4).
+- **Assess the approach's strengths and limitations.** Review examples of feedback-based recovery, the tradeoffs of smaller movements, and limitations involving depth, collisions, repeatability, and response time (Sections 5–6).
 
-The harness communicates with the model through the Codex App Server. Since the model can be selected in Codex, newly supported models can be tested on robot tasks using the same robot control tools and execution environment.
+The demos illustrate these ideas through shelf-to-basket picking and ball placement. The robot adjusts its lift to reach objects, pulls a basket closer with its free hand, or moves its base to carry an object to the basket. These examples show how different action sequences can achieve the same goal.
+
+The harness uses the Codex App Server, allowing newly supported models to be evaluated with the same robot tools and execution environment.
 
 ---
 
@@ -36,7 +39,18 @@ Each task runs in one Codex App Server session. The model selects a robot tool a
 
 The harness validates the tool inputs and execution conditions, then creates a ROS 2 message for the target component and publishes it to the corresponding topic. Arm commands specify a target position and orientation, along with a motion duration. Gripper, head, and lift commands specify target joint values and a motion duration. Base commands specify linear and angular velocities.
 
+After publishing a command, the harness checks the robot's actual state to determine whether it has reached the target and assess the motion result. It then collects camera images and robot state and returns them to the model along with the execution result. The model uses this feedback to decide its next action. This cycle continues until the task ends.
+
 The following table lists the control topics and message types used by the harness.
+
+<div className="codex-control-topics">
+<style>{`
+  .codex-control-topics table { font-size: 0.85rem; line-height: 1.35; }
+  .codex-control-topics th,
+  .codex-control-topics td { padding: 6px 8px; }
+  .codex-control-topics td:first-child { white-space: nowrap; }
+  .codex-control-topics code { font-size: 0.9em; padding: 1px 3px; }
+`}</style>
 
 | Component | Topic | Message type | Command contents |
 | --- | --- | --- | --- |
@@ -48,13 +62,29 @@ The following table lists the control topics and message types used by the harne
 | Lift | `/leader/joystick_controller_right/joint_trajectory` | `trajectory_msgs/msg/JointTrajectory` | Target lift joint values, motion duration |
 | Base | `/cmd_vel` | `geometry_msgs/msg/Twist` | Linear and angular velocities |
 
-After publishing a command, the harness checks the robot's actual state to determine whether it has reached the target and assess the motion result. It then collects camera images and robot state and returns them to the model along with the execution result. The model uses this feedback to decide its next action. This cycle continues until the task ends.
+</div>
+
 
 ---
 
 ## 3. Getting Started
 
-Run the clone and container-management commands on the host. **Run subsequent robot commands inside the container unless otherwise noted.**
+Follow the common setup, then choose **Gazebo** or **Real SG2**. The live viewer is optional.
+
+1. **Set up:** Clone the code, start the container, install Codex, and sign in ([3.1](#31-common-setup)).
+2. **Run:** Start Gazebo ([3.2](#32-run-in-gazebo)) or the real robot ([3.3](#33-run-on-a-real-sg2)), then start Cyclo and an episode.
+3. **Watch (optional):** Open the live viewer ([3.4](#34-watch-a-run-live)).
+
+Keep four terminals open for a run:
+
+| Terminal | Gazebo | Real SG2 |
+| --- | --- | --- |
+| 1 | Zenoh | Zenoh |
+| 2 | Gazebo | Robot bringup |
+| 3 | Cyclo motion controller | Cyclo motion controller |
+| 4 | Episode: `run_codex_gazebo.py` | Episode: `run_codex.py` |
+
+Run the clone and container-management commands on the **host**. Run subsequent robot commands **inside the container** unless otherwise noted. Use `./container.sh enter` from `ai_worker/docker` for each additional terminal.
 
 ### 3.1 Common Setup
 
@@ -66,11 +96,7 @@ If you will run Gazebo on a PC with an NVIDIA GPU, read the tip at the start of 
 
 **Real SG2**
 
-- Power on the robot and connect the follower board and cameras via USB **before** running `./container.sh start`, which installs and reloads the udev rules. Verify that `/dev/follower` exists.
-- Connect the robot's onboard Jetson AGX Orin to the internet via an Ethernet cable and keep it connected throughout the episode. Codex communicates with the model over the network, so a lost connection interrupts the episode.
-- RealSense serial numbers vary by robot. Use `rs-enumerate-devices` to check them, then set `camera1_serial` and `camera2_serial` in `ffw_bringup/config/common/rs_serial.yaml` to match your robot.
-- The ZED head camera must be connected. `head_camera_type` defaults to `zed`.
-- Clear the robot's workspace and keep the emergency stop button within reach. The robot moves during bringup (`init_position`) and during the episode. Commands already sent by the episode cannot be canceled by the harness.
+Before starting the container, complete the [Real SG2 preparation checklist](#real-sg2-preparation). It covers power, USB connections, network access, cameras, and workspace safety.
 
 #### Step 1 - Clone the Code and Start the Container (Host)
 
@@ -80,8 +106,6 @@ cd ai_worker/docker
 ./container.sh start
 ./container.sh enter
 ```
-
-Use `./container.sh enter` again for each additional terminal.
 
 #### Step 2 - Install Codex
 
@@ -102,7 +126,7 @@ The installer installs the latest Codex. This version of the harness was tested 
 
 #### Step 3 - Sign In to Codex
 
-The harness passes no API key to Codex. Codex reads whatever sign-in is stored in `CODEX_HOME`, so either of the two methods below works. Always prefix the command with `CODEX_HOME=/root/.codex_robot`. Otherwise the sign-in is saved to `/root/.codex`, and the harness never sees it.
+Choose one of the two sign-in methods below. **Always prefix login commands with `CODEX_HOME=/root/.codex_robot`** so the harness can find your credentials. Without this prefix, Codex saves them to `/root/.codex`. The harness uses the saved sign-in and does not pass an API key to Codex directly.
 
 - **Option A: OpenAI API Key** (usage-based billing)
 
@@ -147,7 +171,8 @@ Both setups below use Terminal 1 for Zenoh. Keep it running.
 zenohd
 ```
 
-#### Changing the Model (Optional)
+<details>
+<summary>Optional: change the model or execution settings</summary>
 
 The harness defaults to `gpt-6-astra` (reasoning effort `low`). To use a different model or reasoning effort, edit the `model:` block in both config files:
 
@@ -155,6 +180,8 @@ The harness defaults to `gpt-6-astra` (reasoning effort `low`). To use a differe
 - `/root/ros2_ws/src/ai_worker/ffw_codex/config.yaml` (real SG2)
 
 These files also contain other settings, including episode limits, per-move step limits, tolerances, and base motion limits. You can change these settings in the same way.
+
+</details>
 
 ### 3.2 Run in Gazebo
 
@@ -171,7 +198,7 @@ These files also contain other settings, including episode limits, per-move step
     preload="metadata"
     width={592}
     height={592}
-    style={{display: 'block', width: '100%', height: 'auto', maxWidth: '480px', margin: '0 auto', borderRadius: '14px', border: '1px solid var(--ifm-color-emphasis-200)'}}
+    style={{display: 'block', width: '100%', height: 'auto', maxWidth: '720px', margin: '0 auto', borderRadius: '14px', border: '1px solid var(--ifm-color-emphasis-200)'}}
   />
   <figcaption style={{textAlign: 'center', marginTop: '10px', color: 'var(--ifm-color-emphasis-700)', fontSize: '14px'}}>
     Pick and Place in Gazebo
@@ -203,24 +230,27 @@ ros2 launch ffw_bringup ffw_sg2_follower_ai_gazebo.launch.py \
 - `use_cam:=true` is required. It defaults to `false`, and without the cameras the harness times out while waiting for observations.
 - Give `world:=` **without the `.sdf` extension**. You can use other worlds in `ffw_bringup/worlds/` as well, but the example task in Terminal 4 assumes `table`. To reset the scene between runs, restart the Gazebo launch in Terminal 2.
 - RViz opens too but isn't used. Run `pkill rviz2` to save resources.
-- The table below lists the available Gazebo worlds, their scene contents, suggested tasks, and example instructions.
 
-    **Available Worlds:**
-    | World file | Scene contents | Main tasks | Example instruction |
-    |---|---|---|---|
-    | `table.sdf` | Table, blue cube, black cube | Basic grasping, single-arm motion checks | "pick up the blue block" |
-    | `tabletop_sorting.sdf` | Table, red and blue bins, five cubes, yellow cylinder | Sorting by color, pick-and-place, stacking | "put the red cubes in the red bin" |
-    | `shelf_lift.sdf` | Two-tier shelf | Moving forward, lowering the lift, and tilting the head down to access the lower shelf | "take the green cube from the lower shelf and put it on the orange square" |
-    | `articulated_cabinet.sdf` | Cabinet with a drawer, box with a lid, three cubes | Opening and closing drawers and lids | "open the drawer and take out the blue cube" |
-    | `kitchen_counter.sdf` | Kitchen counter with a plate, bowl, two cans, apple, cereal box, sponge, and cutting board | Pick-and-place using everyday object names | "put the apple in the bowl" |
-    | `pick_and_deliver.sdf` | Two rooms connected by a doorway, starting table with three cubes, green and blue tables, obstacles, colored wall panels | Picking up and delivering objects across rooms | "bring the blue cube to the blue bin" |
+<details>
+<summary>Optional: explore other Gazebo worlds</summary>
 
-    - **Gazebo tabletop_sorting**  
-        <div style={{textAlign: 'center', margin: '20px 0 16px 0'}}>
-            <img src="/img/systems/aiworker/resources/technical_story/codex/gz_tabletop.png" alt="Gazebo tabletop_sorting.sdf" style={{maxWidth: '100%'}} />
-            <p style={{marginTop: '8px', fontSize: '14px', color: '#bfc4e6', fontStyle: 'italic'}}>Gazebo tabletop_sorting.sdf</p>
-        </div>
+| World file | Scene contents | Main tasks | Example instruction |
+|---|---|---|---|
+| `table.sdf` | Table, blue cube, black cube | Basic grasping, single-arm motion checks | "pick up the blue block" |
+| `tabletop_sorting.sdf` | Table, red and blue bins, five cubes, yellow cylinder | Sorting by color, pick-and-place, stacking | "put the red cubes in the red bin" |
+| `shelf_lift.sdf` | Two-tier shelf | Moving forward, lowering the lift, and tilting the head down to access the lower shelf | "take the green cube from the lower shelf and put it on the orange square" |
+| `articulated_cabinet.sdf` | Cabinet with a drawer, box with a lid, three cubes | Opening and closing drawers and lids | "open the drawer and take out the blue cube" |
+| `kitchen_counter.sdf` | Kitchen counter with a plate, bowl, two cans, apple, cereal box, sponge, and cutting board | Pick-and-place using everyday object names | "put the apple in the bowl" |
+| `pick_and_deliver.sdf` | Two rooms connected by a doorway, starting table with three cubes, green and blue tables, obstacles, colored wall panels | Picking up and delivering objects across rooms | "bring the blue cube to the blue bin" |
 
+**Gazebo tabletop_sorting**
+
+<div style={{textAlign: 'center', margin: '20px 0 16px 0'}}>
+        <img src="/img/systems/aiworker/resources/technical_story/codex/gz_tabletop.png" alt="Gazebo tabletop_sorting.sdf" style={{maxWidth: '100%'}} />
+        <p style={{marginTop: '8px', fontSize: '14px', color: '#bfc4e6', fontStyle: 'italic'}}>Gazebo tabletop_sorting.sdf</p>
+</div>
+
+</details>
 
 **Terminal 3: Cyclo**
 
@@ -237,7 +267,7 @@ cd /root/ros2_ws/src/ai_worker/ffw_codex
 python3 run_codex_gazebo.py --task "pick up the blue block" --run-id gz_01
 ```
 
-Use a new --run-id for each run; an existing run folder is not reused.
+Use a new `--run-id` for each run; an existing run folder is not reused.
 
 :::tip[Head and lift commands have no timeout in Gazebo]
 In Gazebo, head and lift commands wait until the joint stops moving, since the simulated lift can be much slower than commanded. The model is idle and uses no tokens meanwhile.
@@ -258,11 +288,18 @@ In Gazebo, head and lift commands wait until the joint stops moving, since the s
     preload="metadata"
     width={592}
     height={592}
-    style={{display: 'block', width: '100%', height: 'auto', maxWidth: '480px', margin: '0 auto', borderRadius: '14px', border: '1px solid var(--ifm-color-emphasis-200)'}}
+    style={{display: 'block', width: '100%', height: 'auto', maxWidth: '720px', margin: '0 auto', borderRadius: '14px', border: '1px solid var(--ifm-color-emphasis-200)'}}
   />
+  <figcaption style={{textAlign: 'center', marginTop: '10px', color: 'var(--ifm-color-emphasis-700)', fontSize: '14px'}}>
+    Pick and Place on a Real SG2
+  </figcaption>
 </figure>
 
-**Before you start**
+<a id="real-sg2-preparation" />
+
+#### Before You Start
+
+Complete this checklist **before starting the container** in 3.1 Step 1.
 
 - Power on the robot and connect the follower board and cameras via USB **before** running `./container.sh start`, which installs and reloads the udev rules. Verify that `/dev/follower` exists.
 - Connect the robot's onboard Jetson AGX Orin to the internet via an Ethernet cable and keep it connected throughout the episode. Codex communicates with the model over the network, so a lost connection interrupts the episode.
@@ -299,7 +336,7 @@ cd /root/ros2_ws/src/ai_worker/ffw_codex
 python3 run_codex.py --task "task description" --run-id real_01
 ```
 
-Use a new --run-id for each run; an existing run folder is not reused.
+Use a new `--run-id` for each run; an existing run folder is not reused.
 
 - Write the task to match the actual scene.
 - For the first run, lower `episode.max_actions` and `episode.max_seconds` in `config.yaml`.
@@ -322,7 +359,7 @@ Use a new --run-id for each run; an existing run folder is not reused.
     preload="metadata"
     width={592}
     height={592}
-    style={{display: 'block', width: '100%', height: 'auto', maxWidth: '480px', margin: '0 auto', borderRadius: '14px', border: '1px solid var(--ifm-color-emphasis-200)'}}
+    style={{display: 'block', width: '100%', height: 'auto', maxWidth: '720px', margin: '0 auto', borderRadius: '14px', border: '1px solid var(--ifm-color-emphasis-200)'}}
   />
   <figcaption style={{textAlign: 'center', marginTop: '10px', color: 'var(--ifm-color-emphasis-700)', fontSize: '14px'}}>
     Tidy up the table
