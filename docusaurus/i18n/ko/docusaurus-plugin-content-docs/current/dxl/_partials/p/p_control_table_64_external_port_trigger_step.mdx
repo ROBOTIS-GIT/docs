@@ -1,0 +1,9 @@
+[External Port Mode(56, 57, 58, 59)](#external-port-mode-external-port-data)를 `4` (Trigger Output Push-Pull)로 설정한 경우, Trigger 신호의 Step 단위, Pulse 유지 시간, Pulse의 Offset을 설정할 수 있습니다.  
+이 값은 Trigger 신호의 Step 단위를 [Present Position(580)](#present-position580)의 pulse 단위로 설정합니다. Pulse 유지 시간은 [External Port Trigger Hold Time(72, 73, 74, 75)](#external-port-trigger-hold-time72-73-74-75)으로, Pulse의 Offset은 [External Port Trigger Offset(628)](#external-port-trigger-offset628)으로 설정합니다.  
+Trigger 신호가 발생할 때마다 [External Port Trigger Count(620, 622, 624, 626)](#external-port-trigger-count620-622-624-626) 값은 `1`씩 증가합니다.
+
+![](/img/dxl/model_reference/p_series/external_port_trigger.png)
+
+|    Range     |             Unit             |
+| :----------: | :--------------------------: |
+| 100 ~ 32,767 | 1 [pulse] (Present Position) |
