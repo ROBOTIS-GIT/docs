@@ -97,7 +97,7 @@ This comprehensive hardware design enables the AI Worker to perform complex mani
     <div className="model-comparison__item">
         <p className="model-comparison__title">A1 Model</p>
         <div className="model-comparison__media">
-            <img src="/img/systems/aiworker/specifications/hardware/model_a1.png" alt="FFW-LH5 Model" className="model-comparison__image model-comparison__image--auto" />
+            <img src="/img/systems/aiworker/specifications/hardware/model_a1.png" alt="FFW-A1 Model" className="model-comparison__image model-comparison__image--auto" />
         </div>
         <div className="model-comparison__media model-comparison__media--full">
             <img src="/img/systems/aiworker/specifications/hardware/model_ffw_lh5.gif" alt="FFW-LH5 Model Animation" className="model-comparison__image model-comparison__image--full" />
@@ -126,7 +126,7 @@ This comprehensive hardware design enables the AI Worker to perform complex mani
 | Dimensions (WxDxH)       | 572.4x221.7x677.4 (mm)<br />22.5x8.7x26.7 (inch)| 401.7x190.3x502.8 (mm)<br />15.8x7.5x19.8 (inch)|
 | Weight                   | 2.8 kg (6.17 lb)                           | 1 kg (2.2lb)                          |
 | Actuator                 | Joint 1 ~ 7: Encoder Module                  | Joint 1 ~ 7: Dynamixel XL330-M077-T                 |
-| Degrees of Freedom       | - Total: 22 DOF<br />- Arm: 7 DOF x 2<br />- Gripper: 1 DOF x 2<br />- JoyStick: 3 DOF x 2 | - Total: 22 DOF<br />- Arm: 7 DOF x 2<br />- Gripper: 1 DOF x 2<br />- JoyStick: 3 DOF x 2 |
+| Degrees of Freedom       | - Total: 22 DOF<br />- Arm: 7 DOF x 2<br />- Gripper: 1 DOF x 2<br />- Joystick: 3 DOF x 2 | - Total: 22 DOF<br />- Arm: 7 DOF x 2<br />- Gripper: 1 DOF x 2<br />- Joystick: 3 DOF x 2 |
 | Exterior Materials       | Aluminum, Plastic                       | Aluminum, Plastic                      |
 | Internal Communications  | TTL                                     | TTL                                    |
 | Communication Baudrate   | 4 Mbps                                  | 4 Mbps                                 |
@@ -140,7 +140,7 @@ This comprehensive hardware design enables the AI Worker to perform complex mani
 | Dimensions (WxDxH)       | 598x146x705 (mm)<br />23.5x5.7x27.8 (inch)| 597x211x842 (mm)<br />23.5x8.3x33.2 (inch)|
 | Weight                   | 3 kg (6.6 lb)                           | 3 kg (6.6 lb)                          |
 | Actuator                 | Joint 1 ~ 7: DYNAMIXEL-X                  | Joint 1 ~ 7: DYNAMIXEL-X                 |
-| Degrees of Freedom       | - Total: 22 DOF<br />- Arm: 7 DOF x 2<br />- Gripper: 1 DOF x 2<br />- JoyStick: 3 DOF x 2 | - Total: 60 DOF<br />- Arm: 7 DOF x 2<br />- Hand: 20 DOF x 2<br />- JoyStick: 3 DOF x 2 |
+| Degrees of Freedom       | - Total: 22 DOF<br />- Arm: 7 DOF x 2<br />- Gripper: 1 DOF x 2<br />- Joystick: 3 DOF x 2 | - Total: 60 DOF<br />- Arm: 7 DOF x 2<br />- Hand: 20 DOF x 2<br />- Joystick: 3 DOF x 2 |
 | Exterior Materials       | Aluminum, Plastic                       | Aluminum, Plastic                      |
 | Internal Communications  | TTL                                     | TTL                                    |
 | Communication Baudrate   | 4 Mbps                                  | 4 Mbps                                 |
@@ -155,7 +155,7 @@ The AI Worker utilizes a multi-camera system for robust perception and manipulat
 
 ### Head Camera
 
-A ZED Mini camera is mounted on the head for wide-area environmental understanding and navigation.
+A ZED Mini or Intel RealSense D455f camera is mounted on the head for wide-area environmental understanding and navigation.
 
 <Tabs groupId="ai-worker-generation">
 <TabItem value="f1-f2" label="F1 / F2" default>
@@ -167,7 +167,7 @@ A ZED Mini camera is mounted on the head for wide-area environmental understandi
 | Key Use           | Wide-angle depth perception, SLAM, obstacle avoidance |
 | Field of View     | 86°(H) x 57°(V)                                   |
 | Max Resolution    | 1280 x 720                                        |
-| Depth Range       | 0.6m to 6m (7.87inch to 393.7inch)                  |
+| Depth Range       | 0.6m to 6m (23.62inch to 236.22inch)                  |
 | More Information  | [Intel RealSense D455](https://www.intel.com/content/www/us/en/products/sku/233193/intel-realsense-depth-camera-d455f/specifications.html) |
 
 </TabItem>
@@ -201,7 +201,7 @@ Two Intel RealSense D405 cameras are integrated into the robot's hands/grippers,
 | Field of View     | 87°(H) × 58°(V)                                    |
 | Max Resolution    | 1280 x 720                                         |
 | Depth Range       | 7cm to 50cm (2.7inch to 19.6inch)                  |
-| More Information  | [Intel RealSense Depth Module D401 Details](https://www.intel.com/content/www/us/en/products/sku/229218/intel-realsense-depth-camera-d405/specifications.html) |
+| More Information  | [Intel RealSense Depth Module D401 Details](https://www.intel.co.kr/content/www/kr/ko/products/sku/229219/intel-realsense-depth-module-d401/specifications.html) |
 
 </TabItem>
 <TabItem value="sg2-bg2" label="SG2 / BG2">
@@ -214,7 +214,7 @@ Two Intel RealSense D405 cameras are integrated into the robot's hands/grippers,
 | Field of View     | 87°(H) × 58°(V)                                    |
 | Max Resolution    | 1280 x 720                                         |
 | Depth Range       | 7cm to 50cm (2.7inch to 19.6inch)                  |
-| More Information  | [Intel RealSense D405 Details](https://www.intel.co.kr/content/www/kr/ko/products/sku/229219/intel-realsense-depth-module-d401/specifications.html) |
+| More Information  | [Intel RealSense D405 Details](https://www.intel.com/content/www/us/en/products/sku/229218/intel-realsense-depth-camera-d405/specifications.html) |
 
 </TabItem>
 </Tabs>
@@ -397,8 +397,8 @@ For detailed specifications of each DYNAMIXEL model, please visit the [ROBOTIS D
 <Tabs groupId="ai-worker-model-dimension">
 <TabItem value="f2" label="F2" default>
 
-<a href="/img/systems/aiworker/specifications/hardware/demension_f2.png" target="_blank">
-  <img src="/img/systems/aiworker/specifications/hardware/demension_f2.png" alt="FFW-F2 dimensions" width="100%" />
+<a href="/img/systems/aiworker/specifications/hardware/dimension_f2.png" target="_blank">
+  <img src="/img/systems/aiworker/specifications/hardware/dimension_f2.png" alt="FFW-F2 dimensions" width="100%" />
 </a>
 
 #### **Drawing Files**
@@ -413,8 +413,8 @@ For detailed specifications of each DYNAMIXEL model, please visit the [ROBOTIS D
 
 <TabItem value="f1" label="F1">
 
-<a href="/img/systems/aiworker/specifications/hardware/demension_f1.png" target="_blank">
-  <img src="/img/systems/aiworker/specifications/hardware/demension_f1.png" alt="FFW-F1 dimensions" width="100%" />
+<a href="/img/systems/aiworker/specifications/hardware/dimension_f1.png" target="_blank">
+  <img src="/img/systems/aiworker/specifications/hardware/dimension_f1.png" alt="FFW-F1 dimensions" width="100%" />
 </a>
 
 #### **Drawing Files**
@@ -469,8 +469,8 @@ For detailed specifications of each DYNAMIXEL model, please visit the [ROBOTIS D
 
 <TabItem value="a2" label="A2">
 
-<a href="/img/systems/aiworker/specifications/hardware/demension_a2.png" target="_blank">
-  <img src="/img/systems/aiworker/specifications/hardware/demension_a2.png" alt="A2 dimensions" width="100%" />
+<a href="/img/systems/aiworker/specifications/hardware/dimension_a2.png" target="_blank">
+  <img src="/img/systems/aiworker/specifications/hardware/dimension_a2.png" alt="A2 dimensions" width="100%" />
 </a>
 
 </TabItem>
