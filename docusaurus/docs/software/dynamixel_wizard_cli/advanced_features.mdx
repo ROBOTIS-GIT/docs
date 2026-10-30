@@ -1,0 +1,99 @@
+# Advanced Features
+
+You can increase productivity by using the CLI's convenience features and low-level monitoring.
+
+## Packet Monitoring (`-v`)
+
+With the `-v` (verbose) option, you can view the actual **packet data (hex)** sent and received according to the DYNAMIXEL protocol. This is useful for analyzing communication delays or protocol errors.
+
+```text
+COM3, 57600bps > ping 1 -v
+TX: FF FF FD 00 01 03 00 01 19 4E
+RX: FF FF FD 00 01 07 00 55 00 B0 04 35 B7 54
+ID 1 : ACK
+[ID:001] XL330-M288, v53
+COM3, 57600bps >
+```
+
+## Smart Interaction
+
+Combining **ID Memory**, **Omitting `set`**, and **Keyword Search** (see [Basic Usage](./basic_usage.mdx#convenience-features-and-precautions)) makes device control easier.
+
+### Interactive Item Selection
+
+Entering only an item name shows its current value and the list of settable options.
+
+```text
+COM3, 57600bps > Torque Enable
+[INFO] Setting Torque Enable
+[ID:001] XL330-M288, v53
+64   : Torque Enable             :          1,       0x01 : ON
+------------------------------
+  0 : OFF
+  1 : ON
+------------------------------
+Choose item number (0-1, press Ctrl+C to cancel):1
+[Success] change Torque Enable to ON
+COM3, 57600bps >
+```
+
+### Smart Keyword Search
+
+You can find related control table items by keyword even if you do not know the exact item name.
+
+```text
+COM3, 57600bps > goal
+[INFO] Setting goal
+[ID:001] XL330-M288, v53
+------------------------------
+1 : Goal Current
+2 : Goal PWM
+3 : Goal Position
+4 : Goal Velocity
+------------------------------
+Choose item number (1-4, press Ctrl+C to cancel):3
+116  : Goal Position             :          0, 0x00000000 :     0.00 [°]
+Scale :  0.087891 [°]
+Input value (0-4095, press Ctrl+C to cancel):2048
+[Success] change Goal Position to 2048
+COM3, 57600bps >
+```
+
+## Full Scan
+
+When no serial port is open, entering the `scan` command scans all system ports and common baud rates to find devices. This is useful when you have forgotten the DYNAMIXEL ID or baud rate.
+
+```text
+>>> scan
+Select ports to scan:
+  0: All ports
+  1: COM3 (USB Serial Device)
+  2: COM4 (USB Serial Port)
+  3: COM7 (Standard Bluetooth Serial Link)
+  4: COM8 (Standard Bluetooth Serial Link)
+Enter port numbers (comma separated, e.g., 0 or 1,2,3): 1,2
+Scanning 2 port(s) for devices...
+Press Ctrl+C to cancel scan
+Scanning port: COM3 at 9600 bps...
+Scanning port: COM3 at 57600 bps...
+  [ID:001] XL330-M288, v53
+  [ID:004] XL330-M077, v53
+Scanning port: COM3 at 115200 bps...
+Scanning port: COM3 at 1000000 bps...
+Scanning port: COM3 at 2000000 bps...
+Scanning port: COM3 at 3000000 bps...
+Scanning port: COM3 at 4000000 bps...
+Scanning port: COM3 at 4500000 bps...
+Scanning port: COM3 at 6000000 bps...
+Scanning port: COM4 at 9600 bps...
+Scanning port: COM4 at 57600 bps...
+Scanning port: COM4 at 115200 bps...
+Scanning port: COM4 at 1000000 bps...
+Scanning port: COM4 at 2000000 bps...
+Scanning port: COM4 at 3000000 bps...
+Scanning port: COM4 at 4000000 bps...
+Scanning port: COM4 at 4500000 bps...
+Scanning port: COM4 at 6000000 bps...
+Scan completed
+>>>
+```

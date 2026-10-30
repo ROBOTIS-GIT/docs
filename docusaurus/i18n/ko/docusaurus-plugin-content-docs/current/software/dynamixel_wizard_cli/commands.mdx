@@ -1,0 +1,57 @@
+# 명령어
+
+대화형 REPL에서 사용할 수 있는 명령어 목록입니다. `[]`는 선택 사항, `<>`는 필수 입력 사항을 의미합니다.
+
+## 연결 및 환경 설정
+
+| 명령어 | 인자 | 설명 |
+|--------|------|------|
+| **port** | - | 시스템 내 유효한 시리얼 포트 목록 출력 |
+| **open** | `[port] [baudrate]` | 포트 연결 (인자 생략 시 대화형 모드 진입) |
+| **close** | - | 시리얼 포트 연결 해제 |
+| **protocol** | `[version]` | 프로토콜 버전 설정 (1.0 / 2.0) |
+| **timeout** | `<ms>` | DYNAMIXEL 통신 대기 시간(network delay) 가산 설정 (단위: ms). [스크립트 모드](./script_mode.mdx#실행-규칙)의 명령당 실행 deadline(30초)과는 별개입니다. |
+
+## 장치 검색 및 진단
+
+| 명령어 | 인자 | 설명 |
+|--------|------|------|
+| **scan** | `[range]` | ID 범위 검색 (예: `scan 0-252`) |
+| **ping** | `[id]` | 장치 연결 확인 및 모델/버전 출력 |
+| **reboot** | `[id]` | DYNAMIXEL 재시작 |
+| **reset** | `[id]` | 공장 초기화. Protocol 2.0은 ID/Baudrate를 유지하지만 Protocol 1.0은 해당 값도 초기화 |
+| **status** | `[id]` | 하드웨어 상태 정보 출력 |
+
+## 컨트롤 테이블 제어 (Read/Write)
+
+| 명령어 | 인자 | 설명 |
+|--------|------|------|
+| **get** | `[id] <item name> [-c\|--continuous]` | 값 읽기 (`-c`/`--continuous` 옵션 시 연속 읽기) |
+| **set** | `[id] <item name> [value]` | 값 쓰기 (값 생략 시 대화형 입력) |
+| **table** | `[id] [range] [-p\|--page]` | 컨트롤 테이블 출력 (`-p`/`--page`: 페이지 단위 보기) |
+
+## 유틸리티 및 시스템
+
+| 명령어 | 인자 | 설명 |
+|--------|------|------|
+| **clear** | `<ID> <param>` | 1: 위치 정규화 / 2: 에러 상태 해제 / 10: 멀티턴 엔코더 초기화(지원 모델만) |
+| **update** | `[id]` | DYNAMIXEL 펌웨어 업데이트. 설치 버전이 최신 버전 이상이면 안내 후 종료 |
+| **upgrade** | `[-c\|--check]` | DYNAMIXEL Wizard CLI 자체를 최신 버전으로 업데이트 (`-c`/`--check`는 업데이트 확인만; Linux AppImage 전용) |
+| **help** | `[command]` | 전체 명령 목록 또는 특정 명령 상세 도움말 |
+| **license** | - | 소프트웨어 및 제3자 라이선스 정보 확인 |
+| **copyright** | - | 저작권 및 제3자 소프트웨어 고지 확인 |
+| **exit** | - | 프로그램 종료 |
+
+## 프로그램 실행 형식
+
+```text
+wizard-cli                         # 대화형 REPL
+wizard-cli --help                  # 명령줄 도움말
+wizard-cli --version               # 버전 정보
+wizard-cli --license               # 라이선스 정보
+wizard-cli -e "<command>"          # 스크립트 명령 실행
+wizard-cli -f <path>               # 스크립트 파일 실행
+wizard-cli upgrade [--check|-c]    # Linux AppImage 전용 argv 명령
+```
+
+`--help`, `--version`, `--license`는 옵션이며 긴 옵션은 하이픈 두 개를 사용합니다. 예를 들어 `-license`가 아니라 `--license`입니다. `upgrade`는 옵션이 아니라 독립적인 argv 명령이며, 생략하거나 `--check` 또는 `-c` 하나만 지정할 수 있습니다.

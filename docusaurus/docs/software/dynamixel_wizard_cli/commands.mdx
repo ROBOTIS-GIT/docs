@@ -1,0 +1,57 @@
+# Commands
+
+This page lists the commands available in the interactive REPL. `[]` denotes optional arguments; `<>` denotes required arguments.
+
+## Connection and Environment Setup
+
+| Command | Arguments | Description |
+|---------|-----------|-------------|
+| **port** | - | List available serial ports on the system |
+| **open** | `[port] [baudrate]` | Open a port (enters interactive mode if arguments are omitted) |
+| **close** | - | Close the serial port connection |
+| **protocol** | `[version]` | Set the protocol version (1.0 / 2.0) |
+| **timeout** | `<ms>` | Set additional DYNAMIXEL network delay (unit: ms). Separate from the per-command deadline (30 s) in [Script Mode](./script_mode.mdx#execution-rules). |
+
+## Device Search and Diagnostics
+
+| Command | Arguments | Description |
+|---------|-----------|-------------|
+| **scan** | `[range]` | Scan an ID range (e.g., `scan 0-252`) |
+| **ping** | `[id]` | Check the device connection and print its model/version |
+| **reboot** | `[id]` | Reboot the DYNAMIXEL |
+| **reset** | `[id]` | Factory reset. Protocol 2.0 keeps the ID/Baudrate; Protocol 1.0 resets them as well |
+| **status** | `[id]` | Display hardware status information |
+
+## Control Table (Read/Write)
+
+| Command | Arguments | Description |
+|---------|-----------|-------------|
+| **get** | `[id] <item name> [-c\|--continuous]` | Read a value (`-c`/`--continuous` for continuous reading) |
+| **set** | `[id] <item name> [value]` | Write a value (enters interactive mode if the value is omitted) |
+| **table** | `[id] [range] [-p\|--page]` | Print the control table (`-p`/`--page` for page view) |
+
+## Utility and System
+
+| Command | Arguments | Description |
+|---------|-----------|-------------|
+| **clear** | `<ID> <param>` | 1: Normalize position / 2: Clear error status / 10: Initialize the multi-turn encoder (supported models only) |
+| **update** | `[id]` | Update the DYNAMIXEL firmware; exits with a notice when the installed version is already current or newer |
+| **upgrade** | `[-c\|--check]` | Update DYNAMIXEL Wizard CLI itself to the latest version (`-c`/`--check` only checks for updates; Linux AppImage only) |
+| **help** | `[command]` | Show all commands or detailed help for a specific command |
+| **license** | - | Display software and third-party license information |
+| **copyright** | - | Display copyright and third-party software notices |
+| **exit** | - | Exit the program |
+
+## Program Invocation
+
+```text
+wizard-cli                         # Interactive REPL
+wizard-cli --help                  # Command-line help
+wizard-cli --version               # Version information
+wizard-cli --license               # License information
+wizard-cli -e "<command>"          # Run a script command
+wizard-cli -f <path>               # Run a script file
+wizard-cli upgrade [--check|-c]    # Linux AppImage argv command
+```
+
+`--help`, `--version`, and `--license` are options; long options use two hyphens. Use `--license`, not `-license`. `upgrade` is an independent argv command rather than an option, and accepts either no argument or exactly one of `--check` and `-c`.
