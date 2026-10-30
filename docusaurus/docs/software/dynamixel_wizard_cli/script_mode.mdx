@@ -1,0 +1,163 @@
+# Script Mode
+
+:::note
+
+Script mode is available in DYNAMIXEL Wizard CLI **version 1.18.0 and later**.
+
+:::
+
+Use script mode for **non-interactive** runs such as shell scripts, CI, and batch jobs. The CLI does not prompt for missing or ambiguous values; those cases fail immediately.
+
+Unlike the interactive REPL described in [Commands](./commands.mdx), [Basic Usage](./basic_usage.mdx), and [Advanced Features](./advanced_features.mdx), Tab completion, continuous reading (`get -c`), interactive selection UIs, and last-ID memory are not available. Commands run in order and **stop at the first failure**.
+
+Script mode is not for high-rate motion control. Use the [DYNAMIXEL SDK](../dynamixel_sdk/dynamixel_sdk.mdx) (or similar) for closed-loop control.
+
+## Basic Usage
+
+```bash
+# List ports
+wizard-cli -e "port" --json
+
+# Connect and read (use the baud rate that matches your device, e.g. 57600 or 1000000)
+wizard-cli -e "open COM3 57600" -e "scan" -e "get 1 LED" --json
+
+# Write values (--allow-write required)
+wizard-cli --allow-write \
+  -e "open COM3 57600" \
+  -e "set 1 LED 1" \
+  --json
+
+# Run from a file
+wizard-cli --allow-write -f commands.dxl --json
+```
+
+Example `commands.dxl`:
+
+```text
+# UTF-8, one command per line
+open COM3 57600
+scan 1-10
+set 1 "Torque Enable" 1
+get 1 "Present Position"
+```
+
+## Command-Line Options
+
+| Option | Description |
+|--------|-------------|
+| `-e`, `--execute` | One command line. May be **repeated** (runs in order) |
+| `-f`, `--file` | Exactly **one** UTF-8 command file |
+| `--json` | One JSON object per command on stdout |
+| `--allow-write` | Allow `set` |
+| `--allow-destructive` | Allow `reset` / `reboot` / device `clear` (includes write) |
+| `-h`, `--help` | Help |
+| `-v`, `--version` | Version |
+| `--license` | License information |
+| `--ai-help` | AI agent safety and execution guidance |
+| `--command-schema` | Machine-readable script command contract (JSON) |
+
+- `-e` and `-f` are **mutually exclusive**.
+- With no script options, the interactive REPL starts.
+- Do not combine `upgrade` or the positional compatibility aliases `license` / `copyright` with script options (`-e`, `-f`, …).
+- Unknown options or invalid combinations do not enter the REPL; they exit with usage error code `2`.
+- The process option `wizard-cli -v` prints the version. For packet diagnostics, put `-v` inside the command string, as in `-e "ping 1 -v"`.
+
+## File Format and Grammar
+
+- Encoding: UTF-8 (BOM allowed)
+- One command per line. Blank lines and full-line `#` comments are ignored.
+- A final newline is optional. There is no `exit` command.
+- Limits: **1 MiB** total input, **16 KiB** per command
+- Tokens are split on whitespace; quote names that contain spaces with `"..."` or `'...'`. Inside double quotes, `\"` and `\\` are supported.
+- Item names containing spaces must be quoted. For `set`, the ID, item name, and value are all required.
+
+The shell processes nested quotes before invoking the CLI, so passing an item name with spaces through `-e` is shell-specific. Replace the port, baud rate, and ID below with those of your device. Port connections do not persist across processes, so run `open` first in the same invocation.
+
+```bash
+# Bash
+wizard-cli --json -e 'open COM3 57600' -e 'get 1 "Present Position"'
+```
+
+```powershell
+# PowerShell
+.\wizard-cli.exe --json -e "open COM3 57600" -e "get 1 'Present Position'"
+```
+
+For multiple commands, prefer `-f` file mode to avoid shell-escaping differences.
+
+```text
+open "/dev/serial/by-id/USB Device" 57600
+get 1 "Present Position"
+set 1 "Goal Position" 1024
+```
+
+## Execution Rules
+
+| Topic | Behavior |
+|-------|----------|
+| `open` | Port and baudrate are **required** |
+| Device commands | ID is **required** (no last-ID fallback) |
+| `protocol` | Version is **required** |
+| `set` | ID, item name, and value are **all required** |
+| Ambiguous item name | Error (no auto-pick) |
+| Port not open | Device commands fail (no full-port scan fallback) |
+| Session state | `open` / `protocol` / `timeout` persist for later commands in the same process |
+| `get -c` / `--continuous` | **Unsupported** |
+| `table -p` / `--page` | **Unsupported** |
+| Per-command diagnostics | `-v` / `--verbose` is accepted by `scan`, `ping`, `get`, `set`, `table`, `reset`, `reboot`, and device `clear`; diagnostics go to stderr |
+| Command deadline | Fixed **30 s** (separate from the `timeout` network-delay command) |
+| Ctrl+C | Exit code `130`; open ports are cleaned up |
+| On exit | Ports are cleaned up on success, failure, and interrupt |
+
+## Supported Commands and Permissions
+
+| Class | Commands | Requirement |
+|-------|----------|-------------|
+| Read / session | `port`, `open`, `close`, `protocol`, `timeout`, `scan`, `ping`, `get`, `table`, `status`, `help`, `license`, `copyright` | Allowed by default |
+| Write | `set` | **`--allow-write`** |
+| Reset | `reboot`, `reset`, `clear` | **`--allow-destructive`** |
+
+`clear` always requires a device ID, parameter `1`, `2`, or `10`, and destructive permission. Parameter `10` initializes the multi-turn encoder on supported models.
+
+**Unsupported** (exit code `2`): `update`, `upgrade`, `exit`, `get -c` / `--continuous`, `table -p` / `--page`
+
+Device IDs and `scan` ranges use `0..252`. Unknown flags and leftover arguments are errors. Unauthorized writes are rejected **before** any device packet is sent (exit code `3`).
+
+## Exit Codes
+
+| Code | Meaning |
+|------|---------|
+| `0` | All commands succeeded |
+| `1` | Execution or communication failure |
+| `2` | Usage, parse, argument, or unsupported command |
+| `3` | Permission denied (missing `--allow-write`, etc.) |
+| `124` | Command deadline exceeded |
+| `130` | Interrupted by Ctrl+C |
+
+The process exit code reflects the **first failed command**. Failure to open a script file also returns `2`.
+
+## Output
+
+### Text (default)
+
+- No banner or prompt.
+- Normal results go to stdout; errors and diagnostics go to stderr.
+- No ANSI colors. Errors use the `[Error]` prefix; per-command `-v` / `--verbose` diagnostics are separated to stderr.
+
+### JSON (`--json`)
+
+Stdout contains exactly **one JSON object per command**:
+
+```json
+{"command":"open","success":true,"data":{"port":"COM3","baudrate":57600}}
+{"command":"get","success":true,"data":{"id":1,"model_number":1190,"model":"XL330-M077","firmware":53,"item":{"name":"LED","address":65,"length":1,"access":"rw","memory":"ram","value":1,"display_value":"ON","unit":""}}}
+{"command":"get","success":true,"data":{"id":1,"model_number":1190,"model":"XL330-M077","firmware":53,"item":{"name":"Hardware Error Status","address":70,"length":1,"access":"r","memory":"ram","value":5,"display_value":"Input voltage error, Overheating error","active_flags":[{"bit":0,"name":"Input voltage error"},{"bit":2,"name":"Overheating error"}],"unit":""}}}
+{"command":"ping","success":false,"error":{"code":"device_timeout","message":"No response from ID 1"}}
+```
+
+- Success: `command`, `success`, `data`
+- Failure: `command`, `success`, `error.code`, `error.message`
+- Commands that never ran produce no output.
+- JSON stdout must not mix banners, prompts, or ANSI codes.
+- Bit-flag items retain the raw `value` and add `active_flags[{bit,name}]`. With no active bits, `display_value` is `"None"` and `active_flags` is an empty array.
+- Multiple flag names are comma-separated in `display_value`; an empty or `-` reserved-bit label is rendered as `Bit N`. Ordinary enum and scaled items are unchanged.

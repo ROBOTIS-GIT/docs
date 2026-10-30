@@ -1,0 +1,180 @@
+# Basic Usage
+
+## Convenience Features and Precautions
+
+Mastering these CLI-specific features can significantly increase your workflow speed.
+
+:::tip Productivity features
+
+- **Command Auto-completion**: Press the Tab key after typing part of a command to complete it.
+- **Item Name Auto-completion**: Long names like `Torque Enable` and `Goal Position` can be completed via the Tab key.
+- **Keyword Search**: Enter a partial name (e.g., `present`) to see a list of matching control table items.
+- **Command History**: Use the arrow keys (`↑`, `↓`) to recall previous commands.
+- **ID Memory**: Once an ID is specified, subsequent commands can omit the ID and will target the last accessed device.
+- **Omitting `set`**: You can enter an item name alone to enter control mode without typing `set` each time.
+
+:::
+
+:::warning Precautions
+
+- **Firmware Management**: Disconnecting power or cables during an `update` may cause device failure.
+- **Reconnect after a Factory Reset**: A Protocol 1.0 `reset` also restores the ID and baud rate defaults. Reopen the port with the changed settings and scan for the device again.
+- **Port Occupancy**: The `open` command fails if another program (such as the DYNAMIXEL Wizard 2.0 GUI) is using the same serial port. Make sure only one process uses the port at a time.
+
+:::
+
+## Quick Examples
+
+Examples based on a typical CLI workflow.
+
+### Connection and Scan
+
+#### List serial ports with `port`
+
+```text
+>>> port
+Available ports:
+  1. COM3 (USB Serial Device)
+  2. COM4 (USB Serial Port)
+```
+
+#### Open a serial port with `open`
+
+```text
+>>> open COM3 57600
+[Success] Port opened successfully
+```
+
+#### Scan DYNAMIXELs with `scan`
+
+```text
+COM3, 57600bps > scan
+broadcast ping : please wait...
+Press Ctrl+C to cancel
+  [ID:001] XL330-M288, v53
+  [ID:004] XL330-M077, v53
+broadcast ping : done
+COM3, 57600bps >
+```
+
+### Checking DYNAMIXEL Status
+
+#### Check the current status with `status`
+
+```text
+COM3, 57600bps > status 1
+[ID:001] XL330-M288, v53
+--------------------------------------------------
+Operating Mode  : Position control
+Torque          : OFF
+LED             : OFF
+Hardware Error  :
+--------------------------------------------------
+Position        :   180.35 [°]
+Velocity        :     0.23 [rev/min]
+Current         :     0.00 [mA]
+Voltage         :     4.50 [V]
+Temperature     :       23 [°C]
+COM3, 57600bps >
+```
+
+#### View the control table with `table`
+
+```text
+COM3, 57600bps > table 1
+[ID:001] XL330-M288, v53
+0    : Model Number              :       1200 :     0x04B0 : XL330-M288
+2    : Model Information         :          0 : 0x00000000 :
+6    : Firmware Version          :         53 :       0x35 :
+7    : ID                        :          1 :       0x01 : ID 1
+8    : Baud Rate (Bus)           :          1 :       0x01 : 57600 bps
+
+...
+
+COM3, 57600bps >
+```
+
+### Position Control and Monitoring
+
+#### Enable torque for ID 1
+
+```text
+COM3, 57600bps > set 1 Torque Enable 1
+[ID:001] XL330-M288, v53
+[INFO] Setting Torque Enable to 1
+[ID:001] XL330-M288, v53
+[Success] write Torque Enable 1 OK
+```
+
+#### Move to goal position 2048
+
+```text
+COM3, 57600bps > set 1 Goal Position 2048
+[ID:001] XL330-M288, v53
+[INFO] Setting Goal Position to 2048
+[ID:001] XL330-M288, v53
+[Success] write Goal Position 2048 OK
+```
+
+#### Monitor the present position in real time (Ctrl+C to stop)
+
+```text
+COM3, 57600bps > get 1 Present Position -c
+[ID:001] XL330-M288, v53
+Press Ctrl+C to stop continuous reading...
+132  : Present Position          :       2052 : 0x00000804 :   180.35 [°]
+[INFO] KeyboardInterrupt
+COM3, 57600bps >
+```
+
+## Help
+
+Use the `help` command to list all commands, or type `help [command]` for detailed usage and examples.
+
+### List all commands with `help`
+
+```text
+>>> help
+Available commands:
+  port      - Prints a list of available serial ports on the system.
+  open      - Open serial port.
+  close     - Close serial port.
+  exit      - Quit the program.
+  ping      - Check the existence of a Device and basic information.
+  scan      - Search connected DYNAMIXELs.
+  timeout   - Set additional time for Timeout.
+  protocol  - Set DYNAMIXEL protocol version.
+  table     - Print the Control Table.
+  get       - Get a value from Control Table.
+  set       - Set a value on the Control Table.
+  status    - Show DYNAMIXEL status summary.
+  reset     - Reset the Control Table to its initial factory default settings.
+  reboot    - Reboot the DYNAMIXEL.
+  clear     - Initialize supported DYNAMIXEL state.
+  update    - Update the DYNAMIXEL.
+  upgrade   - Update DYNAMIXEL Wizard CLI to the latest version.
+  license   - Display software and third-party license information.
+  copyright - Display copyright and third-party software notices.
+Type "help [command]" for more information.
+>>>
+```
+
+### View `get` usage and examples with `help get`
+
+```text
+COM3, 57600bps > help get
+get : Get a value from Control Table.
+use) get [id] <item name> [-c]
+  [id] : optional - Device ID (uses last ID if omitted)
+  <item name> : required - Control table item name
+  [-c] : optional - Continuous mode (updates value continuously)
+ex1) get 1 Torque Enable
+ex2) get Present Position
+ex3) get 1 Present Position -c (continuous mode)
+ex4) get -c Present Position (continuous mode with last ID)
+
+<info> Do not need to enter full name.
+  1) Type "get 1 present".
+  2) It will be shown a list of readable items.
+COM3, 57600bps >
+```
