@@ -1,0 +1,163 @@
+# 스크립트 모드
+
+:::note
+
+스크립트 모드는 DYNAMIXEL Wizard CLI **버전 1.18.0 이상**에서 사용할 수 있습니다.
+
+:::
+
+셸 스크립트, CI, 배치 작업처럼 **비대화형**으로 명령을 실행할 때 사용합니다. 프롬프트에 값을 입력하지 않으며, 인자가 부족하거나 모호하면 질문하지 않고 즉시 실패합니다.
+
+[명령어](./commands.mdx), [기본 사용법](./basic_usage.mdx), [고급 기능](./advanced_features.mdx)에서 설명한 대화형 REPL과 달리 Tab 완성·연속 읽기(`get -c`)·대화형 선택 UI·마지막 ID 기억은 사용할 수 없습니다. 명령은 입력 순서대로 실행되고, **첫 실패에서 나머지 명령을 실행하지 않습니다.**
+
+실시간 모션 제어용이 아닙니다. 고주기 제어는 [DYNAMIXEL SDK](https://docs.robotis.com/docs/software/dynamixel_sdk/) 등을 사용하세요.
+
+## 기본 사용법
+
+```bash
+# 포트 목록
+wizard-cli -e "port" --json
+
+# 연결 후 조회 (baudrate는 장치에 맞게 지정, 예: 57600 또는 1000000)
+wizard-cli -e "open COM3 57600" -e "scan" -e "get 1 LED" --json
+
+# 값 쓰기 (--allow-write 필요)
+wizard-cli --allow-write \
+  -e "open COM3 57600" \
+  -e "set 1 LED 1" \
+  --json
+
+# 파일로 실행
+wizard-cli --allow-write -f commands.dxl --json
+```
+
+`commands.dxl` 예:
+
+```text
+# UTF-8, 한 줄에 한 명령
+open COM3 57600
+scan 1-10
+set 1 "Torque Enable" 1
+get 1 "Present Position"
+```
+
+## 명령줄 옵션
+
+| 옵션 | 설명 |
+|------|------|
+| `-e`, `--execute` | 명령 한 줄. **여러 번** 지정 가능 (지정 순서대로 실행) |
+| `-f`, `--file` | UTF-8 명령 파일 **하나** |
+| `--json` | 명령마다 stdout에 JSON 객체 한 줄 출력 |
+| `--allow-write` | `set` 허용 |
+| `--allow-destructive` | `reset` / `reboot` / 장치 대상 `clear` 허용 (쓰기 권한 포함) |
+| `-h`, `--help` | 도움말 |
+| `-v`, `--version` | 버전 |
+| `--license` | 라이선스 정보 |
+| `--ai-help` | AI 에이전트 안전·실행 가이드 |
+| `--command-schema` | 기계 판독용 스크립트 명령 계약(JSON) |
+
+- `-e`와 `-f`는 **동시에 사용할 수 없습니다.**
+- 스크립트 옵션이 없으면 대화형 REPL이 시작됩니다.
+- `upgrade` 및 호환용 positional `license` / `copyright`는 스크립트 옵션(`-e`, `-f` 등)과 함께 쓰지 마세요.
+- 알 수 없는 옵션이나 잘못된 조합은 REPL로 들어가지 않고 사용법 오류(종료 코드 `2`)입니다.
+- 프로세스 옵션 `wizard-cli -v`는 버전을 출력합니다. 패킷 진단은 명령 문자열 안에서 `-e "ping 1 -v"`처럼 지정합니다.
+
+## 파일·문법
+
+- 인코딩: UTF-8 (BOM 허용)
+- 한 줄에 하나의 명령. 빈 줄과 줄 전체 `#` 주석은 무시합니다.
+- 파일 끝 개행이 없어도 실행합니다. `exit` 명령은 없습니다.
+- 입력 전체 **1 MiB**, 명령당 **16 KiB** 제한
+- 공백으로 토큰을 나누고, 공백이 포함된 이름은 `"..."` 또는 `'...'`로 묶습니다. 큰따옴표 안에서는 `\"`와 `\\` escape를 지원합니다.
+- 공백이 포함된 아이템 이름은 따옴표로 묶어야 합니다. 특히 `set`은 ID·이름·값을 모두 명시해야 합니다.
+
+셸이 내부 따옴표를 먼저 처리하므로 `-e`에서 공백 포함 항목을 전달하는 방법은 셸마다 다릅니다. 다음 예제의 포트·baudrate·ID는 실제 장치에 맞게 바꾸세요. 포트 연결은 프로세스 간에 유지되지 않으므로 같은 호출에서 `open`을 먼저 실행합니다.
+
+```bash
+# Bash
+wizard-cli --json -e 'open COM3 57600' -e 'get 1 "Present Position"'
+```
+
+```powershell
+# PowerShell
+.\wizard-cli.exe --json -e "open COM3 57600" -e "get 1 'Present Position'"
+```
+
+여러 명령을 사용할 때는 셸 escaping의 영향을 덜 받는 `-f` 파일 모드를 권장합니다.
+
+```text
+open "/dev/serial/by-id/USB Device" 57600
+get 1 "Present Position"
+set 1 "Goal Position" 1024
+```
+
+## 실행 규칙
+
+| 항목 | 동작 |
+|------|------|
+| `open` | port와 baudrate **필수** |
+| 장치 명령 | ID **필수** (마지막 사용 ID로 대체하지 않음) |
+| `protocol` | 버전 **필수** |
+| `set` | ID, 아이템 이름, 값 **모두 필수** |
+| 항목 이름 모호 | 자동 선택하지 않고 오류 |
+| 포트 미연결 | 장치 명령 실패 (전수 scan으로 전환하지 않음) |
+| 세션 상태 | `open` / `protocol` / `timeout` 설정은 같은 프로세스의 이후 명령에 유지 |
+| `get -c` / `--continuous` | **미지원** |
+| `table -p` / `--page` | **미지원** |
+| 명령별 진단 | `scan`, `ping`, `get`, `set`, `table`, `reset`, `reboot`, 장치 `clear`에 `-v` / `--verbose` 사용 가능; 진단은 stderr 출력 |
+| 명령 deadline | **30초** 고정 (`timeout` 명령의 network delay와 별개) |
+| Ctrl+C | 종료 코드 `130`, 열린 포트 정리 |
+| 종료 시 | 성공·실패·중단 모두에서 포트 정리 |
+
+## 지원 명령·권한
+
+| 등급 | 명령 | 조건 |
+|------|------|------|
+| 조회·세션 | `port`, `open`, `close`, `protocol`, `timeout`, `scan`, `ping`, `get`, `table`, `status`, `help`, `license`, `copyright` | 기본 허용 |
+| 쓰기 | `set` | **`--allow-write`** |
+| 초기화 | `reboot`, `reset`, `clear` | **`--allow-destructive`** |
+
+`clear`는 항상 장치 ID, 파라미터 `1`, `2`, `10` 중 하나와 destructive 권한을 요구합니다. 파라미터 `10`은 지원 모델의 멀티턴 엔코더를 초기화합니다.
+
+**미지원** (종료 코드 `2`): `update`, `upgrade`, `exit`, `get -c` / `--continuous`, `table -p` / `--page`
+
+장치 ID와 `scan` 범위는 `0..252`입니다. 알 수 없는 플래그·남는 인자는 오류입니다. 권한 없는 쓰기는 장치에 패킷을 보내기 전에 거부됩니다(종료 코드 `3`).
+
+## 종료 코드
+
+| 코드 | 의미 |
+|------|------|
+| `0` | 모든 명령 성공 |
+| `1` | 실행·통신 실패 |
+| `2` | 사용법·파싱·인자·미지원 명령 |
+| `3` | 권한 거부 (`--allow-write` 등 없음) |
+| `124` | 명령 deadline 초과 |
+| `130` | Ctrl+C 중단 |
+
+프로세스 종료 코드는 **첫 실패한 명령**의 결과를 따릅니다. 파일을 열 수 없는 경우에도 `2`입니다.
+
+## 출력
+
+### 텍스트 (기본)
+
+- 배너·프롬프트를 출력하지 않습니다.
+- 정상 결과는 stdout, 오류·진단은 stderr입니다.
+- 색상(ANSI)을 사용하지 않습니다. 오류는 `[Error]` 접두사를 사용하며, 명령별 `-v` / `--verbose` 진단은 stderr로 분리합니다.
+
+### JSON (`--json`)
+
+명령마다 stdout에 JSON 객체 **한 줄**을 출력합니다.
+
+```json
+{"command":"open","success":true,"data":{"port":"COM3","baudrate":57600}}
+{"command":"get","success":true,"data":{"id":1,"model_number":1190,"model":"XL330-M077","firmware":53,"item":{"name":"LED","address":65,"length":1,"access":"rw","memory":"ram","value":1,"display_value":"ON","unit":""}}}
+{"command":"get","success":true,"data":{"id":1,"model_number":1190,"model":"XL330-M077","firmware":53,"item":{"name":"Hardware Error Status","address":70,"length":1,"access":"r","memory":"ram","value":5,"display_value":"Input voltage error, Overheating error","active_flags":[{"bit":0,"name":"Input voltage error"},{"bit":2,"name":"Overheating error"}],"unit":""}}}
+{"command":"ping","success":false,"error":{"code":"device_timeout","message":"No response from ID 1"}}
+```
+
+- 성공: `command`, `success`, `data`
+- 실패: `command`, `success`, `error.code`, `error.message`
+- 실행되지 않은 후속 명령은 출력하지 않습니다.
+- JSON stdout에 배너·프롬프트·ANSI를 섞지 않습니다.
+- bit flag 항목은 원시 `value`와 함께 `active_flags[{bit,name}]`를 제공합니다. 활성 bit가 없으면 `display_value`는 `"None"`, `active_flags`는 빈 배열입니다.
+- 여러 flag 이름은 `display_value`에서 쉼표로 연결되며, 이름이 비어 있거나 `-`인 예약 bit는 `Bit N`으로 표시됩니다. 일반 enum·scale 항목의 형식은 변경되지 않습니다.

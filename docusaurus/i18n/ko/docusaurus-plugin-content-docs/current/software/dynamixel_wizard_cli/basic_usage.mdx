@@ -1,0 +1,180 @@
+# 기본 사용법
+
+## 사용자 편의 기능 및 주의사항
+
+CLI만의 편의 기능을 숙지하면 작업 속도를 높일 수 있습니다.
+
+:::tip 생산성 극대화 기능
+
+- **명령어 자동완성**: 명령어의 일부만 타이핑한 후 Tab 키를 누르면 명령어가 빠르게 완성됩니다.
+- **항목 이름 자동완성**: `Torque Enable`, `Goal Position` 같이 긴 이름은 Tab 키를 통해 오타 없이 자동 완성할 수 있습니다.
+- **키워드 검색**: 항목 이름의 전체를 몰라도 일부(예: `present`)만 입력하면 관련 있는 컨트롤 테이블 리스트를 보여줍니다.
+- **명령어 히스토리**: 방향키(`↑`, `↓`)를 사용하여 이전에 입력했던 명령어를 다시 호출할 수 있습니다.
+- **ID 기억 기능**: 한 번 ID를 지정하여 제어하면, 다음 명령부터는 ID를 생략해도 마지막으로 접근한 장치를 대상으로 동작합니다.
+- **`set` 명령어 생략**: `set`을 일일이 입력할 필요 없이 항목 이름만 입력해도 즉시 제어 모드로 진입합니다.
+
+:::
+
+:::warning 주의사항
+
+- **펌웨어 업데이트 관리**: `update` 명령 실행 중 전원을 차단하거나 통신 케이블을 분리하면 장치 고장의 원인이 됩니다.
+- **공장 초기화 후 재연결**: Protocol 1.0에서 `reset`하면 ID와 baudrate도 기본값으로 바뀌므로 변경된 설정으로 포트를 다시 열고 장치를 검색해야 합니다.
+- **포트 점유 확인**: 다른 프로그램(DYNAMIXEL Wizard 2.0 GUI 등)이 동일한 시리얼 포트를 사용 중인 경우 `open` 명령이 실패합니다. 한 번에 하나의 프로세스만 포트를 사용하도록 하세요.
+
+:::
+
+## 실무 사용 예시
+
+실제 CLI 환경에서의 동작 흐름을 바탕으로 한 예시입니다.
+
+### 연결 및 스캔
+
+#### `port` 명령으로 시리얼 포트 목록 확인
+
+```text
+>>> port
+Available ports:
+  1. COM3 (USB 직렬 장치)
+  2. COM4 (USB Serial Port)
+```
+
+#### `open` 명령으로 시리얼 포트 연결
+
+```text
+>>> open COM3 57600
+[Success] Port opened successfully
+```
+
+#### `scan` 명령으로 DYNAMIXEL 검색
+
+```text
+COM3, 57600bps > scan
+broadcast ping : please wait...
+Press Ctrl+C to cancel
+  [ID:001] XL330-M288, v53
+  [ID:004] XL330-M077, v53
+broadcast ping : done
+COM3, 57600bps >
+```
+
+### DYNAMIXEL 상태 확인
+
+#### `status` 명령으로 현재 상태 확인
+
+```text
+COM3, 57600bps > status 1
+[ID:001] XL330-M288, v53
+--------------------------------------------------
+Operating Mode  : Position control
+Torque          : OFF
+LED             : OFF
+Hardware Error  :
+--------------------------------------------------
+Position        :   180.35 [°]
+Velocity        :     0.23 [rev/min]
+Current         :     0.00 [mA]
+Voltage         :     4.50 [V]
+Temperature     :       23 [°C]
+COM3, 57600bps >
+```
+
+#### `table` 명령으로 컨트롤 테이블 확인
+
+```text
+COM3, 57600bps > table 1
+[ID:001] XL330-M288, v53
+0    : Model Number              :       1200 :     0x04B0 : XL330-M288
+2    : Model Information         :          0 : 0x00000000 :
+6    : Firmware Version          :         53 :       0x35 :
+7    : ID                        :          1 :       0x01 : ID 1
+8    : Baud Rate (Bus)           :          1 :       0x01 : 57600 bps
+
+...
+
+COM3, 57600bps >
+```
+
+### 위치 제어 및 모니터링
+
+#### ID 1번 토크(Torque) 활성화
+
+```text
+COM3, 57600bps > set 1 Torque Enable 1
+[ID:001] XL330-M288, v53
+[INFO] Setting Torque Enable to 1
+[ID:001] XL330-M288, v53
+[Success] write Torque Enable 1 OK
+```
+
+#### 목표 위치(Goal Position)를 2048로 이동
+
+```text
+COM3, 57600bps > set 1 Goal Position 2048
+[ID:001] XL330-M288, v53
+[INFO] Setting Goal Position to 2048
+[ID:001] XL330-M288, v53
+[Success] write Goal Position 2048 OK
+```
+
+#### 현재 위치(Present Position) 실시간 확인 (종료: Ctrl+C)
+
+```text
+COM3, 57600bps > get 1 Present Position -c
+[ID:001] XL330-M288, v53
+Press Ctrl+C to stop continuous reading...
+132  : Present Position          :       2052 : 0x00000804 :   180.35 [°]
+[INFO] KeyboardInterrupt
+COM3, 57600bps >
+```
+
+## 도움말 기능
+
+`help` 명령어를 통해 전체 목록을 확인하거나, `help [command]`를 입력하여 상세 사용법과 예제를 확인할 수 있습니다.
+
+### `help` 명령으로 전체 목록 확인
+
+```text
+>>> help
+Available commands:
+  port      - Prints a list of available serial ports on the system.
+  open      - Open serial port.
+  close     - Close serial port.
+  exit      - Quit the program.
+  ping      - Check the existence of a Device and basic information.
+  scan      - Search connected DYNAMIXELs.
+  timeout   - Set additional time for Timeout.
+  protocol  - Set DYNAMIXEL protocol version.
+  table     - Print the Control Table.
+  get       - Get a value from Control Table.
+  set       - Set a value on the Control Table.
+  status    - Show DYNAMIXEL status summary.
+  reset     - Reset the Control Table to its initial factory default settings.
+  reboot    - Reboot the DYNAMIXEL.
+  clear     - Initialize supported DYNAMIXEL state.
+  update    - Update the DYNAMIXEL.
+  upgrade   - Update DYNAMIXEL Wizard CLI to the latest version.
+  license   - Display software and third-party license information.
+  copyright - Display copyright and third-party software notices.
+Type "help [command]" for more information.
+>>>
+```
+
+### `help get` 명령으로 `get` 명령어 사용법 및 예제 확인
+
+```text
+COM3, 57600bps > help get
+get : Get a value from Control Table.
+use) get [id] <item name> [-c]
+  [id] : optional - Device ID (uses last ID if omitted)
+  <item name> : required - Control table item name
+  [-c] : optional - Continuous mode (updates value continuously)
+ex1) get 1 Torque Enable
+ex2) get Present Position
+ex3) get 1 Present Position -c (continuous mode)
+ex4) get -c Present Position (continuous mode with last ID)
+
+<info> Do not need to enter full name.
+  1) Type "get 1 present".
+  2) It will be shown a list of readable items.
+COM3, 57600bps >
+```

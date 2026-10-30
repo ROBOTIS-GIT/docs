@@ -379,6 +379,10 @@ const config: Config = {
                           <div class="mega-menu__product-thumb"><img src="/img/software/overview/software.webp" alt="DYNAMIXEL Wizard 2.0" /></div>
                           <span>DYNAMIXEL Wizard 2.0</span>
                         </a>
+                        <a class="mega-menu__product" href="/docs/software/dynamixel_wizard_cli/introduction">
+                          <div class="mega-menu__product-thumb"><img src="/img/software/overview/software.webp" alt="DYNAMIXEL Wizard CLI" /></div>
+                          <span>DYNAMIXEL Wizard CLI</span>
+                        </a>
                         <a class="mega-menu__product" href="/docs/software/dynamixel_sdk">
                           <div class="mega-menu__product-thumb"><img src="/img/software/overview/icon_dynamixel_sdk.webp" alt="DYNAMIXEL SDK" /></div>
                           <span>DYNAMIXEL SDK</span>
@@ -654,7 +658,7 @@ const config: Config = {
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
-      additionalLanguages: ['bash', 'python', 'cpp', 'c', 'json', 'yaml', 'cmake', 'ruby', 'csharp', 'java', 'matlab'],
+      additionalLanguages: ['bash', 'python', 'cpp', 'c', 'json', 'yaml', 'cmake', 'ruby', 'csharp', 'java', 'matlab', 'powershell'],
     },
   } satisfies Preset.ThemeConfig,
 };
