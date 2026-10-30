@@ -15,6 +15,18 @@ const dynamixelWizardSidebar: SidebarsConfig[string] = [
       doc('software/dynamixel_wizard_2_0/advanced_features', 'Advanced Features'),
     ],
   },
+  {
+    type: 'category',
+    label: 'DYNAMIXEL Wizard CLI',
+    collapsed: false,
+    link: {type: 'doc', id: 'software/dynamixel_wizard_cli/introduction'},
+    items: [
+      doc('software/dynamixel_wizard_cli/commands', 'Commands'),
+      doc('software/dynamixel_wizard_cli/basic_usage', 'Basic Usage'),
+      doc('software/dynamixel_wizard_cli/advanced_features', 'Advanced Features'),
+      doc('software/dynamixel_wizard_cli/script_mode', 'Script Mode'),
+    ],
+  },
 ];
 
 export default dynamixelWizardSidebar;
