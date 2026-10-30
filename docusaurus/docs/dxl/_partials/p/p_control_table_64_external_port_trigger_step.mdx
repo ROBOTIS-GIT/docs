@@ -1,0 +1,9 @@
+When the [External Port Mode(56, 57, 58, 59)](#external-port-mode-external-port-data) is set to `4` (Trigger Output Push-Pull), the step size of the trigger signal, the pulse hold time and the pulse offset can be configured.  
+This value sets the step size of the trigger signal in [Present Position(580)](#present-position580) pulses. The pulse hold time is set by [External Port Trigger Hold Time(72, 73, 74, 75)](#external-port-trigger-hold-time72-73-74-75) and the pulse offset by [External Port Trigger Offset(628)](#external-port-trigger-offset628).  
+Each time a trigger signal is generated, the [External Port Trigger Count(620, 622, 624, 626)](#external-port-trigger-count620-622-624-626) increases by `1`.
+
+![](/img/dxl/model_reference/p_series/external_port_trigger.png)
+
+|    Range     |             Unit             |
+| :----------: | :--------------------------: |
+| 100 ~ 32,767 | 1 [pulse] (Present Position) |

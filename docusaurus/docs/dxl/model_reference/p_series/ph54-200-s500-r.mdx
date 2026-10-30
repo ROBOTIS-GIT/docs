@@ -19,6 +19,10 @@ import PControlTable38CurrentLimit from '@site/docs/dxl/_partials/p/p_control_ta
 import PControlTable40AccelerationLimit from '@site/docs/dxl/_partials/p/p_control_table_40_acceleration_limit.mdx';
 import PControlTable44VelocityLimit from '@site/docs/dxl/_partials/p/p_control_table_44_velocity_limit.mdx';
 import PControlTable56ExternalPort from '@site/docs/dxl/_partials/p/p_control_table_56_external_port.mdx';
+import PControlTable64ExternalPortTriggerStep from '@site/docs/dxl/_partials/p/p_control_table_64_external_port_trigger_step.mdx';
+import PControlTable72ExternalPortTriggerHoldTime from '@site/docs/dxl/_partials/p/p_control_table_72_external_port_trigger_hold_time.mdx';
+import PControlTable620ExternalPortTriggerCount from '@site/docs/dxl/_partials/p/p_control_table_620_external_port_trigger_count.mdx';
+import PControlTable628ExternalPortTriggerOffset from '@site/docs/dxl/_partials/p/p_control_table_628_external_port_trigger_offset.mdx';
 import ControlTable60StartupConfiguration from '@site/docs/dxl/_partials/p/control_table_60_startup_configuration.mdx';
 import ControlTableShutdown from '@site/docs/dxl/_partials/p/control_table_shutdown.mdx';
 import PControlTable168Indirect from '@site/docs/dxl/_partials/p/p_control_table_168_indirect.mdx';
@@ -134,12 +138,20 @@ Please consult ROBOTIS for the long term use or special use, or else refer to th
 |   44    |     4      |       _40023_       |        [Velocity Limit](#velocity-limit44)        |   RW   |       2,900        |                            0 ~ 2,900                             |     0.01 [rev/min]      |
 |   48    |     4      |       _40025_       |    [Max Position Limit](#maxmin-position-limit48-52)    |   RW   |      501,433       |                      -501,923 ~<br /> 501,923                      |        1 [pulse]        |
 |   52    |     4      |       _40027_       |    [Min Position Limit](#maxmin-position-limit48-52)    |   RW   |      -501,433      |                      -501,923 ~<br /> 501,923                      |        1 [pulse]        |
-|   56    |     1      |  _40029 (Lo Byte)_  |   [External Port Mode 1](#external-port-mode-external-port-data-56-57-58-59)   |   RW   |         3          |                              0 ~ 3                               |            -            |
-|   57    |     1      |  _40029 (Hi Byte)_  |   [External Port Mode 2](#external-port-mode-external-port-data-56-57-58-59)   |   RW   |         3          |                              0 ~ 3                               |            -            |
-|   58    |     1      |  _40030 (Lo Byte)_  |   [External Port Mode 3](#external-port-mode-external-port-data-56-57-58-59)   |   RW   |         3          |                              0 ~ 3                               |            -            |
-|   59    |     1      |  _40030 (Hi Byte)_  |   [External Port Mode 4](#external-port-mode-external-port-data-56-57-58-59)   |   RW   |         3          |                              0 ~ 3                               |            -            |
+|   56    |     1      |  _40029 (Lo Byte)_  |   [External Port Mode 1](#external-port-mode-external-port-data-56-57-58-59)   |   RW   |         3          |                              0 ~ 4                               |            -            |
+|   57    |     1      |  _40029 (Hi Byte)_  |   [External Port Mode 2](#external-port-mode-external-port-data-56-57-58-59)   |   RW   |         3          |                              0 ~ 4                               |            -            |
+|   58    |     1      |  _40030 (Lo Byte)_  |   [External Port Mode 3](#external-port-mode-external-port-data-56-57-58-59)   |   RW   |         3          |                              0 ~ 4                               |            -            |
+|   59    |     1      |  _40030 (Hi Byte)_  |   [External Port Mode 4](#external-port-mode-external-port-data-56-57-58-59)   |   RW   |         3          |                              0 ~ 4                               |            -            |
 |   60    |     1      |  _40031 (Lo Byte)_  | [Startup Configuration](#startup-configuration60) |   RW   |         0          |                                3                                 |            -            |
 |   63    |     1      |  _40032 (Hi Byte)_  |              [Shutdown](#shutdown63)              |   RW   |         52         |                              0 ~ 63                              |            -            |
+|   64    |     2      |       _40033_       | [External Port Trigger Step 1](#external-port-trigger-step64-66-68-70) |   RW   |       16,825       |                           100 ~ 32,767                           |            -            |
+|   66    |     2      |       _40034_       | [External Port Trigger Step 2](#external-port-trigger-step64-66-68-70) |   RW   |       16,825       |                           100 ~ 32,767                           |            -            |
+|   68    |     2      |       _40035_       | [External Port Trigger Step 3](#external-port-trigger-step64-66-68-70) |   RW   |       16,825       |                           100 ~ 32,767                           |            -            |
+|   70    |     2      |       _40036_       | [External Port Trigger Step 4](#external-port-trigger-step64-66-68-70) |   RW   |       16,825       |                           100 ~ 32,767                           |            -            |
+|   72    |     1      |  _40037 (Lo Byte)_  | [External Port Trigger Hold Time 1](#external-port-trigger-hold-time72-73-74-75) |   RW   |         10         |                             1 ~ 255                              |         1 [ms]          |
+|   73    |     1      |  _40037 (Hi Byte)_  | [External Port Trigger Hold Time 2](#external-port-trigger-hold-time72-73-74-75) |   RW   |         10         |                             1 ~ 255                              |         1 [ms]          |
+|   74    |     1      |  _40038 (Lo Byte)_  | [External Port Trigger Hold Time 3](#external-port-trigger-hold-time72-73-74-75) |   RW   |         10         |                             1 ~ 255                              |         1 [ms]          |
+|   75    |     1      |  _40038 (Hi Byte)_  | [External Port Trigger Hold Time 4](#external-port-trigger-hold-time72-73-74-75) |   RW   |         10         |                             1 ~ 255                              |         1 [ms]          |
 |   168   |     2      |         N/A         |     [Indirect Address 1](#indirect-address-indirect-data)     |   RW   |        634         |                           512 ~ 1,023                            |            -            |
 |   170   |     2      |         N/A         |     [Indirect Address 2](#indirect-address-indirect-data)     |   RW   |        635         |                           512 ~ 1,023                            |            -            |
 |   172   |     2      |         N/A         |     [Indirect Address 3](#indirect-address-indirect-data)     |   RW   |        636         |                           512 ~ 1,023                            |            -            |
@@ -185,6 +197,11 @@ Please consult ROBOTIS for the long term use or special use, or else refer to th
 |   602   |     2      |       _40302_       |    [External Port Data 2](#external-port-mode-external-port-data-56-57-58-59)    |  R/RW  |         0          |                      0 ~ 4,095                      |            -            |
 |   604   |     2      |       _40303_       |    [External Port Data 3](#external-port-mode-external-port-data-56-57-58-59)    |  R/RW  |         0          |                      0 ~ 4,095                      |            -            |
 |   606   |     2      |       _40304_       |    [External Port Data 4](#external-port-mode-external-port-data-56-57-58-59)    |  R/RW  |         0          |                      0 ~ 4,095                      |            -            |
+|   620   |     2      |       _40305_       | [External Port Trigger Count 1](#external-port-trigger-count620-622-624-626) |   RW   |         0          |                            0 ~ 32,767                            |            -            |
+|   622   |     2      |       _40306_       | [External Port Trigger Count 2](#external-port-trigger-count620-622-624-626) |   RW   |         0          |                            0 ~ 32,767                            |            -            |
+|   624   |     2      |       _40307_       | [External Port Trigger Count 3](#external-port-trigger-count620-622-624-626) |   RW   |         0          |                            0 ~ 32,767                            |            -            |
+|   626   |     2      |       _40308_       | [External Port Trigger Count 4](#external-port-trigger-count620-622-624-626) |   RW   |         0          |                            0 ~ 32,767                            |            -            |
+|   628   |     2      |       _40309_       | [External Port Trigger Offset](#external-port-trigger-offset628) |   RW   |         0          |                         -32,767 ~ 32,767                         |        1 [pulse]        |
 |   634   |     1      |         N/A         |         [Indirect Data 1](#indirect-address-indirect-data)         |   RW   |         0          |                       0 ~ 255                       |            -            |
 |   635   |     1      |         N/A         |         [Indirect Data 2](#indirect-address-indirect-data)         |   RW   |         0          |                       0 ~ 255                       |            -            |
 |   636   |     1      |         N/A         |         [Indirect Data 3](#indirect-address-indirect-data)         |   RW   |         0          |                       0 ~ 255                       |            -            |
@@ -310,6 +327,10 @@ Writing invalid or the value over its limit, the Status Packet sends the Data Li
 <a id="shutdown"></a>
 #### Shutdown(63)
 <ControlTableShutdown />
+#### External Port Trigger Step(64, 66, 68, 70)
+<PControlTable64ExternalPortTriggerStep />
+#### External Port Trigger Hold Time(72, 73, 74, 75)
+<PControlTable72ExternalPortTriggerHoldTime />
 <a id="indirect-address"></a>
 <a id="indirect-data"></a>
 #### Indirect Address, Indirect Data
@@ -398,6 +419,10 @@ Writing invalid or the value over its limit, the Status Packet sends the Data Li
 <a id="present-temperature"></a>
 #### Present Temperature(594)
 <PControlTable594PresentTemperature />
+#### External Port Trigger Count(620, 622, 624, 626)
+<PControlTable620ExternalPortTriggerCount />
+#### External Port Trigger Offset(628)
+<PControlTable628ExternalPortTriggerOffset />
 <a id="backup-ready"></a>
 #### Backup Ready(878)
 <ControlTableBackupReady />

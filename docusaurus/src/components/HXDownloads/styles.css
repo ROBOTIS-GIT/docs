@@ -1,0 +1,10 @@
+.hx-downloads {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1rem 0 2rem;
+}
+
+.hx-downloads__button {
+  min-width: 160px;
+}
