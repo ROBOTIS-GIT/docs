@@ -122,10 +122,11 @@ const config: Config = {
       respectPrefersColorScheme: false,
     },
     navbar: {
-      title: 'ROBOTIS DOCS',
       logo: {
-        alt: 'ROBOTIS',
-        src: 'img/common/ai_worker_website/favicon.svg',
+        alt: 'ROBOTIS DOCS',
+        src: 'img/robotis-docs.png',
+        width: 182,
+        height: 20,
       },
       items: [
         {
