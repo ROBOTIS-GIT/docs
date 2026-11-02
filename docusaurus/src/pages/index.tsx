@@ -9,11 +9,19 @@ import Heading from '@theme/Heading';
 import styles from './index.module.css';
 
 function HomeHero(): ReactNode {
+  const logoSrc = useBaseUrl('/img/robotis-docs.png');
+
   return (
     <header className={styles.hero}>
       <div className="container">
         <Heading as="h1" className={styles.heroTitle}>
-          <Translate id="home.hero.title">ROBOTIS DOCS</Translate>
+          <img
+            src={logoSrc}
+            alt="ROBOTIS DOCS"
+            width={454}
+            height={50}
+            className={styles.heroLogo}
+          />
         </Heading>
         <p className={styles.heroSubtitle}>
           <Translate id="home.hero.subtitle">

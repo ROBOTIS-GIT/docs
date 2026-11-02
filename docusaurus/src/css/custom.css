@@ -151,24 +151,20 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
+  width: 182px;
+  height: 20px;
+  margin-right: 0;
   flex-shrink: 0;
 }
 
 .navbar__logo img {
-  width: 24px;
-  height: 24px;
-  max-width: 24px;
-  border-radius: 4px;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
 }
 
-.navbar__title {
-  color: var(--ifm-heading-color);
-  font-size: 1rem;
-  font-weight: 800;
-  letter-spacing: 0.02em;
-  white-space: nowrap;
+[data-theme='dark'] .navbar__logo img {
+  filter: invert(1);
 }
 
 .navbar__inner,
@@ -581,8 +577,9 @@
 }
 
 @media (max-width: 1190px) and (min-width: 1020px) {
-  .navbar__title {
-    display: none;
+  .navbar__logo {
+    width: 112px;
+    height: auto;
   }
 
   .navbar__brand {
@@ -601,8 +598,9 @@
     margin-right: 0.5rem;
   }
 
-  .navbar__title {
-    display: none;
+  .navbar__logo {
+    width: clamp(80px, calc(100vw - 264px), 160px);
+    height: auto;
   }
 
   .navbar__inner > .navbar__items:first-child > .navbar__item,

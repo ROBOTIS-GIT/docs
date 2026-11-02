@@ -56,12 +56,19 @@
 }
 
 .heroTitle {
-  font-size: 4rem;
-  font-weight: 800;
-  letter-spacing: -0.025em;
-  line-height: 1.05;
   margin: 0 0 1.25rem;
-  color: var(--ifm-heading-color);
+}
+
+.heroLogo {
+  display: block;
+  width: 454px;
+  max-width: 100%;
+  height: auto;
+  margin-inline: auto;
+}
+
+[data-theme='dark'] .heroLogo {
+  filter: invert(1);
 }
 
 /* Primary gradient text for both light and dark modes. */
@@ -127,9 +134,6 @@
 @media (max-width: 768px) {
   .hero {
     padding: 4.5rem 0 3.5rem;
-  }
-  .heroTitle {
-    font-size: 2.5rem;
   }
 }
 
