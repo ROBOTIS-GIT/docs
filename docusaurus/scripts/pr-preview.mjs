@@ -27,9 +27,6 @@ async function resolveImport(siteDir, source, specifier) {
 
 export async function selectPages(siteDir, pages, changed) {
   const changes = new Set(changed);
-  const globalChange = changed.some(p => /^(docusaurus\.config\.|sidebars\.|package(?:-lock)?\.json|src\/(?:css|theme|clients)\/|plugins\/)/.test(p)
-    || /(?:^|\/)_(?:category_)\.json$/.test(p) || /i18n\/.*\.json$/.test(p));
-  if (globalChange) return pages;
   const cache = new Map();
   async function dependencies(source, seen = new Set()) {
     if (!source || seen.has(source)) return false;
@@ -55,13 +52,21 @@ export async function selectPages(siteDir, pages, changed) {
     for (const dependency of record.imports) if (await dependencies(dependency, seen)) return true;
     return false;
   }
-  const sharedSources = ['docusaurus.config.ts', ...await files(path.join(siteDir, 'src/css'), 'src/css'),
-    ...await files(path.join(siteDir, 'src/theme'), 'src/theme'), ...await files(path.join(siteDir, 'src/clients'), 'src/clients')];
-  for (const source of sharedSources) if (await dependencies(source)) return pages;
+  // Global layout/config changes are not evidence that document content changed.
+  // Generated blog listings have no source metadata, so trace their local theme
+  // entry points explicitly instead of treating every theme as a global change.
+  const blogListSources = [
+    ...await files(path.join(siteDir, 'src/theme/BlogListPage'), 'src/theme/BlogListPage'),
+    ...await files(path.join(siteDir, 'src/theme/BlogPostItems'), 'src/theme/BlogPostItems'),
+  ];
+  let blogListChanged = changed.some(p => p.startsWith('technical-story/'));
+  for (const source of blogListSources) {
+    if (await dependencies(source)) blogListChanged = true;
+  }
   const selected = [];
   for (const page of pages) {
     if (await dependencies(page.source)
-      || (!page.source && page.route.includes('/technical-story') && changed.some(p => p.startsWith('technical-story/')))) selected.push(page);
+      || (!page.source && /^\/(?:ko\/)?technical-story(?:\/|$)/.test(page.route) && blogListChanged)) selected.push(page);
   }
   return selected;
 }

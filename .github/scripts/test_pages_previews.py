@@ -132,5 +132,54 @@ class CoordinatorTests(unittest.TestCase):
                 self.assertEqual(len(writes), 1)
 
 
+class StatusTests(unittest.TestCase):
+    def test_reports_progress_on_pr_head_and_links_to_deployment_run(self):
+        from unittest.mock import patch
+        event = {'workflow_run': {'event': 'pull_request', 'head_sha': 'a' * 40,
+                 'head_repository': {'full_name': 'org/docs'}, 'pull_requests': [{'number': 12}]}}
+        calls = []
+        def fake_api(endpoint, method='GET', data=None, **kwargs):
+            if method == 'GET':
+                return {'state': 'open', 'head': {'sha': 'a' * 40, 'repo': {'full_name': 'org/docs'}}}
+            calls.append((endpoint, data))
+            return {}
+        with tempfile.TemporaryDirectory() as tmp:
+            event_file = Path(tmp) / 'event.json'
+            event_file.write_text(json.dumps(event))
+            env = {'GITHUB_EVENT_PATH': str(event_file), 'GITHUB_REPOSITORY': 'org/docs',
+                   'GITHUB_SERVER_URL': 'https://github.com', 'GITHUB_RUN_ID': '42'}
+            with patch.dict('os.environ', env), patch.object(pages, 'api', fake_api):
+                pages.update_status('pending', 'Building production site')
+                self.assertEqual(calls[0][0], 'repos/org/docs/statuses/' + 'a' * 40)
+                self.assertEqual(calls[0][1]['state'], 'pending')
+                self.assertEqual(calls[0][1]['target_url'], 'https://github.com/org/docs/actions/runs/42')
+                self.assertEqual(calls[0][1]['context'], 'PR preview / Pages')
+                pages.update_status('failure', 'Deployment failed')
+                self.assertEqual(calls[-1][1]['state'], 'failure')
+                event['workflow_run']['head_repository']['full_name'] = 'fork/docs'
+                event_file.write_text(json.dumps(event))
+                pages.update_status('success', 'Done')
+                self.assertEqual(len(calls), 2)
+
+    def test_unpublished_preview_cannot_report_success(self):
+        from unittest.mock import patch
+        event = {'workflow_run': {'event': 'pull_request', 'head_sha': 'a' * 40,
+                 'head_repository': {'full_name': 'org/docs'}, 'pull_requests': [{'number': 12}]}}
+        calls = []
+        def fake_api(endpoint, method='GET', data=None, **kwargs):
+            if method == 'GET':
+                return {'state': 'open', 'head': {'sha': 'a' * 40, 'repo': {'full_name': 'org/docs'}}}
+            calls.append(data)
+            return {}
+        with tempfile.TemporaryDirectory() as tmp:
+            event_file = Path(tmp) / 'event.json'
+            event_file.write_text(json.dumps(event))
+            status = Path(tmp) / 'status.json'
+            status.write_text(json.dumps([{'number': 12, 'sha': 'a' * 40, 'reason': 'Missing artifact'}]))
+            with patch.dict('os.environ', {'GITHUB_EVENT_PATH': str(event_file), 'GITHUB_REPOSITORY': 'org/docs'}), patch.object(pages, 'api', fake_api):
+                pages.update_status('success', 'Published', status)
+            self.assertEqual(calls[0]['state'], 'failure')
+
+
 if __name__ == '__main__':
     unittest.main()

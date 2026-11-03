@@ -39,6 +39,7 @@ jobs:
       actions: read
       pages: read
       pull-requests: read
+      statuses: write
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -51,6 +52,12 @@ jobs:
           fetch-depth: 0
           ref: main
           persist-credentials: false
+
+      - name: Report production build in PR
+        working-directory: ./
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 .github/scripts/pages-previews.py status pending "Building production site and preparing preview"
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -107,6 +114,12 @@ jobs:
           test -f docusaurus/build/interactive/omx/index.html
           test ! -d docusaurus/build/ko/interactive/omx
 
+      - name: Report preview collection in PR
+        working-directory: ./
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 .github/scripts/pages-previews.py status pending "Collecting previews and uploading Pages artifact"
+
       - name: Collect validated previews for open PRs
         working-directory: ./
         env:
@@ -129,6 +142,9 @@ jobs:
     name: Deploy to GitHub Pages
     needs: build
     permissions:
+      contents: read
+      pull-requests: read
+      statuses: write
       pages: write
       id-token: write
     runs-on: ubuntu-latest
@@ -136,6 +152,18 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - name: Checkout trusted status script
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+          sparse-checkout: .github/scripts
+
+      - name: Report Pages deployment in PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 .github/scripts/pages-previews.py status pending "Deploying preview to GitHub Pages"
+
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
@@ -165,3 +193,44 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           PAGES_ORIGIN: https://docs.robotis.com
         run: python3 .github/scripts/pages-previews.py comment preview-status.json
+
+  preview-status:
+    name: Report final preview result in PR
+    needs: [build, deploy, comments]
+    if: >-
+      always() && github.event_name == 'workflow_run' &&
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.head_repository.full_name == github.repository
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+      pull-requests: read
+      statuses: write
+    steps:
+      - name: Checkout trusted status script
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+          sparse-checkout: .github/scripts
+
+      - name: Download published preview status
+        if: needs.build.result == 'success'
+        uses: actions/download-artifact@v4
+        with:
+          name: preview-status
+
+      - name: Report result
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PREVIEW_STATE: ${{ needs.build.result == 'success' && needs.deploy.result == 'success' && needs.comments.result == 'success' && 'success' || 'failure' }}
+          PREVIEW_DESCRIPTION: ${{ needs.build.result == 'success' && needs.deploy.result == 'success' && needs.comments.result == 'success' && 'Preview deployed; page links are in the PR comment' || 'Preview pipeline failed or was cancelled; see deployment logs' }}
+        run: |
+          if [ -f preview-status.json ]; then
+            python3 .github/scripts/pages-previews.py status "$PREVIEW_STATE" "$PREVIEW_DESCRIPTION" preview-status.json
+          else
+            python3 .github/scripts/pages-previews.py status failure "Preview status unavailable; see deployment logs"
+          fi

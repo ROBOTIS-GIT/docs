@@ -101,18 +101,18 @@ def extract_preview(data, destination, number, sha, max_bytes=PREVIEW_LIMIT):
 def comment_body(manifest, origin):
     number, sha = manifest['number'], manifest['sha']
     prefix = f'{origin}/pr-preview/{number}'
-    lines = [MARKER, f'### 문서 미리보기 · PR #{number}', '',
-             f'미리보기 커밋: `{sha}`', '', f'[변경된 페이지 목록]({prefix}/changes.html)', '']
+    lines = [MARKER, f'### Documentation preview · PR #{number}', '',
+             f'Preview commit: `{sha}`', '', f'[View all changed pages]({prefix}/changes.html)', '']
     for page in manifest['pages'][:80]:
         title = re.sub(r'([\\`*{}\[\]()#+!|_])', r'\\\1', html.escape(page['title'])).replace('\n', ' ')[:200]
         route = quote(page['route'], safe='/%-._~')
         lines.append(f'- [{title}]({prefix}{route})')
     if len(manifest['pages']) > 80:
-        lines.append(f'\n나머지 {len(manifest["pages"]) - 80}개 페이지는 위 목록 링크에서 확인하세요.')
+        lines.append(f'\nView the remaining {len(manifest["pages"]) - 80} pages using the link above.')
     if not manifest['pages']:
-        lines.append('이 변경에 해당하는 게시 가능한 문서 페이지가 없습니다.')
-    lines += ['', '변경된 페이지와 필요한 파일만 게시합니다. 그 외 링크는 운영 문서로 연결됩니다.',
-              'PR이 닫히거나 빌드 아티팩트가 만료되면 다음 배포에서 제거됩니다.']
+        lines.append('There are no documentation pages to preview for this change.')
+    lines += ['', 'Only affected pages and required assets are published. Other links open the production documentation.',
+              'This preview will be removed on the next deployment after the PR closes or its build artifact expires.']
     return '\n'.join(lines)
 
 
@@ -125,9 +125,9 @@ def collect(build, status_file):
     total = 0
     for pr in paginate(f'{root}/pulls?state=open&base=main'):
         number = pr['number']
-        state = {'number': number, 'sha': pr['head']['sha'], 'reason': '현재 커밋의 미리보기 빌드가 없거나 만료되었습니다.'}
+        state = {'number': number, 'sha': pr['head']['sha'], 'reason': 'No preview build is available for the current commit, or its artifact has expired.'}
         if not pr['head'].get('repo') or pr['head']['repo']['full_name'] != repository:
-            state['reason'] = '외부 fork PR은 운영 사이트와 같은 도메인에 자동 게시하지 않습니다.'
+            state['reason'] = 'Fork PR previews are not automatically published on the production domain.'
             statuses.append(state)
             continue
         runs = paginate(f'{root}/actions/workflows/ci.yml/runs?event=pull_request&status=success&head_sha={pr["head"]["sha"]}', 'workflow_runs')
@@ -139,7 +139,7 @@ def collect(build, status_file):
             if artifact is None:
                 continue
             if artifact['size_in_bytes'] > PREVIEW_LIMIT:
-                state['reason'] = '미리보기 아티팩트가 400 MiB 제한을 초과했습니다.'
+                state['reason'] = 'The preview artifact exceeds the 400 MiB limit.'
                 break
             data = api(f'{root}/actions/artifacts/{artifact["id"]}/zip', binary=True)
             destination = previews / str(number)
@@ -152,7 +152,7 @@ def collect(build, status_file):
                 state['manifest'] = manifest
             except (ValueError, KeyError, TypeError, zipfile.BadZipFile) as error:
                 shutil.rmtree(destination, ignore_errors=True)
-                state['reason'] = '미리보기 검증 또는 용량 검사에 실패했습니다. Actions 로그를 확인하세요.'
+                state['reason'] = 'Preview validation or size checks failed. See the Actions logs for details.'
                 print(f'::warning::PR #{number}: {error}')
             break
         statuses.append(state)
@@ -171,7 +171,7 @@ def update_comments(status_file):
     event = json.loads(Path(os.environ['GITHUB_EVENT_PATH']).read_text())
     closed = event.get('pull_request') if event.get('action') == 'closed' else None
     if closed:
-        statuses.append({'number': closed['number'], 'reason': 'PR이 닫혀 미리보기를 제거했습니다.'})
+        statuses.append({'number': closed['number'], 'reason': 'This PR is closed and its preview has been removed.'})
     for state in statuses:
         number = state['number']
         # Recheck after deployment: never label an older artifact as the latest head.
@@ -183,8 +183,8 @@ def update_comments(status_file):
         if 'manifest' in state and pr['state'] == 'open':
             body = comment_body(state['manifest'], origin)
         else:
-            reason = state.get('reason', 'PR이 닫혀 미리보기가 더 이상 제공되지 않습니다.')
-            body = f'{MARKER}\n### 문서 미리보기\n\n{reason}'
+            reason = state.get('reason', 'This PR is closed and its preview is no longer available.')
+            body = f'{MARKER}\n### Documentation preview\n\n{reason}'
             if not previous:
                 continue  # Do not create unrelated/no-preview comments.
         if previous:
@@ -194,10 +194,42 @@ def update_comments(status_file):
             api(f'{root}/issues/{number}/comments', 'POST', {'body': body})
 
 
+def update_status(state, description, status_file=None):
+    event = json.loads(Path(os.environ['GITHUB_EVENT_PATH']).read_text())
+    run = event.get('workflow_run', {})
+    repository = os.environ['GITHUB_REPOSITORY']
+    sha = run.get('head_sha', '')
+    if (run.get('event') != 'pull_request'
+            or run.get('head_repository', {}).get('full_name') != repository
+            or not re.fullmatch('[a-f0-9]{40}', sha)):
+        return
+    if state not in ('pending', 'success', 'failure', 'error'):
+        raise ValueError('Invalid commit status')
+    for association in run.get('pull_requests', []):
+        number = association['number']
+        pr = api(f'repos/{repository}/pulls/{number}')
+        if (pr['state'] != 'open' or pr['head']['sha'] != sha
+                or (pr['head'].get('repo') or {}).get('full_name') != repository):
+            continue
+        result, summary = state, description
+        if result == 'success' and status_file is not None:
+            statuses = json.loads(status_file.read_text())
+            included = any(s['number'] == number and s.get('sha') == sha and 'manifest' in s for s in statuses)
+            if not included:
+                result, summary = 'failure', 'Preview was not published; see deployment logs'
+        origin = os.environ.get('GITHUB_SERVER_URL', 'https://github.com')
+        api(f'repos/{repository}/statuses/{sha}', 'POST', {
+            'state': result, 'context': 'PR preview / Pages', 'description': summary[:140],
+            'target_url': f'{origin}/{repository}/actions/runs/{os.environ.get("GITHUB_RUN_ID", "")}',
+        })
+
+
 if __name__ == '__main__':
     if sys.argv[1] == 'collect':
         collect(Path(sys.argv[2]), Path(sys.argv[3]))
     elif sys.argv[1] == 'comment':
         update_comments(Path(sys.argv[2]))
+    elif sys.argv[1] == 'status':
+        update_status(sys.argv[2], sys.argv[3], Path(sys.argv[4]) if len(sys.argv) > 4 else None)
     else:
-        raise SystemExit('Expected collect or comment')
+        raise SystemExit('Expected collect, comment or status')

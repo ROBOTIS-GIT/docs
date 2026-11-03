@@ -35,7 +35,7 @@ test('selects changed localized pages and consumers of changed static media', as
   assert.deepEqual((await selectPages(root, pages, ['i18n/ko/a.mdx'])).map(p => p.route), ['/ko/docs/custom-a']);
   assert.deepEqual((await selectPages(root, pages, ['static/img/new.png'])).map(p => p.route), ['/docs/b']);
   assert.deepEqual(await selectPages(root, pages, ['docs/deleted.mdx']), []);
-  assert.equal((await selectPages(root, pages, ['src/css/custom.css'])).length, 3);
+  assert.deepEqual(await selectPages(root, pages, ['src/css/custom.css']), []);
 });
 
 test('maps selected pages/media into preview, other pages/media into production', () => {
@@ -104,10 +104,10 @@ test('omits unchanged bundled media and always emits a separate page listing', a
   assert.match(await readFile(path.join(root, 'preview/index.html'), 'utf8'), /Home/);
 });
 
-test('global media references affect all pages and Korean raw menu URLs stay localized', async () => {
+test('global-only media changes do not select documents and Korean URLs stay localized', async () => {
   const {root, put, pages} = await fixture();
   await put('docusaurus.config.ts', 'const logo = "/img/logo.png";');
-  assert.equal((await selectPages(root, pages, ['static/img/logo.png'])).length, 3);
+  assert.deepEqual(await selectPages(root, pages, ['static/img/logo.png']), []);
   const config = {prefix: '/pr-preview/12', locale: 'ko', routes: ['/docs/a', '/ko/docs/a'], staticFiles: [], changedStatic: []};
   assert.equal(previewUrl('/docs/a', config), '/pr-preview/12/ko/docs/a');
   assert.equal(previewUrl('/pr-preview/12/docs/a', config), '/pr-preview/12/docs/a');
@@ -144,4 +144,26 @@ test('tracks asset directory constants without a trailing slash', async () => {
   const {root, put, pages} = await fixture();
   await put('src/components/Box/index.tsx', 'const base = "/assets/robot"; const url = `${base}/meshes/part.stl`;');
   assert.deepEqual((await selectPages(root, pages, ['static/assets/robot/meshes/part.stl'])).map(p=>p.route), ['/docs/custom-a']);
+});
+
+
+test('config, navbar translations and blog-only changes never select unrelated DXL pages', async () => {
+  const {root, put, pages} = await fixture();
+  await put('src/theme/BlogListPage/index.tsx', "import Grid from '@site/src/components/StoryGrid';");
+  await put('src/components/StoryGrid/index.tsx', 'export default () => null;');
+  await put('technical-story/story.mdx', 'A story');
+  const routes = [...pages,
+    {source: 'technical-story/story.mdx', route: '/technical-story/story'},
+    {source: null, route: '/technical-story'},
+    {source: null, route: '/ko/technical-story'},
+    {source: null, route: '/technical-story/tags/robot'},
+    {source: null, route: '/docs/tags'},
+  ];
+  const common = ['docusaurus.config.ts', 'i18n/ko/docusaurus-theme-classic/navbar.json', 'src/css/custom.css'];
+  assert.deepEqual(await selectPages(root, routes, common), []);
+  assert.deepEqual((await selectPages(root, routes, [...common, 'technical-story/story.mdx'])).map(p => p.route),
+    ['/technical-story/story', '/technical-story', '/ko/technical-story', '/technical-story/tags/robot']);
+  assert.deepEqual((await selectPages(root, routes, ['src/components/StoryGrid/index.tsx'])).map(p => p.route),
+    ['/technical-story', '/ko/technical-story', '/technical-story/tags/robot']);
+  assert.deepEqual((await selectPages(root, routes, [...common, 'docs/a.mdx'])).map(p => p.route), ['/docs/custom-a']);
 });
