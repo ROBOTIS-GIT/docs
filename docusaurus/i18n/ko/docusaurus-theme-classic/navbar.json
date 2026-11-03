@@ -42,5 +42,9 @@
   "item.label.Contact": {
     "message": "Contact",
     "description": "Navbar item with label Contact"
+  },
+  "item.label.Technical Story": {
+    "message": "Technical Story",
+    "description": "Navbar item with label Technical Story"
   }
 }

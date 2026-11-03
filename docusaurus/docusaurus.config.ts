@@ -74,7 +74,20 @@ const config: Config = {
           remarkPlugins: [remarkMath],
           rehypePlugins: [rehypeKatex],
         },
-        blog: false,
+        blog: {
+          path: 'technical-story',
+          routeBasePath: 'technical-story',
+          blogTitle: 'Technical Story',
+          blogDescription: 'Engineering stories, experiments, and tutorials from ROBOTIS robots.',
+          blogSidebarTitle: 'All stories',
+          blogSidebarCount: 'ALL',
+          postsPerPage: 'ALL',
+          showReadingTime: true,
+          onInlineAuthors: 'ignore',
+          feedOptions: {type: null},
+          remarkPlugins: [remarkMath],
+          rehypePlugins: [rehypeKatex],
+        },
         theme: {
           customCss: [
             './src/css/custom.css',
@@ -89,13 +102,16 @@ const config: Config = {
   ],
 
   plugins: [
+    require.resolve('./plugins/technical-story-redirects.cjs'),
     require.resolve('./plugins/pr-preview.cjs'),
     [
       require.resolve('@easyops-cn/docusaurus-search-local'),
       {
         hashed: true,
         language: ['en', 'ko'],
-        indexBlog: false,
+        indexBlog: true,
+        blogDir: 'technical-story',
+        blogRouteBasePath: '/technical-story',
         docsRouteBasePath,
         highlightSearchTermsOnTargetPage: true,
         explicitSearchResultPath: true,
@@ -636,6 +652,11 @@ const config: Config = {
           to: '/docs/common/ecosystem',
           position: 'left',
           label: 'Ecosystem',
+        },
+        {
+          to: '/technical-story',
+          position: 'left',
+          label: 'Technical Story',
         },
         {
           to: '/docs/common/opensource',
