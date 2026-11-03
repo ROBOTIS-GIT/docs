@@ -8,8 +8,8 @@ This guide explains how to set up and operate the `AI Worker` using a VR device.
 
 VR Teleoperation is compatible with all `AI Worker` models.
 
-- Gripper Models: `BG2`, `SG2`, `F1`, `F2`
-- Hand Models: `BH5`, `SH5`
+- Gripper Models: `FFW-BG2`, `FFW-SG2`, `FFW-F1`, `FFW-F2`
+- Hand Models: `FFW-BH5`, `FFW-SH5`
 
 For more information on the models, please refer to **[Product Models](/docs/systems/aiworker/specifications/hardware#product-models)**.
 
@@ -110,7 +110,7 @@ Or use the shortcut:
 vr model:=sg2
 ```
 
-BG2 and SG2 share the `model:=sg2` VR publisher. For F1/F2, replace it with `model:=f2`. The Cyclo Motion Controller uses a separate model setting that must match the actual Follower, as shown under [Running VR Teleoperation](#running-vr-teleoperation).
+FFW-BG2 and FFW-SG2 share the `model:=sg2` VR publisher. For FFW-F1/FFW-F2, replace it with `model:=f2`. The Cyclo Motion Controller uses a separate model setting that must match the actual Follower, as shown under [Running VR Teleoperation](#running-vr-teleoperation).
 
 </TabItem>
 <TabItem value="hand-type" label="Hand Type">
@@ -137,13 +137,13 @@ https://{pc_ip}:8012?ws=wss://{pc_ip}:8012
 
 Replace `{pc_ip}` with the actual IP of the machine hosting the Vuer server.
 
-Example: The AI Worker PC (`SG2`’s Orin) has the IP address `192.168.6.2`.
+Example: The AI Worker PC (`FFW-SG2`’s Orin) has the IP address `192.168.6.2`.
 
 ```text
 https://192.168.6.2:8012?ws=wss://192.168.6.2:8012
 ```
 
-The PC on `BG2` should be connected to a router and use a corresponding IP address within that network.
+The PC on `FFW-BG2` should be connected to a router and use a corresponding IP address within that network.
 
 #### Self-signed HTTPS warning
 
@@ -198,18 +198,18 @@ cd ~/ai_worker
 <TabItem value="gripper-type" label="Gripper Type">
 
 Note that `sg2` model is used here as an example.
-The VR publisher can be shared between models, but Cyclo Motion Controller must use the actual Follower model. BG2 and F1 do not have mobile-base movement.
+The VR publisher can be shared between models, but Cyclo Motion Controller must use the actual Follower model. FFW-BG2 and FFW-F1 do not have mobile-base movement.
 
 | Follower | VR Publisher (`vr.launch.py`) | Cyclo Motion Controller (`ai_worker_controller.launch.py`) |
 | --- | --- | --- |
-| BG2 | `model:=sg2` | `model:=bg2` |
-| SG2 | `model:=sg2` | `model:=sg2` |
-| F1 | `model:=f2` | `model:=f1` |
-| F2 | `model:=f2` | `model:=f2` |
+| FFW-BG2 | `model:=sg2` | `model:=bg2` |
+| FFW-SG2 | `model:=sg2` | `model:=sg2` |
+| FFW-F1 | `model:=f2` | `model:=f1` |
+| FFW-F2 | `model:=f2` | `model:=f2` |
 
 ### 1. Bring up the robot.
 
-For BG2, F1, or F2, replace `sg2` in the launch filename or shortcut below with `bg2`, `f1`, or `f2`, respectively.
+For FFW-BG2, FFW-F1, or FFW-F2, replace `sg2` in the launch filename or shortcut below with `bg2`, `f1`, or `f2`, respectively.
 
 ```bash
 ros2 launch ffw_bringup ffw_sg2_follower_ai.launch.py
@@ -232,7 +232,7 @@ Or use shortcut:
 motion_controller model:=sg2 controller_type:=vr
 ```
 
-For BG2, F1, or F2, replace `model:=sg2` with `model:=bg2`, `model:=f1`, or `model:=f2`, respectively. This selects the robot model used for motion calculation and collision checking.
+For FFW-BG2, FFW-F1, or FFW-F2, replace `model:=sg2` with `model:=bg2`, `model:=f1`, or `model:=f2`, respectively. This selects the robot model used for motion calculation and collision checking.
 
 ### 3. Activate VR Publisher
 
@@ -252,7 +252,7 @@ You can activate the controller by pressing the `X` button on the left controlle
 
 Right after the controller is activated, the system checks the difference between the detected controller poses and the robot wrist poses. If the difference is small enough, the arm controller starts after 3 seconds. After startup, the `slow start` function remains active for 5 seconds. Because of this, it is recommended to keep your arm posture as close as possible to the robot posture before activating the controller.
 
-![SG2 Slow Start](/img/systems/aiworker/quick_start_guide/operation_guide/vr_teleoperation/sg2_vr_slow_start.gif)
+![FFW-SG2 Slow Start](/img/systems/aiworker/quick_start_guide/operation_guide/vr_teleoperation/sg2_vr_slow_start.gif)
 
 ### 5. Pause and resume teleoperation
 
@@ -303,11 +303,11 @@ For `sh5`, VR teleoperation starts and stops with a hand gesture instead of a RO
 
 Make one hand squeeze and the other hand pinch, then hold that combination for 3 seconds to toggle the VR controller on or off.
 
-![SH5 gesture](/img/systems/aiworker/quick_start_guide/operation_guide/vr_teleoperation/gesture.png)
+![FFW-SH5 gesture](/img/systems/aiworker/quick_start_guide/operation_guide/vr_teleoperation/gesture.png)
 
 Right after the controller is activated, the system checks the difference between the detected hand poses and the robot wrist poses. If the difference is small enough, the arm controller will start after 3 seconds. After startup, the `slow start` function remains active for 5 seconds. Because of this, it is recommended to make your arm posture as close as possible to the robot posture before activating the controller.
 
-![SH5 Slow Start](/img/systems/aiworker/quick_start_guide/operation_guide/vr_teleoperation/sh5_vr_slow_start.gif)
+![FFW-SH5 Slow Start](/img/systems/aiworker/quick_start_guide/operation_guide/vr_teleoperation/sh5_vr_slow_start.gif)
 
 ### 4. Pause and resume teleoperation
 

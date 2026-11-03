@@ -53,7 +53,7 @@ Open a terminal and enter the Docker container:
 cd ~/ai_worker && ./docker/container.sh enter
 ```
 
-Then, launch the ROS 2 teleoperation node with the appropriate command for your robot type (**BG2 or SG2**):
+Then, launch the ROS 2 teleoperation node with the appropriate command for your robot type (**FFW-BG2 or FFW-SG2**):
 
 :::warning
 Executing the code will cause robot to move immediately.
@@ -65,14 +65,14 @@ This command launches the **leader**, **follower**, and **camera** nodes for AI 
 
 `ROBOT PC` `🐋 AI WORKER`
 <Tabs groupId="robot-type">
-<TabItem value="bg2-type" label="BG2 Type">
+<TabItem value="bg2-type" label="FFW-BG2">
 
 ```bash
 ffw_bg2_ai
 ```
 
 </TabItem>
-<TabItem value="sg2-type" label="SG2 Type">
+<TabItem value="sg2-type" label="FFW-SG2">
 
 ```bash
 ffw_sg2_ai

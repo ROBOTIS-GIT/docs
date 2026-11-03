@@ -13,31 +13,31 @@ You can launch Gazebo and RViz (MoveIt) individually, launch RViz together with 
     Use this command to run a dynamic simulation of the AI Worker in the Gazebo simulator.  
 
     <Tabs groupId="aiworker-robot-type">
-    <TabItem value="bg2" label="BG2 Type">
-
-    ```bash
-    ros2 launch ffw_bringup ffw_bg2_follower_ai_gazebo.launch.py
-    ```
-
-    </TabItem>
-    <TabItem value="sg2" label="SG2 Type">
-
-    ```bash
-    ros2 launch ffw_bringup ffw_sg2_follower_ai_gazebo.launch.py
-    ```
-
-    </TabItem>
-    <TabItem value="f1" label="F1 Type">
+    <TabItem value="f1" label="FFW-F1">
 
     ```bash
     ros2 launch ffw_bringup ffw_f1_follower_ai_gazebo.launch.py
     ```
 
     </TabItem>
-    <TabItem value="f2" label="F2 Type">
+    <TabItem value="f2" label="FFW-F2">
 
     ```bash
     ros2 launch ffw_bringup ffw_f2_follower_ai_gazebo.launch.py
+    ```
+
+    </TabItem>
+    <TabItem value="bg2" label="FFW-BG2">
+
+    ```bash
+    ros2 launch ffw_bringup ffw_bg2_follower_ai_gazebo.launch.py
+    ```
+
+    </TabItem>
+    <TabItem value="sg2" label="FFW-SG2">
+
+    ```bash
+    ros2 launch ffw_bringup ffw_sg2_follower_ai_gazebo.launch.py
     ```
 
     </TabItem>
@@ -47,32 +47,32 @@ You can launch Gazebo and RViz (MoveIt) individually, launch RViz together with 
     Use this command when you want to visualize the robot model in RViz without running a full simulation or the physical hardware.
 
     <Tabs groupId="aiworker-robot-type">
-    <TabItem value="bg2" label="BG2 Type">
-
-    ```bash
-    ros2 launch ffw_description ffw_bg2_rev4.launch.py
-    ```
-
-    </TabItem>
-    <TabItem value="sg2" label="SG2 Type">
-
-    ```bash
-    ros2 launch ffw_description ffw_sg2_rev1.launch.py
-    # If the display looks incorrect, try adjusting the Fixed Frame
-    ```
-
-    </TabItem>
-    <TabItem value="f1" label="F1 Type">
+    <TabItem value="f1" label="FFW-F1">
 
     ```bash
     ros2 launch ffw_description ffw_f1.launch.py
     ```
 
     </TabItem>
-    <TabItem value="f2" label="F2 Type">
+    <TabItem value="f2" label="FFW-F2">
 
     ```bash
     ros2 launch ffw_description ffw_f2.launch.py
+    ```
+
+    </TabItem>
+    <TabItem value="bg2" label="FFW-BG2">
+
+    ```bash
+    ros2 launch ffw_description ffw_bg2_rev4.launch.py
+    ```
+
+    </TabItem>
+    <TabItem value="sg2" label="FFW-SG2">
+
+    ```bash
+    ros2 launch ffw_description ffw_sg2_rev1.launch.py
+    # If the display looks incorrect, try adjusting the Fixed Frame
     ```
 
     </TabItem>
@@ -84,31 +84,31 @@ You can launch Gazebo and RViz (MoveIt) individually, launch RViz together with 
     <RunZenohDaemon />
 
     <Tabs groupId="aiworker-robot-type">
-    <TabItem value="bg2" label="BG2 Type">
-
-    ```bash
-    ros2 launch ffw_bringup ffw_bg2_follower_ai.launch.py start_rviz:=true
-    ```
-
-    </TabItem>
-    <TabItem value="sg2" label="SG2 Type">
-
-    ```bash
-    ros2 launch ffw_bringup ffw_sg2_follower_ai.launch.py start_rviz:=true
-    ```
-
-    </TabItem>
-    <TabItem value="f1" label="F1 Type">
+    <TabItem value="f1" label="FFW-F1">
 
     ```bash
     ros2 launch ffw_bringup ffw_f1_follower_ai.launch.py start_rviz:=true
     ```
 
     </TabItem>
-    <TabItem value="f2" label="F2 Type">
+    <TabItem value="f2" label="FFW-F2">
 
     ```bash
     ros2 launch ffw_bringup ffw_f2_follower_ai.launch.py start_rviz:=true
+    ```
+
+    </TabItem>
+    <TabItem value="bg2" label="FFW-BG2">
+
+    ```bash
+    ros2 launch ffw_bringup ffw_bg2_follower_ai.launch.py start_rviz:=true
+    ```
+
+    </TabItem>
+    <TabItem value="sg2" label="FFW-SG2">
+
+    ```bash
+    ros2 launch ffw_bringup ffw_sg2_follower_ai.launch.py start_rviz:=true
     ```
 
     </TabItem>
@@ -118,22 +118,22 @@ You can launch Gazebo and RViz (MoveIt) individually, launch RViz together with 
 
 ## Simulation Views
 
-### FFW_BG2
+### FFW-BG2
 
-![FFW BG2 Simulation](/img/systems/aiworker/simulation/gazebo/ffw_bg2_gazebo.png)
+![FFW-BG2 Simulation](/img/systems/aiworker/simulation/gazebo/ffw_bg2_gazebo.png)
 
 
-### FFW_SG2
+### FFW-SG2
 
-![FFW SG2 Simulation](/img/systems/aiworker/simulation/gazebo/ffw_sg2_gazebo.png)
+![FFW-SG2 Simulation](/img/systems/aiworker/simulation/gazebo/ffw_sg2_gazebo.png)
 
-### FFW_F1
+### FFW-F1
 
-![FFW F1 Simulation](/img/systems/aiworker/simulation/gazebo/ffw_f1_gazebo.png)
+![FFW-F1 Simulation](/img/systems/aiworker/simulation/gazebo/ffw_f1_gazebo.png)
 
-### FFW_F2
+### FFW-F2
 
-![FFW F2 Simulation](/img/systems/aiworker/simulation/gazebo/ffw_f2_gazebo.png)
+![FFW-F2 Simulation](/img/systems/aiworker/simulation/gazebo/ffw_f2_gazebo.png)
 
 ## Launch MoveIt
 *   **Launch MoveIt:**
@@ -159,24 +159,24 @@ Use Nav2 with the Gazebo simulation to test autonomous navigation before running
 1. **Start Gazebo simulation:** Use one of the Gazebo launch commands.
 
     <Tabs groupId="aiworker-robot-type">
-    <TabItem value="sg2" label="SG2 Type">
+    <TabItem value="f2" label="FFW-F2">
+
+    ```bash
+    ros2 launch ffw_bringup ffw_f2_follower_ai_gazebo.launch.py
+    ```
+
+    </TabItem>
+    <TabItem value="sg2" label="FFW-SG2">
 
     ```bash
     ros2 launch ffw_bringup ffw_sg2_follower_ai_gazebo.launch.py
     ```
 
     </TabItem>
-    <TabItem value="sh5" label="SH5 Type">
+    <TabItem value="sh5" label="FFW-SH5">
 
     ```bash
     ros2 launch ffw_bringup ffw_sh5_follower_ai_gazebo.launch.py
-    ```
-
-    </TabItem>
-    <TabItem value="f2" label="F2 Type">
-
-    ```bash
-    ros2 launch ffw_bringup ffw_f2_follower_ai_gazebo.launch.py
     ```
 
     </TabItem>
