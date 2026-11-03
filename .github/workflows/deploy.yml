@@ -3,21 +3,42 @@ name: Deploy Docusaurus site to Pages
 on:
   push:
     branches: [main]
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+  pull_request_target:
+    types: [closed]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 # 동시 배포는 1개만, 진행 중인 배포는 취소하지 않음
 concurrency:
-  group: pages
+  # Ignored CI events must not replace a pending real deployment in this group.
+  group: >-
+    ${{ (github.event_name != 'workflow_run' ||
+        (github.event.workflow_run.event == 'pull_request' &&
+         github.event.workflow_run.conclusion == 'success' &&
+         github.event.workflow_run.head_repository.full_name == github.repository))
+        && 'pages' || format('pages-ignored-{0}', github.run_id) }}
   cancel-in-progress: false
 
 jobs:
   build:
-    name: Build Docusaurus
+    name: Build Docusaurus and collect previews
+    # Only the trusted default branch is executed, including on PR-related events.
+    if: >-
+      github.event_name != 'workflow_run' ||
+      (github.event.workflow_run.event == 'pull_request' &&
+       github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.head_repository.full_name == github.repository)
+    permissions:
+      contents: read
+      actions: read
+      pages: read
+      pull-requests: read
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -28,6 +49,8 @@ jobs:
         with:
           # showLastUpdateTime이 git history 전체를 필요로 함
           fetch-depth: 0
+          ref: main
+          persist-credentials: false
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -84,6 +107,19 @@ jobs:
           test -f docusaurus/build/interactive/omx/index.html
           test ! -d docusaurus/build/ko/interactive/omx
 
+      - name: Collect validated previews for open PRs
+        working-directory: ./
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 .github/scripts/pages-previews.py collect docusaurus/build preview-status.json
+
+      - name: Save comment status
+        uses: actions/upload-artifact@v4
+        with:
+          name: preview-status
+          path: preview-status.json
+          retention-days: 1
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -92,6 +128,9 @@ jobs:
   deploy:
     name: Deploy to GitHub Pages
     needs: build
+    permissions:
+      pages: write
+      id-token: write
     runs-on: ubuntu-latest
     environment:
       name: github-pages
@@ -100,3 +139,29 @@ jobs:
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
+
+  comments:
+    name: Update PR preview comments
+    needs: deploy
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+      pull-requests: write
+    steps:
+      - name: Checkout trusted comment script
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+
+      - name: Download deployment status
+        uses: actions/download-artifact@v4
+        with:
+          name: preview-status
+
+      - name: Update comments after successful deployment
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PAGES_ORIGIN: https://docs.robotis.com
+        run: python3 .github/scripts/pages-previews.py comment preview-status.json
