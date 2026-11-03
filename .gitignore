@@ -25,3 +25,9 @@ Thumbs.db
 # --- 임시 ---
 *.tmp
 *.bak
+
+# PR preview build output and Python test cache
+/pr-preview/
+.github/scripts/__pycache__/
+
+**/superpowers
