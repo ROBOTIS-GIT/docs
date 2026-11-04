@@ -27,7 +27,7 @@ concurrency:
 
 jobs:
   build:
-    name: Build Docusaurus and collect previews
+    name: Prepare production site and collect previews
     # Only the trusted default branch is executed, including on PR-related events.
     if: >-
       github.event_name != 'workflow_run' ||
@@ -40,16 +40,19 @@ jobs:
       pages: read
       pull-requests: read
       statuses: write
+    outputs:
+      source_sha: ${{ steps.checkout.outputs.commit }}
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./docusaurus
     steps:
       - name: Checkout
+        id: checkout
         uses: actions/checkout@v4
         with:
-          # showLastUpdateTime이 git history 전체를 필요로 함
-          fetch-depth: 0
+          fetch-depth: 1
+          sparse-checkout: .github/scripts
           ref: main
           persist-credentials: false
 
@@ -57,9 +60,24 @@ jobs:
         working-directory: ./
         env:
           GH_TOKEN: ${{ github.token }}
-        run: python3 .github/scripts/pages-previews.py status pending "Building production site and preparing preview"
+        run: python3 .github/scripts/pages-previews.py status pending "Restoring production build or preparing a fresh build"
+
+      # Exact main SHA, no restore-key fallback: never reuse another revision.
+      # Save before collecting PR artifacts so cached data is always trusted production.
+      - name: Restore production build
+        id: production
+        uses: actions/cache/restore@v4
+        with:
+          path: docusaurus/build
+          key: production-site-v1-${{ runner.os }}-${{ steps.checkout.outputs.commit }}
+
+      - name: Load source on cache miss
+        if: steps.production.outputs.cache-hit != 'true'
+        working-directory: ./
+        run: git sparse-checkout disable
 
       - name: Setup Node.js
+        if: steps.production.outputs.cache-hit != 'true'
         uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -72,17 +90,21 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Install dependencies
+        if: steps.production.outputs.cache-hit != 'true'
         run: |
           npm ci
           npm ci --prefix omx-assembly
 
       - name: Test interactive assembly guide
+        if: steps.production.outputs.cache-hit != 'true'
         run: npm run test:omx
 
       - name: Type check
+        if: steps.production.outputs.cache-hit != 'true'
         run: npm run typecheck
 
       - name: Build English website
+        if: steps.production.outputs.cache-hit != 'true'
         env:
           # 일부 cosmetic SSG 경고(예: image broken 워닝, HTML minifier diagnostics)
           # 가 GitHub Actions에서 error로 승격되어 빌드를 차단하는 것을 막음.
@@ -96,6 +118,7 @@ jobs:
         run: npm run build -- --locale en
 
       - name: Build Korean website
+        if: steps.production.outputs.cache-hit != 'true'
         env:
           DOCUSAURUS_IGNORE_SSG_WARNINGS: 'true'
           DOCUSAURUS_URL: 'https://docs.robotis.com'
@@ -103,6 +126,10 @@ jobs:
           DOCUSAURUS_ON_BROKEN_LINKS: 'warn'
           NODE_OPTIONS: --max_old_space_size=4096
         run: npm run build -- --locale ko
+
+      - name: Share identical English and Korean media
+        if: steps.production.outputs.cache-hit != 'true'
+        run: node scripts/dedupe-media.mjs build
 
       - name: Check build output
         working-directory: ./
@@ -113,6 +140,13 @@ jobs:
           test -f docusaurus/build/ko/index.html
           test -f docusaurus/build/interactive/omx/index.html
           test ! -d docusaurus/build/ko/interactive/omx
+
+      - name: Cache trusted production build
+        if: steps.production.outputs.cache-hit != 'true' && github.ref == 'refs/heads/main'
+        uses: actions/cache/save@v4
+        with:
+          path: docusaurus/build
+          key: production-site-v1-${{ runner.os }}-${{ steps.checkout.outputs.commit }}
 
       - name: Report preview collection in PR
         working-directory: ./
@@ -155,7 +189,7 @@ jobs:
       - name: Checkout trusted status script
         uses: actions/checkout@v4
         with:
-          ref: main
+          ref: ${{ needs.build.outputs.source_sha || github.sha }}
           persist-credentials: false
           sparse-checkout: .github/scripts
 
@@ -170,7 +204,7 @@ jobs:
 
   comments:
     name: Update PR preview comments
-    needs: deploy
+    needs: [build, deploy]
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -180,8 +214,9 @@ jobs:
       - name: Checkout trusted comment script
         uses: actions/checkout@v4
         with:
-          ref: main
+          ref: ${{ needs.build.outputs.source_sha || github.sha }}
           persist-credentials: false
+          sparse-checkout: .github/scripts
 
       - name: Download deployment status
         uses: actions/download-artifact@v4
@@ -212,7 +247,7 @@ jobs:
       - name: Checkout trusted status script
         uses: actions/checkout@v4
         with:
-          ref: main
+          ref: ${{ needs.build.outputs.source_sha || github.sha }}
           persist-credentials: false
           sparse-checkout: .github/scripts
 

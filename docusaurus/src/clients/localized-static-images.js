@@ -7,7 +7,8 @@
  * root-relative `/img/...` paths.
  */
 
-if (typeof window !== 'undefined') {
+// Production builds use the shared-media runtime added during deployment.
+if (typeof window !== 'undefined' && process.env.NODE_ENV !== 'production') {
   function isKoreanLocale() {
     return (
       window.location.pathname === '/ko' ||

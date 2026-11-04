@@ -48,7 +48,7 @@ jobs:
       - name: Test preview tooling
         working-directory: ./
         run: |
-          node --test docusaurus/scripts/pr-preview.test.mjs
+          node --test docusaurus/scripts/pr-preview.test.mjs docusaurus/scripts/dedupe-media.test.mjs
           python3 -m unittest discover -s .github/scripts -p 'test_*.py'
 
       - name: Test interactive assembly guide

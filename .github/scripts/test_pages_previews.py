@@ -181,5 +181,21 @@ class StatusTests(unittest.TestCase):
             self.assertEqual(calls[0]['state'], 'failure')
 
 
+class SharedMediaTests(unittest.TestCase):
+    def test_previews_use_production_shared_media_without_overwriting_changed_media(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            build = Path(tmp)
+            (build / 'shared-media.json').write_text(json.dumps(['assets/images/old.png']))
+            preview = build / 'pr-preview/12'
+            preview.mkdir(parents=True)
+            page = preview / 'index.html'
+            page.write_text('<head><script src="/pr-preview/12/preview-runtime.js"></script></head><img src="/ko/assets/images/old.png"><img src="/pr-preview/12/img/changed.png">')
+            pages.share_preview_media(build, preview)
+            html = page.read_text()
+            self.assertIn('src="/assets/images/old.png"', html)
+            self.assertIn('/shared-media-runtime.js', html)
+            self.assertIn('/pr-preview/12/img/changed.png', html)
+
+
 if __name__ == '__main__':
     unittest.main()

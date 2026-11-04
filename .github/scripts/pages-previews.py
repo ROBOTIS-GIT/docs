@@ -116,6 +116,25 @@ def comment_body(manifest, origin):
     return '\n'.join(lines)
 
 
+def share_preview_media(build, destination):
+    manifest = build / 'shared-media.json'
+    if not manifest.exists():
+        return
+    shared = set(json.loads(manifest.read_text()))
+    def rewrite(match):
+        value = match.group(0)
+        return value[3:] if unquote(value[4:]) in shared else value
+    for file in destination.rglob('*'):
+        if file.suffix not in ('.html', '.css', '.js'):
+            continue
+        before = file.read_text()
+        after = re.sub(r"/ko/[^\s\"'`\\<>()[\]{}?#,;]+", rewrite, before)
+        if file.suffix == '.html':
+            after = after.replace('<head>', '<head><script src="/shared-media-runtime.js"></script>', 1)
+        if after != before:
+            file.write_text(after)
+
+
 def collect(build, status_file):
     repository = os.environ['GITHUB_REPOSITORY']
     root = f'repos/{repository}'
@@ -145,6 +164,7 @@ def collect(build, status_file):
             destination = previews / str(number)
             try:
                 manifest = extract_preview(data, destination, number, pr['head']['sha'])
+                share_preview_media(build, destination)
                 size = sum(p.stat().st_size for p in destination.rglob('*') if p.is_file())
                 if total + size > TOTAL_PREVIEW_LIMIT:
                     raise ValueError('Combined previews exceed 500 MiB')

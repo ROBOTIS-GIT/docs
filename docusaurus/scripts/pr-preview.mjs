@@ -85,6 +85,7 @@ export function previewUrl(value, config) {
   if (config.staticFiles.includes(staticPath)) {
     return (config.changedStatic.includes(staticPath) ? config.prefix : '') + '/' + staticPath + suffix;
   }
+  if (config.mediaOnly) return value;
   if (/^\/(?:ko\/)?interactive\/omx\//.test(pathname)) {
     pathname = pathname.replace(/^\/ko\//, '/');
     return (config.interactive ? config.prefix : '') + pathname + suffix;
@@ -108,7 +109,7 @@ export function previewRequest(input, config, origin) {
   return input instanceof Request ? new Request(next, input) : next;
 }
 
-function runtime(config) {
+export function runtime(config) {
   config = {...config, locale: window.location.pathname.startsWith(config.prefix + '/ko/') ? 'ko' : 'en'};
   const url = value => previewUrl(value, config);
   function update(element) {
@@ -136,6 +137,7 @@ function runtime(config) {
   scan(document.documentElement);
   // Full navigation avoids the bundled router showing pages omitted from the preview.
   document.addEventListener('click', event => {
+    if (config.mediaOnly) return;
     const link = event.target.closest?.('a[href]');
     if (!link || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || link.target || link.hasAttribute('download')) return;
     const href = url(link.getAttribute('href'));
