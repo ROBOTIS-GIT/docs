@@ -1,0 +1,20 @@
+---
+title: Cyclo Control
+description: Cyclo Control in the CYCLO architecture and related system guides.
+---
+
+**Cyclo Control** is the **Control** module in the CYCLO software layer. Its ROS 2 motion controllers translate end-effector targets and joint commands into robot trajectories while considering configured motion limits and constraints.
+
+## System Guides
+
+| System | Guide |
+| --- | --- |
+| AI Worker | [Cyclo Control](/docs/systems/aiworker/advanced_features/cyclo_control) |
+| OMY | [Cyclo Control](/docs/systems/omy/advanced_features/cyclo_control) |
+| OMX | [Cyclo Control](/docs/systems/omx/advanced_features/cyclo_control) |
+
+Each guide describes available controllers, bringup, command interfaces, parameters, and operating precautions. Controller constraints do not guarantee collision-free operation; follow the safety guidance for your system.
+
+## Source Code
+
+- [ROBOTIS-GIT/cyclo_control](https://github.com/ROBOTIS-GIT/cyclo_control)
