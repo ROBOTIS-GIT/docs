@@ -212,7 +212,7 @@ It is a moving speed to Goal Position.
 The range and the unit of the value may vary depending on the operation mode.
 
 + Join Mode
-  0~1023 (0X3FF) can be used, and the unit is about 0.111rpm.
+  0 ~ 1023 (0X3FF) can be used, and the unit is about 0.111rpm.
   If it is set to 0, it means the maximum rpm of the motor is used without controlling the speed.
   If it is 1023, it is about 114rpm.
   For example, if it is set to 300, it is about 33.3 rpm.
@@ -234,9 +234,9 @@ The range and the unit of the value may vary depending on the operation mode.
 #### Present Speed (38)
 
 It is the current moving speed.
-0~2047 (0X7FF) can be used.
-If a value is in the rage of 0~1023, it means that the motor rotates to the CCW direction.
-If a value is in the rage of 1024~2047, it means that the motor rotates to the CW direction.
+0 ~ 2047 (0X7FF) can be used.
+If a value is in the rage of 0 ~ 1023, it means that the motor rotates to the CCW direction.
+If a value is in the rage of 1024 ~ 2047, it means that the motor rotates to the CW direction.
 That is, the 10th bit becomes the direction bit to control the direction, and 0 and 1024 are equal.
 The unit of this value varies depending on operation mode.
 

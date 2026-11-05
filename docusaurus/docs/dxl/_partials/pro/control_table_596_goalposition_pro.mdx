@@ -6,4 +6,15 @@ Desired position can be set with Goal Position(596). This value can't be smaller
 |           H42-20-S300-R            |     -180&deg; ~ 180 &deg;      | -151,875 ~ 151,875 |                               ![](/img/dxl/model_reference/pro_series/h42_angle_position.webp)                               |
 
 
-{/* nested include: en/dxl/control_table_opmode_note.md */}
+:::note
+
+**NOTE** : [Present Position(611)](#present-position) represents a 4 byte continuous range from -2,147,483,648 to 2,147,483,647 when Torque is turned off regardless of Operating Mode(11).
+However, [Present Position(611)](#present-position) will be reset to an absolute position value within one full rotation in the following cases:
+
+1. When the Operating Mode(11) is changed to **Position Control Mode**.
+2. When torque is turned on in **Position Control Mode**.
+3. When the actuator is turned on or when rebooted using a [Reboot Instruction](/docs/dxl/protocol/protocol2#reboot).
+
+Note that a [Present Position(611)](#present-position) value that has been reset to the absolute value within a single rotation will still be affected by the configured [Homing Offset(13)](#homing-offset) value.
+
+:::

@@ -3,14 +3,14 @@ Indirect Address와 Indirect Data는 컨트롤 테이블의 여러 떨어진 Add
 예를 들어 Red LED의 Address인 513을 Indirect Address 1(168)에 할당하고 Indirect Data 1(634)에 255를 쓰면 Red LED가 켜집니다. 실제 LED Red(513) 값도 255로 설정됩니다.
 특정 항목의 Address가 2 byte보다 긴 경우, 각 Address byte를 Indirect Address에 순서대로 설정해야 합니다.
 
-<div class="notice--success">
+<div className="notice--success">
 **예제 1** : 1 byte LED Red(513)를 Indirect Data 1(634)에 할당합니다.
 1. Indirect Address 1(168) : LED Red의 Address인 `513`을 씁니다.
 2. Indirect Data 1(634)을 `255`로 설정 : LED Red(513)의 값도 자동으로 `255`가 되어 LED가 켜집니다.
 3. Indirect Data 1(634)을 `0`으로 설정 : LED Red(513)의 값도 자동으로 `0`이 되어 LED가 꺼집니다.
 </div>
 
-<div class="notice--success">
+<div className="notice--success">
 **예제 2** : 4 byte Goal Position(564)을 Indirect Data 2(635)에 할당하려면 연속된 4 byte를 할당해야 합니다.
 1. Indirect Address 2(170) : Goal Position의 첫 번째 Address인 `564`를 씁니다.
 2. Indirect Address 3(172) : Goal Position의 두 번째 Address인 `565`를 씁니다.

@@ -3,6 +3,7 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
+const deploymentBaseUrl = process.env.DOCUSAURUS_BASE_URL ?? '/';
 const docsRouteBasePath = process.env.DOCUSAURUS_DOCS_ROUTE_BASE_PATH ?? '/docs';
 const onBrokenLinks = ['throw', 'warn', 'ignore', 'log'].includes(process.env.DOCUSAURUS_ON_BROKEN_LINKS ?? '')
   ? (process.env.DOCUSAURUS_ON_BROKEN_LINKS as 'throw' | 'warn' | 'ignore' | 'log')
@@ -19,7 +20,7 @@ const config: Config = {
   },
 
   url: process.env.DOCUSAURUS_URL ?? 'https://docs.robotis.com',
-  baseUrl: process.env.DOCUSAURUS_BASE_URL ?? '/',
+  baseUrl: deploymentBaseUrl,
   storage: {
     type: 'localStorage',
     namespace: 'robotis-docs',
@@ -31,8 +32,8 @@ const config: Config = {
     localeConfigs: {
       // CI builds one locale at a time, which disables Docusaurus' automatic
       // locale path prefixing. Keep the language-switch URLs explicit.
-      en: { label: 'English', htmlLang: 'en', baseUrl: '/' },
-      ko: { label: '한국어', htmlLang: 'ko', baseUrl: '/ko/' },
+      en: { label: 'English', htmlLang: 'en', baseUrl: deploymentBaseUrl },
+      ko: { label: '한국어', htmlLang: 'ko', baseUrl: `${deploymentBaseUrl}ko/` },
     },
   },
 
@@ -88,6 +89,7 @@ const config: Config = {
   ],
 
   plugins: [
+    require.resolve('./plugins/pr-preview.cjs'),
     [
       require.resolve('@easyops-cn/docusaurus-search-local'),
       {
@@ -122,10 +124,11 @@ const config: Config = {
       respectPrefersColorScheme: false,
     },
     navbar: {
-      title: 'ROBOTIS DOCS',
       logo: {
-        alt: 'ROBOTIS',
-        src: 'img/common/ai_worker_website/favicon.svg',
+        alt: 'ROBOTIS DOCS',
+        src: 'img/robotis-docs.png',
+        width: 182,
+        height: 20,
       },
       items: [
         {
@@ -273,6 +276,10 @@ const config: Config = {
                         <a class="mega-menu__product" href="/docs/systems/hx5_d20/introduction">
                           <div class="mega-menu__product-thumb"><img src="/img/mega-menu/hx5-d20.webp" alt="HX5-D20" /></div>
                           <span>HX5-D20</span>
+                        </a>
+                        <a class="mega-menu__product" href="/docs/systems/hx_friends/">
+                          <div class="mega-menu__product-thumb"><img src="/img/mega-menu/hx_friends.png" alt="HX Friends" /></div>
+                          <span>HX Friends</span>
                         </a>
                         <a class="mega-menu__product" href="/docs/systems/rh_p12_rn/">
                           <div class="mega-menu__product-thumb"><img src="/img/mega-menu/rh-p12-rn.webp" alt="RH-P12-RN(A)" /></div>

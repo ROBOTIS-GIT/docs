@@ -1,6 +1,13 @@
+{/* props
+   currentBased: true면 적용 모드에 Current-based Position Control Mode를 포함한다(XM/XH/XD, XW540).
+   fwNote: false면 펌웨어 V42 안내를 숨긴다(XL330).
+*/}
+
+import Show from '@site/src/components/Show';
+
 When the [Drive Mode(10)] is **Velocity-based Profile**, Profile Velocity(112) sets the maximum velocity of the Profile.  
 When the [Drive Mode(10)] is **Time-based Profile**, Profile Velocity(112) sets the time span to reach the velocity (the total time) of the Profile.  
-Be aware that the Profile Velocity(112) is to be only applied to **Position Control Mode** or **Extended Position Control Mode** on the [Operating Mode(11)].
+Be aware that the Profile Velocity(112) is to be only applied to **Position Control Mode**{props.currentBased ? <>, <strong>Extended Position Control Mode</strong> or <strong>Current-based Position Control Mode</strong></> : <> or <strong>Extended Position Control Mode</strong></>} on the [Operating Mode(11)].
 
 For more detailed information, see [What is the Profile](#what-is-the-profile).
 
@@ -23,11 +30,15 @@ For more detailed information, see [What is the Profile](#what-is-the-profile).
 |       Range        | 0 ~ 32737 | '0' represents an infinite velocity.<br />Profile Acceleration(108, Acceleration time) will not exceed 50% of Profile Velocity (112, the time span to reach the velocity of the Profile) value. |
 
 
+<Show when={props.fwNote !== false}>
+
 :::note
 
 **NOTE** : Time-based Profile is available from the firmware V42.
 
 :::
+
+</Show>
 
 
 [Moving Status(123)]: #moving-status123

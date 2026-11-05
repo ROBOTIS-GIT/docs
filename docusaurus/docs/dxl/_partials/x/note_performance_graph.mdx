@@ -1,3 +1,9 @@
+{/* props
+   highVoltage: 24V 모델(XH430-V, XH540-V, XW540-H260). SMPS2DYNAMIXEL 권장 항목 대신 24V 전원 포트 안내를 보여준다.
+*/}
+
+import Show from '@site/src/components/Show';
+
 :::note
 
 **NOTE** : The given Stall torque rating for a servo is different from it's continuous output rating, and may also differ from it's expected real world performance.
@@ -15,8 +21,18 @@ The actual real world performance of the servo will generally be closer to the p
 
 **CAUTION - When supplying power:**
 
+<Show when={!props.highVoltage}>
+
 - It is recommended to use a ROBOTIS controller or SMPS2DYNAMIXEL power adapter.
+- Do not connect or disconnect DYNAMIXEL actuator cables while power is being supplied.
+
+</Show>
+
+<Show when={props.highVoltage}>
 
 - Do not connect or disconnect DYNAMIXEL actuator cables while power is being supplied.
+- For DYNAMIXEL PRO and DYNAMIXEL-P series servos, supply additional power through the 24V accessory power port.
+
+</Show>
 
 :::

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- HX1: 3-DOF all-pitch finger derived from HX5-D20 index finger pitch joints (MCP pitch / PIP / DIP).
+     Each joint range is +/- pi/2 (-1.57 ~ 1.57 rad). -->
+<robot name="hx1">
+  <link name="hx1_base">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://hx1/meshes/hx1_base.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="grey">
+        <color rgba="0.2 0.2 0.2 1" />
+      </material>
+    </visual>
+  </link>
+
+  <joint name="hx1_joint_1" type="revolute">
+    <parent link="hx1_base" />
+    <child link="hx1_link_1" />
+    <origin xyz="0.0 0.0 0.0255" rpy="0 0 0" />
+    <axis xyz="0 1 0" />
+    <limit velocity="4.8" effort="1000" lower="-1.57" upper="1.57" />
+    <dynamics damping="0.05" />
+  </joint>
+  <link name="hx1_link_1">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://hx1/meshes/hx1_finger_pip.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="grey">
+        <color rgba="0.2 0.2 0.2 1" />
+      </material>
+    </visual>
+  </link>
+
+  <joint name="hx1_joint_2" type="revolute">
+    <parent link="hx1_link_1" />
+    <child link="hx1_link_2" />
+    <origin xyz="0.0 0.0 0.0355" rpy="0 0 0" />
+    <axis xyz="0 1 0" />
+    <limit velocity="4.8" effort="1000" lower="-1.57" upper="1.57" />
+    <dynamics damping="0.05" />
+  </joint>
+  <link name="hx1_link_2">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://hx1/meshes/hx1_finger_dip.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="grey">
+        <color rgba="0.2 0.2 0.2 1" />
+      </material>
+    </visual>
+  </link>
+
+  <joint name="hx1_joint_3" type="revolute">
+    <parent link="hx1_link_2" />
+    <child link="hx1_link_3" />
+    <origin xyz="0.0 0.0 0.0355" rpy="0 0 0" />
+    <axis xyz="0 1 0" />
+    <limit velocity="4.8" effort="1000" lower="-1.57" upper="1.57" />
+    <dynamics damping="0.05" />
+  </joint>
+  <link name="hx1_link_3">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://hx1/meshes/hx1_finger_tip.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="grey">
+        <color rgba="0.2 0.2 0.2 1" />
+      </material>
+    </visual>
+  </link>
+</robot>

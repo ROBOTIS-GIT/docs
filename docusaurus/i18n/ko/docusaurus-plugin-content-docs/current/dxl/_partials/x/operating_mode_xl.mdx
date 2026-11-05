@@ -23,7 +23,18 @@ PWM Control Mode는 [AX](/docs/dxl/model_reference/ax_series/ax-12w#cw-complianc
 
 :::
 
-{/* nested include: en/dxl/control_table_opmode_note.md */}
+:::note
+
+**참고** : [Present Position(132)](#present-position)은 토크가 꺼져 있을 때 [Operating Mode(11)](#operating-mode)에 상관없이 4 byte(-2,147,483,648 ~ 2,147,483,647)의 범위를 연속적으로 표현합니다.
+[Present Position(132)](#present-position) 값은 다음의 경우에 **한 바퀴의 절대 위치값(1 rev)으로 초기화**됩니다.
+
+1. [Operating Mode(11)](#operating-mode)가 위치 제어 모드로 변경될 때.
+2. 위치 제어 모드에서 Torque OFF 에서 Torque ON 으로 변경될 때.
+3. 전원을 끄고 켜거나 [Reboot Instruction](/docs/dxl/protocol/protocol2#reboot) 을 사용할 때.
+
+초기화되는 절대 위치값은 설정된 [Homing Offset(20)](#homing-offset) 값의 영향을 받습니다.
+
+:::
 
 [Max Position Limit(48)]: #minmax-position-limit
 [Min Position Limit(52)]: #minmax-position-limit

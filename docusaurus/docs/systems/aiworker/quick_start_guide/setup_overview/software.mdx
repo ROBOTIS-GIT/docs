@@ -13,8 +13,8 @@ The robot PC inside AI Worker is already pre-configured. Follow this guide when 
 
 AI Worker supports mDNS, allowing you to connect without manually checking the IP address.
 
-<Tabs groupId="robot-type">
-<TabItem value="ffw-bg2" label="FFW-BG2">
+<Tabs groupId="aiworker-robot-type">
+<TabItem value="bg2" label="FFW-BG2">
 
 1. Connect the SBC (robot PC) to the same network as your user PC using a LAN cable.
 2. On your user PC terminal, run:
@@ -24,7 +24,9 @@ AI Worker supports mDNS, allowing you to connect without manually checking the I
    ```
 
 Replace `SNPR48A0000` with the serial number printed on the back of the robot body.
-![Back of the Follower](/img/systems/aiworker/quick_start_guide/setup_overview/software/serial_number.png)
+
+<p><img src="/img/systems/aiworker/quick_start_guide/setup_overview/software/serial_number.png" alt="Serial-number example: SNPR48A0000" style={{width: '401px', maxWidth: '100%'}} /></p>
+
 3. When prompted, enter the system password `root`.
 
 If hostname-based access is not available, use one of the following methods:
@@ -33,11 +35,11 @@ If hostname-based access is not available, use one of the following methods:
 2. Connect a monitor to the Orin via HDMI, log in locally, and check the current IP address before connecting through SSH.
 
 </TabItem>
-<TabItem value="ffw-sg2" label="FFW-SG2">
+<TabItem value="sg2" label="FFW-SG2">
 
 1. Check the serial number printed on the back of the robot body. In this example, the number to identify is **0000**.
 
-![Back of the Follower](/img/systems/aiworker/quick_start_guide/setup_overview/software/serial_number.png)
+<p><img src="/img/systems/aiworker/quick_start_guide/setup_overview/software/serial_number.png" alt="Serial-number example: SNPR48A0000" style={{width: '401px', maxWidth: '100%'}} /></p>
 
 2. Connect to the Wi-Fi network named **AIWORKER(Number)**. In this example, the network name is **AIWORKER0000**.
    - The Wi-Fi password is identical to the network name (SSID).
@@ -48,6 +50,46 @@ If hostname-based access is not available, use one of the following methods:
    ```
 
 Replace `SNPR48A0000` with the serial number printed on the back of the robot body.
+
+4. When prompted, enter the system password `root`.
+
+</TabItem>
+<TabItem value="f1" label="FFW-F1">
+
+1. Connect the SBC (robot PC) to the same network as your user PC using a LAN cable.
+2. On your user PC terminal, run:
+
+   ```bash
+   ssh robotis@ffw-SNPR48C0000.local
+   ```
+
+Replace `SNPR48C0000` with the serial number printed on the back of the robot body.
+
+<p><img src="/img/systems/aiworker/quick_start_guide/setup_overview/software/serial_number_f1_f2.png" alt="Serial-number example: SNPR48C0000" style={{width: '401px', maxWidth: '100%'}} /></p>
+
+3. When prompted, enter the system password `root`.
+
+If hostname-based access is not available, use one of the following methods:
+
+1. Connect both your user PC and the AI Worker LAN port to the same router using Ethernet cables, then try SSH again.
+2. Connect a monitor to the Orin via HDMI, log in locally, and check the current IP address before connecting through SSH.
+
+</TabItem>
+<TabItem value="f2" label="FFW-F2">
+
+1. Check the serial number printed on the back of the robot body. In this example, the number to identify is **0000**.
+
+<p><img src="/img/systems/aiworker/quick_start_guide/setup_overview/software/serial_number_f1_f2.png" alt="Serial-number example: SNPR48C0000" style={{width: '401px', maxWidth: '100%'}} /></p>
+
+2. Connect to the Wi-Fi network named **AIWORKER(Number)**. In this example, the network name is **AIWORKER0000**.
+   - The Wi-Fi password is identical to the network name (SSID).
+3. On your user PC terminal, run:
+
+   ```bash
+   ssh robotis@ffw-SNPR48C0000.local
+   ```
+
+Replace `SNPR48C0000` with the serial number printed on the back of the robot body.
 
 4. When prompted, enter the system password `root`.
 
@@ -64,6 +106,8 @@ AI Worker relies on two main repositories:
 
 - [ai_worker](https://github.com/ROBOTIS-GIT/ai_worker): Provides support for controlling DYNAMIXEL actuators using `ros2_control` and enables teleoperation functionality.
 - [physical_ai_tools](https://github.com/ROBOTIS-GIT/physical_ai_tools): Provides tools for data collection, training, model inference, and visualization.
+
+For F1/F2 data recording and inference, use [Cyclo Intelligence](https://github.com/ROBOTIS-GIT/cyclo_intelligence) instead of Physical AI Tools. See [Cyclo Intelligence Setup](/docs/systems/aiworker/imitation_learning/setup).
 
 :::danger
 ⚠️ **On the AI Worker Orin**: Do not run `apt upgrade`. Upgrading system packages may create conflicts and break robot functionality.
@@ -193,7 +237,7 @@ Data stored outside mapped volumes may be lost during container restart. Save im
 
 ## Checking Battery State
 
-The `FFW-SG2` model has two batteries. The `FFW-BG2` model does not use a battery.
+The `FFW-SG2` and `FFW-F2` models each have two batteries. The `FFW-BG2` and `FFW-F1` models do not use batteries.
 
 To check the battery state, run:
 

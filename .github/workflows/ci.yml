@@ -18,6 +18,8 @@ jobs:
   build:
     name: docs_ci
     runs-on: ubuntu-latest
+    env:
+      DOCUSAURUS_BASE_URL: ${{ github.event_name == 'pull_request' && format('/pr-preview/{0}/', github.event.pull_request.number) || '/' }}
     defaults:
       run:
         working-directory: ./docusaurus
@@ -26,6 +28,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -41,6 +45,12 @@ jobs:
           npm ci
           npm ci --prefix omx-assembly
 
+      - name: Test preview tooling
+        working-directory: ./
+        run: |
+          node --test docusaurus/scripts/pr-preview.test.mjs docusaurus/scripts/dedupe-media.test.mjs
+          python3 -m unittest discover -s .github/scripts -p 'test_*.py'
+
       - name: Test interactive assembly guide
         run: npm run test:omx
 
@@ -51,7 +61,6 @@ jobs:
         env:
           DOCUSAURUS_IGNORE_SSG_WARNINGS: 'true'
           DOCUSAURUS_URL: 'https://docs.robotis.com'
-          DOCUSAURUS_BASE_URL: '/'
           DOCUSAURUS_ON_BROKEN_LINKS: 'warn'
           NODE_OPTIONS: --max_old_space_size=4096
         run: npm run build -- --locale en
@@ -60,7 +69,6 @@ jobs:
         env:
           DOCUSAURUS_IGNORE_SSG_WARNINGS: 'true'
           DOCUSAURUS_URL: 'https://docs.robotis.com'
-          DOCUSAURUS_BASE_URL: '/'
           DOCUSAURUS_ON_BROKEN_LINKS: 'warn'
           NODE_OPTIONS: --max_old_space_size=4096
         run: npm run build -- --locale ko
@@ -74,6 +82,24 @@ jobs:
           test -f docusaurus/build/ko/index.html
           test -f docusaurus/build/interactive/omx/index.html
           test ! -d docusaurus/build/ko/interactive/omx
+
+      - name: Package changed-page preview
+        if: github.event_name == 'pull_request'
+        working-directory: ./
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: node docusaurus/scripts/pr-preview.mjs
+
+      - name: Upload changed-page preview
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr-preview-${{ github.event.pull_request.number }}
+          path: pr-preview/
+          if-no-files-found: error
+          retention-days: 30
 
       - name: Upload build artifacts on failure
         uses: actions/upload-artifact@v4

@@ -32,7 +32,7 @@ import HornBearingReplacement from '@site/docs/dxl/_partials/ax/horn_bearing_rep
 import FccClassA from '@site/docs/dxl/_partials/ax/fcc_class_a.mdx';
 import Molex485Ttl from '@site/docs/dxl/_partials/mx/molex_485_ttl.mdx';
 import DownloadCenterNotice from '@site/docs/dxl/_partials/ax/download_center_notice.mdx';
-import TtlConnection from '@site/docs/dxl/_partials/ax/485_ttl_connection.mdx';
+import TtlConnection from '@site/docs/dxl/_partials/ax/485_ttl_connection_mx.mdx';
 import CommonLink from '@site/docs/dxl/_partials/ax/common_link.mdx';
 
 ![](/img/dxl/model_reference/mx_series/mx-28ar_product.webp)
@@ -212,7 +212,7 @@ For BPS over 250 values :
 - Join Mode, Multi-Turn mode
 
   It is a moving speed to Goal Position.
-  0~1023 (0X3FF) can be used, and the unit is about 0.114rpm.
+  0 ~ 1023 (0X3FF) can be used, and the unit is about 0.114rpm.
   If it is set to 0, it means the maximum rpm of the motor is used without controlling the speed.
   If it is 1023, it is about 116.62rpm.
   For example, if it is set to 300, it is about 34.2 rpm.
@@ -221,9 +221,9 @@ For BPS over 250 values :
 - Wheel Mode
 
   It is a moving speed to Goal direction.
-  0~2047 (0X7FF) can be used, and the unit is about 0.114rpm.
-  If a value in the range of 0~1023 is used, it is stopped by setting to 0 while rotating to CCW direction.
-  If a value in the range of 1024~2047 is used, it is stopped by setting to 1024 while rotating to CW direction.
+  0 ~ 2047 (0X7FF) can be used, and the unit is about 0.114rpm.
+  If a value in the range of 0 ~ 1023 is used, it is stopped by setting to 0 while rotating to CCW direction.
+  If a value in the range of 1024 ~ 2047 is used, it is stopped by setting to 1024 while rotating to CW direction.
   That is, the 10th bit becomes the direction bit to control the direction.
 
   :::note

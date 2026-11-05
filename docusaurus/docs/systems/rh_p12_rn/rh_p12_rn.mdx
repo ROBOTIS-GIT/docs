@@ -1,5 +1,5 @@
 import DxlWarning from '@site/docs/dxl/_partials/pro/warning.mdx';
-import DxlControlTable from '@site/docs/dxl/_partials/pro/control_table.mdx';
+import DxlControlTable from '@site/docs/dxl/_partials/pro/control_table_proa.mdx';
 import DxlPControlTable7Id from '@site/docs/dxl/_partials/pro/p_control_table_7_id.mdx';
 import DxlPControlTable8BaudRate from '@site/docs/dxl/_partials/pro/p_control_table_8_baud_rate.mdx';
 import DxlPControlTable9ReturnDelayTime from '@site/docs/dxl/_partials/pro/p_control_table_9_return_delay_time.mdx';
@@ -12,13 +12,13 @@ import DxlPControlTable36PwmLimit from '@site/docs/dxl/_partials/pro/p_control_t
 import DxlPControlTable56ExternalPort from '@site/docs/dxl/_partials/pro/p_control_table_56_external_port.mdx';
 import DxlControlTableShutdown from '@site/docs/dxl/_partials/pro/control_table_shutdown.mdx';
 import DxlPControlTable168Indirect from '@site/docs/dxl/_partials/pro/p_control_table_168_indirect.mdx';
-import DxlControlTableTorqueEnable from '@site/docs/dxl/_partials/pro/control_table_torque_enable.mdx';
+import DxlControlTableTorqueEnable from '@site/docs/dxl/_partials/pro/control_table_torque_enable_proa.mdx';
 import DxlPControlTable513Led from '@site/docs/dxl/_partials/pro/p_control_table_513_led.mdx';
 import DxlPControlTable516StatusReturnLevel from '@site/docs/dxl/_partials/pro/p_control_table_516_status_return_level.mdx';
 import DxlPControlTable517RegisteredInstruction from '@site/docs/dxl/_partials/pro/p_control_table_517_registered_instruction.mdx';
 import DxlPControlTable518HardwareErrorStatus from '@site/docs/dxl/_partials/pro/p_control_table_518_hardware_error_status.mdx';
 import DxlPControlTable546BusWatchdog from '@site/docs/dxl/_partials/pro/p_control_table_546_bus_watchdog.mdx';
-import DxlPControlTable548GoalPwm from '@site/docs/dxl/_partials/pro/p_control_table_548_goal_pwm.mdx';
+import DxlPControlTable548GoalPwm from '@site/docs/dxl/_partials/pro/p_control_table_548_goal_pwm_rh.mdx';
 import DxlPControlTable568RealtimeTick from '@site/docs/dxl/_partials/pro/p_control_table_568_realtime_tick.mdx';
 import DxlPControlTable570Moving from '@site/docs/dxl/_partials/pro/p_control_table_570_moving.mdx';
 import DxlPControlTable572PresentPwm from '@site/docs/dxl/_partials/pro/p_control_table_572_present_pwm.mdx';
@@ -89,7 +89,7 @@ You can choose the desired firmware version by using **Firmware Recovery** of [R
 <DxlWarning />
 
 
-<DxlControlTable />
+<DxlControlTable rh />
 
 
 ## Control Table of EEPROM Area
@@ -260,7 +260,7 @@ Present Position(580) = Actual Position + Homing Offset(20).
 <a id="max-voltage-limit"></a>
 <a id="min-voltage-limit"></a>
 ### Max/Min Voltage Limit(32, 34)
-<DxlPControlTable32VoltageLimit />
+<DxlPControlTable32VoltageLimit max={300} />
 
 
 <a id="pwm-limit"></a>
@@ -307,12 +307,12 @@ Therefore, Goal Position(564) should not exceed the limit range. Attempting to w
 
 ###**[External Port Mode](#external-port-mode)**, **[External Port Data](#external-port-data)**
 
-<DxlPControlTable56ExternalPort />
+<DxlPControlTable56ExternalPort img="/img/common/rh_p12_rn_external_port.png" />
 
 
 <a id="shutdown"></a>
 ### Shutdown(63)
-<DxlControlTableShutdown />
+<DxlControlTableShutdown shutdown={63} torqueEnable={512} hwError={518} />
 
 
 ###**[Indirect Address](#indirect-address)**, **[Indirect Data](#indirect-data)**

@@ -6,4 +6,15 @@ LED(65) controls the state of the indicator LED located on the back of the DYNAM
 |     1      | Turn ON the LED  |
 
 
-{/* nested include: en/dxl/led_policy.md */}
+:::note
+
+**NOTE** : The LED is also used to indicate various statuses of the DYNAMIXEL actuator, refer to the following chart for more information.
+
+|      Status      |    LED Representation      |
+|:----------------:|:--------------------------:|
+|     Booting      | LED blinks once            |
+|  Factory Reset   | LED blinks quickly 4 times |
+|  Shutdown Error  | LED blinks continuously    |
+| Bootloader Mode  | LED on continuously        |
+
+:::

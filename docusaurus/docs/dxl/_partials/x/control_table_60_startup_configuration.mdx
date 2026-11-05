@@ -1,3 +1,6 @@
+{/* props
+   fw: 지원 시작 펌웨어 버전. 기본 45, X330은 46.
+*/}
 The Startup Configuration(60) allows to set up the DYNAMIXEL with specific settings on startup.
 
 |     Bit     |       Item        | Description                                                                                                                            |
@@ -14,7 +17,7 @@ The Startup Configuration(60) allows to set up the DYNAMIXEL with specific setti
 
 :::note
 
-**NOTE**: Startup Configuration is available from firmware **V45**.
+**NOTE**: Startup Configuration is available from firmware **V{props.fw ?? 45}**.
 
 :::
 

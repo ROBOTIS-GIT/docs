@@ -1,13 +1,13 @@
-import Warning from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/warning.mdx';
+import Warning from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/warning_x330.mdx';
 import NotePerformanceGraph from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/note_performance_graph.mdx';
 import ControlTable from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table.mdx';
 import ControlTableId from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_id.mdx';
-import ControlTableBaudrate2 from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_baudrate_2.mdx';
+import ControlTableBaudrate2 from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_baudrate_2_x330.mdx';
 import ControlTableReturnDelayTime from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_return_delay_time.mdx';
 import ControlTableDrivemode from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_drivemode.mdx';
 import ControlTableOpmodeSix2 from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_opmode_six_2.mdx';
 import ControlTableShadowid from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_shadowid.mdx';
-import ControlTableProtocolversion from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_protocolversion.mdx';
+import ProtocolTypeRc from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/protocol_type_rc.mdx';
 import ControlTableHomingoffset from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_homingoffset.mdx';
 import ControlTableMovingthreshold from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_movingthreshold.mdx';
 import ControlTableTempLimit2 from '@site/i18n/ko/docusaurus-plugin-content-docs/current/dxl/_partials/x/control_table_temp_limit_2.mdx';
@@ -215,7 +215,7 @@ import CompatibleX330 from '@site/i18n/ko/docusaurus-plugin-content-docs/current
 <ControlTableReturnDelayTime />
 <a id="drive-mode"></a>
 #### Drive Mode(10)
-<ControlTableDrivemode />
+<ControlTableDrivemode torqueOnFw={46} timeBasedNote={false} />
 <a id="operating-mode"></a>
 #### Operating Mode(11)
 <ControlTableOpmodeSix2 />
@@ -224,7 +224,7 @@ import CompatibleX330 from '@site/i18n/ko/docusaurus-plugin-content-docs/current
 <ControlTableShadowid />
 <a id="protocol-type"></a>
 #### Protocol Type(13)
-<ControlTableProtocolversion />
+<ProtocolTypeRc />
 <a id="homing-offset"></a>
 #### Homing Offset(20)
 <ControlTableHomingoffset />
@@ -237,7 +237,7 @@ import CompatibleX330 from '@site/i18n/ko/docusaurus-plugin-content-docs/current
 <a id="minmax-voltage-limit"></a>
 <a id="max-voltage-limit"></a>
 #### Min/Max Voltage Limit(34, 32)
-<ControlTableVoltLimit2 />
+<ControlTableVoltLimit2 min={55} max={140} />
 <a id="pwm-limit"></a>
 #### PWM Limit(36)
 <ControlTablePwmLimit />
@@ -260,13 +260,13 @@ import CompatibleX330 from '@site/i18n/ko/docusaurus-plugin-content-docs/current
 :::
 <a id="velocity-limit"></a>
 #### Velocity Limit(44)
-<ControlTableVellimit />
+<ControlTableVellimit max="2,047" fwNote={false} />
 <a id="minmax-position-limit"></a>
 #### Min/Max Position Limit(52, 48)
 <ControlTablePositionlimit />
 <a id="startup-configuration"></a>
 #### Startup Configuration(60)
-<ControlTable60StartupConfiguration />
+<ControlTable60StartupConfiguration fw={46} />
 <a id="pwm-slope"></a>
 #### PWM Slope(62)
 PWM duty는 PWM Slope(62)에 설정된 기울기로 선형 보간되어 모터 인버터로 전달됩니다.
@@ -284,7 +284,7 @@ PWM Slope(62)의 설정값이 '255' (equal to 1,008.47 [mV/msec]), and the value
 > PWM Slope Example
 <a id="shutdown"></a>
 #### Shutdown(63)
-<ControlTableShutdown />
+<ControlTableShutdown encoderError={false} fw41Note={false} />
 <a id="torque-enable"></a>
 #### Torque Enable(64)
 <ControlTableTorqueEnable />
@@ -301,7 +301,7 @@ PWM Slope(62)의 설정값이 '255' (equal to 1,008.47 [mV/msec]), and the value
 #### Hardware Error Status(70)
 Hardware Error Status(70)는 하드웨어 오류 상태를 나타냅니다.
 
-<ControlTableShutdown />
+<ControlTableShutdown encoderError={false} fw41Note={false} />
 <a id="velocity-pi-gain"></a>
 #### Velocity PI Gain(76, 78)
 <ControlTableVelocityPiGain />
@@ -398,9 +398,9 @@ Present Velocity(128)는 현재 속도를 나타냅니다. 자세한 내용은 [
 <ControlTablePresentTemp2 />
 <a id="backup-ready"></a>
 #### Backup Ready(147)
-<ControlTableBackupReady />
+<ControlTableBackupReady fw={46} />
 #### Indirect Address, Indirect Data
-<ControlTableIndirectData />
+<ControlTableIndirectData ramEnd={251} protocolNote={false} />
 
 
 ## 조립 방법

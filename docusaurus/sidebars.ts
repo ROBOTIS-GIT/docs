@@ -11,6 +11,7 @@ import {dxlSidebar, protocolSidebar} from './sidebars/dxl';
 import eduSidebar from './sidebars/edu';
 import faqSidebar from './sidebars/faq';
 import hx5d20Sidebar from './sidebars/hx5d20';
+import hxFriendsSidebar from './sidebars/hxFriends';
 import op3Sidebar from './sidebars/op3';
 import omySidebar from './sidebars/omy';
 import omxSidebar from './sidebars/omx';
@@ -34,6 +35,7 @@ const sidebars: SidebarsConfig = {
   op3Sidebar,
   thormang3Sidebar,
   hx5d20Sidebar,
+  hxFriendsSidebar,
   rhp12rnaSidebar,
   rhp12rnurSidebar,
   omySidebar,

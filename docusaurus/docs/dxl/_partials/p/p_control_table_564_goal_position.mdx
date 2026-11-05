@@ -3,7 +3,18 @@ Desired position can be set with [Goal Position(564)].
 The available input range is between [Min Position Limit(52)] and [Max Position Limit(48)] in Position Control Mode, while Extended Position Control Mode uses a value range between -2,147,483,648 ~ 2,147,483,647.
 
 
-{/* nested include: en/dxl/control_table_opmode_note.md */}
+:::note
+
+**NOTE** : [Present Position(580)](#present-position) represents a 4 byte continuous range from -2,147,483,648 to 2,147,483,647 when Torque is turned off regardless of Operating Mode(11).
+However, [Present Position(580)](#present-position) will be reset to an absolute position value within one full rotation in the following cases:
+
+1. When the Operating Mode(11) is changed to **Position Control Mode**.
+2. When torque is turned on in **Position Control Mode**.
+3. When the actuator is turned on or when rebooted using a [Reboot Instruction](/docs/dxl/protocol/protocol2#reboot).
+
+Note that a [Present Position(580)](#present-position) value that has been reset to the absolute value within a single rotation will still be affected by the configured [Homing Offset(20)](#homing-offset) value.
+
+:::
 
 [Max Position Limit(48)]: #maxmin-position-limit48-52
 [Goal Position(564)]: #goal-position564
