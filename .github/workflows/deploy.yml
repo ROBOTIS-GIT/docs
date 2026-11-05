@@ -3,33 +3,81 @@ name: Deploy Docusaurus site to Pages
 on:
   push:
     branches: [main]
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+  pull_request_target:
+    types: [closed]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 # 동시 배포는 1개만, 진행 중인 배포는 취소하지 않음
 concurrency:
-  group: pages
+  # Ignored CI events must not replace a pending real deployment in this group.
+  group: >-
+    ${{ (github.event_name != 'workflow_run' ||
+        (github.event.workflow_run.event == 'pull_request' &&
+         github.event.workflow_run.conclusion == 'success' &&
+         github.event.workflow_run.head_repository.full_name == github.repository))
+        && 'pages' || format('pages-ignored-{0}', github.run_id) }}
   cancel-in-progress: false
 
 jobs:
   build:
-    name: Build Docusaurus
+    name: Prepare production site and collect previews
+    # Only the trusted default branch is executed, including on PR-related events.
+    if: >-
+      github.event_name != 'workflow_run' ||
+      (github.event.workflow_run.event == 'pull_request' &&
+       github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.head_repository.full_name == github.repository)
+    permissions:
+      contents: read
+      actions: read
+      pages: read
+      pull-requests: read
+      statuses: write
+    outputs:
+      source_sha: ${{ steps.checkout.outputs.commit }}
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./docusaurus
     steps:
       - name: Checkout
+        id: checkout
         uses: actions/checkout@v4
         with:
-          # showLastUpdateTime이 git history 전체를 필요로 함
-          fetch-depth: 0
+          fetch-depth: 1
+          sparse-checkout: .github/scripts
+          ref: main
+          persist-credentials: false
+
+      - name: Report production build in PR
+        working-directory: ./
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 .github/scripts/pages-previews.py status pending "Restoring production build or preparing a fresh build"
+
+      # Exact main SHA, no restore-key fallback: never reuse another revision.
+      # Save before collecting PR artifacts so cached data is always trusted production.
+      - name: Restore production build
+        id: production
+        uses: actions/cache/restore@v4
+        with:
+          path: docusaurus/build
+          key: production-site-v1-${{ runner.os }}-${{ steps.checkout.outputs.commit }}
+
+      - name: Load source on cache miss
+        if: steps.production.outputs.cache-hit != 'true'
+        working-directory: ./
+        run: git sparse-checkout disable
 
       - name: Setup Node.js
+        if: steps.production.outputs.cache-hit != 'true'
         uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -42,17 +90,21 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Install dependencies
+        if: steps.production.outputs.cache-hit != 'true'
         run: |
           npm ci
           npm ci --prefix omx-assembly
 
       - name: Test interactive assembly guide
+        if: steps.production.outputs.cache-hit != 'true'
         run: npm run test:omx
 
       - name: Type check
+        if: steps.production.outputs.cache-hit != 'true'
         run: npm run typecheck
 
       - name: Build English website
+        if: steps.production.outputs.cache-hit != 'true'
         env:
           # 일부 cosmetic SSG 경고(예: image broken 워닝, HTML minifier diagnostics)
           # 가 GitHub Actions에서 error로 승격되어 빌드를 차단하는 것을 막음.
@@ -66,6 +118,7 @@ jobs:
         run: npm run build -- --locale en
 
       - name: Build Korean website
+        if: steps.production.outputs.cache-hit != 'true'
         env:
           DOCUSAURUS_IGNORE_SSG_WARNINGS: 'true'
           DOCUSAURUS_URL: 'https://docs.robotis.com'
@@ -73,6 +126,10 @@ jobs:
           DOCUSAURUS_ON_BROKEN_LINKS: 'warn'
           NODE_OPTIONS: --max_old_space_size=4096
         run: npm run build -- --locale ko
+
+      - name: Share identical English and Korean media
+        if: steps.production.outputs.cache-hit != 'true'
+        run: node scripts/dedupe-media.mjs build
 
       - name: Check build output
         working-directory: ./
@@ -84,6 +141,32 @@ jobs:
           test -f docusaurus/build/interactive/omx/index.html
           test ! -d docusaurus/build/ko/interactive/omx
 
+      - name: Cache trusted production build
+        if: steps.production.outputs.cache-hit != 'true' && github.ref == 'refs/heads/main'
+        uses: actions/cache/save@v4
+        with:
+          path: docusaurus/build
+          key: production-site-v1-${{ runner.os }}-${{ steps.checkout.outputs.commit }}
+
+      - name: Report preview collection in PR
+        working-directory: ./
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 .github/scripts/pages-previews.py status pending "Collecting previews and uploading Pages artifact"
+
+      - name: Collect validated previews for open PRs
+        working-directory: ./
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 .github/scripts/pages-previews.py collect docusaurus/build preview-status.json
+
+      - name: Save comment status
+        uses: actions/upload-artifact@v4
+        with:
+          name: preview-status
+          path: preview-status.json
+          retention-days: 1
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -92,11 +175,97 @@ jobs:
   deploy:
     name: Deploy to GitHub Pages
     needs: build
+    permissions:
+      contents: read
+      pull-requests: read
+      statuses: write
+      pages: write
+      id-token: write
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - name: Checkout trusted status script
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.build.outputs.source_sha || github.sha }}
+          persist-credentials: false
+          sparse-checkout: .github/scripts
+
+      - name: Report Pages deployment in PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 .github/scripts/pages-previews.py status pending "Deploying preview to GitHub Pages"
+
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
+
+  comments:
+    name: Update PR preview comments
+    needs: [build, deploy]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+      pull-requests: write
+    steps:
+      - name: Checkout trusted comment script
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.build.outputs.source_sha || github.sha }}
+          persist-credentials: false
+          sparse-checkout: .github/scripts
+
+      - name: Download deployment status
+        uses: actions/download-artifact@v4
+        with:
+          name: preview-status
+
+      - name: Update comments after successful deployment
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PAGES_ORIGIN: https://docs.robotis.com
+        run: python3 .github/scripts/pages-previews.py comment preview-status.json
+
+  preview-status:
+    name: Report final preview result in PR
+    needs: [build, deploy, comments]
+    if: >-
+      always() && github.event_name == 'workflow_run' &&
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.head_repository.full_name == github.repository
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+      pull-requests: read
+      statuses: write
+    steps:
+      - name: Checkout trusted status script
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.build.outputs.source_sha || github.sha }}
+          persist-credentials: false
+          sparse-checkout: .github/scripts
+
+      - name: Download published preview status
+        if: needs.build.result == 'success'
+        uses: actions/download-artifact@v4
+        with:
+          name: preview-status
+
+      - name: Report result
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PREVIEW_STATE: ${{ needs.build.result == 'success' && needs.deploy.result == 'success' && needs.comments.result == 'success' && 'success' || 'failure' }}
+          PREVIEW_DESCRIPTION: ${{ needs.build.result == 'success' && needs.deploy.result == 'success' && needs.comments.result == 'success' && 'Preview deployed; page links are in the PR comment' || 'Preview pipeline failed or was cancelled; see deployment logs' }}
+        run: |
+          if [ -f preview-status.json ]; then
+            python3 .github/scripts/pages-previews.py status "$PREVIEW_STATE" "$PREVIEW_DESCRIPTION" preview-status.json
+          else
+            python3 .github/scripts/pages-previews.py status failure "Preview status unavailable; see deployment logs"
+          fi
