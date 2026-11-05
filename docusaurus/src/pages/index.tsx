@@ -9,7 +9,7 @@ import Heading from '@theme/Heading';
 import styles from './index.module.css';
 
 function HomeHero(): ReactNode {
-  const logoSrc = useBaseUrl('/img/robotis-docs.png');
+  const logoSrc = useBaseUrl('/img/robotis-docs.svg');
 
   return (
     <header className={styles.hero}>
