@@ -1,0 +1,94 @@
+# Getting Started
+
+Use this first-run checklist to check your AI Worker's power, connection, motion, cameras, and recording. Follow the steps in order; the linked guides provide model-specific instructions and pictures.
+
+## 1. Power On the Robot
+
+1. Place the robot in a clear workspace and check for loose cables or visible damage.
+2. Follow [Power On and Check Ports](/docs/systems/aiworker/quick_start_guide/setup_overview/hardware#power-on-and-check-ports) for your model.
+3. Locate the remote E-Stop and follow [Remote E-Stop Usage](/docs/systems/aiworker/quick_start_guide/setup_overview/hardware#remote-e-stop-usage) to release it and enable communication with button **A**. Keep it within reach during motion checks.
+
+**Check:** The robot powers on, the head lights turn on, and the remote responds as described in the guide.
+
+## 2. Connect and Open Cyclo Manager
+
+Connect your computer to the robot's network using the [connection instructions](/docs/systems/aiworker/quick_start_guide/setup_overview/software#accessing-the-robot-pc-via-ssh): use the same router for FFW-F1 / FFW-BG2, or the robot's Wi-Fi for FFW-F2 / FFW-SG2.
+
+Open the address for your model in a browser, replacing the example serial number with your robot's serial number:
+
+| Model | Example address |
+| --- | --- |
+| FFW-F1 | `http://ffw-SNPR48D0000.local:3000` |
+| FFW-F2 | `http://ffw-SNPR48C0000.local:3000` |
+| FFW-BG2 / FFW-SG2 | `http://ffw-SNPR48A0000.local:3000` |
+
+Select **Cyclo Manager**. If it has not been set up, follow [Cyclo Manager Installation](/docs/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/install) first.
+
+![Select Cyclo Manager on the app page](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/app_page.png)
+
+**Check:** The Cyclo Manager dashboard opens and shows the robot's containers.
+
+## 3. Start the Follower
+
+1. Start the `ai_worker` container if it is stopped.
+2. On the **System** page, start the **Zenoh Daemon** if it is not already running.
+3. Select **F1**, **F2**, **BG2**, or **SG2** under **Robot Type Selection**, then click **Robot Bringup**. Use the default launch parameters for this first check, with **Use Simulation** and **Use Mock Hardware** disabled.
+4. Keep clear of the robot while it moves to its initial position. Wait for initialization to finish before continuing.
+
+![Cyclo Manager System page with robot bringup controls and status](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/system_page_bringup.png)
+
+**Check:** Bringup stays running, the robot model and joint states update, and initialization completes without repeated errors in the logs.
+
+See [Bringup the Robot](/docs/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/bringup) for the controls and log viewer.
+
+## 4. Check Teleoperation
+
+1. Connect your **A1**, **A2**, or **LG2** using [Leader Setup](/docs/systems/aiworker/quick_start_guide/operation_guide/teleoperation#steps-for-teleoperation-setup-leader), then follow [How to Wear the Leader](/docs/systems/aiworker/quick_start_guide/operation_guide/teleoperation#how-to-wear-the-leader). For LG2, complete the joint-sticker alignment check before starting the Leader.
+2. Start only the Leader using its command under [Separate Launches](/docs/systems/aiworker/quick_start_guide/operation_guide/teleoperation#option-2-separate-launches). The Follower is already running from Step 3.
+3. With the standard **Default Controls**, push **both triggers forward together for 2 seconds**, then release both to start arm teleoperation. Keep the Leader steady while the Follower approaches its pose, then make small, slow movements.
+
+<img src="/img/systems/aiworker/quick_start_guide/operation_guide/teleoperation/push_trigger_ai_worker.gif" alt="Push both triggers forward to start or pause arm teleoperation" className="doc-img-50" />
+
+Check each function using the controls below. Refer to [Basic Operation](/docs/systems/aiworker/quick_start_guide/operation_guide/teleoperation#basic-operation) for the control diagrams.
+
+| Function | Action and expected result |
+| --- | --- |
+| Arms and wrists | Move each Leader arm slowly; the corresponding Follower arm and wrist follow. |
+| Grippers | Operate each trigger; the corresponding gripper opens and closes. |
+| Head and lift | Move the left joystick to check the head, and the right joystick to check the lift. |
+| Pause arms | Push both triggers forward together for 2 seconds, then release both; the arms hold their positions. Keep the joysticks centered, since they can still control the head, lift, or base. |
+| Mobile base — FFW-F2 / FFW-SG2 only | With the arms paused and the surrounding area clear, press both joystick buttons together and release before 0.5 seconds to select base control. Test a small translation and turn using the directions in Basic Operation, then center the joysticks. |
+
+If a check fails, stop the motion and use [Teleoperation Troubleshooting](/docs/systems/aiworker/quick_start_guide/operation_guide/teleoperation#troubleshooting) before continuing.
+
+## 5. Check Cameras and Recording
+
+Leave the Follower and Leader running. Open Cyclo Intelligence; if it is not running or connected to the robot, follow [Cyclo Intelligence Setup](/docs/systems/aiworker/imitation_learning/setup).
+
+1. On **Home**, select your robot type and click **Set Robot Type**: `f1`, `f2`, `ffw_bg2_rev4`, or `ffw_sg2_rev1`.
+2. Open **Record**. Confirm that the head and both wrist cameras show live images in **Camera Views**, and that robot data is arriving in **Topic Monitor**.
+
+   ![Live camera views on the Record page](/img/systems/_partials/cyclo_intelligence/record_area_camera_views.png)
+
+3. Fill in **Task Num**, **Task Name**, and **Task Instruction**. Set **Number of SubTasks** to `0` for this test, then click **Record Start**.
+4. Resume arm teleoperation, make a small movement, and click **Save Episode**. Pause the arms again and center the joysticks.
+
+   ![Save Episode button on the Record page](/img/systems/_partials/cyclo_intelligence/record_episode_save_discard.png)
+
+5. Open **Data Tools → Review Episodes**, select the saved task, and replay the episode.
+
+**Check:** The episode is saved and plays back with camera images and joint data.
+
+See [Data Recording](/docs/systems/aiworker/imitation_learning/data_recording) and [Review Episodes](/docs/systems/aiworker/imitation_learning/data_tools#review-episodes) for details. Training and inference are not required for this first check.
+
+## 6. Finish the Check
+
+Return the robot to a safe resting pose and follow [Stopping Teleoperation](/docs/systems/aiworker/quick_start_guide/operation_guide/teleoperation#stopping-teleoperation). Stop the Follower through Cyclo Manager if you started it there.
+
+Before finishing, confirm that you have checked:
+
+- Power and network connection
+- Cyclo Manager and Follower bringup
+- Both arms, wrists, grippers, head, and lift
+- Mobile-base movement, for FFW-F2 / FFW-SG2
+- All camera views and one saved recording
