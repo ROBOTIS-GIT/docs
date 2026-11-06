@@ -126,7 +126,7 @@ const config: Config = {
     navbar: {
       logo: {
         alt: 'ROBOTIS DOCS',
-        src: 'img/robotis-docs.png',
+        src: 'img/robotis-docs.svg',
         width: 182,
         height: 20,
       },
