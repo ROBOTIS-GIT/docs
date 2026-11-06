@@ -15,6 +15,7 @@ const cycloSidebar: SidebarsConfig[string] = [
       doc('software/cyclo/cyclo_lab', 'Cyclo Lab'),
       doc('software/cyclo/cyclo_control', 'Cyclo Control'),
       doc('software/cyclo/cyclo_app', 'Cyclo App'),
+      doc('software/cyclo/cyclo_manager', 'Cyclo Manager'),
       doc('software/cyclo/cyclo_flow', 'Cyclo Flow'),
       doc('software/cyclo/cyclo_os', 'Cyclo OS'),
     ],
