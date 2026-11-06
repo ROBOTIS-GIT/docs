@@ -48,15 +48,6 @@ const hx5d20Sidebar: SidebarsConfig[string] = [
     items: [
       {type: 'doc', id: 'systems/hx5_d20/resources/open_source', label: 'Open Source'},
       {type: 'doc', id: 'systems/hx5_d20/resources/release_notes', label: 'Release Notes'},
-      {
-        type: 'category',
-        label: 'Technical Story',
-        link: {type: 'doc', id: 'systems/hx5_d20/resources/technical_story/technical_story'},
-        collapsed: false,
-        items: [
-          {type: 'doc', id: 'systems/hx5_d20/resources/technical_story/tactile_feedback_grasping', label: 'Tactile Feedback Grasping'},
-        ],
-      },
     ],
   },
   {

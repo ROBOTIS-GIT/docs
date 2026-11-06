@@ -143,21 +143,6 @@ const aiworkerSidebar: SidebarsConfig[string] = [
     items: [
       {type: 'doc', id: 'systems/aiworker/resources/open_source', label: 'Open Source'},
       {type: 'doc', id: 'systems/aiworker/resources/release_notes', label: 'Release Notes'},
-      {
-        type: 'category',
-        label: 'Technical Story',
-        link: {type: 'doc', id: 'systems/aiworker/resources/technical_story/technical_story'},
-        collapsed: false,
-        items: [
-          {type: 'doc', id: 'systems/aiworker/resources/technical_story/isaac_gr00t', label: 'Isaac GR00T'},
-          {type: 'doc', id: 'systems/aiworker/resources/technical_story/nav2', label: 'Nav2'},
-          {type: 'doc', id: 'systems/aiworker/resources/technical_story/isaac_vr_teleoperation', label: 'Isaac VR Teleoperation'},
-          {type: 'doc', id: 'systems/aiworker/resources/technical_story/isaac_centerpose', label: 'Isaac ROS CenterPose'},
-          {type: 'doc', id: 'systems/aiworker/resources/technical_story/isaac_cumotion', label: 'Isaac ROS cuMotion'},
-          {type: 'doc', id: 'systems/aiworker/resources/technical_story/tactile_inference',label: 'Tactile ACT'},
-          {type: 'doc', id: 'systems/aiworker/resources/technical_story/codex',label: 'GPT-6 Astra'},
-        ],
-      },
     ],
   },
   {

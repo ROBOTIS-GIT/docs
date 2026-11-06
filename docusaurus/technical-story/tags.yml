@@ -1,0 +1,24 @@
+ai-sapiens:
+  label: AI Sapiens
+  permalink: /ai-sapiens
+  description: Technical stories about AI Sapiens.
+
+ai-worker:
+  label: AI Worker
+  permalink: /ai-worker
+  description: Technical stories about AI Worker.
+
+robotis-hand:
+  label: ROBOTIS Hand
+  permalink: /robotis-hand
+  description: Technical stories about ROBOTIS Hand.
+
+omx:
+  label: OMX
+  permalink: /omx
+  description: Technical stories about OMX.
+
+omy:
+  label: OMY
+  permalink: /omy
+  description: Technical stories about OMY.

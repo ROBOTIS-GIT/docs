@@ -1,15 +1,22 @@
 ---
 title: "Running Next-Generation Policies on OMY with LeRobot"
-description: "How the LeRobot environment and the ROS 2 Zenoh bridge run any policy on a ROBOTIS arm, shown with four 2026 VLA and world-action models on a long-horizon task."
-sidebar_label: "LeRobot Policies"
+description: "Run GR00T N1.7, MolmoAct2, VLA-JEPA, and FastWAM on OMY with LeRobot and a ROS 2 Zenoh bridge."
+slug: omy-vla-lerobotnative
+date: 2026-08-21
+tags: [omy]
+image: /img/systems/omy/resources/technical_story/vla_showdown/figures/system_architecture.png
 ---
+
+Run GR00T N1.7, MolmoAct2, VLA-JEPA, and FastWAM on OMY with LeRobot and a ROS 2 Zenoh bridge.
+
+{/* truncate */}
 
 {/* Figures/animations live in static/img/systems/omy/resources/technical_story/vla_showdown/. GIFs animate inline. */}
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Running Next-Generation Policies on OMY with LeRobot
+
 
 LeRobot has recently released four new 2026-generation Vision-Language-Action (VLA) and world models (**GR00T N1.7**, **MolmoAct2**, **VLA-JEPA**, and **FastWAM**) and trained them on the
 teleoperation-collected dataset, and ran them on a pick-and-organize long-horizon task on a OMY-F3M arm. This page covers the setup, how the models compare, and how they are deployed.

@@ -1,10 +1,15 @@
 ---
 title: "Pick-and-Place on OMY with GraspNet and Gemini"
-description: "How GraspNet-baseline point cloud grasp inference, combined with Gemini for object classification and free-text target grasping, drives OMY's pick-and-place."
-sidebar_label: "GraspNet"
+description: "Combine GraspNet point cloud grasp inference and Gemini object classification for pick-and-place on OMY."
+slug: omy-graspnet-pick-and-place
+date: 2026-08-21
+tags: [omy]
+image: /img/systems/omy/resources/technical_story/graspnet_pick_and_place/architecture.png
 ---
 
-# Pick-and-Place on OMY with GraspNet and Gemini
+Combine GraspNet point cloud grasp inference and Gemini object classification for pick-and-place on OMY.
+
+{/* truncate */}
 
 ### Full Demo
 
@@ -62,7 +67,7 @@ cd open_manipulator/docker
 ./container.sh enter
 ```
 
-You'll also need [Cyclo Control](../../advanced_features/cyclo_control) set up in the same container for Step 4 below, if you haven't already:
+You'll also need [Cyclo Control](/docs/systems/omy/advanced_features/cyclo_control) set up in the same container for Step 4 below, if you haven't already:
 
 ```bash
 cd ~/ros2_ws/src
@@ -82,7 +87,7 @@ To use the gripper, point Cyclo Control at the arm controller's default topic:
 sed -i 's|joint_command_topic: "/leader/joint_trajectory"|joint_command_topic: "/arm_controller/joint_trajectory"|g' ~/ros2_ws/src/cyclo_control/cyclo_motion_controller_ros/config/omy_config.yaml
 ```
 
-Zenoh setup (see [Zenoh Communication](../../quick_start_guide/zenoh_communication) for details):
+Zenoh setup (see [Zenoh Communication](/docs/systems/omy/quick_start_guide/zenoh_communication) for details):
 
 ```bash
 cat >> ~/.bashrc << 'EOF'
@@ -93,7 +98,7 @@ source ~/.bashrc
 
 Replace `robot_ip` with the robot's actual IP address.
 
-The Robot side doesn't need this branch — it just runs OMY's normal bringup, so follow the regular [Setup Guide](../../quick_start_guide/setup_guide) for that.
+The Robot side doesn't need this branch — it just runs OMY's normal bringup, so follow the regular [Setup Guide](/docs/systems/omy/quick_start_guide/setup_guide) for that.
 
 ### Step 2 — Set Up the Gemini API Key
 
