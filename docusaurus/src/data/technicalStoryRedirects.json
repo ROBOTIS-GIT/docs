@@ -1,0 +1,20 @@
+{
+  "/docs/systems/aisapiens/resources/technical_story": "/technical-story/tags/ai-sapiens",
+  "/docs/systems/aisapiens/resources/technical_story/building_humanoid_skills": "/technical-story/ai-sapiens-building-humanoid-skills",
+  "/docs/systems/aiworker/resources/technical_story": "/technical-story/tags/ai-worker",
+  "/docs/systems/aiworker/resources/technical_story/codex": "/technical-story/ai-worker-codex",
+  "/docs/systems/aiworker/resources/technical_story/isaac_centerpose": "/technical-story/ai-worker-isaac-centerpose",
+  "/docs/systems/aiworker/resources/technical_story/isaac_cumotion": "/technical-story/ai-worker-isaac-cumotion",
+  "/docs/systems/aiworker/resources/technical_story/isaac_gr00t": "/technical-story/ai-worker-isaac-gr00t",
+  "/docs/systems/aiworker/resources/technical_story/isaac_vr_teleoperation": "/technical-story/ai-worker-isaac-vr-teleoperation",
+  "/docs/systems/aiworker/resources/technical_story/nav2": "/technical-story/ai-worker-nav2",
+  "/docs/systems/aiworker/resources/technical_story/tactile_inference": "/technical-story/ai-worker-tactile-inference",
+  "/docs/systems/aiworker/resources/technical_story/tactile_inference_revision_1": "/technical-story/ai-worker-tactile-inference",
+  "/docs/systems/hx5_d20/resources/technical_story": "/technical-story/tags/robotis-hand",
+  "/docs/systems/hx5_d20/resources/technical_story/tactile_feedback_grasping": "/technical-story/robotis-hand-tactile-feedback-grasping",
+  "/docs/systems/omx/resources/technical_story": "/technical-story/tags/omx",
+  "/docs/systems/omx/resources/technical_story/drawing_tutorial": "/technical-story/omx-drawing-tutorial",
+  "/docs/systems/omy/resources/technical_story": "/technical-story/tags/omy",
+  "/docs/systems/omy/resources/technical_story/graspnet_pick_and_place": "/technical-story/omy-graspnet-pick-and-place",
+  "/docs/systems/omy/resources/technical_story/vla_lerobotnative": "/technical-story/omy-vla-lerobotnative"
+}

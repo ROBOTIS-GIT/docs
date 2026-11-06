@@ -123,15 +123,6 @@ const omxSidebar: SidebarsConfig[string] = [
     items: [
       {type: 'doc', id: 'systems/omx/resources/open_source', label: 'Open Source'},
       {type: 'doc', id: 'systems/omx/resources/release_notes', label: 'Release Notes'},
-      {
-        type: 'category',
-        label: 'Technical Story',
-        link: {type: 'doc', id: 'systems/omx/resources/technical_story/technical_story'},
-        collapsed: false,
-        items: [
-          {type: 'doc', id: 'systems/omx/resources/technical_story/drawing_tutorial', label: 'Drawing Tutorial'},
-        ],
-      },
     ],
   },
   {
