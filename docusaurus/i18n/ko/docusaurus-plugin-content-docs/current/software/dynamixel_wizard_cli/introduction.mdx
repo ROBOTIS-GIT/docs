@@ -1,0 +1,20 @@
+# DYNAMIXEL Wizard CLI
+
+DYNAMIXEL Wizard CLI는 GUI 사용이 제한된 환경(Ubuntu Server, Docker, 임베디드 보드 등)에서 DYNAMIXEL을 효율적으로 제어하기 위한 명령줄 인터페이스 도구입니다.
+
+## 주요 기능
+
+- **DYNAMIXEL 검색**: 연결된 모든 장치의 ID와 모델 자동 스캔
+- **컨트롤 테이블 제어**: 데이터 Read/Write (연속 읽기 지원)
+- **시스템 진단 및 관리**: 재부팅, 공장 초기화 및 에러 상태 모니터링
+- **펌웨어 업데이트**: 터미널 내 펌웨어 업데이트 지원
+- **자동화·스크립트**: 비대화형 실행, JSON Lines, 명시적 쓰기 권한 및 안정적인 종료 코드 지원. [스크립트 모드](./script_mode.mdx) 참고
+
+## 지원 사양
+
+| 항목 | 내용 |
+|------|------|
+| **배포 운영체제** | Windows 10/11, Linux Ubuntu 22.04/24.04 |
+| **하드웨어** | x86 PC, Jetson AGX Orin, Raspberry Pi 5 등 |
+| **프로토콜** | DYNAMIXEL [프로토콜 1.0](../../dxl/protocol/protocol1.mdx), [프로토콜 2.0](../../dxl/protocol/protocol2.mdx) |
+| **지원 제품** | X, P, Y, PRO 시리즈 등 ([DYNAMIXEL Wizard 2.0 지원 제품](../dynamixel_wizard_2_0/introduction.mdx#지원-제품-목록)과 동일) |

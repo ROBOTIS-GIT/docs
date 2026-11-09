@@ -1,0 +1,99 @@
+# 고급 기능
+
+CLI의 편의 기능과 로우 레벨 모니터링 기능을 활용하여 생산성을 극대화할 수 있습니다.
+
+## 통신 패킷 모니터링 (`-v`)
+
+`-v`(Verbose) 옵션을 사용하면 DYNAMIXEL 프로토콜에 따라 송수신되는 실제 **패킷 데이터**(Hex)를 확인할 수 있습니다. 통신 지연이나 프로토콜 오류 분석 시 매우 유용합니다.
+
+```text
+COM3, 57600bps > ping 1 -v
+TX: FF FF FD 00 01 03 00 01 19 4E
+RX: FF FF FD 00 01 07 00 55 00 B0 04 35 B7 54
+ID 1 : ACK
+[ID:001] XL330-M288, v53
+COM3, 57600bps >
+```
+
+## 지능형 제어 (Smart Interaction)
+
+**ID 기억**, **`set` 명령 생략**, **키워드 검색** 기능([기본 사용법](./basic_usage.mdx#사용자-편의-기능-및-주의사항) 참고)을 조합하면 더 쉽게 장치를 제어할 수 있습니다.
+
+### 대화형 항목 제어 (Interactive Item Selection)
+
+항목 이름만 입력하면 해당 항목의 현재 상태와 설정 가능한 옵션 리스트를 표시합니다.
+
+```text
+COM3, 57600bps > Torque Enable
+[INFO] Setting Torque Enable
+[ID:001] XL330-M288, v53
+64   : Torque Enable             :          1,       0x01 : ON
+------------------------------
+  0 : OFF
+  1 : ON
+------------------------------
+Choose item number (0-1, press Ctrl+C to cancel):1
+[Success] change Torque Enable to ON
+COM3, 57600bps >
+```
+
+### 키워드 기반 스마트 검색 (Smart Keyword Search)
+
+정확한 항목 이름을 몰라도 키워드만으로 관련 컨트롤 테이블 항목을 찾아줍니다.
+
+```text
+COM3, 57600bps > goal
+[INFO] Setting goal
+[ID:001] XL330-M288, v53
+------------------------------
+1 : Goal Current
+2 : Goal PWM
+3 : Goal Position
+4 : Goal Velocity
+------------------------------
+Choose item number (1-4, press Ctrl+C to cancel):3
+116  : Goal Position             :          0, 0x00000000 :     0.00 [°]
+Scale :  0.087891 [°]
+Input value (0-4095, press Ctrl+C to cancel):2048
+[Success] change Goal Position to 2048
+COM3, 57600bps >
+```
+
+## 전체 검색
+
+시리얼 포트가 열려 있지 않은 상태에서 `scan` 명령을 입력하면, 시스템의 모든 포트와 주요 통신 속도를 전수 조사하여 장치를 찾아냅니다. DYNAMIXEL의 ID나 통신 속도를 설정한 후 잊어버렸을 때 매우 유용합니다.
+
+```text
+>>> scan
+Select ports to scan:
+  0: All ports
+  1: COM3 (USB 직렬 장치)
+  2: COM4 (USB Serial Port)
+  3: COM7 (표준 Bluetooth에서 직렬 링크)
+  4: COM8 (표준 Bluetooth에서 직렬 링크)
+Enter port numbers (comma separated, e.g., 0 or 1,2,3): 1,2
+Scanning 2 port(s) for devices...
+Press Ctrl+C to cancel scan
+Scanning port: COM3 at 9600 bps...
+Scanning port: COM3 at 57600 bps...
+  [ID:001] XL330-M288, v53
+  [ID:004] XL330-M077, v53
+Scanning port: COM3 at 115200 bps...
+Scanning port: COM3 at 1000000 bps...
+Scanning port: COM3 at 2000000 bps...
+Scanning port: COM3 at 3000000 bps...
+Scanning port: COM3 at 4000000 bps...
+Scanning port: COM3 at 4500000 bps...
+Scanning port: COM3 at 6000000 bps...
+Scanning port: COM4 at 9600 bps...
+Scanning port: COM4 at 57600 bps...
+Scanning port: COM4 at 115200 bps...
+Scanning port: COM4 at 1000000 bps...
+Scanning port: COM4 at 2000000 bps...
+Scanning port: COM4 at 3000000 bps...
+Scanning port: COM4 at 4000000 bps...
+Scanning port: COM4 at 4500000 bps...
+Scanning port: COM4 at 6000000 bps...
+Scan completed
+>>>
+```
