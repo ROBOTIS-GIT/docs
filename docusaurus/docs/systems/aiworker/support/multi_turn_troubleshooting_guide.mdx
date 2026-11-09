@@ -70,8 +70,9 @@ Previously, the AI Worker repository provided noVNC compose directly. After Cycl
 [(How to Install Cyclo Manager)](/docs/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/install).
 
 1. In a web browser (such as Chrome), open the URL for your robot model. Replace `{serial-number}` with the last four digits of your robot’s serial number (e.g., `0000`):
-   - **BG2 / SG2**: `http://ffw-snpr48a{serial-number}.local:3000`
-   - **F1 / F2**: `http://ffw-snpr48c{serial-number}.local:3000`
+   - **FFW-BG2 / FFW-SG2**: `http://ffw-snpr48a{serial-number}.local:3000`
+   - **FFW-F1**: `http://ffw-snpr48d{serial-number}.local:3000`
+   - **FFW-F2**: `http://ffw-snpr48c{serial-number}.local:3000`
 2. Navigate to Cyclo Manager -> AI worker -> noVNC Page and click the NOVNC Server Start button on the top and reload the page(F5).
 
    ![noVNC Desktop](/img/systems/aiworker/support/troubleshooting_guide/novnc_desktop.png)
@@ -122,8 +123,9 @@ cyclo_manager up --pull
 
   In a web browser, open the URL for your robot model. Replace `{serial-number}` with the last four digits of your robot’s serial number (e.g., `0000`):
 
-  - **BG2 / SG2**: `http://ffw-snpr48a{serial-number}.local:8090`
-  - **F1 / F2**: `http://ffw-snpr48c{serial-number}.local:8090`
+  - **FFW-BG2 / FFW-SG2**: `http://ffw-snpr48a{serial-number}.local:8090`
+  - **FFW-F1**: `http://ffw-snpr48d{serial-number}.local:8090`
+  - **FFW-F2**: `http://ffw-snpr48c{serial-number}.local:8090`
 
   Click the Connect button and open DYNAMIXEL Wizard 2.0.
 
@@ -132,7 +134,7 @@ cyclo_manager up --pull
 ### 3. Configure Dynamixel Wizard 2.0 and run Scan
 In **Dynamixel Wizard 2.0**, configure the following and run **Scan**:  
     - Select protocol to scan: **Protocol 2.0**  
-    - Select port to scan: `/dev/ttyUSB4` **(When connecting an LG2 leader, scan ports from `ttyUSB4` to `ttyUSB6`)**  
+    - Select port to scan: `/dev/ttyUSB4` **(When connecting an LG2 leader, scan ports from `ttyUSB4` to `ttyUSB6`)**
     - Baud rate: **4000000 bps**  
 
 ![wizard options](/img/systems/aiworker/support/troubleshooting_guide/wizard_options_ai_worker.png)

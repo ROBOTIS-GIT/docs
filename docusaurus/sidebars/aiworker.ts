@@ -15,6 +15,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
   {
     type: 'category',
     label: 'Quick Start Guide',
+    link: {type: 'doc', id: 'systems/aiworker/getting_started'},
     collapsed: false,
     items: [
       {

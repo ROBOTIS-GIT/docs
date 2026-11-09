@@ -30,46 +30,46 @@ import TabItem from '@theme/TabItem';
 </div>
 
 <div style={{textAlign: 'center', fontStyle: 'italic', color: '#888', fontSize: '14px', marginBottom: '20px'}}>
-  This video demonstrates AI Worker SH5 VR and keyboard teleoperation in Isaac Sim, including pick-and-place and mobile manipulation in virtual environments.
+  This video demonstrates AI Worker FFW-SH5 VR and keyboard teleoperation in Isaac Sim, including pick-and-place and mobile manipulation in virtual environments.
 </div>
 
 ## 1. Overview
 
-This project implements a DDS-based bridge that connects external ROS 2 command topics to the AI Worker SH5 model running in Isaac Sim. It allows the SH5 control stack to be tested without immediate access to physical hardware and can be used to prepare virtual task environments for imitation learning toward Physical AI applications.
+This project implements a DDS-based bridge that connects external ROS 2 command topics to the AI Worker FFW-SH5 model running in Isaac Sim. It allows the FFW-SH5 control stack to be tested without immediate access to physical hardware and can be used to prepare virtual task environments for imitation learning toward Physical AI applications.
 
-The main script, `sh5_dds_bringup.py`, loads the SH5 model with `FFW_SH5.py`, receives `JointTrajectory` and `/cmd_vel` commands through `robotis_dds_python`, and applies them to the simulated SH5 articulation.
+The main script, `sh5_dds_bringup.py`, loads the FFW-SH5 model with `FFW_SH5.py`, receives `JointTrajectory` and `/cmd_vel` commands through `robotis_dds_python`, and applies them to the simulated FFW-SH5 articulation.
 
 The core idea is simple:
 
-1. ROS 2 controllers publish SH5 arm, hand, lift, and mobile base commands.
+1. ROS 2 controllers publish FFW-SH5 arm, hand, lift, and mobile base commands.
 2. `sh5_dds_bringup.py` receives the commands through the DDS SDK.
-3. The SH5 model moves in Isaac Sim and publishes state topics for pose checking.
+3. The FFW-SH5 model moves in Isaac Sim and publishes state topics for pose checking.
 
 ### Key Packages and File Structure
 
-The SH5 DDS bringup path mainly uses:
+The FFW-SH5 DDS bringup path mainly uses:
 
-* `sh5_dds_bringup.py`: Main Isaac Sim bridge for SH5 model loading, DDS communication, command application, and state publishing.
-* `FFW_SH5.py`: SH5 robot model configuration used by Isaac Lab/Isaac Sim to define the USD path, articulation properties, initial joint state, actuators, and joint limits.
+* `sh5_dds_bringup.py`: Main Isaac Sim bridge for FFW-SH5 model loading, DDS communication, command application, and state publishing.
+* `FFW_SH5.py`: FFW-SH5 robot model configuration used by Isaac Lab/Isaac Sim to define the USD path, articulation properties, initial joint state, actuators, and joint limits.
 * `swerve_drive.py`: Three-module swerve drive controller that converts `/cmd_vel` into steering positions and wheel velocities.
 * `environment.py`: Environment helper for loading the default NVIDIA Simple Warehouse USD scene.
 * `robotis_dds_python`: DDS SDK used to communicate with ROS 2-compatible topics through CycloneDDS.
 
 ## 2. System Architecture
 
-The SH5 DDS bringup system is organized around the following main components:
+The FFW-SH5 DDS bringup system is organized around the following main components:
 
 ![System Architecture](/img/systems/aiworker/resources/technical_story/isaac_vr_teleoperation/sh5_dds_bridge_system_architecture.jpg)
 
 * **VR Device**: Provides operator pose input to the external ROS 2 teleoperation stack.
-* **ROS 2 Controllers**: `cyclo_motion_controller` retargets the VR pose and publishes SH5 `JointTrajectory` commands for the arms, hands, and lift, while `ffw_teleop/mobile_teleop` publishes `/cmd_vel` for the swerve mobile base.
+* **ROS 2 Controllers**: `cyclo_motion_controller` retargets the VR pose and publishes FFW-SH5 `JointTrajectory` commands for the arms, hands, and lift, while `ffw_teleop/mobile_teleop` publishes `/cmd_vel` for the swerve mobile base.
 * **DDS SDK Layer**: Uses `robotis_dds_python` and CycloneDDS to exchange ROS 2-compatible messages with the Isaac Sim Python process.
-* **SH5 DDS Bringup**: Spawns the SH5 model and optional Simple Warehouse environment, receives command topics, maps joint names to Isaac Sim articulation joints, applies swerve drive targets, and publishes simulated `/joint_states` and `/tf`.
-* **Isaac Sim Visualization**: Shows the commanded SH5 motion and provides the main viewport for checking VR teleoperation behavior in simulation.
+* **FFW-SH5 DDS Bringup**: Spawns the FFW-SH5 model and optional Simple Warehouse environment, receives command topics, maps joint names to Isaac Sim articulation joints, applies swerve drive targets, and publishes simulated `/joint_states` and `/tf`.
+* **Isaac Sim Visualization**: Shows the commanded FFW-SH5 motion and provides the main viewport for checking VR teleoperation behavior in simulation.
 
 ## 3. Start Guide
 
-### Step 1: Launch the SH5 DDS Bringup in Isaac Sim
+### Step 1: Launch the FFW-SH5 DDS Bringup in Isaac Sim
 
 Enter the Cyclo Lab Docker container:
 
@@ -82,7 +82,7 @@ cd ~/cyclo_lab/docker
 ./container.sh enter
 ```
 
-Launch the SH5 model and DDS bridge:
+Launch the FFW-SH5 model and DDS bridge:
 
 ```bash
 python scripts/sim2real/bringup/sh5_dds_bringup.py \
@@ -191,13 +191,13 @@ ros2 run ffw_teleop mobile_teleop
 You can modify `mobile_teleop` to add custom key mappings and support freer base movement.
 :::
 
-## 4. SH5 Model Configuration
+## 4. FFW-SH5 Model Configuration
 
-The SH5 Isaac Sim model is defined in `FFW_SH5.py`. This configuration does more than load the USD file; it also adjusts physics properties so the hand and swerve base can move smoothly in simulation.
+The FFW-SH5 Isaac Sim model is defined in `FFW_SH5.py`. This configuration does more than load the USD file; it also adjusts physics properties so the hand and swerve base can move smoothly in simulation.
 
 ### Fingertip Material
 
-The real SH5 hand uses rubber-like fingertip surfaces for grip. To reflect this in simulation, the SH5 fingertips use a custom high-friction physics material that is bound to the finger collision prims.
+The real FFW-SH5 hand uses rubber-like fingertip surfaces for grip. To reflect this in simulation, the FFW-SH5 fingertips use a custom high-friction physics material that is bound to the finger collision prims.
 
 ```python
 _SH5_FINGER_TIP_MATERIAL = RigidBodyMaterialCfg(
@@ -229,9 +229,9 @@ This prevents the base collider from interfering with the wheel drive colliders.
 
 ## 5. Command Flow
 
-This architecture connects the external ROS 2 command interface to the Isaac Sim simulation runtime. The ROS 2 controllers generate robot commands outside Isaac Sim, while `sh5_dds_bringup.py` receives those topics through the DDS SDK and applies them to the SH5 model in the virtual environment.
+This architecture connects the external ROS 2 command interface to the Isaac Sim simulation runtime. The ROS 2 controllers generate robot commands outside Isaac Sim, while `sh5_dds_bringup.py` receives those topics through the DDS SDK and applies them to the FFW-SH5 model in the virtual environment.
 
-The important point is that Isaac Sim becomes a command target for the same ROS 2 control flow used outside the simulator. This allows the SH5 model to move in virtual scenes, test base motion and manipulation behavior, and publish `/joint_states` and `/tf` as state topics for initial pose checking and transform inspection.
+The important point is that Isaac Sim becomes a command target for the same ROS 2 control flow used outside the simulator. This allows the FFW-SH5 model to move in virtual scenes, test base motion and manipulation behavior, and publish `/joint_states` and `/tf` as state topics for initial pose checking and transform inspection.
 
 The overall command flow is:
 
@@ -309,8 +309,8 @@ The Isaac Sim bridge uses `robotis_dds_python` to communicate with ROS 2-compati
 | `/joint_states`                                                            |  Publish  | `JointState_`         | `sensor_msgs/msg/JointState`          | Simulated joint state for pose checking             |
 | `/tf`                                                                      |  Publish  | `TFMessage_`          | `tf2_msgs/msg/TFMessage`              | Simulated transform state for initial pose checking |
 
-For the `JointTrajectory_` command topics, the bridge reads the latest trajectory point, extracts `joint_names` and `positions`, and maps them to the matching SH5 articulation joints in Isaac Sim.
+For the `JointTrajectory_` command topics, the bridge reads the latest trajectory point, extracts `joint_names` and `positions`, and maps them to the matching FFW-SH5 articulation joints in Isaac Sim.
 
 For `/cmd_vel`, the bridge receives a `Twist_` message and uses `linear.x`, `linear.y`, and `angular.z` as the mobile base velocity command. These values are passed to the swerve drive controller, which generates steering joint targets and wheel velocity targets.
 
-For state checking, the bridge publishes `/joint_states` using `JointState_` and `/tf` using `TFMessage_`. The `/tf` message is built from multiple `TransformStamped_` messages, using `base_link` as the parent frame and each SH5 body link as a child frame. These topics are mainly used to inspect the initial arm pose and confirm the simulated robot transform state.
+For state checking, the bridge publishes `/joint_states` using `JointState_` and `/tf` using `TFMessage_`. The `/tf` message is built from multiple `TransformStamped_` messages, using `base_link` as the parent frame and each FFW-SH5 body link as a child frame. These topics are mainly used to inspect the initial arm pose and confirm the simulated robot transform state.

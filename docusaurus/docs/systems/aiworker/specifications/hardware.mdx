@@ -26,21 +26,23 @@ This comprehensive hardware design enables the AI Worker to perform complex mani
 
 ## Follower Specification
 
+In the FFW-F1 / FFW-F2 tables below, **bold text** highlights specifications that differ from FFW-BG2 / FFW-SG2, respectively.
+
 :::info
 **FFW-BG2** is sold in Korea only.
 **FFW-SH3P** is currently in preparation for release.
 :::
 
 <Tabs groupId="ai-worker-generation">
-<TabItem value="f1-f2" label="F1 / F2" default>
+<TabItem value="f1-f2" label="FFW-F1 / FFW-F2" default>
 
-| Properties                  | Specification (F2)                | Specification (F1)                |
+| Properties                  | Specification (FFW-F2)                | Specification (FFW-F1)                |
 |-----------------------------|----------------------------------------|----------------------------------------|
-| Dimensions (WxDxH)          | 625x602x1,626 (mm)<br />24.6x23.7x64 (inch)| 604x564x1,607 (mm)<br />23.8x22.2x63.2 (inch)|
+| Dimensions (WxDxH)          | **625x602x1,626 (mm)**<br />**24.6x23.7x64 (inch)**| 604x564x1,607 (mm)<br />23.8x22.2x63.2 (inch)|
 | Weight                      | 90 kg (198 lb)                         | 85 kg (187 lb)                         |
 | Actuator                    | Arm Joint 1 ~ 6: DYNAMIXEL-Y<br />Arm Joint 7: DYNAMIXEL-P<br />Head: DYNAMIXEL-X<br />Lift: DYNAMIXEL-Y<br />(see [DYNAMIXEL Details](#dynamixel-details))|Arm Joint 1 ~ 6: DYNAMIXEL-Y<br />Arm Joint 7: DYNAMIXEL-P<br />Head: DYNAMIXEL-X<br />Lift: DYNAMIXEL-Y<br />(see [DYNAMIXEL Details](#dynamixel-details)) |
 | Degrees of Freedom          | - Total: 25 DOF<br />- Arm: 7 DOF x 2<br />- Gripper: 1 DOF x 2<br />- Head: 2 DOF x 1<br />- Lift: 1 DOF x 1<br />- Mobile: 6 DOF | - Total: 19 DOF<br />- Arm: 7 DOF x 2<br />- Gripper: 1 DOF x 2<br />- Head: 2 DOF x 1<br />- Lift: 1 DOF x 1 |
-| Arm Reach                   | 640 mm (to wrist) + hand               | 640 mm (to wrist) + hand               |
+| Arm Reach                   | **640 mm (to wrist) + hand**           | **640 mm (to wrist) + hand**           |
 | Arm Payload<br />(Nominal)       | 3.0 kg (single arm)<br />6.0 kg (dual arm)  | 3.0 kg (single arm)<br />6.0 kg (dual arm)  |
 | Arm Payload¹<br />(Peak)          | 5.0 kg (single arm)<br />10.0 kg (dual arm) | 5.0 kg (single arm)<br />10.0 kg (dual arm) |
 | Joint Resolution            | -π(rad) ~ π(rad)<br />-262,144 ~ 262,144 (pulse/rev)| -π(rad) ~ π(rad)<br />-262,144 ~ 262,144 (pulse/rev)|
@@ -53,14 +55,14 @@ This comprehensive hardware design enables the AI Worker to perform complex mani
 | Exterior Materials          | Aluminum, Plastic                      | Aluminum, Plastic                      |
 | Sensor                      | RGBD Camera x 3, LiDAR x 2, IMU<br />(see [Camera Specification](#camera-specification))| RGBD Camera x 3<br />(see [Camera Specification](#camera-specification))|
 | Host Interface              | Ethernet<br />(up to 100 Mbps) | Ethernet<br />(Direct connection to a host PC)|
-| Internal Router             |[Archer AX23V](https://www.tp-link.com/kr/home-networking/wifi-router/archer-ax23v/#specifications)    | None                                 |
+| Internal Router             |**[Archer AX23V](https://www.tp-link.com/kr/home-networking/wifi-router/archer-ax23v/#specifications)**    | None                                 |
 | Internal Communications     | RS-485                                 | RS-485                                 |
 | Communication Baudrate      | 4 Mbps                                 | 4 Mbps                                 |
 | Computer                    | NVIDIA Jetson AGX Orin 32GB            | NVIDIA Jetson AGX Orin 32GB            |
 | Software                    | ROS 2 Support, Python, C++, Web UI     | ROS 2 Support, Python, C++, Web UI     |
 
 </TabItem>
-<TabItem value="sg2-bg2" label="SG2 / BG2">
+<TabItem value="sg2-bg2" label="FFW-SG2 / FFW-BG2">
 
 | Properties                  | Specification (FFW-SG2)                | Specification (FFW-BG2)                |
 |-----------------------------|----------------------------------------|----------------------------------------|
@@ -97,19 +99,19 @@ This comprehensive hardware design enables the AI Worker to perform complex mani
     <div className="model-comparison__item">
         <p className="model-comparison__title">A1 Model</p>
         <div className="model-comparison__media">
-            <img src="/img/systems/aiworker/specifications/hardware/model_a1.png" alt="FFW-A1 Model" className="model-comparison__image model-comparison__image--auto" />
+            <img src="/img/systems/aiworker/specifications/hardware/model_a1.png" alt="A1 Model" className="model-comparison__image model-comparison__image--auto" />
         </div>
         <div className="model-comparison__media model-comparison__media--full">
             <img src="/img/systems/aiworker/specifications/hardware/model_ffw_lh5.gif" alt="FFW-LH5 Model Animation" className="model-comparison__image model-comparison__image--full" />
         </div>
     </div>
     <div className="model-comparison__item">
-        <p className="model-comparison__title">FFW-LG2 Model</p>
+        <p className="model-comparison__title">LG2 Model</p>
         <div className="model-comparison__media">
-            <img src="/img/systems/aiworker/specifications/hardware/model_ffw_lg2.png" alt="FFW-LG2 Model" className="model-comparison__image model-comparison__image--auto" />
+            <img src="/img/systems/aiworker/specifications/hardware/model_ffw_lg2.png" alt="LG2 Model" className="model-comparison__image model-comparison__image--auto" />
         </div>
         <div className="model-comparison__media model-comparison__media--full">
-            <img src="/img/systems/aiworker/specifications/hardware/model_ffw_lg2.gif" alt="FFW-LG2 Model Animation" className="model-comparison__image model-comparison__image--full" />
+            <img src="/img/systems/aiworker/specifications/hardware/model_ffw_lg2.gif" alt="LG2 Model Animation" className="model-comparison__image model-comparison__image--full" />
         </div>
     </div>
 </div>
@@ -133,9 +135,9 @@ This comprehensive hardware design enables the AI Worker to perform complex mani
 | Software                 | ROS 2 Support, Python, C++              | ROS 2 Support, Python, C++             |
 
 </TabItem>
-<TabItem value="lg2-lh5" label="LG2 / LH5">
+<TabItem value="lg2-lh5" label="LG2 / FFW-LH5">
 
-| Properties               | Specification (FFW-LG2)                 | Specification (FFW-LH5)                |
+| Properties               | Specification (LG2)                 | Specification (FFW-LH5)                |
 |--------------------------|-----------------------------------------|----------------------------------------|
 | Dimensions (WxDxH)       | 598x146x705 (mm)<br />23.5x5.7x27.8 (inch)| 597x211x842 (mm)<br />23.5x8.3x33.2 (inch)|
 | Weight                   | 3 kg (6.6 lb)                           | 3 kg (6.6 lb)                          |
@@ -158,20 +160,20 @@ The AI Worker utilizes a multi-camera system for robust perception and manipulat
 A ZED Mini or Intel RealSense D455f camera is mounted on the head for wide-area environmental understanding and navigation.
 
 <Tabs groupId="ai-worker-generation">
-<TabItem value="f1-f2" label="F1 / F2" default>
+<TabItem value="f1-f2" label="FFW-F1 / FFW-F2" default>
 
 | Feature           | Specification                                      |
 |-------------------|----------------------------------------------------|
-| Model Name        | Intel RealSense D455f                               |
+| Model Name        | **Intel RealSense D455f**                           |
 | Type              | Stereoscopic RGBD with 6DoF IMU                    |
 | Key Use           | Wide-angle depth perception, SLAM, obstacle avoidance |
-| Field of View     | 86°(H) x 57°(V)                                   |
-| Max Resolution    | 1280 x 720                                        |
-| Depth Range       | 0.6m to 6m (23.62inch to 236.22inch)                  |
+| Field of View     | **86°(H) x 57°(V)**                               |
+| Max Resolution    | **1280 x 720**                                    |
+| Depth Range       | **0.6m to 6m (23.62inch to 236.22inch)**            |
 | More Information  | [Intel RealSense D455](https://www.intel.com/content/www/us/en/products/sku/233193/intel-realsense-depth-camera-d455f/specifications.html) |
 
 </TabItem>
-<TabItem value="sg2-bg2" label="SG2 / BG2">
+<TabItem value="sg2-bg2" label="FFW-SG2 / FFW-BG2">
 
 | Feature           | Specification                                      |
 |-------------------|----------------------------------------------------|
@@ -191,11 +193,11 @@ A ZED Mini or Intel RealSense D455f camera is mounted on the head for wide-area 
 Two Intel RealSense D405 cameras are integrated into the robot's hands/grippers, providing precise, short-range depth data for manipulation tasks.
 
 <Tabs groupId="ai-worker-generation">
-<TabItem value="f1-f2" label="F1 / F2" default>
+<TabItem value="f1-f2" label="FFW-F1 / FFW-F2" default>
 
 | Feature           | Specification                                      |
 |-------------------|----------------------------------------------------|
-| Model Name        | Intel RealSense Depth Module D401                               |
+| Model Name        | **Intel RealSense Depth Module D401**              |
 | Type              | Stereoscopic RGBD                                  |
 | Key Use           | Close-range depth sensing for grasping & manipulation |
 | Field of View     | 87°(H) × 58°(V)                                    |
@@ -204,7 +206,7 @@ Two Intel RealSense D405 cameras are integrated into the robot's hands/grippers,
 | More Information  | [Intel RealSense Depth Module D401 Details](https://www.intel.co.kr/content/www/kr/ko/products/sku/229219/intel-realsense-depth-module-d401/specifications.html) |
 
 </TabItem>
-<TabItem value="sg2-bg2" label="SG2 / BG2">
+<TabItem value="sg2-bg2" label="FFW-SG2 / FFW-BG2">
 
 | Feature           | Specification                                      |
 |-------------------|----------------------------------------------------|
@@ -250,10 +252,10 @@ Advanced finger actuators for the AI Worker are currently under development. The
 
 ## Joint Configuration and Nomenclature
 <Tabs groupId="ai-worker-generation">
-<TabItem value="f1-f2" label="F1 / F2" default>
+<TabItem value="f1-f2" label="FFW-F1 / FFW-F2" default>
 
 <a href="/img/systems/aiworker/specifications/hardware/joints_f1_f2.png" target="_blank">
-  <img src="/img/systems/aiworker/specifications/hardware/joints_f1_f2.png" alt="F1 / F2 joint configuration and nomenclature" width="100%" />
+  <img src="/img/systems/aiworker/specifications/hardware/joints_f1_f2.png" alt="FFW-F1 / FFW-F2 joint configuration and nomenclature" width="100%" />
 </a>
 
 | ID  | Joint Name            | Technical Name  | Range        |
@@ -274,15 +276,15 @@ Advanced finger actuators for the AI Worker are currently under development. The
 | 36  | Left Wrist Pitch      | arm_l_joint6    | -105° ~ 105° |
 | 37  | Left Wrist Roll       | arm_l_joint7    | -90° ~ 120°  |
 | 38  | Left Gripper          | gripper_l_joint1| 0 ~ 107.6 mm |
-| 61  | Head Pitch            | head_joint1     | -60° ~ 30°   |
+| 61  | Head Pitch            | head_joint1     | **-60° ~ 30°** |
 | 62  | Head Yaw              | head_joint2     | -20° ~ 20°   |
 | 81  | Lift                  | lift_joint      | 0 ~ 500 mm   |
 
 </TabItem>
-<TabItem value="sg2-bg2" label="SG2 / BG2">
+<TabItem value="sg2-bg2" label="FFW-SG2 / FFW-BG2">
 
 <a href="/img/systems/aiworker/specifications/hardware/joints.png" target="_blank">
-  <img src="/img/systems/aiworker/specifications/hardware/joints.png" alt="SG2 / BG2 joint configuration and nomenclature" width="100%" />
+  <img src="/img/systems/aiworker/specifications/hardware/joints.png" alt="FFW-SG2 / FFW-BG2 joint configuration and nomenclature" width="100%" />
 </a>
 
 | ID  | Joint Name            | Technical Name  | Range        |
@@ -330,7 +332,7 @@ The AI Worker's mobile base uses a swerve drive system that provides significant
 The AI Worker's swerve drive configuration consists of three wheels positioned in a triangular arrangement, each with independent steering and driving capabilities:
 
 <Tabs groupId="ai-worker-generation">
-<TabItem value="f1-f2" label="F1 / F2" default>
+<TabItem value="f1-f2" label="FFW-F1 / FFW-F2" default>
 
 | Part Name          | Technical Name   | Range        |
 |--------------------|------------------|--------------|
@@ -342,7 +344,7 @@ The AI Worker's swerve drive configuration consists of three wheels positioned i
 |Rear Wheel Drive    |rear_wheel_drive  | -360° ~ 360° |
 
 </TabItem>
-<TabItem value="sg2-bg2" label="SG2 / BG2">
+<TabItem value="sg2-bg2" label="FFW-SG2 / FFW-BG2">
 
 | Part Name          | Technical Name   | Range        |
 |--------------------|------------------|--------------|
@@ -360,12 +362,12 @@ The AI Worker's swerve drive configuration consists of three wheels positioned i
 The AI Worker utilizes various DYNAMIXEL actuators, each selected for specific joint applications:
 
 <Tabs groupId="ai-worker-generation">
-<TabItem value="f1-f2" label="F1 / F2" default>
+<TabItem value="f1-f2" label="FFW-F1 / FFW-F2" default>
 
 | Joints         | DYNAMIXEL Series | DYNAMIXEL Model                                                                   |
 |----------------|------------------|-----------------------------------------------------------------------------------|
-| Arm Joints 1 ~ 2 | DYNAMIXEL-Y      | [YM080-230-R099-RH](/docs/dxl/model_reference/y_series/ym080-230-r099-rh) |
-| Arm Joints 3 ~ 6 | DYNAMIXEL-Y      | [YM070-210-R099-RH](/docs/dxl/model_reference/y_series/ym070-210-r099-rh) |
+| **Arm Joints 1 ~ 2** | DYNAMIXEL-Y      | [YM080-230-R099-RH](/docs/dxl/model_reference/y_series/ym080-230-r099-rh) |
+| **Arm Joints 3 ~ 6** | DYNAMIXEL-Y      | **[YM070-210-R099-RH](/docs/dxl/model_reference/y_series/ym070-210-r099-rh)** |
 | Arm Joint 7    | DYNAMIXEL-P      | [PH42-020-S300-R](/docs/dxl/model_reference/p_series/ph42-020-s300-r)     |
 | Gripper        | Robot Hands      | [RH-P12-RN](/docs/systems/rh_p12_rn/)              |
 | Head Pitch     | DYNAMIXEL-X      | [XH540-V150-R](/docs/dxl/model_reference/x_series/xh_series/xh540-v150)             |
@@ -374,7 +376,7 @@ The AI Worker utilizes various DYNAMIXEL actuators, each selected for specific j
 | Wheel Steer    | DYNAMIXEL-Y      | [YM070-210-R051-RH](/docs/dxl/model_reference/y_series/ym070-210-r051-rh) |
 
 </TabItem>
-<TabItem value="sg2-bg2" label="SG2 / BG2">
+<TabItem value="sg2-bg2" label="FFW-SG2 / FFW-BG2">
 
 | Joints         | DYNAMIXEL Series | DYNAMIXEL Model                                                                   |
 |----------------|------------------|-----------------------------------------------------------------------------------|
@@ -395,23 +397,7 @@ For detailed specifications of each DYNAMIXEL model, please visit the [ROBOTIS D
 ## Dimension
 
 <Tabs groupId="ai-worker-model-dimension">
-<TabItem value="f2" label="F2" default>
-
-<a href="/img/systems/aiworker/specifications/hardware/dimension_f2.png" target="_blank">
-  <img src="/img/systems/aiworker/specifications/hardware/dimension_f2.png" alt="FFW-F2 dimensions" width="100%" />
-</a>
-
-#### **Drawing Files**
-
-| File Type | Download Link |
-|-----------|---------------|
-| PDF | [📄 Download PDF](https://www.robotis.com/service/download.php?no=2215) |
-| DWG | [💾 Download DWG](https://www.robotis.com/service/download.php?no=2232) |
-| STEP | [📦 Download STEP](https://www.robotis.com/service/download.php?no=2228) |
-
-</TabItem>
-
-<TabItem value="f1" label="F1">
+<TabItem value="f1" label="FFW-F1" default>
 
 <a href="/img/systems/aiworker/specifications/hardware/dimension_f1.png" target="_blank">
   <img src="/img/systems/aiworker/specifications/hardware/dimension_f1.png" alt="FFW-F1 dimensions" width="100%" />
@@ -426,11 +412,10 @@ For detailed specifications of each DYNAMIXEL model, please visit the [ROBOTIS D
 | STEP | [📦 Download STEP](https://www.robotis.com/service/download.php?no=2227) |
 
 </TabItem>
+<TabItem value="f2" label="FFW-F2">
 
-<TabItem value="sg2" label="SG2">
-
-<a href="/img/systems/aiworker/specifications/hardware/dimension_ffw_sg2.png" target="_blank">
-  <img src="/img/systems/aiworker/specifications/hardware/dimension_ffw_sg2.png" alt="FFW-SG2 dimensions" width="100%" />
+<a href="/img/systems/aiworker/specifications/hardware/dimension_f2.png" target="_blank">
+  <img src="/img/systems/aiworker/specifications/hardware/dimension_f2.png" alt="FFW-F2 dimensions" width="100%" />
 </a>
 
 #### **Drawing Files**
@@ -442,8 +427,21 @@ For detailed specifications of each DYNAMIXEL model, please visit the [ROBOTIS D
 | STEP | [📦 Download STEP](https://www.robotis.com/service/download.php?no=2228) |
 
 </TabItem>
+<TabItem value="a1" label="A1">
 
-<TabItem value="bg2" label="BG2">
+<a href="/img/systems/aiworker/specifications/hardware/dimension_a1.png" target="_blank">
+  <img src="/img/systems/aiworker/specifications/hardware/dimension_a1.png" alt="A1 dimensions" width="100%" />
+</a>
+
+</TabItem>
+<TabItem value="a2" label="A2">
+
+<a href="/img/systems/aiworker/specifications/hardware/dimension_a2.png" target="_blank">
+  <img src="/img/systems/aiworker/specifications/hardware/dimension_a2.png" alt="A2 dimensions" width="100%" />
+</a>
+
+</TabItem>
+<TabItem value="bg2" label="FFW-BG2">
 
 <a href="/img/systems/aiworker/specifications/hardware/dimension_ffw_bg2.png" target="_blank">
   <img src="/img/systems/aiworker/specifications/hardware/dimension_ffw_bg2.png" alt="FFW-BG2 dimensions" width="100%" />
@@ -458,27 +456,25 @@ For detailed specifications of each DYNAMIXEL model, please visit the [ROBOTIS D
 | STEP | [📦 Download STEP](https://www.robotis.com/service/download.php?no=2227) |
 
 </TabItem>
+<TabItem value="sg2" label="FFW-SG2">
 
-<TabItem value="a1" label="A1">
-
-<a href="/img/systems/aiworker/specifications/hardware/dimension_a1.png" target="_blank">
-  <img src="/img/systems/aiworker/specifications/hardware/dimension_a1.png" alt="A1 dimensions" width="100%" />
+<a href="/img/systems/aiworker/specifications/hardware/dimension_ffw_sg2.png" target="_blank">
+  <img src="/img/systems/aiworker/specifications/hardware/dimension_ffw_sg2.png" alt="FFW-SG2 dimensions" width="100%" />
 </a>
 
+#### **Drawing Files**
+
+| File Type | Download Link |
+|-----------|---------------|
+| PDF | [📄 Download PDF](https://www.robotis.com/service/download.php?no=2215) |
+| DWG | [💾 Download DWG](https://www.robotis.com/service/download.php?no=2232) |
+| STEP | [📦 Download STEP](https://www.robotis.com/service/download.php?no=2228) |
+
 </TabItem>
-
-<TabItem value="a2" label="A2">
-
-<a href="/img/systems/aiworker/specifications/hardware/dimension_a2.png" target="_blank">
-  <img src="/img/systems/aiworker/specifications/hardware/dimension_a2.png" alt="A2 dimensions" width="100%" />
-</a>
-
-</TabItem>
-
 <TabItem value="lg2" label="LG2">
 
 <a href="/img/systems/aiworker/specifications/hardware/dimension_ffw_lg2.png" target="_blank">
-  <img src="/img/systems/aiworker/specifications/hardware/dimension_ffw_lg2.png" alt="FFW-LG2 dimensions" width="100%" />
+  <img src="/img/systems/aiworker/specifications/hardware/dimension_ffw_lg2.png" alt="LG2 dimensions" width="100%" />
 </a>
 
 #### **Drawing Files**
@@ -488,18 +484,17 @@ For detailed specifications of each DYNAMIXEL model, please visit the [ROBOTIS D
 | STEP | [📄 Download STEP](https://www.robotis.com/service/download.php?no=2229) |
 
 </TabItem>
-
 </Tabs>
 
 ## Workspace
 
 <Tabs groupId="ai-worker-generation">
-<TabItem value="f1-f2" label="F1 / F2" default>
+<TabItem value="f1-f2" label="FFW-F1 / FFW-F2" default>
 
-The torso workspace is the same for both F1 and F2 models.
+The torso workspace is the same for both FFW-F1 and FFW-F2 models.
 
 <a href="/img/systems/aiworker/specifications/hardware/workspace_f1_f2.png" target="_blank">
-  <img src="/img/systems/aiworker/specifications/hardware/workspace_f1_f2.png" alt="F1 / F2 workspace" width="100%" />
+  <img src="/img/systems/aiworker/specifications/hardware/workspace_f1_f2.png" alt="FFW-F1 / FFW-F2 workspace" width="100%" />
 </a>
 
 #### **Drawing Files**
@@ -509,12 +504,12 @@ The torso workspace is the same for both F1 and F2 models.
 | PDF | [📄 Download PDF](https://www.robotis.com/service/download.php?no=2230) |
 
 </TabItem>
-<TabItem value="sg2-bg2" label="SG2 / BG2">
+<TabItem value="sg2-bg2" label="FFW-SG2 / FFW-BG2">
 
 The torso workspace is the same for both FFW-SG2 and FFW-BG2 models.
 
 <a href="/img/systems/aiworker/specifications/hardware/workspace.png" target="_blank">
-  <img src="/img/systems/aiworker/specifications/hardware/workspace.png" alt="SG2 / BG2 workspace" width="100%" />
+  <img src="/img/systems/aiworker/specifications/hardware/workspace.png" alt="FFW-SG2 / FFW-BG2 workspace" width="100%" />
 </a>
 
 #### **Drawing Files**

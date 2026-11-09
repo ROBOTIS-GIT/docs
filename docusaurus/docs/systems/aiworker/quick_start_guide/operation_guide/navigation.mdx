@@ -21,8 +21,19 @@ cd ~/ai_worker
 
 <RunZenohDaemon />
 
-<Tabs groupId="robot-type">
-<TabItem value="gripper-type" label="Gripper Type">
+<Tabs groupId="aiworker-robot-type">
+<TabItem value="f2" label="FFW-F2">
+
+```bash
+ros2 launch ffw_bringup ffw_f2_follower_ai.launch.py
+```
+Or use the shortcut:
+```bash
+ffw_f2_follower_ai
+```
+
+</TabItem>
+<TabItem value="sg2" label="FFW-SG2">
 
 Note that `sg2` model is used as an example.
 
@@ -35,7 +46,7 @@ ffw_sg2_follower_ai
 ```
 
 </TabItem>
-<TabItem value="hand-type" label="Hand Type">
+<TabItem value="sh5" label="FFW-SH5">
 
 Note that `sh5` model is used as an example.
 
@@ -45,17 +56,6 @@ ros2 launch ffw_bringup ffw_sh5_follower_ai.launch.py
 Or use the shortcut:
 ```bash
 ffw_sh5_follower_ai
-```
-
-</TabItem>
-<TabItem value="f2" label="F2 Type">
-
-```bash
-ros2 launch ffw_bringup ffw_f2_follower_ai.launch.py
-```
-Or use the shortcut:
-```bash
-ffw_f2_follower_ai
 ```
 
 </TabItem>
