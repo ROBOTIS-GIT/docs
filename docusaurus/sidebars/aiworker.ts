@@ -2,7 +2,6 @@ import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
 
 const aiworkerSidebar: SidebarsConfig[string] = [
   {type: 'doc', id: 'systems/aiworker/introduction', label: 'Introduction'},
-  {type: 'doc', id: 'systems/aiworker/getting_started', label: 'Getting Started'},
   {type: 'doc', id: 'systems/aiworker/video_gallery', label: 'Video Gallery'},
   {
     type: 'category',
@@ -13,6 +12,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
       {type: 'doc', id: 'systems/aiworker/specifications/software', label: 'Software', key: 'specifications-software'},
     ],
   },
+  {type: 'doc', id: 'systems/aiworker/getting_started', label: 'Getting Started'},
   {
     type: 'category',
     label: 'Quick Start Guide',
