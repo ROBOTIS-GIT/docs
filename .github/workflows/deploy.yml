@@ -203,7 +203,7 @@ jobs:
         uses: actions/deploy-pages@v4
 
   comments:
-    name: Update PR preview comments
+    name: Verify published previews and update PR comments
     needs: [build, deploy]
     runs-on: ubuntu-latest
     permissions:
@@ -223,7 +223,12 @@ jobs:
         with:
           name: preview-status
 
-      - name: Update comments after successful deployment
+      - name: Verify preview commits and representative pages on the live site
+        env:
+          PAGES_ORIGIN: https://docs.robotis.com
+        run: python3 .github/scripts/pages-previews.py verify preview-status.json
+
+      - name: Update comments after verified deployment
         env:
           GH_TOKEN: ${{ github.token }}
           PAGES_ORIGIN: https://docs.robotis.com
