@@ -12,10 +12,10 @@ const aiworkerSidebar: SidebarsConfig[string] = [
       {type: 'doc', id: 'systems/aiworker/specifications/software', label: 'Software', key: 'specifications-software'},
     ],
   },
-  {type: 'doc', id: 'systems/aiworker/getting_started', label: 'Getting Started'},
   {
     type: 'category',
     label: 'Quick Start Guide',
+    link: {type: 'doc', id: 'systems/aiworker/getting_started'},
     collapsed: false,
     items: [
       {
