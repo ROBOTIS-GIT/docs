@@ -3128,6 +3128,15 @@
   }
 }
 
+.aiworker-controller-table table {
+  font-size: 0.85rem;
+}
+
+.aiworker-controller-table th,
+.aiworker-controller-table td {
+  padding: 0.4rem 0.5rem;
+}
+
 .aiworker-guide-cards,
 .aiworker-guide-cards > li {
   scroll-margin-top: calc(var(--ifm-navbar-height) + 1rem);
