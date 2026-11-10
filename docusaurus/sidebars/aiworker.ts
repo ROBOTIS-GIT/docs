@@ -24,7 +24,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
         link: {type: 'doc', id: 'systems/aiworker/quick_start_guide/setup_overview/setup_overview'},
         collapsed: false,
         items: [
-          {type: 'doc', id: 'systems/aiworker/quick_start_guide/setup_overview/hardware', label: 'Hardware', key: 'setup-overview-hardware'},
+          {type: 'doc', id: 'systems/aiworker/quick_start_guide/setup_hardware', label: 'Hardware Setup', key: 'setup-overview-hardware'},
           {type: 'doc', id: 'systems/aiworker/quick_start_guide/setup_overview/software', label: 'Software', key: 'setup-overview-software'},
           {type: 'doc', id: 'systems/aiworker/quick_start_guide/setup_overview/zenoh_communication', label: 'Zenoh Communication', key: 'setup-overview-zenoh-communication'},
         ],
@@ -117,6 +117,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
       {type: 'doc', id: 'systems/aiworker/advanced_features/advanced_features', label: 'Overview', key: 'advanced-features-overview'},
       {type: 'doc', id: 'systems/aiworker/advanced_features/cyclo_control', label: 'Cyclo Control'},
       {type: 'doc', id: 'systems/aiworker/advanced_features/robotis_vuer', label: 'ROBOTIS Vuer'},
+      {type: 'doc', id: 'systems/aiworker/advanced_features/robotis_hand_installation', label: 'ROBOTIS Hand Installation'},
     ],
   },
   {
