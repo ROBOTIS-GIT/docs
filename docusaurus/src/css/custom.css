@@ -3127,3 +3127,52 @@
     padding: 1.25rem;
   }
 }
+
+.aiworker-guide-cards,
+.aiworker-guide-cards > li {
+  scroll-margin-top: calc(var(--ifm-navbar-height) + 1rem);
+}
+
+.aiworker-guide-cards a {
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1fr);
+  gap: 0.35rem 0.8rem;
+  align-content: start;
+  height: 100%;
+  padding: 1.1rem;
+  border-color: var(--ifm-color-emphasis-200);
+  border-radius: 14px;
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--ifm-color-primary) 4%, var(--ifm-background-surface-color)),
+    var(--ifm-background-surface-color));
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+  line-height: 1.45;
+}
+
+.aiworker-guide-cards .aiworker-guide-icon {
+  grid-row: 1 / span 2;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0.45rem;
+  border-radius: 9px;
+  background: color-mix(in srgb, var(--ifm-color-primary) 10%, transparent);
+  color: var(--ifm-color-primary);
+}
+
+.aiworker-guide-cards span {
+  grid-column: 2;
+  margin-top: 0;
+  color: color-mix(in srgb, var(--ifm-link-color) 75%, var(--ifm-font-color-base));
+  font-weight: 500;
+}
+
+.aiworker-guide-cards a:is(:hover, :focus-visible) {
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-heading-color);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.aiworker-guide-cards a:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 3px;
+}
