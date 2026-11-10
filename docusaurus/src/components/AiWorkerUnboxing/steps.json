@@ -1,0 +1,82 @@
+[
+  {
+    "id": "carton",
+    "label": "Cardboard box",
+    "description": "Film-wrapped cardboard packaging",
+    "source": "PR48_C01_carton_full_wrap.mp4",
+    "steps": [
+      {
+        "id": "cut-film-and-tape",
+        "title": "Cut and remove the outer film and tape",
+        "description": "Cut the outer film with scissors and remove it. Then cut and remove the packing tape around the cardboard box.",
+        "start": 66,
+        "end": 83.75,
+        "animation": "scissors"
+      },
+      {
+        "id": "open-and-unpack",
+        "title": "Open the box and take out the robot",
+        "description": "Open the front flaps, then move the robot out through the opening with its inner box and foam protection in place.",
+        "start": 50,
+        "end": 66
+      },
+      {
+        "id": "remove-accessories",
+        "title": "Take out the accessories",
+        "description": "Take the accessories box out of the recess in the rear foam protection.",
+        "start": 30,
+        "end": 42
+      },
+      {
+        "id": "remove-rear-foam",
+        "title": "Remove the rear and side foam",
+        "description": "Remove the large foam protection surrounding the rear and sides of the robot.",
+        "start": 22.75,
+        "end": 30
+      },
+      {
+        "id": "remove-inner-packaging",
+        "title": "Remove the inner packaging",
+        "description": "Remove the fixing tape, take away the front inner box, then remove the remaining front foam protection.",
+        "start": 3.5,
+        "end": 23
+      }
+    ]
+  },
+  {
+    "id": "wooden",
+    "label": "Wooden crate",
+    "description": "Upright wooden shipping crate",
+    "source": "PR48_C01_wooden_aircargo.mp4",
+    "steps": [
+      {
+        "id": "open-and-unpack",
+        "title": "Open the crate and take out the robot",
+        "description": "Start with the wooden crate upright. Open the front panel, then move the robot out with its inner box and foam protection in place.",
+        "start": 42,
+        "end": 58.75
+      },
+      {
+        "id": "remove-accessories",
+        "title": "Take out the accessories",
+        "description": "Take the accessories box out of the recess in the rear foam protection.",
+        "start": 30,
+        "end": 42
+      },
+      {
+        "id": "remove-rear-foam",
+        "title": "Remove the rear and side foam",
+        "description": "Remove the large foam protection surrounding the rear and sides of the robot.",
+        "start": 22.75,
+        "end": 30
+      },
+      {
+        "id": "remove-inner-packaging",
+        "title": "Remove the inner packaging",
+        "description": "Remove the fixing tape, take away the front inner box, then remove the remaining front foam protection.",
+        "start": 3.5,
+        "end": 23
+      }
+    ]
+  }
+]

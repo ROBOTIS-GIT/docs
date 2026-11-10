@@ -1,0 +1,187 @@
+.guide {
+  margin: 1.25rem 0 2rem;
+  padding: clamp(.875rem, 2vw, 1.5rem);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 1rem;
+  background: var(--ifm-background-surface-color);
+  box-shadow: var(--ifm-global-shadow-lw);
+  container-type: inline-size;
+}
+
+.packages {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .75rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.packageCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+  padding: 1rem;
+  border: 2px solid var(--ifm-color-emphasis-300);
+  border-radius: .65rem;
+  background: var(--ifm-background-surface-color);
+  color: var(--ifm-font-color-base);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.packageCard[aria-pressed='true'] {
+  border-color: var(--ifm-color-primary);
+  background: color-mix(in srgb, var(--ifm-color-primary) 7%, var(--ifm-background-surface-color));
+}
+
+.packageName {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.packageDescription {
+  font-size: .85rem;
+  color: var(--ifm-color-emphasis-700);
+  line-height: 1.5;
+}
+
+.packageCount {
+  font-size: .75rem;
+  font-weight: 600;
+  color: var(--ifm-color-primary);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 210px minmax(0, 1fr);
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.steps {
+  display: grid;
+  gap: .4rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.steps li {
+  margin: 0;
+}
+
+.stepButton {
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  width: 100%;
+  min-height: 48px;
+  padding: .55rem .65rem;
+  border: 1px solid transparent;
+  border-radius: .5rem;
+  background: transparent;
+  color: var(--ifm-font-color-base);
+  font: inherit;
+  font-size: .84rem;
+  line-height: 1.35;
+  text-align: left;
+  cursor: pointer;
+}
+
+.stepNumber {
+  display: grid;
+  place-items: center;
+  flex: 0 0 1.65rem;
+  height: 1.65rem;
+  border-radius: 50%;
+  background: var(--ifm-color-emphasis-200);
+  font-size: .75rem;
+  font-weight: 700;
+}
+
+.stepButton[aria-current='step'] {
+  border-color: var(--ifm-color-primary);
+  background: color-mix(in srgb, var(--ifm-color-primary) 7%, var(--ifm-background-surface-color));
+  font-weight: 600;
+}
+
+.stepButton[aria-current='step'] .stepNumber {
+  background: var(--ifm-color-primary);
+  color: var(--ifm-color-primary-contrast-foreground);
+}
+
+.packageCard:hover,
+.stepButton:hover {
+  border-color: var(--ifm-color-primary);
+}
+
+.guide button:focus-visible {
+  outline: 3px solid var(--ifm-color-primary);
+  outline-offset: 3px;
+}
+
+.detail {
+  min-width: 0;
+}
+
+.video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 35 / 22;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: .65rem;
+  background: #ecf1f5;
+}
+
+.instruction {
+  padding: 1rem 0;
+}
+
+.progress {
+  margin: 0 0 .45rem;
+  color: var(--ifm-color-emphasis-700);
+  font-size: .8rem;
+  font-weight: 600;
+}
+
+.title {
+  margin: 0 0 .5rem;
+  font-size: 1.15rem;
+}
+
+.description {
+  margin: 0;
+  font-size: .9rem;
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.navigation button {
+  min-height: 44px;
+}
+
+@container (max-width: 650px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+  }
+
+  .steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stepButton {
+    height: 100%;
+  }
+
+  .packageCard {
+    padding: .75rem;
+  }
+}
