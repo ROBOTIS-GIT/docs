@@ -1,0 +1,28 @@
+.card {
+  margin: 2rem 0;
+  padding: 1.75rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 14px;
+  background: var(--ifm-background-surface-color);
+}
+
+.card > h2:first-child {
+  margin-top: 0;
+  padding-bottom: .75rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+  font-size: 2rem;
+}
+
+.card > h3 {
+  font-size: 1.5rem;
+}
+
+.card > :last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 600px) {
+  .card {
+    padding: 1rem;
+  }
+}
