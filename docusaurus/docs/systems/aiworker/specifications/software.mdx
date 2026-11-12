@@ -1,10 +1,16 @@
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SectionCard from '@site/src/components/SectionCard';
+import MiddlewareAnchor from '@site/src/components/MiddlewareAnchor';
+
+<MiddlewareAnchor />
 
 # Software Architecture
 
 This guide maps the AI Worker software environment: the robot PC, SSD storage, source repositories, Docker containers, startup services, and ROS 2 communication and control.
 
+
+<SectionCard>
 
 ## System Overview
 
@@ -27,6 +33,10 @@ flowchart TB
   Worker <--> Hardware
 ```
 
+</SectionCard>
+
+<SectionCard>
+
 ## Host Environment
 
 The **host OS** runs on the Jetson. The **container OS and ROS workspace** belong to each Docker image. Keep these environments separate when checking versions or installing development dependencies.
@@ -39,7 +49,6 @@ The **host OS** runs on the Jetson. The **container OS and ROS workspace** belon
 | JetPack | 6.2 |
 | Jetson Linux | 36.4.3 |
 | Host OS | Ubuntu 22.04-based root filesystem |
-| CUDA included with JetPack | 12.6 |
 
 </TabItem>
 <TabItem value="f1-f2" label="FFW-F1 / FFW-F2">
@@ -49,10 +58,13 @@ The **host OS** runs on the Jetson. The **container OS and ROS workspace** belon
 | JetPack | 7.2.1 |
 | Jetson Linux | 39.2.1 |
 | Host OS | Ubuntu 24.04-based root filesystem |
-| CUDA included with JetPack | 13.2.2 |
 
 </TabItem>
 </Tabs>
+
+</SectionCard>
+
+<SectionCard>
 
 ## Storage & Directory Layout
 
@@ -72,6 +84,9 @@ These storage relationships serve different purposes:
 
 The following map shows the robot's repository locations and their host bind mounts.
 
+- [ai_worker](https://github.com/ROBOTIS-GIT/ai_worker): Robot control and teleoperation software based on `ros2_control`.
+- [cyclo_intelligence](https://github.com/ROBOTIS-GIT/cyclo_intelligence): Data recording, preparation, training guidance, and model inference.
+
 ```text
 /mnt/ssd/
 ├── ai_worker/                     AI Worker repository
@@ -84,16 +99,29 @@ The following map shows the robot's repository locations and their host bind mou
 
 ### Container Volume Map
 
-Paths below are resolved relative to the host checkouts shown above. `~` denotes the account that owns the checkout.
+Paths below are relative to the host checkouts shown above. `~` denotes the account that owns the checkout. Actual checkout paths may differ if the containers were started from another location.
 
-| Host path | Container path |
-| --- | --- |
-| `~/ai_worker` | `/root/ros2_ws/src/ai_worker` |
-| `~/ai_worker/docker/workspace` | `/workspace` |
-| `~/cyclo_intelligence` | `/root/ros2_ws/src/cyclo_intelligence` |
-| `~/cyclo_intelligence/docker/workspace` | `/workspace` |
+<div className="aiworker-volume-table">
 
-The two `/workspace` paths belong to different host directories. A file in the `ai_worker` workspace is not automatically in the Cyclo Intelligence workspace. Host-backed data remains when a container is recreated as long as the host files are retained; files stored only in a container's writable layer do not survive its removal.
+| Host path | Container path | Purpose |
+| --- | --- | --- |
+| `~/ai_worker` | `/root/ros2_ws/src/ai_worker` | Robot source code |
+| `~/ai_worker/docker/workspace` | `/workspace` | Robot workspace files |
+| `~/cyclo_intelligence` | `/root/ros2_ws/src/cyclo_intelligence` | Cyclo Intelligence source code |
+| `~/cyclo_intelligence/docker/workspace` | `/workspace` | Cyclo Intelligence workspace files |
+| `~/cyclo_intelligence/docker/huggingface` | `/root/.cache/huggingface` | Hugging Face cache |
+| `/dev` | `/dev` | Access to hardware devices |
+| `/dev/shm` | `/dev/shm` | Shared memory for processes |
+| `/tmp/.X11-unix` | `/tmp/.X11-unix` | Connect GUI apps to the X11 server |
+| `/tmp/.docker.xauth` | `/tmp/.docker.xauth` | Authentication for the X11 server |
+
+</div>
+
+The two `/workspace` paths belong to different host directories. A file in the `ai_worker` workspace is not automatically in the Cyclo Intelligence workspace.
+
+:::warning
+Files stored only in a container's writable layer are lost when the container is removed. Store important files in host-mounted directories. Host files remain available when the container is recreated as long as those files are retained.
+:::
 
 <details>
 <summary>Inspect mounts and data locations</summary>
@@ -112,6 +140,10 @@ docker inspect --format '{{.Name}} {{json .Mounts}}' ai_worker cyclo_intelligenc
 For the complete device, display, ZED, configuration, and SDK mounts, inspect the reviewed [robot Compose file](https://github.com/ROBOTIS-GIT/ai_worker/blob/7c6605c6f006e840566c8db4fecaddda47e9a786/docker/docker-compose.yml) and [learning Compose file](https://github.com/ROBOTIS-GIT/cyclo_intelligence/blob/11800ba49ff2f52342ba520138759a9e8bf56153/docker/docker-compose.yml).
 
 </details>
+
+</SectionCard>
+
+<SectionCard>
 
 ## Containers & Services
 
@@ -136,6 +168,10 @@ For the complete device, display, ZED, configuration, and SDK mounts, inspect th
 | noVNC | TCP `8090` | Optional GUI tools |
 | Zenoh router | TCP `7447` in the external-PC connection example | Cross-host ROS communication |
 | Container/host agents | Unix sockets under `/var/run/robotis/agent_sockets` | Local management; not a separate browser port |
+
+</SectionCard>
+
+<SectionCard>
 
 ## Control Flow
 
@@ -262,6 +298,10 @@ This is an illustrative extract with a single `/**` parameter scope. It omits ot
 
 Joint limits, controller constraints, and hardware communication error handling depend on the selected robot configuration and software version. These mechanisms do not replace the robot's emergency stop or the operating precautions in [Setup Hardware](/docs/systems/aiworker/quick_start_guide/setup_hardware#remote-e-stop-usage).
 
+</SectionCard>
+
+<SectionCard>
+
 ## Middleware
 
 <div className="zenoh-intro">
@@ -294,81 +334,9 @@ Zenoh is a pub/sub/query protocol designed to move data efficiently across local
 
 ### External PC Control
 
-<details>
-<summary>Connect an external ROS 2 container to the robot's Zenoh router</summary>
+An external PC can communicate with the robot's ROS 2 nodes by connecting its Zenoh client to the robot's Zenoh router. For connection settings and verification, see [External ROS 2 Communication](/docs/systems/aiworker/quick_start_guide/development_guide/external_ros2_communication).
 
-To control AI Worker from an external PC, set up the AI Worker Docker container on the external PC. Then connect the container's Zenoh client to the Zenoh router running on the robot.
-
-Inside the external PC's AI Worker container, set the following environment variable:
-
-```bash
-export ZENOH_CONFIG_OVERRIDE='transport/shared_memory/enabled=true;mode="client";connect/endpoints=["tcp/robot_ip:7447"]'
-```
-
-Replace `robot_ip` with the real IP address of the AI Worker robot. Use the robot's Wi-Fi IP address when both devices are connected over Wi-Fi, or use the robot's LAN IP address when the external PC is connected through Ethernet.
-
-:::info[Find the robot IP address]
-Replace `SNPR48A0000` with the serial number printed on the back of the robot body.
-
-**Option 1: Resolve the mDNS hostname**
-
-AI Worker advertises itself as `ffw-SNPR48A0000.local`. From your external PC, run:
-
-```bash
-ping -c 1 ffw-SNPR48A0000.local
-```
-
-Use the IP address shown in the response (for example `192.168.6.2`).
-
-**Option 2: Check the IP on the robot**
-
-SSH into the robot and run:
-
-```bash
-ssh robotis@ffw-SNPR48A0000.local
-hostname -I
-```
-
-Use the address on the same network as your external PC (Wi-Fi or LAN, depending on how you connected).
-
-For connection setup details, see [Bringup](/docs/systems/aiworker/quick_start_guide/bringup#accessing-the-robot-pc-via-ssh).
-:::
-
-For example, if the robot's IP address is `192.168.0.42`:
-
-```bash
-export ZENOH_CONFIG_OVERRIDE='transport/shared_memory/enabled=true;mode="client";connect/endpoints=["tcp/192.168.0.42:7447"]'
-```
-
-The AI Worker Docker image enables Zenoh RMW by default. You can check or manually set it with:
-
-```bash
-export RMW_IMPLEMENTATION=rmw_zenoh_cpp
-```
-
-Keep `ROS_DOMAIN_ID` consistent across terminals and containers when the AI Worker environment expects a specific ROS domain. Even though Zenoh does not rely on DDS multicast discovery, the ROS 2 process environment should remain consistent across the robot-side stack.
-
-</details>
-
-#### Quick Checks
-
-Use these commands inside the AI Worker container to confirm that Zenoh RMW is active and that the ROS graph is visible:
-
-```bash
-echo $RMW_IMPLEMENTATION
-echo $ZENOH_CONFIG_OVERRIDE
-ros2 node list
-ros2 topic list
-ros2 topic echo /joint_states
-```
-
-If topics appear but messages are not flowing, check that:
-
-- `ZENOH_CONFIG_OVERRIDE` uses the robot's real IP address.
-- The robot and external PC are on the same reachable network.
-- Port `7447` is reachable from the external PC.
-- The AI Worker container is running with the expected network configuration.
-- Old ROS 2 daemon state has been stopped with `ros2 daemon stop`.
+<span id="quick-checks" />
 
 ### Using rmw_fastrtps_cpp
 
@@ -403,3 +371,5 @@ docker restart ai_worker
 If you use cyclo intelligence, you also need to update `RMW_IMPLEMENTATION` in `~/.bashrc` inside the cyclo intelligence container.
 
 </details>
+
+</SectionCard>

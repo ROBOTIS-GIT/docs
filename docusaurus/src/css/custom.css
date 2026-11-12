@@ -3137,6 +3137,20 @@
   padding: 0.4rem 0.5rem;
 }
 
+.aiworker-volume-table {
+  overflow-x: auto;
+}
+
+.aiworker-volume-table table {
+  font-size: 0.75rem;
+}
+
+.aiworker-volume-table th,
+.aiworker-volume-table td {
+  padding: 0.4rem 0.35rem;
+  white-space: nowrap;
+}
+
 .aiworker-guide-cards,
 .aiworker-guide-cards > li {
   scroll-margin-top: calc(var(--ifm-navbar-height) + 1rem);

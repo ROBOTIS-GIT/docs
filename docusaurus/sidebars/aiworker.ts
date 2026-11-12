@@ -26,6 +26,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
           {type: 'doc', id: 'systems/aiworker/quick_start_guide/development_guide/container_management', label: 'Container Management'},
           {type: 'doc', id: 'systems/aiworker/quick_start_guide/development_guide/software_update', label: 'Software Update'},
           {type: 'doc', id: 'systems/aiworker/quick_start_guide/development_guide/cli_bringup_teleoperation', label: 'CLI Bringup & Teleoperation'},
+          {type: 'doc', id: 'systems/aiworker/quick_start_guide/development_guide/external_ros2_communication', label: 'External ROS 2 Communication'},
         ],
       },
       {
