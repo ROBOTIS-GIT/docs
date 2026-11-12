@@ -1,0 +1,601 @@
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import RunZenohDaemon from '@site/docs/systems/aiworker/_partials/run_zenoh_daemon.mdx';
+
+# Development Guide
+
+Use this guide to access the robot PC and container, or prepare a development environment on a user PC.
+
+:::info
+The robot PC inside AI Worker is already pre-configured. Follow this guide when you want to access the robot remotely or set up a development environment on your own machine.
+:::
+
+## Accessing the Robot PC via SSH
+
+AI Worker supports mDNS, allowing you to connect without manually checking the IP address.
+
+<Tabs groupId="aiworker-robot-type">
+<TabItem value="f1" label="FFW-F1">
+
+1. Connect the SBC (robot PC) to the same network as your user PC using a LAN cable.
+2. On your user PC terminal, run:
+
+   ```bash
+   ssh robotis@ffw-SNPR48D0000.local
+   ```
+
+Replace `SNPR48D0000` with the serial number printed on the back of the robot body.
+
+<p><img src="/img/systems/aiworker/quick_start_guide/setup_overview/software/serial_number_f1.png" alt="Illustrative serial-number example: SNPR48D0000" style={{width: '401px', maxWidth: '100%'}} /></p>
+
+3. When prompted, enter the system password `root`.
+
+If hostname-based access is not available, use one of the following methods:
+
+1. Connect both your user PC and the AI Worker LAN port to the same router using Ethernet cables, then try SSH again.
+2. Connect a monitor to the Orin via HDMI, log in locally, and check the current IP address before connecting through SSH.
+
+</TabItem>
+<TabItem value="f2" label="FFW-F2">
+
+1. Check the serial number printed on the back of the robot body. In this example, the number to identify is **0000**.
+
+<p><img src="/img/systems/aiworker/quick_start_guide/setup_overview/software/serial_number_f1_f2.png" alt="Serial-number example: SNPR48C0000" style={{width: '401px', maxWidth: '100%'}} /></p>
+
+2. Connect to the Wi-Fi network named **AIWORKER(Number)**. In this example, the network name is **AIWORKER0000**.
+   - The Wi-Fi password is identical to the network name (SSID).
+3. On your user PC terminal, run:
+
+   ```bash
+   ssh robotis@ffw-SNPR48C0000.local
+   ```
+
+Replace `SNPR48C0000` with the serial number printed on the back of the robot body.
+
+4. When prompted, enter the system password `root`.
+
+</TabItem>
+<TabItem value="bg2" label="FFW-BG2">
+
+1. Connect the SBC (robot PC) to the same network as your user PC using a LAN cable.
+2. On your user PC terminal, run:
+
+   ```bash
+   ssh robotis@ffw-SNPR48A0000.local
+   ```
+
+Replace `SNPR48A0000` with the serial number printed on the back of the robot body.
+
+<p><img src="/img/systems/aiworker/quick_start_guide/setup_overview/software/serial_number.png" alt="Serial-number example: SNPR48A0000" style={{width: '401px', maxWidth: '100%'}} /></p>
+
+3. When prompted, enter the system password `root`.
+
+If hostname-based access is not available, use one of the following methods:
+
+1. Connect both your user PC and the AI Worker LAN port to the same router using Ethernet cables, then try SSH again.
+2. Connect a monitor to the Orin via HDMI, log in locally, and check the current IP address before connecting through SSH.
+
+</TabItem>
+<TabItem value="sg2" label="FFW-SG2">
+
+1. Check the serial number printed on the back of the robot body. In this example, the number to identify is **0000**.
+
+<p><img src="/img/systems/aiworker/quick_start_guide/setup_overview/software/serial_number.png" alt="Serial-number example: SNPR48A0000" style={{width: '401px', maxWidth: '100%'}} /></p>
+
+2. Connect to the Wi-Fi network named **AIWORKER(Number)**. In this example, the network name is **AIWORKER0000**.
+   - The Wi-Fi password is identical to the network name (SSID).
+3. On your user PC terminal, run:
+
+   ```bash
+   ssh robotis@ffw-SNPR48A0000.local
+   ```
+
+Replace `SNPR48A0000` with the serial number printed on the back of the robot body.
+
+4. When prompted, enter the system password `root`.
+
+</TabItem>
+</Tabs>
+
+:::info
+Both the Wi-Fi password and the system password are initially configured by ROBOTIS. Change them if required by your security policy.
+:::
+
+## Development Environment Overview
+
+AI Worker relies on two main repositories:
+
+- [ai_worker](https://github.com/ROBOTIS-GIT/ai_worker): Provides support for controlling DYNAMIXEL actuators using `ros2_control` and enables teleoperation functionality.
+- [cyclo_intelligence](https://github.com/ROBOTIS-GIT/cyclo_intelligence): Provides the current workflow for data recording, preparation, training guidance, and model inference.
+
+For the current learning workflow, see [Imitation Learning Setup](/docs/systems/aiworker/imitation_learning/setup). The previous Physical AI Tools workflow is documented separately in [Legacy: Physical AI Tools](/docs/software/cyclo/intelligence/legacy/physical_ai_tools/imitation_learning); it does not include FFW-F1/FFW-F2 configurations.
+
+:::danger
+⚠️ **On the AI Worker Orin**: Do not run `apt upgrade`. Upgrading system packages may create conflicts and break robot functionality.
+:::
+
+## Prerequisites
+
+- **Operating System**: Ubuntu environment
+  - The AI WORKER software runs inside a Docker container based on `Ubuntu 24.04 (ROS 2 Jazzy)`, so the host Ubuntu version on the user PC does not need to match exactly.
+- **Container Engine**: Docker Engine
+  - Follow the [official Docker installation guide](https://docs.docker.com/engine/install/ubuntu/)
+  - Complete the [post-installation steps](https://docs.docker.com/engine/install/linux-postinstall/)
+  - Required steps:
+    1. Install Docker Engine using the repository method
+    2. Add your user to the `docker` group
+    3. Enable Docker to start on boot
+    4. Verify the installation with `docker run hello-world`
+- **Version Control**: Git
+- **Graphics Support**
+  - **NVIDIA Graphics Driver**
+    - (In Docker-based environments, the container is generally isolated from the host system. However, the graphics driver version on the host can have a direct impact on performance and compatibility—especially when using GPU acceleration. We recommend using the following driver version(s) for best results)
+    - Install `nvidia-driver-570-server-open` for `CUDA 12.8`
+    - Verify the driver with `nvidia-smi`
+  - **NVIDIA Container Toolkit**
+    - Follow the [official installation guide](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html#with-apt-ubuntu-debian)
+    - Required steps:
+      1. Configure the production repository
+      2. Install `nvidia-container-toolkit`
+      3. Configure Docker runtime using `nvidia-ctk`
+      4. Restart the Docker daemon
+    - For more details, see the [Docker configuration guide](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html#configuring-docker)
+
+## Configuration
+
+### Docker Volume Management
+
+The Docker container uses the following volume mappings for data persistence and hardware access:
+
+```yaml
+volumes:
+  # Hardware and System Access
+  - /dev:/dev
+  - /tmp/.X11-unix:/tmp/.X11-unix:rw
+  - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
+
+  # Development and Data Storage
+  - ./workspace:/workspace
+  - ../:/root/ros2_ws/src/ai_worker/
+  - ./lerobot/outputs:/root/ros2_ws/src/physical_ai_tools/lerobot/outputs
+  - ./huggingface:/root/.cache/huggingface
+```
+
+:::warning
+Container data is volatile and will be lost when the container is removed. Store important files in mapped volumes such as `/workspace`, the mapped source directory, model output directories, and the Hugging Face cache.
+:::
+
+### Container Management
+
+1. Clone the repository:
+
+   ```bash
+   cd ~/  # or your preferred directory
+   git clone -b jazzy https://github.com/ROBOTIS-GIT/ai_worker.git
+   cd ai_worker
+   ```
+
+2. Use the `container.sh` helper script to manage the container:
+
+   ```bash
+   ./docker/container.sh start
+   ./docker/container.sh enter
+   ./docker/container.sh stop
+   ```
+
+### Docker Command Guide
+
+The `container.sh` script provides the following commands:
+
+- `help`: Display the help message.
+- `start`: Start the AI Worker container.
+- `enter`: Enter the running container.
+- `stop`: Stop the AI Worker container.
+
+Example usage:
+
+```bash
+./docker/container.sh help
+./docker/container.sh start
+./docker/container.sh enter
+./docker/container.sh stop
+```
+
+## Software Update Guide
+
+Follow these steps to update the AI Worker or Physical AI Tools packages:
+
+1. Move to the package directory:
+
+   ```bash
+   cd /path/to/ai_worker_package
+   # or
+   cd /path/to/physical_ai_tools_package
+   ```
+
+2. Switch to the `jazzy` branch:
+
+   ```bash
+   git checkout jazzy
+   ```
+
+3. Pull the latest code:
+
+   ```bash
+   git pull
+   ```
+
+4. Restart the container:
+
+   ```bash
+   ./docker/container.sh stop
+   ./docker/container.sh start
+   ```
+
+:::warning
+Data stored outside mapped volumes may be lost during container restart. Save important files before restarting the container.
+:::
+
+## Checking Battery State
+
+The `FFW-SG2` and `FFW-F2` models each have two batteries. The `FFW-BG2` and `FFW-F1` models do not use batteries.
+
+To check the battery state, run:
+
+```bash
+# Check the left battery
+ros2 topic echo /ai_worker/battery/left/state --once
+
+# Check the right battery
+ros2 topic echo /ai_worker/battery/right/state --once
+```
+
+The output includes the following keys:
+
+- `frame_id`: Identifies which battery the message refers to.
+
+  ```bash
+  frame_id: battery_left
+  ```
+
+- `voltage`: Shows the current battery voltage.
+
+  ```bash
+  voltage: 28.700000762939453 # Battery voltage 28.7V
+  ```
+
+- `percentage`: Shows the remaining battery level as a value from `0.0` to `1.0`.
+
+  ```bash
+  percentage: 0.934949517250061 # Battery 93% charged
+  ```
+
+## Running Teleoperation from the CLI
+The following teleoperation commands are executed on the `robot PC`. Use these commands as an alternative to starting the same services in Cyclo Manager.
+You can either connect a keyboard and mouse directly to the Nvidia Orin, or access it via SSH (see [Accessing the Robot PC via SSH](#accessing-the-robot-pc-via-ssh)).<br />
+
+Enter the **ai_worker** Docker container with:
+
+```bash
+cd ~/ai_worker
+./docker/container.sh enter
+```
+
+<RunZenohDaemon />
+
+### Option 1: All-in-One Launch
+
+These commands start an **LG2 Leader with FFW-BG2/FFW-SG2**, or an **A1 Leader with FFW-F1/FFW-F2**. For other combinations, use [Option 2: Separate Launches](#option-2-separate-launches).
+
+:::tip[Default arm controls]
+Launching the programs does not start arm teleoperation. On A1, A2, and LG2, push both triggers forward together for 2 seconds, then release them, to start both arms. Repeat the action to pause both arms. See [Operation Guide](/docs/systems/aiworker/quick_start_guide/teleoperation#4-operation-guide) before starting.
+:::
+
+To start both the `Leader` and `Follower (BG2/SG2/F1/F2)` simultaneously:
+
+<Tabs groupId="aiworker-robot-type">
+  <TabItem value="f1" label="FFW-F1">
+
+```bash
+ros2 launch ffw_bringup ffw_f1_ai.launch.py
+```
+
+  </TabItem>
+  <TabItem value="f2" label="FFW-F2">
+
+```bash
+ros2 launch ffw_bringup ffw_f2_ai.launch.py
+```
+
+  </TabItem>
+  <TabItem value="bg2" label="FFW-BG2">
+
+```bash
+ros2 launch ffw_bringup ffw_bg2_ai.launch.py
+```
+
+  </TabItem>
+  <TabItem value="sg2" label="FFW-SG2">
+
+```bash
+ros2 launch ffw_bringup ffw_sg2_ai.launch.py
+```
+
+  </TabItem>
+</Tabs>
+
+Or use the shortcut:
+
+<Tabs groupId="aiworker-robot-type">
+  <TabItem value="f1" label="FFW-F1">
+
+```bash
+ffw_f1_ai
+```
+
+  </TabItem>
+  <TabItem value="f2" label="FFW-F2">
+
+```bash
+ffw_f2_ai
+```
+
+  </TabItem>
+  <TabItem value="bg2" label="FFW-BG2">
+
+```bash
+ffw_bg2_ai
+```
+
+  </TabItem>
+  <TabItem value="sg2" label="FFW-SG2">
+
+```bash
+ffw_sg2_ai
+```
+
+  </TabItem>
+</Tabs>
+
+### Option 2: Separate Launches
+If you want to run the `Leader` and `Follower` separately in different terminals:
+
+Wait for Follower initialization to finish before starting the Leader. The required teleoperation software starts with the Follower; no separate Cyclo launch command is needed.
+
+1. **Launch the teleoperation `Follower`**:
+
+<Tabs groupId="aiworker-robot-type">
+  <TabItem value="f1" label="FFW-F1">
+
+```bash
+ros2 launch ffw_bringup ffw_f1_follower_ai.launch.py
+```
+
+  </TabItem>
+  <TabItem value="f2" label="FFW-F2">
+
+```bash
+ros2 launch ffw_bringup ffw_f2_follower_ai.launch.py
+```
+
+  </TabItem>
+  <TabItem value="bg2" label="FFW-BG2">
+
+```bash
+ros2 launch ffw_bringup ffw_bg2_follower_ai.launch.py
+```
+
+  </TabItem>
+  <TabItem value="sg2" label="FFW-SG2">
+
+```bash
+ros2 launch ffw_bringup ffw_sg2_follower_ai.launch.py
+```
+
+  </TabItem>
+</Tabs>
+
+Or use the shortcut:
+
+<Tabs groupId="aiworker-robot-type">
+  <TabItem value="f1" label="FFW-F1">
+
+```bash
+ffw_f1_follower_ai
+```
+
+  </TabItem>
+  <TabItem value="f2" label="FFW-F2">
+
+```bash
+ffw_f2_follower_ai
+```
+
+  </TabItem>
+  <TabItem value="bg2" label="FFW-BG2">
+
+```bash
+ffw_bg2_follower_ai
+```
+
+  </TabItem>
+  <TabItem value="sg2" label="FFW-SG2">
+
+```bash
+ffw_sg2_follower_ai
+```
+
+  </TabItem>
+</Tabs>
+
+#### Optional Parameters
+
+You can customize the follower launch behavior with optional parameters: For other models, use their Follower launch file.
+
+**Disable Camera Launch**
+To run the system without launching the cameras, set the `launch_cameras` parameter to `false`:
+```bash
+ros2 launch ffw_bringup ffw_bg2_follower_ai.launch.py launch_cameras:=false
+```
+
+**Disable Position Initialization**
+To start the system without initializing the position, set the `init_position` parameter to `false`:
+```bash
+ros2 launch ffw_bringup ffw_bg2_follower_ai.launch.py init_position:=false
+```
+
+**Enable Automatic Camera Assignment**
+To automatically assign the connected RealSense cameras without manually configuring their serial numbers, set the `auto_assign_cameras` parameter to `true`:
+```bash
+ros2 launch ffw_bringup ffw_bg2_follower_ai.launch.py auto_assign_cameras:=true
+```
+
+FFW-F1/FFW-F2 use RealSense cameras for both the head and wrists, and automatic assignment is enabled by default.
+
+:::warning
+Automatic camera assignment may not work on some older FFW-BG2 and FFW-SG2 models. If this occurs, set `auto_assign_cameras:=false` and use your existing manual camera configuration.
+:::
+
+**Combine Multiple Parameters**
+You can use both parameters together:
+```bash
+ros2 launch ffw_bringup ffw_bg2_follower_ai.launch.py launch_cameras:=false init_position:=false
+```
+
+2. **Launch the teleoperation `Leader`**:
+
+<Tabs groupId="aiworker-leader-type">
+  <TabItem value="a1" label="A1">
+
+```bash
+ros2 launch ffw_bringup ffw_a1_leader_ai.launch.py
+```
+
+  </TabItem>
+  <TabItem value="a2" label="A2">
+
+```bash
+ros2 launch ffw_bringup ffw_a2_leader_ai.launch.py
+```
+
+  </TabItem>
+  <TabItem value="lg2" label="LG2">
+
+```bash
+ros2 launch ffw_bringup ffw_lg2_leader_ai.launch.py
+```
+
+Or use the shortcut:
+
+```bash
+ffw_lg2_leader_ai
+```
+
+  </TabItem>
+</Tabs>
+
+#### Optional: Advanced Button Controls
+
+All three Leaders use `style:=default` unless specified otherwise. To start and pause each arm separately and switch between Teleoperation mode and External control mode with the joystick buttons, add `style:=advanced` to the Leader launch command:
+
+<Tabs groupId="aiworker-leader-type">
+  <TabItem value="a1" label="A1">
+
+```bash
+ros2 launch ffw_bringup ffw_a1_leader_ai.launch.py style:=advanced
+```
+
+  </TabItem>
+  <TabItem value="a2" label="A2">
+
+```bash
+ros2 launch ffw_bringup ffw_a2_leader_ai.launch.py style:=advanced
+```
+
+  </TabItem>
+  <TabItem value="lg2" label="LG2">
+
+```bash
+ros2 launch ffw_bringup ffw_lg2_leader_ai.launch.py style:=advanced
+```
+
+  </TabItem>
+</Tabs>
+
+Choose one Leader command; do not run the default and advanced commands together. If the Leader is already running, stop it before relaunching with a different `style`.
+
+Continue to [Operation Guide](/docs/systems/aiworker/quick_start_guide/teleoperation#4-operation-guide) to start arm teleoperation. Launching the programs alone does not start arm teleoperation on A1, A2, or LG2.
+
+## Follower Bringup for Inference
+
+To run inference without a Leader, run only the Follower bringup below.
+
+On **A1, A2, and LG2**, the Leader can also remain connected. To switch to External control mode using the Leader's joystick buttons, launch it with `style:=advanced` and follow [Operation Guide](/docs/systems/aiworker/quick_start_guide/teleoperation#4-operation-guide). Pausing the arms alone does not switch to External control mode. Confirm the mode before starting a compatible inference program.
+
+<Tabs groupId="aiworker-robot-type">
+  <TabItem value="f1" label="FFW-F1">
+
+```bash
+ros2 launch ffw_bringup ffw_f1_follower_ai.launch.py
+```
+
+  </TabItem>
+  <TabItem value="f2" label="FFW-F2">
+
+```bash
+ros2 launch ffw_bringup ffw_f2_follower_ai.launch.py
+```
+
+  </TabItem>
+  <TabItem value="bg2" label="FFW-BG2">
+
+```bash
+ros2 launch ffw_bringup ffw_bg2_follower_ai.launch.py
+```
+
+  </TabItem>
+  <TabItem value="sg2" label="FFW-SG2">
+
+```bash
+ros2 launch ffw_bringup ffw_sg2_follower_ai.launch.py
+```
+
+  </TabItem>
+</Tabs>
+
+Or use the shortcut:
+
+<Tabs groupId="aiworker-robot-type">
+  <TabItem value="f1" label="FFW-F1">
+
+```bash
+ffw_f1_follower_ai
+```
+
+  </TabItem>
+  <TabItem value="f2" label="FFW-F2">
+
+```bash
+ffw_f2_follower_ai
+```
+
+  </TabItem>
+  <TabItem value="bg2" label="FFW-BG2">
+
+```bash
+ffw_bg2_follower_ai
+```
+
+  </TabItem>
+  <TabItem value="sg2" label="FFW-SG2">
+
+```bash
+ffw_sg2_follower_ai
+```
+
+  </TabItem>
+</Tabs>
+
+### Stopping CLI Teleoperation
+
+To stop a launch command, press `Ctrl+C` in the terminal where it is running. If the Follower and Leader were started separately, stop each command in its respective terminal.
