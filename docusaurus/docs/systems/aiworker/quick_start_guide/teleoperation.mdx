@@ -177,4 +177,4 @@ To stop teleoperation:
 - **System unresponsive**: Check ROS topic connections with `ros2 topic list` and `ros2 topic echo`
 - **Teleoperation does not pause as expected**: Check the `style` used to launch the Leader. On A1, A2, and LG2, `style:=default` uses both triggers held forward for 2 seconds to pause both arms; `style:=advanced` uses each active arm's joystick button held alone for 0.5 seconds to pause that arm. Release both triggers or all joystick buttons before repeating an action. If `style` is unavailable, update and rebuild the `ai_worker` source to a version that includes these controls.
 
-For terminal commands and launch options, see [Running Teleoperation from the CLI](/docs/systems/aiworker/quick_start_guide/development_guide#running-teleoperation-from-the-cli).
+For terminal commands and launch options, see [Running Teleoperation from the CLI](/docs/systems/aiworker/quick_start_guide/development_guide/cli_bringup_teleoperation#running-teleoperation-from-the-cli).
