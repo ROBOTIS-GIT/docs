@@ -1,5 +1,6 @@
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SectionCard from '@site/src/components/SectionCard';
 
 # Hardware Specification
 
@@ -7,6 +8,8 @@ The AI Worker hardware platform combines advanced robotics with AI-powered capab
 This comprehensive hardware design enables the AI Worker to perform complex manipulation tasks through imitation learning and reinforcement learning in various industrial environments.
 
 ![hardware_overview](/img/systems/aiworker/specifications/hardware/hardware_overview.png)
+
+<SectionCard>
 
 ## Product Models
 ![model_lineup](/img/systems/aiworker/specifications/hardware/model_lineup.png)
@@ -23,9 +26,11 @@ This comprehensive hardware design enables the AI Worker to perform complex mani
 | E stop remote controller | 1 |
 | USB cable | 1 |
 
-## Robot Specifications
+</SectionCard>
 
-### Follower Specification
+<SectionCard>
+
+## Follower Specification
 
 In the FFW-F1 / FFW-F2 tables below, **bold text** highlights specifications that differ from FFW-BG2 / FFW-SG2, respectively.
 
@@ -95,7 +100,11 @@ In the FFW-F1 / FFW-F2 tables below, **bold text** highlights specifications tha
 
 ¹ *Peak payload capacity may vary depending on the robot's posture and motion profile.*
 
-### Leader Specification
+</SectionCard>
+
+<SectionCard>
+
+## Leader Specification
 <div className="model-comparison">
     <div className="model-comparison__item">
         <p className="model-comparison__title">A1 Model</p>
@@ -152,9 +161,11 @@ In the FFW-F1 / FFW-F2 tables below, **bold text** highlights specifications tha
 </TabItem>
 </Tabs>
 
-## Component Specifications
+</SectionCard>
 
-### DYNAMIXEL Details
+<SectionCard>
+
+## DYNAMIXEL Details
 The AI Worker utilizes various DYNAMIXEL actuators, each selected for specific joint applications:
 
 <Tabs groupId="ai-worker-generation">
@@ -190,16 +201,24 @@ The AI Worker utilizes various DYNAMIXEL actuators, each selected for specific j
 
 For detailed specifications of each DYNAMIXEL model, please visit the [ROBOTIS DYNAMIXEL website](https://dynamixel.com/).
 
-### Gripper Specification
+</SectionCard>
+
+<SectionCard>
+
+## Gripper Specification
 ![model_rh_p12_rn](/img/systems/aiworker/specifications/hardware/model_rh_p12_rn.png)
 
 The [RH-P12-RN](/docs/systems/rh_p12_rn/) is a multi-functional, 1-DOF two-fingered robot hand. It features an adaptive gripping design with passive joints, allowing it to grasp objects of various shapes. The hand utilizes a 10W DC motor and offers torque control and current-based position control, enabling it to handle objects made of different materials. Key features of the RH-P12-RN include its lightweight design (500g) and high payload capacity (5kg). It also has detachable fingertips that can be easily replaced with customized ones. The RH-P12-RN is designed for easy integration with the AI Worker platform, making it suitable for various applications in industrial environments.
 
-### Camera Specification
+</SectionCard>
+
+<SectionCard>
+
+## Camera Specification
 
 The AI Worker utilizes a multi-camera system for robust perception and manipulation capabilities.
 
-#### Head Camera
+### Head Camera
 
 A ZED Mini or Intel RealSense D455f camera is mounted on the head for wide-area environmental understanding and navigation.
 
@@ -232,7 +251,7 @@ A ZED Mini or Intel RealSense D455f camera is mounted on the head for wide-area 
 </TabItem>
 </Tabs>
 
-#### Hand Cameras
+### Hand Cameras
 
 Two Intel RealSense D405 cameras are integrated into the robot's hands/grippers, providing precise, short-range depth data for manipulation tasks.
 
@@ -265,11 +284,15 @@ Two Intel RealSense D405 cameras are integrated into the robot's hands/grippers,
 </TabItem>
 </Tabs>
 
-### LiDAR Specification
+</SectionCard>
+
+<SectionCard>
+
+## LiDAR Specification
 
 The AI Worker uses dual 2D ToF LiDAR sensors for robust long-range environment scanning and obstacle detection.
 
-#### LiDAR: LakiBeam 1 (x2)
+### LiDAR: LakiBeam 1 (x2)
 
 Two LakiBeam 1 units are mounted on the platform to provide wide horizontal coverage and reliable perception in industrial environments.
 
@@ -285,10 +308,14 @@ Two LakiBeam 1 units are mounted on the platform to provide wide horizontal cove
 | Interface         | Ethernet UDP / USB (RJ45, Type-C)                  |
 | More Information  | [LakiBeam 1 Details](https://www.richbeam.com/product/LakiBeam) |
 
-### Mobile Base Configuration (Swerve Drive)
+</SectionCard>
+
+<SectionCard>
+
+## Mobile Base Configuration (Swerve Drive)
 The AI Worker's mobile base uses a swerve drive system that provides significant advantages over traditional omnidirectional wheel systems like mecanum wheels or omni wheels:
 
-#### Advantages Over Omniwheels and Mecanum Wheels:
+### Advantages Over Omniwheels and Mecanum Wheels:
 
 - **Superior Traction**: Swerve drive uses conventional wheels with full surface contact, providing better grip and stability compared to omniwheels and mecanum wheels that have smaller rollers with limited ground contact.
 
@@ -330,6 +357,10 @@ The AI Worker's swerve drive configuration consists of three wheels positioned i
 
 </TabItem>
 </Tabs>
+
+</SectionCard>
+
+<SectionCard>
 
 ## Mechanical Specifications
 
@@ -473,6 +504,10 @@ The torso workspace is the same for both FFW-SG2 and FFW-BG2 models.
 </TabItem>
 </Tabs>
 
+</SectionCard>
+
+<SectionCard>
+
 ## Drawings and Downloads
 
 | Resource | PDF | DWG | STEP |
@@ -484,3 +519,5 @@ The torso workspace is the same for both FFW-SG2 and FFW-BG2 models.
 | <span id="drawing-files-4">LG2 drawings</span> | — | — | [STEP](https://www.robotis.com/service/download.php?no=2229) |
 | <span id="drawing-files-5">FFW-F1 / FFW-F2 workspace</span> | [PDF](https://www.robotis.com/service/download.php?no=2230) | — | — |
 | <span id="drawing-files-6">FFW-SG2 / FFW-BG2 workspace</span> | [PDF](https://www.robotis.com/service/download.php?no=2230) | — | — |
+
+</SectionCard>

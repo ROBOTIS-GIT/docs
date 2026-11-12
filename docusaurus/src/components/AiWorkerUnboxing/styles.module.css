@@ -1,10 +1,4 @@
 .guide {
-  margin: 1.25rem 0 2rem;
-  padding: clamp(.875rem, 2vw, 1.5rem);
-  border: 1px solid var(--ifm-color-emphasis-300);
-  border-radius: 1rem;
-  background: var(--ifm-background-surface-color);
-  box-shadow: var(--ifm-global-shadow-lw);
   container-type: inline-size;
 }
 

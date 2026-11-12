@@ -16,7 +16,7 @@ export default function AiWorkerUnboxing() {
   }
 
   return (
-    <section className={styles.guide} aria-label="Unboxing guide">
+    <div className={styles.guide} role="group" aria-label="Unboxing guide">
       <div className={styles.packages} role="group" aria-label="Packaging type">
         {packages.map((item, index) => (
           <button
@@ -87,6 +87,6 @@ export default function AiWorkerUnboxing() {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

@@ -2703,36 +2703,56 @@
   box-shadow: var(--robotis-card-shadow);
 }
 
-/* Docusaurus Tabs: render tab content as a VitePress-like boxed panel. */
+/* Docusaurus Tabs: keep the model selector and its content in one card. */
 .theme-doc-markdown .tabs-container {
   margin: 1rem 0 1.5rem;
-}
-
-.theme-doc-markdown .tabs-container .tabs {
-  margin-bottom: 0;
-  border-bottom: 1px solid var(--robotis-card-border);
-}
-
-.theme-doc-markdown .tabs-container .margin-top--md {
-  margin-top: 0 !important;
-}
-
-.theme-doc-markdown .tabs-container [role='tabpanel'] {
   padding: 1rem 1.1rem;
   border: 1px solid var(--robotis-card-border);
-  border-top: 0;
-  border-radius: 0 0 14px 14px;
-  background:
-    linear-gradient(180deg, color-mix(in srgb, var(--ifm-color-primary) 3%, transparent), transparent 55%),
-    var(--ifm-background-surface-color);
+  border-radius: 14px;
+  background: var(--ifm-background-surface-color);
   box-shadow: var(--robotis-card-shadow);
 }
 
-.theme-doc-markdown .tabs-container [role='tabpanel'] > :first-child {
+.theme-doc-markdown .tabs-container .tabs {
+  gap: 0.5rem;
+  margin-bottom: 0;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.theme-doc-markdown .tabs-container .tabs__item {
+  min-width: 4rem;
+  padding: 0.45rem 1rem;
+  justify-content: center;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 8px;
+  background: var(--ifm-background-surface-color);
+}
+
+.theme-doc-markdown .tabs-container .tabs__item--active {
+  border-color: var(--ifm-color-primary);
+  background: color-mix(in srgb, var(--ifm-color-primary) 12%, var(--ifm-background-surface-color));
+  color: var(--ifm-color-primary);
+}
+
+[data-theme='dark'] .theme-doc-markdown .tabs-container .tabs__item--active {
+  color: var(--ifm-color-primary-light);
+}
+
+.theme-doc-markdown .tabs-container .tabs__item:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}
+
+.theme-doc-markdown .tabs-container [role='tabpanel'] h3 {
+  font-size: 1.5rem;
+}
+
+.theme-doc-markdown .tabs-container > .margin-top--md > [role='tabpanel'] > :first-child {
   margin-top: 0;
 }
 
-.theme-doc-markdown .tabs-container [role='tabpanel'] > :last-child {
+.theme-doc-markdown .tabs-container > .margin-top--md > [role='tabpanel'] > :last-child {
   margin-bottom: 0;
 }
 

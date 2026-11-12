@@ -1,6 +1,7 @@
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import AiWorkerUnboxing from '@site/src/components/AiWorkerUnboxing';
+import SectionCard from '@site/src/components/SectionCard';
 
 # Hardware Setup Guide
 
@@ -11,11 +12,17 @@ This guide covers the physical setup steps required before operating AI Worker, 
 - Make sure to check which robot model you are using before following the steps below.
 :::
 
+<SectionCard>
+
 ## Unboxing
 
 For **FFW-F1 and FFW-F2**, domestic shipments within Korea use a **cardboard box**, while international shipments use a **wooden crate**. Choose your packaging type below, then select a step to follow the unboxing sequence.
 
 <AiWorkerUnboxing />
+
+</SectionCard>
+
+<SectionCard>
 
 ## Power On and Check Ports
 
@@ -109,6 +116,10 @@ The back of the Follower body includes several ports for system access and exter
 </TabItem>
 </Tabs>
 
+</SectionCard>
+
+<SectionCard>
+
 ## Remote E-STOP Usage
 
 ![remote_e_stop](/img/systems/aiworker/quick_start_guide/setup_overview/hardware/remote_e_stop.png)
@@ -126,3 +137,5 @@ When AI WORKER is powered on for the first time, it remains in a **torque-off** 
 To enable communication with the DYNAMIXELs, you must press the **A** button on the Remote E-STOP.
 When the safety lock is released, you will hear a beep sound.
 :::
+
+</SectionCard>
