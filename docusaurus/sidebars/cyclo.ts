@@ -11,6 +11,7 @@ const cycloSidebar: SidebarsConfig[string] = [
     items: [
       doc('software/cyclo/cyclo_studio', 'Cyclo Studio'),
       doc('software/cyclo/cyclo_marketplace', 'Cyclo Marketplace'),
+      doc('software/cyclo/cyclo_ai', 'Cyclo AI'),
       doc('software/cyclo/cyclo_intelligence', 'Cyclo Intelligence'),
       doc('software/cyclo/cyclo_lab', 'Cyclo Lab'),
       doc('software/cyclo/cyclo_control', 'Cyclo Control'),

@@ -1,0 +1,130 @@
+---
+title: Cyclo AI
+description: Develop software for DYNAMIXEL actuators and ROBOTIS robots with Cyclo AI in Codex and Claude Code.
+---
+
+**Cyclo AI** brings ROBOTIS knowledge and robot development tools to your AI assistant. Use it with **Codex** and **Claude Code** to compare DYNAMIXEL actuators, understand official manuals, inspect supported devices, and prepare robot software through natural-language requests.
+
+Cyclo AI combines task-specific **skills**, which guide the assistant through ROBOTIS workflows, with a local **Model Context Protocol (MCP) server**, which provides tools for supported DYNAMIXEL operations.
+
+## What You Can Do
+
+- **Choose actuators:** compare voltage, torque, speed, communication interfaces, and other specifications using official ROBOTIS sources.
+- **Inspect DYNAMIXEL devices:** identify connected actuators and read supported Control Table items, including position, voltage, temperature, and torque status.
+- **Configure supported devices:** request model-specific setting changes for selected actuators.
+- **Develop robot software:** prepare ROS 2 integration, controller configuration, teleoperation, demonstration collection, and learning workflows.
+
+Robot-specific guidance covers **AI Worker**, **OMY**, **OMX**, and **AI Sapiens**. Available operations depend on the product, actuator model, firmware, and local environment.
+
+## Installation
+
+Choose the instructions for your AI assistant. For local device tools, install Cyclo AI on the computer connected to your DYNAMIXEL adapter or robot.
+
+### Prepare the Local Package
+
+For **Codex** or **Claude Code**, prepare the package before loading it into your assistant.
+
+Requirements:
+
+- **Node.js 22 or newer**
+- **Python 3.9 or newer**
+- Codex CLI or Claude Code with plugin support and an authenticated account
+- For device access: a compatible adapter, device power supply, and the required driver and port permissions
+
+Download and extract the `cyclo-ai-<version>-install.zip` package from the [Cyclo AI releases](https://github.com/ROBOTIS-GIT/cyclo_ai/releases). In the extracted `cyclo-ai` directory, run:
+
+```bash
+node scripts/doctor.mjs --hardware-deps
+```
+
+The install ZIP bundles the MCP JavaScript dependencies, pyserial, and PyYAML. It does not require additional npm or pip installation. The diagnostic command checks dependencies without opening devices.
+
+Alternatively, prepare a source checkout:
+
+```bash
+git clone https://github.com/ROBOTIS-GIT/cyclo_ai.git
+cd cyclo_ai
+npm ci --ignore-scripts
+npm run setup
+npm run doctor -- --hardware-deps
+```
+
+The source setup creates a local Python environment. ROS 2, simulators, and training frameworks are installed separately when required by your workflow.
+
+### Codex
+
+Register the prepared directory as a local marketplace and install the plugin:
+
+```bash
+codex plugin marketplace add /absolute/path/to/cyclo-ai
+codex plugin add cyclo-ai@cyclo-local --json
+codex plugin list --marketplace cyclo-local --json
+```
+
+Replace `/absolute/path/to/cyclo-ai` with the actual extracted or cloned directory. Check your installed CLI help if these commands are unavailable.
+
+Start a new Codex session and invoke:
+
+```text
+$cyclo
+```
+
+### Claude Code
+
+Load the prepared directory when starting Claude Code:
+
+```bash
+claude --plugin-dir /absolute/path/to/cyclo-ai
+```
+
+This loads Cyclo AI for that session. Inside the session, invoke:
+
+```text
+/cyclo-ai:cyclo
+```
+
+The plugin already declares its MCP server; additional manual registration of the same server is unnecessary. See the [Cyclo AI host installation guide](https://github.com/ROBOTIS-GIT/cyclo_ai/blob/main/references/hosts.md) for host-specific details.
+
+## How to Use Cyclo AI
+
+### Start with a Documentation Question
+
+After loading Cyclo AI, describe your goal and the relevant robot or actuator model. A documentation question does not require connected hardware.
+
+> Use Cyclo AI to explain current-based position control for the DYNAMIXEL XM430-W350. Cite the official documentation and identify the relevant Control Table items.
+
+### Compare Actuators
+
+Provide your load, required torque and speed, power supply, communication interface, and size constraints.
+
+> Use Cyclo AI to help me choose a DYNAMIXEL actuator for a robot arm. Ask for any missing requirements, then compare suitable models using official specifications.
+
+### Inspect Connected Devices
+
+Provide the actual port and baud rate, together with the operation you want to perform.
+
+> Use Cyclo AI to inspect the DYNAMIXEL motors connected to /dev/ttyUSB0 at 57600 baud. Show each responding motor's ID, model, position, voltage, temperature, and torque enable status in a table. Use model-specific units and mark unsupported or unreadable values. Do not change settings or move the motors.
+
+Replace the example port and baud rate with your connection details. If you do not know them, ask Cyclo AI to help identify the adapter and connection settings first.
+
+### Prepare a Robot Workflow
+
+Name the robot, software environment, and intended outcome.
+
+> Use Cyclo AI to help me set up OMX leader–follower teleoperation with native LeRobot. Check the required hardware and software, then guide me through the official setup procedure.
+
+> Use Cyclo AI to prepare an AI Sapiens K1 walking-policy training workflow with Cyclo MJLab. Identify the prerequisites and explain how to evaluate the policy in simulation.
+
+Cyclo AI can prepare instructions and configuration for these workflows. Running ROS 2, training, simulation, or deployment requires the corresponding software and execution environment.
+
+## Support
+
+- [GitHub Issues](https://github.com/ROBOTIS-GIT/cyclo_ai/issues): Report bugs and request features.
+- [ROBOTIS Discord](https://discord.gg/robotis): Ask questions and discuss Cyclo AI with the community.
+
+## Resources
+
+- [Cyclo AI source code](https://github.com/ROBOTIS-GIT/cyclo_ai)
+- [Installation and host configuration](https://github.com/ROBOTIS-GIT/cyclo_ai/blob/main/references/hosts.md)
+- [First connection guide](https://github.com/ROBOTIS-GIT/cyclo_ai/blob/main/references/first-run.md)
+- [Skill catalog](https://github.com/ROBOTIS-GIT/cyclo_ai/blob/main/references/skills.md)
