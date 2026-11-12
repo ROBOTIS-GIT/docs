@@ -312,7 +312,7 @@ Choose one Leader command; do not run the default and advanced commands together
 
 <SectionCard>
 
-## 4. Operate the Robot
+## 4. Operation Guide
 
 Launching the programs does not start arm teleoperation. Follow the [Operation Guide](/docs/systems/aiworker/quick_start_guide/teleoperation#4-operation-guide) to start and control teleoperation.
 
@@ -323,43 +323,5 @@ Launching the programs does not start arm teleoperation. Follow the [Operation G
 ## 5. Stop the Services
 
 To stop a launch command, press `Ctrl+C` in the terminal where it is running. If the Follower and Leader were started separately, stop each command in its respective terminal.
-
-</SectionCard>
-
-<SectionCard>
-
-## Checking Battery State
-
-The `FFW-SG2` and `FFW-F2` models each have two batteries. The `FFW-BG2` and `FFW-F1` models do not use batteries.
-
-To check the battery state, run:
-
-```bash
-# Check the left battery
-ros2 topic echo /ai_worker/battery/left/state --once
-
-# Check the right battery
-ros2 topic echo /ai_worker/battery/right/state --once
-```
-
-The output includes the following keys:
-
-- `frame_id`: Identifies which battery the message refers to.
-
-  ```bash
-  frame_id: battery_left
-  ```
-
-- `voltage`: Shows the current battery voltage.
-
-  ```bash
-  voltage: 28.700000762939453 # Battery voltage 28.7V
-  ```
-
-- `percentage`: Shows the remaining battery level as a value from `0.0` to `1.0`.
-
-  ```bash
-  percentage: 0.934949517250061 # Battery 93% charged
-  ```
 
 </SectionCard>
