@@ -1,0 +1,183 @@
+---
+sidebar_label: FlowHMR
+title: FlowHMR
+---
+
+# FlowHMR
+
+[FlowHMR](https://github.com/flowhmr/flowhmr) reconstructs human motion from monocular video. Its output is **SMPL-H human motion**, not K1 joint commands. Using this output for AI Sapiens K1 additionally requires a compatible retargeting adapter, reference conversion, and motion-imitation training.
+
+The official implementation provides video inference and a web viewer. For K1 robot reference motion, continue with the separate [UMR retargeting guide](/docs/systems/aisapiens/motion_generation_retargeting/umr) after inspecting the human reconstruction.
+
+## Choose the Setup
+
+| Setup | Purpose | Environment |
+| --- | --- | --- |
+| V2M | Video inference, web demo, and base-model training | Upstream tested Python 3.10, PyTorch 2.5.1, CUDA 11.8 wheels. |
+| Full pipeline | V2M plus PHC+ simulation for physics tracking and GRPO post-training | Adds a separate Isaac Gym Preview 4 environment tested with Python 3.8 and PyTorch 1.13/cu117. |
+
+Use V2M for the reconstruction steps on this page. PHC+ tracks a human model; it does not retarget motion to AI Sapiens K1. Keep the FlowHMR environment separate from UMR's Python 3.12 environment and the chosen Cyclo training environment.
+
+A compatible NVIDIA GPU and driver are needed for the documented inference path. Upstream reports about 30 GB peak GPU memory for its bundled example with camera estimation every frame on an A100 40GB. Memory requirements depend on clip and settings. A larger `--vggt_interval` reduces camera-estimation work; use `--static_camera` only for a fixed camera. See the [performance report](https://github.com/flowhmr/flowhmr/blob/main/docs/performance.md) for measured conditions.
+
+## Install V2M
+
+Follow the [official installation guide](https://github.com/flowhmr/flowhmr/blob/main/docs/install.md). Run commands from the repository root:
+
+```bash
+mkdir -p "$HOME/k1-motion"
+cd "$HOME/k1-motion"
+git clone --recursive https://github.com/flowhmr/flowhmr.git FlowHMR
+cd FlowHMR
+git checkout df15cadf56e738bf80c42c93d5e73687ff1002d2
+git submodule update --init --recursive
+conda create -n flowhmr python=3.10 -y
+conda activate flowhmr
+pip install -r requirements.txt -r tools/web/requirements.txt
+pip install --no-build-isolation --no-deps -e third_party/YOLOX
+```
+
+Check the environment:
+
+```bash
+python -c "import torch, yolox; print(torch.__version__, torch.cuda.is_available())"
+```
+
+The upstream check expects `2.5.1+cu118 True`.
+
+### Models and Assets
+
+Python installation alone does not supply the required models. Review the license for each component before downloading or using it:
+
+- **Source code:** the [FlowHMR code license](https://github.com/flowhmr/flowhmr/blob/main/LICENSE) is Apache-2.0.
+- **FlowHMR weights:** `flowhmr_base` and `flowhmr_latest` use the separate [FlowHMR Model Weights License](https://huggingface.co/fafsaf1/flowhmr-0.46B/blob/main/LICENSE). It permits non-commercial educational, research, and non-profit use; it does not permit commercial use. Redistributed or modified weights must retain the required license and attribution notices. Follow the model card's licensing contact for other uses.
+- **SMPL-H body model:** obtain it from its provider and accept its own terms. A FlowHMR download does not include or license this model.
+- **Perception models and other dependencies:** VGGT-Omega, SAM 3D Body, third-party software, and datasets retain their respective terms. Account access or acceptance of one component's license does not grant rights to the others.
+
+Obtain gated assets with your own authorized account. The [resource guide](https://github.com/flowhmr/flowhmr/blob/main/docs/resources.md) defines these locations:
+
+| Asset | Repository-relative location |
+| --- | --- |
+| Neutral SMPL-H model from the AMASS release at [MANO](https://mano.is.tue.mpg.de/) | `assets/body_models/smplh/neutral/model.npz` |
+| Public SMPL joint regressor linked in the installation guide | `assets/body_models/smpl_neutral_J_regressor.pt` |
+| YOLOX detector checkpoint | `ckpts/yolox/yolox_l.pth` |
+| [VGGT-Omega](https://huggingface.co/facebook/VGGT-Omega), gated | `ckpts/vggt-omega/vggt_omega_1b_512.pt` |
+| [SAM 3D Body](https://huggingface.co/facebook/sam-3d-body-dinov3), gated | `ckpts/sam-3d-body-dinov3/` containing `model.ckpt`, `model_config.yaml`, and `assets/mhr_model.pt` |
+| FlowHMR model | `checkpoints/flowhmr_latest/flowhmr_latest.ckpt` with sibling `config.yml` |
+
+Download the public detector and joint regressor from the upstream guide:
+
+```bash
+mkdir -p ckpts/yolox assets/body_models
+wget -O ckpts/yolox/yolox_l.pth \
+  https://github.com/Megvii-BaseDetection/YOLOX/releases/download/0.1.1rc0/yolox_l.pth
+wget -O assets/body_models/smpl_neutral_J_regressor.pt \
+  https://raw.githubusercontent.com/zju3dv/GVHMR/main/hmr4d/utils/body_model/smpl_neutral_J_regressor.pt
+```
+
+Download the neutral SMPL-H model separately from its provider and place it at the location above. After your gated-model access is approved, download the perception and FlowHMR checkpoints:
+
+```bash
+huggingface-cli login
+huggingface-cli download facebook/VGGT-Omega vggt_omega_1b_512.pt --local-dir ckpts/vggt-omega
+huggingface-cli download facebook/sam-3d-body-dinov3 --local-dir ckpts/sam-3d-body-dinov3
+huggingface-cli download fafsaf1/flowhmr-0.46B --include "flowhmr_latest/*" "config.json" --local-dir checkpoints
+```
+
+Keep the checkpoint and its `config.yml` together. Downloading these files does not change their license terms.
+
+### Optional Contact Post-processing
+
+The current upstream release uses bundled RGBMocap correction and its Kimodo native solver. A C++17 compiler and CMake 3.15 or newer are required; the solver uses installed Eigen 3.3 or newer or downloads Eigen 3.4.0 during the build.
+
+```bash
+pip install pybind11==2.11.1
+pip install --no-build-isolation --no-deps ./third_party/KimodoMotionCorrection
+pip install --no-build-isolation --no-deps ./third_party/RGBMocapCorrection
+```
+
+Enable it with `--postprocess`; the CLI and web toggle default to off. The documented defaults use flat ground, automatic floor estimation, foot locking, and anatomical IK. Inspect the result when a clip includes steps, uneven terrain, or intended foot sliding.
+
+Record the FlowHMR revision, model checkpoint, and post-processing settings with each result. Different versions or correction settings can produce different motion; inspect the generated output before using it downstream.
+
+## Reconstruct a Video
+
+First check the bundled example:
+
+```bash
+conda activate flowhmr
+python run_v2m_demo_generation.py assets/example/example.mp4
+```
+
+Upstream's success condition is `=== Done | ok=1 failed=0 ===` and `output/example/flowhmr_latest.npz`. For a moving-camera clip, after installing the optional postprocessor:
+
+```bash
+python run_v2m_demo_generation.py my_clip.mp4 \
+  --ckpt checkpoints/flowhmr_latest/flowhmr_latest.ckpt \
+  --device cuda:0 --seed 0 --cfg_scale 1.0 --steps 20 \
+  --vggt_interval 10 --postprocess
+```
+
+For a genuinely fixed camera, use `--static_camera` instead of camera-estimation settings. This skips VGGT and uses approximate intrinsics. It is not a correction for an incorrectly estimated moving camera.
+
+Before inference, select the intended person and full motion interval. Inspect feet, limbs, occlusion, cuts, and mirror direction in the actual video. The pipeline transcodes to 30 FPS, so retain the original video and the processed frame clock for later alignment. CLI inputs may be files or directories; use distinct video stems because outputs are grouped by stem.
+
+| Option | Effect |
+| --- | --- |
+| `--sam_chunk_size 16` | Default body-feature batch size; affects resource use. |
+| `--vggt_interval 10` | Samples camera estimation every 10 frames and interpolates between them; default is 1. |
+| `--postprocess` | Enables the installed correction stage. |
+| `--overwrite` | Recomputes cached detection, camera, and SAM features. Preserve an earlier run separately before using it. |
+
+### Preview and Person Selection
+
+Launch the self-hosted viewer after completing V2M setup:
+
+```bash
+python app.py --port 8080 --device cuda:0
+```
+
+After `FlowHMR web demo ready`, open `http://localhost:8080`. Upload the example or your clip, select the intended person when multiple tracks are detected, and compare the reconstructed body with the video. The web workflow provides explicit person selection; it can fall back to a suggested track if no choice is made within its selection timeout. Results are stored under `output/web_jobs/<job_id>/`.
+
+## Output Format
+
+The [CLI](https://github.com/flowhmr/flowhmr/blob/main/run_v2m_demo_generation.py) saves `output/<video-stem>/<checkpoint-stem>.npz`. A nonzero seed adds `_seed<N>`. FBX is optional and requires the separately documented FBX SDK; NPZ output does not require it.
+
+The [output writer](https://github.com/flowhmr/flowhmr/blob/main/flowhmr/pipeline/v2m_inference.py) exports:
+
+| Field | Meaning |
+| --- | --- |
+| `poses` | SMPL-H axis-angle poses, `(T, 52, 3)`. |
+| `trans` | Root translation, `(T, 3)`, in meters. |
+| `betas` | Human shape coefficients, `(1, 16)`. |
+| `Rh` | Root axis-angle rotation, also present as the first joint of `poses`. |
+| `mocap_framerate` | Export frame rate, 30 FPS. |
+
+The writer applies a 180-degree rotation about Y to root pose and translation for export. Consume the exported parameters together with the matching body model; do not mix translations or cameras from another reconstruction. With post-processing enabled, the CLI retains the corrected result under the checkpoint name and removes its intermediate raw output. Keep separate run directories if both versions are needed.
+
+## Continue to AI Sapiens K1
+
+Use the actual generated NPZ with its matching licensed neutral SMPL-H model. Preserve `poses`, `trans`, all 16 shape coefficients, and the motion sample rate. SMPL-H and SMPL-X have different topology; substituting an SMPL-X surface or trimming shape coefficients changes the motion being retargeted. The exported root pose and translation already include FlowHMR's world-orientation conversion; do not apply it a second time.
+
+The [AI Sapiens K1 UMR guide](/docs/systems/aisapiens/motion_generation_retargeting/umr) targets the ROBOTIS fork's **`feature-phase4`** branch at revision `85b9c1c9f0bbbd9b4310039ccc399bbd9618a93d`. It provides the matching SMPL-H surface adapter and K1 profile; these steps do not assume that the integration is on UMR `main`.
+
+Follow that guide to:
+
+1. Install UMR in its separate Python 3.12 environment and obtain the K1 MJCF and meshes.
+2. Run `export_flowhmr_surface.py` in the FlowHMR environment, explicitly selecting the FlowHMR checkout, licensed model, input NPZ, and actual FPS.
+3. Run UMR with both the robot-only K1 configuration and `humanoid_retarget_defaults_flowhmr.json` source settings, then inspect the robot result.
+
+The result is a **UMR qpos NPZ**, not a CSV, a ready-to-train Cyclo motion archive, or a robot policy. Downstream conversion must separately validate the 23-joint mapping, root/quaternion conventions, velocities, frame rate, and destination schema. Review contacts, limits, speed, and continuity before following [Cyclo Lab Mimic](/docs/systems/aisapiens/reinforcement_learning/cyclo_lab/mimic) or [Cyclo MJLab Mimic](/docs/systems/aisapiens/reinforcement_learning/cyclo_mjlab/mimic).
+
+The adapter's serialization/FK-to-retarget check used a 207-frame existing reconstruction. It did not exercise fresh video inference or optional RGBMocap post-processing. PHC+ human-model tracking and a successful adapter test do not establish K1 motion quality or hardware deployment readiness.
+
+For another retargeting path, [Soma-retargeter](/docs/systems/aisapiens/motion_generation_retargeting/soma_retargeter) supports raw SMPL-family input through SOMA-X with a matching licensed human model. Its input schema and coordinate requirements must be checked separately; the FlowHMR-to-Soma-retargeter combination is not validated by the UMR adapter tests.
+
+## Sources and Verification Scope
+
+Current FlowHMR commands and export behavior were checked against revision [`df15cad`](https://github.com/flowhmr/flowhmr/tree/df15cadf56e738bf80c42c93d5e73687ff1002d2) on November 11, 2026. K1 retargeting is documented for the named ROBOTIS UMR feature branch and its pinned revision, rather than assumed support in `main`.
+
+- [Official FlowHMR repository](https://github.com/flowhmr/flowhmr)
+- [Installation](https://github.com/flowhmr/flowhmr/blob/main/docs/install.md), [inference](https://github.com/flowhmr/flowhmr/blob/main/docs/inference.md), and [web demo](https://github.com/flowhmr/flowhmr/blob/main/docs/web_demo.md)
+- [Resource locations and data layout](https://github.com/flowhmr/flowhmr/blob/main/docs/resources.md)
+- [FlowHMR model card and weights license](https://huggingface.co/fafsaf1/flowhmr-0.46B)

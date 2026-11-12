@@ -64,6 +64,7 @@ const aisapiensSidebar: SidebarsConfig[string] = [
     collapsed: false,
     items: [
       {type: 'doc', id: 'systems/aisapiens/motion_generation/gem-x', label: 'GEM-X'},
+      {type: 'doc', id: 'systems/aisapiens/motion_generation/flowhmr', label: 'FlowHMR'},
       {type: 'doc', id: 'systems/aisapiens/motion_generation_retargeting/kimodo/kimodo', label: 'Kimodo'},
     ],
   },
@@ -75,6 +76,7 @@ const aisapiensSidebar: SidebarsConfig[string] = [
       {type: 'doc', id: 'systems/aisapiens/motion_generation_retargeting/soma_x', label: 'SOMA-X'},
       {type: 'doc', id: 'systems/aisapiens/motion_generation_retargeting/soma_retargeter/soma_retargeter', label: 'Soma-retargeter'},
       {type: 'doc', id: 'systems/aisapiens/motion_generation_retargeting/gmr', label: 'GMR'},
+      {type: 'doc', id: 'systems/aisapiens/motion_generation_retargeting/umr', label: 'UMR'},
     ],
   },
   {
