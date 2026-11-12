@@ -15,29 +15,30 @@ import TabItem from '@theme/TabItem';
 
 Train, preview, and export a K1 dance mimic policy from this guide.
 Run the commands inside the Cyclo Lab container from `/workspace/cyclo_lab`.
-Select the same physics backend used during [Cyclo Lab setup](/docs/systems/aisapiens/reinforcement_learning/cyclo_lab/#choose-a-physics-backend).
-The checked-out branch selects the backend; the command-line options below only control visualization.
+Select the physics backend with `physics=newton_mjwarp` or `physics=isaacsim_physx`.
 
 ## Train
 
-<Tabs groupId="cyclo-lab-physics" queryString>
-<TabItem value="physx" label="PhysX (Default)" default>
+<Tabs groupId="cyclo-lab-physics" defaultValue="newton" queryString>
+<TabItem value="newton" label="Newton (K1 Default)">
 
 ```bash
 python scripts/reinforcement_learning/rsl_rl/train.py \
   --task Cyclo-Mimic-K1-Rev1-Dance1 \
   --num_envs 4096 \
-  --headless
+  --headless --visualizer none \
+  physics=newton_mjwarp
 ```
 
 </TabItem>
-<TabItem value="newton" label="Newton (Experimental)">
+<TabItem value="physx" label="PhysX">
 
 ```bash
 python scripts/reinforcement_learning/rsl_rl/train.py \
   --task Cyclo-Mimic-K1-Rev1-Dance1 \
   --num_envs 4096 \
-  --viz none
+  --headless --visualizer none \
+  physics=isaacsim_physx
 ```
 
 </TabItem>
@@ -71,44 +72,46 @@ Each run directory contains:
 
 ## Play and Export
 
-Run the matching play task after training.
+Run the same task ID and physics backend as training.
 By default, `play.py` loads the latest run and the latest `model_*.pt` checkpoint for the selected task.
-It runs the policy in simulation and exports `policy.onnx` next to the checkpoint.
+It runs the policy in simulation and exports `exported/policy.onnx` in the training run directory.
 
-<Tabs groupId="cyclo-lab-physics" queryString>
-<TabItem value="physx" label="PhysX (Default)" default>
+<Tabs groupId="cyclo-lab-physics" defaultValue="newton" queryString>
+<TabItem value="newton" label="Newton (K1 Default)">
 
 ```bash
 python scripts/reinforcement_learning/rsl_rl/play.py \
-  --task Cyclo-Mimic-K1-Rev1-Dance1-Play \
-  --num_envs 16
+  --task Cyclo-Mimic-K1-Rev1-Dance1 \
+  --num_envs 16 \
+  --visualizer newton_gl \
+  physics=newton_mjwarp
 ```
-
-Add `--headless` when exporting without the Isaac Sim window.
 
 </TabItem>
-<TabItem value="newton" label="Newton (Experimental)">
+<TabItem value="physx" label="PhysX">
 
 ```bash
 python scripts/reinforcement_learning/rsl_rl/play.py \
-  --task Cyclo-Mimic-K1-Rev1-Dance1-Play \
-  --num_envs 16
+  --task Cyclo-Mimic-K1-Rev1-Dance1 \
+  --num_envs 16 \
+  --visualizer kit \
+  physics=isaacsim_physx
 ```
-
-Newton playback opens the native Newton visualizer by default.
-Add `--viz none` to play and export without a window.
-Add `--mouse_drag` to enable right-click dragging of robot bodies in the Newton visualizer.
 
 </TabItem>
 </Tabs>
+
+For playback without a window, replace the `--visualizer` option with `--headless --visualizer none`.
 
 To play a specific checkpoint instead of the latest one, add `--checkpoint`:
 
 ```bash
 python scripts/reinforcement_learning/rsl_rl/play.py \
-  --task Cyclo-Mimic-K1-Rev1-Dance1-Play \
+  --task Cyclo-Mimic-K1-Rev1-Dance1 \
   --checkpoint logs/rsl_rl/cyclo_mimic_k1_rev1_dance1/2026-01-01_12-00-00/model_1000.pt \
-  --num_envs 16
+  --num_envs 16 \
+  --visualizer newton_gl \
+  physics=newton_mjwarp
 ```
 
 After `play.py` finishes, check the same training run directory.
@@ -245,11 +248,11 @@ Use your own motion name in the same places.
      </ul>
    </div>
 
-   Add new entries to `source/cyclo_lab/cyclo_lab/manager_based/mimic/config/k1_rev1/__init__.py` for:
+   Add an entry to `source/cyclo_lab/cyclo_lab/manager_based/mimic/config/k1_rev1/__init__.py`:
 
    <CodeSnippet
      language="python"
-     accentTokens={['Cyclo-Mimic-K1-Rev1-MyMotion-Play', 'Cyclo-Mimic-K1-Rev1-MyMotion', 'my_motion_env_cfg']}
+     accentTokens={['Cyclo-Mimic-K1-Rev1-MyMotion', 'my_motion_env_cfg']}
      lines={[
        'gym.register(',
        '    id="Cyclo-Mimic-K1-Rev1-MyMotion",',
@@ -260,26 +263,16 @@ Use your own motion name in the same places.
        '        "rsl_rl_cfg_entry_point": f"{agents.__name__}.rsl_rl_ppo_cfg:K1Rev1MimicPPORunnerCfg",',
        '    },',
        ')',
-       '',
-       'gym.register(',
-       '    id="Cyclo-Mimic-K1-Rev1-MyMotion-Play",',
-       '    entry_point="isaaclab.envs:ManagerBasedRLEnv",',
-       '    disable_env_checker=True,',
-       '    kwargs={',
-       '        "env_cfg_entry_point": f"{__name__}.my_motion_env_cfg:K1Rev1PlayEnvCfg",',
-       '        "rsl_rl_cfg_entry_point": f"{agents.__name__}.rsl_rl_ppo_cfg:K1Rev1MimicPPORunnerCfg",',
-       '    },',
-       ')',
      ]}
    />
 
-   Check that both task IDs are registered:
+   Check that the task ID is registered:
 
    ```bash
    python3 scripts/tools/list_envs.py | grep MyMotion
    ```
 
-   Check that the output includes `Cyclo-Mimic-K1-Rev1-MyMotion` and `Cyclo-Mimic-K1-Rev1-MyMotion-Play`.
+   Check that the output includes `Cyclo-Mimic-K1-Rev1-MyMotion`.
 
 4. **Train and export.**
 
