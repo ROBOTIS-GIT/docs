@@ -1,11 +1,19 @@
+import SectionCard from '@site/src/components/SectionCard';
+
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import RunZenohDaemon from '@site/docs/systems/aiworker/_partials/run_zenoh_daemon.mdx';
 
 # Getting Started with Gazebo
 
+<SectionCard>
+
 ## Overview
 You can launch Gazebo and RViz (MoveIt) individually, launch RViz together with physical hardware, and now run Nav2 with SLAM Toolbox in simulation to map the environment and test navigation before deploying to the robot.
+
+</SectionCard>
+
+<SectionCard>
 
 ## Launch Gazebo
 
@@ -116,6 +124,10 @@ You can launch Gazebo and RViz (MoveIt) individually, launch RViz together with 
 
     *   **Note:** This command is the same as the `Follower` launch command in the [`Teleoperation Guide`](/docs/systems/aiworker/quick_start_guide/operation_guide) and will also launch the cameras by default. To run without cameras, you can add the `launch_cameras:=false` argument.
 
+</SectionCard>
+
+<SectionCard>
+
 ## Simulation Views
 
 ### FFW-BG2
@@ -135,6 +147,10 @@ You can launch Gazebo and RViz (MoveIt) individually, launch RViz together with 
 
 ![FFW-F2 Simulation](/img/systems/aiworker/simulation/gazebo/ffw_f2_gazebo.png)
 
+</SectionCard>
+
+<SectionCard>
+
 ## Launch MoveIt
 *   **Launch MoveIt:**
     You can use the following command to launch MoveIt for FFW-BG2, FFW-SG2, FFW-F1, and FFW-F2:
@@ -151,6 +167,10 @@ You can launch Gazebo and RViz (MoveIt) individually, launch RViz together with 
     ```
 <img src="/img/systems/aiworker/simulation/gazebo/ffw_moveit.gif" alt="AI Worker MoveIt" />
 
+
+</SectionCard>
+
+<SectionCard>
 
 ## Launch Nav2 in Gazebo
 
@@ -214,6 +234,10 @@ Use Nav2 with the Gazebo simulation to test autonomous navigation before running
 
    The map uses a two-dimensional Occupancy Grid Map (OGM). White is free space, black is occupied, and gray is unknown.
 
+</SectionCard>
+
+<SectionCard>
+
 ## Navigation Using a Saved Map
 
 - **Use a saved or default map:**
@@ -221,3 +245,5 @@ Use Nav2 with the Gazebo simulation to test autonomous navigation before running
   ros2 launch ffw_navigation navigation.launch.py use_sim_time:=true
   ```
   Set the initial pose in RViz with `2D Pose Estimate` so AMCL can localize. After Nav2 is running, send a goal in RViz using `2D Goal Pose`. The robot will plan and drive to the target pose; if SLAM is enabled, the map updates in real time.
+
+</SectionCard>
