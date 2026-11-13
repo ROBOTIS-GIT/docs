@@ -43,6 +43,9 @@ python scripts/reinforcement_learning/rsl_rl/train.py \
 </TabItem>
 </Tabs>
 
+To resume training, add `--checkpoint logs/rsl_rl/k1_rev1_velocity/<run>/model_<iteration>.pt` to the training command.
+`--checkpoint latest` selects a checkpoint from the newest compatible run created by the current training script.
+
 Training output is written to:
 
 ```text
