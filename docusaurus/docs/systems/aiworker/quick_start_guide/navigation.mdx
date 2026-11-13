@@ -1,0 +1,176 @@
+import SectionCard from '@site/src/components/SectionCard';
+
+# Navigation
+
+For ROS 2 and Zenoh communication, see [Software Architecture: Middleware](/docs/systems/aiworker/specifications/software#middleware).
+
+This guide shows how to bring up the AI Worker's navigation stack so the robot can move autonomously after basic setup.
+
+<SectionCard>
+
+## 1. Bringup the Robot
+
+Complete the [Bringup Guide](/docs/systems/aiworker/quick_start_guide/bringup) to start the Zenoh daemon and bring up the robot before proceeding.
+
+:::warning
+Place the robot on level ground with sufficient clearance for autonomous driving. For battery-powered models, check that the battery is charged.
+:::
+
+</SectionCard>
+
+<SectionCard>
+
+## 2. Set Up the User PC for RViz2
+
+On the User PC, prepare Git, Docker Engine, and the Docker Compose plugin. Use a graphical desktop session so RViz2 can display its window. See the [Docker installation guide](https://docs.docker.com/engine/install/ubuntu/) if Docker is not installed.
+
+Clone the AI Worker repository on the User PC. If you already have a checkout, use the existing directory instead:
+
+```bash
+cd ~
+git clone -b jazzy https://github.com/ROBOTIS-GIT/ai_worker.git
+```
+
+Start and enter the AI Worker Docker container:
+
+```bash
+cd ~/ai_worker/docker
+./container.sh start
+./container.sh enter
+```
+
+In the container terminal, follow [External ROS 2 Communication](/docs/systems/aiworker/quick_start_guide/development_guide/external_ros2_communication) to configure Zenoh and connect the User PC to the robot. Apply the same settings in each User PC terminal used for ROS 2.
+
+</SectionCard>
+
+<SectionCard>
+
+## 3. Create and Save a Map
+
+### 1. Start Mapping
+
+In a new terminal, connect to the **Robot PC** via [SSH](/docs/systems/aiworker/quick_start_guide/development_guide/robot_pc_access), then enter the AI Worker container:
+
+```bash
+cd ~/ai_worker/docker
+./container.sh enter
+```
+
+Start Navigation with SLAM enabled:
+
+```bash
+ros2 launch ffw_navigation navigation.launch.py use_slam:=true
+```
+
+Keep robot bringup, the Zenoh daemon, and this command running while mapping.
+
+### 2. Open RViz2
+
+On the **User PC**, use the AI Worker container terminal with the Zenoh configuration applied in [step 2](#2-set-up-the-user-pc-for-rviz2) to open RViz2 with the mapping configuration:
+
+```bash
+rviz2 -d ~/ros2_ws/src/ai_worker/ffw_navigation/rviz/mapping.rviz
+```
+
+### 3. Explore the Environment
+
+Drive the robot through the area while monitoring the map in RViz2. Choose one of the following methods:
+
+- **RViz2 goal:** Use `2D Goal Pose` to send a goal in the explored area.
+- **Keyboard teleoperation:** In another **Robot PC** terminal, enter the AI Worker container and run:
+
+  ```bash
+  cd ~/ros2_ws/src/ai_worker/ffw_teleop/ffw_teleop
+  python3 mobile_teleop.py
+  ```
+
+  Use `W` / `S` to move forward or backward, `A` / `D` to turn, and Space to stop. Press `Ctrl+C` to exit.
+
+![SLAM mapping (Nav2 + SLAM Toolbox)](/img/systems/aiworker/quick_start_guide/operation_guide/navigation/MAPPING.gif)
+
+In the map, white represents free space, black represents obstacles, and gray represents unexplored space.
+
+### 4. Save the Map
+
+On the **Robot PC**, open another terminal, enter the AI Worker container, and save the map to the host-mounted workspace:
+
+```bash
+mkdir -p /workspace/maps
+ros2 run nav2_map_server map_saver_cli -f /workspace/maps/my_map
+```
+
+This creates `my_map.yaml` and `my_map.pgm` in `/workspace/maps`. Choose another name if you want to keep an existing map with that name.
+
+After saving the map, stop the SLAM-enabled Navigation launch with `Ctrl+C` in the terminal where it is running before starting Navigation with the saved map.
+
+</SectionCard>
+
+<SectionCard>
+
+## 4. Navigate with a Saved Map
+
+### 1. Start Navigation
+
+On the **Robot PC**, enter the AI Worker container and start Navigation with the saved map:
+
+```bash
+cd ~/ai_worker/docker
+./container.sh enter
+```
+
+```bash
+ros2 launch ffw_navigation navigation.launch.py map:=/workspace/maps/my_map.yaml
+```
+
+Replace `/workspace/maps/my_map.yaml` with the path to your map YAML file if you saved it elsewhere.
+
+### 2. Open RViz2
+
+On the **User PC**, open a terminal and enter the AI Worker container:
+
+```bash
+cd ~/ai_worker/docker
+./container.sh enter
+```
+
+Apply the same Zenoh settings from step 2 in this terminal, then open RViz2 with the navigation configuration:
+
+```bash
+rviz2 -d ~/ros2_ws/src/ai_worker/ffw_navigation/rviz/navigation.rviz
+```
+
+### 3. Set the Initial Pose
+
+In RViz2, select `2D Pose Estimate` and set the robot's position and orientation on the map so AMCL can localize it.
+
+![Illustrative animation of selecting the robot's position and dragging to set its initial orientation in RViz2 (composited)](/img/systems/aiworker/quick_start_guide/operation_guide/navigation/initial_pose.gif)
+
+### 4. Send a Goal
+
+In RViz2, select `2D Goal Pose` and set the target position and orientation. The robot plans and follows a path to the goal.
+
+![RViz goal and path with saved map](/img/systems/aiworker/aiw_rviz2.gif)
+
+![Real robot following planned path](/img/systems/aiworker/navigation_curve.gif)
+
+</SectionCard>
+
+## Troubleshooting
+- If the map is not being generated, check whether LiDAR data is being received. In a User PC container terminal with the same ROS 2 and Zenoh settings, run:
+
+  ```bash
+  ros2 topic echo /scan --qos-reliability best_effort
+  ```
+
+  If `/scan` messages are received but the display is missing in RViz2, set the `scan` display's Reliability Policy to `Best Effort`.
+- If the map is not visible in RViz, set the map topic Durability Policy to `Transient Local`.
+
+## Tuning Guide
+- **AMCL localization:** Adjust parameters in the `amcl` section of `ffw_navigation/config/navigation.yaml`.
+- **Nav2 stack (costmaps, BT navigator, controller, planner):** Adjust parameters in `ffw_navigation/config/navigation.yaml`.
+- **For detailed parameter descriptions across Nav2, see https://docs.nav2.org/index.html.**
+
+## Safety and Usage Tips
+- Keep people and obstacles clear while the robot is localizing or moving.
+- If you need to pause, use RViz to clear goals or stop the navigation nodes with `Ctrl+C` in the running terminals.
+- For simulation-based testing (recommended before field deployment), see the Nav2 section in Gazebo.

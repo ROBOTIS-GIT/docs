@@ -62,7 +62,6 @@ const aiworkerSidebar: SidebarsConfig[string] = [
           },
           {type: 'doc', id: 'systems/aiworker/quick_start_guide/operation_guide/teleoperation', label: 'Teleoperation'},
           {type: 'doc', id: 'systems/aiworker/quick_start_guide/operation_guide/vr_teleoperation', label: 'VR Teleoperation'},
-          {type: 'doc', id: 'systems/aiworker/quick_start_guide/operation_guide/navigation', label: 'Navigation'},
         ],
       },
     ],
@@ -125,6 +124,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
     label: 'Advanced Features',
     collapsed: false,
     items: [
+      {type: 'doc', id: 'systems/aiworker/quick_start_guide/navigation', label: 'Navigation'},
       {type: 'doc', id: 'systems/aiworker/advanced_features/advanced_features', label: 'Overview', key: 'advanced-features-overview'},
       {type: 'doc', id: 'systems/aiworker/advanced_features/cyclo_control', label: 'Cyclo Control'},
       {type: 'doc', id: 'systems/aiworker/advanced_features/robotis_vuer', label: 'ROBOTIS Vuer'},
