@@ -21,13 +21,14 @@ Docker installation provides a consistent environment with all dependencies pre-
 1. Clone the cyclo_lab repository with submodules:
 
    ```bash
-   git clone --recurse-submodules https://github.com/ROBOTIS-GIT/cyclo_lab.git
+   git clone https://github.com/ROBOTIS-GIT/cyclo_lab.git
    cd cyclo_lab
+   git submodule update --init
    ```
 
    If you already cloned without submodules, initialize them:
    ```bash
-   git submodule update --init --recursive
+   git submodule update --init
    ```
 
 2. Build and start the Docker container:
@@ -36,6 +37,8 @@ Docker installation provides a consistent environment with all dependencies pre-
    ./docker/container.sh build
    ./docker/container.sh start
    ```
+
+   If a container already exists, use `./docker/container.sh recreate` instead of `start` after rebuilding to apply the new image.
 
 3. Enter the container:
 
@@ -46,6 +49,7 @@ Docker installation provides a consistent environment with all dependencies pre-
 **Docker Commands:**
 - `./docker/container.sh build` - Build the image
 - `./docker/container.sh start` - Start the container
+- `./docker/container.sh recreate` - Recreate the container after rebuilding the image
 - `./docker/container.sh enter` - Enter the running container
 - `./docker/container.sh stop` - Stop the container
 - `./docker/container.sh logs` - View container logs
