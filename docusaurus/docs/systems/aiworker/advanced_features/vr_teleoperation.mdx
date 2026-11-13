@@ -1,6 +1,7 @@
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import RunZenohDaemon from '@site/docs/systems/aiworker/_partials/run_zenoh_daemon.mdx';
+import SectionCard from '@site/src/components/SectionCard';
 
 # VR Teleoperation
 
@@ -21,9 +22,11 @@ Modify **initial pose** for safety.
 The default initial pose for the AI Worker (arms straight down) is not ideal for VR, as VR teleoperation requires the hands to be within the camera's field of view. It is highly recommended to change the initial position to a "ready" pose (e.g., elbows bent 90° with hands forward). Refer to this **[Discord post](https://discord.com/channels/1377230275393884170/1486960366700204204)** for instructions on modifying the initial pose (a Discord account may be required).
 :::
 
-## VR Device Setup
+<SectionCard>
 
-### 1. Meta Horizon App (Developer Mode)
+## 1. VR Device Setup
+
+### 1. Enable Developer Mode
 
 Enable Developer Mode via the Meta Horizon mobile app:
 
@@ -36,7 +39,7 @@ Enable Developer Mode via the Meta Horizon mobile app:
   <img src="/img/systems/aiworker/quick_start_guide/operation_guide/vr_teleoperation/developer_mode_toggle_meta.png" alt="developer_mode_toggle_meta" width="22%" />
 </div>
 
-### 2. On-headset settings
+### 2. Configure Headset Settings
 
 1. **Power / Sleep** : **Settings → General** (use **Power** or **Display** depending on your firmware): set **Display off** and **Sleep mode** to **4 hours** (or the longest option available) so the headset does not sleep during use.
 
@@ -48,9 +51,11 @@ Enable Developer Mode via the Meta Horizon mobile app:
 
    Alternatively, use **Create new boundary** to define the boundary manually.
 
-## VR Startup
+</SectionCard>
 
-AI Worker VR teleoperation utilizes **Vuer** as the browser-based VR client. For more information about the VR stack and Vuer itself, see the **[ROBOTIS Vuer](https://github.com/ROBOTIS-GIT/robotis_applications/tree/main/robotis_vuer)** package.
+<SectionCard>
+
+## VR Startup
 
 ### 1. Clone the repository
 
@@ -175,17 +180,25 @@ Once the VR setup is complete, **hang the headset around your neck** and tighten
 If the Vuer server is **restarted**, you must **refresh** the browser page and click `Enter VR` again.
 :::
 
+</SectionCard>
+
+<SectionCard>
+
 ## Cyclo Control Setup
 
 VR teleoperation relies on `Cyclo Control` as the robot motion-control layer. It receives VR references and generates the arm trajectories that the robot follows. Ensure it is installed and configured before proceeding.
 
 You can find the installation steps in the [`cyclo_control` repository](https://github.com/ROBOTIS-GIT/cyclo_control).
 
-For more information, see **[Cyclo Control](/docs/systems/aiworker/advanced_features/cyclo_control)**.
+For more information, see **[Cyclo Control](/docs/software/cyclo/control/aiworker)**.
+
+</SectionCard>
+
+<SectionCard>
 
 ## Running VR Teleoperation
 
-Execute these commands on the `Robot PC`. You can either connect a keyboard and mouse directly to the Nvidia Orin, or access it via SSH (see the **[Setup Guide](/docs/systems/aiworker/quick_start_guide/setup_overview/software)** for instructions). Enter the `ai_worker` Docker container first:
+Execute these commands on the `Robot PC`. You can either connect a keyboard and mouse directly to the Nvidia Orin, or access it via SSH (see the **[Setup Guide](/docs/systems/aiworker/quick_start_guide/bringup)** for instructions). Enter the `ai_worker` Docker container first:
 
 ```bash
 cd ~/ai_worker
@@ -317,6 +330,10 @@ Right after the controller is activated, the system checks the difference betwee
 </TabItem>
 </Tabs>
 
+</SectionCard>
+
+<SectionCard>
+
 ## Troubleshooting
 ### Communication Issues
 - If ROS communication is not working: check the `ROS_DOMAIN_ID`. (`ROS_DOMAIN_ID` is set to `30` by default within the provided Docker container.)
@@ -325,7 +342,9 @@ Right after the controller is activated, the system checks the difference betwee
 
 ### Network Performance
 - If value updates are slow: check your Wi-Fi connection. Network performance has a major effect. A **wired connection** is recommended.
-- If wireless performance is insufficient, host the VR server directly on the `Robot PC` and use a USB-C to Ethernet adapter to establish a **wired connection** for the Meta Quest 3. Ensure the Ethernet cable is connected to the LAN port of the AI Worker, not the WAN port. Refer to the [Hardware Setup Overview](/docs/systems/aiworker/quick_start_guide/setup_overview/hardware) for port identification.
+- If wireless performance is insufficient, host the VR server directly on the `Robot PC` and use a USB-C to Ethernet adapter to establish a **wired connection** for the Meta Quest 3. Ensure the Ethernet cable is connected to the LAN port of the AI Worker, not the WAN port. Refer to the [Hardware Setup Overview](/docs/systems/aiworker/quick_start_guide/setup_hardware) for port identification.
 
 ### Hardware Tips
 - Proximity Sensor Workaround: The Meta Quest 3 may pause the session if it detects that the headset has been removed. Placing a small piece of **non-transparent tape** over the internal proximity sensor (located between the lenses) can help keep the session active.
+
+</SectionCard>
