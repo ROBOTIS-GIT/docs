@@ -33,17 +33,18 @@ Install these on the host PC first:
 Clone Cyclo Lab with its submodules:
 
 ```bash
-git clone --recurse-submodules https://github.com/ROBOTIS-GIT/cyclo_lab.git
+git clone https://github.com/ROBOTIS-GIT/cyclo_lab.git
 cd cyclo_lab
+git submodule update --init
 ```
 
 <details>
 <summary>Already cloned Cyclo Lab?</summary>
 
-If the repository was cloned without `--recurse-submodules`, initialize its submodules before starting the container:
+Initialize the submodules before starting the container:
 
 ```bash
-git submodule update --init --recursive
+git submodule update --init
 ```
 
 </details>
@@ -68,12 +69,14 @@ Useful host-side commands:
 | --- | --- |
 | `./docker/container.sh build` | Build the image. |
 | `./docker/container.sh start` | Initialize submodules and start the container. |
+| `./docker/container.sh recreate` | Recreate the container after rebuilding the image. |
 | `./docker/container.sh enter` | Open a shell inside the running container. |
 | `./docker/container.sh stop` | Stop the container. |
 | `./docker/container.sh logs` | Follow container logs. |
 | `./docker/container.sh clean` | Remove the container and image. |
 
 :::note
+After rebuilding, use `recreate` to apply the new image to an existing container.
 The start script enables X11 forwarding when `DISPLAY` and `xauth` are available on the host.
 Use the no-window option shown for your backend in the training guides when visualization is not required.
 :::
