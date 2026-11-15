@@ -40,3 +40,5 @@ SuperMimic uses privileged simulator observations in its default development con
 The existing `/cyclo_lab/mimic` and `/cyclo_mjlab/mimic` pages now identify the method as BeyondMimic (PPO). Existing `Cyclo-Mimic-*` task IDs remain the documented compatibility names. A new menu label does not rename those tasks or make their checkpoints compatible with another learner.
 
 For Isaac Sim 6.2 / Isaac Lab 3.0, train and play use the same task ID. Older releases with separate `-Play` registrations and different visualization flags require their version's commands; do not combine them with the 6.2 backend arguments.
+
+Both published development branches use `scripts/reinforcement_learning/train.py` and `play.py` with optional `--algorithm beyondmimic|supermimic` and recognized task inference. Backend options remain platform-specific. Lab loads a v2 `--checkpoint` and can continue learned/optimizer state with fresh replay; MJLab loads a local `--checkpoint-dir` inference bundle. Offline play requires no W&B synchronization. Neither format is a PPO deployment export.

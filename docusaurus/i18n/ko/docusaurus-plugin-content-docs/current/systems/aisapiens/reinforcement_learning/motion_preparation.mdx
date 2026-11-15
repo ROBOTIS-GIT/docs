@@ -52,3 +52,5 @@ Reference 재사용은 Lab/MJLab 배열의 직접 호환이나 PPO/world-model p
 ## 4. Motion과 Checkpoint 연결
 
 Reference 파일을 task·learner·runtime·모델 revision·checkpoint와 함께 기록하고 play/export에도 같은 reference를 사용합니다. BeyondMimic 배포에서는 같은 실행의 `policy.onnx`, `sim2real.yaml`, motion CSV를 함께 준비합니다. SuperMimic은 별도 export/controller 계약이 필요합니다.
+
+SuperMimic은 지원하는 named 50 Hz K1 archive의 모든 frame/body를 FK·source-defined COM profile과 대조합니다. Array는 실수이며 float32에서도 유한해야 합니다. Producer/backend가 없으면 `unspecified`로 유지하고 물리적 일치로 출처를 추정하지 않습니다. 플랫폼별 규약을 검사하며 원본 NPZ 바이트는 보존합니다. Lab 학습 재개에는 저장된 motion digest가 일치해야 하며 임의의 simulator 간 archive나 checkpoint 호환을 뜻하지 않습니다.

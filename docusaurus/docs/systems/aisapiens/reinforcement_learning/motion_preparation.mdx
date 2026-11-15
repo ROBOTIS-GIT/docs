@@ -54,3 +54,5 @@ Reference reuse does not mean that Lab and MJLab arrays are interchangeable or t
 ## 4. Keep Motion and Checkpoint Together
 
 Record the reference file with the task, learner, runtime, model revision, and checkpoint. Use that same reference during playback and export. For BeyondMimic deployment, keep `policy.onnx`, the matching `sim2real.yaml`, and the corresponding motion CSV together. SuperMimic needs its own export/controller contract; preparation of a motion file does not supply one.
+
+SuperMimic validates supported named 50 Hz K1 archives against every frame/body FK and source-defined COM profiles. Arrays must remain real and finite in float32. Missing producer/backend labels remain `unspecified`; a matching physical profile does not prove provenance. Each platform preserves original NPZ bytes and enforces its own conventions. Lab continuation requires the saved motion digest; reference reuse does not imply arbitrary cross-simulator or checkpoint compatibility.

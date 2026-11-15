@@ -40,3 +40,5 @@ SuperMimic의 기본 개발 설정은 privileged simulator 관측을 사용합�
 기존 `/cyclo_lab/mimic`, `/cyclo_mjlab/mimic` URL은 유지하며 방법 이름을 BeyondMimic (PPO)으로 명시합니다. 기존 `Cyclo-Mimic-*` task ID도 호환 이름으로 유지합니다. 메뉴 이름 변경은 task나 checkpoint 형식 변경을 뜻하지 않습니다.
 
 Isaac Sim 6.2 / Isaac Lab 3.0에서는 학습과 play에 같은 task ID를 사용합니다. 별도 `-Play` 등록이나 다른 시각화 옵션이 있던 이전 버전 명령을 6.2 backend 인자와 혼합하지 마세요.
+
+공개된 두 개발 브랜치는 `scripts/reinforcement_learning/train.py`·`play.py`와 선택적 `--algorithm beyondmimic|supermimic`, task 추론을 제공합니다. Backend 인자는 플랫폼별로 다릅니다. Lab은 v2 `--checkpoint`로 learned/optimizer state를 복원하고 replay는 새로 시작합니다. MJLab은 로컬 `--checkpoint-dir` inference bundle을 사용합니다. Offline play에 W&B sync는 필요하지 않으며 두 형식 모두 PPO 배포 export와 다릅니다.
