@@ -1,0 +1,79 @@
+---
+sidebar_label: SuperMimic (World Model)
+title: SuperMimic (World Model)
+---
+
+# SuperMimic (World Model)
+
+SuperMimic learns dynamics from simulator transitions and trains a tracking policy through imagined rollouts. Cyclo Lab calls the [official HybridRobotics SuperMimic](https://github.com/HybridRobotics/SuperMimic) learners with states collected directly in Isaac Lab. It uses the same Isaac runtime as [BeyondMimic PPO](./mimic), with different checkpoints and deployment contracts.
+
+:::info[Development branch]
+This guide describes Cyclo Lab `feature-supermimic`, including native implementation `3eaef84602b57252bddfd0f2b93b1eb8050662da`. It is not the current `main` release. Bounded PhysX learning, fresh-process local play, and resumed updates have been checked. Long-run tracking quality, compiled execution and robot deployment have not been validated.
+:::
+
+## Install
+
+Use a separate [Cyclo Lab](https://github.com/ROBOTIS-GIT/cyclo_lab) checkout on `feature-supermimic`. Follow the [Cyclo Lab setup](./) to build, start, and enter its Isaac Sim 6.2 / Isaac Lab 3.0 Docker environment. This native integration uses Python 3.12; do not add the upstream MJLab Python 3.13 runtime to Cyclo Lab.
+
+The RSL-RL extra supplies the matching Torch, normalization, and TensorDict dependencies. If it was omitted, install the branch's pinned requirements inside the container:
+
+```bash
+uv pip install --python /opt/isaaclab-venv/bin/python -r requirements/supermimic.txt
+```
+
+The current SuperMimic launcher selects PhysX. Newton is a separate backend choice and has not been validated for this learner. The existing PPO presets and commands remain available.
+
+## Prepare Motion
+
+Follow [common motion preparation](../motion_preparation). Both methods can consume the same existing named **50 Hz Cyclo Lab NPZ** without another conversion. The selector's `--motion-file` validates names, arrays, FPS and quaternion metadata before either learner starts; SuperMimic also checks against the live articulation.
+
+Input must include unique `joint_names` and `body_names`, all 23 matching K1 joints, body coverage for the articulation, consistent finite SI world-frame arrays, unit quaternions, and explicit `quaternion_order` (or `quat_order`). The shared loader reorders named columns and converts declared quaternions to Isaac's xyzw; the learner bridge converts root quaternions to wxyz once. Missing/conflicting conventions, duplicate/unknown joints, missing required bodies, malformed arrays and non-50 Hz input are rejected. No resampling or rewriting occurs. This does not establish compatibility with MJLab's different body/frame contract.
+
+## Select and Train
+
+Run inside the container from the repository root. Existing `Cyclo-Mimic-K1-Rev1-Dance1/2` PPO task IDs remain supported, and `Cyclo-BeyondMimic-*` aliases select the same configurations. The common selector distinguishes the methods explicitly:
+
+```bash
+python scripts/reinforcement_learning/mimic.py --method beyondmimic train \
+  --task Cyclo-BeyondMimic-K1-Rev1-Dance1 \
+  --motion-file source/cyclo_lab/data/motions/K1_rev1/dance1/dance1.npz \
+  --num_envs 4096 --headless physics=isaacsim_physx
+```
+
+For native SuperMimic GenCoord tracking, check GPU availability and choose an environment count that fits its memory:
+
+```bash
+python scripts/reinforcement_learning/mimic.py --method supermimic train \
+  --task Cyclo-SuperMimic-K1-Rev1-Dance1 \
+  --motion-file source/cyclo_lab/data/motions/K1_rev1/dance1/dance1.npz \
+  --num-envs 32 --iterations 1000 --eager --headless \
+  --output logs/supermimic/k1-dance1
+```
+
+Replace the motion path with your validated reference. `--eager` disables compilation and graph capture while retaining the same losses, rollout gradients and optimizers; this is the verified execution mode. Compiled learning is not validated here. The runner collects real Isaac transitions, updates the world model and optimizes the actor through imagined dynamics. Checkpoints are written as `model_<iteration>.pt` under the output directory.
+
+Bounded verification used two environments and tiny batches: both world-model and actor parameters changed, metrics were finite, and checkpoints saved/reloaded. The existing PPO selector also passed a short real PhysX update on the same original reference. These checks do not demonstrate convergence or a good tracking policy.
+
+## Play and Resume
+
+Replace the checkpoint path below with a checkpoint produced by your run:
+
+```bash
+python scripts/reinforcement_learning/mimic.py --method supermimic play \
+  --checkpoint logs/supermimic/k1-dance1/model_1000.pt \
+  --num-envs 1 --play-steps 1000 --eager --headless
+
+python scripts/reinforcement_learning/mimic.py --method supermimic train \
+  --checkpoint logs/supermimic/k1-dance1/model_1000.pt \
+  --iterations 100 --eager --headless --output logs/supermimic/k1-dance1-resume
+```
+
+Local play needs no W&B account. The checkpoint restores the task, motion path/digest, learner configuration, joint/action metadata, normalizers and optimizer states. If the saved motion path is unavailable, supply `--motion-file` with the matching reference. Resume recollects replay and simulator state; it does not restore an exact mid-episode simulation.
+
+Fresh-process headless play and resumed learning passed bounded checks. GUI playback, long training and compiled performance were not verified. These checkpoints are incompatible with PPO and the original MJLab bundles.
+
+## Supported Scope and Deployment
+
+The native port supports GenCoord K1 single-motion tracking with privileged representation-state actor input. MaxCoord, multiple encoder tasks, multi-clip sampling and proprioceptive/history deployment are outside the validated path. It retains the existing K1 asset and uses a separate tracking configuration; PPO settings remain unchanged.
+
+There is no validated SuperMimic-to-K1 Sim2Real export/controller contract. A world-model checkpoint is not the [BeyondMimic](./mimic) `policy.onnx` and `sim2real.yaml` pair. Observation history, normalization, action transform, timestep, joint order and reference format need independent validation before robot use. See the [method comparison](../motion_tracking) when choosing a workflow.

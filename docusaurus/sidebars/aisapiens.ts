@@ -36,6 +36,8 @@ const aisapiensSidebar: SidebarsConfig[string] = [
     label: 'Reinforcement Learning',
     collapsed: false,
     items: [
+      {type: 'doc', id: 'systems/aisapiens/reinforcement_learning/motion_tracking', label: 'Motion Tracking'},
+      {type: 'doc', id: 'systems/aisapiens/reinforcement_learning/motion_preparation', label: 'Prepare Motion'},
       {
         type: 'category',
         label: 'Cyclo Lab',
@@ -43,7 +45,10 @@ const aisapiensSidebar: SidebarsConfig[string] = [
         items: [
           {type: 'doc', id: 'systems/aisapiens/reinforcement_learning/cyclo_lab/cyclo_lab', label: 'Overview', key: 'cyclo-lab-overview'},
           {type: 'doc', id: 'systems/aisapiens/reinforcement_learning/cyclo_lab/locomotion', label: 'Locomotion'},
-          {type: 'doc', id: 'systems/aisapiens/reinforcement_learning/cyclo_lab/mimic', label: 'Mimic'},
+          {type: 'category', label: 'Motion Tracking', key: 'cyclo-lab-motion-tracking', collapsed: false, items: [
+            {type: 'doc', id: 'systems/aisapiens/reinforcement_learning/cyclo_lab/mimic', label: 'BeyondMimic (PPO)'},
+            {type: 'doc', id: 'systems/aisapiens/reinforcement_learning/cyclo_lab/supermimic', label: 'SuperMimic (World Model)', key: 'cyclo_lab-supermimic'},
+          ]},
         ],
       },
       {
@@ -53,7 +58,10 @@ const aisapiensSidebar: SidebarsConfig[string] = [
         items: [
           {type: 'doc', id: 'systems/aisapiens/reinforcement_learning/cyclo_mjlab/cyclo_mjlab', label: 'Overview'},
           {type: 'doc', id: 'systems/aisapiens/reinforcement_learning/cyclo_mjlab/locomotion', label: 'Locomotion', key: 'cyclo-mjlab-locomotion'},
-          {type: 'doc', id: 'systems/aisapiens/reinforcement_learning/cyclo_mjlab/mimic', label: 'Mimic', key: 'cyclo-mjlab-mimic'},
+          {type: 'category', label: 'Motion Tracking', key: 'cyclo-mjlab-motion-tracking', collapsed: false, items: [
+            {type: 'doc', id: 'systems/aisapiens/reinforcement_learning/cyclo_mjlab/mimic', label: 'BeyondMimic (PPO)', key: 'cyclo-mjlab-mimic'},
+            {type: 'doc', id: 'systems/aisapiens/reinforcement_learning/cyclo_mjlab/supermimic', label: 'SuperMimic (World Model)', key: 'cyclo_mjlab-supermimic'},
+          ]},
         ],
       },
     ],

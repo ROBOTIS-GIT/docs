@@ -1,0 +1,79 @@
+---
+sidebar_label: SuperMimic (World Model)
+title: SuperMimic (World Model)
+---
+
+# SuperMimic (World Model)
+
+SuperMimic은 simulator transition으로 dynamics를 학습하고 imagined rollout으로 추종 policy를 학습합니다. Cyclo Lab은 Isaac Lab에서 직접 수집한 state를 [공식 HybridRobotics SuperMimic](https://github.com/HybridRobotics/SuperMimic) learner에 전달합니다. [BeyondMimic PPO](./mimic)와 Isaac runtime을 공유하지만 checkpoint·배포 계약은 다릅니다.
+
+:::info[개발 브랜치]
+이 가이드는 native 구현 `3eaef84602b57252bddfd0f2b93b1eb8050662da`를 포함한 Cyclo Lab `feature-supermimic`용이며 현재 `main` 릴리스용이 아닙니다. 제한된 PhysX 학습, 새 process의 로컬 play, resume update는 확인했습니다. 장기 추종 품질·compiled 실행·로봇 배포는 미검증입니다.
+:::
+
+## 설치
+
+[Cyclo Lab](https://github.com/ROBOTIS-GIT/cyclo_lab)의 별도 `feature-supermimic` checkout을 사용합니다. [Cyclo Lab 설정](./)에 따라 Isaac Sim 6.2 / Isaac Lab 3.0 Docker 환경을 build/start/enter하세요. Native 통합은 Python 3.12를 사용하며 Cyclo Lab에 upstream MJLab Python 3.13 환경을 추가하지 않습니다.
+
+RSL-RL extra가 호환 Torch·normalization·TensorDict 의존성을 제공합니다. 생략했다면 컨테이너 안에서 브랜치의 고정 requirements를 설치합니다.
+
+```bash
+uv pip install --python /opt/isaaclab-venv/bin/python -r requirements/supermimic.txt
+```
+
+현재 SuperMimic launcher는 PhysX를 선택합니다. Newton은 별도 backend 선택이며 이 learner에서는 미검증입니다. 기존 PPO preset과 명령은 유지합니다.
+
+## Motion 준비
+
+[공통 motion 준비](../motion_preparation)를 따릅니다. 두 방법은 이름이 있는 기존 **50 Hz Cyclo Lab NPZ**를 추가 변환 없이 사용합니다. Selector의 `--motion-file`은 두 learner 실행 전에 이름·array·FPS·quaternion metadata를 검사하며 SuperMimic은 live articulation과도 대조합니다.
+
+입력에는 중복 없는 `joint_names`·`body_names`, 일치하는 K1 관절 23개, articulation에 필요한 body, 일관된 유한 SI world-frame array, unit quaternion, 명시적인 `quaternion_order` 또는 `quat_order`가 필요합니다. 공통 loader는 이름으로 순서를 맞추고 선언된 quaternion을 Isaac xyzw로 변환합니다. Learner bridge는 root quaternion을 wxyz로 한 번 변환합니다. 규약 누락·충돌, 중복/미지의 joint, 필수 body 누락, 잘못된 array, 50 Hz가 아닌 입력은 거부하며 resampling·원본 변경은 하지 않습니다. MJLab의 다른 body/frame 계약과 직접 호환된다는 뜻은 아닙니다.
+
+## 방법 선택과 학습
+
+컨테이너의 저장소 루트에서 실행합니다. 기존 PPO task `Cyclo-Mimic-K1-Rev1-Dance1/2`와 같은 config의 `Cyclo-BeyondMimic-*` 별칭을 유지합니다. 공통 selector로 방법을 명시할 수 있습니다.
+
+```bash
+python scripts/reinforcement_learning/mimic.py --method beyondmimic train \
+  --task Cyclo-BeyondMimic-K1-Rev1-Dance1 \
+  --motion-file source/cyclo_lab/data/motions/K1_rev1/dance1/dance1.npz \
+  --num_envs 4096 --headless physics=isaacsim_physx
+```
+
+Native SuperMimic GenCoord 학습은 GPU 사용 상태를 확인하고 메모리에 맞는 environment 수로 실행합니다.
+
+```bash
+python scripts/reinforcement_learning/mimic.py --method supermimic train \
+  --task Cyclo-SuperMimic-K1-Rev1-Dance1 \
+  --motion-file source/cyclo_lab/data/motions/K1_rev1/dance1/dance1.npz \
+  --num-envs 32 --iterations 1000 --eager --headless \
+  --output logs/supermimic/k1-dance1
+```
+
+Motion 경로는 자신의 검증된 reference로 바꿀 수 있습니다. `--eager`는 같은 loss·rollout gradient·optimizer를 유지하면서 compilation/graph capture를 끄는 검증된 실행 모드입니다. Compiled 학습은 미검증입니다. 실제 Isaac transition을 수집하고 world-model update와 imagined dynamics를 통한 actor 최적화를 수행합니다. Checkpoint는 output 아래 `model_<iteration>.pt`로 저장됩니다.
+
+두 environment와 작은 batch의 제한된 검증에서 world-model·actor parameter 변경, 유한 metric, checkpoint 저장/reload를 확인했습니다. 같은 원본 reference로 기존 PPO selector의 짧은 실제 PhysX update도 통과했습니다. 추종 수렴이나 좋은 policy의 증거는 아닙니다.
+
+## Play와 Resume
+
+Checkpoint 경로를 자신의 실행에서 생성한 파일로 바꾸세요.
+
+```bash
+python scripts/reinforcement_learning/mimic.py --method supermimic play \
+  --checkpoint logs/supermimic/k1-dance1/model_1000.pt \
+  --num-envs 1 --play-steps 1000 --eager --headless
+
+python scripts/reinforcement_learning/mimic.py --method supermimic train \
+  --checkpoint logs/supermimic/k1-dance1/model_1000.pt \
+  --iterations 100 --eager --headless --output logs/supermimic/k1-dance1-resume
+```
+
+로컬 play에는 W&B 계정이 필요하지 않습니다. Checkpoint가 task, motion 경로/digest, learner config, joint/action metadata, normalizer, optimizer state를 복원합니다. 저장된 motion 경로가 없다면 같은 reference를 `--motion-file`로 지정하세요. Resume는 replay와 simulator state를 새로 수집하며 episode 중간의 정확한 복원을 제공하지 않습니다.
+
+새 process의 headless play와 resume 학습은 제한된 검증을 통과했습니다. GUI play·장기 학습·compiled 성능은 미검증이며 이 checkpoint는 PPO나 원본 MJLab bundle과 호환되지 않습니다.
+
+## 지원 범위와 배포
+
+Native port는 privileged representation-state actor 입력의 GenCoord K1 single-motion tracking을 지원합니다. MaxCoord·다중 encoder task·multi-clip sampling·proprioceptive/history 배포는 검증 범위 밖입니다. 기존 K1 asset과 별도 tracking config를 사용하며 PPO 설정은 유지합니다.
+
+검증된 SuperMimic→K1 Sim2Real export/controller 계약은 없습니다. World-model checkpoint는 [BeyondMimic](./mimic)의 `policy.onnx`·`sim2real.yaml` 쌍이 아닙니다. 관측 이력·normalization·action 변환·timestep·joint 순서·reference 형식의 별도 검증이 필요합니다. [방법 비교](../motion_tracking)에서 흐름을 선택하세요.

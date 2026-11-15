@@ -1,0 +1,82 @@
+---
+sidebar_label: SuperMimic (World Model)
+title: SuperMimic (World Model)
+---
+
+# SuperMimic (World Model)
+
+SuperMimic learns a dynamics model from simulator transitions, then optimizes a tracking policy through imagined rollouts. Cyclo integrates the [official HybridRobotics implementation](https://github.com/HybridRobotics/SuperMimic) through its native task and learning entry points. Its checkpoints, observation contracts, and export paths differ from [BeyondMimic PPO](./mimic).
+
+:::info[Development branch]
+These instructions apply to Cyclo MJLab's `feature-supermimic` branch, including the direct-reference adapter at `a86085e485b6919db1d02c28111062257896d07a`. They do not describe the current `main` release. GenCoord and MaxCoord have passed bounded optimization checks; this is not a claim of converged K1 tracking or robot deployment. Interactive checkpoint playback remains unverified.
+:::
+
+## Install
+
+Use a separate checkout of [Cyclo MJLab](https://github.com/ROBOTIS-GIT/cyclo_mjlab) on `feature-supermimic`. From its repository root, with [uv](https://docs.astral.sh/uv/getting-started/installation/) installed:
+
+```bash
+git submodule update --init third_party/ai_sapiens
+uv sync --project integrations/supermimic --python 3.13 --locked
+```
+
+This creates `integrations/supermimic/.venv` with Python 3.13 and the pinned research runtime (`mjlab` 1.6.0). Keep the existing BeyondMimic Python 3.11 / mjlab 1.2.0 environment or container separate. The `--algorithm` flag selects the learner; it does not install or switch environments. The integration vendors SuperMimic at `abc124c1bd5976341034668af3d12c087f2f1f55` and pins `mjlab_research` at `dd51a9fcc98791a2f0b018b3c7f71a3eefd5ecdd`.
+
+## Prepare Motion
+
+Follow [common motion preparation](../motion_preparation). Pass the **same original 50 Hz Cyclo/MuJoCo NPZ** produced by the existing CSV converter to either learner. Train and play adapt it internally; a second manual conversion is unnecessary.
+
+The body-state archive must contain `fps`, unique `joint_names` and `body_names`, `joint_pos`, `joint_vel`, `body_pos_w`, `body_quat_w`, `body_lin_vel_w`, and `body_ang_vel_w`. All K1 hinges and MJCF bodies must be named, with consistent finite frames and normalized **wxyz** quaternions. The adapter matches names and checks every frame's poses and velocities against K1 forward kinematics. It supports the existing committed Dance1/Dance2 and current converter's COM velocity profiles, converting accepted COM velocities to link-origin velocities internally.
+
+Isaac references, explicit conflicting backend/frame metadata, xyzw quaternions, unknown body/model conventions, inconsistent velocities, and non-50 Hz input are rejected. The adapter does not retarget, resample, smooth, or guess quaternion order. Unannotated root-only files lack enough convention evidence: use the complete original body-state archive. Declared root-only research inputs additionally require scalar `backend=mujoco`, `quaternion_order=wxyz`, `velocity_frame=world`, and `velocity_point=link_origin`, named joints, and complete root pose/twist fields.
+
+Original files remain unchanged. Derived loader files and source/model manifests are stored under git-ignored `.supermimic-data/adapter/`; originals are revalidated at each invocation. Reference reuse does not imply cross-platform array or policy compatibility.
+
+## Select the Method and Task
+
+The common train/play entry points accept `--algorithm beyondmimic|supermimic` or infer the family from the task ID:
+
+```bash
+uv run --project integrations/supermimic python scripts/reinforcement_learning/train.py --list-tasks
+uv run --project integrations/supermimic python scripts/reinforcement_learning/play.py --list-tasks
+```
+
+| Method | Task IDs | Runtime |
+| --- | --- | --- |
+| BeyondMimic | `Cyclo-BeyondMimic-K1-Rev1-Dance1`, `Cyclo-BeyondMimic-K1-Rev1-Dance2`; existing `Cyclo-Mimic-*` aliases remain supported. | Existing PPO environment; follow [BeyondMimic](./mimic). |
+| SuperMimic | `Cyclo-SuperMimic-GenCoord-K1-Rev1`, `Cyclo-SuperMimic-MaxCoord-K1-Rev1` | Separate research environment above. |
+
+## Train
+
+Run from the repository root. Check GPU availability and choose an environment count that fits its memory:
+
+```bash
+WANDB_MODE=offline uv run --project integrations/supermimic python \
+  scripts/reinforcement_learning/train.py --algorithm supermimic \
+  Cyclo-SuperMimic-GenCoord-K1-Rev1 \
+  --motion-file source/assets/motions/K1_rev1/dance1/dance1.npz \
+  --num-envs 64 --runner.run-name k1-dance1
+```
+
+Use `MaxCoord` instead of `GenCoord` for body-space dynamics. Replace the motion path with your validated reference. The runner collects transitions, updates the world model, and optimizes the policy through imagined dynamics. Logs and checkpoints go to `logs/<task>/<timestamp>/`. Offline W&B keeps results local; omit `WANDB_MODE=offline` for authenticated online tracking.
+
+The default actor uses privileged representation state. `--runner.actor-obs proprio` selects proprioceptive inputs, but does not establish a validated deployable policy. Short CUDA optimization checks preceded the adapter update; subsequent CPU checks trained both representations directly on the original Dance1 NPZ for three iterations and reloaded finite checkpoints. These checks do not measure tracking convergence or policy quality.
+
+## Play and Resume
+
+The implemented viewer retrieves a matching W&B bundle containing `world_model.pt`, `actor.pt`, and the serialized runner configuration. Replace `ENTITY/PROJECT/RUN` with your run; offline runs must be synced to W&B first:
+
+```bash
+uv run --project integrations/supermimic python scripts/reinforcement_learning/play.py \
+  --algorithm supermimic Cyclo-SuperMimic-GenCoord-K1-Rev1 \
+  --motion-file source/assets/motions/K1_rev1/dance1/dance1.npz \
+  --wandb-path ENTITY/PROJECT/RUN --viewer viser
+```
+
+Match the method, representation, robot, motion, and runtime used for training. The command and adapter path are implemented, but interactive W&B playback was not executed in the bounded verification. Do not pass an RSL-RL PPO checkpoint to this learner. An exact resume recipe, including replay/simulator state handling, is not validated here.
+
+## Export and Deploy
+
+There is no validated SuperMimic-to-K1 Sim2Real contract in this guide. An actor/world-model bundle is not the BeyondMimic `policy.onnx` plus `sim2real.yaml` pair. Observation history, normalization, action transform, timestep, joint order, and reference format need independent export/controller validation before robot use.
+
+For the existing documented export path, choose [BeyondMimic (PPO)](./mimic). See the [method comparison](../motion_tracking) before selecting a workflow.

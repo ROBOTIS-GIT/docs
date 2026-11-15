@@ -1,0 +1,82 @@
+---
+sidebar_label: SuperMimic (World Model)
+title: SuperMimic (World Model)
+---
+
+# SuperMimic (World Model)
+
+SuperMimic은 simulator transition으로 dynamics를 학습하고 imagined rollout으로 추종 policy를 최적화합니다. Cyclo는 [공식 HybridRobotics 구현](https://github.com/HybridRobotics/SuperMimic)을 기존 task/learning 진입점에 통합합니다. [BeyondMimic PPO](./mimic)와 checkpoint·관측·export 계약이 다릅니다.
+
+:::info[개발 브랜치]
+이 명령은 직접 reference adapter `a86085e485b6919db1d02c28111062257896d07a`를 포함한 Cyclo MJLab `feature-supermimic`용이며 현재 `main` 릴리스용이 아닙니다. GenCoord·MaxCoord의 제한된 optimizer 실행은 확인됐지만 K1 추종 수렴이나 로봇 배포 검증을 뜻하지 않습니다. 대화형 checkpoint play는 미검증입니다.
+:::
+
+## 설치
+
+[Cyclo MJLab](https://github.com/ROBOTIS-GIT/cyclo_mjlab)의 별도 `feature-supermimic` checkout에서 진행합니다. [uv](https://docs.astral.sh/uv/getting-started/installation/) 설치 후 저장소 루트에서 실행하세요.
+
+```bash
+git submodule update --init third_party/ai_sapiens
+uv sync --project integrations/supermimic --python 3.13 --locked
+```
+
+Python 3.13과 고정된 research runtime(`mjlab` 1.6.0)을 사용하는 `integrations/supermimic/.venv`가 생성됩니다. 기존 BeyondMimic Python 3.11 / mjlab 1.2.0 환경·컨테이너와 분리합니다. `--algorithm`은 learner를 선택하며 환경을 설치하거나 전환하지 않습니다. SuperMimic source는 `abc124c1bd5976341034668af3d12c087f2f1f55`, `mjlab_research`는 `dd51a9fcc98791a2f0b018b3c7f71a3eefd5ecdd`에 고정됩니다.
+
+## Motion 준비
+
+[공통 motion 준비](../motion_preparation)를 따릅니다. 기존 CSV converter로 만든 **동일한 원본 50 Hz Cyclo/MuJoCo NPZ**를 두 learner에 지정합니다. Train/play 내부 adapter가 처리하므로 별도 수동 변환은 필요하지 않습니다.
+
+Body-state archive에는 `fps`, 중복 없는 `joint_names`·`body_names`, `joint_pos`, `joint_vel`, `body_pos_w`, `body_quat_w`, `body_lin_vel_w`, `body_ang_vel_w`가 필요합니다. 모든 K1 hinge와 MJCF body 이름, 일관된 유한 frame 값, 정규화된 **wxyz** quaternion을 포함해야 합니다. Adapter는 이름으로 순서를 연결하고 모든 frame의 pose·velocity를 K1 FK와 대조합니다. 기존 Dance1/Dance2와 현재 converter의 COM velocity profile을 지원하며, 확인된 COM 속도를 내부에서 link-origin 속도로 변환합니다.
+
+Isaac reference, 충돌하는 backend/frame metadata, xyzw quaternion, 알 수 없는 body/model 규약, 불일치 velocity, 50 Hz가 아닌 입력은 거부합니다. Retargeting·resampling·smoothing·quaternion 순서 추측은 하지 않습니다. 규약 metadata가 없는 root-only 파일은 충분한 근거가 없으므로 완전한 원본 body-state archive를 사용하세요. 선언된 root-only research 입력은 scalar `backend=mujoco`, `quaternion_order=wxyz`, `velocity_frame=world`, `velocity_point=link_origin` 및 이름이 있는 joint와 전체 root pose/twist 필드가 추가로 필요합니다.
+
+원본은 변경하지 않습니다. 파생 loader 파일과 source/model manifest는 git-ignored `.supermimic-data/adapter/`에 저장하며 실행마다 원본을 재검증합니다. Reference 재사용은 플랫폼 간 배열이나 policy 호환을 뜻하지 않습니다.
+
+## 방법과 Task 선택
+
+공통 train/play 진입점은 `--algorithm beyondmimic|supermimic` 또는 task ID로 방법을 선택합니다.
+
+```bash
+uv run --project integrations/supermimic python scripts/reinforcement_learning/train.py --list-tasks
+uv run --project integrations/supermimic python scripts/reinforcement_learning/play.py --list-tasks
+```
+
+| 방법 | Task ID | Runtime |
+| --- | --- | --- |
+| BeyondMimic | `Cyclo-BeyondMimic-K1-Rev1-Dance1`, `Cyclo-BeyondMimic-K1-Rev1-Dance2`; 기존 `Cyclo-Mimic-*` 별칭도 유지합니다. | 기존 PPO 환경. [BeyondMimic](./mimic)을 따릅니다. |
+| SuperMimic | `Cyclo-SuperMimic-GenCoord-K1-Rev1`, `Cyclo-SuperMimic-MaxCoord-K1-Rev1` | 위의 별도 research 환경. |
+
+## 학습
+
+저장소 루트에서 실행합니다. GPU 사용 상태를 확인하고 메모리에 맞는 environment 수를 선택하세요.
+
+```bash
+WANDB_MODE=offline uv run --project integrations/supermimic python \
+  scripts/reinforcement_learning/train.py --algorithm supermimic \
+  Cyclo-SuperMimic-GenCoord-K1-Rev1 \
+  --motion-file source/assets/motions/K1_rev1/dance1/dance1.npz \
+  --num-envs 64 --runner.run-name k1-dance1
+```
+
+Body-space dynamics는 `GenCoord`를 `MaxCoord`로 바꿉니다. Motion 경로는 자신의 검증된 reference로 바꿀 수 있습니다. Runner는 transition 수집, world-model update, imagined dynamics를 통한 policy 최적화를 수행합니다. 로그와 checkpoint는 `logs/<task>/<timestamp>/`에 저장됩니다. Offline W&B는 결과를 로컬에 보존하며, 인증된 온라인 tracking에는 `WANDB_MODE=offline`을 생략합니다.
+
+기본 actor는 privileged representation state를 사용합니다. `--runner.actor-obs proprio`는 proprioceptive 입력을 선택하지만 로봇용 policy 검증을 뜻하지 않습니다. Adapter 변경 전 짧은 CUDA optimizer 경로가 확인됐고, 변경 후에는 두 표현 모두 원본 Dance1 NPZ로 CPU 3회 iteration과 유한 checkpoint reload를 확인했습니다. 추종 수렴이나 policy 품질 검증은 아닙니다.
+
+## Play와 Resume
+
+구현된 viewer는 W&B에서 `world_model.pt`, `actor.pt`, 직렬화된 runner config bundle을 가져옵니다. `ENTITY/PROJECT/RUN`을 자신의 run으로 바꾸고 offline run은 먼저 W&B에 sync하세요.
+
+```bash
+uv run --project integrations/supermimic python scripts/reinforcement_learning/play.py \
+  --algorithm supermimic Cyclo-SuperMimic-GenCoord-K1-Rev1 \
+  --motion-file source/assets/motions/K1_rev1/dance1/dance1.npz \
+  --wandb-path ENTITY/PROJECT/RUN --viewer viser
+```
+
+학습과 같은 방법·표현·로봇·motion·runtime을 사용합니다. 명령과 adapter 경로는 구현됐으나 제한된 검증에서 대화형 W&B play는 실행하지 않았습니다. PPO checkpoint를 이 learner에 넣지 마세요. Replay/simulator state 처리까지 포함하는 정확한 resume recipe는 이 가이드의 검증 범위가 아닙니다.
+
+## Export와 배포
+
+검증된 SuperMimic→K1 Sim2Real 계약은 없습니다. Actor/world-model bundle은 BeyondMimic의 `policy.onnx`·`sim2real.yaml` 쌍이 아닙니다. 관측 이력·normalization·action 변환·timestep·joint 순서·reference 형식에 대한 별도 export/controller 검증이 필요합니다.
+
+기존 export 흐름은 [BeyondMimic (PPO)](./mimic)을 선택하세요. [방법 비교](../motion_tracking)에서 지원 범위를 확인할 수 있습니다.
