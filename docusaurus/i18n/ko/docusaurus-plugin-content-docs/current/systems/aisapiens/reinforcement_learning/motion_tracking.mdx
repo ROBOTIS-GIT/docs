@@ -21,7 +21,7 @@ AI Sapiens K1이 reference motion을 추종하도록 학습하는 방법을 선�
 | 플랫폼 / 방법 | Runtime 및 physics | 현재 범위 | Play 및 배포 |
 | --- | --- | --- | --- |
 | Cyclo Lab / BeyondMimic | Isaac Sim 6.2 / Isaac Lab 3.0 흐름의 Newton 또는 PhysX. | K1 Dance1/Dance2 문서화된 흐름. | 시뮬레이션 play와 ONNX/Sim2Real 자산 준비가 문서화되어 있습니다. |
-| Cyclo Lab / SuperMimic | Isaac Lab native 통합. 현재 개발 구현은 PhysX를 선택합니다. | 개발 브랜치의 GenCoord single-motion, 이름이 있는 50 Hz reference 공유, 제한된 native 학습을 확인했습니다. Newton·MaxCoord·compiled 실행·장기 추종 품질은 미검증입니다. | 새 process의 headless 로컬 play·resume update 확인. 검증된 Sim2Real export는 없습니다. |
+| Cyclo Lab / SuperMimic | Native Isaac PhysX만 지원하며 Newton override는 거부합니다. | GenCoord K1·privileged `rep_state`·history 1·단일 clip/encoder·fixed dynamics/zero context를 지원합니다. Named 50 Hz reference와 제한된 native 학습을 확인했습니다. MaxCoord는 통합되지 않았습니다. Compiled 실행과 장기 수렴은 미검증입니다. | Headless 로컬 play와 learned/optimizer-state 학습 재개 확인. Simulator/replay/RNG는 새로 시작하므로 정확한 trajectory resume가 아닙니다. 검증된 Sim2Real export는 없습니다. |
 | Cyclo MJLab / BeyondMimic | 기존 Cyclo MJLab runtime 및 MuJoCo. | K1 Dance1/Dance2 문서화된 흐름. | 시뮬레이션 play와 같은 실행의 policy/config export가 문서화되어 있습니다. |
 | Cyclo MJLab / SuperMimic | task/learning 흐름에 통합 중인 MuJoCo research API. | 개발 브랜치의 GenCoord·MaxCoord dispatch, 기존 50 Hz Cyclo/MuJoCo NPZ 직접 재사용, 제한된 optimizer 실행을 확인했습니다. 추종 수렴이 검증된 것은 아닙니다. | PPO와 bundle/runtime 요구 조건이 다르며 로봇 배포 계약은 검증되지 않았습니다. |
 
