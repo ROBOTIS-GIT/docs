@@ -78,6 +78,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
     label: 'Support',
     items: [
       {type: 'doc', id: 'systems/aiworker/support/troubleshooting', label: 'Troubleshooting'},
+      {type: 'doc', id: 'systems/aiworker/resources/release_notes', label: 'Release Notes'},
       {type: 'doc', id: 'systems/aiworker/resources/open_source', label: 'Open Source'},
       {type: 'link', href: 'https://discord.gg/robotis', label: 'Discord Server'},
       {type: 'doc', id: 'systems/aiworker/support/issues', label: 'Issue'},
