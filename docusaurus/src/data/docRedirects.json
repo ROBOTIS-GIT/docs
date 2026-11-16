@@ -1,5 +1,5 @@
 {
-  "/docs/systems/aiworker/quick_start_guide/development_guide/cli_guide": "/docs/systems/aiworker/quick_start_guide/advanced/cli_bringup_teleoperation",
+  "/docs/systems/aiworker/quick_start_guide/development_guide/cli_guide": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/cli_bringup_teleoperation",
   "/docs/systems/aiworker/advanced_features": {
     "to": "/docs/systems/aiworker/introduction#advanced-feature",
     "anchors": {
@@ -56,22 +56,22 @@
   },
   "/docs/systems/aiworker/quick_start_guide/setup_overview/hardware": "/docs/systems/aiworker/quick_start_guide/setup_hardware",
   "/docs/systems/aiworker/quick_start_guide/setup_overview/software": {
-    "to": "/docs/systems/aiworker/quick_start_guide/advanced/robot_pc_access",
+    "to": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/robot_pc_access",
     "anchors": {
       "development-environment-overview": "/docs/systems/aiworker/specifications/software#host-environment",
       "prerequisites": "/docs/systems/aiworker/specifications/software#host-environment",
-      "configuration": "/docs/systems/aiworker/quick_start_guide/advanced/development_environment",
+      "configuration": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/development_environment",
       "docker-volume-management": "/docs/systems/aiworker/specifications/software#container-volume-map",
-      "container-management": "/docs/systems/aiworker/quick_start_guide/advanced/development_environment",
-      "docker-command-guide": "/docs/systems/aiworker/quick_start_guide/advanced/development_environment",
-      "software-update-guide": "/docs/systems/aiworker/quick_start_guide/advanced/software_update",
-      "checking-battery-state": "/docs/systems/aiworker/quick_start_guide/advanced/checking_battery_state"
+      "container-management": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/development_environment",
+      "docker-command-guide": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/development_environment",
+      "software-update-guide": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/software_update",
+      "checking-battery-state": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/checking_battery_state"
     }
   },
   "/docs/systems/aiworker/quick_start_guide/setup_overview/zenoh_communication": {
     "to": "/docs/systems/aiworker/specifications/software#middleware",
     "anchors": {
-      "external-pc-control": "/docs/systems/aiworker/quick_start_guide/advanced/external_ros2_communication",
+      "external-pc-control": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/external_ros2_communication",
       "what-is-rmw_zenoh": "what-is-rmw_zenoh",
       "using-rmw_fastrtps_cpp": "using-rmw_fastrtps_cpp",
       "references": "middleware"
@@ -93,15 +93,24 @@
   "/docs/systems/aiworker/support/faq": "/docs/systems/aiworker/support/contact_us",
   "/docs/systems/aiworker/support/jetson_orin_flashing": "/docs/systems/aiworker/support/troubleshooting/image_reflashing",
   "/docs/systems/aiworker/support/multi_turn_troubleshooting_guide": "/docs/systems/aiworker/support/troubleshooting/multi_turn_error",
-  "/docs/systems/aiworker/quick_start_guide/development_guide/robot_pc_access": "/docs/systems/aiworker/quick_start_guide/advanced/robot_pc_access",
-  "/docs/systems/aiworker/quick_start_guide/development_guide/development_environment": "/docs/systems/aiworker/quick_start_guide/advanced/development_environment",
-  "/docs/systems/aiworker/quick_start_guide/development_guide/software_update": "/docs/systems/aiworker/quick_start_guide/advanced/software_update",
-  "/docs/systems/aiworker/quick_start_guide/development_guide/cli_bringup_teleoperation": "/docs/systems/aiworker/quick_start_guide/advanced/cli_bringup_teleoperation",
-  "/docs/systems/aiworker/quick_start_guide/development_guide/external_ros2_communication": "/docs/systems/aiworker/quick_start_guide/advanced/external_ros2_communication",
-  "/docs/systems/aiworker/quick_start_guide/development_guide/checking_battery_state": "/docs/systems/aiworker/quick_start_guide/advanced/checking_battery_state",
+  "/docs/systems/aiworker/quick_start_guide/development_guide/robot_pc_access": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/robot_pc_access",
+  "/docs/systems/aiworker/quick_start_guide/development_guide/development_environment": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/development_environment",
+  "/docs/systems/aiworker/quick_start_guide/development_guide/software_update": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/software_update",
+  "/docs/systems/aiworker/quick_start_guide/development_guide/cli_bringup_teleoperation": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/cli_bringup_teleoperation",
+  "/docs/systems/aiworker/quick_start_guide/development_guide/external_ros2_communication": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/external_ros2_communication",
+  "/docs/systems/aiworker/quick_start_guide/development_guide/checking_battery_state": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/checking_battery_state",
   "/docs/software/cyclo/control/aiworker": "/docs/systems/aiworker/advanced_features/cyclo_control",
   "/docs/software/cyclo/flow/autonomy_studio/overview": "/docs/systems/aiworker/autonomy_studio/overview",
   "/docs/software/cyclo/flow/autonomy_studio/action_canvas": "/docs/systems/aiworker/autonomy_studio/action_canvas",
   "/docs/software/cyclo/flow/autonomy_studio/mission_canvas/navigation": "/docs/systems/aiworker/autonomy_studio/mission_canvas/navigation",
-  "/docs/software/cyclo/flow/autonomy_studio/mission_canvas/mission": "/docs/systems/aiworker/autonomy_studio/mission_canvas/mission"
+  "/docs/software/cyclo/flow/autonomy_studio/mission_canvas/mission": "/docs/systems/aiworker/autonomy_studio/mission_canvas/mission",
+  "/docs/systems/aiworker/quick_start_guide/advanced": "/docs/systems/aiworker/quick_start_guide/in_depth_guide",
+  "/docs/systems/aiworker/quick_start_guide/advanced/robot_pc_access": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/robot_pc_access",
+  "/docs/systems/aiworker/quick_start_guide/advanced/development_environment": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/development_environment",
+  "/docs/systems/aiworker/quick_start_guide/advanced/software_update": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/software_update",
+  "/docs/systems/aiworker/quick_start_guide/advanced/cli_bringup_teleoperation": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/cli_bringup_teleoperation",
+  "/docs/systems/aiworker/quick_start_guide/advanced/rmw_domain_settings": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/rmw_domain_settings",
+  "/docs/systems/aiworker/quick_start_guide/advanced/external_ros2_communication": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/external_ros2_communication",
+  "/docs/systems/aiworker/quick_start_guide/advanced/checking_battery_state": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/checking_battery_state",
+  "/docs/systems/aiworker/quick_start_guide/advanced/container_management": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/development_environment"
 }
