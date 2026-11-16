@@ -1,21 +1,25 @@
 import AiWorkerNetworkDiagram from '@site/src/components/AiWorkerNetworkDiagram';
 import SectionCard from '@site/src/components/SectionCard';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 # Bringup Guide
 
-Use Cyclo Manager to start the AI Worker robot stack. Complete [Hardware Setup](/docs/systems/aiworker/quick_start_guide/setup_hardware) before continuing.
+This guide explains how to bring up the AI Worker robot. Complete [Hardware Setup](/docs/systems/aiworker/quick_start_guide/setup_hardware) before continuing.
 
 <SectionCard>
 
 ## 1. Network Connection
 
-#### W1 / BG2
+<Tabs>
+<TabItem value="f1-bg2" label="W1 / BG2">
 
 These models do not have a built-in router. Connect the robot's LAN port to an external router, then connect your PC to the same router using Wi-Fi or LAN. An external router is not included with the robot.
 
 <AiWorkerNetworkDiagram router="external" />
 
-#### W2 / SG2
+</TabItem>
+<TabItem value="f2-sg2" label="W2 / SG2">
 
 These models have a built-in router. Connect your PC to the robot's Wi-Fi network:
 
@@ -23,6 +27,9 @@ These models have a built-in router. Connect your PC to the robot's Wi-Fi networ
 - **Default password:** The same as the network name. ex. `AIWORKER0000`
 
 <AiWorkerNetworkDiagram router="built-in" />
+
+</TabItem>
+</Tabs>
 
 </SectionCard>
 

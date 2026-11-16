@@ -155,18 +155,28 @@ In RViz2, select `2D Goal Pose` and set the target position and orientation. The
 
 </SectionCard>
 
+<SectionCard>
+
 ## Troubleshooting
 
 For common issues, see [Navigation Troubleshooting](/docs/systems/aiworker/support/troubleshooting#navigation).
 
+</SectionCard>
+
+<SectionCard>
 
 ## Tuning Guide
 - **AMCL localization:** Adjust parameters in the `amcl` section of `ffw_navigation/config/navigation.yaml`.
 - **Nav2 stack (costmaps, BT navigator, controller, planner):** Adjust parameters in `ffw_navigation/config/navigation.yaml`.
 - **For detailed parameter descriptions across Nav2, see https://docs.nav2.org/index.html.**
 
+</SectionCard>
+
+<SectionCard>
 
 ## Safety and Usage Tips
 - Keep people and obstacles clear while the robot is localizing or moving.
 - If you need to pause, use RViz to clear goals or stop the navigation nodes with `Ctrl+C` in the running terminals.
 - For simulation-based testing (recommended before field deployment), see the Nav2 section in Gazebo.
+
+</SectionCard>
