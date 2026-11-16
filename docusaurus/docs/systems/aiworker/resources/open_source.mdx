@@ -7,8 +7,8 @@ The AI Worker open-source stack combines the robot's ROS 2 software with an end-
 :::tip[Where should I start?]
 
 - To set up and operate the robot, start with [`ai_worker`](https://github.com/ROBOTIS-GIT/ai_worker).
-- To record demonstrations, prepare datasets, train policies, and run inference, start with the [Imitation Learning Overview](/docs/systems/aiworker/imitation_learning/overview) and continue with [Cyclo Intelligence](/docs/systems/aiworker/imitation_learning).
-- For constraint-aware arm motion, bimanual control, and VR teleoperation, use [Cyclo Control](/docs/systems/aiworker/advanced_features/cyclo_control).
+- To record demonstrations, prepare datasets, train policies, and run inference, start with the [Imitation Learning Setup](/docs/systems/aiworker/imitation_learning/setup) and continue with [Cyclo Intelligence](/docs/software/cyclo/cyclo_intelligence).
+- For constraint-aware arm motion, bimanual control, and VR teleoperation, use [Cyclo Control](/docs/software/cyclo/control/aiworker).
 - For Isaac Lab simulation and robot assets, see [`cyclo_lab`](https://github.com/ROBOTIS-GIT/cyclo_lab).
 
 :::
@@ -17,10 +17,11 @@ The AI Worker open-source stack combines the robot's ROS 2 software with an end-
 
 | Category | Repository | What it provides | Guide |
 |:---------|:-----------|:-----------------|:------|
-| <span className="repository-category-list"><span className="badge badge--secondary repository-category-badge">Robot platform</span><span className="badge badge--secondary repository-category-badge">ROS 2</span></span> | <GitHubRepositoryLink href="https://github.com/ROBOTIS-GIT/ai_worker">ROBOTIS-GIT/ai_worker</GitHubRepositoryLink> | Robot descriptions, bringup, controllers, navigation, teleoperation, and hardware integration for the AI Worker lineup | [Software Overview](/docs/systems/aiworker/specifications/software) |
-| <span className="repository-category-list"><span className="badge badge--secondary repository-category-badge">Imitation learning</span><span className="badge badge--secondary repository-category-badge">Data workflow</span></span> | <GitHubRepositoryLink href="https://github.com/ROBOTIS-GIT/cyclo_intelligence">ROBOTIS-GIT/cyclo_intelligence</GitHubRepositoryLink> | Demonstration recording, dataset preparation, training guidance, policy backend control, and robot inference from a web UI | [Cyclo Intelligence](/docs/systems/aiworker/imitation_learning) |
-| <span className="repository-category-list"><span className="badge badge--secondary repository-category-badge">Motion control</span><span className="badge badge--secondary repository-category-badge">QP controller</span></span> | <GitHubRepositoryLink href="https://github.com/ROBOTIS-GIT/cyclo_control">ROBOTIS-GIT/cyclo_control</GitHubRepositoryLink> | MoveL, MoveJ, bimanual controllers, constraint handling, and trajectory filtering for real-robot motion | [Cyclo Control](/docs/systems/aiworker/advanced_features/cyclo_control) |
+| <span className="repository-category-list"><span className="badge badge--secondary repository-category-badge">Robot platform</span><span className="badge badge--secondary repository-category-badge">ROS 2</span></span> | <GitHubRepositoryLink href="https://github.com/ROBOTIS-GIT/ai_worker">ROBOTIS-GIT/ai_worker</GitHubRepositoryLink> | Robot descriptions, bringup, controllers, navigation, teleoperation, and hardware integration for the AI Worker lineup | [Software Architecture](/docs/systems/aiworker/specifications/software) |
+| <span className="repository-category-list"><span className="badge badge--secondary repository-category-badge">Imitation learning</span><span className="badge badge--secondary repository-category-badge">Data workflow</span></span> | <GitHubRepositoryLink href="https://github.com/ROBOTIS-GIT/cyclo_intelligence">ROBOTIS-GIT/cyclo_intelligence</GitHubRepositoryLink> | Demonstration recording, dataset preparation, training guidance, policy backend control, and robot inference from a web UI | [Cyclo Intelligence](/docs/software/cyclo/cyclo_intelligence) |
+| <span className="repository-category-list"><span className="badge badge--secondary repository-category-badge">Motion control</span><span className="badge badge--secondary repository-category-badge">QP controller</span></span> | <GitHubRepositoryLink href="https://github.com/ROBOTIS-GIT/cyclo_control">ROBOTIS-GIT/cyclo_control</GitHubRepositoryLink> | MoveL, MoveJ, bimanual controllers, constraint handling, and trajectory filtering for real-robot motion | [Cyclo Control](/docs/software/cyclo/control/aiworker) |
 | <span className="repository-category-list"><span className="badge badge--secondary repository-category-badge">Simulation</span><span className="badge badge--secondary repository-category-badge">Isaac Lab</span></span> | <GitHubRepositoryLink href="https://github.com/ROBOTIS-GIT/cyclo_lab">ROBOTIS-GIT/cyclo_lab</GitHubRepositoryLink> | Isaac Lab-based simulation environments, tasks, and USD robot assets for AI Worker | [Simulation Overview](/docs/systems/aiworker/simulation) |
+
 
 ## Simulation Models
 
@@ -34,6 +35,7 @@ These robot-description and simulation models support visualization, testing, an
 
 See the [Simulation Overview](/docs/systems/aiworker/simulation) for format descriptions and setup guidance.
 
+
 ## Additional Resources
 
 | Resource | Available files | Guide |
@@ -41,8 +43,9 @@ See the [Simulation Overview](/docs/systems/aiworker/simulation) for format desc
 | **FFW-BG2 drawings** | [PDF](https://www.robotis.com/service/download.php?no=2214) · [DWG](https://www.robotis.com/service/download.php?no=2231) · [STEP](https://www.robotis.com/service/download.php?no=2227) | [Hardware Specifications](/docs/systems/aiworker/specifications/hardware) |
 | **FFW-SG2 drawings** | [PDF](https://www.robotis.com/service/download.php?no=2215) · [DWG](https://www.robotis.com/service/download.php?no=2232) · [STEP](https://www.robotis.com/service/download.php?no=2228) | [Hardware Specifications](/docs/systems/aiworker/specifications/hardware) |
 | **LG2 drawings** | [STEP](https://www.robotis.com/service/download.php?no=2229) | [Hardware Specifications](/docs/systems/aiworker/specifications/hardware) |
-| **Docker image** | [robotis/ai-worker](https://hub.docker.com/r/robotis/ai-worker) | [Software Setup](/docs/systems/aiworker/quick_start_guide/setup_overview/software) |
+| **Docker image** | [robotis/ai-worker](https://hub.docker.com/r/robotis/ai-worker) | [Bringup](/docs/systems/aiworker/quick_start_guide/bringup) |
 | **Tutorial videos** | [ROBOTIS Open Source Team](https://www.youtube.com/@ROBOTISOpenSourceTeam) | [Video Gallery](/docs/systems/aiworker/video_gallery) |
+
 
 ## Open Source Licenses
 

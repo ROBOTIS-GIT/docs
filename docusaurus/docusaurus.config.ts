@@ -103,6 +103,7 @@ const config: Config = {
 
   plugins: [
     require.resolve('./plugins/technical-story-redirects.cjs'),
+    require.resolve('./plugins/doc-redirects.cjs'),
     require.resolve('./plugins/pr-preview.cjs'),
     [
       require.resolve('@easyops-cn/docusaurus-search-local'),

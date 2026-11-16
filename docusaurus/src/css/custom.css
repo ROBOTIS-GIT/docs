@@ -3171,6 +3171,17 @@
   white-space: nowrap;
 }
 
+.aiworker-top-category > .menu__list-item-collapsible > .menu__link {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.aiworker-top-category .menu__list {
+  border-left: 1px solid var(--ifm-color-emphasis-300);
+  margin-left: 0.75rem;
+  padding-left: 0.25rem;
+}
+
 .aiworker-guide-cards,
 .aiworker-guide-cards > li {
   scroll-margin-top: calc(var(--ifm-navbar-height) + 1rem);

@@ -1,0 +1,58 @@
+# System
+
+The **System** page provides controls for robot services and their logs. Available models and options depend on the robot and installed software.
+
+## Robot & Leader
+
+Use the **Robot** and **Leader** control boxes to select a model and start or stop its bringup service. The status light indicates whether the service is running. Use the gear icon to configure launch arguments and the log icon to open the service logs.
+
+For AI Worker, the Robot selector includes SG2, BG2, SH5, BH5, `F1`, `F2`, and Mobile. Mobile starts only the mobile base stack.
+
+![Robot Bringup Button](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/robot_bringup_button.png)
+
+## Zenoh Daemon
+
+The **Zenoh Daemon** control box starts and stops the `zenoh-daemon` Docker container. The status light is green when the container is running and red when it is stopped. The log icon opens the daemon's logs.
+
+Once started, the daemon restarts when the robot powers on. AI Worker uses Zenoh as its ROS 2 middleware from version 2.0.0; start the daemon before bringing up the robot stack.
+
+![Zenoh Daemon](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/zenoh_daemon.png)
+
+## Launch Arguments
+
+Click the gear icon to configure launch arguments before starting a service. Cyclo Manager stores the selected values in the browser and sends them when the service starts. Available arguments depend on the selected robot and software version.
+
+![Parameter setup dialog](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/parameter_setup.png)
+
+For AI Worker, available arguments may include:
+
+- **Start RViz**: Starts RViz inside the robot stack.
+- **Use Simulation**: Uses simulation mode instead of real hardware.
+- **Use Mock Hardware**: Starts ros2_control with mock hardware.
+- **Port Name**: Selects the device path used by the follower hardware interface.
+- **Launch Cameras / Launch Lidar**: Starts sensor nodes when supported by the selected robot type.
+- **Init Position**: Moves the robot to the configured initial position during bringup.
+- **Init Position File**: Selects the YAML file used for the initial position.
+
+Use the default launch arguments unless you need to change them.
+
+### Set Robot Pack Position (AI Worker)
+
+To move the robot to the pack position during bringup:
+
+1. Click the gear icon in the robot bringup control.
+2. Set **Init Position File** to `pack_position.yaml`.
+3. Start **Robot Bringup**.
+4. Stop the robot after it reaches the pack position.
+
+![Parameter setup dialog](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/parameter_setup_pack_position.png)
+
+The robot moves to the pose defined in `pack_position.yaml` during startup.
+
+## Logs
+
+Click the log icon on a service control box to open its logs in the side panel. For Robot and Leader services, select **History** to view a previous execution or use **Download** to save the selected log.
+
+![Log panel with History and Download options](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/log_panel_option.png)
+
+On AI Worker, service logs are stored separately in the AI Worker container. A new log is created each time a service starts, under `/var/log/<service-name>/<date-and-time>/current`. The 30 most recent executions are kept for each service.

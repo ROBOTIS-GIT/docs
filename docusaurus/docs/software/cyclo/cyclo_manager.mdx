@@ -19,7 +19,7 @@ Available features and setup depend on the robot. Follow the system-specific gui
 
 | System | Guide |
 | --- | --- |
-| AI Worker | [Cyclo Manager](/docs/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/) |
+| AI Worker | [Bringup](/docs/systems/aiworker/quick_start_guide/bringup) |
 | OMY | [Cyclo Manager](/docs/systems/omy/quick_start_guide/operation_guide/cyclo_manager/) |
 | OMX | [Cyclo Manager](/docs/systems/omx/quick_start_guide/operation_guide/cyclo_manager/) |
 
@@ -28,3 +28,57 @@ Each guide links to installation, bringup, container management, version updates
 ## Source Code
 
 - [ROBOTIS-GIT/cyclo_manager](https://github.com/ROBOTIS-GIT/cyclo_manager)
+
+## AI Worker Operation Guide
+
+The following configuration and feature guides describe the AI Worker deployment. Other systems retain their own installation and bringup guides.
+
+:::info
+Cyclo Manager is installed on the **AI Worker Orin** and is accessed from a PC, tablet, or phone on the same network.
+The web UI runs on port **3000**, and the API server runs on port **8081**.
+:::
+
+## What You Can Do
+
+Use Cyclo Manager to:
+
+- Bring up the AI Worker robot stack and related services from the browser.
+- Start, stop, restart, and inspect Docker containers running on the robot.
+- Monitor robot status, Docker status, storage usage, and version status.
+- Open a browser-based terminal into docker containers.
+- Use noVNC to run GUI tools such as **Dynamixel Wizard 2.0** without connecting a monitor.
+- Jog the mobile base from a PC or phone browser.
+
+## How It Runs
+
+Cyclo Manager is composed of a Python CLI, a web UI, an API server, and small agents that run inside managed containers.
+
+- The **`cyclo-manager`** Python package provides the **`cyclo_manager`** CLI.
+- The CLI creates the Docker Compose stack and registers the host-side agent.
+- The **Web UI** provides browser pages for operation and monitoring.
+- The **API Server** receives UI requests, controls Docker, communicates with container agents, and exposes log streams.
+- The **s6 agent** inside each robot container starts and stops ROS 2 services and reports service status.
+- The **host agent** handles host-level operations such as repository update workflows.
+
+## Software Architecture
+
+![Cyclo Manager Software Architecture](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/sw_architecture.svg)
+
+At a high level, Cyclo Manager separates user-facing controls from the robot runtime:
+
+- **User layer**: A browser is used to operate the robot and CLI is used to install the Cyclo Manager stack.
+- **Manager layer**: The Web UI and API Server provide the control surface.
+- **Robot container layer**: Robot bringup services run inside containers managed by s6.
+- **Host layer**: Docker, storage, serial devices, and git repositories remain on the robot host.
+
+This layout keeps normal operation in the browser while preserving access to the underlying Docker and ROS 2 system when deeper debugging is needed.
+
+## Feature Guides
+
+- [Install](/docs/software/cyclo/manager/install): Install the CLI, start the Cyclo Manager stack, and open the web UI.
+- [System](/docs/software/cyclo/manager/system): Control robot services and inspect logs from the System page.
+- [Bringup](/docs/systems/aiworker/quick_start_guide/bringup): Bring up the Zenoh daemon, robot stack, leader stack, and related services.
+- [Manage Container](/docs/software/cyclo/manager/manage_container): Start, stop, configure, inspect, and access containers.
+- [Version Update](/docs/software/cyclo/manager/version_update): Update robot software packages and container images.
+- [noVNC](/docs/software/cyclo/manager/novnc): Run graphical tools such as Dynamixel Wizard 2.0 from the browser.
+- [Jog](/docs/software/cyclo/manager/jog): Move the mobile base manually from the browser.

@@ -335,16 +335,7 @@ Right after the controller is activated, the system checks the difference betwee
 <SectionCard>
 
 ## Troubleshooting
-### Communication Issues
-- If ROS communication is not working: check the `ROS_DOMAIN_ID`. (`ROS_DOMAIN_ID` is set to `30` by default within the provided Docker container.)
-- If the Vuer server is not running: check the terminal logs.
-- If the robot fingers move but the arms remain still after the gesture trigger, make sure your physical hand pose is sufficiently aligned with the robot's wrist pose.
 
-### Network Performance
-- If value updates are slow: check your Wi-Fi connection. Network performance has a major effect. A **wired connection** is recommended.
-- If wireless performance is insufficient, host the VR server directly on the `Robot PC` and use a USB-C to Ethernet adapter to establish a **wired connection** for the Meta Quest 3. Ensure the Ethernet cable is connected to the LAN port of the AI Worker, not the WAN port. Refer to the [Hardware Setup Overview](/docs/systems/aiworker/quick_start_guide/setup_hardware) for port identification.
-
-### Hardware Tips
-- Proximity Sensor Workaround: The Meta Quest 3 may pause the session if it detects that the headset has been removed. Placing a small piece of **non-transparent tape** over the internal proximity sensor (located between the lenses) can help keep the session active.
+For common issues, see [VR Teleoperation Troubleshooting](/docs/systems/aiworker/support/troubleshooting#vr-teleoperation) and [ROS 2 Topics Are Not Visible](/docs/systems/aiworker/support/troubleshooting/common/ros_communication).
 
 </SectionCard>

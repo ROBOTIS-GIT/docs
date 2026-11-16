@@ -1,0 +1,50 @@
+import SectionCard from '@site/src/components/SectionCard';
+
+# Software Update
+
+This guide explains how to update the AI Worker and Cyclo Intelligence packages on the robot PC.
+
+:::danger
+**On the AI Worker Orin**: Do not run `apt upgrade`. Upgrading system packages may create conflicts and break robot functionality.
+:::
+
+<SectionCard>
+
+## Software Update Guide
+
+Follow these steps to update the AI Worker or Cyclo Intelligence packages:
+
+The robot's repositories are configured to use the `jazzy` branch by default.
+
+1. Connect to the robot PC using [SSH](/docs/systems/aiworker/quick_start_guide/advanced/robot_pc_access).
+
+2. Move to the package directory:
+
+   ```bash
+   cd ~/ai_worker
+   # or
+   cd ~/cyclo_intelligence
+   ```
+
+3. Pull the latest code:
+
+   ```bash
+   git pull
+   ```
+
+   :::warning
+   Local changes to the repository may conflict with incoming changes or prevent the update from completing.
+   :::
+
+4. Remove the current container and recreate it using the latest image:
+
+   ```bash
+   ./docker/container.sh stop
+   ./docker/container.sh start
+   ```
+
+   :::warning
+   Data stored outside mapped volumes may be lost when the container is removed. Save important files before removing the container.
+   :::
+
+</SectionCard>

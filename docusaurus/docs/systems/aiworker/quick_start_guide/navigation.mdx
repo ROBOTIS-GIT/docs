@@ -39,7 +39,7 @@ cd ~/ai_worker/docker
 ./container.sh enter
 ```
 
-In the container terminal, follow [External ROS 2 Communication](/docs/systems/aiworker/quick_start_guide/development_guide/external_ros2_communication) to configure Zenoh and connect the User PC to the robot. Apply the same settings in each User PC terminal used for ROS 2.
+In the container terminal, follow [External ROS 2 Communication](/docs/systems/aiworker/quick_start_guide/advanced/external_ros2_communication) to configure Zenoh and connect the User PC to the robot. Apply the same settings in each User PC terminal used for ROS 2.
 
 </SectionCard>
 
@@ -49,7 +49,7 @@ In the container terminal, follow [External ROS 2 Communication](/docs/systems/a
 
 ### 1. Start Mapping
 
-In a new terminal, connect to the **Robot PC** via [SSH](/docs/systems/aiworker/quick_start_guide/development_guide/robot_pc_access), then enter the AI Worker container:
+In a new terminal, connect to the **Robot PC** via [SSH](/docs/systems/aiworker/quick_start_guide/advanced/robot_pc_access), then enter the AI Worker container:
 
 ```bash
 cd ~/ai_worker/docker
@@ -156,19 +156,15 @@ In RViz2, select `2D Goal Pose` and set the target position and orientation. The
 </SectionCard>
 
 ## Troubleshooting
-- If the map is not being generated, check whether LiDAR data is being received. In a User PC container terminal with the same ROS 2 and Zenoh settings, run:
 
-  ```bash
-  ros2 topic echo /scan --qos-reliability best_effort
-  ```
+For common issues, see [Navigation Troubleshooting](/docs/systems/aiworker/support/troubleshooting#navigation).
 
-  If `/scan` messages are received but the display is missing in RViz2, set the `scan` display's Reliability Policy to `Best Effort`.
-- If the map is not visible in RViz, set the map topic Durability Policy to `Transient Local`.
 
 ## Tuning Guide
 - **AMCL localization:** Adjust parameters in the `amcl` section of `ffw_navigation/config/navigation.yaml`.
 - **Nav2 stack (costmaps, BT navigator, controller, planner):** Adjust parameters in `ffw_navigation/config/navigation.yaml`.
 - **For detailed parameter descriptions across Nav2, see https://docs.nav2.org/index.html.**
+
 
 ## Safety and Usage Tips
 - Keep people and obstacles clear while the robot is localizing or moving.
