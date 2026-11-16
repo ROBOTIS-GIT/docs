@@ -2,6 +2,8 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import SectionCard from '@site/src/components/SectionCard';
 import MiddlewareAnchor from '@site/src/components/MiddlewareAnchor';
+import ThemedImage from '@theme/ThemedImage';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 <MiddlewareAnchor />
 
@@ -18,20 +20,14 @@ This guide maps the AI Worker software environment: the robot PC, SSD storage, s
 
 AI Worker runs its ROS 2 software in the `ai_worker` Docker container on the robot PC. The container uses host-mounted source and workspace directories, runs the robot drivers and controllers, and exchanges commands and state through ROS 2 with Zenoh RMW. An external PC can join that ROS 2 network for operation and visualization.
 
-```mermaid
-flowchart TB
-  User["User PC<br/>External ROS 2 tools"]
-  subgraph Robot["Robot PC · Jetson AGX Orin"]
-    Files["Host source checkout<br/>and workspace data"]
-    Router["Zenoh router"]
-    Worker["ai_worker Docker container<br/>ROS 2 nodes / controllers / drivers"]
-    Files -. "bind mounts" .-> Worker
-    Router <-->|"ROS 2 / rmw_zenoh_cpp"| Worker
-  end
-  Hardware["DYNAMIXEL / cameras<br/>Mobile-base sensors where equipped"]
-  User <-->|"ROS 2 network"| Router
-  Worker <--> Hardware
-```
+<ThemedImage
+  alt="AI Worker system overview: User PC, Zenoh router, host storage, Docker container, and robot hardware."
+  sources={{
+    light: useBaseUrl('/img/systems/aiworker/specifications/software/system_overview.svg'),
+    dark: useBaseUrl('/img/systems/aiworker/specifications/software/system_overview_dark.svg'),
+  }}
+  style={{width: '100%', height: 'auto'}}
+/>
 
 </SectionCard>
 
@@ -187,18 +183,14 @@ The following diagram shows the AI Worker ROS 2 control structure. The controlle
 
 ### Motion Execution Pipeline
 
-```mermaid
-flowchart TB
-  Inputs["Leader input / AI policy / VR targets"] --> Motion["Workflow command generation<br/>Cyclo Control where selected"]
-  Motion --> Topics["ROS 2 command topics<br/>transported by rmw_zenoh_cpp"]
-  Topics --> Controllers["ros2_control controllers<br/>read → update → write"]
-  Controllers --> Driver["DYNAMIXEL Hardware Interface / SDK"]
-  Driver <--> Motors["DYNAMIXEL actuators over RS-485"]
-  Motors --> Feedback["Joint-state feedback"]
-  Feedback --> Inputs
-  Cameras["Camera / LiDAR drivers"] --> Perception["ROS 2 sensor topics<br/>recording / perception / navigation"]
-  Perception --> Inputs
-```
+<ThemedImage
+  alt="Motion execution from leader, AI policy, or VR inputs through ROS 2 controllers to DYNAMIXEL actuators, with joint-state feedback and camera or LiDAR sensor input."
+  sources={{
+    light: useBaseUrl('/img/systems/aiworker/specifications/software/motion_execution_pipeline.svg'),
+    dark: useBaseUrl('/img/systems/aiworker/specifications/software/motion_execution_pipeline_dark.svg'),
+  }}
+  style={{width: '100%', height: 'auto'}}
+/>
 
 AI Worker controller profiles configure a **100 Hz update rate**. That is a configuration target, not a measurement of timing on every robot. The ROS middleware transports messages; the controller loop and hardware interface handle joint execution.
 
