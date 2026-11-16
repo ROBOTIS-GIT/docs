@@ -65,8 +65,25 @@ const aiworkerSidebar: SidebarsConfig[string] = [
     type: 'category',
     className: 'aiworker-top-category',
     collapsible: false,
-    label: 'Advanced Feature',
+    label: 'Advanced Features',
     items: [
+      {type: 'doc', id: 'systems/aiworker/advanced_features/cyclo_control', label: 'Cyclo Control'},
+      {
+        type: 'category',
+        label: 'Autonomy Studio',
+        items: [
+          {type: 'doc', id: 'systems/aiworker/autonomy_studio/overview', label: 'Overview'},
+          {type: 'doc', id: 'systems/aiworker/autonomy_studio/action_canvas', label: 'Action Canvas'},
+          {
+            type: 'category',
+            label: 'Mission Canvas',
+            items: [
+              {type: 'doc', id: 'systems/aiworker/autonomy_studio/mission_canvas/navigation', label: 'Navigation'},
+              {type: 'doc', id: 'systems/aiworker/autonomy_studio/mission_canvas/mission', label: 'Mission'},
+            ],
+          },
+        ],
+      },
       {type: 'doc', id: 'systems/aiworker/advanced_features/vr_teleoperation', label: 'VR Teleoperation'},
       {type: 'doc', id: 'systems/aiworker/advanced_features/robotis_hand_installation', label: 'ROBOTIS Hand Installation'},
     ],

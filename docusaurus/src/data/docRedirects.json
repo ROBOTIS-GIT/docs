@@ -9,8 +9,7 @@
       "2-robotis-vuer": "advanced-feature"
     }
   },
-  "/docs/systems/aiworker/advanced_features/behavior_trees": "/docs/software/cyclo/flow/autonomy_studio/action_canvas",
-  "/docs/systems/aiworker/advanced_features/cyclo_control": "/docs/software/cyclo/control/aiworker",
+  "/docs/systems/aiworker/advanced_features/behavior_trees": "/docs/systems/aiworker/autonomy_studio/action_canvas",
   "/docs/systems/aiworker/advanced_features/robotis_vuer": {
     "to": "/docs/systems/aiworker/advanced_features/vr_teleoperation",
     "anchors": {
@@ -20,10 +19,6 @@
       "related-guides": "vr-startup"
     }
   },
-  "/docs/systems/aiworker/autonomy_studio/action_canvas": "/docs/software/cyclo/flow/autonomy_studio/action_canvas",
-  "/docs/systems/aiworker/autonomy_studio/mission_canvas/mission": "/docs/software/cyclo/flow/autonomy_studio/mission_canvas/mission",
-  "/docs/systems/aiworker/autonomy_studio/mission_canvas/navigation": "/docs/software/cyclo/flow/autonomy_studio/mission_canvas/navigation",
-  "/docs/systems/aiworker/autonomy_studio/overview": "/docs/software/cyclo/flow/autonomy_studio/overview",
   "/docs/systems/aiworker/getting_started": "/docs/systems/aiworker/introduction#quick-start-guide",
   "/docs/systems/aiworker/imitation_learning": "/docs/software/cyclo/cyclo_intelligence",
   "/docs/systems/aiworker/imitation_learning/overview": {
@@ -103,5 +98,10 @@
   "/docs/systems/aiworker/quick_start_guide/development_guide/software_update": "/docs/systems/aiworker/quick_start_guide/advanced/software_update",
   "/docs/systems/aiworker/quick_start_guide/development_guide/cli_bringup_teleoperation": "/docs/systems/aiworker/quick_start_guide/advanced/cli_bringup_teleoperation",
   "/docs/systems/aiworker/quick_start_guide/development_guide/external_ros2_communication": "/docs/systems/aiworker/quick_start_guide/advanced/external_ros2_communication",
-  "/docs/systems/aiworker/quick_start_guide/development_guide/checking_battery_state": "/docs/systems/aiworker/quick_start_guide/advanced/checking_battery_state"
+  "/docs/systems/aiworker/quick_start_guide/development_guide/checking_battery_state": "/docs/systems/aiworker/quick_start_guide/advanced/checking_battery_state",
+  "/docs/software/cyclo/control/aiworker": "/docs/systems/aiworker/advanced_features/cyclo_control",
+  "/docs/software/cyclo/flow/autonomy_studio/overview": "/docs/systems/aiworker/autonomy_studio/overview",
+  "/docs/software/cyclo/flow/autonomy_studio/action_canvas": "/docs/systems/aiworker/autonomy_studio/action_canvas",
+  "/docs/software/cyclo/flow/autonomy_studio/mission_canvas/navigation": "/docs/systems/aiworker/autonomy_studio/mission_canvas/navigation",
+  "/docs/software/cyclo/flow/autonomy_studio/mission_canvas/mission": "/docs/systems/aiworker/autonomy_studio/mission_canvas/mission"
 }

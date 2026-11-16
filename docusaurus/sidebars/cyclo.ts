@@ -41,12 +41,7 @@ const cycloSidebar: SidebarsConfig[string] = [
         ],
       },
       doc('software/cyclo/cyclo_lab', 'Cyclo Lab'),
-      {
-        type: 'category',
-        label: 'Cyclo Control',
-        link: {type: 'doc', id: 'software/cyclo/cyclo_control'},
-        items: [doc('software/cyclo/control/aiworker', 'AI Worker Guide')],
-      },
+      doc('software/cyclo/cyclo_control', 'Cyclo Control'),
       doc('software/cyclo/cyclo_app', 'Cyclo App'),
       {
         type: 'category',
@@ -61,29 +56,7 @@ const cycloSidebar: SidebarsConfig[string] = [
           doc('software/cyclo/manager/jog', 'Jog'),
         ],
       },
-      {
-        type: 'category',
-        label: 'Cyclo Flow',
-        link: {type: 'doc', id: 'software/cyclo/cyclo_flow'},
-        items: [
-          {
-            type: 'category',
-            label: 'Autonomy Studio',
-            link: {type: 'doc', id: 'software/cyclo/flow/autonomy_studio/overview'},
-            items: [
-              doc('software/cyclo/flow/autonomy_studio/action_canvas', 'Action Canvas'),
-              {
-                type: 'category',
-                label: 'Mission Canvas',
-                items: [
-                  doc('software/cyclo/flow/autonomy_studio/mission_canvas/navigation', 'Navigation'),
-                  doc('software/cyclo/flow/autonomy_studio/mission_canvas/mission', 'Mission'),
-                ],
-              },
-            ],
-          },
-        ],
-      },
+      doc('software/cyclo/cyclo_flow', 'Cyclo Flow'),
       doc('software/cyclo/cyclo_os', 'Cyclo OS'),
     ],
   },
