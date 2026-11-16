@@ -51,9 +51,9 @@ The **host OS** runs on the Jetson. The **container OS and ROS workspace** belon
 | Host OS | Ubuntu 22.04-based root filesystem |
 
 </TabItem>
-<TabItem value="f1-f2" label="FFW-F1 / FFW-F2">
+<TabItem value="f1-f2" label="FFW-W1 / FFW-W2">
 
-| Host component | F1 / F2 environment |
+| Host component | W1 / W2 environment |
 | --- | --- |
 | JetPack | 7.2.1 |
 | Jetson Linux | 39.2.1 |
@@ -214,7 +214,7 @@ AI Worker controller profiles configure a **100 Hz update rate**. That is a conf
 
 ### Controller Configuration & Joint Mapping
 
-The reviewed follower launch remaps the standard trajectory inputs to these topic names. The two arms below include the standard one-joint grippers; optional hands use their matching configuration. Mobile-base control applies to SG2/F2.
+The reviewed follower launch remaps the standard trajectory inputs to these topic names. The two arms below include the standard one-joint grippers; optional hands use their matching configuration. Mobile-base control applies to SG2/W2.
 
 <div className="aiworker-controller-table">
 
@@ -225,7 +225,7 @@ The reviewed follower launch remaps the standard trajectory inputs to these topi
 | `head_controller` | Head pan/tilt | `/leader/joystick_controller_left/joint_trajectory` |
 | `lift_controller` | Vertical lift | `/leader/joystick_controller_right/joint_trajectory` |
 | `joint_state_broadcaster` | Joint state feedback | `/joint_states` |
-| `swerve_drive_controller` | SG2/F2 mobile base | `/cmd_vel` in the operation workflow |
+| `swerve_drive_controller` | SG2/W2 mobile base | `/cmd_vel` in the operation workflow |
 
 </div>
 

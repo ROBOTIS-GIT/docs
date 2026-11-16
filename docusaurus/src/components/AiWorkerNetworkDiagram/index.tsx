@@ -43,8 +43,8 @@ export default function AiWorkerNetworkDiagram({router}: {router: 'external' | '
   const builtIn = router === 'built-in';
   const robotImage = useBaseUrl('/img/systems/aiworker/quick_start_guide/aiworker_network_icon.png');
   const description = builtIn
-    ? 'F2 and SG2: the router is inside AI WORKER. User PC connects to that built-in router over Wi-Fi.'
-    : 'F1 and BG2: AI WORKER connects from its LAN port to an external router with a LAN cable. User PC connects to the same router over Wi-Fi or LAN.';
+    ? 'W2 and SG2: the router is inside AI WORKER. User PC connects to that built-in router over Wi-Fi.'
+    : 'W1 and BG2: AI WORKER connects from its LAN port to an external router with a LAN cable. User PC connects to the same router over Wi-Fi or LAN.';
 
   return (
     <figure className={styles.diagram} role="img" aria-label={description}>

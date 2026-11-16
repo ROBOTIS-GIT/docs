@@ -64,23 +64,23 @@ Choose how to launch the robot and Leader. All-in-One starts both together; Sepa
 <Tabs groupId="aiworker-cli-launch" defaultValue="all-in-one">
 <TabItem value="all-in-one" label="All-in-One">
 
-These commands start an **LG2 Leader with FFW-BG2/FFW-SG2**, or an **A1 Leader with FFW-F1/FFW-F2**. For other combinations, select the **Separate Launches** tab.
+These commands start an **LG2 Leader with FFW-BG2/FFW-SG2**, or an **A1 Leader with FFW-W1/FFW-W2**. For other combinations, select the **Separate Launches** tab.
 
 :::tip[Default arm controls]
 Launching the programs does not start arm teleoperation. On A1, A2, and LG2, push both triggers forward together for 2 seconds, then release them, to start both arms. Repeat the action to pause both arms. See [Operation Guide](/docs/systems/aiworker/quick_start_guide/teleoperation#4-operation-guide) before starting.
 :::
 
-To start both the `Leader` and `Follower (BG2/SG2/F1/F2)` simultaneously:
+To start both the `Leader` and `Follower (BG2/SG2/W1/W2)` simultaneously:
 
 <Tabs groupId="aiworker-robot-type">
-  <TabItem value="f1" label="FFW-F1">
+  <TabItem value="f1" label="FFW-W1">
 
 ```bash
 ros2 launch ffw_bringup ffw_f1_ai.launch.py
 ```
 
   </TabItem>
-  <TabItem value="f2" label="FFW-F2">
+  <TabItem value="f2" label="FFW-W2">
 
 ```bash
 ros2 launch ffw_bringup ffw_f2_ai.launch.py
@@ -106,14 +106,14 @@ ros2 launch ffw_bringup ffw_sg2_ai.launch.py
 Or use the shortcut:
 
 <Tabs groupId="aiworker-robot-type">
-  <TabItem value="f1" label="FFW-F1">
+  <TabItem value="f1" label="FFW-W1">
 
 ```bash
 ffw_f1_ai
 ```
 
   </TabItem>
-  <TabItem value="f2" label="FFW-F2">
+  <TabItem value="f2" label="FFW-W2">
 
 ```bash
 ffw_f2_ai
@@ -146,14 +146,14 @@ Wait for Follower initialization to finish before starting the Leader. The requi
 1. **Launch the teleoperation `Follower`**:
 
 <Tabs groupId="aiworker-robot-type">
-  <TabItem value="f1" label="FFW-F1">
+  <TabItem value="f1" label="FFW-W1">
 
 ```bash
 ros2 launch ffw_bringup ffw_f1_follower_ai.launch.py
 ```
 
   </TabItem>
-  <TabItem value="f2" label="FFW-F2">
+  <TabItem value="f2" label="FFW-W2">
 
 ```bash
 ros2 launch ffw_bringup ffw_f2_follower_ai.launch.py
@@ -179,14 +179,14 @@ ros2 launch ffw_bringup ffw_sg2_follower_ai.launch.py
 Or use the shortcut:
 
 <Tabs groupId="aiworker-robot-type">
-  <TabItem value="f1" label="FFW-F1">
+  <TabItem value="f1" label="FFW-W1">
 
 ```bash
 ffw_f1_follower_ai
 ```
 
   </TabItem>
-  <TabItem value="f2" label="FFW-F2">
+  <TabItem value="f2" label="FFW-W2">
 
 ```bash
 ffw_f2_follower_ai
@@ -231,7 +231,7 @@ To automatically assign the connected RealSense cameras without manually configu
 ros2 launch ffw_bringup ffw_bg2_follower_ai.launch.py auto_assign_cameras:=true
 ```
 
-FFW-F1/FFW-F2 use RealSense cameras for both the head and wrists, and automatic assignment is enabled by default.
+FFW-W1/FFW-W2 use RealSense cameras for both the head and wrists, and automatic assignment is enabled by default.
 
 :::warning
 Automatic camera assignment may not work on some older FFW-BG2 and FFW-SG2 models. If this occurs, set `auto_assign_cameras:=false` and use your existing manual camera configuration.

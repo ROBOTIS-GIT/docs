@@ -21,12 +21,12 @@ Follow these steps if you cannot connect to the robot through SSH, Cyclo Manager
 Connect your User PC to the same router as the robot. You can use either a wired LAN connection or Wi-Fi.
 
 <Tabs>
-<TabItem value="sg2-w2" label="SG2 / F2">
+<TabItem value="sg2-w2" label="SG2 / W2">
 
 Connect your PC to the robot's built-in router. The router normally uses `192.168.6.1`, and the robot's AGX Orin is configured with the fixed address `192.168.6.2/24`.
 
 </TabItem>
-<TabItem value="bg2-w1" label="BG2 / F1">
+<TabItem value="bg2-w1" label="BG2 / W1">
 
 Connect the robot and your PC to the same external router. The router address and login details depend on the router.
 
@@ -37,7 +37,7 @@ Connect the robot and your PC to the same external router. The router address an
 
 <SectionCard>
 
-## 2. Check for a Network Conflict (SG2 / F2)
+## 2. Check for a Network Conflict (SG2 / W2)
 
 Check the IP address and default gateway of the User PC's connection to the robot's built-in router. On Ubuntu, use:
 
@@ -54,7 +54,7 @@ If the PC is on a different network and an external network is connected to the 
 
 <SectionCard>
 
-## 3. Restore the Built-in Router Network (SG2 / F2)
+## 3. Restore the Built-in Router Network (SG2 / W2)
 
 If the built-in router's LAN address changed because of a network conflict, restore it as follows:
 
@@ -74,13 +74,13 @@ If you reconnect the WAN cable, use an external network that does not overlap wi
 
 Check the router's connected-device list for the AGX Orin and confirm its IP address. Then test the connection directly; an entry in the list alone does not confirm that SSH or a service is working.
 
-For SG2 and F2, try connecting to the robot's fixed IP address:
+For SG2 and W2, try connecting to the robot's fixed IP address:
 
 - **SSH:** `ssh robotis@192.168.6.2`
 - **Cyclo Manager:** `http://192.168.6.2:3000`
 - **Cyclo Intelligence:** `http://192.168.6.2:7080` when Cyclo Intelligence is running on the robot PC and uses the default port.
 
-For BG2 and F1, find the AGX Orin's IP address in the external router's connected-device list and use that address instead. If IP access works but the hostname does not, see [Robot PC Access](/docs/systems/aiworker/quick_start_guide/advanced/robot_pc_access#if-the-hostname-is-not-available).
+For BG2 and W1, find the AGX Orin's IP address in the external router's connected-device list and use that address instead. If IP access works but the hostname does not, see [Robot PC Access](/docs/systems/aiworker/quick_start_guide/advanced/robot_pc_access#if-the-hostname-is-not-available).
 
 </SectionCard>
 
