@@ -40,9 +40,24 @@
   },
   "/docs/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/install": "/docs/software/cyclo/manager/install",
   "/docs/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/jog": "/docs/software/cyclo/manager/jog",
-  "/docs/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/manage_container": "/docs/software/cyclo/manager/manage_container",
+  "/docs/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/manage_container": {
+    "to": "/docs/software/cyclo/manager/dashboard#containers",
+    "anchors": {
+      "features": "containers",
+      "clean-up-docker-images": "docker-images",
+      "change-ros_domain_id": "container-configuration",
+      "open-a-container-terminal": "/docs/software/cyclo/manager/terminal"
+    }
+  },
   "/docs/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/novnc": "/docs/software/cyclo/manager/novnc",
-  "/docs/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/version_update": "/docs/software/cyclo/manager/version_update",
+  "/docs/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/version_update": {
+    "to": "/docs/software/cyclo/manager/dashboard#version-management",
+    "anchors": {
+      "package-update": "package-update",
+      "cyclo-manager-update": "cyclo-manager-update",
+      "agent-update": "agent-update"
+    }
+  },
   "/docs/systems/aiworker/quick_start_guide/operation_guide/navigation": "/docs/systems/aiworker/quick_start_guide/navigation",
   "/docs/systems/aiworker/quick_start_guide/operation_guide/teleoperation": "/docs/systems/aiworker/quick_start_guide/teleoperation",
   "/docs/systems/aiworker/quick_start_guide/operation_guide/vr_teleoperation": "/docs/systems/aiworker/advanced_features/vr_teleoperation",
@@ -112,5 +127,22 @@
   "/docs/systems/aiworker/quick_start_guide/advanced/rmw_domain_settings": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/rmw_domain_settings",
   "/docs/systems/aiworker/quick_start_guide/advanced/external_ros2_communication": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/external_ros2_communication",
   "/docs/systems/aiworker/quick_start_guide/advanced/checking_battery_state": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/checking_battery_state",
-  "/docs/systems/aiworker/quick_start_guide/advanced/container_management": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/development_environment"
+  "/docs/systems/aiworker/quick_start_guide/advanced/container_management": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/development_environment",
+  "/docs/software/cyclo/manager/manage_container": {
+    "to": "/docs/software/cyclo/manager/dashboard#containers",
+    "anchors": {
+      "features": "containers",
+      "clean-up-docker-images": "docker-images",
+      "change-ros_domain_id": "container-configuration",
+      "open-a-container-terminal": "/docs/software/cyclo/manager/terminal"
+    }
+  },
+  "/docs/software/cyclo/manager/version_update": {
+    "to": "/docs/software/cyclo/manager/dashboard#version-management",
+    "anchors": {
+      "package-update": "package-update",
+      "cyclo-manager-update": "cyclo-manager-update",
+      "agent-update": "agent-update"
+    }
+  }
 }
