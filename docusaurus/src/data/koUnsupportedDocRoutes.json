@@ -369,6 +369,7 @@
   "/docs/systems/aiworker/quick_start_guide/in_depth_guide/cli_bringup_teleoperation",
   "/docs/systems/aiworker/quick_start_guide/in_depth_guide/development_environment",
   "/docs/systems/aiworker/quick_start_guide/in_depth_guide/external_ros2_communication",
+  "/docs/systems/aiworker/quick_start_guide/in_depth_guide/pack_position",
   "/docs/systems/aiworker/quick_start_guide/in_depth_guide/rmw_domain_settings",
   "/docs/systems/aiworker/quick_start_guide/in_depth_guide/robot_pc_access",
   "/docs/systems/aiworker/quick_start_guide/in_depth_guide/software_update",

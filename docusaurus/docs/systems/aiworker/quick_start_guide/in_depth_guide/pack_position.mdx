@@ -1,0 +1,41 @@
+import SectionCard from '@site/src/components/SectionCard';
+
+# Pack Position
+
+Move AI Worker to its pack position using Cyclo Manager or the command line.
+
+:::warning
+The robot moves during this procedure. Keep the area around it clear and the emergency stop within reach. Stop teleoperation and other sources of motion commands before starting.
+:::
+
+<SectionCard>
+
+## Using Cyclo Manager
+
+1. Open the **System** page in Cyclo Manager and stop the Robot service if it is running.
+2. Select the robot model and open the Robot service's settings using the gear button.
+3. Choose `pack_position.yaml` for **Init Position File**.
+4. Start Robot bringup. After the robot reaches the pack position, stop the Robot service.
+
+![Selecting the pack position file in Cyclo Manager](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/parameter_setup_pack_position.png)
+
+Before the next normal bringup, select the normal initial position file again.
+
+</SectionCard>
+
+<SectionCard>
+
+## Using the Command Line
+
+1. Stop any running Robot bringup, then connect to the Robot PC using [SSH](/docs/systems/aiworker/quick_start_guide/in_depth_guide/robot_pc_access) and enter the [AI Worker container](/docs/systems/aiworker/quick_start_guide/in_depth_guide/development_environment).
+2. Make sure the Zenoh daemon is running as described in the [CLI Bringup guide](/docs/systems/aiworker/quick_start_guide/in_depth_guide/cli_bringup_teleoperation#2-start-the-zenoh-daemon).
+3. Launch the pack position for your model. This example uses SG2; replace `sg2` with `bg2`, `w1`, or `w2` for the corresponding model:
+
+   ```bash
+   ros2 launch ffw_bringup ffw_pack.launch.py type:=sg2
+   ```
+
+   This launches the selected Follower with initialization enabled and `pack_position.yaml` as its initial position file.
+4. After the robot reaches the pack position, press **Ctrl+C** in the terminal to stop the launch.
+
+</SectionCard>

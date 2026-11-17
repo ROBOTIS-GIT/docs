@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="620" viewBox="0 0 1120 620" role="img" aria-labelledby="title desc">
+  <title id="title">How Cyclo Manager controls services</title>
+  <desc id="desc">The browser sends requests to Cyclo Manager on the Robot PC. Cyclo Manager communicates with an s6 agent inside a running container through a Unix domain socket. The agent uses s6-overlay to start and stop services and returns their status and logs to Cyclo Manager and the browser.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#356c91"/></marker>
+    <marker id="return" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#677580"/></marker>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; fill: #25323b; }
+      .heading { font-size: 25px; font-weight: 700; }
+      .label { font-size: 20px; }
+      .small { font-size: 18px; fill: #52616c; }
+      .command { fill: none; stroke: #356c91; stroke-width: 3; marker-end: url(#arrow); }
+      .feedback { fill: none; stroke: #677580; stroke-width: 2.5; stroke-dasharray: 6 5; marker-end: url(#return); }
+    </style>
+  </defs>
+  <rect width="1120" height="620" rx="20" fill="#fafafa"/>
+  <rect x="300" y="30" width="790" height="530" rx="20" fill="#f0f2f4" stroke="#c5cdd3" stroke-width="2"/>
+  <text x="325" y="65" class="heading">Robot PC</text>
+  <rect x="650" y="85" width="410" height="445" rx="16" fill="#fff" stroke="#b0bec8" stroke-width="2"/>
+  <text x="675" y="120" class="label" font-weight="700">Running container</text>
+  <text x="35" y="195" class="small">User PC</text>
+  <rect x="30" y="215" width="220" height="110" rx="14" fill="#fff" stroke="#b0bec8" stroke-width="2"/>
+  <text x="140" y="255" class="heading" text-anchor="middle">Browser</text>
+  <text x="140" y="288" class="label" text-anchor="middle">System page</text>
+  <rect x="335" y="215" width="230" height="110" rx="14" fill="#eaf1f6" stroke="#8ca9bd" stroke-width="2"/>
+  <text x="450" y="255" class="heading" text-anchor="middle">Cyclo Manager</text>
+  <text x="450" y="288" class="label" text-anchor="middle">Service controls</text>
+  <path d="M250 244H330" class="command"/>
+  <path d="M335 302H255" class="feedback"/>
+  <rect x="695" y="155" width="320" height="80" rx="12" fill="#eaf1f6" stroke="#8ca9bd" stroke-width="2"/>
+  <text x="855" y="188" class="heading" text-anchor="middle">s6 agent</text>
+  <text x="855" y="215" class="small" text-anchor="middle">Receives service requests</text>
+  <path d="M565 244H610V180H690" class="command"/>
+  <path d="M695 215H630V302H570" class="feedback"/>
+  <text x="450" y="373" class="small" text-anchor="middle">Unix domain socket</text>
+  <text x="450" y="402" class="small" text-anchor="middle">to each container's agent</text>
+  <path d="M825 235V285" class="command"/>
+  <path d="M885 290V240" class="feedback"/>
+  <rect x="695" y="290" width="320" height="75" rx="12" fill="#f1f4f6" stroke="#b0bec8" stroke-width="2"/>
+  <text x="855" y="322" class="heading" text-anchor="middle">s6-overlay</text>
+  <text x="855" y="349" class="small" text-anchor="middle">Starts, stops and supervises</text>
+  <path d="M825 365V415" class="command"/>
+  <path d="M885 420V370" class="feedback"/>
+  <rect x="695" y="420" width="320" height="80" rx="12" fill="#f1f4f6" stroke="#b0bec8" stroke-width="2"/>
+  <text x="855" y="453" class="heading" text-anchor="middle">Services</text>
+  <text x="855" y="480" class="small" text-anchor="middle">Robot / Leader / Intelligence*</text>
+  <path d="M45 395H110" class="command"/>
+  <text x="45" y="428" class="label">Start / stop requests</text>
+  <path d="M45 460H110" class="feedback"/>
+  <text x="45" y="493" class="label">Status / logs</text>
+  <text x="35" y="595" class="small">* Available services depend on the container. Zenoh Daemon uses separate Docker container controls.</text>
+</svg>

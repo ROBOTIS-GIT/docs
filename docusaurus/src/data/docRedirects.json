@@ -35,7 +35,7 @@
       "bringup-the-zenoh-daemon": "3-start-the-zenoh-daemon",
       "bringup-the-robot-follower--leader": "4-bringup-the-robot",
       "configure-launch-arguments": "/docs/software/cyclo/manager/system#launch-arguments",
-      "set-robot-pack-position": "/docs/software/cyclo/manager/system#set-robot-pack-position-ai-worker"
+      "set-robot-pack-position": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/pack_position"
     }
   },
   "/docs/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/install": "/docs/software/cyclo/manager/install",

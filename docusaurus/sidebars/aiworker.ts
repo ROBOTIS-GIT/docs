@@ -31,6 +31,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
           {type: 'doc', id: 'systems/aiworker/quick_start_guide/in_depth_guide/container_management', label: 'Container Management'},
           {type: 'doc', id: 'systems/aiworker/quick_start_guide/in_depth_guide/software_update', label: 'Software Update'},
           {type: 'doc', id: 'systems/aiworker/quick_start_guide/in_depth_guide/cli_bringup_teleoperation', label: 'CLI Bringup & Teleoperation'},
+          {type: 'doc', id: 'systems/aiworker/quick_start_guide/in_depth_guide/pack_position', label: 'Pack Position'},
           {type: 'doc', id: 'systems/aiworker/quick_start_guide/in_depth_guide/rmw_domain_settings', label: 'RMW & ROS Domain ID'},
           {type: 'doc', id: 'systems/aiworker/quick_start_guide/in_depth_guide/external_ros2_communication', label: 'External ROS 2 Communication'},
           {type: 'doc', id: 'systems/aiworker/quick_start_guide/in_depth_guide/checking_battery_state', label: 'Checking Battery State'},

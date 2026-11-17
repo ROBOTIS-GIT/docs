@@ -1,58 +1,64 @@
+import SectionCard from '@site/src/components/SectionCard';
+
 # System
 
-The **System** page provides controls for robot services and their logs. Available models and options depend on the robot and installed software.
+Use System to start and stop robot services and inspect their status. Controls and available models depend on the selected container and installed software.
 
-## Robot & Leader
+<SectionCard>
 
-Use the **Robot** and **Leader** control boxes to select a model and start or stop its bringup service. The status light indicates whether the service is running. Use the gear icon to configure launch arguments and the log icon to open the service logs.
+## System Overview
 
-For AI Worker, the Robot selector includes SG2, BG2, SH5, BH5, `F1` (W1), `F2` (W2), and Mobile. Mobile starts only the mobile base stack.
+Select **System** in the navigation. If prompted, choose a running robot container. The page displays service controls, a 3D robot view, robot status, and a log panel.
 
-![Robot Bringup Button](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/robot_bringup_button.png)
+![System page](/img/software/cyclo/manager/system/system_page.png)
 
-## Zenoh Daemon
+</SectionCard>
 
-The **Zenoh Daemon** control box starts and stops the `zenoh-daemon` Docker container. The status light is green when the container is running and red when it is stopped. The log icon opens the daemon's logs.
+<SectionCard>
 
-Once started, the daemon restarts when the robot powers on. AI Worker uses Zenoh as its ROS 2 middleware from version 2.0.0; start the daemon before bringing up the robot stack.
+## Service Management
 
-![Zenoh Daemon](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/zenoh_daemon.png)
+<span id="robot--leader" />
+<span id="robot-bringup" />
 
-## Launch Arguments
+Use the **Robot**, **Leader**, and **Cyclo Intelligence** controls to start or stop their services and check their status. Select the robot or leader model before starting its service. The available controls depend on the selected robot and installed software.
 
-Click the gear icon to configure launch arguments before starting a service. Cyclo Manager stores the selected values in the browser and sends them when the service starts. Available arguments depend on the selected robot and software version.
+### How Service Management Works
 
-![Parameter setup dialog](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/parameter_setup.png)
+![Service control flow from the browser through Cyclo Manager and the container's s6 agent to s6-overlay and services](/img/software/cyclo/manager/system/service_management_flow.svg)
 
-For AI Worker, available arguments may include:
+Supported robot and Cyclo Intelligence containers run an **s6 agent** inside the container. Cyclo Manager communicates with each agent through a Unix domain socket. When you start or stop a service in the System page, the agent uses **s6-overlay** to control the corresponding service inside that container. The agent also reports service status and provides access to logs.
 
-- **Start RViz**: Starts RViz inside the robot stack.
-- **Use Simulation**: Uses simulation mode instead of real hardware.
-- **Use Mock Hardware**: Starts ros2_control with mock hardware.
-- **Port Name**: Selects the device path used by the follower hardware interface.
-- **Launch Cameras / Launch Lidar**: Starts sensor nodes when supported by the selected robot type.
-- **Init Position**: Moves the robot to the configured initial position during bringup.
-- **Init Position File**: Selects the YAML file used for the initial position.
+Starting a service is separate from starting its Docker container: the relevant container and its agent must be running before Cyclo Manager can manage the service. The **Zenoh Daemon** control manages its Docker container separately.
 
-Use the default launch arguments unless you need to change them.
+### Service Controls
 
-### Set Robot Pack Position (AI Worker)
+<span id="leader-bringup" />
 
-To move the robot to the pack position during bringup:
+Select a type when available, then start or stop the service. The status indicator shows whether the service is running. Use the log button to view service logs and the settings button to configure launch arguments when available.
 
-1. Click the gear icon in the robot bringup control.
-2. Set **Init Position File** to `pack_position.yaml`.
-3. Start **Robot Bringup**.
-4. Stop the robot after it reaches the pack position.
+![Robot, Leader, and Cyclo Intelligence service controls](/img/software/cyclo/manager/system/service_management.png)
 
-![Parameter setup dialog](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/parameter_setup_pack_position.png)
+### Service Logs
 
-The robot moves to the pose defined in `pack_position.yaml` during startup.
+<span id="logs" />
 
-## Logs
+Click the log icon on a service control to open its log panel. For Robot and Leader, use **History** to inspect earlier executions and **Download** to save the selected log. Logs are separated by service and execution.
 
-Click the log icon on a service control box to open its logs in the side panel. For Robot and Leader services, select **History** to view a previous execution or use **Download** to save the selected log.
+![Service log panel](/img/software/cyclo/manager/system/log_panel_option.png)
 
-![Log panel with History and Download options](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/log_panel_option.png)
+### Launch Arguments
 
-On AI Worker, service logs are stored separately in the AI Worker container. A new log is created each time a service starts, under `/var/log/<service-name>/<date-and-time>/current`. The 30 most recent executions are kept for each service.
+Before starting Robot or Leader, use the available gear button to review launch arguments. Options depend on the selected model and installed software. Selected values are stored in the browser and sent when the service starts.
+
+![Launch arguments](/img/software/cyclo/manager/system/parameter_setup.png)
+
+### Zenoh Daemon
+
+<span id="cyclo-intelligence--zenoh-daemon" />
+
+Use **Zenoh Daemon** to start or stop the Zenoh router Docker container. Its status indicator and log button show the container state and logs. Unlike the service controls above, this control manages a container directly.
+
+![Zenoh daemon control](/img/software/cyclo/manager/system/zenoh_daemon.png)
+
+</SectionCard>
