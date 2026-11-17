@@ -284,7 +284,7 @@ The parameter panel disables fields that the selected command does not use. If y
 | `task_instruction` | Empty | Language instruction provided during `LOAD`, or a new instruction provided during `RESUME`. |
 | `inference_mode` | `simulation` | `simulation` calculates actions without sending movement commands to the robot. `robot` allows those commands to be sent. |
 | `action_request_mode` | `async` | How actions are requested: `async` or `sync`. |
-| `inference_hz` | `15` | Requested number of AI calculations per second. |
+| `inference_hz` | `15` | Frame rate of the training dataset (`Dataset FPS` on the Inference page). It sets the time between the action waypoints the model predicts. |
 | `control_hz` | `100` | Requested number of robot control updates per second. |
 | `chunk_align_window_s` | `0.3` | Time window in seconds used to align consecutive groups of AI actions. |
 | `acceleration_mode` | `pytorch` | Calculation method: `pytorch` or `tensorrt_dit`. |
