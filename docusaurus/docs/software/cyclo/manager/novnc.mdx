@@ -1,17 +1,49 @@
+import SectionCard from '@site/src/components/SectionCard';
+
 # noVNC
 
-:::info[AI Worker guide]
-The procedures and model-specific examples on this page apply to AI Worker. Follow the guide for your robot before using these settings on another platform.
+noVNC lets you access a remote desktop on the robot PC through a web browser without connecting an HDMI monitor. Cyclo Manager starts a noVNC server container that provides its own desktop environment, where you can use graphical applications such as DYNAMIXEL Wizard 2.
+
+<SectionCard>
+
+## Use the Remote Desktop
+
+<span id="start-novnc" />
+
+### 1. Start the noVNC Server
+
+Open **noVNC** in the Cyclo Manager navigation. Click the **start** button in **NOVNC SERVER** at the top of the page to start the noVNC container. Wait for the server to start and the connection screen to appear.
+
+![noVNC server start and log buttons](/img/software/cyclo/manager/novnc/novnc_server_control.png)
+
+<span id="open-the-remote-desktop" />
+
+### 2. Connect to the Desktop
+
+Click **Connect** (**연결** in the screenshot) to open the remote desktop.
+
+<img src="/img/software/cyclo/manager/novnc/novnc_connect.png" alt="noVNC connection screen with the Connect button" style={{display: 'block', maxWidth: '100%', height: 'auto', marginBottom: '2rem'}} />
+
+<span id="troubleshooting" />
+
+:::tip
+
+If a connection failure message appears just after starting the server for the first time, refresh the Cyclo Manager page and connect again.
+
 :::
 
-Use noVNC to open a remote desktop in the browser and run graphical tools such as **Dynamixel Wizard 2.0** on the AI Worker without attaching a separate display or laptop.
+The remote desktop appears as shown below.
 
-Start the noVNC container, then open the **Dynamixel Wizard 2.0** icon on the remote desktop.
+![Connected noVNC desktop with the DYNAMIXEL Wizard 2 shortcut](/img/software/cyclo/manager/novnc/novnc_desktop.png)
 
-1. Click the **Start** control at the top of the page to start the noVNC container.
-2. Reload the page (for example press **F5**).
-3. Open the **Dynamixel Wizard 2.0** icon on the desktop.
+### 3. Open DYNAMIXEL Wizard 2
 
-![noVNC page](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/novnc_page.png)
+Open the **Dynamixel Wizard 2** shortcut on the desktop to use DYNAMIXEL Wizard 2 in your browser. You can also open other installed tools from their desktop shortcuts.
 
-You can diagnose and control motors in the browser without attaching a display or laptop to the AI Worker.
+![DYNAMIXEL Wizard 2 open in the noVNC desktop](/img/software/cyclo/manager/novnc/novnc_page.png)
+
+<span id="stop-novnc" />
+
+When finished, use the **stop** button in **NOVNC SERVER** at the top of the page to stop the noVNC container.
+
+</SectionCard>
