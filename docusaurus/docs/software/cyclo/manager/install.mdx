@@ -1,48 +1,39 @@
+import SectionCard from '@site/src/components/SectionCard';
+
 # Install Cyclo Manager
 
-:::info[AI Worker guide]
-The procedures and model-specific examples on this page apply to AI Worker. Follow the guide for your robot before using these settings on another platform.
-:::
+**Cyclo Manager** runs inside Docker containers. The Python package **`cyclo-manager`** on PyPI provides the **`cyclo_manager CLI`**, which uses Docker images and Compose to bring up and configure the container stack.
 
-:::info
-After Cyclo Manager is installed and set up once, it starts automatically when the robot boots.
-When you power on the robot later, you only need to open Cyclo Manager from your browser.
-:::
-
-**Cyclo Manager** runs inside Docker containers. The Python package **`cyclo-manager`** on PyPI provides the **`cyclo_manager`** CLI, which uses Docker images and Compose to bring up and configure the container stack.
+<SectionCard>
 
 ## How to Install
 
 :::info
-**Cyclo Manager** runs on the **AI Worker Orin**. Install it on the **AI Worker Orin**.
+**Cyclo Manager** runs on the Robot PC. Install it on the **Robot PC**.
 :::
 
-1. Connect to the AI Worker Orin via SSH.
+1. Connect to the Robot PC directly or via SSH.
 
-Replace `SNPR48A0000` with the serial number printed on the back of the robot body.
+2. Install the Python package `cyclo-manager` on the Robot PC.
 
-```bash
-ssh robotis@ffw-SNPR48A0000.local
-```
-
-2. Install the Python package `cyclo-manager` on the AI Worker Orin.
-
-```bash
-pip install cyclo-manager
-```
+   ```bash
+   pip install cyclo-manager
+   ```
 
 3. Add the CLI to your `PATH` and set up the Cyclo Manager environment.
 
-```bash
-export PATH="$HOME/.local/bin:$PATH"
-cyclo_manager up
-```
+   ```bash
+   export PATH="$HOME/.local/bin:$PATH"
+   cyclo_manager up
+   ```
 
 :::info
-After you run **`cyclo_manager up`** once to set up the environment, Cyclo Manager keeps running unless you run **`cyclo_manager down`**. You do not need to run **`cyclo_manager up`** again after powering the robot off and on.
+After the initial setup, Cyclo Manager starts automatically when the Robot PC reboots. You do not need to run `cyclo_manager up` again unless you have stopped or removed the stack.
 :::
 
-:::note[CLI commands]
+<details>
+<summary>CLI commands</summary>
+
 Use the **`cyclo_manager`** CLI from your terminal:
 
 ```bash
@@ -54,7 +45,7 @@ cyclo_manager update
 - `cyclo_manager up`:
   - Registers a **host-agent** systemd service so it always runs.
   - Creates and starts the **cyclo_manager** (API) and **cyclo_manager_ui** containers.
-  - Creates the **docker daemon** and **novnc-server** containers but does **not** start them yet (start them later when needed).
+  - Creates the **Zenoh daemon** and **novnc-server** containers but does **not** start them yet (start them later when needed).
 
 - `cyclo_manager down`:
   - **Stops and removes** the containers created by `cyclo_manager up`.
@@ -64,20 +55,23 @@ cyclo_manager update
   - Upgrades the **`cyclo-manager`** package with **pip**.
   - Stops the running containers and starts new ones with the updated stack.
   - Restarts the **host-agent** service.
-:::
+</details>
+
+</SectionCard>
+
+<SectionCard>
 
 ## Open the Cyclo Manager Web UI
 
-Open the Cyclo Manager **web UI** on **port 3000** in your browser.
+Open the Cyclo Manager **web UI** in a browser using the Robot PC's IP address and port **3000**:
 
-:::info
-**Connect using the robot IP address or the mDNS hostname.** Replace `SNPR48A0000` with your robot's serial number.
+```text
+http://<robot-ip>:3000
+```
 
-http://192.168.6.2:3000  
-http://ffw-SNPR48A0000.local:3000
-:::
+You can also use the Robot PC's hostname if it is available on the network.
 
-![Cyclo Manager App Page](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/app_page.png)
+![Cyclo Manager App Page](/img/software/cyclo/manager/install/app_page.png)
 
 This is the main page of the Cyclo Manager web UI. From here, you can open the Cyclo Manager or Cyclo Intelligence pages.  
 Enter the Cyclo Manager.
@@ -86,6 +80,10 @@ Click the Cyclo Manager button to open the Cyclo Manager dashboard page.
 
 ![Dashboard Page](/img/software/cyclo/manager/dashboard/dashboard.png)
 
+</SectionCard>
+
+<SectionCard>
+
 ## Update the s6 Agent
 
 After the first installation, the s6 agent inside a managed container may not match the installed Cyclo Manager version.
@@ -93,4 +91,6 @@ If the container agent and Cyclo Manager are not compatible, some Cyclo Manager 
 
 Check the **Container Agents** section in Version Management after opening the dashboard.
 If an agent update is available, update the s6 agent before using Cyclo Manager for regular operation.
-For details, see [Agent Update](/docs/software/cyclo/manager/version_update#agent-update).
+For details, see [Agent Update](/docs/software/cyclo/manager/dashboard#agent-update).
+
+</SectionCard>
