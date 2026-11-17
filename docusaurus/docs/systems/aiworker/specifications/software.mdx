@@ -329,39 +329,6 @@ Zenoh is a pub/sub/query protocol designed to move data efficiently across local
 An external PC can communicate with the robot's ROS 2 nodes by connecting its Zenoh client to the robot's Zenoh router. For connection settings and verification, see [External ROS 2 Communication](/docs/systems/aiworker/quick_start_guide/in_depth_guide/external_ros2_communication).
 
 <span id="quick-checks" />
-
-### Using rmw_fastrtps_cpp
-
-<details>
-<summary>Reference procedure for switching ROS middleware</summary>
-
-AI Worker uses Zenoh RMW by default. If you want to use Fast DDS instead, update `RMW_IMPLEMENTATION` in `~/.bashrc` inside every container that runs ROS 2 nodes (the robot runtime, learning services, and any other ROS 2 participants).
-
-Connect to the robot host over SSH, then enter the robot container.
-
-```bash
-ssh robotis@ffw-snpr48a0000.local
-./ai_worker/docker/container.sh enter
-```
-
-Open the `~/.bashrc` file with nano.
-```bash
-nano ~/.bashrc
-```
-
-Find the line that says `export RMW_IMPLEMENTATION=rmw_zenoh_cpp` and change it to `export RMW_IMPLEMENTATION=rmw_fastrtps_cpp`.
-
-Save and exit the file.(ctrl + x, y, enter)
-
-Restart the container from the **host terminal**:
-
-```bash
-exit
-docker restart ai_worker
-```
-
-If you use cyclo intelligence, you also need to update `RMW_IMPLEMENTATION` in `~/.bashrc` inside the cyclo intelligence container.
-
-</details>
+<span id="using-rmw_fastrtps_cpp" />
 
 </SectionCard>

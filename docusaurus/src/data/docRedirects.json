@@ -88,7 +88,7 @@
     "anchors": {
       "external-pc-control": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/external_ros2_communication",
       "what-is-rmw_zenoh": "what-is-rmw_zenoh",
-      "using-rmw_fastrtps_cpp": "using-rmw_fastrtps_cpp",
+      "using-rmw_fastrtps_cpp": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/rmw_domain_settings#change-the-settings",
       "references": "middleware"
     }
   },
