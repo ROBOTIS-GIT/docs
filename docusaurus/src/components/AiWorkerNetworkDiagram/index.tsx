@@ -41,7 +41,7 @@ function Connection({label, wireless = false}: {label: string; wireless?: boolea
 
 export default function AiWorkerNetworkDiagram({router}: {router: 'external' | 'built-in'}) {
   const builtIn = router === 'built-in';
-  const robotImage = useBaseUrl('/img/systems/aiworker/quick_start_guide/aiworker_network_icon.png');
+  const robotImage = useBaseUrl('/img/systems/aiworker/quick_start_guide/bringup/aiworker_network_icon.png');
   const description = builtIn
     ? 'W2 and SG2: the router is inside AI WORKER. User PC connects to that built-in router over Wi-Fi.'
     : 'W1 and BG2: AI WORKER connects from its LAN port to an external router with a LAN cable. User PC connects to the same router over Wi-Fi or LAN.';

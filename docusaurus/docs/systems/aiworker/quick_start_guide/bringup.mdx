@@ -54,7 +54,7 @@ Open the **System** page in Cyclo Manager to begin bringup.
 :::info[RMW_ZENOH NOTIFICATION]
 AI Worker uses Zenoh as RMW since version 2.0.0.
 Start the Zenoh daemon before bringing up the robot stack.
-For more information about Zenoh, see [Zenoh Communication](/docs/systems/aiworker/specifications/software#middleware).
+For more information about Zenoh, see [Zenoh Communication](/docs/systems/aiworker/overview/software_architecture#middleware).
 :::
 
 Click the arrow icon in the **Zenoh Daemon** control box to start the Zenoh daemon.
@@ -78,12 +78,12 @@ For W1 and W2, select **F1** and **F2**, respectively, in Cyclo Manager.
 The status light turns green when the robot service starts.
 Click the paper icon on the far right to view the logs in the side panel.
 
-![Robot Bringup Button](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/robot_bringup_button.png)
+![Robot Bringup Button](/img/systems/aiworker/quick_start_guide/bringup/robot_bringup_button.png)
 
 After the robot stack starts, the 3D model and robot status panels update automatically.
 If the model or joint states do not update, check `ROS_DOMAIN_ID`, the robot bringup logs, and the relevant ROS 2 topics.
 
-![Robot bringup in Cyclo Manager](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/bringup_robot.gif)
+![Robot bringup in Cyclo Manager](/img/systems/aiworker/quick_start_guide/bringup/bringup_robot.gif)
 
 </SectionCard>
 
@@ -119,19 +119,19 @@ Check that the robot's cameras provide live images in Cyclo Intelligence.
 
 1. Return to the **System** page in Cyclo Manager. Click the start arrow in **Cyclo Intelligence** and wait for the status light to turn green.
 
-   ![Cyclo Intelligence start button in Cyclo Manager](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/intelligence_start.png)
+   ![Cyclo Intelligence start button in Cyclo Manager](/img/systems/aiworker/quick_start_guide/bringup/intelligence_start.png)
 
 2. Click the **I** button in Cyclo Manager to open Cyclo Intelligence. You can also open `http://ffw-<serial_number>.local:7080` in a browser on your PC. For example, use `http://ffw-SNPR48A0000.local:7080` or the robot's IP address with port `7080`.
 
-   ![Cyclo Intelligence shortcut in Cyclo Manager](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/intelligence_shortcut.png)
+   ![Cyclo Intelligence shortcut in Cyclo Manager](/img/systems/aiworker/quick_start_guide/bringup/intelligence_shortcut.png)
 
 3. On the **Home** page, select the robot type and click **Set Robot Type**.
 
-   ![Robot type selection in Cyclo Intelligence](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/intelligence_robot_type.png)
+   ![Robot type selection in Cyclo Intelligence](/img/systems/aiworker/quick_start_guide/bringup/intelligence_robot_type.png)
 
 4. Open **Record** and check **Camera Views**. Confirm that each configured camera displays a live image and that the image updates as the scene changes.
 
-   ![Live camera images on the Cyclo Intelligence Record page](/img/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/intelligence_camera_views.png)
+   ![Live camera images on the Cyclo Intelligence Record page](/img/systems/aiworker/quick_start_guide/bringup/intelligence_camera_views.png)
 
 </SectionCard>
 

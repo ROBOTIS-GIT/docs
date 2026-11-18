@@ -23,8 +23,8 @@ AI Worker runs its ROS 2 software in the `ai_worker` Docker container on the rob
 <ThemedImage
   alt="AI Worker system overview: User PC, Zenoh router, host storage, Docker container, and robot hardware."
   sources={{
-    light: useBaseUrl('/img/systems/aiworker/specifications/software/system_overview.svg'),
-    dark: useBaseUrl('/img/systems/aiworker/specifications/software/system_overview_dark.svg'),
+    light: useBaseUrl('/img/systems/aiworker/overview/software_architecture/system_overview.svg'),
+    dark: useBaseUrl('/img/systems/aiworker/overview/software_architecture/system_overview_dark.svg'),
   }}
   style={{width: '100%', height: 'auto'}}
 />
@@ -175,7 +175,7 @@ For the complete device, display, ZED, configuration, and SDK mounts, inspect th
 
 The following diagram shows the AI Worker ROS 2 control structure. The controller update rate is configured at 100 Hz; mobile-base components apply to mobile models.
 
-![ROS 2 control structure](/img/systems/aiworker/specifications/software/software_architecture.png)
+![ROS 2 control structure](/img/systems/aiworker/overview/software_architecture/software_architecture.png)
 
 #### Why `ros2_control`?
 
@@ -186,8 +186,8 @@ The following diagram shows the AI Worker ROS 2 control structure. The controlle
 <ThemedImage
   alt="Motion execution from leader, AI policy, or VR inputs through ROS 2 controllers to DYNAMIXEL actuators, with joint-state feedback and camera or LiDAR sensor input."
   sources={{
-    light: useBaseUrl('/img/systems/aiworker/specifications/software/motion_execution_pipeline.svg'),
-    dark: useBaseUrl('/img/systems/aiworker/specifications/software/motion_execution_pipeline_dark.svg'),
+    light: useBaseUrl('/img/systems/aiworker/overview/software_architecture/motion_execution_pipeline.svg'),
+    dark: useBaseUrl('/img/systems/aiworker/overview/software_architecture/motion_execution_pipeline_dark.svg'),
   }}
   style={{width: '100%', height: 'auto'}}
 />
@@ -297,7 +297,7 @@ Joint limits, controller constraints, and hardware communication error handling 
 ## Middleware
 
 <div className="zenoh-intro">
-  <img src="/img/systems/aiworker/quick_start_guide/setup_overview/zenoh-dragon-light.png" alt="Zenoh logo" className="zenoh-intro__logo" />
+  <img src="/img/systems/aiworker/overview/software_architecture/zenoh-dragon-light.png" alt="Zenoh logo" className="zenoh-intro__logo" />
   <div className="zenoh-intro__text"><strong>AI Worker uses ROS 2 Jazzy with Zenoh RMW</strong> for communication between robot-side nodes, Docker containers, and external PCs. ROS 2 provides the application interfaces; <code>rmw_zenoh_cpp</code> and the router provide the configured communication layer.</div>
 </div>
 

@@ -12,7 +12,7 @@ VR Teleoperation is compatible with all `AI Worker` models.
 - Gripper Models: `FFW-BG2`, `FFW-SG2`, `FFW-W1`, `FFW-W2`
 - Hand Models: `FFW-BH5`, `FFW-SH5`
 
-For more information on the models, please refer to **[Product Models](/docs/systems/aiworker/specifications/hardware#product-models)**.
+For more information on the models, please refer to **[Product Models](/docs/systems/aiworker/overview/hardware_specification#product-models)**.
 
 The VR setup process is identical for all models unless otherwise specified.
 
@@ -33,21 +33,21 @@ Enable Developer Mode via the Meta Horizon mobile app:
 **Menu → Device management → Devices → Headset settings → Developer Mode → On**
 
 <div style={{display: 'flex', flexWrap: 'wrap', gap: '12px'}}>
-  <img src="/img/systems/aiworker/quick_start_guide/operation_guide/vr_teleoperation/menu_meta.png" alt="menu_meta" width="22%" />
-  <img src="/img/systems/aiworker/quick_start_guide/operation_guide/vr_teleoperation/headset_settings_meta.png" alt="headset_settings_meta" width="22%" />
-  <img src="/img/systems/aiworker/quick_start_guide/operation_guide/vr_teleoperation/developer_mode_meta.png" alt="developer_mode_meta" width="22%" />
-  <img src="/img/systems/aiworker/quick_start_guide/operation_guide/vr_teleoperation/developer_mode_toggle_meta.png" alt="developer_mode_toggle_meta" width="22%" />
+  <img src="/img/systems/aiworker/advanced_features/vr_teleoperation/menu_meta.png" alt="menu_meta" width="22%" />
+  <img src="/img/systems/aiworker/advanced_features/vr_teleoperation/headset_settings_meta.png" alt="headset_settings_meta" width="22%" />
+  <img src="/img/systems/aiworker/advanced_features/vr_teleoperation/developer_mode_meta.png" alt="developer_mode_meta" width="22%" />
+  <img src="/img/systems/aiworker/advanced_features/vr_teleoperation/developer_mode_toggle_meta.png" alt="developer_mode_toggle_meta" width="22%" />
 </div>
 
 ### 2. Configure Headset Settings
 
 1. **Power / Sleep** : **Settings → General** (use **Power** or **Display** depending on your firmware): set **Display off** and **Sleep mode** to **4 hours** (or the longest option available) so the headset does not sleep during use.
 
-![Quest power and sleep settings](/img/systems/aiworker/quick_start_guide/operation_guide/vr_teleoperation/power_setting_meta.png)
+![Quest power and sleep settings](/img/systems/aiworker/advanced_features/vr_teleoperation/power_setting_meta.png)
 
 2. Play area : Settings → Environment setup → Boundary → Stationary boundary size → Large.
 
-![Stationary boundary set to Large](/img/systems/aiworker/quick_start_guide/operation_guide/vr_teleoperation/boundary_large_meta.png)
+![Stationary boundary set to Large](/img/systems/aiworker/advanced_features/vr_teleoperation/boundary_large_meta.png)
 
    Alternatively, use **Create new boundary** to define the boundary manually.
 
@@ -154,9 +154,9 @@ The PC on `FFW-BG2` should be connected to a router and use a corresponding IP a
 
 If the browser shows a certificate warning, use **Advanced** → proceed to the site (wording may vary by browser).
 
-![Browser advanced / certificate bypass](/img/systems/aiworker/quick_start_guide/operation_guide/vr_teleoperation/advance_webpage.png)
+![Browser advanced / certificate bypass](/img/systems/aiworker/advanced_features/vr_teleoperation/advance_webpage.png)
 
-![Proceed to site (unsafe)](/img/systems/aiworker/quick_start_guide/operation_guide/vr_teleoperation/proceed_webpage.png)
+![Proceed to site (unsafe)](/img/systems/aiworker/advanced_features/vr_teleoperation/proceed_webpage.png)
 
 #### Enter VR
 
@@ -168,11 +168,11 @@ Ensure you are at your intended operating location before proceeding. The follow
 
 Click the `Enter VR` button.
 
-![Enter VR button](/img/systems/aiworker/quick_start_guide/operation_guide/vr_teleoperation/enter_vr_webpage.png)
+![Enter VR button](/img/systems/aiworker/advanced_features/vr_teleoperation/enter_vr_webpage.png)
 
 The session is ready when **passthrough** becomes active and **axis markers** appear on your hands.
 
-![Passthrough with hand axes](/img/systems/aiworker/quick_start_guide/operation_guide/vr_teleoperation/pass_meta.png)
+![Passthrough with hand axes](/img/systems/aiworker/advanced_features/vr_teleoperation/pass_meta.png)
 
 Once the VR setup is complete, **hang the headset around your neck** and tighten the strap until the device is stable and secure.
 
@@ -251,7 +251,7 @@ For FFW-BG2, FFW-W1, or FFW-W2, replace `model:=sg2` with `model:=bg2`, `model:=
 
 The VR node only publishes reference data while **both squeeze (grip) buttons** on the controllers are held down. This acts as a safety deadman switch.
 
-![Activate VR publisher](/img/systems/aiworker/quick_start_guide/operation_guide/vr_teleoperation/vr_squeeze_buttons.png)
+![Activate VR publisher](/img/systems/aiworker/advanced_features/vr_teleoperation/vr_squeeze_buttons.png)
 
 ### 4. Activate the Controller
 
@@ -261,11 +261,11 @@ The VR node only publishes reference data while **both squeeze (grip) buttons** 
 
 You can activate the controller by pressing the `X` button on the left controller and the `A` button on the right controller at the same time.
 
-![Activate VR controller](/img/systems/aiworker/quick_start_guide/operation_guide/vr_teleoperation/vr_a_x.png)
+![Activate VR controller](/img/systems/aiworker/advanced_features/vr_teleoperation/vr_a_x.png)
 
 Right after the controller is activated, the system checks the difference between the detected controller poses and the robot wrist poses. If the difference is small enough, the arm controller starts after 3 seconds. After startup, the `slow start` function remains active for 5 seconds. Because of this, it is recommended to keep your arm posture as close as possible to the robot posture before activating the controller.
 
-![FFW-SG2 Slow Start](/img/systems/aiworker/quick_start_guide/operation_guide/vr_teleoperation/sg2_vr_slow_start.gif)
+![FFW-SG2 Slow Start](/img/systems/aiworker/advanced_features/vr_teleoperation/sg2_vr_slow_start.gif)
 
 ### 5. Pause and resume teleoperation
 
@@ -316,11 +316,11 @@ For `sh5`, VR teleoperation starts and stops with a hand gesture instead of a RO
 
 Make one hand squeeze and the other hand pinch, then hold that combination for 3 seconds to toggle the VR controller on or off.
 
-![FFW-SH5 gesture](/img/systems/aiworker/quick_start_guide/operation_guide/vr_teleoperation/gesture.png)
+![FFW-SH5 gesture](/img/systems/aiworker/advanced_features/vr_teleoperation/gesture.png)
 
 Right after the controller is activated, the system checks the difference between the detected hand poses and the robot wrist poses. If the difference is small enough, the arm controller will start after 3 seconds. After startup, the `slow start` function remains active for 5 seconds. Because of this, it is recommended to make your arm posture as close as possible to the robot posture before activating the controller.
 
-![FFW-SH5 Slow Start](/img/systems/aiworker/quick_start_guide/operation_guide/vr_teleoperation/sh5_vr_slow_start.gif)
+![FFW-SH5 Slow Start](/img/systems/aiworker/advanced_features/vr_teleoperation/sh5_vr_slow_start.gif)
 
 ### 4. Pause and resume teleoperation
 

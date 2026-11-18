@@ -7,10 +7,10 @@ const aiworkerSidebar: SidebarsConfig[string] = [
     collapsible: false,
     label: 'Overview',
     items: [
-      {type: 'doc', id: 'systems/aiworker/introduction', label: 'Introduction'},
-      {type: 'doc', id: 'systems/aiworker/specifications/hardware', label: 'Hardware Specification'},
-      {type: 'doc', id: 'systems/aiworker/specifications/software', label: 'Software Architecture'},
-      {type: 'doc', id: 'systems/aiworker/video_gallery', label: 'Video Gallery'},
+      {type: 'doc', id: 'systems/aiworker/overview/introduction', label: 'Introduction'},
+      {type: 'doc', id: 'systems/aiworker/overview/hardware_specification', label: 'Hardware Specification'},
+      {type: 'doc', id: 'systems/aiworker/overview/software_architecture', label: 'Software Architecture'},
+      {type: 'doc', id: 'systems/aiworker/overview/video_gallery', label: 'Video Gallery'},
     ],
   },
   {
@@ -58,7 +58,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
     collapsible: false,
     label: 'Simulation',
     items: [
-      {type: 'doc', id: 'systems/aiworker/simulation/simulation', label: 'Overview'},
+      {type: 'doc', id: 'systems/aiworker/simulation/simulation', label: 'Overview', key: 'simulation-overview'},
       {type: 'doc', id: 'systems/aiworker/simulation/gazebo', label: 'Gazebo'},
       {type: 'doc', id: 'systems/aiworker/simulation/isaac_sim_lab', label: 'Isaac Sim/Lab'},
     ],
@@ -69,20 +69,20 @@ const aiworkerSidebar: SidebarsConfig[string] = [
     collapsible: false,
     label: 'Advanced Features',
     items: [
-      {type: 'doc', id: 'systems/aiworker/quick_start_guide/navigation', label: 'Navigation'},
+      {type: 'doc', id: 'systems/aiworker/advanced_features/navigation', label: 'Navigation', key: 'advanced-navigation'},
       {type: 'doc', id: 'systems/aiworker/advanced_features/cyclo_control', label: 'Cyclo Control'},
       {
         type: 'category',
         label: 'Autonomy Studio',
         items: [
-          {type: 'doc', id: 'systems/aiworker/autonomy_studio/overview', label: 'Overview'},
-          {type: 'doc', id: 'systems/aiworker/autonomy_studio/action_canvas', label: 'Action Canvas'},
+          {type: 'doc', id: 'systems/aiworker/advanced_features/autonomy_studio/overview', label: 'Overview', key: 'autonomy-studio-overview'},
+          {type: 'doc', id: 'systems/aiworker/advanced_features/autonomy_studio/action_canvas', label: 'Action Canvas'},
           {
             type: 'category',
             label: 'Mission Canvas',
             items: [
-              {type: 'doc', id: 'systems/aiworker/autonomy_studio/mission_canvas/navigation', label: 'Navigation'},
-              {type: 'doc', id: 'systems/aiworker/autonomy_studio/mission_canvas/mission', label: 'Mission'},
+              {type: 'doc', id: 'systems/aiworker/advanced_features/autonomy_studio/mission_canvas/navigation', label: 'Navigation', key: 'mission-canvas-navigation'},
+              {type: 'doc', id: 'systems/aiworker/advanced_features/autonomy_studio/mission_canvas/mission', label: 'Mission'},
             ],
           },
         ],
@@ -98,8 +98,8 @@ const aiworkerSidebar: SidebarsConfig[string] = [
     label: 'Support',
     items: [
       {type: 'doc', id: 'systems/aiworker/support/troubleshooting', label: 'Troubleshooting'},
-      {type: 'doc', id: 'systems/aiworker/resources/release_notes', label: 'Release Notes'},
-      {type: 'doc', id: 'systems/aiworker/resources/open_source', label: 'Open Source'},
+      {type: 'doc', id: 'systems/aiworker/support/release_notes', label: 'Release Notes'},
+      {type: 'doc', id: 'systems/aiworker/support/open_source', label: 'Open Source'},
       {type: 'link', href: 'https://discord.gg/robotis', label: 'Discord Server'},
       {type: 'doc', id: 'systems/aiworker/support/issues', label: 'Issue'},
       {type: 'doc', id: 'systems/aiworker/support/contact_us', label: 'Contact Us'},

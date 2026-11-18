@@ -24,15 +24,15 @@ This guide covers building and flashing the Jetson Orin OS image on AI Worker (F
 
 <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 180px), 1fr))', gap: '16px', marginBottom: '24px'}}>
   <figure style={{margin: 0, textAlign: 'center'}}>
-    <img src="/img/systems/aiworker/support/jetson_orin_flashing/ubuntu_host.webp" alt="Ubuntu 24.04" style={{width: '100%', height: '180px', objectFit: 'contain'}} />
+    <img src="/img/systems/aiworker/support/troubleshooting/image_reflashing/ubuntu_host.webp" alt="Ubuntu 24.04" style={{width: '100%', height: '180px', objectFit: 'contain'}} />
     <figcaption>Ubuntu 24.04</figcaption>
   </figure>
   <figure style={{margin: 0, textAlign: 'center'}}>
-    <img src="/img/systems/aiworker/support/jetson_orin_flashing/ai_worker.webp" alt="AI Worker" style={{width: '100%', height: '180px', objectFit: 'contain'}} />
+    <img src="/img/systems/aiworker/support/troubleshooting/image_reflashing/ai_worker.webp" alt="AI Worker" style={{width: '100%', height: '180px', objectFit: 'contain'}} />
     <figcaption>AI Worker</figcaption>
   </figure>
   <figure style={{margin: 0, textAlign: 'center'}}>
-    <img src="/img/systems/aiworker/support/jetson_orin_flashing/usb_a_to_a_cable.webp" alt="USB A-to-A Cable" style={{width: '100%', height: '180px', objectFit: 'contain'}} />
+    <img src="/img/systems/aiworker/support/troubleshooting/image_reflashing/usb_a_to_a_cable.webp" alt="USB A-to-A Cable" style={{width: '100%', height: '180px', objectFit: 'contain'}} />
     <figcaption>USB A-to-A Cable</figcaption>
   </figure>
 </div>
@@ -52,7 +52,7 @@ cd ~/ai_worker
 git checkout feature-bsp
 ```
 
-![Example output](/img/systems/aiworker/support/jetson_orin_flashing/clone_repository.webp)
+![Example output](/img/systems/aiworker/support/troubleshooting/image_reflashing/clone_repository.webp)
 
 
 ### 1.2. Full SDK Setup & Initial Build (~10 mins)
@@ -63,7 +63,7 @@ cd ~/ai_worker/6.2.0
 ./docker_build.sh
 ```
 
-![Example output](/img/systems/aiworker/support/jetson_orin_flashing/sdk_build.webp)
+![Example output](/img/systems/aiworker/support/troubleshooting/image_reflashing/sdk_build.webp)
 
 
 ### 1.3. Rebuilding Kernel & DTB (~5 mins)
@@ -84,22 +84,22 @@ cd ~/6.2.0/Linux_for_Tegra
 
 Ensure the AI Worker is powered off before connecting the cable.
 
-![Connect the AI Worker to the host PC](/img/systems/aiworker/support/jetson_orin_flashing/connect_host.webp)
+![Connect the AI Worker to the host PC](/img/systems/aiworker/support/troubleshooting/image_reflashing/connect_host.webp)
 
 ### 2.2. Remove the Front Cover and Enter Recovery Mode
 
 1. Remove the Front Cover.
 2. Press and hold the Flash button located on the top right of the motherboard first.
     
-    ![Flash button on the motherboard](/img/systems/aiworker/support/jetson_orin_flashing/flash_button.webp)
+    ![Flash button on the motherboard](/img/systems/aiworker/support/troubleshooting/image_reflashing/flash_button.webp)
     
 3. Press and hold the Power button for 3 seconds until you hear a beep sound, then release both the Power button and Flash button.
     
-    ![Enter Recovery Mode using the Power and Flash buttons](/img/systems/aiworker/support/jetson_orin_flashing/enter_recovery_mode.webp)
+    ![Enter Recovery Mode using the Power and Flash buttons](/img/systems/aiworker/support/troubleshooting/image_reflashing/enter_recovery_mode.webp)
     
 4. If the AI Worker has successfully entered Recovery Mode, the NVIDIA device will be detected on the Host PC.
     
-    ![Example output](/img/systems/aiworker/support/jetson_orin_flashing/recovery_mode_detected.webp)
+    ![Example output](/img/systems/aiworker/support/troubleshooting/image_reflashing/recovery_mode_detected.webp)
     
     
 
@@ -115,7 +115,7 @@ cd ~/6.2.0/Linux_for_Tegra
 ./docker_flash_orin.sh -v v02
 ```
 
-![Example output](/img/systems/aiworker/support/jetson_orin_flashing/flash_output.webp)
+![Example output](/img/systems/aiworker/support/troubleshooting/image_reflashing/flash_output.webp)
 
 
 </SectionCard>
@@ -130,7 +130,7 @@ Press and hold the Power button for 3 seconds to power off.
 
 ### 4.2. Reattach the Front Cover
 
-![Reattach the front cover](/img/systems/aiworker/support/jetson_orin_flashing/reattach_front_cover.webp)
+![Reattach the front cover](/img/systems/aiworker/support/troubleshooting/image_reflashing/reattach_front_cover.webp)
 
 </SectionCard>
 
@@ -152,7 +152,7 @@ ssh robotis@orin-jp620.local
 # password: root
 ```
 
-![Example output](/img/systems/aiworker/support/jetson_orin_flashing/ssh_connection.webp)
+![Example output](/img/systems/aiworker/support/troubleshooting/image_reflashing/ssh_connection.webp)
 
 
 </SectionCard>

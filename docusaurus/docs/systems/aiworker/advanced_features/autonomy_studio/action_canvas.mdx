@@ -13,7 +13,7 @@ Use Action Canvas when the work is centered on one work area and does not requir
 - Repeating the same handling or inspection routine
 - Testing a Task in simulation before running it on the physical robot
 
-Working in one area does not mean the robot must remain completely still. It can turn or make local movements as part of the Task. If the robot needs to travel between several work areas and perform a different Task at each location, use [Mission Canvas](/docs/systems/aiworker/autonomy_studio/mission_canvas/mission) instead. Put simply, Action Canvas defines **what the robot does here**; Mission Canvas also defines **where it goes next**.
+Working in one area does not mean the robot must remain completely still. It can turn or make local movements as part of the Task. If the robot needs to travel between several work areas and perform a different Task at each location, use [Mission Canvas](/docs/systems/aiworker/advanced_features/autonomy_studio/mission_canvas/mission) instead. Put simply, Action Canvas defines **what the robot does here**; Mission Canvas also defines **where it goes next**.
 
 Watch the following UI walkthrough before using Action Canvas. If the embedded player does not open, [watch it on YouTube](https://www.youtube.com/watch?v=jRcUuwxFk_Y&t=31s).
 
@@ -21,23 +21,23 @@ Watch the following UI walkthrough before using Action Canvas. If the embedded p
 
 ## Open Action Canvas
 
-Before opening Action Canvas, complete the [Autonomy Studio setup and safety checks](/docs/systems/aiworker/autonomy_studio/overview#prerequisites).
+Before opening Action Canvas, complete the [Autonomy Studio setup and safety checks](/docs/systems/aiworker/advanced_features/autonomy_studio/overview#prerequisites).
 
 1. Open the Cyclo Intelligence web UI.
 2. In the application sidebar, click **Autonomy Studio**.
 3. Select **Action Canvas**.
 
-   ![Action Canvas option in the Autonomy Studio workspace chooser](/img/systems/aiworker/autonomy_studio/action_canvas/action_canvas_button.png)
+   ![Action Canvas option in the Autonomy Studio workspace chooser](/img/systems/aiworker/advanced_features/autonomy_studio/action_canvas/action_canvas_button.png)
 
 If Autonomy Studio restores the workspace that you used previously, click the back arrow in the application bar to return to the workspace chooser.
 
-![Back arrow in the Action Canvas application bar](/img/systems/aiworker/autonomy_studio/action_canvas/back_arrow_button.png)
+![Back arrow in the Action Canvas application bar](/img/systems/aiworker/advanced_features/autonomy_studio/action_canvas/back_arrow_button.png)
 
 You can create and edit a Task with the standard Steps while the Task Engine is off. Turn on the Task Engine before refreshing the available Step list or running the Task.
 
 ## Understand the Workspace
 
-![Action Canvas workspace](/img/systems/aiworker/autonomy_studio/action_canvas/action_canvas_home.png)
+![Action Canvas workspace](/img/systems/aiworker/advanced_features/autonomy_studio/action_canvas/action_canvas_home.png)
 
 | Area | What you can do |
 | --- | --- |
@@ -78,19 +78,19 @@ Start the Task with one Flow Control, and connect the Actions or other Flow Cont
 Drag a Step from **Flow Controls** or **Actions**, and drop it where you want it on the canvas. Action Canvas gives the new Step an automatic name such as `Sequence_1` or `Wait_1` and selects it so that you can configure it.
 
 <div style={{display: 'flex', gap: '16px', alignItems: 'flex-start'}}>
-  <img src="/img/systems/aiworker/autonomy_studio/action_canvas/add_step_1.png" alt="Drag a Step from the Step palette" style={{width: '50%'}} />
-  <img src="/img/systems/aiworker/autonomy_studio/action_canvas/add_step_2.png" alt="Drop a Step on Action Canvas" style={{width: '50%'}} />
+  <img src="/img/systems/aiworker/advanced_features/autonomy_studio/action_canvas/add_step_1.png" alt="Drag a Step from the Step palette" style={{width: '50%'}} />
+  <img src="/img/systems/aiworker/advanced_features/autonomy_studio/action_canvas/add_step_2.png" alt="Drop a Step on Action Canvas" style={{width: '50%'}} />
 </div>
 
 The standard Steps appear as soon as the page opens. If a developer adds or updates a custom Step, turn on the Task Engine and click **Refresh Steps**. Action Canvas then requests the latest Step list from the running system and adds the detected custom Steps to the palette.
 
-![Refresh Steps button](/img/systems/aiworker/autonomy_studio/action_canvas/refresh_steps.png)
+![Refresh Steps button](/img/systems/aiworker/advanced_features/autonomy_studio/action_canvas/refresh_steps.png)
 
 ### Connect Steps
 
 To set the order of a Task, drag from the lower connection point of a Flow Control to the upper connection point of the Step that should follow it.
 
-![Connect Steps on Action Canvas](/img/systems/aiworker/autonomy_studio/action_canvas/connect_steps.png)
+![Connect Steps on Action Canvas](/img/systems/aiworker/advanced_features/autonomy_studio/action_canvas/connect_steps.png)
 
 Action Canvas applies the following connection rules:
 
@@ -113,8 +113,8 @@ Use one connected starting Step for the complete Task. If the canvas contains se
 - On a Flow Control, click `-` to hide all Steps connected after it, or `+` to show them again. This display choice is kept when the Task is saved.
 
 <div style={{display: 'flex', gap: '16px', alignItems: 'flex-start'}}>
-  <img src="/img/systems/aiworker/autonomy_studio/action_canvas/auto_layout_before.png" alt="Task before Auto Layout" style={{width: '50%'}} />
-  <img src="/img/systems/aiworker/autonomy_studio/action_canvas/auto_layout_after.png" alt="Task after Auto Layout" style={{width: '50%'}} />
+  <img src="/img/systems/aiworker/advanced_features/autonomy_studio/action_canvas/auto_layout_before.png" alt="Task before Auto Layout" style={{width: '50%'}} />
+  <img src="/img/systems/aiworker/advanced_features/autonomy_studio/action_canvas/auto_layout_after.png" alt="Task after Auto Layout" style={{width: '50%'}} />
 </div>
 
 If a hidden Step is currently running, Action Canvas highlights the visible Flow Control that contains it.
@@ -134,7 +134,7 @@ The panel presents each setting in a suitable form:
 - `JointControl` and `ArmStateGate` provide FFW-SG2 joint-selection chips and matching comma-separated position values.
 - The folder button beside `SendCommand.policy_path` opens the folder used for the selected LeRobot or GR00T model.
 
-![Step parameter panel](/img/systems/aiworker/autonomy_studio/action_canvas/step_settings.png)
+![Step parameter panel](/img/systems/aiworker/advanced_features/autonomy_studio/action_canvas/step_settings.png)
 
 ### Delete Steps or Connections
 
@@ -149,7 +149,7 @@ The panel presents each setting in a suitable form:
 | Redo | **Redo** | `Ctrl+Shift+Z`, `Command+Shift+Z`, `Ctrl+Y`, or `Command+Y` |
 
 {/* TODO: Replace with a current screenshot of Undo and Redo. */}
-![Undo and Redo buttons](/img/systems/aiworker/autonomy_studio/action_canvas/undo_redo.png)
+![Undo and Redo buttons](/img/systems/aiworker/advanced_features/autonomy_studio/action_canvas/undo_redo.png)
 
 Undo and Redo cover added or deleted Steps, connection lines, positions, Step settings, hidden sections, clearing, and the current filename. Opening a saved Task starts a new editing history.
 
@@ -157,7 +157,7 @@ Undo and Redo cover added or deleted Steps, connection lines, positions, Step se
 
 To remove every Step and connection from the current Task, click the **Clear** trash can button twice within four seconds. The first click prepares the action, and the second click confirms it.
 
-![Clear button in the Action Canvas header](/img/systems/aiworker/autonomy_studio/action_canvas/clear.png)
+![Clear button in the Action Canvas header](/img/systems/aiworker/advanced_features/autonomy_studio/action_canvas/clear.png)
 
 Clearing the canvas also removes the displayed filename. You can restore the cleared Task with **Undo** until you open another file and begin a new editing history. **Clear** is unavailable while the Task is running or stopping, or while another Task Engine action is in progress.
 
@@ -322,7 +322,7 @@ The working draft is not saved automatically. Save important work before reloadi
 3. Select a Task file.
 4. Check that its filename appears in the header, and review all Steps and settings before running it.
 
-![Open Task button](/img/systems/aiworker/autonomy_studio/action_canvas/open_task.png)
+![Open Task button](/img/systems/aiworker/advanced_features/autonomy_studio/action_canvas/open_task.png)
 
 Opening a Task replaces the current task diagram without asking whether to save it. It also starts a new Undo and Redo history. Save the current draft first if you need to keep it.
 
@@ -335,7 +335,7 @@ Action Canvas uses **Save Task As** so that replacing an existing file always re
 3. Click **Save**, or press `Enter`.
 4. If the name already exists, enter another name or click the **Overwrite** action that appears.
 
-![Save Task As button](/img/systems/aiworker/autonomy_studio/action_canvas/save_task.png)
+![Save Task As button](/img/systems/aiworker/advanced_features/autonomy_studio/action_canvas/save_task.png)
 
 Action Canvas does not replace an existing file until you explicitly click **Overwrite**. Press `Escape` to close the dialog without saving.
 
@@ -343,7 +343,7 @@ Action Canvas does not replace an existing file until you explicitly click **Ove
 The filename in the header shows the last file opened in the editor. Saving does not turn on automatic future saves. Click **Save Task As** again whenever you want to keep later changes.
 :::
 
-Action Canvas files belong to the standalone Task library. They do not automatically appear in a waypoint's Task file list. [Waypoint Tasks](/docs/systems/aiworker/autonomy_studio/mission_canvas/mission#waypoint-tasks) are stored separately inside their Mission and waypoint folders.
+Action Canvas files belong to the standalone Task library. They do not automatically appear in a waypoint's Task file list. [Waypoint Tasks](/docs/systems/aiworker/advanced_features/autonomy_studio/mission_canvas/mission#waypoint-tasks) are stored separately inside their Mission and waypoint folders.
 
 ## Run a Task
 
@@ -354,7 +354,7 @@ Action Canvas files belong to the standalone Task library. They do not automatic
 3. Wait until the status changes to **Task Engine On**.
 4. Click **Refresh Steps** if you need to reload the current available Step list.
 
-![Turn On Task Engine button](/img/systems/aiworker/autonomy_studio/action_canvas/turn_on_task_engine.png)
+![Turn On Task Engine button](/img/systems/aiworker/advanced_features/autonomy_studio/action_canvas/turn_on_task_engine.png)
 
 Action Canvas checks the Task Engine every five seconds. **Unknown** means that its status cannot currently be checked. Wait until the status is available before running a Task.
 
@@ -366,7 +366,7 @@ Action Canvas checks the Task Engine every five seconds. **Unknown** means that 
 4. Click **Run Task**.
 
 {/* TODO: Replace with a current screenshot of Run Task. */}
-![Run Task button](/img/systems/aiworker/autonomy_studio/action_canvas/run_task.png)
+![Run Task button](/img/systems/aiworker/advanced_features/autonomy_studio/action_canvas/run_task.png)
 
 Saving first is recommended, but it is not required. Action Canvas sends a copy of the current task diagram to the Task Engine when you click **Run Task**. If the previous Task ended as **Completed** or **Failed**, Action Canvas clears that final status before beginning the next run.
 
@@ -387,7 +387,7 @@ Tasks can move the robot and send AI-generated commands. Verify the Step order a
 
 Click **Stop Task** while the status is **Running**. Action Canvas asks the Task Engine to stop, removes the running-Step highlight, and changes the Task status to **Stopped**.
 
-![Stop Task button](/img/systems/aiworker/autonomy_studio/action_canvas/stop_task.png)
+![Stop Task button](/img/systems/aiworker/advanced_features/autonomy_studio/action_canvas/stop_task.png)
 
 You cannot use the Autonomy Studio back action while a Task is running or while Action Canvas is processing another Task Engine command. Stop the Task and wait for the command to finish before returning to the workspace chooser.
 
@@ -395,4 +395,4 @@ You cannot use the Autonomy Studio back action while a Task is running or while 
 
 **Turn Off** is available only when the Task Engine is on and the Task is **Stopped**, **Completed**, or **Failed**. If the Task is still running, click **Stop Task** first. Action Canvas clears a completed or failed run before shutting down the Task Engine.
 
-![Turn Off Task Engine button](/img/systems/aiworker/autonomy_studio/action_canvas/turn_off_task_engine.png)
+![Turn Off Task Engine button](/img/systems/aiworker/advanced_features/autonomy_studio/action_canvas/turn_off_task_engine.png)

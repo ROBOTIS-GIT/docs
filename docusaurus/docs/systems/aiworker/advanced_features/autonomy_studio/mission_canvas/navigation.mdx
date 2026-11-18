@@ -24,7 +24,7 @@ For a new environment, use this recommended validation sequence:
 Mapping → Map Edit → Navigation
 ```
 
-After the map has been validated, continue to [Mission](/docs/systems/aiworker/autonomy_studio/mission_canvas/mission) to add Waypoints and run a route.
+After the map has been validated, continue to [Mission](/docs/systems/aiworker/advanced_features/autonomy_studio/mission_canvas/mission) to add Waypoints and run a route.
 
 ## Mapping
 
@@ -32,7 +32,7 @@ Use the **Mapping** stage of Mission Canvas to build an occupancy-grid map with 
 
 ### Create a Map
 
-![Mapping button and Mapping canvas in Mission Canvas](/img/systems/aiworker/autonomy_studio/mission_canvas/navigation/mapping_page_mission_canvas.png)
+![Mapping button and Mapping canvas in Mission Canvas](/img/systems/aiworker/advanced_features/autonomy_studio/mission_canvas/navigation/mapping_page_mission_canvas.png)
 
 1. Select **Mapping** in the Mission Canvas stage rail.
 2. Click **Start Mapping**.
@@ -72,7 +72,7 @@ Use the **Mapping** stage of Mission Canvas to build an occupancy-grid map with 
 
 7. Save the map before stopping the runtime. The **Save Map** and **Stop** controls used in steps 7 and 8 are shown below.
 
-   ![Save Map and Stop controls in the Mapping stage](/img/systems/aiworker/autonomy_studio/mission_canvas/navigation/mapping_page_mission_canvas_2.png)
+   ![Save Map and Stop controls in the Mapping stage](/img/systems/aiworker/advanced_features/autonomy_studio/mission_canvas/navigation/mapping_page_mission_canvas_2.png)
 
    1. While mapping is running, click **Save Map** in the map-viewer toolbar.
    2. Enter a value in **Map name**.
@@ -90,7 +90,7 @@ Use the **Mapping** stage of Mission Canvas to build an occupancy-grid map with 
 
 ### Delete a Saved Map
 
-![Live map created while driving with Mobile Teleop](/img/systems/aiworker/autonomy_studio/mission_canvas/navigation/delete_map.png)
+![Live map created while driving with Mobile Teleop](/img/systems/aiworker/advanced_features/autonomy_studio/mission_canvas/navigation/delete_map.png)
 
 1. Click the **Delete Map** trash can button in the map-viewer toolbar. The **Saved maps** list opens directly below the button.
 2. Find the PGM map that you want to remove and click the red trash can at the right side of its row.
@@ -109,7 +109,7 @@ Use **Map Edit** to correct a saved PGM occupancy map and add named areas for Mi
 
 ### Load a Map
 
-![Live map created while driving with Mobile Teleop](/img/systems/aiworker/autonomy_studio/mission_canvas/navigation/map_edit.png)
+![Live map created while driving with Mobile Teleop](/img/systems/aiworker/advanced_features/autonomy_studio/mission_canvas/navigation/map_edit.png)
 
 1. Select **Map Edit** in the Mission Canvas stage rail.
 2. Click **Load Map** in the stage header.
@@ -119,7 +119,7 @@ Use **Map Edit** to correct a saved PGM occupancy map and add named areas for Mi
 
 ### Edit Occupancy Pixels
 
-![Live map created while driving with Mobile Teleop](/img/systems/aiworker/autonomy_studio/mission_canvas/navigation/edit_pixels.png)
+![Live map created while driving with Mobile Teleop](/img/systems/aiworker/advanced_features/autonomy_studio/mission_canvas/navigation/edit_pixels.png)
 
 1. Select an editing tool.
 2. Select a brush size.
@@ -162,7 +162,7 @@ Only white free-space cells that are not already claimed by another visible area
 
 #### Create an Area
 
-![Live map created while driving with Mobile Teleop](/img/systems/aiworker/autonomy_studio/mission_canvas/navigation/edit_area.png)
+![Live map created while driving with Mobile Teleop](/img/systems/aiworker/advanced_features/autonomy_studio/mission_canvas/navigation/edit_area.png)
 
 1. Click **Add Label**, then select **Area**.
 2. Optionally enter an **AREA NAME**.
@@ -176,7 +176,7 @@ A selection that contains no available free cells is not created. If this happen
 
 #### Extend an Area
 
-![Live map created while driving with Mobile Teleop](/img/systems/aiworker/autonomy_studio/mission_canvas/navigation/extend_area.png)
+![Live map created while driving with Mobile Teleop](/img/systems/aiworker/advanced_features/autonomy_studio/mission_canvas/navigation/extend_area.png)
 
 
 1. Select the target under **LABELED AREAS**.
@@ -188,7 +188,7 @@ Extend changes only the selected area. It does not overwrite cells owned by othe
 
 #### Erase Area Cells
 
-![Live map created while driving with Mobile Teleop](/img/systems/aiworker/autonomy_studio/mission_canvas/navigation/erase_area_cell.png)
+![Live map created while driving with Mobile Teleop](/img/systems/aiworker/advanced_features/autonomy_studio/mission_canvas/navigation/erase_area_cell.png)
 
 1. Select **Erase Area**.
 2. Choose a brush size.
@@ -200,7 +200,7 @@ If all visible cells of an area are erased, that area no longer appears in the l
 
 #### Select and Rename an Area
 
-![Live map created while driving with Mobile Teleop](/img/systems/aiworker/autonomy_studio/mission_canvas/navigation/rename_area.png)
+![Live map created while driving with Mobile Teleop](/img/systems/aiworker/advanced_features/autonomy_studio/mission_canvas/navigation/rename_area.png)
 
 1. Click an item under **LABELED AREAS** to select it.
 2. Double-click its name to edit it.
@@ -208,7 +208,7 @@ If all visible cells of an area are erased, that area no longer appears in the l
 
 #### Delete an Area
 
-![Live map created while driving with Mobile Teleop](/img/systems/aiworker/autonomy_studio/mission_canvas/navigation/delete_area.png)
+![Live map created while driving with Mobile Teleop](/img/systems/aiworker/advanced_features/autonomy_studio/mission_canvas/navigation/delete_area.png)
 
 1. Click the delete icon beside the area.
 2. Click it again within four seconds when the button changes to the confirmation state.
@@ -221,7 +221,7 @@ Use the **Navigation** stage to validate a saved map, localize the robot, and dr
 
 ### Load a Map
 
-![Live map created while driving with Mobile Teleop](/img/systems/aiworker/autonomy_studio/mission_canvas/navigation/nav_load_map.png)
+![Live map created while driving with Mobile Teleop](/img/systems/aiworker/advanced_features/autonomy_studio/mission_canvas/navigation/nav_load_map.png)
 
 1. Select **Navigation** in the Mission Canvas stage rail.
 2. Click **Load Map** in the stage header.
@@ -231,13 +231,13 @@ Use the **Navigation** stage to validate a saved map, localize the robot, and dr
 
 Loading a map prepares the display but does not start navigation. The header remains **Status: idle** until you click **Localize**.
 
-The Navigation picker is map-only. Mission selection and Mission execution are handled in the [Mission Run](/docs/systems/aiworker/autonomy_studio/mission_canvas/mission#mission-run) stage.
+The Navigation picker is map-only. Mission selection and Mission execution are handled in the [Mission Run](/docs/systems/aiworker/advanced_features/autonomy_studio/mission_canvas/mission#mission-run) stage.
 
 ### Localize the Robot
 
 Localization tells the navigation system where the physical robot is on the loaded map.
 
-![Live map created while driving with Mobile Teleop](/img/systems/aiworker/autonomy_studio/mission_canvas/navigation/nav_localize.png)
+![Live map created while driving with Mobile Teleop](/img/systems/aiworker/advanced_features/autonomy_studio/mission_canvas/navigation/nav_localize.png)
 
 1. Click **Localize**.
 2. Wait for the navigation runtime to start. The header changes to **Status: running**.
@@ -251,7 +251,7 @@ Set the pose as close as possible to the robot's real position and heading. A po
 
 ### Send a Goal
 
-![Live map created while driving with Mobile Teleop](/img/systems/aiworker/autonomy_studio/mission_canvas/navigation/nav_goal.png)
+![Live map created while driving with Mobile Teleop](/img/systems/aiworker/advanced_features/autonomy_studio/mission_canvas/navigation/nav_goal.png)
 
 1. Click **Set Goal**.
 2. Press the target position on the map.

@@ -11,7 +11,7 @@ const {chromium} = require('playwright');
 const root = path.resolve(__dirname, '..');
 const threeBuild = process.env.THREE_BUILD_DIR || path.dirname(require.resolve('three'));
 const step = JSON.parse(fs.readFileSync(path.join(root, 'src/components/AiWorkerUnboxing/steps.json')))[0].steps[0];
-const output = path.join(root, 'static/img/systems/aiworker/unboxing/carton', `${step.id}.mp4`);
+const output = path.join(root, 'static/img/systems/aiworker/quick_start_guide/setup_hardware/unboxing/carton', `${step.id}.mp4`);
 const preview = process.argv[2] === '--preview' ? process.argv[3] : undefined;
 const duration = (step.end - step.start) / 4;
 const fps = 24;

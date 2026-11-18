@@ -6,7 +6,7 @@ import styles from './styles.module.css';
 export default function AiWorkerUnboxing() {
   const [selection, setSelection] = useState({packageIndex: 0, stepIndex: 0, playback: 0});
   const headingId = useId();
-  const baseUrl = useBaseUrl('/img/systems/aiworker/unboxing/');
+  const baseUrl = useBaseUrl('/img/systems/aiworker/quick_start_guide/setup_hardware/unboxing/');
   const packaging = packages[selection.packageIndex];
   const step = packaging.steps[selection.stepIndex];
   const mediaPath = `${baseUrl}${packaging.id}/${step.id}`;

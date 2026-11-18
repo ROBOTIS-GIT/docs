@@ -270,7 +270,7 @@ const config: Config = {
                   <div class="mega-menu__right">
                     <div class="mega-menu__panel" data-panel="humanoid">
                       <div class="mega-menu__grid">
-                        <a class="mega-menu__product" href="/docs/systems/aiworker/introduction">
+                        <a class="mega-menu__product" href="/docs/systems/aiworker/overview/introduction">
                           <div class="mega-menu__product-thumb"><img src="/img/mega-menu/ai-worker.webp" alt="AI Worker" /></div>
                           <span>AI Worker</span>
                         </a>

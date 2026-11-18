@@ -1,7 +1,7 @@
 {
   "/docs/systems/aiworker/quick_start_guide/development_guide/cli_guide": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/cli_bringup_teleoperation",
   "/docs/systems/aiworker/advanced_features": {
-    "to": "/docs/systems/aiworker/introduction#advanced-feature",
+    "to": "/docs/systems/aiworker/overview/introduction#advanced-feature",
     "anchors": {
       "overview": "advanced-feature",
       "available-features": "advanced-feature",
@@ -9,7 +9,7 @@
       "2-robotis-vuer": "advanced-feature"
     }
   },
-  "/docs/systems/aiworker/advanced_features/behavior_trees": "/docs/systems/aiworker/autonomy_studio/action_canvas",
+  "/docs/systems/aiworker/advanced_features/behavior_trees": "/docs/systems/aiworker/advanced_features/autonomy_studio/action_canvas",
   "/docs/systems/aiworker/advanced_features/robotis_vuer": {
     "to": "/docs/systems/aiworker/advanced_features/vr_teleoperation",
     "anchors": {
@@ -19,7 +19,7 @@
       "related-guides": "vr-startup"
     }
   },
-  "/docs/systems/aiworker/getting_started": "/docs/systems/aiworker/introduction#quick-start-guide",
+  "/docs/systems/aiworker/getting_started": "/docs/systems/aiworker/overview/introduction#quick-start-guide",
   "/docs/systems/aiworker/imitation_learning": "/docs/software/cyclo/cyclo_intelligence",
   "/docs/systems/aiworker/imitation_learning/overview": {
     "to": "/docs/software/cyclo/cyclo_intelligence",
@@ -27,7 +27,7 @@
       "recommended-tool": "workflow"
     }
   },
-  "/docs/systems/aiworker/quick_start_guide/operation_guide": "/docs/systems/aiworker/introduction#documentation-guide",
+  "/docs/systems/aiworker/quick_start_guide/operation_guide": "/docs/systems/aiworker/overview/introduction#documentation-guide",
   "/docs/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager": "/docs/software/cyclo/cyclo_manager",
   "/docs/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/bringup": {
     "to": "/docs/systems/aiworker/quick_start_guide/bringup",
@@ -58,11 +58,11 @@
       "agent-update": "agent-update"
     }
   },
-  "/docs/systems/aiworker/quick_start_guide/operation_guide/navigation": "/docs/systems/aiworker/quick_start_guide/navigation",
+  "/docs/systems/aiworker/quick_start_guide/operation_guide/navigation": "/docs/systems/aiworker/advanced_features/navigation",
   "/docs/systems/aiworker/quick_start_guide/operation_guide/teleoperation": "/docs/systems/aiworker/quick_start_guide/teleoperation",
   "/docs/systems/aiworker/quick_start_guide/operation_guide/vr_teleoperation": "/docs/systems/aiworker/advanced_features/vr_teleoperation",
   "/docs/systems/aiworker/quick_start_guide/setup_overview": {
-    "to": "/docs/systems/aiworker/introduction#quick-start-guide",
+    "to": "/docs/systems/aiworker/overview/introduction#quick-start-guide",
     "anchors": {
       "choose-a-guide": "quick-start-guide",
       "recommended-order": "quick-start-guide",
@@ -73,10 +73,10 @@
   "/docs/systems/aiworker/quick_start_guide/setup_overview/software": {
     "to": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/robot_pc_access",
     "anchors": {
-      "development-environment-overview": "/docs/systems/aiworker/specifications/software#host-environment",
-      "prerequisites": "/docs/systems/aiworker/specifications/software#host-environment",
+      "development-environment-overview": "/docs/systems/aiworker/overview/software_architecture#host-environment",
+      "prerequisites": "/docs/systems/aiworker/overview/software_architecture#host-environment",
       "configuration": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/development_environment",
-      "docker-volume-management": "/docs/systems/aiworker/specifications/software#container-volume-map",
+      "docker-volume-management": "/docs/systems/aiworker/overview/software_architecture#container-volume-map",
       "container-management": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/development_environment",
       "docker-command-guide": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/development_environment",
       "software-update-guide": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/software_update",
@@ -84,7 +84,7 @@
     }
   },
   "/docs/systems/aiworker/quick_start_guide/setup_overview/zenoh_communication": {
-    "to": "/docs/systems/aiworker/specifications/software#middleware",
+    "to": "/docs/systems/aiworker/overview/software_architecture#middleware",
     "anchors": {
       "external-pc-control": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/external_ros2_communication",
       "what-is-rmw_zenoh": "what-is-rmw_zenoh",
@@ -115,10 +115,10 @@
   "/docs/systems/aiworker/quick_start_guide/development_guide/external_ros2_communication": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/external_ros2_communication",
   "/docs/systems/aiworker/quick_start_guide/development_guide/checking_battery_state": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/checking_battery_state",
   "/docs/software/cyclo/control/aiworker": "/docs/systems/aiworker/advanced_features/cyclo_control",
-  "/docs/software/cyclo/flow/autonomy_studio/overview": "/docs/systems/aiworker/autonomy_studio/overview",
-  "/docs/software/cyclo/flow/autonomy_studio/action_canvas": "/docs/systems/aiworker/autonomy_studio/action_canvas",
-  "/docs/software/cyclo/flow/autonomy_studio/mission_canvas/navigation": "/docs/systems/aiworker/autonomy_studio/mission_canvas/navigation",
-  "/docs/software/cyclo/flow/autonomy_studio/mission_canvas/mission": "/docs/systems/aiworker/autonomy_studio/mission_canvas/mission",
+  "/docs/software/cyclo/flow/autonomy_studio/overview": "/docs/systems/aiworker/advanced_features/autonomy_studio/overview",
+  "/docs/software/cyclo/flow/autonomy_studio/action_canvas": "/docs/systems/aiworker/advanced_features/autonomy_studio/action_canvas",
+  "/docs/software/cyclo/flow/autonomy_studio/mission_canvas/navigation": "/docs/systems/aiworker/advanced_features/autonomy_studio/mission_canvas/navigation",
+  "/docs/software/cyclo/flow/autonomy_studio/mission_canvas/mission": "/docs/systems/aiworker/advanced_features/autonomy_studio/mission_canvas/mission",
   "/docs/systems/aiworker/quick_start_guide/advanced": "/docs/systems/aiworker/quick_start_guide/in_depth_guide",
   "/docs/systems/aiworker/quick_start_guide/advanced/robot_pc_access": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/robot_pc_access",
   "/docs/systems/aiworker/quick_start_guide/advanced/development_environment": "/docs/systems/aiworker/quick_start_guide/in_depth_guide/development_environment",
@@ -144,5 +144,16 @@
       "cyclo-manager-update": "cyclo-manager-update",
       "agent-update": "agent-update"
     }
-  }
+  },
+  "/docs/systems/aiworker/introduction": "/docs/systems/aiworker/overview/introduction",
+  "/docs/systems/aiworker/video_gallery": "/docs/systems/aiworker/overview/video_gallery",
+  "/docs/systems/aiworker/specifications/hardware": "/docs/systems/aiworker/overview/hardware_specification",
+  "/docs/systems/aiworker/specifications/software": "/docs/systems/aiworker/overview/software_architecture",
+  "/docs/systems/aiworker/quick_start_guide/navigation": "/docs/systems/aiworker/advanced_features/navigation",
+  "/docs/systems/aiworker/autonomy_studio/overview": "/docs/systems/aiworker/advanced_features/autonomy_studio/overview",
+  "/docs/systems/aiworker/autonomy_studio/action_canvas": "/docs/systems/aiworker/advanced_features/autonomy_studio/action_canvas",
+  "/docs/systems/aiworker/autonomy_studio/mission_canvas/navigation": "/docs/systems/aiworker/advanced_features/autonomy_studio/mission_canvas/navigation",
+  "/docs/systems/aiworker/autonomy_studio/mission_canvas/mission": "/docs/systems/aiworker/advanced_features/autonomy_studio/mission_canvas/mission",
+  "/docs/systems/aiworker/resources/open_source": "/docs/systems/aiworker/support/open_source",
+  "/docs/systems/aiworker/resources/release_notes": "/docs/systems/aiworker/support/release_notes"
 }
