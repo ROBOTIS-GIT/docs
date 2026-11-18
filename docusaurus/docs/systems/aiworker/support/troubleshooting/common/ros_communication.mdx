@@ -1,0 +1,17 @@
+---
+title: ROS 2 Topics Are Not Visible
+description: ROS 2 Topics Are Not Visible on AI Worker.
+displayed_sidebar: aiworkerSidebar
+---
+
+[← All troubleshooting guides](/docs/systems/aiworker/support/troubleshooting)
+
+# ROS 2 Topics Are Not Visible
+
+Check `ROS_DOMAIN_ID` and the robot's ROS 2 topic connections. The provided AI Worker container uses `ROS_DOMAIN_ID=30` by default.
+
+```bash
+ros2 topic list
+```
+
+To check data on a topic, run `ros2 topic echo` with the topic name. For external PC connections, see [External ROS 2 Communication](/docs/systems/aiworker/quick_start_guide/in_depth_guide/external_ros2_communication).

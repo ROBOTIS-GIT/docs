@@ -1,3 +1,5 @@
+import sectionStyles from '@site/src/components/SectionCard/styles.module.css';
+
 import Link from '@docusaurus/Link';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -23,6 +25,8 @@ flowchart LR
   class Install,Start,Zenoh,WebUI step
   class Record,Policy later
 ```
+
+<section className={props.sectionCards ? sectionStyles.card : undefined}>
 
 ## Requirements
 
@@ -54,6 +58,10 @@ docker info | grep -i runtimes
   Cyclo Intelligence uses public Docker images, so you do not need a Docker Hub login.
 </details>
 
+</section>
+
+<section className={props.sectionCards ? sectionStyles.card : undefined}>
+
 ## 1. Install
 
 ```bash
@@ -70,6 +78,10 @@ git pull
 git submodule update --init --recursive
 ```
 
+</section>
+
+<section className={props.sectionCards ? sectionStyles.card : undefined}>
+
 ## 2. Start The Main Container
 
 The main container provides the web UI, data recording, and Data Tools.
@@ -79,6 +91,10 @@ cd ~/cyclo_intelligence
 ./docker/container.sh start
 ./docker/container.sh enter
 ```
+
+</section>
+
+<section className={props.sectionCards ? sectionStyles.card : undefined}>
 
 ## 3. Connect To The Robot Network (Zenoh)
 
@@ -120,6 +136,10 @@ source ~/.bashrc
 </TabItem>
 </Tabs>
 
+</section>
+
+<section className={props.sectionCards ? sectionStyles.card : undefined}>
+
 ## 4. Open The Web UI
 
 Launch Cyclo Intelligence inside the container:
@@ -149,3 +169,5 @@ Setup is done — you can now record demonstrations from the `Record` page.
 :::note
 `cyclo_intelligence` is an alias for `ros2 launch orchestrator cyclo_intelligence_bringup.launch.py`.
 :::
+
+</section>

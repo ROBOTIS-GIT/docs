@@ -1,8 +1,12 @@
+import sectionStyles from '@site/src/components/SectionCard/styles.module.css';
+
 Use Data Tools after recording demonstrations. Work through the tools in this order:
 
 ![Data Tools Workflow](/img/systems/_partials/cyclo_intelligence/data_tools_workflow.svg)
 
 ![Data Tools Tabs Overview](/img/systems/_partials/cyclo_intelligence/data_tools_tabs_overview.png)
+
+<section className={props.sectionCards ? sectionStyles.card : undefined}>
 
 ## Review Episodes
 
@@ -17,6 +21,10 @@ Open the task and replay each episode. Check the camera views and 3D viewer. Als
 ![Review Episodes Player](/img/systems/_partials/cyclo_intelligence/data_tools_review_episode_player.png)
 
 Note the episode index when an episode has failed motion or missing camera data. Do the same for wrong task instructions or any other unusable data. Remove those episodes from `Delete Episodes`.
+
+</section>
+
+<section className={props.sectionCards ? sectionStyles.card : undefined}>
 
 ## Delete Episodes
 
@@ -35,6 +43,10 @@ Episode indices can be written one by one. Separate multiple indices with commas
 1, 3, 6, 10
 ```
 
+</section>
+
+<section className={props.sectionCards ? sectionStyles.card : undefined}>
+
 ## Merge Rosbag Datasets
 
 Use `Merge Rosbag Datasets` when demonstrations for the same task were recorded across multiple rosbag2 task folders.
@@ -47,6 +59,10 @@ Use `Merge Rosbag Datasets` when demonstrations for the same task were recorded 
 4. Click `Merge`.
 
 The merged dataset is saved under `/workspace/rosbag2`.
+
+</section>
+
+<section className={props.sectionCards ? sectionStyles.card : undefined}>
 
 ## Convert Dataset
 
@@ -77,6 +93,10 @@ During conversion, Cyclo Data parses the recorded MCAP topics. It aligns actions
   To read the actual rates, open the `Topic Monitor` on the Record page. It lists the measured Hz for every topic, including each image topic.
 </details>
 
+</section>
+
+<section className={props.sectionCards ? sectionStyles.card : undefined}>
+
 ## Hugging Face Upload & Download
 
 Use `Hugging Face Upload & Download` after conversion or after model training.
@@ -105,3 +125,5 @@ Use `Hugging Face Upload & Download` after conversion or after model training.
 </table>
 
 After downloading a trained model, continue to `Model Inference`.
+
+</section>

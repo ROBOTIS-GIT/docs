@@ -1,0 +1,63 @@
+import SectionCard from '@site/src/components/SectionCard';
+
+# Set Pack Position
+
+Bring up AI Worker with `pack_position.yaml` as the initial position file to move the robot to its pack position. The procedure follows the usual robot bringup flow, with a different initial position setting. You can use Cyclo Manager or the command line.
+
+:::warning
+The robot moves during this procedure. Keep the area around it clear and the emergency stop within reach. Stop teleoperation and other sources of motion commands before starting.
+:::
+
+<SectionCard>
+
+## Using Cyclo Manager
+
+### 1. Open the System Page
+
+Power on the robot, connect your PC to the same network, and open the **System** page in Cyclo Manager. See [Network Connection](/docs/systems/aiworker/quick_start_guide/bringup#1-network-connection) and [Open Cyclo Manager](/docs/systems/aiworker/quick_start_guide/bringup#2-open-cyclo-manager) for details.
+
+![Cyclo Manager System page](/img/software/cyclo/manager/system/system_page.png)
+
+### 2. Start the Zenoh Daemon
+
+If the **Zenoh Daemon** is not running, click its start button and check that the status light turns green. If it is already running, leave it running.
+
+![Zenoh Daemon control](/img/software/cyclo/manager/system/zenoh_daemon.png)
+
+### 3. Configure the Initial Position
+
+1. If Robot bringup is already running, stop it before changing the launch arguments.
+2. Select your robot model in **Robot**. For W1 and W2, select **F1** and **F2**, respectively.
+3. Click the Robot service's gear button to open the launch arguments.
+4. Check that **Init Position** is enabled and select `pack_position.yaml` for **Init Position File**.
+
+![Selecting the pack position file in Cyclo Manager](/img/systems/aiworker/quick_start_guide/in_depth_guide/pack_position/parameter_setup_pack_position.png)
+
+### 4. Bringup the Robot
+
+Click the **Robot** start button to bring up the robot with the selected initial position. The status light turns green when the service starts. Use the log button to check the bringup logs if needed.
+
+![Robot bringup controls](/img/systems/aiworker/quick_start_guide/bringup/robot_bringup_button.png)
+
+Wait until the robot reaches the pack position, then click the **Robot** stop button to stop bringup.
+
+Before the next normal bringup, open the Robot launch arguments again and select the normal initial position file for the model.
+
+</SectionCard>
+
+<SectionCard>
+
+## Using the Command Line
+
+1. Stop any running Robot bringup, then connect to the Robot PC using [SSH](/docs/systems/aiworker/quick_start_guide/in_depth_guide/robot_pc_access) and enter the [AI Worker container](/docs/systems/aiworker/quick_start_guide/in_depth_guide/development_environment).
+2. Make sure the Zenoh daemon is running. If it is not, start it as described in the [CLI Bringup guide](/docs/systems/aiworker/quick_start_guide/in_depth_guide/cli_bringup_teleoperation#2-start-the-zenoh-daemon).
+3. Launch the pack position for your model. This example uses SG2; replace `sg2` with `bg2`, `w1`, or `w2` for the corresponding model:
+
+   ```bash
+   ros2 launch ffw_bringup ffw_pack.launch.py type:=sg2
+   ```
+
+   This launches the selected Follower with initialization enabled and `pack_position.yaml` as its initial position file.
+4. After the robot reaches the pack position, press **Ctrl+C** in the terminal to stop the launch.
+
+</SectionCard>

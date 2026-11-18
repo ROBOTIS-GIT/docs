@@ -1,0 +1,41 @@
+import SectionCard from '@site/src/components/SectionCard';
+
+# Terminal
+
+Run commands and inspect processes inside a selected container from your browser.
+
+<SectionCard>
+
+## Terminal Controls
+
+<span id="open-a-terminal" />
+<span id="select-a-container" />
+
+### 1. Select a Container and Run Commands
+
+Open **Terminal** in the navigation and select a running container from **Containers**. Enter commands in the terminal on the right; they run inside the selected container.
+
+<svg viewBox="144 111 1006 210" role="img" aria-label="Container selection and terminal command area" style={{display: 'block', width: '100%', height: 'auto', marginBottom: '2rem'}}>
+  <image href="/img/software/cyclo/manager/terminal/terminal_page.png" width="1920" height="1080" />
+</svg>
+
+<span id="manage-terminal-tabs" />
+<span id="close-a-session" />
+
+- Click **+** (**New terminal**) to open another terminal tab in the selected container.
+- Select a tab to switch between sessions.
+- Click **×** (**Close tab**) to close a session.
+
+### 2. View and Stop Processes
+
+The **Processes** panel lists processes in the selected container, including their **PID**, **User**, and **Command**. The list refreshes automatically; click **Refresh** to update it immediately. Hover over a shortened command to see its full text.
+
+<svg viewBox="144 321 300 366" role="img" aria-label="Processes panel showing PID, User, Command, Refresh, and Kill controls" style={{display: 'block', width: '100%', maxWidth: '360px', height: 'auto', marginBottom: '2rem'}}>
+  <image href="/img/software/cyclo/manager/terminal/terminal_page.png" width="1920" height="1080" />
+</svg>
+
+Click **Kill** next to a process to forcibly terminate it with `SIGKILL`. This takes effect without a confirmation dialog and does not allow the process to perform normal shutdown cleanup. Check the PID and command before clicking.
+
+On smaller screens, select the container from the dropdown and use **Processes** / **Terminal** to switch views.
+
+</SectionCard>

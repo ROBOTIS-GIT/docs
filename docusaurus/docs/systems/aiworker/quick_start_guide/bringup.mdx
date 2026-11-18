@@ -1,0 +1,148 @@
+import AiWorkerNetworkDiagram from '@site/src/components/AiWorkerNetworkDiagram';
+import SectionCard from '@site/src/components/SectionCard';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Bringup Guide
+
+This guide explains how to bring up the AI Worker robot. Complete [Hardware Setup](/docs/systems/aiworker/quick_start_guide/setup_hardware) before continuing.
+
+<SectionCard>
+
+## 1. Network Connection
+
+<Tabs>
+<TabItem value="f1-bg2" label="W1 / BG2">
+
+These models do not have a built-in router. Connect the robot's LAN port to an external router, then connect your PC to the same router using Wi-Fi or LAN. An external router is not included with the robot.
+
+<AiWorkerNetworkDiagram router="external" />
+
+</TabItem>
+<TabItem value="f2-sg2" label="W2 / SG2">
+
+These models have a built-in router. Connect your PC to the robot's Wi-Fi network:
+
+- **Network name:** `AIWORKER` followed by the last four digits of the robot's serial number. ex. `AIWORKER0000`.
+- **Default password:** The same as the network name. ex. `AIWORKER0000`
+
+<AiWorkerNetworkDiagram router="built-in" />
+
+</TabItem>
+</Tabs>
+
+</SectionCard>
+
+<SectionCard>
+
+## 2. Open Cyclo Manager
+
+Open `http://ffw-<serial_number>.local:3000` in a browser on your PC, replacing `<serial_number>` with the serial number printed on the robot. For example, if the serial number is `SNPR48A0000`, open `http://ffw-SNPR48A0000.local:3000`. You can also use the robot's IP address with port `3000`.
+
+Use [Cyclo Manager](/docs/software/cyclo/cyclo_manager) to bring up the robot. Cyclo Manager is pre-installed on W1 and W2 models. If it has not been installed, follow [Install](/docs/software/cyclo/manager/install).
+
+Open the **System** page in Cyclo Manager to begin bringup.
+
+![System Page](/img/software/cyclo/manager/system/system_page.png)
+
+</SectionCard>
+
+<SectionCard>
+
+## 3. Start the Zenoh Daemon
+
+:::info[RMW_ZENOH NOTIFICATION]
+AI Worker uses Zenoh as RMW since version 2.0.0.
+Start the Zenoh daemon before bringing up the robot stack.
+For more information about Zenoh, see [Zenoh Communication](/docs/systems/aiworker/overview/software_architecture#middleware).
+:::
+
+Click the arrow icon in the **Zenoh Daemon** control box to start the Zenoh daemon.
+Check that the status light turns green. Once started, the Zenoh daemon restarts when the robot powers on.
+
+![Zenoh Daemon](/img/software/cyclo/manager/system/zenoh_daemon.png)
+
+</SectionCard>
+
+<SectionCard>
+
+## 4. Bringup the Robot
+
+:::warning
+Starting robot bringup will cause the robot to move.  
+Before starting, make sure the area around the robot is clear and keep the emergency stop within reach.
+:::
+
+Select the robot model to bring up and click the **Robot Bringup(▶️)** button.
+For W1 and W2, select **F1** and **F2**, respectively, in Cyclo Manager.
+The status light turns green when the robot service starts.
+Click the paper icon on the far right to view the logs in the side panel.
+
+![Robot Bringup Button](/img/systems/aiworker/quick_start_guide/bringup/robot_bringup_button.png)
+
+After the robot stack starts, the 3D model and robot status panels update automatically.
+If the model or joint states do not update, check `ROS_DOMAIN_ID`, the robot bringup logs, and the relevant ROS 2 topics.
+
+![Robot bringup in Cyclo Manager](/img/systems/aiworker/quick_start_guide/bringup/bringup_robot.gif)
+
+</SectionCard>
+
+<SectionCard>
+
+## 5. Check Robot Operation
+
+After bringup, check that the robot responds to movement commands.
+
+:::warning
+Keep the area around the robot clear and the emergency stop within reach. Leave leader teleoperation and other motion-command sources stopped while using Jog.
+:::
+
+1. Open **Jog** in Cyclo Manager and select the `ai_worker` container if prompted.
+2. Check that the robot bringup status and joint positions are available, then turn on **Enable jog**.
+
+   ![Cyclo Manager Jog page with the Jog menu and Enable jog control highlighted](/img/software/cyclo/manager/jog/jog_page.png)
+
+3. Use the controls to check the following:
+
+   - **Joints:** Check that each joint moves properly.
+   - **Mobile base:** For models with a mobile base, check that it moves and rotates properly.
+
+For more about the controls, see [Jog](/docs/software/cyclo/manager/jog).
+
+</SectionCard>
+
+<SectionCard>
+
+## 6. Check Cameras
+
+Check that the robot's cameras provide live images in Cyclo Intelligence.
+
+1. Return to the **System** page in Cyclo Manager. Click the start arrow in **Cyclo Intelligence** and wait for the status light to turn green.
+
+   ![Cyclo Intelligence start button in Cyclo Manager](/img/systems/aiworker/quick_start_guide/bringup/intelligence_start.png)
+
+2. Click the **I** button in Cyclo Manager to open Cyclo Intelligence. You can also open `http://ffw-<serial_number>.local:7080` in a browser on your PC. For example, use `http://ffw-SNPR48A0000.local:7080` or the robot's IP address with port `7080`.
+
+   ![Cyclo Intelligence shortcut in Cyclo Manager](/img/systems/aiworker/quick_start_guide/bringup/intelligence_shortcut.png)
+
+3. On the **Home** page, select the robot type and click **Set Robot Type**.
+
+   ![Robot type selection in Cyclo Intelligence](/img/systems/aiworker/quick_start_guide/bringup/intelligence_robot_type.png)
+
+4. Open **Record** and check **Camera Views**. Confirm that each configured camera displays a live image and that the image updates as the scene changes.
+
+   ![Live camera images on the Cyclo Intelligence Record page](/img/systems/aiworker/quick_start_guide/bringup/intelligence_camera_views.png)
+
+</SectionCard>
+
+<span id="accessing-the-robot-pc-via-ssh" />
+<span id="development-environment-overview" />
+<span id="prerequisites" />
+<span id="configuration" />
+<span id="docker-volume-management" />
+<span id="container-management" />
+<span id="docker-command-guide" />
+<span id="software-update-guide" />
+<span id="checking-battery-state" />
+
+To connect directly to the robot and run it from the command line, see [CLI Bringup & Teleoperation](/docs/systems/aiworker/quick_start_guide/in_depth_guide/cli_bringup_teleoperation).

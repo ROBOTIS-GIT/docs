@@ -1,0 +1,17 @@
+---
+title: Map Is Not Generated or LiDAR Data Is Missing
+description: Map Is Not Generated or LiDAR Data Is Missing on AI Worker.
+displayed_sidebar: aiworkerSidebar
+---
+
+[← All troubleshooting guides](/docs/systems/aiworker/support/troubleshooting)
+
+# Map Is Not Generated or LiDAR Data Is Missing
+
+Check whether LiDAR data is being received. In a User PC container terminal with the same ROS 2 and Zenoh settings used for navigation, run:
+
+```bash
+ros2 topic echo /scan --qos-reliability best_effort
+```
+
+If `/scan` messages are received but the display is missing in RViz2, set the `scan` display's Reliability Policy to `Best Effort`. For connection checks, see [ROS 2 Topics Are Not Visible](/docs/systems/aiworker/support/troubleshooting/common/ros_communication).
