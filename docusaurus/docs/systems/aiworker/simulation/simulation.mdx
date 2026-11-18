@@ -42,7 +42,7 @@ For high-fidelity physics simulation, particularly favored in reinforcement lear
 <div style={{display: 'flex', flexWrap: 'wrap', gap: '1rem'}}>
   {['FFW-BG2', 'FFW-SG2', 'FFW-SH5'].map(model => (
     <figure key={model} style={{flex: '1 1 160px', margin: 0, textAlign: 'center'}}>
-      <img src={`/img/systems/aiworker/simulation/simulation/ffw_${model.toLowerCase()}_mjcf.png`} alt={`AI Worker ${model} loaded in MuJoCo`} style={{width: '100%', height: 'auto'}} />
+      <img src={`/img/systems/aiworker/simulation/simulation/ffw_${model.replace(/^FFW-/, '').toLowerCase()}_mjcf.png`} alt={`AI Worker ${model} loaded in MuJoCo`} style={{width: '100%', height: 'auto'}} />
       <figcaption>{model.replace(/^FFW-(BG2|SG2)$/, '$1')}</figcaption>
     </figure>
   ))}
