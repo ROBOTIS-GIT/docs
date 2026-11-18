@@ -32,17 +32,17 @@ This comprehensive hardware design enables the AI Worker to perform complex mani
 
 ## Follower Specification
 
-In the FFW-W1 / FFW-W2 tables below, **bold text** highlights specifications that differ from FFW-BG2 / FFW-SG2, respectively.
+In the W1 / W2 tables below, **bold text** highlights specifications that differ from BG2 / SG2, respectively.
 
 :::info
-**FFW-BG2** is sold in Korea only.
+**BG2** is sold in Korea only.
 **FFW-SH3P** is currently in preparation for release.
 :::
 
 <Tabs groupId="ai-worker-generation">
-<TabItem value="f1-f2" label="FFW-W1 / FFW-W2" default>
+<TabItem value="f1-f2" label="W1 / W2" default>
 
-| Properties                  | Specification (FFW-W2)                | Specification (FFW-W1)                |
+| Properties                  | Specification (W2)                | Specification (W1)                |
 |-----------------------------|----------------------------------------|----------------------------------------|
 | Dimensions (WxDxH)          | **625x602x1,626 (mm)**<br />**24.6x23.7x64 (inch)**| 604x564x1,607 (mm)<br />23.8x22.2x63.2 (inch)|
 | Weight                      | 90 kg (198 lb)                         | 85 kg (187 lb)                         |
@@ -68,9 +68,9 @@ In the FFW-W1 / FFW-W2 tables below, **bold text** highlights specifications tha
 | Software                    | ROS 2 Support, Python, C++, Web UI     | ROS 2 Support, Python, C++, Web UI     |
 
 </TabItem>
-<TabItem value="sg2-bg2" label="FFW-SG2 / FFW-BG2">
+<TabItem value="sg2-bg2" label="SG2 / BG2">
 
-| Properties                  | Specification (FFW-SG2)                | Specification (FFW-BG2)                |
+| Properties                  | Specification (SG2)                | Specification (BG2)                |
 |-----------------------------|----------------------------------------|----------------------------------------|
 | Dimensions (WxDxH)          | 604x602x1,623 (mm)<br />23.8x23.7x63.8 (inch)| 604x564x1,607 (mm)<br />23.8x22.2x63.2 (inch)|
 | Weight                      | 90 kg (198 lb)                         | 85 kg (187 lb)                         |
@@ -169,7 +169,7 @@ In the FFW-W1 / FFW-W2 tables below, **bold text** highlights specifications tha
 The AI Worker utilizes various DYNAMIXEL actuators, each selected for specific joint applications:
 
 <Tabs groupId="ai-worker-generation">
-<TabItem value="f1-f2" label="FFW-W1 / FFW-W2" default>
+<TabItem value="f1-f2" label="W1 / W2" default>
 
 | Joints         | DYNAMIXEL Series | DYNAMIXEL Model                                                                   |
 |----------------|------------------|-----------------------------------------------------------------------------------|
@@ -183,7 +183,7 @@ The AI Worker utilizes various DYNAMIXEL actuators, each selected for specific j
 | Wheel Steer    | DYNAMIXEL-Y      | [YM070-210-R051-RH](/docs/dxl/model_reference/y_series/ym070-210-r051-rh) |
 
 </TabItem>
-<TabItem value="sg2-bg2" label="FFW-SG2 / FFW-BG2">
+<TabItem value="sg2-bg2" label="SG2 / BG2">
 
 | Joints         | DYNAMIXEL Series | DYNAMIXEL Model                                                                   |
 |----------------|------------------|-----------------------------------------------------------------------------------|
@@ -223,7 +223,7 @@ The AI Worker utilizes a multi-camera system for robust perception and manipulat
 A ZED Mini or Intel RealSense D455f camera is mounted on the head for wide-area environmental understanding and navigation.
 
 <Tabs groupId="ai-worker-generation">
-<TabItem value="f1-f2" label="FFW-W1 / FFW-W2" default>
+<TabItem value="f1-f2" label="W1 / W2" default>
 
 | Feature           | Specification                                      |
 |-------------------|----------------------------------------------------|
@@ -236,7 +236,7 @@ A ZED Mini or Intel RealSense D455f camera is mounted on the head for wide-area 
 | More Information  | [Intel RealSense D455](https://www.intel.com/content/www/us/en/products/sku/233193/intel-realsense-depth-camera-d455f/specifications.html) |
 
 </TabItem>
-<TabItem value="sg2-bg2" label="FFW-SG2 / FFW-BG2">
+<TabItem value="sg2-bg2" label="SG2 / BG2">
 
 | Feature           | Specification                                      |
 |-------------------|----------------------------------------------------|
@@ -256,7 +256,7 @@ A ZED Mini or Intel RealSense D455f camera is mounted on the head for wide-area 
 Two Intel RealSense D405 cameras are integrated into the robot's hands/grippers, providing precise, short-range depth data for manipulation tasks.
 
 <Tabs groupId="ai-worker-generation">
-<TabItem value="f1-f2" label="FFW-W1 / FFW-W2" default>
+<TabItem value="f1-f2" label="W1 / W2" default>
 
 | Feature           | Specification                                      |
 |-------------------|----------------------------------------------------|
@@ -269,7 +269,7 @@ Two Intel RealSense D405 cameras are integrated into the robot's hands/grippers,
 | More Information  | [Intel RealSense Depth Module D401 Details](https://www.intel.co.kr/content/www/kr/ko/products/sku/229219/intel-realsense-depth-module-d401/specifications.html) |
 
 </TabItem>
-<TabItem value="sg2-bg2" label="FFW-SG2 / FFW-BG2">
+<TabItem value="sg2-bg2" label="SG2 / BG2">
 
 | Feature           | Specification                                      |
 |-------------------|----------------------------------------------------|
@@ -332,7 +332,7 @@ The AI Worker's mobile base uses a swerve drive system that provides significant
 The AI Worker's swerve drive configuration consists of three wheels positioned in a triangular arrangement, each with independent steering and driving capabilities:
 
 <Tabs groupId="ai-worker-generation">
-<TabItem value="f1-f2" label="FFW-W1 / FFW-W2" default>
+<TabItem value="f1-f2" label="W1 / W2" default>
 
 | Part Name          | Technical Name   | Range        |
 |--------------------|------------------|--------------|
@@ -344,7 +344,7 @@ The AI Worker's swerve drive configuration consists of three wheels positioned i
 |Rear Wheel Drive    |rear_wheel_drive  | -360° ~ 360° |
 
 </TabItem>
-<TabItem value="sg2-bg2" label="FFW-SG2 / FFW-BG2">
+<TabItem value="sg2-bg2" label="SG2 / BG2">
 
 | Part Name          | Technical Name   | Range        |
 |--------------------|------------------|--------------|
@@ -367,17 +367,17 @@ The AI Worker's swerve drive configuration consists of three wheels positioned i
 ### Dimension
 
 <Tabs groupId="ai-worker-model-dimension">
-<TabItem value="f1" label="FFW-W1" default>
+<TabItem value="f1" label="W1" default>
 
 <a href="/img/systems/aiworker/overview/hardware_specification/dimension_f1.png" target="_blank">
-  <img src="/img/systems/aiworker/overview/hardware_specification/dimension_f1.png" alt="FFW-W1 dimensions" width="100%" />
+  <img src="/img/systems/aiworker/overview/hardware_specification/dimension_f1.png" alt="W1 dimensions" width="100%" />
 </a>
 
 </TabItem>
-<TabItem value="f2" label="FFW-W2">
+<TabItem value="f2" label="W2">
 
 <a href="/img/systems/aiworker/overview/hardware_specification/dimension_f2.png" target="_blank">
-  <img src="/img/systems/aiworker/overview/hardware_specification/dimension_f2.png" alt="FFW-W2 dimensions" width="100%" />
+  <img src="/img/systems/aiworker/overview/hardware_specification/dimension_f2.png" alt="W2 dimensions" width="100%" />
 </a>
 
 </TabItem>
@@ -395,17 +395,17 @@ The AI Worker's swerve drive configuration consists of three wheels positioned i
 </a>
 
 </TabItem>
-<TabItem value="bg2" label="FFW-BG2">
+<TabItem value="bg2" label="BG2">
 
 <a href="/img/systems/aiworker/overview/hardware_specification/dimension_ffw_bg2.png" target="_blank">
-  <img src="/img/systems/aiworker/overview/hardware_specification/dimension_ffw_bg2.png" alt="FFW-BG2 dimensions" width="100%" />
+  <img src="/img/systems/aiworker/overview/hardware_specification/dimension_ffw_bg2.png" alt="BG2 dimensions" width="100%" />
 </a>
 
 </TabItem>
-<TabItem value="sg2" label="FFW-SG2">
+<TabItem value="sg2" label="SG2">
 
 <a href="/img/systems/aiworker/overview/hardware_specification/dimension_ffw_sg2.png" target="_blank">
-  <img src="/img/systems/aiworker/overview/hardware_specification/dimension_ffw_sg2.png" alt="FFW-SG2 dimensions" width="100%" />
+  <img src="/img/systems/aiworker/overview/hardware_specification/dimension_ffw_sg2.png" alt="SG2 dimensions" width="100%" />
 </a>
 
 </TabItem>
@@ -420,10 +420,10 @@ The AI Worker's swerve drive configuration consists of three wheels positioned i
 
 ### Joint Configuration and Nomenclature
 <Tabs groupId="ai-worker-generation">
-<TabItem value="f1-f2" label="FFW-W1 / FFW-W2" default>
+<TabItem value="f1-f2" label="W1 / W2" default>
 
 <a href="/img/systems/aiworker/overview/hardware_specification/joints_f1_f2.png" target="_blank">
-  <img src="/img/systems/aiworker/overview/hardware_specification/joints_f1_f2.png" alt="FFW-W1 / FFW-W2 joint configuration and nomenclature" width="100%" />
+  <img src="/img/systems/aiworker/overview/hardware_specification/joints_f1_f2.png" alt="W1 / W2 joint configuration and nomenclature" width="100%" />
 </a>
 
 | ID  | Joint Name            | Technical Name  | Range        |
@@ -449,10 +449,10 @@ The AI Worker's swerve drive configuration consists of three wheels positioned i
 | 81  | Lift                  | lift_joint      | 0 ~ 500 mm   |
 
 </TabItem>
-<TabItem value="sg2-bg2" label="FFW-SG2 / FFW-BG2">
+<TabItem value="sg2-bg2" label="SG2 / BG2">
 
 <a href="/img/systems/aiworker/overview/hardware_specification/joints.png" target="_blank">
-  <img src="/img/systems/aiworker/overview/hardware_specification/joints.png" alt="FFW-SG2 / FFW-BG2 joint configuration and nomenclature" width="100%" />
+  <img src="/img/systems/aiworker/overview/hardware_specification/joints.png" alt="SG2 / BG2 joint configuration and nomenclature" width="100%" />
 </a>
 
 | ID  | Joint Name            | Technical Name  | Range        |
@@ -484,21 +484,21 @@ The AI Worker's swerve drive configuration consists of three wheels positioned i
 ### Workspace
 
 <Tabs groupId="ai-worker-generation">
-<TabItem value="f1-f2" label="FFW-W1 / FFW-W2" default>
+<TabItem value="f1-f2" label="W1 / W2" default>
 
-The torso workspace is the same for both FFW-W1 and FFW-W2 models.
+The torso workspace is the same for both W1 and W2 models.
 
 <a href="/img/systems/aiworker/overview/hardware_specification/workspace_f1_f2.png" target="_blank">
-  <img src="/img/systems/aiworker/overview/hardware_specification/workspace_f1_f2.png" alt="FFW-W1 / FFW-W2 workspace" width="100%" />
+  <img src="/img/systems/aiworker/overview/hardware_specification/workspace_f1_f2.png" alt="W1 / W2 workspace" width="100%" />
 </a>
 
 </TabItem>
-<TabItem value="sg2-bg2" label="FFW-SG2 / FFW-BG2">
+<TabItem value="sg2-bg2" label="SG2 / BG2">
 
-The torso workspace is the same for both FFW-SG2 and FFW-BG2 models.
+The torso workspace is the same for both SG2 and BG2 models.
 
 <a href="/img/systems/aiworker/overview/hardware_specification/workspace.png" target="_blank">
-  <img src="/img/systems/aiworker/overview/hardware_specification/workspace.png" alt="FFW-SG2 / FFW-BG2 workspace" width="100%" />
+  <img src="/img/systems/aiworker/overview/hardware_specification/workspace.png" alt="SG2 / BG2 workspace" width="100%" />
 </a>
 
 </TabItem>
@@ -512,12 +512,12 @@ The torso workspace is the same for both FFW-SG2 and FFW-BG2 models.
 
 | Resource | PDF | DWG | STEP |
 |:---------|:----|:----|:-----|
-| <span id="drawing-files">FFW-W1 drawings</span> | [PDF](https://www.robotis.com/service/download.php?no=2214) | [DWG](https://www.robotis.com/service/download.php?no=2231) | [STEP](https://www.robotis.com/service/download.php?no=2227) |
-| <span id="drawing-files-1">FFW-W2 drawings</span> | [PDF](https://www.robotis.com/service/download.php?no=2215) | [DWG](https://www.robotis.com/service/download.php?no=2232) | [STEP](https://www.robotis.com/service/download.php?no=2228) |
-| <span id="drawing-files-2">FFW-BG2 drawings</span> | [PDF](https://www.robotis.com/service/download.php?no=2214) | [DWG](https://www.robotis.com/service/download.php?no=2231) | [STEP](https://www.robotis.com/service/download.php?no=2227) |
-| <span id="drawing-files-3">FFW-SG2 drawings</span> | [PDF](https://www.robotis.com/service/download.php?no=2215) | [DWG](https://www.robotis.com/service/download.php?no=2232) | [STEP](https://www.robotis.com/service/download.php?no=2228) |
+| <span id="drawing-files">W1 drawings</span> | [PDF](https://www.robotis.com/service/download.php?no=2214) | [DWG](https://www.robotis.com/service/download.php?no=2231) | [STEP](https://www.robotis.com/service/download.php?no=2227) |
+| <span id="drawing-files-1">W2 drawings</span> | [PDF](https://www.robotis.com/service/download.php?no=2215) | [DWG](https://www.robotis.com/service/download.php?no=2232) | [STEP](https://www.robotis.com/service/download.php?no=2228) |
+| <span id="drawing-files-2">BG2 drawings</span> | [PDF](https://www.robotis.com/service/download.php?no=2214) | [DWG](https://www.robotis.com/service/download.php?no=2231) | [STEP](https://www.robotis.com/service/download.php?no=2227) |
+| <span id="drawing-files-3">SG2 drawings</span> | [PDF](https://www.robotis.com/service/download.php?no=2215) | [DWG](https://www.robotis.com/service/download.php?no=2232) | [STEP](https://www.robotis.com/service/download.php?no=2228) |
 | <span id="drawing-files-4">LG2 drawings</span> | — | — | [STEP](https://www.robotis.com/service/download.php?no=2229) |
-| <span id="drawing-files-5">FFW-W1 / FFW-W2 workspace</span> | [PDF](https://www.robotis.com/service/download.php?no=2230) | — | — |
-| <span id="drawing-files-6">FFW-SG2 / FFW-BG2 workspace</span> | [PDF](https://www.robotis.com/service/download.php?no=2230) | — | — |
+| <span id="drawing-files-5">W1 / W2 workspace</span> | [PDF](https://www.robotis.com/service/download.php?no=2230) | — | — |
+| <span id="drawing-files-6">SG2 / BG2 workspace</span> | [PDF](https://www.robotis.com/service/download.php?no=2230) | — | — |
 
 </SectionCard>

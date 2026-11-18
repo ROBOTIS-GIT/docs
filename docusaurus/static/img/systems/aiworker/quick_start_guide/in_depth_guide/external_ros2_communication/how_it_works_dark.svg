@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="610" viewBox="0 0 1080 610" role="img" aria-labelledby="title desc">
+<title id="title">External ROS 2 communication through Zenoh</title>
+<desc id="desc">External PC ROS 2 nodes use rmw_zenoh_cpp in client mode to connect over TCP port 7447 to the Zenoh router on the Robot PC. Robot ROS 2 nodes connect to this router locally. Both environments use the same ROS domain ID.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" fill="#91c3b5"/></marker>
+</defs>
+<rect width="1080" height="610" rx="20" fill="#1b1c1e"/>
+<g font-family="Inter, Arial, sans-serif">
+<text x="40" y="48" font-size="16" font-weight="600" fill="#b2bdc2">AI WORKER / EXTERNAL ROS 2 COMMUNICATION</text>
+<g fill="#232628" stroke="#485155" stroke-width="1.5">
+<rect x="40" y="85" width="370" height="420" rx="16"/>
+<rect x="670" y="85" width="370" height="420" rx="16"/>
+</g>
+<g fill="none" stroke="#91c3b5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<rect x="68" y="111" width="30" height="22" rx="3"/><path d="M83 133v8M74 142h18"/>
+<rect x="699" y="110" width="29" height="34" rx="4"/><path d="M706 119h15M706 128h15M706 137h4"/>
+</g>
+<g font-size="25" font-weight="600" fill="#eef1f1">
+<text x="113" y="136">External PC</text><text x="744" y="136">Robot PC</text>
+</g>
+<g font-size="18" fill="#b2bdc2">
+<text x="68" y="169">Your ROS 2 environment</text><text x="698" y="169">AI Worker</text>
+</g>
+<g stroke="#485155" stroke-width="1.5">
+<rect x="68" y="202" width="314" height="90" rx="12" fill="#1b1c1e"/>
+<rect x="698" y="202" width="314" height="90" rx="12" fill="#1b1c1e"/>
+<rect x="68" y="360" width="314" height="112" rx="12" fill="#253b35"/>
+<rect x="698" y="360" width="314" height="112" rx="12" fill="#253b35"/>
+</g>
+<g text-anchor="middle">
+<g fill="#eef1f1" font-size="22" font-weight="600">
+<text x="225" y="238">ROS 2 nodes</text><text x="855" y="238">ROS 2 nodes</text>
+<text x="225" y="398">Zenoh client</text><text x="855" y="398">Zenoh router</text>
+</g>
+<g fill="#b2bdc2" font-size="18">
+<text x="225" y="269">RViz2 / ROS 2 CLI / your nodes</text><text x="855" y="269">Controllers / drivers / sensors</text>
+<text x="225" y="431">rmw_zenoh_cpp · client mode</text><text x="855" y="431">Robot’s Zenoh daemon</text>
+</g>
+<g fill="none" stroke="#91c3b5" stroke-width="2.5" marker-start="url(#arrow)" marker-end="url(#arrow)">
+<path d="M225 302V349"/><path d="M855 302V349"/>
+<path d="M394 416H686"/>
+</g>
+<g fill="#91c3b5" font-size="17">
+<text x="320" y="331">ROS 2 RMW</text><text x="943" y="331">Local connection</text>
+</g>
+<rect x="458" y="269" width="164" height="38" rx="19" fill="#253b35"/>
+<text x="540" y="294" fill="#91c3b5" font-size="18" font-weight="600">Same network</text>
+<text x="540" y="352" fill="#eef1f1" font-size="21" font-weight="600">TCP 7447</text>
+<text x="540" y="380" fill="#b2bdc2" font-size="17">Wi-Fi / Ethernet</text>
+<text x="540" y="452" fill="#b2bdc2" font-size="17">Commands / state</text>
+</g>
+<rect x="40" y="529" width="1000" height="54" rx="12" fill="#232628"/>
+<text x="540" y="563" text-anchor="middle" fill="#b2bdc2" font-size="18">Connect to the robot’s IP address · Use the same ROS_DOMAIN_ID on both PCs</text>
+</g>
+</svg>

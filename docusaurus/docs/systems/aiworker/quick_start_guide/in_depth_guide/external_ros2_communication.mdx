@@ -1,4 +1,6 @@
 import SectionCard from '@site/src/components/SectionCard';
+import ThemedImage from '@theme/ThemedImage';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 # External ROS 2 Communication
 
@@ -10,16 +12,14 @@ This guide explains how to connect an external PC to the AI Worker ROS 2 network
 
 By default, the robot's ROS 2 nodes use the local Zenoh router. To communicate from another PC, configure the external ROS 2 environment to connect to the robot's router over the network.
 
-```mermaid
-flowchart LR
-  subgraph Robot[Robot PC]
-    RobotNodes[ROS 2 nodes] <--> Router[Zenoh router]
-  end
-  subgraph External[External PC]
-    ExternalNodes[ROS 2 nodes] <--> Client[Zenoh client]
-  end
-  Client <-->|Network: TCP 7447| Router
-```
+<ThemedImage
+  alt="External PC ROS 2 nodes connect through a Zenoh client over TCP port 7447 to the robot's Zenoh router. Robot ROS 2 nodes connect locally to the same router."
+  sources={{
+    light: useBaseUrl('/img/systems/aiworker/quick_start_guide/in_depth_guide/external_ros2_communication/how_it_works.svg'),
+    dark: useBaseUrl('/img/systems/aiworker/quick_start_guide/in_depth_guide/external_ros2_communication/how_it_works_dark.svg'),
+  }}
+  style={{width: '100%', height: 'auto'}}
+/>
 
 The Zenoh router must be running on the robot, and its endpoint must be reachable from the external PC.
 
