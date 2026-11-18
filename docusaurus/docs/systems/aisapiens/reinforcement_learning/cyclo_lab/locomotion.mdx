@@ -14,33 +14,37 @@ import TabItem from '@theme/TabItem';
 
 Train, preview, and export a K1 velocity policy from this guide.
 Run the commands inside the Cyclo Lab container from `/workspace/cyclo_lab`.
-Select the same physics backend used during [Cyclo Lab setup](/docs/systems/aisapiens/reinforcement_learning/cyclo_lab/#choose-a-physics-backend).
-The checked-out branch selects the backend; the command-line options below only control visualization.
+Select the physics backend with `physics=newton_mjwarp` or `physics=isaacsim_physx`.
 
 ## Train
 
-<Tabs groupId="cyclo-lab-physics" queryString>
-<TabItem value="physx" label="PhysX (Default)" default>
+<Tabs groupId="cyclo-lab-physics" defaultValue="newton" queryString>
+<TabItem value="newton" label="Newton (K1 Default)">
 
 ```bash
 python scripts/reinforcement_learning/rsl_rl/train.py \
   --task Cyclo-Velocity-Flat-K1-Rev1-v0 \
   --num_envs 4096 \
-  --headless
+  --headless --visualizer none \
+  physics=newton_mjwarp
 ```
 
 </TabItem>
-<TabItem value="newton" label="Newton (Experimental)">
+<TabItem value="physx" label="PhysX">
 
 ```bash
 python scripts/reinforcement_learning/rsl_rl/train.py \
   --task Cyclo-Velocity-Flat-K1-Rev1-v0 \
   --num_envs 4096 \
-  --viz none
+  --headless --visualizer none \
+  physics=isaacsim_physx
 ```
 
 </TabItem>
 </Tabs>
+
+To resume training, add `--checkpoint logs/rsl_rl/k1_rev1_velocity/<run>/model_<iteration>.pt` to the training command.
+`--checkpoint latest` selects a checkpoint from the newest compatible run created by the current training script.
 
 Training output is written to:
 
@@ -70,44 +74,49 @@ Each run directory contains:
 
 ## Play and Export
 
-Run the matching play task after training.
+Run the same task ID and physics backend as training.
 By default, `play.py` loads the latest run and the latest `model_*.pt` checkpoint for the selected task.
-It runs the policy in simulation and exports `policy.onnx` next to the checkpoint.
+It runs the policy in simulation and exports `exported/policy.onnx` in the training run directory.
 
-<Tabs groupId="cyclo-lab-physics" queryString>
-<TabItem value="physx" label="PhysX (Default)" default>
+<Tabs groupId="cyclo-lab-physics" defaultValue="newton" queryString>
+<TabItem value="newton" label="Newton (K1 Default)">
 
 ```bash
 python scripts/reinforcement_learning/rsl_rl/play.py \
-  --task Cyclo-Velocity-Flat-K1-Rev1-Play-v0 \
-  --num_envs 16
+  --task Cyclo-Velocity-Flat-K1-Rev1-v0 \
+  --num_envs 16 \
+  --visualizer newton_gl \
+  --real-time \
+  physics=newton_mjwarp
 ```
-
-Add `--headless` when exporting without the Isaac Sim window.
 
 </TabItem>
-<TabItem value="newton" label="Newton (Experimental)">
+<TabItem value="physx" label="PhysX">
 
 ```bash
 python scripts/reinforcement_learning/rsl_rl/play.py \
-  --task Cyclo-Velocity-Flat-K1-Rev1-Play-v0 \
-  --num_envs 16
+  --task Cyclo-Velocity-Flat-K1-Rev1-v0 \
+  --num_envs 16 \
+  --visualizer kit \
+  --real-time \
+  physics=isaacsim_physx
 ```
-
-Newton playback opens the native Newton visualizer by default.
-Add `--viz none` to play and export without a window.
-Add `--mouse_drag` to enable right-click dragging of robot bodies in the Newton visualizer.
 
 </TabItem>
 </Tabs>
+
+For playback without a window, replace the `--visualizer` option with `--headless --visualizer none`.
 
 To play a specific checkpoint instead of the latest one, add `--checkpoint`:
 
 ```bash
 python scripts/reinforcement_learning/rsl_rl/play.py \
-  --task Cyclo-Velocity-Flat-K1-Rev1-Play-v0 \
+  --task Cyclo-Velocity-Flat-K1-Rev1-v0 \
   --checkpoint logs/rsl_rl/k1_rev1_velocity/2026-01-01_12-00-00/model_1000.pt \
-  --num_envs 16
+  --num_envs 16 \
+  --visualizer newton_gl \
+  --real-time \
+  physics=newton_mjwarp
 ```
 
 After `play.py` finishes, check the same training run directory.
