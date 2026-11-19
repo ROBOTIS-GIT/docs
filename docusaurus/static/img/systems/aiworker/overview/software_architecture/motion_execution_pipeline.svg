@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="970" viewBox="0 0 1080 970" role="img" aria-labelledby="title desc">
+<title id="title">AI Worker motion execution pipeline</title><desc id="desc">Leader, AI policy or VR targets flow through workflow command generation, ROS 2 command topics, ros2_control controllers, the DYNAMIXEL hardware interface and SDK, and actuators. Joint-state feedback returns to the input workflow. Camera and LiDAR drivers supply ROS 2 sensor topics to the input workflow.</desc>
+<defs>
+<marker id="teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" fill="#397b72"/></marker>
+<marker id="copper" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" fill="#a36a37"/></marker>
+<marker id="purple" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" fill="#70688c"/></marker>
+<marker id="muted" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" fill="#59686e"/></marker>
+</defs>
+<rect width="1080" height="970" rx="20" fill="#ffffff"/>
+<g font-family="Inter, Arial, sans-serif">
+<text x="40" y="48" font-size="16" font-weight="600" text-anchor="start" fill="#59686e">AI WORKER  /  MOTION EXECUTION</text>
+<path d="M615 215 V260" fill="none" stroke="#397b72" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#teal)"/>
+<path d="M615 355 V400" fill="none" stroke="#397b72" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#teal)"/>
+<path d="M615 495 V540" fill="none" stroke="#397b72" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#teal)"/>
+<path d="M615 635 V680" fill="none" stroke="#397b72" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#teal)"/>
+<path d="M615 775 V820" fill="none" stroke="#397b72" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#teal)"/>
+<path d="M850 867 H1000 V94 H615 V120" fill="none" stroke="#a36a37" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#copper)"/>
+<text x="1000" y="66" font-size="18" font-weight="600" text-anchor="end" fill="#a36a37">Joint-state feedback</text>
+<path d="M170 530 V465" fill="none" stroke="#70688c" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#purple)"/>
+<path d="M170 350 V167 H380" fill="none" stroke="#70688c" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#purple)"/>
+<text x="40" y="310" font-size="15" font-weight="600" text-anchor="start" fill="#70688c">SENSING</text>
+<rect x="30" y="350" width="280" height="115" rx="16" fill="#f3f1f7" stroke="#d7dddd" stroke-width="1.5"/>
+<g transform="translate(50 372)" fill="none" stroke="#70688c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="2" width="12" height="9" rx="2"/><path d="M16 11v7M4 18h24M4 18v5M28 18v5"/><rect x="0" y="23" width="8" height="7" rx="2"/><rect x="24" y="23" width="8" height="7" rx="2"/></g>
+<text x="96" y="394" font-size="20" font-weight="600" text-anchor="start" fill="#202a2e">ROS 2 sensor topics</text>
+<text x="52" y="428" font-size="19" font-weight="400" text-anchor="start" fill="#59686e">Recording / perception</text>
+<text x="52" y="453" font-size="19" font-weight="400" text-anchor="start" fill="#59686e">Navigation</text>
+<rect x="30" y="530" width="280" height="115" rx="16" fill="#ffffff" stroke="#d7dddd" stroke-width="1.5"/>
+<g transform="translate(50 552)" fill="none" stroke="#70688c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="8" width="28" height="21" rx="4"/><circle cx="16" cy="18" r="6"/><path d="M8 8l3-5h10l3 5"/></g>
+<text x="96" y="574" font-size="20" font-weight="600" text-anchor="start" fill="#202a2e">Sensor drivers</text>
+<text x="52" y="608" font-size="19" font-weight="400" text-anchor="start" fill="#59686e">Camera / LiDAR</text>
+<rect x="380" y="120" width="470" height="95" rx="16" fill="#ffffff" stroke="#d7dddd" stroke-width="1.5"/>
+<g transform="translate(400 142)" fill="none" stroke="#397b72" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h22l-5-5M25 8l-5 5M29 24H7l5-5M7 24l5 5"/></g>
+<text x="446" y="164" font-size="23" font-weight="600" text-anchor="start" fill="#202a2e">Workflow inputs</text>
+<text x="402" y="198" font-size="19" font-weight="400" text-anchor="start" fill="#59686e">Leader input / AI policy / VR targets</text>
+<text x="355" y="144" font-size="17" font-weight="600" text-anchor="end" fill="#59686e">01</text>
+<rect x="380" y="260" width="470" height="95" rx="16" fill="#ffffff" stroke="#d7dddd" stroke-width="1.5"/>
+<g transform="translate(400 282)" fill="none" stroke="#397b72" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h22l-5-5M25 8l-5 5M29 24H7l5-5M7 24l5 5"/></g>
+<text x="446" y="304" font-size="23" font-weight="600" text-anchor="start" fill="#202a2e">Command generation</text>
+<text x="402" y="338" font-size="19" font-weight="400" text-anchor="start" fill="#59686e">Cyclo Control where selected</text>
+<text x="355" y="284" font-size="17" font-weight="600" text-anchor="end" fill="#59686e">02</text>
+<rect x="380" y="400" width="470" height="95" rx="16" fill="#ffffff" stroke="#d7dddd" stroke-width="1.5"/>
+<g transform="translate(400 422)" fill="none" stroke="#397b72" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="2" width="12" height="9" rx="2"/><path d="M16 11v7M4 18h24M4 18v5M28 18v5"/><rect x="0" y="23" width="8" height="7" rx="2"/><rect x="24" y="23" width="8" height="7" rx="2"/></g>
+<text x="446" y="444" font-size="23" font-weight="600" text-anchor="start" fill="#202a2e">ROS 2 command topics</text>
+<text x="402" y="478" font-size="19" font-weight="400" text-anchor="start" fill="#59686e">Transported by rmw_zenoh_cpp</text>
+<text x="355" y="424" font-size="17" font-weight="600" text-anchor="end" fill="#59686e">03</text>
+<rect x="380" y="540" width="470" height="95" rx="16" fill="#eef6f3" stroke="#d7dddd" stroke-width="1.5"/>
+<g transform="translate(400 562)" fill="none" stroke="#397b72" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h26M3 16h26M3 25h26"/><circle cx="11" cy="7" r="3"/><circle cx="22" cy="16" r="3"/><circle cx="12" cy="25" r="3"/></g>
+<text x="446" y="584" font-size="23" font-weight="600" text-anchor="start" fill="#202a2e">ros2_control controllers</text>
+<text x="402" y="618" font-size="19" font-weight="400" text-anchor="start" fill="#59686e">read → update → write</text>
+<text x="355" y="564" font-size="17" font-weight="600" text-anchor="end" fill="#59686e">04</text>
+<rect x="380" y="680" width="470" height="95" rx="16" fill="#ffffff" stroke="#d7dddd" stroke-width="1.5"/>
+<g transform="translate(400 702)" fill="none" stroke="#397b72" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="28" height="25" rx="4"/><path d="M2 12h28M8 8h1M13 8h1M10 18l-4 3 4 3M22 18l4 3-4 3"/></g>
+<text x="446" y="724" font-size="23" font-weight="600" text-anchor="start" fill="#202a2e">Hardware interface</text>
+<text x="402" y="758" font-size="19" font-weight="400" text-anchor="start" fill="#59686e">DYNAMIXEL Hardware Interface / SDK</text>
+<text x="355" y="704" font-size="17" font-weight="600" text-anchor="end" fill="#59686e">05</text>
+<rect x="380" y="820" width="470" height="95" rx="16" fill="#ffffff" stroke="#d7dddd" stroke-width="1.5"/>
+<g transform="translate(400 842)" fill="none" stroke="#397b72" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="24" height="24" rx="5"/><circle cx="16" cy="16" r="6"/><path d="M16 10v6h6M0 10h4M0 22h4M28 10h4M28 22h4"/></g>
+<text x="446" y="864" font-size="23" font-weight="600" text-anchor="start" fill="#202a2e">DYNAMIXEL actuators</text>
+<text x="402" y="898" font-size="19" font-weight="400" text-anchor="start" fill="#59686e">RS-485 communication</text>
+<text x="355" y="844" font-size="17" font-weight="600" text-anchor="end" fill="#59686e">06</text>
+<path d="M615 775 V820" fill="none" stroke="#397b72" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#teal)" marker-start="url(#teal)"/>
+<text x="40" y="925" font-size="17" font-weight="600" text-anchor="start" fill="#397b72">Command flow</text>
+<text x="230" y="925" font-size="17" font-weight="600" text-anchor="start" fill="#70688c">Sensor input</text>
+<text x="420" y="950" font-size="17" font-weight="400" text-anchor="start" fill="#59686e">Joint-state feedback returns to the workflow inputs.</text>
+</g>
+</svg>

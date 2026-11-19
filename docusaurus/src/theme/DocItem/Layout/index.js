@@ -78,7 +78,7 @@ export default function DocItemLayoutWrapper(props) {
   return (
     <>
       <DocItemLayout {...props} />
-      {normalizedPath.startsWith('/docs/systems/aiworker/autonomy_studio/') && (
+      {normalizedPath.startsWith('/docs/systems/aiworker/advanced_features/autonomy_studio/') && (
         <AutonomyStudioImageZoom key={normalizedPath} />
       )}
     </>

@@ -1,0 +1,65 @@
+import SectionCard from '@site/src/components/SectionCard';
+
+# RMW & ROS Domain ID
+
+This guide explains how to change the ROS 2 middleware and domain ID used by AI Worker.
+
+<SectionCard>
+
+## Environment Variables
+
+These settings are managed through environment variables inside the `ai_worker` container. The container image sets the following defaults in `~/.bashrc`:
+
+| Environment variable | Purpose | Default |
+| --- | --- | --- |
+| `RMW_IMPLEMENTATION` | Selects the ROS 2 middleware implementation. | `rmw_zenoh_cpp` |
+| `ROS_DOMAIN_ID` | Selects the ROS 2 domain. | `30` |
+
+ROS 2 environments that need to communicate with each other must use the same domain ID and compatible middleware settings. Configure other participating environments, such as Cyclo Intelligence and external PCs, separately.
+
+</SectionCard>
+
+<SectionCard>
+
+## Change the Settings
+
+1. Connect to the robot through [SSH](/docs/systems/aiworker/quick_start_guide/in_depth_guide/robot_pc_access) and [enter the AI Worker container](/docs/systems/aiworker/quick_start_guide/in_depth_guide/development_environment).
+2. Open the container's shell configuration:
+
+   ```bash
+   nano ~/.bashrc
+   ```
+
+3. Find the existing lines and change the values as needed. For example, these are the defaults:
+
+   ```bash
+   export RMW_IMPLEMENTATION=rmw_zenoh_cpp
+   export ROS_DOMAIN_ID=30
+   ```
+
+   To use Fast DDS, set `RMW_IMPLEMENTATION` to `rmw_fastrtps_cpp`. Choose a domain ID appropriate for your ROS 2 network.
+
+4. Save the file with **Ctrl+O**, press **Enter**, and exit with **Ctrl+X**.
+5. Exit the container and restart it from the robot PC to apply the changes to newly started services:
+
+   ```bash
+   exit
+   docker restart ai_worker
+   ```
+
+6. Enter the container again and check the values:
+
+   ```bash
+   echo "$RMW_IMPLEMENTATION"
+   echo "$ROS_DOMAIN_ID"
+   ```
+
+   Bring up the robot again and check the service logs if needed. The commands above show the current shell's settings; other already-running processes retain the environment they started with.
+
+:::note
+Changes made only inside the container can be lost if it is removed and recreated. Repeat the configuration after recreating it.
+:::
+
+For Zenoh connections from another PC, see [External ROS 2 Communication](/docs/systems/aiworker/quick_start_guide/in_depth_guide/external_ros2_communication). The Zenoh daemon and client configuration in that guide apply when using Zenoh RMW.
+
+</SectionCard>

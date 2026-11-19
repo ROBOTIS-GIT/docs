@@ -10,7 +10,9 @@ import shutil
 import stat
 import subprocess
 import sys
+import time
 from urllib.parse import quote, unquote
+from urllib.request import Request, urlopen
 import zipfile
 
 MARKER = '<!-- robotis-docs-pr-preview -->'
@@ -183,6 +185,40 @@ def collect(build, status_file):
     status_file.write_text(json.dumps(statuses))
 
 
+def verify_previews(status_file, attempts=12, delay=10):
+    origin = os.environ.get('PAGES_ORIGIN', 'https://docs.robotis.com').rstrip('/')
+    for state in json.loads(status_file.read_text()):
+        if 'manifest' not in state:
+            continue
+        manifest = state['manifest']
+        prefix = f'{origin}/pr-preview/{state["number"]}'
+        # Prefer a document over a generated blog listing as the representative page.
+        representative = next((p for p in manifest['pages'] if '/docs/' in p['route']),
+                              next(iter(manifest['pages']), {'route': '/changes.html'}))
+        for attempt in range(attempts):
+            url = f'{prefix}/preview-manifest.json'
+            try:
+                # Avoid cached 404s while the new deployment propagates through the CDN.
+                request = Request(f'{url}?sha={state["sha"]}', headers={'Cache-Control': 'no-cache'})
+                with urlopen(request, timeout=10) as response:
+                    deployed = json.load(response)
+                    if (response.status != 200 or not isinstance(deployed, dict)
+                            or deployed.get('number') != state['number']
+                            or deployed.get('sha') != state['sha']):
+                        raise ValueError('Published preview identity does not match the expected PR commit')
+                url = prefix + quote(representative['route'], safe='/%-._~')
+                with urlopen(Request(url, headers={'Cache-Control': 'no-cache'}), timeout=10) as response:
+                    if response.status != 200:
+                        raise ValueError(f'Expected HTTP 200, received {response.status}')
+                print(f'Verified PR #{state["number"]} at {state["sha"]}: {url}')
+                break
+            except (OSError, ValueError) as error:
+                print(f'Preview verification {attempt + 1}/{attempts} failed for {url}: {error}', flush=True)
+                if attempt + 1 == attempts:
+                    raise RuntimeError(f'PR #{state["number"]} preview is not available at the expected commit') from error
+                time.sleep(delay)
+
+
 def update_comments(status_file):
     repository = os.environ['GITHUB_REPOSITORY']
     origin = os.environ.get('PAGES_ORIGIN', 'https://docs.robotis.com').rstrip('/')
@@ -249,7 +285,9 @@ if __name__ == '__main__':
         collect(Path(sys.argv[2]), Path(sys.argv[3]))
     elif sys.argv[1] == 'comment':
         update_comments(Path(sys.argv[2]))
+    elif sys.argv[1] == 'verify':
+        verify_previews(Path(sys.argv[2]))
     elif sys.argv[1] == 'status':
         update_status(sys.argv[2], sys.argv[3], Path(sys.argv[4]) if len(sys.argv) > 4 else None)
     else:
-        raise SystemExit('Expected collect, comment or status')
+        raise SystemExit('Expected collect, verify, comment or status')

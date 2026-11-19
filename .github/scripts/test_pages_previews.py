@@ -3,7 +3,11 @@ import io
 import json
 from pathlib import Path
 import tempfile
+import threading
 import unittest
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from unittest.mock import patch
+from urllib.parse import urlsplit
 import zipfile
 
 spec = importlib.util.spec_from_file_location('pages_previews', Path(__file__).with_name('pages-previews.py'))
@@ -179,6 +183,80 @@ class StatusTests(unittest.TestCase):
             with patch.dict('os.environ', {'GITHUB_EVENT_PATH': str(event_file), 'GITHUB_REPOSITORY': 'org/docs'}), patch.object(pages, 'api', fake_api):
                 pages.update_status('success', 'Published', status)
             self.assertEqual(calls[0]['state'], 'failure')
+
+
+class DeploymentVerificationTests(unittest.TestCase):
+    def setUp(self):
+        self.manifest = {'number': 12, 'sha': 'a' * 40,
+                         'pages': [{'route': '/docs/a', 'title': 'A'}]}
+        self.responses = {
+            '/pr-preview/12/preview-manifest.json': [(200, json.dumps(self.manifest))],
+            '/pr-preview/12/docs/a': [(200, '<html>A</html>')],
+            '/pr-preview/12/changes.html': [(200, '<html>Changed pages</html>')],
+        }
+        responses = self.responses
+        class Handler(BaseHTTPRequestHandler):
+            def do_GET(self):
+                options = responses.get(urlsplit(self.path).path, [(404, 'Not found')])
+                status, body = options.pop(0) if len(options) > 1 else options[0]
+                self.send_response(status)
+                self.end_headers()
+                self.wfile.write(body.encode())
+
+            def log_message(self, *args):
+                pass
+
+        server = ThreadingHTTPServer(('127.0.0.1', 0), Handler)
+        self.addCleanup(server.server_close)
+        thread = threading.Thread(target=server.serve_forever, daemon=True)
+        thread.start()
+        self.addCleanup(thread.join)
+        self.addCleanup(server.shutdown)
+        env = patch.dict('os.environ', {'PAGES_ORIGIN': f'http://127.0.0.1:{server.server_port}'})
+        env.start()
+        self.addCleanup(env.stop)
+        tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(tmp.cleanup)
+        self.status_file = Path(tmp.name) / 'status.json'
+        self.write_status()
+
+    def write_status(self):
+        self.status_file.write_text(json.dumps([
+            {'number': 99, 'sha': 'b' * 40, 'reason': 'No artifact'},
+            {'number': 12, 'sha': 'a' * 40, 'manifest': self.manifest},
+        ]))
+
+    def test_accepts_current_manifest_and_reachable_page(self):
+        pages.verify_previews(self.status_file, attempts=1, delay=0)
+
+    def test_rejects_missing_stale_or_malformed_manifest_and_missing_page(self):
+        for resource, response in [
+            ('preview-manifest.json', (404, 'Not found')),
+            ('preview-manifest.json', (200, json.dumps({**self.manifest, 'sha': 'b' * 40}))),
+            ('preview-manifest.json', (200, json.dumps({**self.manifest, 'number': 13}))),
+            ('preview-manifest.json', (200, '<html>Not JSON</html>')),
+            ('docs/a', (404, 'Not found')),
+        ]:
+            with self.subTest(resource=resource, response=response):
+                key = '/pr-preview/12/' + resource
+                original = self.responses[key]
+                self.responses[key] = [response]
+                with self.assertRaises(RuntimeError):
+                    pages.verify_previews(self.status_file, attempts=1, delay=0)
+                self.responses[key] = original
+
+    def test_retries_until_new_deployment_is_served(self):
+        self.responses['/pr-preview/12/preview-manifest.json'].insert(0, (404, 'Not found'))
+        self.responses['/pr-preview/12/docs/a'].insert(0, (404, 'Not found'))
+        pages.verify_previews(self.status_file, attempts=3, delay=0)
+
+    def test_empty_preview_checks_changed_pages_index(self):
+        self.manifest['pages'] = []
+        self.write_status()
+        self.responses['/pr-preview/12/preview-manifest.json'] = [(200, json.dumps(self.manifest))]
+        self.responses['/pr-preview/12/changes.html'] = [(404, 'Not found')]
+        with self.assertRaises(RuntimeError):
+            pages.verify_previews(self.status_file, attempts=1, delay=0)
 
 
 class SharedMediaTests(unittest.TestCase):

@@ -1,3 +1,5 @@
+import sectionStyles from '@site/src/components/SectionCard/styles.module.css';
+
 import Link from '@docusaurus/Link';
 import SettingsTable from '@site/src/components/cyclo_intelligence/SettingsTable';
 
@@ -19,11 +21,17 @@ Use Model Inference to load a trained policy and test it in simulation mode befo
   5. **Command Out** — `RobotClient` publishes the commands to the robot.
 </details>
 
+<section className={props.sectionCards ? sectionStyles.card : undefined}>
+
 ## Inference Workflow
 
 Use 3D Sim Deploy first to run one action chunk from the current robot state in simulation. This helps check whether the first policy motion is normal before sending commands to the real robot.
 
 ![Model Inference Workflow](/img/systems/_partials/cyclo_intelligence/model_inference_workflow.svg)
+
+</section>
+
+<section className={props.sectionCards ? sectionStyles.card : undefined}>
 
 ## Inference Page
 
@@ -36,6 +44,10 @@ Then launch the robot follower bringup from <strong><Link to={props.robotFollowe
 :::
 
 {props.robotSelectionGuide}
+
+</section>
+
+<section className={props.sectionCards ? sectionStyles.card : undefined}>
 
 ## Inference Settings
 
@@ -95,6 +107,10 @@ Pre-built ACT and GR00T policy Docker images are supported only on Blackwell-bas
   ]}
 />
 
+</section>
+
+<section className={props.sectionCards ? sectionStyles.card : undefined}>
+
 ## LeRobot Inference
 
 LeRobot inference supports multiple policy families, including `ACT`, `Diffusion`, `SmolVLA`, `XVLA`, `Pi0`, and `Pi0.5`.
@@ -109,6 +125,10 @@ For LeRobot checkpoints, select the exported `pretrained_model` directory:
 /workspace/model/lerobot/<run_name>/checkpoints/<step>/pretrained_model
 ```
 
+</section>
+
+<section className={props.sectionCards ? sectionStyles.card : undefined}>
+
 ## GR00T N1.7 Inference
 
 GR00T N1.7 uses a task instruction and can optionally use TensorRT acceleration.
@@ -122,6 +142,10 @@ For GR00T checkpoints, select the checkpoint folder:
 ```text
 /workspace/model/groot/<run_name>/checkpoint-<step>
 ```
+
+</section>
+
+<section className={props.sectionCards ? sectionStyles.card : undefined}>
 
 ## Docker Backend Control
 
@@ -155,3 +179,5 @@ After selecting a model, the matching Docker backend control appears in the righ
 </table>
 
 If `Start` is disabled, check the backend status first. Common causes are `Policy Docker is off`, `Not created`, `Warming up`, `Main Down`, or `Engine Down`.
+
+</section>

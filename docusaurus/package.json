@@ -16,6 +16,7 @@
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
     "typecheck": "tsc",
+    "test:docs": "node --test plugins/technical-story-redirects.test.cjs plugins/doc-redirects.test.cjs src/components/PageRedirect/target.test.mjs src/components/TroubleshootingList/posts.test.mjs",
     "build:omx": "npm run build --prefix omx-assembly",
     "test:omx": "npm test --prefix omx-assembly",
     "postbuild": "node scripts/check-omx-output.mjs"

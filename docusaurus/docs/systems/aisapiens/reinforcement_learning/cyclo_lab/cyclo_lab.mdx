@@ -3,30 +3,23 @@ sidebar_label: Overview
 title: Cyclo Lab
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
 # Cyclo Lab
 
 Cyclo Lab is the Isaac Lab-based environment for training AI Sapiens K1 policies in simulation.
 It provides the training and export workflow needed before deploying a policy with Sim2Real.
 
+This guide is based on Cyclo Lab 3.0.0.
+
 For robot-side deployment after training, use the [Sim2Real guide](/docs/systems/aisapiens/development_guide/sim2real/).
 
 ## Choose a Physics Backend
 
-Cyclo Lab provides two physics backends through separate Git branches.
-Choose the backend before building the Docker image because each branch uses a different Isaac Sim and Isaac Lab version.
+Cyclo Lab provides two physics backends, selected at runtime.
 
-| Backend | Git branch | Runtime | Scope |
-| --- | --- | --- | --- |
-| PhysX | `main` | Isaac Sim 5.1.0, Isaac Lab 2.3.0 | Default and recommended for general use. |
-| Newton | `k1/isaacsim-6-newton` | Isaac Sim 6.0.1, Isaac Lab 3.0.0-beta2, Newton 1.2.1 with MuJoCo-Warp | Experimental; validated only for K1 velocity and mimic tasks. |
-
-:::warning
-Newton support is experimental. AI Worker, OMY, and FFW tasks are not registered or validated on the Newton branch.
-Use the `main` branch unless you specifically need to test K1 with Newton.
-:::
+| Backend | Argument | Runtime |
+| --- | --- | --- |
+| Newton (Default for K1) | `physics=newton_mjwarp` | Isaac Sim 6.2.0, Isaac Lab 3.0.0 |
+| PhysX | `physics=isaacsim_physx` | Isaac Sim 6.2.0, Isaac Lab 3.0.0 |
 
 ## Set Up the Docker Container
 
@@ -39,76 +32,29 @@ Install these on the host PC first:
 - NVIDIA Container Toolkit.
 - NVIDIA GPU driver compatible with the Isaac Sim container image.
 
-Select a backend and clone Cyclo Lab with its submodules:
-
-<Tabs groupId="cyclo-lab-physics" queryString>
-<TabItem value="physx" label="PhysX (Default)" default>
+Clone Cyclo Lab with its submodules:
 
 ```bash
-git clone --branch main --recurse-submodules \
-  https://github.com/ROBOTIS-GIT/cyclo_lab.git
+git clone https://github.com/ROBOTIS-GIT/cyclo_lab.git
 cd cyclo_lab
+git submodule update --init
 ```
-
-</TabItem>
-<TabItem value="newton" label="Newton (Experimental)">
-
-```bash
-git clone --branch k1/isaacsim-6-newton --recurse-submodules \
-  https://github.com/ROBOTIS-GIT/cyclo_lab.git
-cd cyclo_lab
-```
-
-The Newton branch uses the separate `cyclo_lab-newton` container and `robotis/cyclo-lab-newton` image names, so it does not replace the default PhysX container or image.
-
-<details>
-<summary>Keep PhysX and Newton checkouts separately</summary>
-
-If you already have a PhysX checkout and want to keep both backends available, clone Newton into a separate directory instead:
-
-```bash
-git clone --branch k1/isaacsim-6-newton --recurse-submodules \
-  https://github.com/ROBOTIS-GIT/cyclo_lab.git cyclo_lab-newton
-cd cyclo_lab-newton
-```
-
-</details>
-
-</TabItem>
-</Tabs>
 
 <details>
 <summary>Already cloned Cyclo Lab?</summary>
 
-If the repository was cloned without `--recurse-submodules`, initialize its submodules before starting the container.
-If you want to use Newton but cloned the repository without selecting `k1/isaacsim-6-newton`, switch to the Newton branch first.
-
-Run the commands for the backend you want from the repository root:
-
-<Tabs groupId="cyclo-lab-physics" queryString>
-<TabItem value="physx" label="PhysX (Default)" default>
+Initialize the submodules before starting the container:
 
 ```bash
-git switch main
-git submodule update --init --recursive
+git submodule update --init
 ```
-
-</TabItem>
-<TabItem value="newton" label="Newton (Experimental)">
-
-```bash
-git switch k1/isaacsim-6-newton
-git submodule update --init --recursive
-```
-
-</TabItem>
-</Tabs>
 
 </details>
 
-Start and enter the container:
+Build, start, and enter the container:
 
 ```bash
+./docker/container.sh build
 ./docker/container.sh start
 ./docker/container.sh enter
 ```
@@ -123,13 +69,16 @@ Useful host-side commands:
 
 | Command | Use |
 | --- | --- |
-| `./docker/container.sh start` | Build if needed, initialize submodules, and start the container. |
+| `./docker/container.sh build` | Build the image. |
+| `./docker/container.sh start` | Initialize submodules and start the container. |
+| `./docker/container.sh recreate` | Recreate the container after rebuilding the image. |
 | `./docker/container.sh enter` | Open a shell inside the running container. |
 | `./docker/container.sh stop` | Stop the container. |
 | `./docker/container.sh logs` | Follow container logs. |
 | `./docker/container.sh clean` | Remove the container and image. |
 
 :::note
+After rebuilding, use `recreate` to apply the new image to an existing container.
 The start script enables X11 forwarding when `DISPLAY` and `xauth` are available on the host.
 Use the no-window option shown for your backend in the training guides when visualization is not required.
 :::

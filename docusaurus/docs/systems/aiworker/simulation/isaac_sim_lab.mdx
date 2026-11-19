@@ -1,4 +1,8 @@
+import SectionCard from '@site/src/components/SectionCard';
+
 # Getting Started with Cyclo Lab
+
+<SectionCard>
 
 ## Overview
 
@@ -6,8 +10,12 @@
 This project provides simulation environments, configuration tools, and task definitions tailored for Robotis hardware, leveraging NVIDIA Isaac Sim’s powerful GPU-accelerated physics engine and Isaac Lab’s modular RL pipeline.
 
 :::info
-This repository currently depends on **IsaacLab v2.2.0** or higher.
+This repository uses **Isaac Sim 6.2.0 and Isaac Lab 3.0.0**.
 :::
+
+</SectionCard>
+
+<SectionCard>
 
 ## Installation (Docker)
 Docker installation provides a consistent environment with all dependencies pre-installed.
@@ -21,20 +29,24 @@ Docker installation provides a consistent environment with all dependencies pre-
 1. Clone the cyclo_lab repository with submodules:
 
    ```bash
-   git clone --recurse-submodules https://github.com/ROBOTIS-GIT/cyclo_lab.git
+   git clone https://github.com/ROBOTIS-GIT/cyclo_lab.git
    cd cyclo_lab
+   git submodule update --init
    ```
 
    If you already cloned without submodules, initialize them:
    ```bash
-   git submodule update --init --recursive
+   git submodule update --init
    ```
 
 2. Build and start the Docker container:
 
    ```bash
+   ./docker/container.sh build
    ./docker/container.sh start
    ```
+
+   If a container already exists, use `./docker/container.sh recreate` instead of `start` after rebuilding to apply the new image.
 
 3. Enter the container:
 
@@ -43,25 +55,32 @@ Docker installation provides a consistent environment with all dependencies pre-
    ```
 
 **Docker Commands:**
-- `./docker/container.sh start` - Build and start the container
+- `./docker/container.sh build` - Build the image
+- `./docker/container.sh start` - Start the container
+- `./docker/container.sh recreate` - Recreate the container after rebuilding the image
 - `./docker/container.sh enter` - Enter the running container
 - `./docker/container.sh stop` - Stop the container
 - `./docker/container.sh logs` - View container logs
 - `./docker/container.sh clean` - Remove container and image
 
 **What's included in the Docker image:**
-- Isaac Sim 5.1.0
-- Isaac Lab v2.3.0 (from third_party submodule)
-- CycloneDDS 0.10.2 (from third_party submodule)
-- robotis_dds_python (from third_party submodule)
+- Isaac Sim 6.2.0
+- Isaac Lab v3.0.0 (from third_party submodule)
+- zenoh_ros2_sdk (from third_party submodule)
 - LeRobot 0.3.3 (in separate virtual environment at `~/lerobot_env`)
 - All required dependencies and configurations
+
+</SectionCard>
+
+<SectionCard>
 
 ## Running Examples
 
 ### Reinforcement Learning
 
-#### FFW-BG2 Reach Task
+<div id="ffw-bg2-reach-task" />
+
+#### BG2 Reach Task
 **Sim2Sim**
 
 ![AI Worker in NVIDIA Isaac Lab](/img/systems/aiworker/simulation/isaac_sim_lab/ffw_bg2_isaac_lab2.png)
@@ -69,22 +88,24 @@ Docker installation provides a consistent environment with all dependencies pre-
 
 ```bash
 # Train
-python scripts/reinforcement_learning/rsl_rl/train.py --task Cyclo-Reach-FFW-BG2-v0 --num_envs=512 --headless
+python scripts/reinforcement_learning/rsl_rl/train.py --task Cyclo-Reach-FFW-BG2-v0 --num_envs=512 --headless --visualizer none
 
 # Play
-python scripts/reinforcement_learning/rsl_rl/play.py --task Cyclo-Reach-FFW-BG2-Play-v0 --num_envs=16
+python scripts/reinforcement_learning/rsl_rl/play.py --task Cyclo-Reach-FFW-BG2-v0 --num_envs=16 --visualizer kit
 ```
 
 ### Imitation Learning
 
 Cyclo Lab supports imitation learning pipelines for ROBOTIS robots. Using the AI Worker as an example, you can collect demonstration data, process it, convert it into the Lerobot dataset format, and run inference or training using **physical_ai_tools**.
 
-#### FFW SG2 Pick and Place Task
+<div id="ffw-sg2-pick-and-place-task" />
+
+#### SG2 Pick and Place Task
 
 **Sim2Sim & Sim2Real**
 <div class="video-container">
   <video controls preload="metadata" style={{width: '100%', maxWidth: '900px', borderRadius: '10px'}}>
-    <source src="/img/systems/aiworker/simulation/ffw_sg2_isaac_real_imitation_learning.mp4" type="video/mp4" />
+    <source src="/img/systems/aiworker/simulation/isaac_sim_lab/ffw_sg2_isaac_real_imitation_learning.mp4" type="video/mp4" />
     Your browser does not support the video tag.
   </video>
 </div>
@@ -151,7 +172,7 @@ Cyclo Lab supports imitation learning pipelines for ROBOTIS robots. Using the AI
 
 4. **Training and Inference with physical_ai_tools**
 
-  <a href="/docs/systems/aiworker/resources/legacy/physical_ai_tools/model_training" class="button-shortcut">
+  <a href="/docs/software/cyclo/intelligence/legacy/physical_ai_tools/model_training" class="button-shortcut">
 <span>Physical AI Tools Page</span>
 </a>
 
@@ -164,3 +185,5 @@ Cyclo Lab supports imitation learning pipelines for ROBOTIS robots. Using the AI
    --robot_type FFW_SG2 \
    --enable_cameras
   ```
+
+</SectionCard>

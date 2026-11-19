@@ -1,0 +1,41 @@
+import SectionCard from '@site/src/components/SectionCard';
+
+# Checking Battery State
+
+The `SG2` and `W2` models each have two batteries. The `BG2` and `W1` models do not use batteries.
+
+<SectionCard>
+
+## Check Battery State
+
+To check the battery state, run:
+
+```bash
+# Check the left battery
+ros2 topic echo /ai_worker/battery/left/state --once
+
+# Check the right battery
+ros2 topic echo /ai_worker/battery/right/state --once
+```
+
+The output includes the following keys:
+
+- `frame_id`: Identifies which battery the message refers to.
+
+  ```bash
+  frame_id: battery_left
+  ```
+
+- `voltage`: Shows the current battery voltage.
+
+  ```bash
+  voltage: 28.700000762939453 # Battery voltage 28.7V
+  ```
+
+- `percentage`: Shows the remaining battery level as a value from `0.0` to `1.0`.
+
+  ```bash
+  percentage: 0.934949517250061 # Battery 93% charged
+  ```
+
+</SectionCard>

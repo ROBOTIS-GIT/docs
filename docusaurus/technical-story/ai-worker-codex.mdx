@@ -29,7 +29,7 @@ This technical story explains how we connected **GPT-6 Astra to AI Worker** so t
 By the end, you will understand how to:
 
 - **Connect model decisions to robot actions.** Follow the loop from the Codex App Server through the harness to ROS 2 commands, and see how execution results and new observations guide the next action (Section 2).
-- **Run a task in simulation or on a real robot.** Set up Codex, launch Gazebo or a real SG2, start an episode, and follow it in the live viewer (Section 3).
+- **Run a task in simulation or on a real robot.** Set up Codex, launch Gazebo or a real FFW-SG2, start an episode, and follow it in the live viewer (Section 3).
 - **Work with the robot tools.** Understand the available actions, coordinate conventions, units, and observation checks used by the harness (Section 4).
 - **Assess the approach's strengths and limitations.** Review examples of feedback-based recovery, the tradeoffs of smaller movements, and limitations involving depth, collisions, repeatability, and response time (Sections 5–6).
 
@@ -80,7 +80,7 @@ The following table lists the control topics and message types used by the harne
 
 ## 3. Getting Started
 
-Follow the common setup, then choose **Gazebo** or **Real SG2**. The live viewer is optional.
+Follow the common setup, then choose **Gazebo** or **Real FFW-SG2**. The live viewer is optional.
 
 1. **Set up:** Clone the code, start the container, install Codex, and sign in ([3.1](#31-common-setup)).
 2. **Run:** Start Gazebo ([3.2](#32-run-in-gazebo)) or the real robot ([3.3](#33-run-on-a-real-sg2)), then start Cyclo and an episode.
@@ -88,7 +88,7 @@ Follow the common setup, then choose **Gazebo** or **Real SG2**. The live viewer
 
 Keep four terminals open for a run:
 
-| Terminal | Gazebo | Real SG2 |
+| Terminal | Gazebo | Real FFW-SG2 |
 | --- | --- | --- |
 | 1 | Zenoh | Zenoh |
 | 2 | Gazebo | Robot bringup |
@@ -105,9 +105,9 @@ Run the clone and container-management commands on the **host**. Run subsequent 
 
 If you will run Gazebo on a PC with an NVIDIA GPU, read the tip at the start of **3.2** before `./container.sh start`.
 
-**Real SG2**
+**Real FFW-SG2**
 
-Before starting the container, complete the [Real SG2 preparation checklist](#real-sg2-preparation). It covers power, USB connections, network access, cameras, and workspace safety.
+Before starting the container, complete the [Real FFW-SG2 preparation checklist](#real-sg2-preparation). It covers power, USB connections, network access, cameras, and workspace safety.
 
 #### Step 1 - Clone the Code and Start the Container (Host)
 
@@ -188,7 +188,7 @@ zenohd
 The harness defaults to `gpt-6-astra` (reasoning effort `low`). To use a different model or reasoning effort, edit the `model:` block in both config files:
 
 - `/root/ros2_ws/src/ai_worker/ffw_codex/config_gazebo.yaml` (Gazebo)
-- `/root/ros2_ws/src/ai_worker/ffw_codex/config.yaml` (real SG2)
+- `/root/ros2_ws/src/ai_worker/ffw_codex/config.yaml` (real FFW-SG2)
 
 These files also contain other settings, including episode limits, per-move step limits, tolerances, and base motion limits. You can change these settings in the same way.
 
@@ -284,7 +284,7 @@ Use a new `--run-id` for each run; an existing run folder is not reused.
 In Gazebo, head and lift commands wait until the joint stops moving, since the simulated lift can be much slower than commanded. The model is idle and uses no tokens meanwhile.
 :::
 
-### 3.3 Run on a Real SG2
+### 3.3 Run on a Real FFW-SG2
 
 <figure style={{margin: '24px 0 36px'}}>
   <video
@@ -302,7 +302,7 @@ In Gazebo, head and lift commands wait until the joint stops moving, since the s
     style={{display: 'block', width: '100%', height: 'auto', maxWidth: '720px', margin: '0 auto', borderRadius: '14px', border: '1px solid var(--ifm-color-emphasis-200)'}}
   />
   <figcaption style={{textAlign: 'center', marginTop: '10px', color: 'var(--ifm-color-emphasis-700)', fontSize: '14px'}}>
-    Pick and Place on a Real SG2
+    Pick and Place on a Real FFW-SG2
   </figcaption>
 </figure>
 
