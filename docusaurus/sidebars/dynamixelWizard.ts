@@ -21,6 +21,7 @@ const dynamixelWizardSidebar: SidebarsConfig[string] = [
     collapsed: false,
     link: {type: 'doc', id: 'software/dynamixel_wizard_cli/introduction'},
     items: [
+      doc('software/dynamixel_wizard_cli/installation', 'Installation'),
       doc('software/dynamixel_wizard_cli/commands', 'Commands'),
       doc('software/dynamixel_wizard_cli/basic_usage', 'Basic Usage'),
       doc('software/dynamixel_wizard_cli/advanced_features', 'Advanced Features'),

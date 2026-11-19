@@ -1,0 +1,59 @@
+# Installation
+
+## Install: Windows
+
+1. Open a terminal (Windows Terminal, PowerShell, or Command Prompt).
+2. Run the following command to install DYNAMIXEL Wizard CLI.
+
+    ```bash
+    winget install wizard-cli
+    ```
+
+3. Close the terminal, open it again, and run `wizard-cli`.
+
+    ```bash
+    wizard-cli
+    ```
+
+:::note
+
+The terminal must be restarted after installation so that the `wizard-cli` command is recognized.
+
+:::
+
+## Install: Linux
+
+1. Download the AppImage that matches your system architecture. You can check the architecture with the following command.
+
+    ```bash
+    $ uname -m
+    ```
+
+    | Output | Architecture | Example Hardware | Download |
+    |--------|--------------|------------------|----------|
+    | `x86_64` | x86 64-bit | x86 PC | [wizard-cli-x86_64](https://www.robotis.com/service/download.php?no=2273) |
+    | `aarch64` | ARM 64-bit | Jetson AGX Orin, Raspberry Pi 5 | [wizard-cli-aarch64](https://www.robotis.com/service/download.php?no=2272) |
+
+2. Grant execute permission to the downloaded AppImage. The examples below use the x86_64 file; replace the file name with the one you downloaded.
+
+    ```bash
+    $ chmod +x wizard-cli-x86_64.AppImage
+    ```
+
+3. Run the AppImage.
+
+    ```bash
+    $ ./wizard-cli-x86_64.AppImage
+    ```
+
+:::note
+
+To access the serial port, your account must belong to the `dialout` group. Add your account with the command below, then reboot for the change to take effect.
+
+```bash
+$ sudo usermod -aG dialout <your_account_id>
+```
+
+:::
+
+Once the installation is complete, see [Basic Usage](./basic_usage.mdx) to connect to a DYNAMIXEL.
