@@ -4,14 +4,33 @@ description: ROS 2 Topics Are Not Visible on AI Worker.
 displayed_sidebar: aiworkerSidebar
 ---
 
+import SectionCard from '@site/src/components/SectionCard';
+
 [← All troubleshooting guides](/docs/systems/aiworker/support/troubleshooting)
 
 # ROS 2 Topics Are Not Visible
 
-Check `ROS_DOMAIN_ID` and the robot's ROS 2 topic connections. The provided AI Worker container uses `ROS_DOMAIN_ID=30` by default.
+<SectionCard>
+
+## Topics Are Not Visible Between Containers
+
+Check `ROS_DOMAIN_ID` and `RMW_IMPLEMENTATION` in each container that needs to communicate:
 
 ```bash
-ros2 topic list
+echo "$ROS_DOMAIN_ID"
+echo "$RMW_IMPLEMENTATION"
 ```
 
-To check data on a topic, run `ros2 topic echo` with the topic name. For external PC connections, see [External ROS 2 Communication](/docs/systems/aiworker/quick_start_guide/in_depth_guide/external_ros2_communication).
+The containers must use the same domain ID and compatible RMW settings. These commands show the settings in the current terminal. If you change these settings, restart the affected services so they use the updated values.
+
+To change these settings, see [RMW & ROS Domain ID](/docs/systems/aiworker/quick_start_guide/in_depth_guide/rmw_domain_settings).
+
+</SectionCard>
+
+<SectionCard>
+
+## Topics Are Not Visible on an External PC
+
+Check `ROS_DOMAIN_ID` and `RMW_IMPLEMENTATION` on both the external PC and the robot as described above. Then check the Zenoh connection settings in [External ROS 2 Communication](/docs/systems/aiworker/quick_start_guide/in_depth_guide/external_ros2_communication).
+
+</SectionCard>

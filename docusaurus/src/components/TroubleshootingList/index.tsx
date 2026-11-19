@@ -6,6 +6,7 @@ import styles from './styles.module.css';
 
 const categories = [
   {id: 'common', title: 'Common'},
+  {id: 'bringup', title: 'Bringup'},
   {id: 'teleoperation', title: 'Teleoperation'},
   {id: 'navigation', title: 'Navigation'},
   {id: 'vr_teleoperation', title: 'VR Teleoperation'},

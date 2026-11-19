@@ -10,7 +10,7 @@ This guide explains how to set up and operate the `AI Worker` using a VR device.
 VR Teleoperation is compatible with all `AI Worker` models.
 
 - Gripper Models: `BG2`, `SG2`, `W1`, `W2`
-- Hand Models: `FFW-BH5`, `FFW-SH5`
+- Hand Models: BH5, SH5
 
 For more information on the models, please refer to **[Product Models](/docs/systems/aiworker/overview/hardware_specification#product-models)**.
 
@@ -316,11 +316,11 @@ For `sh5`, VR teleoperation starts and stops with a hand gesture instead of a RO
 
 Make one hand squeeze and the other hand pinch, then hold that combination for 3 seconds to toggle the VR controller on or off.
 
-![FFW-SH5 gesture](/img/systems/aiworker/advanced_features/vr_teleoperation/gesture.png)
+![SH5 gesture](/img/systems/aiworker/advanced_features/vr_teleoperation/gesture.png)
 
 Right after the controller is activated, the system checks the difference between the detected hand poses and the robot wrist poses. If the difference is small enough, the arm controller will start after 3 seconds. After startup, the `slow start` function remains active for 5 seconds. Because of this, it is recommended to make your arm posture as close as possible to the robot posture before activating the controller.
 
-![FFW-SH5 Slow Start](/img/systems/aiworker/advanced_features/vr_teleoperation/sh5_vr_slow_start.gif)
+![SH5 Slow Start](/img/systems/aiworker/advanced_features/vr_teleoperation/sh5_vr_slow_start.gif)
 
 ### 4. Pause and resume teleoperation
 

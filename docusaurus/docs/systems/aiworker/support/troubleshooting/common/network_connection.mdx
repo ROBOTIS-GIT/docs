@@ -5,8 +5,6 @@ displayed_sidebar: aiworkerSidebar
 ---
 
 import SectionCard from '@site/src/components/SectionCard';
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
 
 [← All troubleshooting guides](/docs/systems/aiworker/support/troubleshooting)
 
@@ -16,53 +14,49 @@ Follow these steps if you cannot connect to the robot through SSH, Cyclo Manager
 
 <SectionCard>
 
-## 1. Check the Network Connection
+## 1. Open the Router Administration Page
 
-Connect your User PC to the same router as the robot. You can use either a wired LAN connection or Wi-Fi.
-
-<Tabs>
-<TabItem value="sg2-w2" label="SG2 / W2">
-
-Connect your PC to the robot's built-in router. The router normally uses `192.168.6.1`, and the robot's AGX Orin is configured with the fixed address `192.168.6.2/24`.
-
-</TabItem>
-<TabItem value="bg2-w1" label="BG2 / W1">
-
-Connect the robot and your PC to the same external router. The router address and login details depend on the router.
-
-</TabItem>
-</Tabs>
-
-</SectionCard>
-
-<SectionCard>
-
-## 2. Check for a Network Conflict (SG2 / W2)
-
-Check the IP address and default gateway of the User PC's connection to the robot's built-in router. On Ubuntu, use:
+On the User PC, check the IP address and default gateway of the Wi-Fi connection to the robot's router. On Ubuntu, run:
 
 ```bash
 ip -4 addr
 ip route | grep default
 ```
 
-With the normal configuration, the PC has a `192.168.6.x` address and the router's gateway is `192.168.6.1`. Check the address for the interface connected to the robot; a PC can have more than one network connection.
+If the PC has multiple network connections, use the gateway for the interface connected to the robot's router. Enter that gateway address in a browser to open the router administration page. For example, if the PC's IP address is `192.168.6.10` and its gateway is `192.168.6.1`, open `http://192.168.6.1`.
 
-If the PC is on a different network and an external network is connected to the robot's WAN port, check whether that external network also uses `192.168.6.x`. When the networks overlap, the built-in router can change its LAN address. The AGX Orin remains at `192.168.6.2`, so the PC may no longer be able to reach it. A different PC address alone does not confirm a conflict.
+Use the credentials for your router:
+
+- **SG2 / W2:** Sign in to the built-in router using the robot's full serial number as the password.
+- **BG2 / W1:** Sign in to the external router using its user account.
+
+The serial number format is `SNPR48X0000`:
+
+- `X`: model identifier (`A` for BG2 and SG2)
+- `0000`: the last four digits of the serial number
 
 </SectionCard>
 
+<div id="router-ip-address-is-not-19216861" />
+
 <SectionCard>
 
-## 3. Restore the Built-in Router Network (SG2 / W2)
+## 2. The Router IP Address Is Not `192.168.6.1` <span className="badge badge--secondary" style={{fontSize: '0.8rem', float: 'right', marginLeft: '0.75rem'}}>SG2 / W2</span>
+
+The built-in router normally uses `192.168.6.1`, and the robot's AGX Orin uses the fixed address `192.168.6.2/24`.
+
+If the router's gateway is no longer in the `192.168.6.x` network, check the network connected to the robot's **WAN** port. If the upstream router also uses `192.168.6.x`, the built-in router may automatically change its LAN network to avoid an overlap. The AGX Orin remains at `192.168.6.2`, so the PC may no longer be able to reach it. A different gateway alone does not confirm a conflict.
+
+Do not connect the robot's WAN port to an upstream network that overlaps with `192.168.6.0/24`.
+
+**To restore the built-in router network:**
 
 If the built-in router's LAN address changed because of a network conflict, restore it as follows:
 
 1. Disconnect the external LAN cable from the robot's **WAN** port. Disconnecting the cable does not automatically restore the router's LAN settings.
-2. Connect your PC to the robot's Wi-Fi. Open the built-in router's administration page in a browser using the PC's **current default gateway** address.
-3. Sign in using the robot's full serial number as both the ID and password. For example, if the serial number is `SNPR48A0000`, use `SNPR48A0000` for both.
-4. Change the router's LAN address to `192.168.6.1` with subnet mask `255.255.255.0` (`/24`). Configure its DHCP pool to assign addresses in `192.168.6.x`, excluding `192.168.6.2`, which the AGX Orin uses.
-5. After applying the settings, reconnect your PC to the robot's Wi-Fi and check that it receives a `192.168.6.x` address.
+2. Open and sign in to the built-in router's administration page as described in [section 1](#1-open-the-router-administration-page).
+3. Go to **Advanced → Network → LAN**, change **IP Address** to `192.168.6.1`, and set the subnet mask to `255.255.255.0` (`/24`). Set the DHCP address pool from `192.168.6.100` to `192.168.6.200`, then save the settings.
+4. After applying the settings, reconnect your PC to the robot's Wi-Fi and check that it receives a `192.168.6.x` address.
 
 If you reconnect the WAN cable, use an external network that does not overlap with `192.168.6.0/24`. Otherwise, the conflict can happen again.
 
@@ -70,24 +64,26 @@ If you reconnect the WAN cable, use an external network that does not overlap wi
 
 <SectionCard>
 
-## 4. Verify the Connection
+## 3. The Robot Is Not in the Connected Device List
 
-Check the router's connected-device list for the AGX Orin and confirm its IP address. Then test the connection directly; an entry in the list alone does not confirm that SSH or a service is working.
+For SG2 and W2, first check that the built-in router uses `192.168.6.1`. If it does not, follow the steps in [The Router IP Address Is Not 192.168.6.1](#router-ip-address-is-not-19216861).
 
-For SG2 and W2, try connecting to the robot's fixed IP address:
-
-- **SSH:** `ssh robotis@192.168.6.2`
-- **Cyclo Manager:** `http://192.168.6.2:3000`
-- **Cyclo Intelligence:** `http://192.168.6.2:7080` when Cyclo Intelligence is running on the robot PC and uses the default port.
-
-For BG2 and W1, find the AGX Orin's IP address in the external router's connected-device list and use that address instead. If IP access works but the hostname does not, see [Robot PC Access](/docs/systems/aiworker/quick_start_guide/in_depth_guide/robot_pc_access#if-the-hostname-is-not-available).
+Check the router's connected-device list for the robot's AGX Orin. If it does not appear, restart the robot, wait for it to finish booting, and check the list again.
 
 </SectionCard>
 
 <SectionCard>
 
-## 5. If the Robot Still Cannot Be Reached
+## 4. Check the Robot Connection
 
-If the robot still cannot be reached, check its connection to the router. The AGX Orin may not have booted correctly; restart the robot, allow it to finish booting, and try again.
+If the robot appears in the connected-device list, use its listed IP address to try connecting via SSH:
+
+```bash
+ssh robotis@<robot_ip>
+```
+
+Replace `<robot_ip>` with the robot's IP address shown in the router's connected-device list.
+
+If the robot still does not appear or you cannot connect via SSH, connect a monitor to the robot PC via HDMI and check whether it boots normally.
 
 </SectionCard>
