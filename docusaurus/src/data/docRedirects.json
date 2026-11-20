@@ -197,5 +197,6 @@
   "/docs/systems/omx/resources/legacy/physical_ai_tools/imitation_learning": "/docs/software/cyclo/intelligence/legacy/physical_ai_tools/imitation_learning",
   "/docs/systems/omx/resources/legacy/physical_ai_tools/model_inference": "/docs/software/cyclo/intelligence/legacy/physical_ai_tools/model_inference",
   "/docs/systems/omx/resources/legacy/physical_ai_tools/model_training": "/docs/software/cyclo/intelligence/legacy/physical_ai_tools/model_training",
-  "/docs/systems/omx/resources/legacy/physical_ai_tools/setup_guide": "/docs/software/cyclo/intelligence/legacy/physical_ai_tools/imitation_learning"
+  "/docs/systems/omx/resources/legacy/physical_ai_tools/setup_guide": "/docs/software/cyclo/intelligence/legacy/physical_ai_tools/imitation_learning",
+  "/docs/systems/omx/support/faq": "/docs/systems/omx/support/contact_us"
 }
