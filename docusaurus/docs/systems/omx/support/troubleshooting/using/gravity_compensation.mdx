@@ -1,0 +1,13 @@
+---
+title: Does the Leader Have Gravity Compensation?
+description: No. The OMX leader's joints move freely by hand. Its gravity compensation controller is turned off.
+displayed_sidebar: omxSidebar
+---
+
+[← All troubleshooting guides](/docs/systems/omx/support/troubleshooting)
+
+# Does the Leader Have Gravity Compensation?
+
+No. The leader's arm joints have no torque, so they move freely by hand.
+
+The open_manipulator software has a gravity compensation controller (`om_gravity_compensation_controller`), which the OMY leader arms use. For the OMX leader it is turned off. To try it, start from the OMY code in [open_manipulator](https://github.com/ROBOTIS-GIT/open_manipulator).

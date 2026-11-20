@@ -1,3 +1,5 @@
+import SectionCard from '@site/src/components/SectionCard';
+
 # Cyclo Manager
 
 **Cyclo Manager** is a web-based operation and maintenance tool for **OMX**.
@@ -12,6 +14,8 @@ For OMX, install Cyclo Manager on the **user PC** that runs the OMX Docker conta
 The web UI runs on port **3000**, and the API server runs on port **8081**.
 :::
 
+<SectionCard>
+
 ## What You Can Do
 
 Use Cyclo Manager to:
@@ -21,6 +25,10 @@ Use Cyclo Manager to:
 - Monitor robot status, Docker status, storage usage, and version status.
 - Open a browser-based terminal into Docker containers.
 - Use noVNC to run GUI tools such as **Dynamixel Wizard 2.0** without connecting a monitor.
+
+</SectionCard>
+
+<SectionCard>
 
 ## How It Runs
 
@@ -33,6 +41,10 @@ Cyclo Manager is composed of a Python CLI, a web UI, an API server, and small ag
 - The **s6 agent** inside each robot container starts and stops ROS 2 services and reports service status.
 - The **host agent** handles host-level operations such as repository update workflows.
 
+</SectionCard>
+
+<SectionCard>
+
 ## Software Architecture
 
 ![Cyclo Manager Software Architecture](/img/systems/omx/quick_start_guide/operation_guide/cyclo_manager/sw_architecture.svg)
@@ -44,6 +56,10 @@ At a high level, Cyclo Manager separates user-facing controls from the robot run
 - **Robot container layer**: Robot bringup services run inside containers managed by s6.
 - **Host layer**: Docker, storage, serial devices, and git repositories remain on the user PC that runs the OMX containers.
 
+</SectionCard>
+
+<SectionCard>
+
 ## Feature Guides
 
 - [Install](/docs/systems/omx/quick_start_guide/operation_guide/cyclo_manager/install): Install the CLI, start the Cyclo Manager stack, and open the web UI.
@@ -51,3 +67,5 @@ At a high level, Cyclo Manager separates user-facing controls from the robot run
 - [Manage Container](/docs/systems/omx/quick_start_guide/operation_guide/cyclo_manager/manage_container): Start, stop, configure, inspect, and access containers.
 - [Version Update](/docs/systems/omx/quick_start_guide/operation_guide/cyclo_manager/version_update): Update robot software packages and container images.
 - [noVNC](/docs/systems/omx/quick_start_guide/operation_guide/cyclo_manager/novnc): Run graphical tools such as Dynamixel Wizard 2.0 from the browser.
+
+</SectionCard>

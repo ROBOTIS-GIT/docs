@@ -1,0 +1,70 @@
+---
+title: A Motor Blinks Red or Is Not Found
+description: Restart the arms, check the motor cables, and look for the motor with DYNAMIXEL Wizard 2.0.
+displayed_sidebar: omxSidebar
+---
+
+import SectionCard from '@site/src/components/SectionCard';
+import {RepairCard} from '@site/src/components/Tutorial';
+
+[← All troubleshooting guides](/docs/systems/omx/support/troubleshooting)
+
+# A Motor Blinks Red or Is Not Found
+
+A motor's light blinks red, or the terminal says that a motor does not answer:
+
+```text
+There is no status packet!
+```
+
+A blinking red light means the motor stopped itself because of an error, for example when it had too much load. It keeps blinking until it is restarted.
+
+<SectionCard>
+
+## 1. Restart the arms
+
+1. Press **Ctrl + C** in Terminal 2, then in Terminal 1.
+2. Unplug the follower's 12 V adapter and both USB cables. Wait about 10 seconds.
+3. Plug them in again, and start the arms as in [Start the arms](/docs/systems/omx/quick_start_guide/move_omx#start-the-arms).
+
+If an arm had moved wrong before the red light, see [The Follower Jumps or Does Not Match the Leader](/docs/systems/omx/support/troubleshooting/motors/arm_moves_wrong) first.
+
+</SectionCard>
+
+<SectionCard>
+
+## 2. Check the cables
+
+Each motor has an ID, counted from the base to the gripper:
+
+| Arm | Motor IDs |
+| --- | --- |
+| Leader | 1 to 6 |
+| Follower | 11 to 16 |
+
+The motors are connected one after another. If one motor and every motor after it are not found, a cable near that motor is loose or broken. Push each cable in fully at both ends.
+
+If no motor of one arm is found, check the follower's 12 V power first. If it is on, the arms may be swapped: do [Set the ports](/docs/systems/omx/quick_start_guide/move_omx#set-the-ports) again.
+
+</SectionCard>
+
+<SectionCard>
+
+## 3. Look for the motor with DYNAMIXEL Wizard 2.0
+
+Install [DYNAMIXEL Wizard 2.0](https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_wizard2/) on the PC. Stop the arms first, so the Wizard can use the same USB port. Keep the follower's 12 V adapter plugged in.
+
+In DYNAMIXEL Wizard, open **Options**, choose these settings, and click **Scan**:
+
+| Setting | Value |
+| --- | --- |
+| Protocol | 2.0 |
+| Port | The arm's port, such as `ttyACM0` |
+| Baud rate | 1,000,000 bps |
+| ID range | 0 to 20 |
+
+Check that all IDs of the arm are found. If a motor is not found, or it keeps blinking red after a restart, request a repair.
+
+<RepairCard />
+
+</SectionCard>

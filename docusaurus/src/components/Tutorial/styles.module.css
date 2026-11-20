@@ -1,0 +1,1341 @@
+/* ---------- Pictures and clips ---------- */
+
+.mediaItem,
+.mediaEmpty {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+}
+
+.mediaItem {
+  background: #eef1f5;
+  object-fit: cover;
+}
+
+/* Names written on top of a picture or clip. The pictures have a light background in both themes,
+   so the names are always dark. They keep a readable size however small the picture is shown. */
+.mediaFrame {
+  position: relative;
+  container-type: inline-size;
+}
+
+.mediaName {
+  position: absolute;
+  color: #1f2328;
+  font-size: clamp(0.8rem, 3.4cqw, 1.2rem);
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+/* One name in a rounded label at the top left: which arm or part the picture is about.
+   Dark with white letters and a white edge, so it is clear on the light background and on the dark robot. */
+.mediaTag {
+  position: absolute;
+  top: clamp(0.6rem, 3.4cqw, 1rem);
+  left: clamp(0.6rem, 3.4cqw, 1rem);
+  padding: 0.5em 1em;
+  border: 1.5px solid rgb(255 255 255 / 90%);
+  border-radius: 999px;
+  background: #14171c;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 28%);
+  color: #fff;
+  font-size: clamp(0.82rem, 3.8cqw, 1rem);
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* A numbered point on a screenshot: click here. The same point as in the list next to it. */
+.mediaMark {
+  position: absolute;
+  display: grid;
+  width: clamp(1.25rem, 4.4cqw, 1.75rem);
+  height: clamp(1.25rem, 4.4cqw, 1.75rem);
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: var(--tutorial-mark);
+  box-shadow: 0 2px 6px rgb(0 0 0 / 35%);
+  color: #fff;
+  font-size: clamp(0.7rem, 2.3cqw, 0.88rem);
+  font-weight: 700;
+  line-height: 1;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  place-items: center;
+}
+
+/* An outline on a screenshot: look here. The colour of the numbered points, because the Cyclo Intelligence
+   pages use green for buttons and states, and a green outline is lost on them. */
+.mediaBox {
+  position: absolute;
+  border: 3px solid var(--tutorial-mark);
+  border-radius: 10px;
+  pointer-events: none;
+}
+
+.mediaSquare {
+  aspect-ratio: 1;
+}
+
+/* A screenshot keeps its own shape. The thin border shows where a white screen ends on a white page. */
+.mediaFree {
+  height: auto;
+  aspect-ratio: auto;
+  border: 1px solid var(--robotis-card-border, rgb(31 35 40 / 14%));
+}
+
+/* A picture or clip with one short line under it: where it was taken and what it shows. */
+.mediaFigure {
+  margin: 0;
+}
+
+.mediaCaption {
+  margin-top: 0.6rem;
+  color: var(--robotis-muted);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+/* A screenshot opens larger when clicked. The hint shows while the pointer is on it. */
+.mediaZoomable {
+  cursor: zoom-in;
+}
+
+.mediaZoomHint {
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0.5rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 6px;
+  background: rgb(0 0 0 / 62%);
+  color: #fff;
+  font-size: 0.75rem;
+  line-height: 1.6;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s;
+}
+
+.mediaZoomable:hover .mediaZoomHint,
+.mediaZoomable:focus-visible .mediaZoomHint {
+  opacity: 1;
+}
+
+/* The larger view covers the window below the site's top bar. A click anywhere or Escape closes it. */
+.mediaZoom {
+  --tutorial-mark: #f2603a;
+  position: fixed;
+  z-index: 1000;
+  inset: var(--ifm-navbar-height, 3.75rem) 0 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb(0 0 0 / 82%);
+  cursor: zoom-out;
+}
+
+.mediaZoomFrame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+/* An empty slot that says what is still to be made. */
+.mediaEmpty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: 1rem;
+  border: 1px dashed var(--ifm-color-emphasis-400);
+  background: var(--ifm-color-emphasis-100);
+  text-align: center;
+}
+
+.mediaEmpty span {
+  color: var(--robotis-muted);
+  font-size: 0.78rem;
+}
+
+.mediaEmpty strong {
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* ---------- Guide page ----------
+   One column for a page of a guide, such as "Move OMX". GuidePage puts this class on it. */
+
+.page {
+  /* The colour of the numbered points, in a list and on a screenshot. A warm coral: it stands apart
+     from the blue, green and red buttons that the screenshots themselves contain. */
+  --tutorial-mark: #f2603a;
+  position: relative;
+}
+
+/* The page and the list at its right, with the same widths and look as other pages and their list.
+   Like that list, it only shows on screens 997 px and wider. Its links use the site's own list classes. */
+.guideLayout {
+  display: flex;
+  align-items: flex-start;
+}
+
+.guideLayout > .page {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.guideToc {
+  display: none;
+}
+
+@media (min-width: 997px) {
+  .guideLayout > .page {
+    max-width: 75%;
+  }
+
+  .guideToc {
+    position: sticky;
+    top: calc(var(--ifm-navbar-height) + 1rem);
+    display: block;
+    flex: 0 0 25%;
+    max-width: 25%;
+    max-height: calc(100vh - (var(--ifm-navbar-height) + 2rem));
+    padding-left: 2rem;
+    overflow-y: auto;
+  }
+}
+
+/* The open step in the list. */
+.tocStepNow {
+  font-weight: 600;
+}
+
+/* A picture or clip placed straight in the page, in a step or in a box gets room above and below. */
+.page > .mediaEmpty,
+.page > .mediaFrame,
+.stepPanel > .mediaEmpty,
+.stepPanel > .mediaFrame,
+.card > .mediaEmpty,
+.card > .mediaFrame {
+  margin: 1.25rem 0 1.75rem;
+}
+
+/* Also on pages that are not guide pages (AskTitle), so not only inside .page. */
+.pageTitle {
+  margin: 0;
+  font-size: var(--ifm-h1-font-size, 3rem);
+}
+
+/* ---------- Problem pages ----------
+   The list of problem pages on Troubleshooting and the repair box at the end of a problem page.
+   The same look as the AI Worker Troubleshooting list (src/components/TroubleshootingList) and its A/S box,
+   copied here so that list is not changed. */
+
+.problemList {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0 0 2rem;
+  padding: 0;
+  list-style: none;
+}
+
+.problemCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 10px;
+  background: var(--ifm-background-surface-color);
+  color: var(--ifm-font-color-base);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.problemCard:hover {
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+}
+
+.problemCard:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}
+
+/* A step card (FixCard): the step's title with the arrow on one line, then the messages, one per line, in plain
+   weight and the muted colour, so the title reads first. They stay muted when the card is hovered. */
+.fixCard {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.55rem;
+}
+
+.fixHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.fixSeen,
+.fixCard:hover .fixSeen {
+  color: var(--robotis-muted);
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+.fixSeen ul {
+  display: grid;
+  gap: 0.3rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fixSeen li {
+  margin: 0;
+}
+
+.fixSeen code {
+  font-size: 0.86em;
+}
+
+/* The find box above the step cards (FixSearch), and the words it finds. */
+.fixSearch {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 0 1.5rem;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 10px;
+  background: var(--ifm-background-surface-color);
+}
+
+.fixSearch:focus-within {
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 0 0 1px var(--ifm-color-primary);
+}
+
+.fixSearch svg {
+  flex: none;
+  width: 1.05rem;
+  height: 1.05rem;
+  color: var(--robotis-muted);
+}
+
+.fixSearch input {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0.2rem 0;
+  border: 0;
+  outline: none;
+  background: none;
+  color: var(--ifm-font-color-base);
+  font: inherit;
+  font-size: 1rem;
+}
+
+.fixSearch input::placeholder {
+  color: var(--robotis-muted);
+}
+
+.fixCount {
+  flex: none;
+  color: var(--robotis-muted);
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.fixNone {
+  color: var(--robotis-muted);
+}
+
+.fixHit {
+  padding: 0 0.05em;
+  border-radius: 3px;
+  background: #ffe08a;
+  color: var(--ifm-font-color-base);
+}
+
+[data-theme='dark'] .fixHit {
+  background: rgba(255, 210, 90, 0.4);
+}
+
+.repairCard {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0 0;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 10px;
+  color: var(--ifm-font-color-base);
+  text-decoration: none;
+}
+
+.repairCard:hover {
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-font-color-base);
+  text-decoration: none;
+}
+
+/* The title, with the AI helper at its right end. */
+.titleRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem 1.5rem;
+  margin: 0 0 1.25rem;
+}
+
+/* ---------- Help me, AI! ----------
+   A small menu that opens an AI chat with a question already typed in. */
+
+.ask {
+  position: relative;
+  font-size: 0.88rem;
+}
+
+/* A light steel grey fill with dark letters: it fits the black and white of ROBOTIS,
+   is easy to find next to the title, and leaves blue to the one Next button. */
+.ask > summary {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.9rem;
+  border: 1px solid #cdd4de;
+  border-radius: 999px;
+  background: #e9edf2;
+  color: #1c2330;
+  font-weight: 600;
+  list-style: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+[data-theme='dark'] .ask > summary {
+  border-color: #505968;
+  background: #323945;
+  color: #f1f3f6;
+}
+
+.ask > summary::-webkit-details-marker {
+  display: none;
+}
+
+.ask > summary::after {
+  font-size: 0.7rem;
+  content: '\25BE';
+}
+
+.ask > summary:hover,
+.ask[open] > summary {
+  border-color: #9aa5b4;
+  background: #dfe4eb;
+}
+
+[data-theme='dark'] .ask > summary:hover,
+[data-theme='dark'] .ask[open] > summary {
+  border-color: #76808f;
+  background: #3c4451;
+}
+
+.askMenu {
+  position: absolute;
+  top: calc(100% + 0.4rem);
+  right: 0;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  width: 17.5rem;
+  padding: 0.4rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 12px;
+  background: var(--ifm-background-surface-color, #fff);
+  box-shadow: var(--robotis-card-shadow);
+}
+
+.askMenu a,
+.askMenu button {
+  padding: 0.5rem 0.65rem;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: var(--ifm-font-color-base);
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.askMenu a:hover,
+.askMenu button:hover {
+  background: var(--ifm-color-emphasis-100);
+  color: var(--ifm-color-primary);
+}
+
+.askMenu p {
+  margin: 0.3rem 0 0;
+  padding: 0.5rem 0.65rem 0.3rem;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+  color: var(--robotis-muted);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+@media (max-width: 720px) {
+  .askMenu {
+    right: auto;
+    left: 0;
+  }
+}
+
+/* ---------- Terminal map ----------
+   One dark window split into panes: which terminal runs what, and the sign that it is running. */
+
+.page .terminalMap {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin: 1.25rem 0 1.5rem;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid #2b313b;
+  border-radius: 12px;
+  background: #3a424f;
+  box-shadow: 0 10px 28px -14px rgb(0 0 0 / 0.5);
+  list-style: none;
+}
+
+[data-theme='dark'] .page .terminalMap {
+  border-color: #6b7689;
+  background: #6b7689;
+}
+
+.terminalMap li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-height: 6.6rem;
+  margin: 0;
+  padding: 0.85rem 1.1rem 1rem;
+  background: #0f1218;
+}
+
+[data-theme='dark'] .terminalMap li {
+  background: #050709;
+}
+
+/* Large, so the reader knows "Terminal 2" before a caution or a step names it. */
+.terminalMapWhere {
+  color: #c3cad4;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.terminalMap strong {
+  color: #fff;
+  font-size: 1.45rem;
+  line-height: 1.25;
+}
+
+.terminalMapShows {
+  margin-top: auto;
+  padding-top: 0.4rem;
+  color: #56d364;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.terminalMapShows::before {
+  margin-right: 0.35rem;
+  content: '\2713';
+}
+
+/* ---------- Marked output ----------
+   What a command prints, in the colours of the site's code blocks (Prism github and dracula),
+   with the parts that are different on every PC outlined in red, as on the ROBOTIS terminal screenshots. */
+
+.markedOutput {
+  margin: 0 0 var(--ifm-leading);
+}
+
+.markedOutput pre {
+  margin: 0;
+  padding: var(--ifm-pre-padding);
+  border-radius: var(--ifm-code-border-radius);
+  background: #f6f8fa;
+  box-shadow: var(--ifm-global-shadow-lw);
+  color: #393a34;
+  font-size: var(--ifm-code-font-size);
+  line-height: 1.9;
+}
+
+[data-theme='dark'] .markedOutput pre {
+  background: #282a36;
+  color: #f8f8f2;
+}
+
+.markedOutput code {
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 100%;
+}
+
+.outputMark {
+  padding: 0.05em 0.15em;
+  border-radius: 4px;
+  outline: 2px solid #c80003;
+  outline-offset: 1px;
+  background: none;
+  color: inherit;
+}
+
+[data-theme='dark'] .outputMark {
+  outline-color: #ff6b6b;
+}
+
+.markedOutputNote {
+  margin: 0.6rem 0 0;
+  color: var(--robotis-muted);
+  font-size: 0.95rem;
+}
+
+/* ---------- Caution ----------
+   An amber box for safety notes, and only for them. */
+
+.caution {
+  margin: 1.25rem 0;
+  padding: 0.9rem 1.2rem 1rem;
+  border: 1px solid color-mix(in srgb, var(--ifm-color-warning) 55%, transparent);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--ifm-color-warning) 12%, transparent);
+}
+
+.caution .cautionTitle {
+  margin: 0 0 0.4rem;
+  color: #8a5300;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+[data-theme='dark'] .caution .cautionTitle {
+  color: #f0b35a;
+}
+
+.caution > :last-child {
+  margin-bottom: 0;
+}
+
+/* Notice: the Caution box with larger text. It keeps its size and colour also among the Goal's side notes. */
+.caution.notice,
+.goalText > .caution.notice {
+  color: var(--ifm-font-color-base);
+  font-size: 1.15rem;
+  line-height: 1.6;
+}
+
+.notice .cautionTitle {
+  font-size: 1.02rem;
+}
+
+/* ---------- Checks ----------
+   What a good result looks like, as a few short lines with a green check mark each. */
+
+.checks ul,
+.checks ol {
+  margin: 1rem 0 1.25rem;
+  padding: 0;
+  list-style: none;
+}
+
+.checks li {
+  position: relative;
+  margin: 0.45rem 0;
+  padding-left: 2rem;
+  font-weight: 500;
+}
+
+.checks li::before {
+  position: absolute;
+  top: 0.18em;
+  left: 0;
+  display: grid;
+  width: 1.3rem;
+  height: 1.3rem;
+  border-radius: 50%;
+  background: #1a7f4b;
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1;
+  content: '\2713';
+  place-items: center;
+}
+
+[data-theme='dark'] .checks li::before {
+  background: #2ea043;
+}
+
+/* ---------- Clicks ----------
+   A numbered list of things to click. Its numbers are the same points as the marks on a screenshot. */
+
+.clicks ol {
+  margin: 1rem 0 1.25rem;
+  padding: 0;
+  list-style: none;
+  counter-reset: click var(--clicks-from, 0);
+}
+
+.clicks li {
+  position: relative;
+  margin: 0.55rem 0;
+  padding-left: 2.4rem;
+  counter-increment: click;
+}
+
+.clicks li::before {
+  position: absolute;
+  top: -0.05em;
+  left: 0;
+  display: grid;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: var(--tutorial-mark);
+  color: #fff;
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 1;
+  content: counter(click);
+  place-items: center;
+}
+
+/* A list point can have its own colour (Clicks `colors`), the same as its mark on the picture. */
+.clicks li:nth-child(1)::before {
+  background: var(--click-1, var(--tutorial-mark));
+}
+
+.clicks li:nth-child(2)::before {
+  background: var(--click-2, var(--tutorial-mark));
+}
+
+.clicks li:nth-child(3)::before {
+  background: var(--click-3, var(--tutorial-mark));
+}
+
+.clicks li:nth-child(4)::before {
+  background: var(--click-4, var(--tutorial-mark));
+}
+
+.clicks li:nth-child(5)::before {
+  background: var(--click-5, var(--tutorial-mark));
+}
+
+.clicks li:nth-child(6)::before {
+  background: var(--click-6, var(--tutorial-mark));
+}
+
+.clicks li:nth-child(7)::before {
+  background: var(--click-7, var(--tutorial-mark));
+}
+
+.clicks li:nth-child(8)::before {
+  background: var(--click-8, var(--tutorial-mark));
+}
+
+/* ---------- Screenshot box ----------
+   One rounded box, as wide as the reading column. Inside: the short text on top, its screenshot below it
+   at the full width of the box. A screenshot narrower than the box is not stretched; it sits in the middle. */
+
+.screenshotBox {
+  margin: 1.25rem 0 1.75rem;
+  padding: 1.25rem 1.4rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 14px;
+}
+
+.screenshotBoxText > :first-child,
+.screenshotBoxText > :first-child > :first-child {
+  margin-top: 0;
+}
+
+.screenshotBoxText > :last-child,
+.screenshotBoxText > :last-child > :last-child {
+  margin-bottom: 0;
+}
+
+.screenshotBoxPicture {
+  margin-top: 1.1rem;
+}
+
+.screenshotBoxPicture > .mediaFrame {
+  margin: 0 auto;
+}
+
+@media (max-width: 720px) {
+  .screenshotBox {
+    padding: 1rem;
+  }
+}
+
+/* ---------- Fixes ----------
+   What to do when the result is different. Closed until the reader opens it. Inside: a table, what you see → what to do. */
+
+.fix {
+  margin: 1rem 0 1.5rem;
+  border: 1px solid color-mix(in srgb, var(--ifm-color-danger) 38%, transparent);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--ifm-color-danger) 5%, transparent);
+}
+
+.fix > summary {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.6rem 1rem;
+  color: var(--ifm-color-danger-darkest);
+  font-size: 0.92rem;
+  font-weight: 600;
+  list-style: none;
+  cursor: pointer;
+}
+
+[data-theme='dark'] .fix > summary {
+  color: var(--ifm-color-danger-lightest);
+}
+
+.fix > summary::-webkit-details-marker {
+  display: none;
+}
+
+.fix > summary::before {
+  font-size: 1.1rem;
+  line-height: 1;
+  content: '\203A';
+  transition: transform 0.15s ease;
+}
+
+.fix[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.fixBody {
+  padding: 0 1rem 0.9rem;
+  font-size: 0.92rem;
+}
+
+.fixBody table {
+  display: table;
+  width: 100%;
+  margin: 0;
+  border-collapse: collapse;
+}
+
+.fixBody tr,
+.fixBody thead tr,
+.fixBody tr:nth-child(2n) {
+  border: 0;
+  background: none;
+}
+
+.fixBody th,
+.fixBody td {
+  padding: 0.5rem 0.6rem 0.5rem 0;
+  border: 0;
+  border-top: 1px solid color-mix(in srgb, var(--ifm-color-danger) 22%, transparent);
+  background: none;
+  text-align: left;
+  vertical-align: top;
+}
+
+.fixBody th {
+  color: var(--robotis-muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.fixBody td:first-child {
+  width: 38%;
+  font-weight: 600;
+}
+
+.fixBody > :last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- Shots ----------
+   Small actions side by side: a square clip of the robot side, a number, one sentence. */
+
+.page .shots {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem 1.25rem;
+  margin: 1.25rem 0 1.75rem;
+  padding: 0;
+  counter-reset: shot;
+  list-style: none;
+}
+
+.shots .shot {
+  margin: 0;
+  counter-increment: shot;
+}
+
+.shotText {
+  display: grid;
+  grid-template-columns: 1.6rem minmax(0, 1fr);
+  margin-top: 0.7rem;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.shotText::before {
+  color: var(--robotis-muted);
+  font-variant-numeric: tabular-nums;
+  content: counter(shot);
+}
+
+.shotText > div > :last-child {
+  margin-bottom: 0;
+}
+
+/* Four in a row, for a step that should fit on the screen. */
+.page .shots.shotsSmall {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.shotsSmall .shotText {
+  grid-template-columns: 1.2rem minmax(0, 1fr);
+  margin-top: 0.5rem;
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+/* ---------- Step tabs ----------
+   The steps of a page, shown one at a time. The bar stays under the navbar while the reader scrolls.
+   The chosen step has the blue line; Next is the only blue button. */
+
+.steps {
+  margin: 1.75rem 0 0;
+  scroll-margin-top: var(--ifm-navbar-height);
+}
+
+.stepBar {
+  position: sticky;
+  top: var(--ifm-navbar-height);
+  z-index: 3;
+  margin: 0 0 1.25rem;
+  padding: 0.6rem 0 0.55rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+  /* The page colour, so the text scrolling under the bar is hidden. In the light theme
+     --ifm-background-color is transparent and the page is the white of the surface colour. */
+  background: var(--ifm-background-surface-color);
+}
+
+[data-theme='dark'] .stepBar,
+[data-theme='dark'] .stepSelect {
+  background: var(--ifm-background-color);
+}
+
+.stepList {
+  display: grid;
+  grid-template-columns: repeat(var(--step-count), minmax(0, 1fr));
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stepList li {
+  margin: 0;
+}
+
+.stepTab {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0.45rem 0.6rem 0.5rem;
+  border: 0;
+  border-top: 3px solid var(--ifm-color-emphasis-300);
+  border-radius: 0 0 8px 8px;
+  background: none;
+  color: var(--robotis-muted);
+  font: inherit;
+  font-size: 0.86rem;
+  line-height: 1.3;
+  text-align: left;
+  cursor: pointer;
+}
+
+.stepTab:hover {
+  background: var(--ifm-color-emphasis-100);
+  color: var(--ifm-font-color-base);
+}
+
+.stepTabNumber {
+  display: block;
+  font-size: 0.74rem;
+  font-weight: 600;
+}
+
+.stepTabNow,
+.stepTabNow:hover {
+  border-top-color: var(--ifm-color-primary);
+  background: color-mix(in srgb, var(--ifm-color-primary) 7%, transparent);
+  color: var(--ifm-font-color-base);
+  font-weight: 600;
+}
+
+.stepTabNow .stepTabNumber {
+  color: var(--ifm-color-primary);
+}
+
+/* A part after the steps, done only if the reader wants to. A dashed line instead of a full one. */
+.stepTabExtra {
+  border-top-style: dashed;
+}
+
+/* What only some steps need: one thin line under those steps, with the words under it. Steps without a line
+   need nothing more. The line is NVIDIA's green, as the guide uses it for "Needs an NVIDIA GPU"; the words are a
+   darker green, so they stay easy to read on white. */
+.stepNeeds {
+  display: grid;
+  grid-template-columns: repeat(var(--step-count), minmax(0, 1fr));
+  gap: 0.4rem;
+  margin-top: 0.3rem;
+}
+
+.stepNeed {
+  padding-top: 0.25rem;
+  border-top: 2px solid #76b900;
+  color: #4a7500;
+  font-size: 0.74rem;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: center;
+}
+
+[data-theme='dark'] .stepNeed {
+  color: #9fd356;
+}
+
+.stepSelect {
+  display: none;
+  width: 100%;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 8px;
+  background: var(--ifm-background-surface-color);
+  color: var(--ifm-font-color-base);
+  font: inherit;
+  font-weight: 600;
+}
+
+/* The box with the number and title of the open step, and its first lines. Its title is as large as the
+   numbered titles of the AI Worker pages, with the same line under it. */
+.stepHead {
+  margin-top: 0.5rem;
+}
+
+.stepTitle {
+  margin: 0 0 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+  font-size: 2rem;
+}
+
+/* The first sentence of a step says what the step is for, so it is larger than the rest. */
+.stepHead > .stepTitle + p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+/* ---------- Card ----------
+   One set of a step in a box: the same box as on the AI Worker pages, with its title on top and a line under it.
+   Its title is a size below the step's title, as the smaller titles inside the AI Worker boxes. */
+
+.card {
+  margin: 2rem 0;
+  padding: 1.75rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 14px;
+  background: var(--ifm-background-surface-color);
+}
+
+.card > h3:first-child {
+  margin-top: 0;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+  font-size: 1.5rem;
+  /* A link to a box stops with the whole box below the bar. */
+  scroll-margin-top: calc(var(--ifm-navbar-height) + 5.5rem + 1.75rem);
+}
+
+.card > :last-child {
+  margin-bottom: 0;
+}
+
+/* GoFurther: a box that sends the reader on to a bigger manual. A light tint of the main colour sets it apart. */
+.goFurther {
+  border-color: color-mix(in srgb, var(--ifm-color-primary) 40%, var(--ifm-color-emphasis-300));
+  background: color-mix(in srgb, var(--ifm-color-primary) 5%, var(--ifm-background-surface-color));
+}
+
+.goFurtherFoot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.goFurtherButton {
+  padding: 0.6rem 1.05rem;
+  border-radius: 10px;
+  background: var(--ifm-color-primary);
+  color: #fff;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.goFurtherButton:hover {
+  background: var(--ifm-color-primary-dark);
+  color: #fff;
+  text-decoration: none;
+}
+
+.goFurtherLogo {
+  height: 1.35rem;
+  width: auto;
+}
+
+[data-theme='dark'] .goFurtherLogo {
+  filter: invert(1);
+}
+
+/* A screenshot box inside a box needs no frame of its own. */
+.card .screenshotBox {
+  margin: 1.25rem 0;
+  padding: 0;
+  border: 0;
+}
+
+@media (max-width: 600px) {
+  .card {
+    padding: 1rem;
+  }
+}
+
+/* ---------- Goal ----------
+   The result of the page, at the start of its first step: what the reader is about to do. */
+
+/* The box of the first step comes right after it, so it needs no line of its own. */
+.goal {
+  margin: 0 0 1.25rem;
+}
+
+/* A short title over a clip or a row, such as "At the end of this page" or "Requirements": a little larger than
+   the text, so it is seen before the picture. */
+.goalLabel {
+  margin: 0 0 0.6rem;
+  color: var(--ifm-font-color-base);
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+/* The result clip is centred, also when it is narrower than the page. */
+.goal > .mediaFrame,
+.goal > .mediaEmpty {
+  margin-inline: auto;
+}
+
+.goalBelow {
+  margin-top: 1rem;
+}
+
+/* Pictures or clips side by side, the same width; one under the other when there is no room. */
+.mediaRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1rem;
+}
+
+/* One thin line round a set that belongs together. The pictures inside lose their own line, so there is only one. */
+.mediaRowBox {
+  padding: 0.9rem 1rem 1rem;
+  border: 1px solid var(--ifm-color-emphasis-400);
+  border-radius: 14px;
+}
+
+.mediaRowBox .mediaFree {
+  border: 0;
+}
+
+/* MediaRow `note`: a line set apart under the row, with a bar in the main colour at its left. */
+.mediaRowNote {
+  margin-top: 1rem;
+  padding: 0.85rem 1.1rem;
+  border-left: 4px solid var(--ifm-color-primary);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--ifm-color-primary) 7%, var(--ifm-background-surface-color));
+  font-size: 1.02rem;
+  line-height: 1.6;
+}
+
+.mediaRowNote strong {
+  color: var(--ifm-heading-color);
+}
+
+.goalText {
+  margin-top: 1rem;
+}
+
+.goalText > :first-child {
+  margin-bottom: 0.35rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+/* Every line after the first one is a side note. */
+.goalText > :first-child ~ * {
+  color: var(--robotis-muted);
+  font-size: 0.95rem;
+}
+
+.goalText > :last-child {
+  margin-bottom: 0;
+}
+
+/* A link to a step, or to a part of a step, stops below the bar, not under it. */
+.stepPanel,
+.stepPanel [id] {
+  scroll-margin-top: calc(var(--ifm-navbar-height) + 5.5rem);
+}
+
+.stepNav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 2rem 0 0;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.stepBack,
+.stepNext {
+  padding: 0.6rem 1.05rem;
+  border-radius: 10px;
+  font: inherit;
+  font-weight: 600;
+  line-height: 1.35;
+  cursor: pointer;
+}
+
+.stepBack {
+  border: 1px solid var(--ifm-color-emphasis-300);
+  background: none;
+  color: var(--ifm-font-color-base);
+}
+
+.stepNext {
+  margin-left: auto;
+  border: 0;
+  background: var(--ifm-color-primary);
+  color: #fff;
+}
+
+.stepBack:hover {
+  background: var(--ifm-color-emphasis-100);
+  color: var(--ifm-font-color-base);
+  text-decoration: none;
+}
+
+.stepNext:hover {
+  background: var(--ifm-color-primary-dark);
+  color: #fff;
+  text-decoration: none;
+}
+
+/* ---------- Only if ----------
+   Parts only some readers need. Closed and quiet, so the others go straight on. */
+
+.onlyIf {
+  margin: 1rem 0 1.5rem;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 12px;
+}
+
+.onlyIf > summary {
+  padding: 0.75rem 1rem;
+  color: var(--robotis-muted);
+  font-size: 0.95rem;
+  list-style: none;
+  cursor: pointer;
+}
+
+.onlyIf > summary::-webkit-details-marker {
+  display: none;
+}
+
+.onlyIf > summary::before {
+  display: inline-block;
+  width: 0.45em;
+  height: 0.45em;
+  margin: 0 0.75em 0.15em 0.1em;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  content: '';
+  transform: rotate(-45deg);
+  transition: transform 0.15s;
+}
+
+.onlyIf[open] > summary {
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.onlyIf[open] > summary::before {
+  transform: rotate(45deg);
+}
+
+.onlyIfBody {
+  padding: 1rem 1rem 0.25rem;
+}
+
+/* ---------- Narrow screens ---------- */
+
+@media (max-width: 720px) {
+  .page .shots {
+    grid-template-columns: 1fr;
+  }
+
+  .page .shots.shotsSmall {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stepList,
+  .stepNeeds {
+    display: none;
+  }
+
+  .stepSelect {
+    display: block;
+  }
+}

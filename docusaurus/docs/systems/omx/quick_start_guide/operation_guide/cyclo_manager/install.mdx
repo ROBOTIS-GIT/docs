@@ -1,3 +1,5 @@
+import SectionCard from '@site/src/components/SectionCard';
+
 # Install Cyclo Manager
 
 :::info
@@ -7,6 +9,8 @@ After the PC is set up, you only need to open Cyclo Manager from your browser.
 :::
 
 **Cyclo Manager** runs inside Docker containers. The Python package **`cyclo-manager`** on PyPI provides the **`cyclo_manager`** CLI, which uses Docker images and Compose to bring up and configure the container stack.
+
+<SectionCard>
 
 ## How to Install
 
@@ -56,6 +60,10 @@ cyclo_manager update
   - Restarts the **host-agent** service.
 :::
 
+</SectionCard>
+
+<SectionCard>
+
 ## Open the Cyclo Manager Web UI
 
 Open the Cyclo Manager **web UI** on **port 3000** in your browser.
@@ -73,6 +81,10 @@ From the main page, open the Cyclo Manager dashboard.
 
 ![Dashboard Page](/img/systems/omx/quick_start_guide/operation_guide/cyclo_manager/dashboard.png)
 
+</SectionCard>
+
+<SectionCard>
+
 ## Update the s6 Agent
 
 After the first installation, the s6 agent inside a managed container may not match the installed Cyclo Manager version.
@@ -81,3 +93,5 @@ If the container agent and Cyclo Manager are not compatible, some Cyclo Manager 
 Check the **Container Agents** section in Version Management after opening the dashboard.
 If an agent update is available, update the s6 agent before using Cyclo Manager for regular operation.
 For details, see [Agent Update](/docs/systems/omx/quick_start_guide/operation_guide/cyclo_manager/version_update#agent-update).
+
+</SectionCard>

@@ -293,7 +293,7 @@ export default function OmxAssemblyGuide(): React.JSX.Element {
                       ))}
                     </tbody>
                   </table>
-                  <Link to="/docs/systems/omx/quick_start_guide/setup_guide/">
+                  <Link to="/docs/systems/omx/quick_start_guide/move_omx">
                     Continue to software setup →
                   </Link>
                 </section>

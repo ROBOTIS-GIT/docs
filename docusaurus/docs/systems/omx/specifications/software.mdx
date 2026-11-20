@@ -1,3 +1,5 @@
+import SectionCard from '@site/src/components/SectionCard';
+
 # Software Overview
 
 **OMX** is a 5-DOF robotic manipulator designed for real-world **Physical AI** research.  
@@ -14,6 +16,8 @@ This system is designed for:
 
 OMX provides an efficient and compact platform for Physical AI research in both academic and industrial environments.
 
+<SectionCard>
+
 ## System Architecture
 :::info
  The diagram below illustrates the overall control structure of OMX.
@@ -29,6 +33,10 @@ OMX provides an efficient and compact platform for Physical AI research in both 
 | **Actuators** | DYNAMIXEL-X series | servo via TTL |
 | **Communication** | TTL | Dynamixel Protocol 2.0 |
 
+</SectionCard>
+
+<SectionCard>
+
 ## Why `ros2_control`?
 
 OMX uses `ros2_control` for modular, real-time control of its joints.
@@ -38,6 +46,10 @@ OMX uses `ros2_control` for modular, real-time control of its joints.
 - Integrates easily with teleop, GUI, and AI-based trajectory sources
 
 This makes it easy to switch between manual, scripted, or learned motion strategies.
+
+</SectionCard>
+
+<SectionCard>
 
 ## Motion Execution Pipeline
 
@@ -57,6 +69,10 @@ TTL Bus
 DYNAMIXEL-X Actuators
 ```
 
+</SectionCard>
+
+<SectionCard>
+
 ## Controller Configuration & Joint Mapping
 
 | Controller                | Segment             | DOF | Input Topic                                    |
@@ -69,7 +85,9 @@ DYNAMIXEL-X Actuators
 :::
 - The gripper operates in **current-based position mode**; all other actuators operate in **position mode** by default.
 
----
+</SectionCard>
+
+<SectionCard>
 
 ## Controller YAML Example ([link](https://github.com/ROBOTIS-GIT/open_manipulator/blob/main/open_manipulator_bringup/config/omx_f_follower_ai/hardware_controller_manager.yaml))
 
@@ -108,6 +126,10 @@ DYNAMIXEL-X Actuators
       allow_partial_joints_goal: true
 ```
 
+</SectionCard>
+
+<SectionCard>
+
 ## Debugging & Visualization Tools
 
 | Tool / Topic | Description |
@@ -116,6 +138,9 @@ DYNAMIXEL-X Actuators
 | `ros2 topic echo /joint_states` | Monitor joint position/velocity |
 | Rviz2 | 3D view of robot model (URDF), TF, and movement |
 
+</SectionCard>
+
+<SectionCard>
 
 ## Safety & Limits
 
@@ -123,3 +148,125 @@ DYNAMIXEL-X Actuators
 - Velocity/position clamping can be configured per joint
 - Communication errors are detected by the Dynamixel hardware interface
 
+</SectionCard>
+
+<SectionCard>
+
+## Middleware
+
+<div className="zenoh-intro">
+  <img src="/img/systems/omx/specifications/zenoh_communication/zenoh-dragon-light.png" alt="Zenoh logo" className="zenoh-intro__logo" />
+  <div className="zenoh-intro__text"><strong>OMX uses ROS 2 Jazzy with Zenoh RMW</strong> for communication between robot-side nodes, Docker containers, and external PCs. ROS 2 provides the application interfaces; <code>rmw_zenoh_cpp</code> and the router provide the configured communication layer. Zenoh RMW is the default from OPENMANIPULATOR package version 5.0.0. Earlier versions use Fast DDS by default.</div>
+</div>
+
+:::warning
+At least one **Zenoh daemon** must be running in the communication network. If no Zenoh daemon is running, ROS 2 nodes cannot discover or communicate with each other.
+
+To start the Zenoh daemon manually, run `zenohd` in a terminal inside the open_manipulator container. `zenohd` is a shortcut for `ros2 run rmw_zenoh_cpp rmw_zenohd`. If you use Cyclo Manager, start it from the **Zenoh Daemon** control box on the [Bringup](../quick_start_guide/operation_guide/cyclo_manager/bringup.mdx#bringup-the-zenoh-daemon) page instead.
+:::
+
+### What is rmw_zenoh?
+
+`rmw_zenoh` is the ROS 2 RMW (ROS Middleware) implementation for Zenoh. The implementation package is `rmw_zenoh_cpp`, and it maps the ROS 2 middleware API onto Zenoh APIs. Existing ROS 2 publishers, subscribers, services, clients, parameters, and command-line tools can keep using normal ROS 2 interfaces while Zenoh handles discovery and transport.
+
+Zenoh is a pub/sub/query protocol designed to move data efficiently across local processes, robot networks, edge computers, and cloud systems. For OMX, this means the robot control software can use normal ROS 2 topics while Zenoh provides a lightweight communication layer that is easier to route across containers and hosts than multicast-heavy DDS discovery.
+
+### Main Components
+
+| Component | Role |
+| --- | --- |
+| `rmw_zenoh_cpp` | ROS 2 RMW implementation selected by `RMW_IMPLEMENTATION=rmw_zenoh_cpp`. |
+| `rmw_zenohd` | Zenoh router executable packaged with `rmw_zenoh_cpp`. It provides discovery information and host-to-host routing. |
+| Zenoh session | Communication session used internally by ROS 2 contexts. Publishers, subscribers, services, and clients share the session. |
+| Zenoh router configuration | Controls how routers listen, connect, and bridge communication between containers, the robot, and remote PCs. |
+
+### How Communication Works
+
+- ROS 2 nodes continue to publish and subscribe to normal topics such as `/joint_states`, `/tf`, or controller command topics.
+- `rmw_zenoh_cpp` converts the ROS 2 middleware calls into Zenoh operations.
+- A local Zenoh router is normally started so nodes can discover each other.
+- On the same host, message data can use direct peer-to-peer paths instead of forcing every sample through the router.
+- Across multiple hosts, configure the external PC container as a Zenoh client connected to the robot's Zenoh router endpoint.
+
+### External PC Control
+
+To control OMX from an external PC, set up the `open_manipulator` Docker container on the external PC. Then connect the container's Zenoh client to the Zenoh router running on the robot.
+
+Inside the external PC's `open_manipulator` container, set the following environment variable:
+
+```bash
+export ZENOH_CONFIG_OVERRIDE='transport/shared_memory/enabled=true;mode="client";connect/endpoints=["tcp/robot_ip:7447"]'
+```
+
+Replace `robot_ip` with the real IP address of the OMX robot. Use the robot's Wi-Fi IP address when both devices are connected over Wi-Fi, or use the robot's LAN IP address when the external PC is connected through Ethernet.
+
+For example, if the robot's IP address is `192.168.0.42`:
+
+```bash
+export ZENOH_CONFIG_OVERRIDE='transport/shared_memory/enabled=true;mode="client";connect/endpoints=["tcp/192.168.0.42:7447"]'
+```
+
+The `open_manipulator` Docker image enables Zenoh RMW by default. You can check or manually set it with:
+
+```bash
+export RMW_IMPLEMENTATION=rmw_zenoh_cpp
+```
+
+Keep `ROS_DOMAIN_ID` consistent across terminals and containers when the OMX environment expects a specific ROS domain. Even though Zenoh does not rely on DDS multicast discovery, the ROS 2 process environment should remain consistent across the robot-side stack.
+
+### Quick Checks
+
+Use these commands inside the `open_manipulator` container to confirm that Zenoh RMW is active and that the ROS graph is visible:
+
+```bash
+echo $RMW_IMPLEMENTATION
+echo $ZENOH_CONFIG_OVERRIDE
+ros2 node list
+ros2 topic list
+ros2 topic echo /joint_states
+```
+
+If topics appear but messages are not flowing, check that:
+
+- `ZENOH_CONFIG_OVERRIDE` uses the robot's real IP address.
+- The robot and external PC are on the same reachable network.
+- Port `7447` is reachable from the external PC.
+- The `open_manipulator` container is running with the expected network configuration.
+- Old ROS 2 daemon state has been stopped with `ros2 daemon stop`.
+
+### References
+
+- [ros2/rmw_zenoh](https://github.com/ros2/rmw_zenoh)
+- [rmw_zenoh design document](https://github.com/ros2/rmw_zenoh/blob/rolling/docs/design.md)
+- [Zenoh overview](https://zenoh.io/docs/overview/what-is-zenoh/)
+- [Zenoh website](https://zenoh.io/)
+
+### Using rmw_fastrtps_cpp
+
+OMX uses Zenoh RMW by default. If you want to use Fast DDS instead, update `RMW_IMPLEMENTATION` in `~/.bashrc` inside every container that runs ROS 2 nodes.(open_manipulator, cyclo intelligence, cyclo manager, etc.)
+
+Enter the container.
+
+```bash
+./{your_ws}/open_manipulator/docker/container.sh enter
+```
+
+Open the `~/.bashrc` file with nano.
+```bash
+nano ~/.bashrc
+```
+
+Find the line that says `export RMW_IMPLEMENTATION=rmw_zenoh_cpp` and change it to `export RMW_IMPLEMENTATION=rmw_fastrtps_cpp`.
+
+Save and exit the file.(ctrl + x, y, enter)
+
+Restart the container from the **host terminal**:
+
+```bash
+exit
+docker restart open_manipulator
+```
+
+If you use cyclo intelligence, you also need to update `RMW_IMPLEMENTATION` in `~/.bashrc` inside the cyclo intelligence container.
+
+</SectionCard>

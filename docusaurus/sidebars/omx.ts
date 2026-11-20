@@ -1,70 +1,56 @@
 import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
 
+/*
+ * The OMX menu is made of two kinds of groups.
+ *
+ * - A title, such as "Quick Start Guide", is a group that does not fold and is not a link
+ *   (`collapsible: false`, class `omx-sidebar-title`). It is set in large letters, with a line down the left of its rows.
+ * - A row that folds, such as "Cyclo Intelligence", is closed until it is clicked (`collapsed: true`).
+ *   It also opens by itself while one of its pages is open.
+ *
+ * The classes are styled in src/css/custom.css.
+ */
 const omxSidebar: SidebarsConfig[string] = [
-  {type: 'doc', id: 'systems/omx/introduction', label: 'Introduction'},
-  {type: 'doc', id: 'systems/omx/video_gallery', label: 'Video Gallery'},
   {
     type: 'category',
-    label: 'Specifications',
-    collapsed: false,
+    label: 'Overview',
+    collapsible: false,
+    className: 'omx-sidebar-title',
     items: [
-      {type: 'doc', id: 'systems/omx/specifications/hardware', label: 'Hardware'},
-      {type: 'doc', id: 'systems/omx/specifications/software', label: 'Software'},
-      {type: 'doc', id: 'systems/omx/specifications/zenoh_communication', label: 'Zenoh Communication'},
+      {type: 'doc', id: 'systems/omx/introduction', label: 'Introduction'},
+      {type: 'doc', id: 'systems/omx/specifications/hardware', label: 'Hardware Specifications'},
+      // Zenoh is explained in the last part of this page, Middleware.
+      {type: 'doc', id: 'systems/omx/specifications/software', label: 'Software Specifications'},
+      {type: 'doc', id: 'systems/omx/video_gallery', label: 'Video Gallery'},
     ],
   },
   {
     type: 'category',
     label: 'Quick Start Guide',
-    collapsed: false,
+    collapsible: false,
+    className: 'omx-sidebar-title',
     items: [
-      {type: 'doc', id: 'systems/omx/quick_start_guide/assembly_guide', label: 'Assembly Guide'},
-      {
-        type: 'category',
-        label: 'Setup Guide',
-        link: {type: 'doc', id: 'systems/omx/quick_start_guide/setup_guide/setup_guide'},
-        collapsed: false,
-        items: [
-          {type: 'doc', id: 'systems/omx/quick_start_guide/setup_guide/ros2_setup', label: 'ROS 2 Setup'},
-          {type: 'link', label: 'LeRobot', href: 'https://huggingface.co/docs/lerobot/omx'},
-        ],
-      },
-      {
-        type: 'category',
-        label: 'Operation Guide - ROS 2',
-        link: {type: 'doc', id: 'systems/omx/quick_start_guide/operation_guide'},
-        collapsed: false,
-        items: [
-          {
-            type: 'category',
-            label: 'Cyclo Manager',
-            link: {type: 'doc', id: 'systems/omx/quick_start_guide/operation_guide/cyclo_manager/cyclo_manager'},
-            collapsed: false,
-            items: [
-              {type: 'doc', id: 'systems/omx/quick_start_guide/operation_guide/cyclo_manager/install', label: 'Install'},
-              {type: 'doc', id: 'systems/omx/quick_start_guide/operation_guide/cyclo_manager/bringup', label: 'Bringup'},
-              {type: 'doc', id: 'systems/omx/quick_start_guide/operation_guide/cyclo_manager/manage_container', label: 'Manage Containers'},
-              {type: 'doc', id: 'systems/omx/quick_start_guide/operation_guide/cyclo_manager/version_update', label: 'Version Update'},
-              {type: 'doc', id: 'systems/omx/quick_start_guide/operation_guide/cyclo_manager/novnc', label: 'noVNC'},
-            ],
-          },
-          {type: 'doc', id: 'systems/omx/quick_start_guide/operation_guide/teleoperation', label: 'Teleoperation'},
-          {type: 'doc', id: 'systems/omx/quick_start_guide/operation_guide/robot_control', label: 'Robot Control'},
-        ],
-      },
+      {type: 'doc', id: 'systems/omx/quick_start_guide/assembly_guide', label: 'Assemble OMX'},
+      // Move OMX does what the Setup Guide, ROS 2 Setup, Operation Guide and Teleoperation pages did, so they are
+      // not listed.
+      {type: 'doc', id: 'systems/omx/quick_start_guide/move_omx', label: 'Move OMX'},
+      // Keep these in the same order as the pages in quick_start_guide/_quick_start.ts.
+      {type: 'doc', id: 'systems/omx/quick_start_guide/train_and_run_ai', label: 'Train and run AI'},
     ],
   },
   {
     type: 'category',
     label: 'Imitation Learning',
-    collapsed: false,
+    collapsible: false,
+    className: 'omx-sidebar-title',
+    // The rows that fold are closed until they are clicked. The Imitation Learning Overview is not listed: it only
+    // compared Cyclo Intelligence with Physical AI Tools, which OMX no longer uses.
     items: [
-      {type: 'doc', id: 'systems/omx/imitation_learning/overview', label: 'Overview', key: 'imitation-learning-overview'},
       {
         type: 'category',
         label: 'Cyclo Intelligence',
         link: {type: 'doc', id: 'systems/omx/imitation_learning/imitation_learning'},
-        collapsed: false,
+        collapsed: true,
         items: [
           {type: 'doc', id: 'systems/omx/imitation_learning/setup', label: 'Setup', key: 'cyclo-intelligence-setup'},
           {type: 'doc', id: 'systems/omx/imitation_learning/data_recording', label: 'Data Recording', key: 'cyclo-intelligence-data-recording'},
@@ -73,66 +59,52 @@ const omxSidebar: SidebarsConfig[string] = [
           {type: 'doc', id: 'systems/omx/imitation_learning/model_inference', label: 'Model Inference', key: 'cyclo-intelligence-model-inference'},
         ],
       },
+      // Physical AI Tools (Legacy) is left out of the OMX menu: the team decided OMX uses only Cyclo Intelligence.
+    ],
+  },
+  {
+    // Each row finishes the title as a sentence: "Control OMX with MoveIt 2, GUI or Keyboard".
+    type: 'category',
+    label: 'Control OMX',
+    collapsible: false,
+    className: 'omx-sidebar-title',
+    items: [
+      {type: 'doc', id: 'systems/omx/quick_start_guide/operation_guide/robot_control', label: 'With MoveIt 2, GUI or Keyboard'},
+      // The Advanced Features text is the first part of this page.
+      {type: 'doc', id: 'systems/omx/advanced_features/cyclo_control', label: 'By Target Pose (Cyclo Control)'},
       {
+        // The arrow leaves no room for one line, so "(Cyclo Manager)" goes on its own line.
         type: 'category',
-        label: 'Physical AI Tools(Legacy)',
-        link: {type: 'doc', id: 'systems/omx/resources/legacy/physical_ai_tools/imitation_learning'},
+        label: 'From a Browser\n(Cyclo Manager)',
+        className: 'omx-sidebar-two-line',
+        link: {type: 'doc', id: 'systems/omx/quick_start_guide/operation_guide/cyclo_manager/cyclo_manager'},
         collapsed: true,
         items: [
-          {type: 'doc', id: 'systems/omx/resources/legacy/physical_ai_tools/setup_guide', label: 'Setup Guide'},
-          {
-            type: 'category',
-            label: 'Dataset Preparation',
-            link: {type: 'doc', id: 'systems/omx/resources/legacy/physical_ai_tools/dataset_preparation/dataset_preparation'},
-            collapsed: false,
-            items: [
-              {type: 'doc', id: 'systems/omx/resources/legacy/physical_ai_tools/dataset_preparation/prerequisites', label: 'Prerequisites'},
-              {type: 'doc', id: 'systems/omx/resources/legacy/physical_ai_tools/dataset_preparation/recording', label: 'Recording'},
-              {type: 'doc', id: 'systems/omx/resources/legacy/physical_ai_tools/dataset_preparation/visualization', label: 'Visualization'},
-            ],
-          },
-          {type: 'doc', id: 'systems/omx/resources/legacy/physical_ai_tools/model_training', label: 'Model Training', key: 'physical-ai-tools-model-training'},
-          {type: 'doc', id: 'systems/omx/resources/legacy/physical_ai_tools/model_inference', label: 'Model Inference', key: 'physical-ai-tools-model-inference'},
-          {type: 'doc', id: 'systems/omx/resources/legacy/physical_ai_tools/data_tools', label: 'Data Tools', key: 'physical-ai-tools-data-tools'},
+          {type: 'doc', id: 'systems/omx/quick_start_guide/operation_guide/cyclo_manager/install', label: 'Install'},
+          {type: 'doc', id: 'systems/omx/quick_start_guide/operation_guide/cyclo_manager/bringup', label: 'Bringup'},
+          {type: 'doc', id: 'systems/omx/quick_start_guide/operation_guide/cyclo_manager/manage_container', label: 'Manage Containers'},
+          {type: 'doc', id: 'systems/omx/quick_start_guide/operation_guide/cyclo_manager/version_update', label: 'Version Update'},
+          {type: 'doc', id: 'systems/omx/quick_start_guide/operation_guide/cyclo_manager/novnc', label: 'noVNC'},
         ],
       },
-    ],
-  },
-  {
-    type: 'category',
-    label: 'Simulation',
-    collapsed: false,
-    items: [
-      {type: 'doc', id: 'systems/omx/simulation/simulation', label: 'Overview', key: 'simulation-overview'},
-      {type: 'doc', id: 'systems/omx/simulation/gazebo', label: 'Gazebo'},
-    ],
-  },
-  {
-    type: 'category',
-    label: 'Advanced Features',
-    collapsed: false,
-    items: [
-      {type: 'doc', id: 'systems/omx/advanced_features/advanced_features', label: 'Overview', key: 'advanced-features-overview'},
-      {type: 'doc', id: 'systems/omx/advanced_features/cyclo_control', label: 'Cyclo Control'},
-    ],
-  },
-  {
-    type: 'category',
-    label: 'Resources',
-    collapsed: false,
-    items: [
-      {type: 'doc', id: 'systems/omx/resources/open_source', label: 'Open Source'},
-      {type: 'doc', id: 'systems/omx/resources/release_notes', label: 'Release Notes'},
+      // The Gazebo steps are the last part of this page.
+      {type: 'doc', id: 'systems/omx/simulation/simulation', label: 'In a Simulator'},
     ],
   },
   {
     type: 'category',
     label: 'Support',
-    collapsed: false,
+    collapsible: false,
+    className: 'omx-sidebar-title',
     items: [
-      {type: 'link', label: 'Discord Server', href: 'https://discord.gg/robotis'},
+      // The release notes are on Discord. Their page only links there. The FAQ page is not listed: the questions
+      // often asked on Discord are cards on the Troubleshooting page.
+      // The pages under support/troubleshooting/ are not in the menu: the Troubleshooting page lists them.
+      {type: 'doc', id: 'systems/omx/support/troubleshooting', label: 'Troubleshooting'},
+      {type: 'doc', id: 'systems/omx/resources/release_notes', label: 'Release Notes'},
+      {type: 'doc', id: 'systems/omx/resources/open_source', label: 'Open Source'},
+      {type: 'link', label: 'Discord', href: 'https://discord.gg/robotis'},
       {type: 'doc', id: 'systems/omx/support/issues', label: 'Issues'},
-      {type: 'doc', id: 'systems/omx/support/faq', label: 'FAQ'},
       {type: 'doc', id: 'systems/omx/support/contact_us', label: 'Contact Us'},
     ],
   },

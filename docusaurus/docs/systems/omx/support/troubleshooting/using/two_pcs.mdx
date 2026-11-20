@@ -1,0 +1,13 @@
+---
+title: Can the Leader and the Follower Be on Two PCs?
+description: Yes, if both PCs are on the same network and their ROS 2 topics reach each other.
+displayed_sidebar: omxSidebar
+---
+
+[← All troubleshooting guides](/docs/systems/omx/support/troubleshooting)
+
+# Can the Leader and the Follower Be on Two PCs?
+
+Yes. Connect both PCs to the same network, and use the same `ROS_DOMAIN_ID` on both. If the ROS 2 topics of one PC reach the other, the leader on one PC moves the follower on the other. For example, the follower can run on a Raspberry Pi.
+
+The Quick Start Guide uses one PC. How the programs talk to each other is in [Middleware](/docs/systems/omx/specifications/software#middleware), in Software Specifications.

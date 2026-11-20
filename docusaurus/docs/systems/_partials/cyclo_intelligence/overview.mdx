@@ -1,6 +1,15 @@
+import SectionCard from '@site/src/components/SectionCard';
+
+export const Boxed = ({when, children}) =>
+  // A SectionCard box only when the page passes sectionCards. Without it nothing is added,
+  // so the pages that do not pass it look the same as before.
+  when ? <SectionCard>{children}</SectionCard> : <>{children}</>;
+
 **Cyclo Intelligence** is a Physical AI workflow system for collecting robot demonstrations, preparing datasets, training policies, and running model inference from a web UI.
 
 It can be used with AI Worker, OMY, OMX, and other ROS 2 robots that provide the required robot and camera topics.
+
+<Boxed when={props.sectionCards}>
 
 ## Workflow
 
@@ -8,11 +17,19 @@ Cyclo Intelligence follows the same end-to-end imitation learning flow: set up t
 
 <img src="/img/systems/_partials/cyclo_intelligence/cyclo_intelligence_workflow.svg" alt="Cyclo Intelligence workflow from setup to data recording, data tools, model training guide, and model inference" style={{width: '100%'}} />
 
+</Boxed>
+
+<Boxed when={props.sectionCards}>
+
 ## Tutorial Videos: End-to-End Imitation Learning Workflow
 
 The videos illustrate the full imitation learning workflow using the AI Worker, including teleoperation, dataset creation, and real-time inference with a trained model:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/xOyVGEDR5VY" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowFullScreen></iframe>
+
+</Boxed>
+
+<Boxed when={props.sectionCards}>
 
 ## Main Components
 
@@ -20,3 +37,5 @@ The videos illustrate the full imitation learning workflow using the AI Worker, 
 | --- | --- |
 | Cyclo Data | Dataset recording, episode review, dataset editing, LeRobot conversion, and Hugging Face dataset operations. |
 | Cyclo Brain | Policy backend control, model loading, and robot inference runtime. |
+
+</Boxed>
