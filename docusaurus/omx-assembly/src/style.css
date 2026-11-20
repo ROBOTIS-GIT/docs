@@ -1536,6 +1536,37 @@ dialog h2 {
 .official-part-label[hidden] {
   display: none;
 }
+.screw-caution {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 7px 0 1px;
+  padding: 5px 10px 5px 8px;
+  border: 1px solid #f9c4bf;
+  border-radius: 7px;
+  background: #fef3f2;
+  color: #b42318;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+.screw-caution span {
+  text-wrap: balance;
+}
+.screw-caution svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  stroke-width: 2.1;
+}
+.screw-caution[hidden] {
+  display: none;
+}
+@media (max-width: 520px) {
+  .screw-caution {
+    font-size: 12px;
+  }
+}
 
 /* Board selection stays in navigation: the 3D canvas and film panels retain their dimensions. */
 .hardware-picker {
