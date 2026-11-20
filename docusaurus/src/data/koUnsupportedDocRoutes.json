@@ -442,6 +442,7 @@
   "/docs/systems/omx/imitation_learning/setup",
   "/docs/systems/omx/introduction",
   "/docs/systems/omx/quick_start_guide/assembly_guide",
+  "/docs/systems/omx/quick_start_guide/move_omx",
   "/docs/systems/omx/quick_start_guide/operation_guide",
   "/docs/systems/omx/quick_start_guide/operation_guide/cyclo_manager",
   "/docs/systems/omx/quick_start_guide/operation_guide/cyclo_manager/bringup",

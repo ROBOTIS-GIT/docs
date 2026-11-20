@@ -1,0 +1,642 @@
+---
+title: Move OMX
+description: Check Docker and Git, download and start the robot software, connect OMX, set its ports, and move the follower arm with the leader arm.
+hide_title: true
+hide_table_of_contents: true
+pagination_prev: null
+pagination_next: null
+---
+
+import {
+  Card,
+  Caution,
+  Checks,
+  Goal,
+  GuidePage,
+  MarkedOutput,
+  NotGood,
+  Notice,
+  Shot,
+  Shots,
+  StepTab,
+  StepTabs,
+  TerminalMap,
+  TutorialMedia,
+} from '@site/src/components/Tutorial';
+import quickStart from './_quick_start';
+
+<GuidePage guide={quickStart} title="Move OMX">
+
+<StepTabs back={quickStart.pages[0]} next={quickStart.pages[2]}>
+
+<StepTab id="install-the-software" title="Install the software">
+
+<Goal
+  label="A hand holds the leader arm by its two rings and moves it down, closes the gripper and lifts. The follower arm copies each move."
+  src="/img/systems/omx/quick_start_guide/move_omx/move_omx_goal.webm"
+  poster="/img/systems/omx/quick_start_guide/move_omx/move_omx_goal.webp"
+  names={[
+    {text: 'Leader', x: 0.316, y: 0.22},
+    {text: 'Follower', x: 0.665, y: 0.22},
+  ]}
+>
+
+You move the leader arm with your hand, and the follower arm copies every move. This is called **teleoperation**.
+
+You copy and paste, and change one line in two files. You do not write code. You need an assembled OMX with its camera, and a PC with Ubuntu. The last page, [Train and run AI](./train_and_run_ai.mdx), also needs an NVIDIA graphics card.
+
+<Notice>
+
+**OMX also works with LeRobot.** To use OMX directly with the LeRobot workflow instead, follow the [LeRobot Setup Guide](https://huggingface.co/docs/lerobot/omx). The LeRobot workflow does not require the ROS 2 setup on this page.
+
+</Notice>
+
+</Goal>
+
+Check that Docker and Git are on your PC, then download and start the robot software. You do this once.
+
+<Card>
+
+### Prerequisites
+
+| Requirement | Note |
+| :---: | :--- |
+| Docker Engine | Install Docker Engine before starting the OpenMANIPULATOR container. |
+| Git | Used to clone the OpenMANIPULATOR repository. |
+| USB access | The leader and follower OpenRB boards must be visible from the host PC. |
+
+</Card>
+
+<Card>
+
+### A. Check what is there
+
+Open a terminal with **Ctrl + Alt + T**. Copy a box with the button at its top right, paste it into the terminal with **Ctrl + Shift + V**, and press **Enter**.
+
+```bash
+docker compose version
+git --version
+docker run hello-world
+```
+
+Look for these three lines among the others. Your version numbers can be different.
+
+```text
+Docker Compose version v5.3.0
+git version 2.43.0
+Hello from Docker!
+```
+
+All three are there? Go on to part B. If one is missing, install it first. For Docker Engine, use [Docker's guide](https://docs.docker.com/engine/install/ubuntu/).
+
+</Card>
+
+<Card>
+
+### B. Download the robot software
+
+The robot software goes into a folder named `open_manipulator`.
+
+```bash
+cd $HOME
+git clone https://github.com/ROBOTIS-GIT/open_manipulator
+```
+
+</Card>
+
+<Card>
+
+### C. Start the robot container
+
+```bash
+cd $HOME/open_manipulator/docker
+./container.sh start
+```
+
+It asks for your password, then downloads the container and starts it. Wait until you can type again.
+
+</Card>
+
+<Card>
+
+### You should see
+
+<Checks>
+
+- Part A shows all three lines: Docker, Git, and `Hello from Docker!`
+- Part C ends, and you can type again
+
+</Checks>
+
+<NotGood id="install-the-software-fix">
+
+| You see | Do this |
+| --- | --- |
+| `'compose' is not a docker command` | An older Docker from Ubuntu is on the PC. Remove it as in "Uninstall old versions" of [Docker's guide](https://docs.docker.com/engine/install/ubuntu/#uninstall-old-versions). Then install Docker Engine with the same guide. |
+| `permission denied` | Docker does not run without sudo yet. Do [Manage Docker as a non-root user](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user) in Docker's guide. Then log out of Ubuntu, log in again, and do part A again. |
+| `'open_manipulator' already exists` in part B | It was downloaded before. That is fine. Go on to part C. |
+
+</NotGood>
+
+</Card>
+
+<details>
+  <summary>How does it work?</summary>
+
+  Docker runs programs in containers. A container holds a program together with everything that program needs. So the robot software runs on its own Ubuntu 24.04 inside its container, whatever Ubuntu your PC has.
+
+  Git downloads the robot software in part B, and part C starts it in its container. The last thing OMX needs from the PC is USB access, and you check it in the next step.
+
+</details>
+
+</StepTab>
+
+<StepTab id="connect-omx" title="Connect OMX">
+
+Plug in the two arms and the camera. Nothing moves in this step.
+
+<Card>
+
+### Do this
+
+You need three free USB ports. Any of them will do. The picture shows where each cable goes.
+
+<TutorialMedia
+  label="How OMX-AI connects. The leader's board and the follower's board each go to a USB port on the PC with a USB-A to USB-C cable. The 12 V adapter goes into the power board next to the follower."
+  src="/img/systems/omx/quick_start_guide/setup_guide/setup_guide/hardware_setup_OMX_AI.png"
+  shape="free"
+  width={760}
+/>
+
+<Shots small>
+
+<Shot
+  tag="Leader"
+  label="A USB cable goes into the board at the back of the leader arm. Then its other end goes into a USB port on the PC."
+  src="/img/systems/omx/quick_start_guide/move_omx/connect_usb_leader.webm"
+  poster="/img/systems/omx/quick_start_guide/move_omx/connect_usb_leader.webp"
+>
+
+USB cable: into its board, then into the PC.
+
+</Shot>
+
+<Shot
+  tag="Follower"
+  label="The 12 V power plug goes into the small power board next to the follower arm"
+  src="/img/systems/omx/quick_start_guide/move_omx/connect_power.webm"
+  poster="/img/systems/omx/quick_start_guide/move_omx/connect_power.webp"
+>
+
+12 V power adapter: into the wall, then into the small power board.
+
+</Shot>
+
+<Shot
+  tag="Follower"
+  label="A USB cable goes into the board at the back of the follower arm. Then its other end goes into a USB port on the PC."
+  src="/img/systems/omx/quick_start_guide/move_omx/connect_usb_follower.webm"
+  poster="/img/systems/omx/quick_start_guide/move_omx/connect_usb_follower.webp"
+>
+
+USB cable: into its board, then into the PC.
+
+</Shot>
+
+<Shot
+  tag="Camera"
+  label="The camera above the gripper of the follower arm. Then its USB cable goes into a USB port on the PC."
+  src="/img/systems/omx/quick_start_guide/move_omx/connect_camera.webm"
+  poster="/img/systems/omx/quick_start_guide/move_omx/connect_camera.webp"
+>
+
+Its USB cable: into the PC.
+
+</Shot>
+
+</Shots>
+
+Then ask the PC what it can see. In a PC terminal:
+
+```bash
+ls -1 /dev/serial/by-id/ /dev/v4l/by-id/
+```
+
+</Card>
+
+<Card>
+
+### You should see
+
+Two `OpenRB-150` lines, one for each arm, and the camera's lines.
+
+<TutorialMedia
+  label="The terminal after the command. In the two lines that start with usb-ROBOTIS_OpenRB-150, the long number is outlined in red. In the two lines that start with usb-HD_USB_Camera, the camera's name is outlined in red."
+  src="/img/systems/omx/quick_start_guide/move_omx/connect_omx_ls.webp"
+  shape="free"
+  width={702}
+/>
+
+<MarkedOutput note="The parts in red are different on your PC. Each board has its own number, and another camera has another name.">
+{`/dev/serial/by-id/:
+usb-ROBOTIS_OpenRB-150_[[6D5D4B68503059384C2E3120FF05133E]]-if00
+usb-ROBOTIS_OpenRB-150_[[895EBFC8503059384C2E3120FF08031C]]-if00
+
+/dev/v4l/by-id/:
+usb-[[HD_USB_Camera_HD_USB_Camera]]-video-index0
+usb-[[HD_USB_Camera_HD_USB_Camera]]-video-index1`}
+</MarkedOutput>
+
+<NotGood id="connect-omx-fix">
+
+| You see | Do this |
+| --- | --- |
+| Only one `OpenRB-150` line | Most often the follower's 12 V power is off. Check the adapter at the wall and at the follower. |
+| No `OpenRB-150` line, or `No such file or directory` | Push both USB cables in fully, at the arm and at the PC. Use the cables from the OMX box. |
+| No `Camera` line | Unplug the camera's USB cable and plug it in again. If that does not help, try another USB port. |
+| A line is missing and its cable goes through a USB hub | Plug that cable straight into the PC. |
+
+</NotGood>
+
+</Card>
+
+<details>
+  <summary>How does it work?</summary>
+
+  The leader takes its power from the USB cable. The follower's motors need more power, so the follower has its own 12 V adapter. The PC can see the follower only while that power is on.
+
+  The PC talks to each arm through a small board named OpenRB-150. That is the name you see in the terminal.
+
+</details>
+
+</StepTab>
+
+<StepTab id="set-the-ports" title="Set the ports">
+
+Tell the robot software which arm is which. You do this once.
+
+<Card>
+
+### A. Enter the robot container
+
+```bash
+cd $HOME/open_manipulator/docker
+./container.sh enter
+```
+
+The line where you type now starts like this. Your PC's name is different. Use this terminal for parts B and C.
+
+```text
+root@my-pc:~/ros2_ws#
+```
+
+
+</Card>
+
+<Card>
+
+### B. Leader port
+
+Unplug the follower's USB cable from the PC. Only the leader's USB cable stays in. Then check the OpenRB serial ID.
+
+```bash
+ls -al /dev/serial/by-id/
+```
+
+<TutorialMedia
+  label="The terminal lists one board, the leader's. Its name, which starts with usb-ROBOTIS_OpenRB-150 and ends with -if00, is marked in red."
+  src="/img/systems/omx/quick_start_guide/setup_guide/physical_ai_tools/setup_port_name_L.png"
+  shape="free"
+  width={760}
+/>
+
+Select the name marked in red with the mouse, and copy it with **Ctrl + Shift + C**. Then open the leader launch file.
+
+```bash
+sudo nano ~/ros2_ws/src/open_manipulator/open_manipulator_bringup/launch/omx_l_leader_ai.launch.py
+```
+
+Set `port_name` to the leader serial path:
+
+```python
+# omx_l_leader_ai.launch.py
+DeclareLaunchArgument(
+    'port_name',
+    default_value='/dev/serial/by-id/{your_leader_serial_id}',
+    description='Port name for hardware connection.',
+)
+```
+
+In nano:
+
+1. Press **Ctrl + W**, type `port_name`, and press **Enter**. The line below it is the one to change.
+2. Delete the old value between the quotes. Type `/dev/serial/by-id/`, then paste the name with **Ctrl + Shift + V**.
+3. Save with **Ctrl + O**, then **Enter**. Close with **Ctrl + X**.
+
+<TutorialMedia
+  label="A screen recording of part B. The board's name is selected in the terminal and copied. The leader launch file opens in nano, Ctrl + W finds port_name, the old value is deleted, and /dev/serial/by-id/ and the name are put in its place. Ctrl + O saves, and Ctrl + X closes."
+  src="/img/systems/omx/quick_start_guide/move_omx/set_ports_leader.webm"
+  poster="/img/systems/omx/quick_start_guide/move_omx/set_ports_leader.webp"
+  shape="free"
+  width={760}
+  caption={<><strong>Where:</strong> in the robot container, in the terminal from part A. <strong>What:</strong> the leader board's name is copied, put in the leader launch file with nano, and saved.</>}
+/>
+
+
+</Card>
+
+<Card>
+
+### C. Follower port
+
+Unplug the leader's USB cable, and plug the follower's USB cable back in. **The follower's 12 V power must be on**, or the PC cannot see its board. Then check the OpenRB serial ID.
+
+```bash
+ls -al /dev/serial/by-id/
+```
+
+<TutorialMedia
+  label="The terminal lists one board, the follower's. Its name is marked in red."
+  src="/img/systems/omx/quick_start_guide/setup_guide/physical_ai_tools/setup_port_name_F.png"
+  shape="free"
+  width={760}
+/>
+
+Copy the name as in part B. Then open the follower launch file.
+
+```bash
+sudo nano ~/ros2_ws/src/open_manipulator/open_manipulator_bringup/launch/omx_f_follower_ai.launch.py
+```
+
+Set `port_name` to the follower serial path, in the same way as in part B:
+
+```python
+# omx_f_follower_ai.launch.py
+DeclareLaunchArgument(
+    'port_name',
+    default_value='/dev/serial/by-id/{your_follower_serial_id}',
+    description='Port name for hardware connection.',
+)
+```
+
+Then plug the leader's USB cable back in. Type `exit` and press **Enter** to leave the robot container.
+
+
+</Card>
+
+<Card>
+
+### You should see
+
+When both launch files are updated, the port settings should look like this:
+
+<TutorialMedia
+  label="A launch file. The port_name part, marked in red, has /dev/serial/by-id/ followed by the board's name as its default_value."
+  src="/img/systems/omx/quick_start_guide/setup_guide/physical_ai_tools/setup_port_name.png"
+  shape="free"
+  width={760}
+/>
+
+<Checks>
+
+- Each file has the name of its own arm's board
+- The two names are different
+
+</Checks>
+
+<NotGood id="set-the-ports-fix">
+
+| You see | Do this |
+| --- | --- |
+| `No such container` or `is not running` in part A | The container did not start. Do part C of [Install the software](#install-the-software) again. |
+| `./container.sh: No such file or directory` | Paste both lines of part A together. The first line goes to the right folder. |
+| `No such file or directory` after `ls` | The PC sees no board. Push the USB cable in fully. For the follower, its 12 V power must be on too. |
+| Two `OpenRB-150` names after `ls` | Both USB cables are in. Unplug the other arm's cable, then paste the `ls` line again. |
+
+</NotGood>
+
+</Card>
+
+<details>
+  <summary>How does it work?</summary>
+
+  The robot software runs inside a Docker container named `open_manipulator`. A container holds a program together with everything that program needs. `./container.sh enter` opens a terminal inside it.
+
+  Each arm talks to the PC through its OpenRB-150 board, and every board has its own name. Parts B and C save each arm's board name in the file that starts that arm. Then the software always finds the right arm. The container shares the `open_manipulator` folder with your PC, so the change stays.
+
+</details>
+
+</StepTab>
+
+<StepTab id="start-the-arms" title="Start the arms">
+
+Start the robot software. The follower moves to its start pose by itself.
+
+You use two terminals in this step. Leave both open.
+
+<TerminalMap
+  panes={[
+    {name: 'Zenoh', shows: 'Started Zenoh router'},
+    {name: 'The arms', shows: 'The follower moves to its start pose'},
+  ]}
+/>
+
+<Caution>
+
+- The follower moves by itself when the software starts. Keep its reach clear.
+- To stop at any moment: **Ctrl + C** in Terminal 2, or pull the follower's 12 V plug.
+
+</Caution>
+
+<Card>
+
+### A. Fix the arms to the table
+
+Use the clamps from the box, at the edge of the table.
+
+<TutorialMedia
+  label="The leader arm on the left and the follower arm on the right, each fixed to the edge of the table with two clamps. The four clamps are outlined."
+  src="/img/systems/omx/quick_start_guide/move_omx/start_arms_clamps.webp"
+  shape="free"
+  width={640}
+  names={[
+    {text: 'Leader', x: 0.095, y: 0.06},
+    {text: 'Follower', x: 0.595, y: 0.06},
+  ]}
+  boxes={[
+    {x: 0.082, y: 0.563, w: 0.091, h: 0.39},
+    {x: 0.328, y: 0.559, w: 0.103, h: 0.395},
+    {x: 0.569, y: 0.548, w: 0.097, h: 0.413},
+    {x: 0.837, y: 0.548, w: 0.091, h: 0.413},
+  ]}
+/>
+
+
+</Card>
+
+<Card>
+
+### B. Start Zenoh
+
+In a terminal, enter the robot container again, as in [Set the ports](#set-the-ports). This is Terminal 1.
+
+```bash
+cd $HOME/open_manipulator/docker
+./container.sh enter
+```
+
+Then start Zenoh.
+
+```bash
+zenohd
+```
+
+It answers with one line. Leave Terminal 1 open. The long id at the end is different every time.
+
+```text
+Started Zenoh router with id d6aa70c54ebfe25205e69d0f90b65924
+```
+
+
+</Card>
+
+<Card>
+
+### C. Start the arms
+
+Open a second terminal with **Ctrl + Alt + T**. This is Terminal 2. Enter the robot container there too.
+
+```bash
+cd $HOME/open_manipulator/docker
+./container.sh enter
+```
+
+<Caution>
+
+After you paste the next line, the follower moves to its start pose for about 10 seconds. Then it goes at once to the shape the leader is in.
+
+While it moves, **fold the leader into the same shape and hold it there.**
+
+</Caution>
+
+<TutorialMedia
+  label="Seen from above, after the line below is pasted. A hand holds the leader on the left still, folded. The follower on the right moves by itself, then stops in the same shape as the leader."
+  src="/img/systems/omx/quick_start_guide/move_omx/start_arms_hold_leader.webm"
+  poster="/img/systems/omx/quick_start_guide/move_omx/start_arms_hold_leader.webp"
+  shape="free"
+  width={560}
+/>
+
+```bash
+ros2 launch open_manipulator_bringup omx_ai.launch.py
+```
+
+
+</Card>
+
+<Card>
+
+### You should see
+
+<Checks>
+
+- The follower moved to its start pose by itself
+- Then it took the shape of the leader
+
+</Checks>
+
+<NotGood id="start-the-arms-fix">
+
+| You see | Do this |
+| --- | --- |
+| `Unable to connect to a Zenoh router` in Terminal 2 | Terminal 1 is not running. Press **Ctrl + C** in Terminal 2, then do parts B and C. |
+| `Error opening serial port!` | The PC cannot find an arm. Check both USB cables and the follower's 12 V power, as in [Connect OMX](#connect-omx). |
+| `There is no status packet!` | Check the follower's 12 V power. If it is on, the arms may be swapped: do [Set the ports](#set-the-ports) again. |
+
+</NotGood>
+
+</Card>
+
+<details>
+  <summary>How does it work?</summary>
+
+  Zenoh lets the robot's programs talk to each other.
+
+  Both programs run inside the robot container, so you enter the container in each new terminal.
+
+</details>
+
+</StepTab>
+
+<StepTab id="move-the-leader-arm" title="Move the leader arm">
+
+Move the leader arm. The follower copies you.
+
+<Caution>
+
+- To stop at any moment: **Ctrl + C** in Terminal 2, or pull the follower's 12 V plug.
+
+</Caution>
+
+<Card>
+
+### Do this
+
+Move the leader slowly. Squeeze the finger loop on its handle to close the gripper.
+
+
+</Card>
+
+<Card>
+
+### You should see
+
+<TutorialMedia
+  label="A hand moves the leader arm, and the follower arm copies each move"
+  src="/img/systems/omx/quick_start_guide/operation_guide/ai_teleop.gif"
+  width={560}
+/>
+
+<Checks>
+
+- The follower copies the leader
+- The gripper closes when you squeeze the finger loop
+
+</Checks>
+
+<NotGood id="move-the-leader-arm-fix">
+
+| You see | Do this |
+| --- | --- |
+| The follower reached its start pose but does not copy | Press **Ctrl + C** in Terminal 2. Check the leader's USB cable. Then do [Set the ports](#set-the-ports) again. |
+
+</NotGood>
+
+</Card>
+
+<Card>
+
+### Then stop
+
+<Caution>
+
+Lower the follower's gripper onto the table first. The follower goes limp when the software stops.
+
+</Caution>
+
+Press **Ctrl + C** in Terminal 2, then in Terminal 1. Lines with `ERROR` at the very end are normal.
+
+</Card>
+
+<details>
+  <summary>How does it work?</summary>
+
+  The leader's arm motors are switched off, so your hand can move them. They only measure their angles, 100 times a second. The follower's motors go to the same angles right away. That is why the follower copies you, and why it jumps if the two arms start in different shapes.
+
+</details>
+
+</StepTab>
+
+</StepTabs>
+
+</GuidePage>
