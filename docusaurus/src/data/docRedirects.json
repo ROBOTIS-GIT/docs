@@ -158,5 +158,34 @@
   "/docs/systems/aiworker/resources/release_notes": "/docs/systems/aiworker/support/release_notes",
   "/docs/systems/omx/advanced_features": "/docs/systems/omx/advanced_features/cyclo_control",
   "/docs/systems/omx/simulation/gazebo": "/docs/systems/omx/simulation#getting-started-with-gazebo",
-  "/docs/systems/omx/specifications/zenoh_communication": "/docs/systems/omx/specifications/software#middleware"
+  "/docs/systems/omx/specifications/zenoh_communication": "/docs/systems/omx/specifications/software#middleware",
+  "/docs/systems/omx/quick_start_guide/setup_guide": {
+    "to": "/docs/systems/omx/quick_start_guide/move_omx",
+    "anchors": {
+      "hardware-setup": "connect-omx",
+      "omx-f": "connect-omx",
+      "omx-l": "connect-omx",
+      "omx-ai": "connect-omx"
+    }
+  },
+  "/docs/systems/omx/quick_start_guide/setup_guide/ros2_setup": {
+    "to": "/docs/systems/omx/quick_start_guide/move_omx#install-the-software",
+    "anchors": {
+      "prerequisites": "install-the-software",
+      "openmanipulator-docker-container": "install-the-software",
+      "leader-and-follower-port-setup": "set-the-ports",
+      "leader-port": "set-the-ports",
+      "follower-port": "set-the-ports",
+      "next-step": "start-the-arms"
+    }
+  },
+  "/docs/systems/omx/quick_start_guide/operation_guide": "/docs/systems/omx/quick_start_guide/move_omx",
+  "/docs/systems/omx/quick_start_guide/operation_guide/teleoperation": {
+    "to": "/docs/systems/omx/quick_start_guide/move_omx#start-the-arms",
+    "anchors": {
+      "leader-follower-teleoperation": "start-the-arms",
+      "camera-node": "/docs/systems/omx/quick_start_guide/train_and_run_ai#check-what-omx-sees",
+      "follower-bringup-for-inference": "/docs/systems/omx/quick_start_guide/train_and_run_ai#run-omx-on-its-own"
+    }
+  }
 }
