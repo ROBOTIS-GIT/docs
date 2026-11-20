@@ -1,3 +1,5 @@
+import SectionCard from '@site/src/components/SectionCard';
+
 # Software Overview
 
 **OMX** is a 5-DOF robotic manipulator designed for real-world **Physical AI** research.  
@@ -14,6 +16,8 @@ This system is designed for:
 
 OMX provides an efficient and compact platform for Physical AI research in both academic and industrial environments.
 
+<SectionCard>
+
 ## System Architecture
 :::info
  The diagram below illustrates the overall control structure of OMX.
@@ -29,6 +33,10 @@ OMX provides an efficient and compact platform for Physical AI research in both 
 | **Actuators** | DYNAMIXEL-X series | servo via TTL |
 | **Communication** | TTL | Dynamixel Protocol 2.0 |
 
+</SectionCard>
+
+<SectionCard>
+
 ## Why `ros2_control`?
 
 OMX uses `ros2_control` for modular, real-time control of its joints.
@@ -38,6 +46,10 @@ OMX uses `ros2_control` for modular, real-time control of its joints.
 - Integrates easily with teleop, GUI, and AI-based trajectory sources
 
 This makes it easy to switch between manual, scripted, or learned motion strategies.
+
+</SectionCard>
+
+<SectionCard>
 
 ## Motion Execution Pipeline
 
@@ -57,6 +69,10 @@ TTL Bus
 DYNAMIXEL-X Actuators
 ```
 
+</SectionCard>
+
+<SectionCard>
+
 ## Controller Configuration & Joint Mapping
 
 | Controller                | Segment             | DOF | Input Topic                                    |
@@ -68,6 +84,10 @@ DYNAMIXEL-X Actuators
  In AI TELEOPERATION mode, the number of joints in the Arm Controller becomes `6`.
 :::
 - The gripper operates in **current-based position mode**; all other actuators operate in **position mode** by default.
+
+</SectionCard>
+
+<SectionCard>
 
 ## Controller YAML Example ([link](https://github.com/ROBOTIS-GIT/open_manipulator/blob/main/open_manipulator_bringup/config/omx_f_follower_ai/hardware_controller_manager.yaml))
 
@@ -106,6 +126,10 @@ DYNAMIXEL-X Actuators
       allow_partial_joints_goal: true
 ```
 
+</SectionCard>
+
+<SectionCard>
+
 ## Debugging & Visualization Tools
 
 | Tool / Topic | Description |
@@ -114,11 +138,19 @@ DYNAMIXEL-X Actuators
 | `ros2 topic echo /joint_states` | Monitor joint position/velocity |
 | Rviz2 | 3D view of robot model (URDF), TF, and movement |
 
+</SectionCard>
+
+<SectionCard>
+
 ## Safety & Limits
 
 - Joint limits are defined in the URDF and enforced at the controller layer
 - Velocity/position clamping can be configured per joint
 - Communication errors are detected by the Dynamixel hardware interface
+
+</SectionCard>
+
+<SectionCard>
 
 ## Middleware
 
@@ -236,3 +268,5 @@ docker restart open_manipulator
 ```
 
 If you use cyclo intelligence, you also need to update `RMW_IMPLEMENTATION` in `~/.bashrc` inside the cyclo intelligence container.
+
+</SectionCard>

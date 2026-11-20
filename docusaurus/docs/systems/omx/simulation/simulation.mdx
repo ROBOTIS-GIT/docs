@@ -1,7 +1,15 @@
+import SectionCard from '@site/src/components/SectionCard';
+
 # Simulation
+
+<SectionCard>
 
 ## Overview
 The OMX simulation environment is designed to test and validate robot functionalities in a controlled virtual setting. This allows for comprehensive evaluation of its capabilities across a variety of tasks before deployment on the physical hardware. The simulation ecosystem leverages industry-standard tools including ROS 2 providing diverse options for development and research.
+
+</SectionCard>
+
+<SectionCard>
 
 ## Available Simulation Models and Environments
 
@@ -28,6 +36,10 @@ For seamless integration with the ROS ecosystem, a URDF (Unified Robot Descripti
 *   **Purpose**: General robotics simulation, ROS-based algorithm testing, visualization.
 *   **Link**: [OMX URDF on GitHub](https://github.com/ROBOTIS-GIT/open_manipulator/tree/main/open_manipulator_description/urdf)
 
+</SectionCard>
+
+<SectionCard>
+
 ## Getting Started with Gazebo
 
 ### Overview
@@ -37,6 +49,7 @@ You can launch Gazebo and RViz individually, or launch RViz together with the ph
 
 Refer to [Install the software](/docs/systems/omx/quick_start_guide/move_omx#install-the-software) in Move OMX to configure the Open Manipulator Docker Container environment.
 
+
 ### 2. Enable GUI Access
 
 Open a new terminal and run the following command:
@@ -44,6 +57,7 @@ Open a new terminal and run the following command:
 ```bash
 xhost +
 ```
+
 
 ### 3. Access the Running Container
 
@@ -68,12 +82,16 @@ Launch the simulation environment using:
 ros2 launch open_manipulator_bringup omx_f_gazebo.launch.py
 ```
 
+
 ### 5. Run MoveIt and GUI in Simulation
 
 Refer to [With MoveIt 2, GUI or Keyboard](/docs/systems/omx/quick_start_guide/operation_guide/robot_control) to control the robot within the Gazebo environment.
+
 
 ### Simulation Views
 
 #### OMX_F
 
 ![OMX F Simulation](/img/systems/omx/simulation/gazebo/omx_f_gazebo.png)
+
+</SectionCard>

@@ -1,3 +1,5 @@
+import SectionCard from '@site/src/components/SectionCard';
+
 # Cyclo Control
 
 This guide shows how to run the Cyclo Control from [`cyclo_control`](https://github.com/ROBOTIS-GIT/cyclo_control) on OMX.
@@ -11,6 +13,8 @@ Its QP(Quadratic Programming)-based controller is especially useful because it d
 :::danger
 ⚠️ The controller only provides self-collision avoidance, and it is not guaranteed in all situations. Always operate the robot carefully and avoid fast or sudden movements.
 :::
+
+<SectionCard>
 
 ## Advanced Features
 
@@ -30,10 +34,18 @@ Cyclo Control is the software layer that turns easier robot commands, such as ta
 
 On OMX, this is especially helpful when you want motion that is easier to command than raw low-level control, but still filtered through the controller's safety-aware optimization.
 
+</SectionCard>
+
+<SectionCard>
+
 ## Supported Controllers
 
 - `controller_type:=movel`**(Default)**: Generates interpolated arm motion from the current hand pose to the requested goal pose.
 - `controller_type:=movej`: Generates interpolated arm motion from the current joint configuration to the requested joint goal.
+
+</SectionCard>
+
+<SectionCard>
 
 ## Understanding `MoveL` and `MoveJ`
 
@@ -45,11 +57,19 @@ On OMX, this is especially helpful when you want motion that is easier to comman
 
 This is different from a simple pose or joint command that only describes the desired target state. `MoveL` and `MoveJ` are higher-level motion commands because they also imply a transition from the current state to the goal, including how long that transition should take.
 
+</SectionCard>
+
+<SectionCard>
+
 ## Prerequisites
 
 - Complete the hardware and software steps in the **Setup Guide**.
 - In the default open_manipulator Docker container environment, clone [`cyclo_control`](https://github.com/ROBOTIS-GIT/cyclo_control) into `~/ros2_ws/src`, then follow the installation steps in the README.
 - Ensure OMX is on a stable surface with enough clearance for arm motion.
+
+</SectionCard>
+
+<SectionCard>
 
 ## Bring Up OMX
 
@@ -62,6 +82,10 @@ ros2 launch open_manipulator_bringup omx_f_follower_ai.launch.py
 ```
 
 Keep that terminal running. Open a new terminal for the motion controller commands below.
+
+</SectionCard>
+
+<SectionCard>
 
 ## Launch MoveL Controller
 
@@ -120,6 +144,10 @@ ros2 topic pub --once /omx_movel_controller/movel robotis_interfaces/msg/MoveL "
 
 ![movel_control](/img/systems/omx/advanced_features/cyclo_control/omx_f_movel_control.gif)
 
+</SectionCard>
+
+<SectionCard>
+
 ## Launch MoveJ Controller
 
 This controller is used to execute a joint-space target command.
@@ -148,6 +176,10 @@ The controller interpolates from the current joint state to the requested joint 
 
 ![movej_control](/img/systems/omx/advanced_features/cyclo_control/omx_movej.gif)
 
+</SectionCard>
+
+<SectionCard>
+
 ## Launch Arguments
 
 - `controller_type`: Selects `movej` or `movel`. Default: `movel`.
@@ -158,6 +190,10 @@ The controller interpolates from the current joint state to the requested joint 
 - `marker_goal_topic`: `MoveL` topic published by the interactive marker. Default: `/omx_movel_controller/movel`.
 - `marker_scale`: Marker size in RViz.
 - `urdf_path` and `srdf_path`: Override the OMX robot model files.
+
+</SectionCard>
+
+<SectionCard>
 
 ## Key Topics
 
@@ -176,11 +212,19 @@ The controller interpolates from the current joint state to the requested joint 
 
 - `/omx_movej_controller/movej`: Joint-space command topic for `movej`
 
+</SectionCard>
+
+<SectionCard>
+
 ## Troubleshooting
 
 - If the marker does not appear in RViz after setting `start_interactive_marker:=true`, check that the `InteractiveMarkers` display is added and that the `base_frame` is set correctly.(default set to `link0`)
 - If the `movel` controller does not move, check the terminal log to see whether `/joint_states` is updating and whether `MoveL` commands are arriving on `/omx_movel_controller/movel`.
 - If `movej` does not respond, confirm the published joint names match the OMX model joints.
+
+</SectionCard>
+
+<SectionCard>
 
 ## Controller Parameters
 
@@ -220,6 +264,10 @@ The main parameters live in `cyclo_motion_controller_ros/config/omx_config.yaml`
 - `ee_pose_topic`: Published current end-effector pose topic.
 - `controller_error_topic`: Published controller error topic.
 
+</SectionCard>
+
+<SectionCard>
+
 ## Safety and Usage Tips
 
 :::danger
@@ -229,3 +277,5 @@ The main parameters live in `cyclo_motion_controller_ros/config/omx_config.yaml`
 - Keep hands and cables clear before sending marker, `movej`, or `movel` commands.
 - Start with small motions first to confirm the robot model, frames, and topics are configured correctly.
 - Stop the controller immediately with `Ctrl+C` if it is safe to do so and the robot behaves unexpectedly.
+
+</SectionCard>

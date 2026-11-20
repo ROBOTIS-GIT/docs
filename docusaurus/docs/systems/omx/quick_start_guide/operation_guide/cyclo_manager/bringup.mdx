@@ -1,3 +1,5 @@
+import SectionCard from '@site/src/components/SectionCard';
+
 # Bringup the Robot
 
 :::info[RMW_ZENOH NOTIFICATION]
@@ -10,6 +12,8 @@ Use the **System** page in Cyclo Manager to start and stop the OMX robot stack.
 From this page, you can bring up the Zenoh daemon, OMX robot services, and related processes while checking logs and ROS 2 status from the browser.
 
 ![System Page](/img/systems/omx/quick_start_guide/operation_guide/cyclo_manager/system_page.png)
+
+<SectionCard>
 
 ## Bringup the Zenoh Daemon
 
@@ -28,6 +32,10 @@ Click the log icon if you need to inspect daemon logs.
 - The Zenoh daemon runs in the **zenoh-daemon** container, which is created only for the Zenoh daemon.
 - If the Zenoh daemon is running, it keeps running even after you power the robot off and on, unless you stop the **zenoh-daemon** container.
 :::
+
+</SectionCard>
+
+<SectionCard>
 
 ## Bringup OMX
 
@@ -66,6 +74,10 @@ If the model or joint states do not update, check `ROS_DOMAIN_ID`, the robot bri
 
 After bringing up the follower, click the **Leader Bringup** button to bring up the leader and start teleoperating the OMX.
 
+</SectionCard>
+
+<SectionCard>
+
 ## Configure Launch Arguments
 
 Click the gear icon to configure launch arguments before starting a service.
@@ -83,3 +95,5 @@ Common arguments include:
 - **Init Position File**: Selects the YAML file used for the initial position.
 
 Use default values unless you have a specific setup reason to change them.
+
+</SectionCard>

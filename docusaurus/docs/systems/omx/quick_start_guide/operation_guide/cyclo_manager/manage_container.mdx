@@ -1,9 +1,13 @@
+import SectionCard from '@site/src/components/SectionCard';
+
 # Manage Containers
 
 Use container management to check and control Docker containers running on OMX.
 You can start, stop, restart, inspect, and configure containers without connecting to the robot with separate Docker commands.
 
 ![Container Management](/img/systems/omx/quick_start_guide/operation_guide/cyclo_manager/container_management.png)
+
+<SectionCard>
 
 ## Features
 
@@ -14,6 +18,10 @@ You can start, stop, restart, inspect, and configure containers without connecti
 5. Edit **`.bashrc`**.
 6. Review and clean up Docker images.
 
+</SectionCard>
+
+<SectionCard>
+
 ## Clean Up Docker Images
 
 Open Docker image management from the Container Management card when you need to check image usage or free disk space.
@@ -23,6 +31,10 @@ You can delete unused images one by one, or prune dangling images that are no lo
 Images that are still used by a container cannot be deleted from this screen.
 
 ![Image Management](/img/systems/omx/quick_start_guide/operation_guide/cyclo_manager/image_management.png)
+
+</SectionCard>
+
+<SectionCard>
 
 ## Change ROS_DOMAIN_ID
 
@@ -37,6 +49,10 @@ Cyclo Manager is already running, so the new value takes effect only after a res
 Environment variables in the container are managed in the `.bashrc` file.
 :::
 
+</SectionCard>
+
+<SectionCard>
+
 ## Open a Container Terminal
 
 On the Terminal page, select the container where you want to run the command.
@@ -44,3 +60,5 @@ On the Terminal page, select the container where you want to run the command.
 ![Terminal page](/img/systems/omx/quick_start_guide/operation_guide/cyclo_manager/terminal_page.png)
 
 Use a bash terminal to run commands and manage processes inside the container without using SSH to access the container.
+
+</SectionCard>

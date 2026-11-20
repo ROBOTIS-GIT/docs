@@ -1,3 +1,5 @@
+import SectionCard from '@site/src/components/SectionCard';
+
 # Version Update
 
 Use Version Update to update Cyclo Manager and the container agent.
@@ -11,6 +13,8 @@ The Version Management section shows two update targets:
 
 - **Agent Update**: Updates the Cyclo Manager agent inside a managed container. The agent receives service control requests, streams logs, and reports service status to Cyclo Manager.
 - **Cyclo Manager Update**: Updates the Cyclo Manager CLI, API server, and web UI stack. Use this when a new Cyclo Manager release is available.
+
+<SectionCard>
 
 ## Cyclo Manager Update
 
@@ -34,6 +38,10 @@ If the update fails from the web UI, run the update manually on the user PC:
 cyclo-manager update
 ```
 
+</SectionCard>
+
+<SectionCard>
+
 ## Agent Update
 
 Use **Agent Update** when the s6 agent inside a managed container is older than, or not compatible with, the installed Cyclo Manager version.
@@ -44,3 +52,5 @@ Click **Update** to update the in-container agent to a version compatible with t
 The container may restart during the update.
 
 ![Agent Version Update](/img/systems/omx/quick_start_guide/operation_guide/cyclo_manager/agent_version_update.png)
+
+</SectionCard>
