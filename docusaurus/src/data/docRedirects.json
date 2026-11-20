@@ -155,5 +155,8 @@
   "/docs/systems/aiworker/autonomy_studio/mission_canvas/navigation": "/docs/systems/aiworker/advanced_features/autonomy_studio/mission_canvas/navigation",
   "/docs/systems/aiworker/autonomy_studio/mission_canvas/mission": "/docs/systems/aiworker/advanced_features/autonomy_studio/mission_canvas/mission",
   "/docs/systems/aiworker/resources/open_source": "/docs/systems/aiworker/support/open_source",
-  "/docs/systems/aiworker/resources/release_notes": "/docs/systems/aiworker/support/release_notes"
+  "/docs/systems/aiworker/resources/release_notes": "/docs/systems/aiworker/support/release_notes",
+  "/docs/systems/omx/advanced_features": "/docs/systems/omx/advanced_features/cyclo_control",
+  "/docs/systems/omx/simulation/gazebo": "/docs/systems/omx/simulation#getting-started-with-gazebo",
+  "/docs/systems/omx/specifications/zenoh_communication": "/docs/systems/omx/specifications/software#middleware"
 }

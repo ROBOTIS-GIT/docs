@@ -25,6 +25,7 @@ function visit(dir) {
   }
 }
 visit(path.join(root, 'systems/aiworker'));
+visit(path.join(root, 'systems/omx'));
 visit(path.join(root, 'software/cyclo'));
 visit(path.join(root, 'common'));
 
