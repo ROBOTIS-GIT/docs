@@ -1,0 +1,1020 @@
+---
+title: Train and run AI
+description: A quick, easy first try of ACT with OMX. Install Cyclo Intelligence, record the task at least 50 times with the leader arm, train ACT on it, and let OMX try the task by itself.
+hide_title: true
+hide_table_of_contents: true
+pagination_prev: null
+pagination_next: null
+---
+
+import {
+  Card,
+  Caution,
+  Checks,
+  Clicks,
+  Goal,
+  GoFurther,
+  GuidePage,
+  MediaRow,
+  NotGood,
+  OnlyIf,
+  ScreenshotBox,
+  Shot,
+  Shots,
+  StepTab,
+  StepTabs,
+  TerminalMap,
+  TutorialMedia,
+} from '@site/src/components/Tutorial';
+import quickStart from './_quick_start';
+
+<GuidePage guide={quickStart} title="Train and run AI">
+
+<StepTabs back={quickStart.pages[1]} next={{title: 'Cyclo Intelligence', to: '/docs/systems/omx/imitation_learning'}}>
+
+<StepTab id="try-act" tag="Get ready" title="Try ACT" label="Try ACT">
+
+<Goal
+  heading="The goal of this page: Stack one box on the other with ACT"
+  label="One of our runs. The follower arm picks up one box and puts it on the other by itself. No hand is on the leader arm."
+  src="/img/systems/omx/quick_start_guide/train_and_run_ai/train_result.webm"
+  poster="/img/systems/omx/quick_start_guide/train_and_run_ai/train_result.webp"
+  shape="free"
+  width={820}
+  below={
+    <MediaRow
+      label="Requirements"
+      boxed
+      note={<>
+        <strong>The boxes do not have to be OpenRB-150 boxes.</strong> You can use other boxes of a similar size.
+        Still, we recommend the OpenRB-150 boxes for your first try, because this guide uses them in every step and
+        picture. Two of them come with every OMX, so you can practice without preparing anything extra.
+      </>}
+    >
+      <TutorialMedia
+        label="OMX: the leader arm and the follower arm with its camera."
+        src="/img/systems/omx/quick_start_guide/train_and_run_ai/train_omx.webp"
+        shape="free"
+        names={[{text: 'OMX with camera frame', x: 0.5, y: 0.08}]}
+      />
+      <TutorialMedia
+        label="Two OpenRB-150 boxes floating and turning. They come with OMX."
+        src="/img/systems/omx/quick_start_guide/train_and_run_ai/train_boxes_spin.webm"
+        poster="/img/systems/omx/quick_start_guide/train_and_run_ai/train_boxes_spin.webp"
+        shape="free"
+        names={[{text: 'OpenRB box ×2', x: 0.5, y: 0.08}]}
+      />
+    </MediaRow>
+  }
+>
+
+You show OMX a task at least 50 times with the leader arm. ACT learns from your tries, and then OMX tries the task by itself.
+
+The clip shows one of our runs that worked. Your result can be different: it depends on your tries, the camera and the light.
+
+This is imitation learning with ACT, done once with Cyclo Intelligence. Start after [Move OMX](./move_omx.mdx).
+
+</Goal>
+
+This page is a quick, easy first try of ACT. You train one ACT model on your own tries, and OMX runs it.
+
+<Card>
+
+### What is ACT?
+
+ACT is an imitation learning model. It looks at the camera picture and the arm's angles, and plans the next moves in the way your tries showed it.
+
+The Cyclo Intelligence manual suggests ACT for a first dataset. It is small, and it learns on the one graphics card in your PC.
+
+</Card>
+
+</StepTab>
+
+<StepTab id="install-cyclo-intelligence" title="Install Cyclo Intelligence" label="Install Cyclo">
+
+Cyclo Intelligence records what you show OMX, and later runs the AI model. You install it once.
+
+<Card>
+
+### A. Install
+
+In a PC terminal:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/ROBOTIS-GIT/cyclo_intelligence/main/install.sh | bash
+```
+
+
+</Card>
+
+<Card>
+
+### B. Start it and enter its container
+
+```bash
+cd ~/cyclo_intelligence
+./docker/container.sh start
+./docker/container.sh enter
+```
+
+It downloads Cyclo Intelligence, then opens a terminal inside its container. Wait until you can type again. If it asks for your password, type it.
+
+
+</Card>
+
+<Card>
+
+### C. Check the Zenoh setting
+
+In the Cyclo container:
+
+```bash
+grep ZENOH_CONFIG_OVERRIDE ~/.bashrc
+```
+
+
+</Card>
+
+<Card>
+
+### You should see
+
+The first line: the setting is there. The second line starts with # and does nothing. That is fine.
+
+```text
+export ZENOH_CONFIG_OVERRIDE='transport/shared_memory/enabled=true'
+# export ZENOH_CONFIG_OVERRIDE='transport/shared_memory/enabled=true;mode="client";connect/endpoints=["tcp/192.168.60.139:7447"]'
+```
+
+Then type `exit` and press **Enter** to leave the container.
+
+<NotGood id="install-cyclo-intelligence-fix">
+
+| You see | Do this |
+| --- | --- |
+| `curl: command not found` | Paste `sudo apt install curl`, then do part A again. |
+| `Refusing to modify an existing Cyclo checkout` | It was downloaded before. Update it instead: paste `cd ~/cyclo_intelligence && git pull && git submodule update --init --recursive`. Then do part B. |
+| `no space left on device` | Free some disk space. Then do part B again. |
+| No line in part C | Paste <code>echo "export ZENOH_CONFIG_OVERRIDE='transport/shared_memory/enabled=true'" >> ~/.bashrc</code>, then `source ~/.bashrc`. |
+
+</NotGood>
+
+</Card>
+
+<details>
+  <summary>How does it work?</summary>
+
+  Cyclo Intelligence runs in its own Docker container, next to the robot software. You use it through a web page, which opens in the next step.
+
+  The Zenoh setting lets Cyclo Intelligence talk to the robot's programs on this PC. The container comes with it, and part C only checks it.
+
+  These are the steps of [Cyclo Intelligence Setup](../imitation_learning/setup.mdx). For all its options, see that page.
+
+</details>
+
+</StepTab>
+
+<StepTab id="check-what-omx-sees" title="Check what OMX sees" label="What OMX sees">
+
+Turn everything on and look through OMX's camera. This is how you start OMX from now on.
+
+<Caution>
+
+The follower moves by itself when the arms start. Keep its reach clear.
+
+</Caution>
+
+Use four terminals, in this order. Leave each one open.
+
+<TerminalMap
+  panes={[
+    {name: 'Zenoh', shows: 'Started Zenoh router'},
+    {name: 'The arms', shows: 'The follower moves to its start pose'},
+    {name: 'The camera', shows: 'Timer triggering every 33 ms'},
+    {name: 'Cyclo Intelligence', shows: 'cyclo_data node ready.'},
+  ]}
+/>
+
+<Card>
+
+### Enter the containers
+
+Open four terminals with **Ctrl + Alt + T**. In Terminals 1, 2 and 3, enter the robot container.
+
+```bash
+cd $HOME/open_manipulator/docker
+./container.sh enter
+```
+
+In Terminal 4, enter the Cyclo Intelligence container.
+
+```bash
+cd ~/cyclo_intelligence
+./docker/container.sh enter
+```
+
+
+</Card>
+
+<Card>
+
+### Terminal 1: Zenoh
+
+```bash
+zenohd
+```
+
+
+</Card>
+
+<Card>
+
+### Terminal 2: The arms
+
+Hold the leader folded like the follower's start pose, as in [Start the arms](./move_omx.mdx#start-the-arms). Then paste.
+
+```bash
+ros2 launch open_manipulator_bringup omx_ai.launch.py
+```
+
+
+</Card>
+
+<Card>
+
+### Terminal 3: The camera
+
+```bash
+ros2 launch open_manipulator_bringup camera_usb_cam.launch.py
+```
+
+The last line:
+
+```text
+[usb_cam]: Timer triggering every 33 ms
+```
+
+<OnlyIf id="another-camera" title="Only if your PC has another camera, such as a laptop's own">
+
+The OMX camera may then have another number than `/dev/video0`. Press **Ctrl + C** in Terminal 3, and find its number:
+
+```bash
+v4l2-ctl --list-devices
+```
+
+Under `HD USB Camera`, take the first `/dev/video` line. Then set the camera topic namespace and video device explicitly, with that number in place of `/dev/video0`:
+
+```bash
+ros2 launch open_manipulator_bringup camera_usb_cam.launch.py name:=camera1 video_device:=/dev/video0
+```
+
+Keep `name:=camera1`. Cyclo Intelligence looks for the camera by this name.
+
+</OnlyIf>
+
+
+</Card>
+
+<Card>
+
+### Terminal 4: Cyclo Intelligence
+
+```bash
+cyclo_intelligence
+```
+
+Wait for this line:
+
+```text
+[cyclo_data]: cyclo_data node ready.
+```
+
+
+</Card>
+
+<Card>
+
+### The web page
+
+Open [http://localhost:7080](http://localhost:7080) in your browser. Then click three things.
+
+<ScreenshotBox
+  label="The Cyclo Intelligence home page. Point 1 is the robot type list, point 2 the Set Robot Type button, point 3 Record in the menu on the left."
+  src="/img/systems/omx/quick_start_guide/train_and_run_ai/cyclo_full_home.webp"
+  width={760}
+  marks={[
+    {n: 1, x: 0.534, y: 0.542},
+    {n: 2, x: 0.534, y: 0.61},
+    {n: 3, x: 0.062, y: 0.298},
+  ]}
+>
+
+<Clicks>
+
+1. Choose `omx_f`
+2. **Set Robot Type**
+3. **Record**, in the menu on the left
+
+</Clicks>
+
+</ScreenshotBox>
+
+
+</Card>
+
+<Card>
+
+### You should see
+
+<ScreenshotBox
+  label="The picture from the OMX camera on the Record page of Cyclo Intelligence. The gripper and the table are in view."
+  src="/img/systems/omx/quick_start_guide/train_and_run_ai/cyclo_record_camera.webp"
+  width={760}
+>
+
+<Checks>
+
+- The camera picture is on the page. Wave your hand in front of the camera to be sure
+- Under it, **Topic Monitor** shows four green dots
+
+</Checks>
+
+</ScreenshotBox>
+
+<NotGood id="check-what-omx-sees-fix">
+
+| You see | Do this |
+| --- | --- |
+| No picture, and `Device specified is not available` in Terminal 3 | Unplug the camera's USB cable and plug it in again. Press **Ctrl + C** in Terminal 3 and paste its line again. |
+| The picture of another camera, such as a laptop's own | Do the box [Only if your PC has another camera](#another-camera), under Terminal 3. |
+| A red dot at `/joint_states` or `/leader/joint_trajectory` | Cyclo Intelligence started before the arms. Press **Ctrl + C** in Terminal 4, paste its line again, reload the page, and choose `omx_f` again. |
+| The page does not open | Terminal 4 is not running. Paste its line. |
+
+</NotGood>
+
+</Card>
+
+<details>
+  <summary>How does it work?</summary>
+
+  Each terminal runs one program inside a container: Zenoh, the arms and the camera in the robot container, and Cyclo Intelligence in its own. Cyclo Intelligence listens to the arms and the camera, so they must be running before it starts.
+
+  To stop, lower the follower's gripper onto the table. Then press **Ctrl + C** in each terminal, from Terminal 4 back to Terminal 1.
+
+  For every part of the Record page, see [Data Recording](../imitation_learning/data_recording.mdx).
+
+</details>
+
+</StepTab>
+
+<StepTab id="record-your-tries" title="Record your tries" label="Record">
+
+With the leader arm, pick up one box and put it on the other, at least 50 times. Cyclo Intelligence records every try, and the AI learns from them.
+
+Everything from [Check what OMX sees](#check-what-omx-sees) must still be running: four terminals and the **Record** page.
+
+<Card>
+
+### A. Set the table
+
+Set the two boxes and OMX as in the picture. Do not move the arms or the camera after this.
+
+<TutorialMedia
+  label="The table from above, at the start of a try. Point 1 is the two OpenRB-150 boxes, each outlined. Point 2 is the follower arm on its base, outlined."
+  src="/img/systems/omx/quick_start_guide/train_and_run_ai/train_table.webp"
+  shape="free"
+  width={620}
+  marks={[
+    {n: 1, x: 0.443, y: 0.235},
+    {n: 2, x: 0.285, y: 0.79, color: '#2f7cf6'},
+  ]}
+  boxes={[
+    {x: 0.26, y: 0.281, w: 0.108, h: 0.288},
+    {x: 0.518, y: 0.27, w: 0.119, h: 0.288},
+    {x: 0.316, y: 0.585, w: 0.316, h: 0.41, color: '#2f7cf6'},
+  ]}
+/>
+
+<Clicks colors={['', '#2f7cf6']}>
+
+1. **The two boxes.** Put them in the same places every time. Marking their places on the table, for example with tape, is recommended.
+2. **OMX.** Keep it in the same place too, fixed with the clamps.
+
+</Clicks>
+
+<Checks>
+
+- The boxes come into the camera picture on the **Record** page when you move the leader toward them. At the start pose, they do not need to be in it
+- The light stays the same. Close the curtains, or turn on the room lights
+
+</Checks>
+
+
+</Card>
+
+<Card>
+
+### B. Record one try
+
+<ScreenshotBox
+  label="The whole Record page before the first try. The camera picture shows the two boxes, and Topic Monitor shows four green dots. Point 1 is the three task boxes, points 2 and 3 are the Record Start button. The outlined EP number counts the saved tries."
+  src="/img/systems/omx/quick_start_guide/train_and_run_ai/cyclo_full_record.webp"
+  width={760}
+  marks={[
+    {n: 1, x: 0.948, y: 0.27},
+    {n: 2, x: 0.79, y: 0.608},
+    {n: 3, x: 0.96, y: 0.608},
+  ]}
+  boxes={[{x: 0.5815, y: 0.027, w: 0.16, h: 0.071}]}
+>
+
+<Clicks>
+
+1. Fill in the three boxes: `1`, `stack_box`, `Stack one box on the other`
+2. **Record Start**. With the leader, pick up one box and put it on the other. Then put the arm back
+3. **Save Episode**. It is the same button, now green
+
+</Clicks>
+
+The number after **EP** goes up by one.
+
+</ScreenshotBox>
+
+One try, between points 2 and 3, looks like this. The follower copies the leader, picks up one box and puts it on the other.
+
+<TutorialMedia
+  label="A 3D clip of one try. A hand holds the leader arm by its two rings, as in Move OMX. Both arms start almost folded. The hand lifts the leader, takes one box, carries it onto the other box, lets go, and brings the leader back to where it started. The follower arm copies each move and stacks the box."
+  src="/img/systems/omx/quick_start_guide/train_and_run_ai/train_one_try.webm"
+  poster="/img/systems/omx/quick_start_guide/train_and_run_ai/train_one_try.webp"
+  names={[
+    {text: 'Leader', x: 0.39, y: 0.1},
+    {text: 'Follower', x: 0.76, y: 0.1},
+  ]}
+/>
+
+
+</Card>
+
+<Card>
+
+### C. Do it at least 50 times
+
+Repeat points 2 and 3, at least 50 times, which is the start LeRobot suggests. Before each try, put the boxes back in their places.
+
+<Checks>
+
+- Start every try from the same arm pose
+- Pick up the same box every time, and grasp it the same way
+- Hold the leader with one hand and click with the other
+- A try went wrong? Click **Discard Episode** and do it again
+
+</Checks>
+
+
+</Card>
+
+<Card>
+
+### You should see
+
+<Checks>
+
+- The number after **EP** is 50 or more
+
+</Checks>
+
+<NotGood id="record-your-tries-fix">
+
+| You see | Do this |
+| --- | --- |
+| **Record Start** stays grey | Fill in the first two boxes, `1` and `stack_box`. |
+| A red dot in **Topic Monitor** | Something is not running. Do the fix in [Check what OMX sees](#check-what-omx-sees). |
+| The number after **EP** does not go up | The try was not saved. Click **Save Episode** at the end of each try. |
+| No **EP** number on the page | Make the browser window wider. |
+
+</NotGood>
+
+Your tries are saved on the PC, so this is a good place for a break. To go on later, start everything as in [Check what OMX sees](#check-what-omx-sees).
+
+</Card>
+
+<details>
+  <summary>How does it work?</summary>
+
+  Each try is saved as one episode: the camera video, the leader's moves and the follower's moves. The AI later learns to turn what the camera sees into the moves you made, so try to make the same clear move every time.
+
+  For every option of this page, see [Data Recording](../imitation_learning/data_recording.mdx).
+
+</details>
+
+</StepTab>
+
+<StepTab id="train-the-ai-model" need="Needs an NVIDIA GPU" title="Train the AI model" label="Train">
+
+From this step on, the NVIDIA graphics card is needed, so check it first. Then turn your tries into a dataset and train ACT on it. Most of this step is waiting.
+
+<Card>
+
+### A. Check the graphics card
+
+In a PC terminal:
+
+```bash
+nvidia-smi
+docker info | grep -i runtimes
+```
+
+Look for these two lines: your NVIDIA card, and `nvidia` in the `Runtimes` list. Only the left part of the card's line is shown. Your words and numbers can be different.
+
+```text
+|   0  NVIDIA GeForce RTX 4090        Off |
+ Runtimes: runc io.containerd.runc.v2 nvidia
+```
+
+Both lines like this? Go on to part B. If not, open the box below first.
+
+<OnlyIf title={<>Only if part A shows <code>not found</code>, <code>failed</code>, or no <code>nvidia</code></>}>
+
+#### Install the graphics driver
+
+Do this if `nvidia-smi` says `not found` or `failed`. Use these steps from [Ubuntu's guide](https://documentation.ubuntu.com/server/how-to/graphics/install-nvidia-drivers/), not the command the terminal suggests. First bring Ubuntu up to date.
+
+```bash
+sudo apt update && sudo apt upgrade
+```
+
+If it asks `Do you want to continue? [Y/n]`, press **Enter**. Restart the PC. Then install the driver that fits your card.
+
+```bash
+sudo ubuntu-drivers install
+```
+
+Restart the PC again. Then do part A again.
+
+#### Let Docker use the card
+
+Do this if `nvidia` is not in the `Runtimes` line. It installs the NVIDIA Container Toolkit with the commands of [NVIDIA's guide](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html). Paste one box at a time, and wait until you can type again.
+
+```bash
+sudo apt-get update && sudo apt-get install -y --no-install-recommends \
+   ca-certificates \
+   curl \
+   gnupg2
+```
+
+```bash
+curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \
+  && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | \
+    sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
+    sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+```
+
+```bash
+sudo apt-get update
+sudo apt-get install -y nvidia-container-toolkit
+sudo nvidia-ctk runtime configure --runtime=docker
+sudo systemctl restart docker
+```
+
+Then do part A again.
+
+</OnlyIf>
+
+</Card>
+
+<Card>
+
+### B. Make the dataset
+
+<ScreenshotBox
+  label="The Convert Dataset tab of Data Tools, with the task folder typed in. Point 1 is Data Tools in the menu on the left, point 2 the Convert Dataset tab at the top, point 3 the task folder box, point 4 the Convert Dataset button."
+  src="/img/systems/omx/quick_start_guide/train_and_run_ai/cyclo_full_convert.webp"
+  width={760}
+  marks={[
+    {n: 1, x: 0.062, y: 0.43},
+    {n: 2, x: 0.62, y: 0.088},
+    {n: 3, x: 0.12, y: 0.325},
+    {n: 4, x: 0.12, y: 0.601},
+  ]}
+>
+
+<Clicks>
+
+1. **Data Tools**, in the menu on the left
+2. **Convert Dataset**, at the top
+3. Type `Task_1_stack_box_MCAP`
+4. **Convert Dataset**. Wait until it is done
+
+</Clicks>
+
+</ScreenshotBox>
+
+
+</Card>
+
+<Card>
+
+### C. Stop the arms
+
+The arms are not needed while the AI learns.
+
+<Caution>
+
+Lower the follower's gripper onto the table first. The follower goes limp when its program stops.
+
+</Caution>
+
+Press **Ctrl + C** in Terminals 4, 3, 2 and 1.
+
+
+</Card>
+
+<Card>
+
+### D. Start the AI program
+
+Open a new terminal with **Ctrl + Alt + T**, and paste. The first time, this builds the AI program on your PC, which takes a long while. Wait until you can type again.
+
+```bash
+cd ~/cyclo_intelligence
+./docker/container.sh start-lerobot
+```
+
+The first two lines look like this. The first one is normal: the AI program is then built on your PC. Many lines go by after this, and the version number can be different.
+
+```text
+Image robotis/lerobot-zenoh:1.4.2-amd64 failed to resolve reference "docker.io/robotis/lerobot-zenoh:1.4.2-amd64": docker.io/robotis/lerobot-zenoh:1.4.2-amd64: not found
+[container.sh] Starting lerobot (ARCH=amd64)...
+```
+
+When you can type again, ask whether it is running.
+
+```bash
+docker ps --filter name=lerobot_server --format "{{.Names}}: {{.Status}}"
+```
+
+Look for `Up`. The time can be different.
+
+```text
+lerobot_server: Up 1 minute (healthy)
+```
+
+
+</Card>
+
+<Card>
+
+### E. Train
+
+In the same terminal, enter the AI program's container.
+
+```bash
+./docker/container.sh enter-lerobot
+```
+
+Then paste the training command. You do not need to change anything in it.
+
+```bash
+lerobot-train \
+  --dataset.repo_id=local/stack_box \
+  --dataset.root=/workspace/lerobot/Task_1_stack_box_MCAP_lerobot_v30 \
+  --policy.type=act \
+  --policy.chunk_size=50 \
+  --policy.n_action_steps=50 \
+  --policy.device=cuda \
+  --policy.push_to_hub=false \
+  --wandb.enable=false \
+  --batch_size=8 \
+  --steps=60000 \
+  --save_freq=20000 \
+  --output_dir=/workspace/model/lerobot/act_stack_box \
+  --job_name=act_stack_box
+```
+
+Lines with `step:` go by while it learns. Wait until it ends. How long it takes depends on your graphics card.
+
+
+</Card>
+
+<Card>
+
+### You should see
+
+The last line is `End of training`. Your date and time are different.
+
+```text
+INFO 2026-11-12 14:02:11 ot_train.py:651 Checkpoint policy after step 60000
+INFO 2026-11-12 14:02:12 ot_train.py:737 End of training
+```
+
+<NotGood id="train-the-ai-model-fix">
+
+| You see | Do this |
+| --- | --- |
+| `NVIDIA-SMI has failed` after installing the driver | Restart the PC once more. If it stays, see [Ubuntu's guide](https://documentation.ubuntu.com/server/how-to/graphics/install-nvidia-drivers/). |
+| `permission denied`, or no `Runtimes` line | Docker does not run without sudo yet. Do [Manage Docker as a non-root user](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user) in Docker's guide. Then log out of Ubuntu and log in again. |
+| `Could not get lock` | Ubuntu is updating itself. Wait a few minutes, then paste the same lines again. |
+| `No such file or directory` with `lerobot_v30` | The dataset is not there. Do part B again and wait until it is done. |
+| `already exists and resume is False` | You trained before. Paste the training command again with `act_stack_box` changed to `act_stack_box_2`, in both places. |
+| `CUDA out of memory` | Close other programs that use the graphics card, then paste the training command again. |
+| `lerobot_server is not running` | Part D did not finish. Do part D again. |
+| `no space left on device` in part D | The build needs more free disk. Free some, then do part D again. |
+
+</NotGood>
+
+</Card>
+
+<details>
+  <summary>How does it work?</summary>
+
+  The graphics driver lets Ubuntu use the card. The NVIDIA Container Toolkit lets the programs inside Docker use it too. The AI program runs in Docker, so it needs both. Part A has the checks of [Cyclo Intelligence Setup](../imitation_learning/setup.mdx#requirements), and the commands in its box are copied from Ubuntu's and NVIDIA's guides. If they change their commands, their pages linked above have the new ones.
+
+  The model is named ACT. It looks at the camera picture and the arm's angles, and learns which moves you made next. It goes through your tries many times: 60,000 small learning steps.
+
+  The result is saved in `~/cyclo_intelligence/docker/workspace/model/lerobot/act_stack_box`. For other models and settings, see the [Model Training Guide](../imitation_learning/model_training.mdx).
+
+</details>
+
+</StepTab>
+
+<StepTab id="run-omx-on-its-own" need="Needs an NVIDIA GPU" title="Run OMX on its own" label="Run on its own">
+
+Take your hands off. The AI model moves the follower now.
+
+You use the four terminals of [Check what OMX sees](#check-what-omx-sees) again. This time Terminal 2 starts only the follower.
+
+<TerminalMap
+  panes={[
+    {name: 'Zenoh', shows: 'Started Zenoh router'},
+    {name: 'The follower', shows: 'It does not move yet'},
+    {name: 'The camera', shows: 'Timer triggering every 33 ms'},
+    {name: 'Cyclo Intelligence', shows: 'cyclo_data node ready.'},
+  ]}
+/>
+
+<Caution>
+
+- The follower moves by itself, and it can move in ways you do not expect. Keep its reach clear.
+- To stop: click **Stop** on the page, press **Ctrl + C** in Terminal 2, or pull the follower's 12 V plug.
+
+</Caution>
+
+<Card>
+
+### A. Start everything, without the leader
+
+Use Terminals 1 to 4, still inside their containers. If you closed one, open it again and enter its container as in [Check what OMX sees](#check-what-omx-sees). Then paste one line in each, in this order.
+
+In Terminal 1:
+
+```bash
+zenohd
+```
+
+In Terminal 2:
+
+```bash
+ros2 launch open_manipulator_bringup omx_f_follower_ai.launch.py
+```
+
+In Terminal 3:
+
+```bash
+ros2 launch open_manipulator_bringup camera_usb_cam.launch.py
+```
+
+In Terminal 4:
+
+```bash
+cyclo_intelligence
+```
+
+
+</Card>
+
+<Card>
+
+### B. Open the Inference page
+
+Open [http://localhost:7080](http://localhost:7080), choose `omx_f`, click **Set Robot Type**, then click **Inference** on the left.
+
+Copy this line. You paste it at point 3.
+
+```text
+/workspace/model/lerobot/act_stack_box/checkpoints/060000/pretrained_model
+```
+
+</Card>
+
+<Card>
+
+### C. Load the model
+
+<ScreenshotBox
+  label="The Inference page. Point 1 is the Model list, point 2 the ON button of LeRobot Docker, with its state outlined, point 3 the Policy Path box."
+  src="/img/systems/omx/quick_start_guide/train_and_run_ai/cyclo_full_inference_load.webp"
+  width={760}
+  marks={[
+    {n: 1, x: 0.838, y: 0.139},
+    {n: 2, x: 0.77, y: 0.236},
+    {n: 3, x: 0.838, y: 0.538},
+  ]}
+  boxes={[{x: 0.929, y: 0.175, w: 0.051, h: 0.039}]}
+>
+
+<Clicks>
+
+1. **Model**: choose `ACT`
+2. **LeRobot Docker** says `Running`. If it does not, click **ON** and wait
+3. **Policy Path**: paste the line
+
+</Clicks>
+
+</ScreenshotBox>
+
+
+</Card>
+
+<Card>
+
+### D. Try it in the 3D picture first
+
+<Caution>
+
+Always run a new model in the 3D picture before the real arm. If the arm in the picture moves wildly, do not go on. Train again.
+
+</Caution>
+
+<ScreenshotBox
+  label="The Inference page. 3D Sim Deploy and the 3D picture of the arm are outlined. Point 4 is the Start button at the top."
+  src="/img/systems/omx/quick_start_guide/train_and_run_ai/cyclo_full_inference_load.webp"
+  width={760}
+  marks={[{n: 4, x: 0.648, y: 0.063}]}
+  boxes={[
+    {x: 0.7788, y: 0.3629, w: 0.0978, h: 0.056},
+    {x: 0.1769, y: 0.6341, w: 0.2353, h: 0.3499},
+  ]}
+>
+
+<Clicks start={4}>
+
+4. **Start**. With **3D Sim Deploy** chosen (outlined), only the arm in the 3D picture (outlined) moves. Watch it there, then click **Stop**
+
+</Clicks>
+
+</ScreenshotBox>
+
+
+</Card>
+
+<Card>
+
+### E. Run it on the real arm
+
+Put the two boxes in their places, as when you recorded.
+
+<ScreenshotBox
+  label="The Inference page set for the real arm. Point 5 is Real Robot Deploy, point 6 the Enable tick box of Initial Pose Sync, point 7 the Start button."
+  src="/img/systems/omx/quick_start_guide/train_and_run_ai/cyclo_full_inference_real.webp"
+  width={760}
+  marks={[
+    {n: 5, x: 0.876, y: 0.391},
+    {n: 6, x: 0.905, y: 0.69},
+    {n: 7, x: 0.651, y: 0.063},
+  ]}
+>
+
+<Clicks start={5}>
+
+5. **Real Robot Deploy**
+6. **Initial Pose Sync**: tick **Enable**. The arm then goes slowly to its first pose
+7. **Start**. Now the real arm moves. Click **Stop** when it is done
+
+</Clicks>
+
+</ScreenshotBox>
+
+
+</Card>
+
+<Card>
+
+### It can look like this
+
+<TutorialMedia
+  label="One of our runs. The follower arm picks up one box and puts it on the other by itself. No hand is on the leader arm."
+  src="/img/systems/omx/quick_start_guide/train_and_run_ai/train_result.webm"
+  poster="/img/systems/omx/quick_start_guide/train_and_run_ai/train_result.webp"
+  shape="free"
+  width={760}
+/>
+
+<Checks>
+
+- The follower moves by itself, with no hand on the leader
+
+</Checks>
+
+It can stack the box as in the clip, or it can miss. How well it works depends on many things, such as what the camera sees, the light and your tries. To make it better, see [Going further: Make it work better](#make-it-work-better).
+
+<NotGood id="run-omx-on-its-own-fix">
+
+| You see | Do this |
+| --- | --- |
+| **Start** stays grey | The AI program is not running, for example after a restart of the PC. Click **ON** and wait for `Running`, with `Up` under it twice. |
+| `Image missing`, or **ON** does nothing | Do part D of [Train the AI model](#train-the-ai-model) again. |
+| An error about the policy path | Check the line you pasted. If you trained into `act_stack_box_2`, use that name. |
+| The arm shakes, or misses the box most of the time | See [Going further: Make it work better](#make-it-work-better). |
+
+</NotGood>
+
+</Card>
+
+<Card>
+
+### Then stop
+
+<Caution>
+
+Lower the follower's gripper onto the table first. The follower goes limp when its program stops.
+
+</Caution>
+
+Click **Stop** on the page. Then press **Ctrl + C** in Terminals 4, 3, 2 and 1.
+
+</Card>
+
+<details>
+  <summary>How does it work?</summary>
+
+  Many times a second, the model looks at the camera picture and the arm's angles, and plans the next few seconds of moves. With **3D Sim Deploy**, the plan only shows in the 3D picture. With **Real Robot Deploy**, it goes to the motors.
+
+  The model has no "done" signal. It keeps going until you click **Stop**. For every setting on this page, see [Model Inference](../imitation_learning/model_inference.mdx).
+
+</details>
+
+</StepTab>
+
+<StepTab id="make-it-work-better" title="Make it work better" label="Make it better" extra>
+
+This part is for after your first run, if you want OMX to do the task better.
+
+How well imitation learning works depends on many things: what the camera sees, the light and the things around the robot, and how many tries you recorded and how alike they are. A second camera can also help. The camera on the wrist sees only what is in front of the gripper, and LeRobot, which trains the model in this guide, suggests two camera views.
+
+<Card>
+
+### A. What the camera should see
+
+OMX decides each move from the camera picture. So when it runs, the picture should look like it did when you recorded. You should be able to do the task by only looking at the picture. With one camera on the wrist, the picture can show no box at the start: the box should come into it as the gripper moves near.
+
+<Shots>
+  <Shot label="The OMX camera picture with the gripper near the box, and the box in it" src="/img/systems/omx/quick_start_guide/train_and_run_ai/train_further_1.webm" poster="/img/systems/omx/quick_start_guide/train_and_run_ai/train_further_1.webp"><strong>Good:</strong> the box comes into the picture as the gripper moves near.</Shot>
+  <Shot label="The OMX camera picture with the gripper near the box, but no box in it" src="/img/systems/omx/quick_start_guide/train_and_run_ai/train_further_2.webm" poster="/img/systems/omx/quick_start_guide/train_and_run_ai/train_further_2.webp"><strong>Not good:</strong> the box stays out of the picture.</Shot>
+  <Shot label="The OMX camera picture with a hand in it" src="/img/systems/omx/quick_start_guide/train_and_run_ai/train_further_3.webm" poster="/img/systems/omx/quick_start_guide/train_and_run_ai/train_further_3.webp"><strong>Not good:</strong> a hand is in the picture. Only the follower and the box it carries should move in it.</Shot>
+  <Shot label="The OMX camera picture in other light than in the recording" src="/img/systems/omx/quick_start_guide/train_and_run_ai/train_further_4.webm" poster="/img/systems/omx/quick_start_guide/train_and_run_ai/train_further_4.webp"><strong>Not good:</strong> the light is different from when you recorded. Daylight from a window changes during the day.</Shot>
+</Shots>
+
+</Card>
+
+<Card>
+
+### B. Other usual reasons
+
+These are the usual reasons, not all of them. A model can also miss for other reasons, such as how many tries you recorded or how it was trained. They come from the [LeRobot guide](https://huggingface.co/docs/lerobot/en/il_robots#tips-for-gathering-data) and its list of [what makes a good dataset](https://huggingface.co/blog/lerobot-datasets#what-makes-a-good-dataset).
+
+| What went wrong | What to do |
+| --- | --- |
+| The scene changed after you recorded | Run OMX in the same place, with the same things around it, as when you recorded. |
+| Your tries were not alike | Start every try from the same pose, and pick up the same box the same way. Discard odd tries. |
+| The boxes were in too many places | Keep them in the same places at first. Add other places only after it works well, with about 10 tries at each. |
+| The camera shakes | Fix the camera firmly. |
+
+Fix what went wrong. If it was your tries, record them again. Then do [Train the AI model](#train-the-ai-model) and [Run OMX on its own](#run-omx-on-its-own) again.
+
+Still missing? Record more tries, or change how the model trains: see [Model Training](../imitation_learning/model_training.mdx) in the Cyclo Intelligence manual. You can also ask on [Discord](https://discord.gg/robotis).
+
+</Card>
+
+<GoFurther
+  to="/docs/systems/omx/imitation_learning"
+  button="Open the Cyclo Intelligence manual"
+  logo="/img/common/CYCLO_Signature_Horiz.svg"
+  logoAlt="CYCLO"
+>
+
+### Learn more in Cyclo Intelligence
+
+This guide used Cyclo Intelligence in one simple way. Its manual shows the rest, for example:
+
+- Add a second camera: [Data Recording](../imitation_learning/data_recording.mdx#home-page), under **Change Collected Data**
+- Choose the FPS of your dataset: [Data Tools](../imitation_learning/data_tools.mdx#convert-dataset), under **Choosing the FPS**. If you change it, type the same number in **Dataset FPS** on the **Inference** page
+- Try other models: [Model Training](../imitation_learning/model_training.mdx#supported-models), under **Which model should I pick?**
+- Change how the model runs: [Model Inference](../imitation_learning/model_inference.mdx#inference-settings)
+
+</GoFurther>
+
+</StepTab>
+
+</StepTabs>
+
+</GuidePage>
