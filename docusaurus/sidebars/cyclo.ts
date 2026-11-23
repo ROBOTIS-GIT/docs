@@ -16,7 +16,7 @@ const cycloSidebar: SidebarsConfig[string] = [
         type: 'category',
         label: 'Cyclo Intelligence',
         link: {type: 'doc', id: 'software/cyclo/cyclo_intelligence'},
-        collapsed: false,
+        collapsed: true,
         items: [
           {
             type: 'category',
