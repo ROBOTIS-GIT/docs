@@ -4,6 +4,8 @@ import {useLocation} from '@docusaurus/router';
 import useBaseUrl, {useBaseUrlUtils} from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import {useMDXComponents} from '@mdx-js/react';
+import SectionCard from '@site/src/components/SectionCard';
+import Heading from '@theme/Heading';
 import styles from './styles.module.css';
 
 /*
@@ -497,10 +499,10 @@ export function RepairCard() {
 const SetGuideToc = createContext<((toc: ReactNode) => void) | null>(null);
 
 /**
- * Wraps one page of a guide, such as "Move OMX" in the Quick Start Guide:
+ * Wraps one page of a guide, such as "Bringup" in the Quick Start Guide:
  * the title with "Help me, AI!" at its right end, then the page.
  * At the right of the page is a list to jump to, as on the other pages of the site: StepTabs puts its steps there,
- * and under the open step the titles of its boxes (`Card`). Like that list, it shows on wide screens only.
+ * and under the open step the `###` titles of its parts. Like that list, it shows on wide screens only.
  * Put `hide_title: true` and `hide_table_of_contents: true` in the page's front matter,
  * because this part writes the title and the list.
  */
@@ -520,33 +522,22 @@ export function GuidePage({guide, title, children}: {guide: Guide; title: string
 }
 
 /**
- * One set of a step that belongs together, such as part A, in a box like the boxes of the AI Worker pages.
- * Start it with a `###` heading: that is the title of the box, and a line in the list at the right of the page.
- */
-export function Card({children}: {children: ReactNode}) {
-  return (
-    <section className={styles.card} data-card="">
-      {children}
-    </section>
-  );
-}
-
-/**
- * A box that sends the reader on to a bigger manual, such as Cyclo Intelligence, for when this guide is done.
- * Start it with a `###` heading, then a few lines. One button goes to `to`; `logo` is shown at its right.
+ * A part of a step that sends the reader on to a bigger manual, such as Cyclo Intelligence, for when this guide is
+ * done. Start it with a `###` heading, then a few lines. One button goes to `to`; `logo` is shown at its right.
+ * It is a part of the step's box, not a box of its own: on the AI Worker pages a box holds one `##` part.
  */
 export function GoFurther({to, button, logo, logoAlt = '', children}: {to: string; button: string; logo?: string; logoAlt?: string; children: ReactNode}) {
   const logoUrl = useBaseUrl(logo ?? '');
   return (
-    <section className={`${styles.card} ${styles.goFurther}`} data-card="">
+    <>
       {children}
       <div className={styles.goFurtherFoot}>
-        <Link className={styles.goFurtherButton} to={to}>
+        <Link className="button button--primary" to={to}>
           {button} →
         </Link>
         {logo ? <img className={styles.goFurtherLogo} src={logoUrl} alt={logoAlt} /> : null}
       </div>
-    </section>
+    </>
   );
 }
 
@@ -556,8 +547,7 @@ type StepProps = {id: string; title: string; label?: string; tag?: string; extra
  * One step of `StepTabs`. `id` is the end of the address that opens it, such as `connect-omx`.
  * `label` is a shorter name for the bar, when `title` is too long for it. Back and Next say "Step N" (or the tag)
  * and keep `title` as their tooltip.
- * `tag` is a short word shown instead of "Step N", such as "Get ready" for a first part that only says what the page
- * does. A step with a tag has no number, so the steps after it start at 1.
+ * `tag` is a short word shown instead of "Step N". A step with a tag has no number.
  * `extra` is for a part after the last step that the reader does only if they want to, such as making a result
  * better. Its tag is "Going further", and its tab has a dashed line.
  * `need` names what only some steps need, such as "Needs an NVIDIA GPU". Steps next to each other with the same
@@ -577,26 +567,32 @@ export function StepTab({children}: StepProps) {
  * opens that step too, and opens a closed part (such as `OnlyIf`) that holds it.
  * `back` and `next` are the pages before and after this one: the first step's Back and the last step's Next go there.
  * Put `pagination_prev: null` and `pagination_next: null` in the front matter, so Next is the only way on.
- * Each step starts with its number and title. A `Goal` at the start of the first step comes before that title.
- * Inside `GuidePage`, the list at the right of the page shows the steps, and under the open step its boxes (`Card`).
+ * Each step is one box (SectionCard), as each `##` part is one box on the AI Worker pages: the step's number and title
+ * are its `##` title, and everything in the step is inside it, its parts under `###` headings. Nothing of a step is
+ * outside its box. What a page is for and what it needs go in a first step, "Before you begin", with a `Goal`.
+ * `firstNumber` is the number of the first step: 0 when that first step is "Before you begin", so the real work
+ * starts at Step 1.
+ * Inside `GuidePage`, the list at the right of the page shows the steps, and under the open step its `###` titles.
  */
 export function StepTabs({
   back,
   next,
+  firstNumber = 1,
   children,
 }: {
   back?: {title: string; to: string};
   next?: {title: string; to: string};
+  firstNumber?: number;
   children: ReactNode;
 }) {
   const steps = React.Children.toArray(children).filter(
     (child): child is React.ReactElement<StepProps> =>
       React.isValidElement<StepProps>(child) && typeof child.props.id === 'string',
   );
-  // The steps are numbered 1, 2, 3 …; a part with a tag ("Get ready", "Going further") has no number.
+  // The steps are numbered from `firstNumber` (0, 1, 2 … or 1, 2, 3 …); a part with a tag ("Going further") has none.
   const tagOf = (step: React.ReactElement<StepProps>) => step.props.tag ?? (step.props.extra ? 'Going further' : undefined);
-  const stepCount = steps.filter(step => !tagOf(step)).length;
-  const numberOf = (index: number) => steps.slice(0, index + 1).filter(step => !tagOf(step)).length;
+  const lastNumber = steps.filter(step => !tagOf(step)).length - 1 + firstNumber;
+  const numberOf = (index: number) => steps.slice(0, index + 1).filter(step => !tagOf(step)).length - 1 + firstNumber;
   const titleOf = (index: number) => {
     const tag = tagOf(steps[index]);
     return tag ? `${tag}: ${steps[index].props.title}` : `${numberOf(index)}. ${steps[index].props.title}`;
@@ -695,9 +691,9 @@ export function StepTabs({
     show(index, 'top');
   };
 
-  // The title of each box of the open step.
+  // The `###` title of each part of the open step.
   const partHeadings = () =>
-    Array.from(root.current?.querySelectorAll<HTMLElement>(`[data-step="${current}"] [data-card] > h3[id]`) ?? []);
+    Array.from(root.current?.querySelectorAll<HTMLElement>(`[data-step="${current}"] [data-step-box] > h3[id]`) ?? []);
 
   useEffect(() => {
     setParts(
@@ -837,24 +833,13 @@ export function StepTabs({
             <option key={step.props.id} value={index}>
               {tagOf(step)
                 ? `${tagOf(step)}: ${step.props.title}`
-                : `Step ${numberOf(index)} of ${stepCount}: ${step.props.title}`}
+                : `Step ${numberOf(index)} of ${lastNumber}: ${step.props.title}`}
               {step.props.need ? ` (${step.props.need})` : ''}
             </option>
           ))}
         </select>
       </nav>
       {steps.map((step, index) => {
-        // A Goal at the start of a step is about the whole page, so it comes before the step's title.
-        const content = React.Children.toArray(step.props.children);
-        const start = content.findIndex(child => typeof child !== 'string' || child.trim() !== '');
-        const first = content[start];
-        const goal = React.isValidElement(first) && first.type === Goal ? first : null;
-        const body = goal ? content.filter((_, i) => i !== start) : content;
-        // The step's title and what comes before its first Card (what the step is for, a caution) are one box too,
-        // as a title and its text are on the AI Worker pages. A step without a Card is all in this box.
-        const firstCard = body.findIndex(child => React.isValidElement(child) && child.type === Card);
-        const head = firstCard < 0 ? body : body.slice(0, firstCard);
-        const cards = firstCard < 0 ? [] : body.slice(firstCard);
         return (
           <section
             key={step.props.id}
@@ -864,12 +849,11 @@ export function StepTabs({
             hidden={index !== current}
             aria-label={tagOf(step) ? titleOf(index) : `Step ${numberOf(index)}: ${step.props.title}`}
           >
-            {goal}
-            <div className={`${styles.card} ${styles.stepHead}`}>
-              <h2 className={styles.stepTitle}>{titleOf(index)}</h2>
-              {head}
-            </div>
-            {cards}
+            {/* The whole step is one box, with its number and title as the box's ## title. */}
+            <SectionCard data-step-box="">
+              <h2>{titleOf(index)}</h2>
+              {step.props.children}
+            </SectionCard>
             <div className={styles.stepNav}>
               {index > 0 ? (
                 // Back reads like Next: "Back: Step 2", or "Back: Get ready" for a tagged step.
@@ -912,37 +896,42 @@ export function StepTabs({
 }
 
 /**
- * What the reader can do at the end of the page, shown before anything else in its first step:
- * a small line (`heading`), a clip of the result, and one sentence. Put the sentence (and at most one quiet line
- * after it) inside, and give the clip with the same props as TutorialMedia (`label` describes the clip).
- * The clip is centred. `below` goes right under it, before the sentence: for example a `MediaRow` of what the
- * reader needs.
+ * What the reader gets at the end of the page, in the first step ("Before you begin"): a short `###` title (`heading`,
+ * "What You Will Achieve" unless it says otherwise), a clip of the result, and a few sentences if needed. It is one part of the step's box, so its title is in the list at the right
+ * like the other `###` titles; `id` is the end of the address that opens it.
+ * Put the sentence (and at most one quiet line after it) inside, and give the clip with the same props as
+ * TutorialMedia (`label` describes the clip). The clip is centred. `below` goes right under it, before the sentence.
  */
 export function Goal({
-  heading = 'At the end of this page',
+  heading = 'What You Will Achieve',
+  id = 'what-you-will-achieve',
   below,
   children,
   ...media
-}: TutorialMediaItem & {heading?: string; below?: ReactNode; children: ReactNode}) {
+}: TutorialMediaItem & {heading?: string; id?: string; below?: ReactNode; children?: ReactNode}) {
   return (
-    <div className={styles.goal}>
-      <p className={styles.goalLabel}>{heading}</p>
-      <TutorialMedia {...media} />
-      {below ? <div className={styles.goalBelow}>{below}</div> : null}
-      <div className={styles.goalText}>{children}</div>
-    </div>
+    <>
+      <Heading as="h3" id={id}>
+        {heading}
+      </Heading>
+      <div className={styles.goal}>
+        <TutorialMedia {...media} />
+        {below ? <div className={styles.goalBelow}>{below}</div> : null}
+        {children ? <div className={styles.goalText}>{children}</div> : null}
+      </div>
+    </>
   );
 }
 
 /**
  * Pictures or clips side by side in one row, all the same width (one under the other on a phone).
  * Put `TutorialMedia` items inside. A short name on top of each, such as "OMX", goes in its `names`.
- * `label` is a small line over the row. `boxed` draws one thin line round the label and the whole row, for a set
- * that belongs together, such as everything the reader needs.
+ * `label` is a small line over the row. For a set that belongs together, such as everything the reader needs, put a
+ * `###` title over it instead: it is then a part of the step's box, with no box of its own.
  */
-export function MediaRow({label, boxed = false, note, children}: {label?: string; boxed?: boolean; note?: ReactNode; children: ReactNode}) {
+export function MediaRow({label, note, children}: {label?: string; note?: ReactNode; children: ReactNode}) {
   return (
-    <div className={boxed ? styles.mediaRowBox : undefined}>
+    <div className={styles.mediaRowSet}>
       {label ? <p className={styles.goalLabel}>{label}</p> : null}
       <div className={styles.mediaRow}>{children}</div>
       {/* `note`: one thing the reader must not miss about these items, set apart under them. */}

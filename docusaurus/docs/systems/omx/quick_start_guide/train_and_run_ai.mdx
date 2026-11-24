@@ -8,7 +8,6 @@ pagination_next: null
 ---
 
 import {
-  Card,
   Caution,
   Checks,
   Clicks,
@@ -30,71 +29,61 @@ import quickStart from './_quick_start';
 
 <GuidePage guide={quickStart} title="Train and run AI">
 
-<StepTabs back={quickStart.pages[1]} next={{title: 'Cyclo Intelligence', to: '/docs/systems/omx/imitation_learning'}}>
+<StepTabs back={quickStart.pages[1]} next={{title: 'Cyclo Intelligence', to: '/docs/systems/omx/imitation_learning'}} firstNumber={0}>
 
-<StepTab id="try-act" tag="Get ready" title="Try ACT" label="Try ACT">
+<StepTab id="before-you-begin" title="Before you begin">
+
+This page is a quick, easy first try of ACT. You train one ACT model on your own tries, and OMX runs it.
 
 <Goal
-  heading="The goal of this page: Stack one box on the other with ACT"
   label="One of our runs. The follower arm picks up one box and puts it on the other by itself. No hand is on the leader arm."
   src="/img/systems/omx/quick_start_guide/train_and_run_ai/train_result.webm"
   poster="/img/systems/omx/quick_start_guide/train_and_run_ai/train_result.webp"
   shape="free"
   width={820}
-  below={
-    <MediaRow
-      label="Requirements"
-      boxed
-      note={<>
-        <strong>The boxes do not have to be OpenRB-150 boxes.</strong> You can use other boxes of a similar size.
-        Still, we recommend the OpenRB-150 boxes for your first try, because this guide uses them in every step and
-        picture. Two of them come with every OMX, so you can practice without preparing anything extra.
-      </>}
-    >
-      <TutorialMedia
-        label="OMX: the leader arm and the follower arm with its camera."
-        src="/img/systems/omx/quick_start_guide/train_and_run_ai/train_omx.webp"
-        shape="free"
-        names={[{text: 'OMX with camera frame', x: 0.5, y: 0.08}]}
-      />
-      <TutorialMedia
-        label="Two OpenRB-150 boxes floating and turning. They come with OMX."
-        src="/img/systems/omx/quick_start_guide/train_and_run_ai/train_boxes_spin.webm"
-        poster="/img/systems/omx/quick_start_guide/train_and_run_ai/train_boxes_spin.webp"
-        shape="free"
-        names={[{text: 'OpenRB box ×2', x: 0.5, y: 0.08}]}
-      />
-    </MediaRow>
-  }
->
-
-You show OMX a task at least 50 times with the leader arm. ACT learns from your tries, and then OMX tries the task by itself.
-
-The clip shows one of our runs that worked. Your result can be different: it depends on your tries, the camera and the light.
-
-This is imitation learning with ACT, done once with Cyclo Intelligence. Start after [Move OMX](./move_omx.mdx).
-
-</Goal>
-
-This page is a quick, easy first try of ACT. You train one ACT model on your own tries, and OMX runs it.
-
-<Card>
+/>
 
 ### What is ACT?
+
+You show OMX a task at least 50 times with the leader arm. ACT learns from your tries, and then OMX tries the task by itself.
 
 ACT is an imitation learning model. It looks at the camera picture and the arm's angles, and plans the next moves in the way your tries showed it.
 
 The Cyclo Intelligence manual suggests ACT for a first dataset. It is small, and it learns on the one graphics card in your PC.
 
-</Card>
+The clip shows one of our runs that worked. Your result can be different: it depends on your tries, the camera and the light.
+
+This is imitation learning with ACT, done once with Cyclo Intelligence. Start after [Bringup](./move_omx.mdx).
+
+### Requirements
+
+<MediaRow
+  note={<>
+    <strong>The boxes do not have to be OpenRB-150 boxes.</strong> You can use other boxes of a similar size.
+    Still, we recommend the OpenRB-150 boxes for your first try, because this guide uses them in every step and
+    picture. Two of them come with every OMX, so you can practice without preparing anything extra.
+  </>}
+>
+  <TutorialMedia
+    label="OMX: the leader arm and the follower arm with its camera."
+    src="/img/systems/omx/quick_start_guide/train_and_run_ai/train_omx.webp"
+    shape="free"
+    names={[{text: 'OMX with camera frame', x: 0.5, y: 0.08}]}
+  />
+  <TutorialMedia
+    label="Two OpenRB-150 boxes floating and turning. They come with OMX."
+    src="/img/systems/omx/quick_start_guide/train_and_run_ai/train_boxes_spin.webm"
+    poster="/img/systems/omx/quick_start_guide/train_and_run_ai/train_boxes_spin.webp"
+    shape="free"
+    names={[{text: 'OpenRB box ×2', x: 0.5, y: 0.08}]}
+  />
+</MediaRow>
 
 </StepTab>
 
-<StepTab id="install-cyclo-intelligence" title="Install Cyclo Intelligence" label="Install Cyclo">
+<StepTab id="install-cyclo-intelligence" title="Install Cyclo Intelligence" label="Install">
 
 Cyclo Intelligence records what you show OMX, and later runs the AI model. You install it once.
-
-<Card>
 
 ### A. Install
 
@@ -104,10 +93,25 @@ In a PC terminal:
 curl -fsSL https://raw.githubusercontent.com/ROBOTIS-GIT/cyclo_intelligence/main/install.sh | bash
 ```
 
+When it is done, it shows where it put Cyclo Intelligence. On your PC, your user name is in place of `robotis`.
 
-</Card>
+<TutorialMedia
+  label="The terminal after the install command. It downloads Cyclo Intelligence with git. The line [install] Installed Cyclo Intelligence at: /home/robotis/cyclo_intelligence is marked in red."
+  src="/img/systems/omx/quick_start_guide/train_and_run_ai/install_cyclo_intelligence.webp"
+  shape="free"
+  width={760}
+/>
 
-<Card>
+The last lines also say that the model sources were not downloaded. Download the one this guide uses, LeRobot. Step 4 builds the AI program from it.
+
+```bash
+cd ~/cyclo_intelligence
+git submodule update --init -- \
+  cyclo_brain/sdk/zenoh_ros2_sdk \
+  cyclo_brain/policy/lerobot/lerobot
+```
+
+The last line starts with `Submodule path 'cyclo_brain/policy/lerobot/lerobot': checked out`.
 
 ### B. Start it and enter its container
 
@@ -119,23 +123,13 @@ cd ~/cyclo_intelligence
 
 It downloads Cyclo Intelligence, then opens a terminal inside its container. Wait until you can type again. If it asks for your password, type it.
 
-
-</Card>
-
-<Card>
-
 ### C. Check the Zenoh setting
 
-In the Cyclo container:
+In the Cyclo container, check the [Zenoh](/docs/systems/omx/specifications/software#middleware) setting:
 
 ```bash
 grep ZENOH_CONFIG_OVERRIDE ~/.bashrc
 ```
-
-
-</Card>
-
-<Card>
 
 ### You should see
 
@@ -153,20 +147,18 @@ Then type `exit` and press **Enter** to leave the container.
 | You see | Do this |
 | --- | --- |
 | `curl: command not found` | Paste `sudo apt install curl`, then do part A again. |
-| `Refusing to modify an existing Cyclo checkout` | It was downloaded before. Update it instead: paste `cd ~/cyclo_intelligence && git pull && git submodule update --init --recursive`. Then do part B. |
+| `Refusing to modify an existing Cyclo checkout` | It was downloaded before. Update it instead: paste `cd ~/cyclo_intelligence && git pull --ff-only && git submodule update --init -- cyclo_brain/sdk/zenoh_ros2_sdk cyclo_brain/policy/lerobot/lerobot`. Then do part B. In Step 4, part D, add `--build` once: `./docker/container.sh start-lerobot --build`. |
 | `no space left on device` | Free some disk space. Then do part B again. |
 | No line in part C | Paste <code>echo "export ZENOH_CONFIG_OVERRIDE='transport/shared_memory/enabled=true'" >> ~/.bashrc</code>, then `source ~/.bashrc`. |
 
 </NotGood>
-
-</Card>
 
 <details>
   <summary>How does it work?</summary>
 
   Cyclo Intelligence runs in its own Docker container, next to the robot software. You use it through a web page, which opens in the next step.
 
-  The Zenoh setting lets Cyclo Intelligence talk to the robot's programs on this PC. The container comes with it, and part C only checks it.
+  The [Zenoh](/docs/systems/omx/specifications/software#middleware) setting lets Cyclo Intelligence talk to the robot's programs on this PC. The container comes with it, and part C only checks it.
 
   These are the steps of [Cyclo Intelligence Setup](../imitation_learning/setup.mdx). For all its options, see that page.
 
@@ -174,7 +166,7 @@ Then type `exit` and press **Enter** to leave the container.
 
 </StepTab>
 
-<StepTab id="check-what-omx-sees" title="Check what OMX sees" label="What OMX sees">
+<StepTab id="start-omx-and-cyclo-intelligence" title="Start OMX and Cyclo Intelligence" label="Start OMX">
 
 Turn everything on and look through OMX's camera. This is how you start OMX from now on.
 
@@ -195,8 +187,6 @@ Use four terminals, in this order. Leave each one open.
   ]}
 />
 
-<Card>
-
 ### Enter the containers
 
 Open four terminals with **Ctrl + Alt + T**. In Terminals 1, 2 and 3, enter the robot container.
@@ -213,21 +203,13 @@ cd ~/cyclo_intelligence
 ./docker/container.sh enter
 ```
 
-
-</Card>
-
-<Card>
-
 ### Terminal 1: Zenoh
+
+Start [Zenoh](/docs/systems/omx/specifications/software#middleware):
 
 ```bash
 zenohd
 ```
-
-
-</Card>
-
-<Card>
 
 ### Terminal 2: The arms
 
@@ -236,11 +218,6 @@ Hold the leader folded like the follower's start pose, as in [Start the arms](./
 ```bash
 ros2 launch open_manipulator_bringup omx_ai.launch.py
 ```
-
-
-</Card>
-
-<Card>
 
 ### Terminal 3: The camera
 
@@ -262,6 +239,13 @@ The OMX camera may then have another number than `/dev/video0`. Press **Ctrl + C
 v4l2-ctl --list-devices
 ```
 
+<TutorialMedia
+  label="The terminal after v4l2-ctl --list-devices. HD USB Camera, and /dev/video0 in the first line under it, are marked in red."
+  src="/img/systems/omx/quick_start_guide/train_and_run_ai/camera_list_devices.webp"
+  shape="free"
+  width={430}
+/>
+
 Under `HD USB Camera`, take the first `/dev/video` line. Then set the camera topic namespace and video device explicitly, with that number in place of `/dev/video0`:
 
 ```bash
@@ -271,11 +255,6 @@ ros2 launch open_manipulator_bringup camera_usb_cam.launch.py name:=camera1 vide
 Keep `name:=camera1`. Cyclo Intelligence looks for the camera by this name.
 
 </OnlyIf>
-
-
-</Card>
-
-<Card>
 
 ### Terminal 4: Cyclo Intelligence
 
@@ -288,11 +267,6 @@ Wait for this line:
 ```text
 [cyclo_data]: cyclo_data node ready.
 ```
-
-
-</Card>
-
-<Card>
 
 ### The web page
 
@@ -319,11 +293,6 @@ Open [http://localhost:7080](http://localhost:7080) in your browser. Then click 
 
 </ScreenshotBox>
 
-
-</Card>
-
-<Card>
-
 ### You should see
 
 <ScreenshotBox
@@ -341,7 +310,7 @@ Open [http://localhost:7080](http://localhost:7080) in your browser. Then click 
 
 </ScreenshotBox>
 
-<NotGood id="check-what-omx-sees-fix">
+<NotGood id="start-omx-and-cyclo-intelligence-fix">
 
 | You see | Do this |
 | --- | --- |
@@ -352,12 +321,10 @@ Open [http://localhost:7080](http://localhost:7080) in your browser. Then click 
 
 </NotGood>
 
-</Card>
-
 <details>
   <summary>How does it work?</summary>
 
-  Each terminal runs one program inside a container: Zenoh, the arms and the camera in the robot container, and Cyclo Intelligence in its own. Cyclo Intelligence listens to the arms and the camera, so they must be running before it starts.
+  Each terminal runs one program inside a container: [Zenoh](/docs/systems/omx/specifications/software#middleware), the arms and the camera in the robot container, and Cyclo Intelligence in its own. Cyclo Intelligence listens to the arms and the camera, so they must be running before it starts.
 
   To stop, lower the follower's gripper onto the table. Then press **Ctrl + C** in each terminal, from Terminal 4 back to Terminal 1.
 
@@ -371,9 +338,7 @@ Open [http://localhost:7080](http://localhost:7080) in your browser. Then click 
 
 With the leader arm, pick up one box and put it on the other, at least 50 times. Cyclo Intelligence records every try, and the AI learns from them.
 
-Everything from [Check what OMX sees](#check-what-omx-sees) must still be running: four terminals and the **Record** page.
-
-<Card>
+Everything from [Start OMX and Cyclo Intelligence](#start-omx-and-cyclo-intelligence) must still be running: four terminals and the **Record** page.
 
 ### A. Set the table
 
@@ -409,11 +374,6 @@ Set the two boxes and OMX as in the picture. Do not move the arms or the camera 
 
 </Checks>
 
-
-</Card>
-
-<Card>
-
 ### B. Record one try
 
 <ScreenshotBox
@@ -443,7 +403,7 @@ The number after **EP** goes up by one.
 One try, between points 2 and 3, looks like this. The follower copies the leader, picks up one box and puts it on the other.
 
 <TutorialMedia
-  label="A 3D clip of one try. A hand holds the leader arm by its two rings, as in Move OMX. Both arms start almost folded. The hand lifts the leader, takes one box, carries it onto the other box, lets go, and brings the leader back to where it started. The follower arm copies each move and stacks the box."
+  label="A 3D clip of one try. A hand holds the leader arm by its two rings, as in Bringup. Both arms start almost folded. The hand lifts the leader, takes one box, carries it onto the other box, lets go, and brings the leader back to where it started. The follower arm copies each move and stacks the box."
   src="/img/systems/omx/quick_start_guide/train_and_run_ai/train_one_try.webm"
   poster="/img/systems/omx/quick_start_guide/train_and_run_ai/train_one_try.webp"
   names={[
@@ -451,11 +411,6 @@ One try, between points 2 and 3, looks like this. The follower copies the leader
     {text: 'Follower', x: 0.76, y: 0.1},
   ]}
 />
-
-
-</Card>
-
-<Card>
 
 ### C. Do it at least 50 times
 
@@ -470,11 +425,6 @@ Repeat points 2 and 3, at least 50 times, which is the start LeRobot suggests. B
 
 </Checks>
 
-
-</Card>
-
-<Card>
-
 ### You should see
 
 <Checks>
@@ -488,15 +438,13 @@ Repeat points 2 and 3, at least 50 times, which is the start LeRobot suggests. B
 | You see | Do this |
 | --- | --- |
 | **Record Start** stays grey | Fill in the first two boxes, `1` and `stack_box`. |
-| A red dot in **Topic Monitor** | Something is not running. Do the fix in [Check what OMX sees](#check-what-omx-sees). |
+| A red dot in **Topic Monitor** | Something is not running. Do the fix in [Start OMX and Cyclo Intelligence](#start-omx-and-cyclo-intelligence). |
 | The number after **EP** does not go up | The try was not saved. Click **Save Episode** at the end of each try. |
 | No **EP** number on the page | Make the browser window wider. |
 
 </NotGood>
 
-Your tries are saved on the PC, so this is a good place for a break. To go on later, start everything as in [Check what OMX sees](#check-what-omx-sees).
-
-</Card>
+Your tries are saved on the PC, so this is a good place for a break. To go on later, start everything as in [Start OMX and Cyclo Intelligence](#start-omx-and-cyclo-intelligence).
 
 <details>
   <summary>How does it work?</summary>
@@ -512,8 +460,6 @@ Your tries are saved on the PC, so this is a good place for a break. To go on la
 <StepTab id="train-the-ai-model" need="Needs an NVIDIA GPU" title="Train the AI model" label="Train">
 
 From this step on, the NVIDIA graphics card is needed, so check it first. Then turn your tries into a dataset and train ACT on it. Most of this step is waiting.
-
-<Card>
 
 ### A. Check the graphics card
 
@@ -580,10 +526,6 @@ Then do part A again.
 
 </OnlyIf>
 
-</Card>
-
-<Card>
-
 ### B. Make the dataset
 
 <ScreenshotBox
@@ -609,11 +551,6 @@ Then do part A again.
 
 </ScreenshotBox>
 
-
-</Card>
-
-<Card>
-
 ### C. Stop the arms
 
 The arms are not needed while the AI learns.
@@ -626,25 +563,13 @@ Lower the follower's gripper onto the table first. The follower goes limp when i
 
 Press **Ctrl + C** in Terminals 4, 3, 2 and 1.
 
-
-</Card>
-
-<Card>
-
 ### D. Start the AI program
 
-Open a new terminal with **Ctrl + Alt + T**, and paste. The first time, this builds the AI program on your PC, which takes a long while. Wait until you can type again.
+Open a new terminal with **Ctrl + Alt + T**, and paste. The first time, this builds the AI program on your PC. Many lines go by, and it takes a long while. Wait until you can type again.
 
 ```bash
 cd ~/cyclo_intelligence
 ./docker/container.sh start-lerobot
-```
-
-The first two lines look like this. The first one is normal: the AI program is then built on your PC. Many lines go by after this, and the version number can be different.
-
-```text
-Image robotis/lerobot-zenoh:1.4.2-amd64 failed to resolve reference "docker.io/robotis/lerobot-zenoh:1.4.2-amd64": docker.io/robotis/lerobot-zenoh:1.4.2-amd64: not found
-[container.sh] Starting lerobot (ARCH=amd64)...
 ```
 
 When you can type again, ask whether it is running.
@@ -658,11 +583,6 @@ Look for `Up`. The time can be different.
 ```text
 lerobot_server: Up 1 minute (healthy)
 ```
-
-
-</Card>
-
-<Card>
 
 ### E. Train
 
@@ -693,11 +613,6 @@ lerobot-train \
 
 Lines with `step:` go by while it learns. Wait until it ends. How long it takes depends on your graphics card.
 
-
-</Card>
-
-<Card>
-
 ### You should see
 
 The last line is `End of training`. Your date and time are different.
@@ -717,12 +632,11 @@ INFO 2026-11-12 14:02:12 ot_train.py:737 End of training
 | `No such file or directory` with `lerobot_v30` | The dataset is not there. Do part B again and wait until it is done. |
 | `already exists and resume is False` | You trained before. Paste the training command again with `act_stack_box` changed to `act_stack_box_2`, in both places. |
 | `CUDA out of memory` | Close other programs that use the graphics card, then paste the training command again. |
+| `Error: initialize cyclo_brain/policy/lerobot submodules` in part D | The LeRobot source is not downloaded. Paste the `git submodule` command of [Step 1, part A](#install-cyclo-intelligence), then do part D again. |
 | `lerobot_server is not running` | Part D did not finish. Do part D again. |
 | `no space left on device` in part D | The build needs more free disk. Free some, then do part D again. |
 
 </NotGood>
-
-</Card>
 
 <details>
   <summary>How does it work?</summary>
@@ -737,11 +651,11 @@ INFO 2026-11-12 14:02:12 ot_train.py:737 End of training
 
 </StepTab>
 
-<StepTab id="run-omx-on-its-own" need="Needs an NVIDIA GPU" title="Run OMX on its own" label="Run on its own">
+<StepTab id="run-the-ai-model" need="Needs an NVIDIA GPU" title="Run the AI model" label="Run">
 
 Take your hands off. The AI model moves the follower now.
 
-You use the four terminals of [Check what OMX sees](#check-what-omx-sees) again. This time Terminal 2 starts only the follower.
+You use the four terminals of [Start OMX and Cyclo Intelligence](#start-omx-and-cyclo-intelligence) again. This time Terminal 2 starts only the follower.
 
 <TerminalMap
   panes={[
@@ -759,13 +673,11 @@ You use the four terminals of [Check what OMX sees](#check-what-omx-sees) again.
 
 </Caution>
 
-<Card>
-
 ### A. Start everything, without the leader
 
-Use Terminals 1 to 4, still inside their containers. If you closed one, open it again and enter its container as in [Check what OMX sees](#check-what-omx-sees). Then paste one line in each, in this order.
+Use Terminals 1 to 4, still inside their containers. If you closed one, open it again and enter its container as in [Start OMX and Cyclo Intelligence](#start-omx-and-cyclo-intelligence). Then paste one line in each, in this order.
 
-In Terminal 1:
+In Terminal 1, start [Zenoh](/docs/systems/omx/specifications/software#middleware):
 
 ```bash
 zenohd
@@ -789,11 +701,6 @@ In Terminal 4:
 cyclo_intelligence
 ```
 
-
-</Card>
-
-<Card>
-
 ### B. Open the Inference page
 
 Open [http://localhost:7080](http://localhost:7080), choose `omx_f`, click **Set Robot Type**, then click **Inference** on the left.
@@ -803,10 +710,6 @@ Copy this line. You paste it at point 3.
 ```text
 /workspace/model/lerobot/act_stack_box/checkpoints/060000/pretrained_model
 ```
-
-</Card>
-
-<Card>
 
 ### C. Load the model
 
@@ -831,11 +734,6 @@ Copy this line. You paste it at point 3.
 </Clicks>
 
 </ScreenshotBox>
-
-
-</Card>
-
-<Card>
 
 ### D. Try it in the 3D picture first
 
@@ -864,11 +762,6 @@ Always run a new model in the 3D picture before the real arm. If the arm in the 
 
 </ScreenshotBox>
 
-
-</Card>
-
-<Card>
-
 ### E. Run it on the real arm
 
 Put the two boxes in their places, as when you recorded.
@@ -894,11 +787,6 @@ Put the two boxes in their places, as when you recorded.
 
 </ScreenshotBox>
 
-
-</Card>
-
-<Card>
-
 ### It can look like this
 
 <TutorialMedia
@@ -917,7 +805,7 @@ Put the two boxes in their places, as when you recorded.
 
 It can stack the box as in the clip, or it can miss. How well it works depends on many things, such as what the camera sees, the light and your tries. To make it better, see [Going further: Make it work better](#make-it-work-better).
 
-<NotGood id="run-omx-on-its-own-fix">
+<NotGood id="run-the-ai-model-fix">
 
 | You see | Do this |
 | --- | --- |
@@ -928,10 +816,6 @@ It can stack the box as in the clip, or it can miss. How well it works depends o
 
 </NotGood>
 
-</Card>
-
-<Card>
-
 ### Then stop
 
 <Caution>
@@ -941,8 +825,6 @@ Lower the follower's gripper onto the table first. The follower goes limp when i
 </Caution>
 
 Click **Stop** on the page. Then press **Ctrl + C** in Terminals 4, 3, 2 and 1.
-
-</Card>
 
 <details>
   <summary>How does it work?</summary>
@@ -955,13 +837,11 @@ Click **Stop** on the page. Then press **Ctrl + C** in Terminals 4, 3, 2 and 1.
 
 </StepTab>
 
-<StepTab id="make-it-work-better" title="Make it work better" label="Make it better" extra>
+<StepTab id="make-it-work-better" title="Make it work better" label="Improve" extra>
 
 This part is for after your first run, if you want OMX to do the task better.
 
 How well imitation learning works depends on many things: what the camera sees, the light and the things around the robot, and how many tries you recorded and how alike they are. A second camera can also help. The camera on the wrist sees only what is in front of the gripper, and LeRobot, which trains the model in this guide, suggests two camera views.
-
-<Card>
 
 ### A. What the camera should see
 
@@ -974,10 +854,6 @@ OMX decides each move from the camera picture. So when it runs, the picture shou
   <Shot label="The OMX camera picture in other light than in the recording" src="/img/systems/omx/quick_start_guide/train_and_run_ai/train_further_4.webm" poster="/img/systems/omx/quick_start_guide/train_and_run_ai/train_further_4.webp"><strong>Not good:</strong> the light is different from when you recorded. Daylight from a window changes during the day.</Shot>
 </Shots>
 
-</Card>
-
-<Card>
-
 ### B. Other usual reasons
 
 These are the usual reasons, not all of them. A model can also miss for other reasons, such as how many tries you recorded or how it was trained. They come from the [LeRobot guide](https://huggingface.co/docs/lerobot/en/il_robots#tips-for-gathering-data) and its list of [what makes a good dataset](https://huggingface.co/blog/lerobot-datasets#what-makes-a-good-dataset).
@@ -989,11 +865,9 @@ These are the usual reasons, not all of them. A model can also miss for other re
 | The boxes were in too many places | Keep them in the same places at first. Add other places only after it works well, with about 10 tries at each. |
 | The camera shakes | Fix the camera firmly. |
 
-Fix what went wrong. If it was your tries, record them again. Then do [Train the AI model](#train-the-ai-model) and [Run OMX on its own](#run-omx-on-its-own) again.
+Fix what went wrong. If it was your tries, record them again. Then do [Train the AI model](#train-the-ai-model) and [Run the AI model](#run-the-ai-model) again.
 
 Still missing? Record more tries, or change how the model trains: see [Model Training](../imitation_learning/model_training.mdx) in the Cyclo Intelligence manual. You can also ask on [Discord](https://discord.gg/robotis).
-
-</Card>
 
 <GoFurther
   to="/docs/systems/omx/imitation_learning"

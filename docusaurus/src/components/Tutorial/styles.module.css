@@ -171,7 +171,7 @@
 }
 
 /* ---------- Guide page ----------
-   One column for a page of a guide, such as "Move OMX". GuidePage puts this class on it. */
+   One column for a page of a guide, such as "Bringup". GuidePage puts this class on it. */
 
 .page {
   /* The colour of the numbered points, in a list and on a screenshot. A warm coral: it stands apart
@@ -218,13 +218,15 @@
   font-weight: 600;
 }
 
-/* A picture or clip placed straight in the page, in a step or in a box gets room above and below. */
+/* A picture or clip placed straight in the page, in a step, in a step's box or in an "Only if" box gets room above and below. */
 .page > .mediaEmpty,
 .page > .mediaFrame,
 .stepPanel > .mediaEmpty,
 .stepPanel > .mediaFrame,
-.card > .mediaEmpty,
-.card > .mediaFrame {
+[data-step-box] > .mediaEmpty,
+[data-step-box] > .mediaFrame,
+.onlyIfBody > .mediaEmpty,
+.onlyIfBody > .mediaFrame {
   margin: 1.25rem 0 1.75rem;
 }
 
@@ -1046,56 +1048,11 @@
   font-weight: 600;
 }
 
-/* The box with the number and title of the open step, and its first lines. Its title is as large as the
-   numbered titles of the AI Worker pages, with the same line under it. */
-.stepHead {
-  margin-top: 0.5rem;
-}
+/* ---------- Step box ----------
+   Each step is one box: the site's SectionCard, the box of the AI Worker pages, with the step's number and title as
+   its ## title and the parts of the step as ### headings inside it. Its look comes from SectionCard. */
 
-.stepTitle {
-  margin: 0 0 1rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--ifm-color-emphasis-200);
-  font-size: 2rem;
-}
-
-/* The first sentence of a step says what the step is for, so it is larger than the rest. */
-.stepHead > .stepTitle + p {
-  font-size: 1.2rem;
-  line-height: 1.6;
-}
-
-/* ---------- Card ----------
-   One set of a step in a box: the same box as on the AI Worker pages, with its title on top and a line under it.
-   Its title is a size below the step's title, as the smaller titles inside the AI Worker boxes. */
-
-.card {
-  margin: 2rem 0;
-  padding: 1.75rem;
-  border: 1px solid var(--ifm-color-emphasis-300);
-  border-radius: 14px;
-  background: var(--ifm-background-surface-color);
-}
-
-.card > h3:first-child {
-  margin-top: 0;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--ifm-color-emphasis-200);
-  font-size: 1.5rem;
-  /* A link to a box stops with the whole box below the bar. */
-  scroll-margin-top: calc(var(--ifm-navbar-height) + 5.5rem + 1.75rem);
-}
-
-.card > :last-child {
-  margin-bottom: 0;
-}
-
-/* GoFurther: a box that sends the reader on to a bigger manual. A light tint of the main colour sets it apart. */
-.goFurther {
-  border-color: color-mix(in srgb, var(--ifm-color-primary) 40%, var(--ifm-color-emphasis-300));
-  background: color-mix(in srgb, var(--ifm-color-primary) 5%, var(--ifm-background-surface-color));
-}
-
+/* GoFurther: the button to a bigger manual at the end of a part, with the manual's logo at its right. */
 .goFurtherFoot {
   display: flex;
   flex-wrap: wrap;
@@ -1103,21 +1060,6 @@
   justify-content: space-between;
   gap: 1rem;
   margin-top: 1.25rem;
-}
-
-.goFurtherButton {
-  padding: 0.6rem 1.05rem;
-  border-radius: 10px;
-  background: var(--ifm-color-primary);
-  color: #fff;
-  font-weight: 600;
-  line-height: 1.35;
-}
-
-.goFurtherButton:hover {
-  background: var(--ifm-color-primary-dark);
-  color: #fff;
-  text-decoration: none;
 }
 
 .goFurtherLogo {
@@ -1129,17 +1071,11 @@
   filter: invert(1);
 }
 
-/* A screenshot box inside a box needs no frame of its own. */
-.card .screenshotBox {
+/* A screenshot box inside a step's box needs no frame of its own. */
+[data-step-box] .screenshotBox {
   margin: 1.25rem 0;
   padding: 0;
   border: 0;
-}
-
-@media (max-width: 600px) {
-  .card {
-    padding: 1rem;
-  }
 }
 
 /* ---------- Goal ----------
@@ -1176,15 +1112,9 @@
   gap: 1rem;
 }
 
-/* One thin line round a set that belongs together. The pictures inside lose their own line, so there is only one. */
-.mediaRowBox {
-  padding: 0.9rem 1rem 1rem;
-  border: 1px solid var(--ifm-color-emphasis-400);
-  border-radius: 14px;
-}
-
-.mediaRowBox .mediaFree {
-  border: 0;
+/* A row and its note take the room of a paragraph, so the next title does not sit on them. */
+.mediaRowSet {
+  margin-bottom: var(--ifm-leading);
 }
 
 /* MediaRow `note`: a line set apart under the row, with a bar in the main colour at its left. */
@@ -1211,12 +1141,6 @@
   font-size: 1.2rem;
   font-weight: 600;
   line-height: 1.45;
-}
-
-/* Every line after the first one is a side note. */
-.goalText > :first-child ~ * {
-  color: var(--robotis-muted);
-  font-size: 0.95rem;
 }
 
 .goalText > :last-child {

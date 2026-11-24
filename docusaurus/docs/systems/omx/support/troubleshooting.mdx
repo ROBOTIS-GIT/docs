@@ -1,139 +1,46 @@
 ---
 title: Troubleshooting
-description: Find the problem you see with OMX and open its fix, or ask an AI to find it with you.
-hide_title: true
+description: Troubleshooting and recovery guides for OMX.
 ---
 
-import {AskTitle, FixCard, FixCards, FixSearch, ProblemCards} from '@site/src/components/Tutorial';
-import help, {problems} from './_troubleshooting';
+import Link from '@docusaurus/Link';
+import styles from '@site/src/components/TroubleshootingList/styles.module.css';
 
-{/* The same look as the AI Worker Troubleshooting page: groups of cards.
-    Often asked on Discord: one card per problem or question page (the questions were on the FAQ page before). A new problem page goes under support/troubleshooting/<group>/,
-    with displayed_sidebar: omxSidebar and a link back to this page, and gets one line in _troubleshooting.ts.
-    "Help me, AI!" gives the AI the same pages.
-    Problems in the Quick Start Guide: one card per step, listing what its "Something different?" box covers (terminal
-    messages, what the Cyclo Intelligence page shows, how the arms move). The card opens the step with that box open
-    (the boxes have the id <step id>-fix). When a row of a box changes on a Quick Start page, change it here too.
-    FixSearch puts a find box above the cards: it marks the words typed and leaves out cards without them. */}
+{/* The same page as the AI Worker Troubleshooting page: its sentence, its group names, and groups of cards with the
+    TroubleshootingList styles. TroubleshootingList itself lists only the AI Worker pages, so the groups are written
+    out here, as the AI Worker In-depth Guide page does. The group titles are <h2> tags, as TroubleshootingList
+    writes them, so this page has no list at the right either.
+    Add a guide with steps for a problem under support/troubleshooting/<group>/, with title, description and
+    displayed_sidebar: omxSidebar, and a link back to this page. Then add its card here. A short question asked on
+    Discord goes in the FAQ page (faq.mdx) instead. */}
 
-<AskTitle guide={help} title="Troubleshooting" />
+Choose a guide for the issue you are investigating. If the issue persists, [report it](/docs/systems/omx/support/issues) or [contact ROBOTIS](/docs/systems/omx/support/contact_us).
 
-Choose the problem you see. If something goes wrong while you follow the Quick Start Guide, find it in [Problems in the Quick Start Guide](#problems-in-the-quick-start-guide).
+<section className={styles.section}>
+  <h2 id="bringup">Bringup</h2>
+  <ul className={styles.list}>
+    <li><Link className={styles.card} to="/docs/systems/omx/support/troubleshooting/motors/motor_not_found"><span>A Motor Blinks Red or Is Not Found</span><span aria-hidden="true">→</span></Link></li>
+    <li><Link className={styles.card} to="/docs/systems/omx/support/troubleshooting/pc/pc_not_supported"><span>OMX Does Not Start on a Virtual Machine, Windows, or Mac</span><span aria-hidden="true">→</span></Link></li>
+  </ul>
+</section>
 
-Not sure what is wrong? **Help me, AI!** at the top opens an AI chat that reads these pages first. If the problem stays, ask on [Discord](https://discord.gg/robotis), [report it](./issues.mdx), or [contact ROBOTIS](./contact_us.mdx).
+<section className={styles.section}>
+  <h2 id="teleoperation">Teleoperation</h2>
+  <ul className={styles.list}>
+    <li><Link className={styles.card} to="/docs/systems/omx/support/troubleshooting/motors/arm_moves_wrong"><span>The Follower Jumps or Does Not Match the Leader</span><span aria-hidden="true">→</span></Link></li>
+  </ul>
+</section>
 
-## Often asked on Discord
+<section className={styles.section}>
+  <h2 id="robot-recovery">Robot Recovery</h2>
+  <ul className={styles.list}>
+    <li><Link className={styles.card} to="/docs/systems/omx/support/troubleshooting/motors/replace_motor"><span>How Do I Replace a Motor?</span><span aria-hidden="true">→</span></Link></li>
+  </ul>
+</section>
 
-Problems and questions that OMX users often asked about on the ROBOTIS Discord server, with the answers of ROBOTIS.
-
-### Arms and motors
-
-<ProblemCards items={problems.motors} />
-
-### PC and power
-
-<ProblemCards items={problems.pc} />
-
-### Using OMX
-
-<ProblemCards items={problems.using} />
-
-## Problems in the Quick Start Guide
-
-Find the message or what you see. Its card opens the step, with its fix.
-
-<FixSearch label="Find a problem in the Quick Start Guide" placeholder="Type a word, such as camera">
-
-### Move OMX
-
-<FixCards>
-<FixCard title="Install the software" to="/docs/systems/omx/quick_start_guide/move_omx#install-the-software-fix">
-
-- `'compose' is not a docker command`
-- `permission denied`
-- `'open_manipulator' already exists`
-
-</FixCard>
-<FixCard title="Connect OMX" to="/docs/systems/omx/quick_start_guide/move_omx#connect-omx-fix">
-
-- Only one `OpenRB-150` line
-- No `OpenRB-150` line, or `No such file or directory`
-- No `Camera` line
-- A line is missing and its cable goes through a USB hub
-
-</FixCard>
-<FixCard title="Set the ports" to="/docs/systems/omx/quick_start_guide/move_omx#set-the-ports-fix">
-
-- `No such container` or `is not running`
-- `./container.sh: No such file or directory`
-- `No such file or directory` after `ls`
-- Two `OpenRB-150` names after `ls`
-
-</FixCard>
-<FixCard title="Start the arms" to="/docs/systems/omx/quick_start_guide/move_omx#start-the-arms-fix">
-
-- `Unable to connect to a Zenoh router`
-- `Error opening serial port!`
-- `There is no status packet!`
-
-</FixCard>
-<FixCard title="Move the leader arm" to="/docs/systems/omx/quick_start_guide/move_omx#move-the-leader-arm-fix">
-
-- The follower reached its start pose but does not copy
-
-</FixCard>
-</FixCards>
-
-### Train and run AI
-
-<FixCards>
-<FixCard title="Install Cyclo Intelligence" to="/docs/systems/omx/quick_start_guide/train_and_run_ai#install-cyclo-intelligence-fix">
-
-- `curl: command not found`
-- `Refusing to modify an existing Cyclo checkout`
-- `no space left on device` while installing
-- No line after `grep ZENOH_CONFIG_OVERRIDE`
-
-</FixCard>
-<FixCard title="Check what OMX sees" to="/docs/systems/omx/quick_start_guide/train_and_run_ai#check-what-omx-sees-fix">
-
-- No camera picture, and `Device specified is not available`
-- The picture of another camera, such as a laptop's own
-- A red dot at `/joint_states` or `/leader/joint_trajectory`
-- The Cyclo Intelligence page does not open
-
-</FixCard>
-<FixCard title="Record your tries" to="/docs/systems/omx/quick_start_guide/train_and_run_ai#record-your-tries-fix">
-
-- **Record Start** stays grey
-- A red dot in **Topic Monitor**
-- The number after **EP** does not go up
-- No **EP** number on the page
-
-</FixCard>
-<FixCard title="Train the AI model" to="/docs/systems/omx/quick_start_guide/train_and_run_ai#train-the-ai-model-fix">
-
-- `NVIDIA-SMI has failed`
-- `permission denied`, or no `Runtimes` line
-- `No such file or directory` with `lerobot_v30`
-- `already exists and resume is False`
-- `CUDA out of memory`
-- `lerobot_server is not running`
-- `no space left on device` while building
-
-</FixCard>
-<FixCard title="Run OMX on its own" to="/docs/systems/omx/quick_start_guide/train_and_run_ai#run-omx-on-its-own-fix">
-
-- **Start** stays grey
-- `Image missing`, or **ON** does nothing
-- An error about the policy path
-
-</FixCard>
-<FixCard title="Going further: Make it work better" to="/docs/systems/omx/quick_start_guide/train_and_run_ai#make-it-work-better">
-
-- The arm shakes, or misses the box most of the time
-
-</FixCard>
-</FixCards>
-
-</FixSearch>
+<section className={styles.section}>
+  <h2 id="frequently-asked-on-discord">Frequently Asked on Discord</h2>
+  <ul className={styles.list}>
+    <li><Link className={styles.card} to="/docs/systems/omx/support/faq"><span>Frequently Asked Questions</span><span aria-hidden="true">→</span></Link></li>
+  </ul>
+</section>

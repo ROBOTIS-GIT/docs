@@ -1,14 +1,10 @@
-/* Route-scoped layout: other docs retain their navigation, width and footer. */
-body:has(.omx-guide) .theme-doc-sidebar-container,
+/* Route-scoped layout: other docs retain their navigation, width and footer.
+   The OMX menu at the left stays, so the reader can go on to the other OMX pages; the guide fills the rest. */
 body:has(.omx-guide) .theme-doc-breadcrumbs,
 body:has(.omx-guide) .theme-doc-footer,
 body:has(.omx-guide) .pagination-nav,
 body:has(.omx-guide) .footer {
   display: none;
-}
-body:has(.omx-guide) main {
-  max-width: none !important;
-  width: 100%;
 }
 body:has(.omx-guide) main > .container {
   max-width: none;

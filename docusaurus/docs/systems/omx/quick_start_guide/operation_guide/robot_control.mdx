@@ -1,11 +1,11 @@
 import SectionCard from '@site/src/components/SectionCard';
 
-# Robot Control
+# MoveIt 2
 
 Use this page for standalone OMX bringup, MoveIt 2, the OpenMANIPULATOR GUI, and keyboard teleop.
 
 :::info
-At least one **Zenoh daemon** must be running in the communication network. If no Zenoh daemon is running, ROS 2 nodes cannot discover or communicate with each other.
+At least one [**Zenoh daemon**](/docs/systems/omx/specifications/software#middleware) must be running in the communication network. If no Zenoh daemon is running, ROS 2 nodes cannot discover or communicate with each other.
 
 For the recommended setup, run `zenohd` in a terminal inside the **OpenMANIPULATOR Docker container**.
 :::
@@ -114,7 +114,7 @@ ros2 launch open_manipulator_gui omx_f_gui.launch.py
 
 ## Keyboard Teleop
 
-Control the manipulator with your keyboard after launching the real robot or Gazebo bringup.
+Control the manipulator with your keyboard after launching the [real robot](#launch-bringup) or [Gazebo](/docs/systems/omx/simulation/gazebo) bringup.
 
 ```bash
 ros2 run open_manipulator_teleop omx_f_teleop

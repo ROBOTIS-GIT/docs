@@ -1,6 +1,8 @@
 import SectionCard from '@site/src/components/SectionCard';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
-# OMX
+# Hardware Specification
 
 The OMX hardware platform is an entry-level Physical AI manipulator designed for `imitation learning` and `teleoperation`. It consists of two main components: the `OMX-F` follower robot arm and the `OMX-L` leader device. Built on DYNAMIXEL‑X actuators and ROS 2‑native workflows, it supports end‑to‑end IL pipelines and seamless integration with Physical AI Tools and LeRobot.
 
@@ -8,7 +10,9 @@ The OMX hardware platform is an entry-level Physical AI manipulator designed for
 
 <SectionCard>
 
-## [OMX-AI] Included Common Items
+## Product Models
+
+### Included Common Items
 
 | Item | Qty |
 |:-----|:---:|
@@ -27,50 +31,8 @@ The OMX hardware platform is an entry-level Physical AI manipulator designed for
 
 <SectionCard>
 
-## [OMX-L] Hardware Overview
+## Follower Specification
 
-![](/img/systems/omx/specifications/hardware/hw_overview_omx_l.png)
-
-| Item | OMX (Leader) |
-|:---:|:---:|
-| DOF | 5 + 1Gripper |
-| Full Reach | 335 [mm] |
-| Weight | 360 [g] |
-| Operating Voltage | 5 [VDC] |
-| Joint Resolution | -π(rad) ~ π(rad), -2,048 ~ 2,048 [pulse/rev] |
-| Joint Range | Joint 1 : -270° ~ +360°<br />Joint 2, 3 : -120° ~ +90°<br />Joint 4 : -100° ~ +100°<br />Joint 5 : ±270°<br />Joint 6 : 0° ~ + 100° |
-| DYNAMIXEL-X Specification | Joint 1–5 : XL330-M288-T<br />Joint 6 : XL330-M077-T |
-| Host Interface | USB C-Type |
-| Internal Communications | TTL |
-| Communication Baudrate | 1 [Mbps] |
-| SW | ROS 2 |
-
-</SectionCard>
-
-<SectionCard>
-
-## [OMX-L] Layout
-![](/img/systems/omx/specifications/hardware/omx_leader_layout.png)
-
-### **Drawing Files**
-
-| File Type | Download Link |
-|-----------|---------------|
-| PDF | [📄 Download PDF](https://www.robotis.com/service/download.php?no=2225) |
-
-### **3D Printable Parts**
-
-| File Type | Download Link |
-|-----------|---------------|
-| STEP | [📦 Download STEP](https://www.robotis.com/service/download.php?no=2226) |
-|      | <a href="https://www.printables.com/model/1696210-omx-leader" target="_blank" rel="noopener noreferrer" style={{display: 'inline-flex', alignItems: 'center', gap: '0.25em', whiteSpace: 'nowrap'}}><img src="/img/systems/omx/specifications/hardware/printables_logo_no_background.png" alt="" width="13" height="13" decoding="async" />Download in Printables</a> |
-| STL |  <a href="https://cad.onshape.com/documents?nodeId=3&resourceType=filter&q=_all:ROBOTIS%20OMX-AI%20" target="_blank" rel="noopener noreferrer" style={{display: 'inline-flex', alignItems: 'center', gap: '0.25em', whiteSpace: 'nowrap'}}><img src="/img/systems/omx/specifications/hardware/onshape_logo_nobg.png" alt="" width="14" height="14" decoding="async" />Download in Onshape</a> |
-
-</SectionCard>
-
-<SectionCard>
-
-## [OMX-F] Hardware Overview
 ![](/img/systems/omx/specifications/hardware/hw_overview_omx_f.png)
 
 | Item | OMX (Follower) |
@@ -92,21 +54,56 @@ The OMX hardware platform is an entry-level Physical AI manipulator designed for
 
 <SectionCard>
 
-## [OMX-F] Layout
+## Leader Specification
+
+![](/img/systems/omx/specifications/hardware/hw_overview_omx_l.png)
+
+| Item | OMX (Leader) |
+|:---:|:---:|
+| DOF | 5 + 1Gripper |
+| Full Reach | 335 [mm] |
+| Weight | 360 [g] |
+| Operating Voltage | 5 [VDC] |
+| Joint Resolution | -π(rad) ~ π(rad), -2,048 ~ 2,048 [pulse/rev] |
+| Joint Range | Joint 1 : -270° ~ +360°<br />Joint 2, 3 : -120° ~ +90°<br />Joint 4 : -100° ~ +100°<br />Joint 5 : ±270°<br />Joint 6 : 0° ~ + 100° |
+| DYNAMIXEL-X Specification | Joint 1–5 : XL330-M288-T<br />Joint 6 : XL330-M077-T |
+| Host Interface | USB C-Type |
+| Internal Communications | TTL |
+| Communication Baudrate | 1 [Mbps] |
+| SW | ROS 2 |
+
+</SectionCard>
+
+<SectionCard>
+
+## Mechanical Specifications
+
+### Dimension
+
+<Tabs>
+<TabItem value="omx-f" label="OMX-F (Follower)" default>
+
 ![](/img/systems/omx/specifications/hardware/omx_follower_layout.png)
 
-### **Drawing Files**
+</TabItem>
+<TabItem value="omx-l" label="OMX-L (Leader)">
 
-| File Type | Download Link |
-|-----------|---------------|
-| PDF | [📄 Download PDF](https://www.robotis.com/service/download.php?no=2223) |
+![](/img/systems/omx/specifications/hardware/omx_leader_layout.png)
 
-### **3D Printable Parts**
+</TabItem>
+</Tabs>
 
-| File Type | Download Link |
-|-----------|---------------|
-| STEP | [📦 Download STEP](https://www.robotis.com/service/download.php?no=2224) |
-|      | <a href="https://www.printables.com/model/1696214-omx-follower" target="_blank" rel="noopener noreferrer" style={{display: 'inline-flex', alignItems: 'center', gap: '0.25em', whiteSpace: 'nowrap'}}><img src="/img/systems/omx/specifications/hardware/printables_logo_no_background.png" alt="" width="13" height="13" decoding="async" />Download in Printables</a> |
-| STL |  <a href="https://cad.onshape.com/documents?nodeId=3&resourceType=filter&q=_all:ROBOTIS%20OMX-AI%20" target="_blank" rel="noopener noreferrer" style={{display: 'inline-flex', alignItems: 'center', gap: '0.25em', whiteSpace: 'nowrap'}}><img src="/img/systems/omx/specifications/hardware/onshape_logo_nobg.png" alt="" width="14" height="14" decoding="async" />Download in Onshape</a> |
+</SectionCard>
+
+<SectionCard>
+
+## Drawings and Downloads
+
+| Resource | OMX-F (Follower) | OMX-L (Leader) |
+|:---------|:-----------------|:---------------|
+| Drawing files (PDF) | [📄 Download PDF](https://www.robotis.com/service/download.php?no=2223) | [📄 Download PDF](https://www.robotis.com/service/download.php?no=2225) |
+| 3D printable parts (STEP) | [📦 Download STEP](https://www.robotis.com/service/download.php?no=2224) | [📦 Download STEP](https://www.robotis.com/service/download.php?no=2226) |
+| 3D printable parts (Printables) | <a href="https://www.printables.com/model/1696214-omx-follower" target="_blank" rel="noopener noreferrer" style={{display: 'inline-flex', alignItems: 'center', gap: '0.25em', whiteSpace: 'nowrap'}}><img src="/img/systems/omx/specifications/hardware/printables_logo_no_background.png" alt="" width="13" height="13" decoding="async" />Download in Printables</a> | <a href="https://www.printables.com/model/1696210-omx-leader" target="_blank" rel="noopener noreferrer" style={{display: 'inline-flex', alignItems: 'center', gap: '0.25em', whiteSpace: 'nowrap'}}><img src="/img/systems/omx/specifications/hardware/printables_logo_no_background.png" alt="" width="13" height="13" decoding="async" />Download in Printables</a> |
+| 3D printable parts (STL) | <a href="https://cad.onshape.com/documents?nodeId=3&resourceType=filter&q=_all:ROBOTIS%20OMX-AI%20" target="_blank" rel="noopener noreferrer" style={{display: 'inline-flex', alignItems: 'center', gap: '0.25em', whiteSpace: 'nowrap'}}><img src="/img/systems/omx/specifications/hardware/onshape_logo_nobg.png" alt="" width="14" height="14" decoding="async" />Download in Onshape</a> | <a href="https://cad.onshape.com/documents?nodeId=3&resourceType=filter&q=_all:ROBOTIS%20OMX-AI%20" target="_blank" rel="noopener noreferrer" style={{display: 'inline-flex', alignItems: 'center', gap: '0.25em', whiteSpace: 'nowrap'}}><img src="/img/systems/omx/specifications/hardware/onshape_logo_nobg.png" alt="" width="14" height="14" decoding="async" />Download in Onshape</a> |
 
 </SectionCard>

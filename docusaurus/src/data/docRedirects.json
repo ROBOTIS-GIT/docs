@@ -158,7 +158,6 @@
   "/docs/systems/aiworker/resources/release_notes": "/docs/systems/aiworker/support/release_notes",
   "/docs/systems/omx/advanced_features": "/docs/systems/omx/advanced_features/cyclo_control",
   "/docs/systems/omx/imitation_learning/overview": "/docs/systems/omx/imitation_learning",
-  "/docs/systems/omx/simulation/gazebo": "/docs/systems/omx/simulation#getting-started-with-gazebo",
   "/docs/systems/omx/specifications/zenoh_communication": "/docs/systems/omx/specifications/software#middleware",
   "/docs/systems/omx/quick_start_guide/setup_guide": {
     "to": "/docs/systems/omx/quick_start_guide/move_omx",
@@ -181,12 +180,39 @@
     }
   },
   "/docs/systems/omx/quick_start_guide/operation_guide": "/docs/systems/omx/quick_start_guide/move_omx",
+  "/docs/systems/omx/quick_start_guide/operation_guide/cyclo_manager": "/docs/software/cyclo/cyclo_manager",
+  "/docs/systems/omx/quick_start_guide/operation_guide/cyclo_manager/bringup": {
+    "to": "/docs/systems/omx/quick_start_guide/move_omx#start-the-arms",
+    "anchors": {
+      "bringup-the-zenoh-daemon": "b-start-zenoh",
+      "bringup-omx": "c-start-the-arms",
+      "configure-launch-arguments": "/docs/software/cyclo/manager/system#launch-arguments"
+    }
+  },
+  "/docs/systems/omx/quick_start_guide/operation_guide/cyclo_manager/install": "/docs/software/cyclo/manager/install",
+  "/docs/systems/omx/quick_start_guide/operation_guide/cyclo_manager/manage_container": {
+    "to": "/docs/software/cyclo/manager/dashboard#containers",
+    "anchors": {
+      "features": "containers",
+      "clean-up-docker-images": "docker-images",
+      "change-ros_domain_id": "container-configuration",
+      "open-a-container-terminal": "/docs/software/cyclo/manager/terminal"
+    }
+  },
+  "/docs/systems/omx/quick_start_guide/operation_guide/cyclo_manager/novnc": "/docs/software/cyclo/manager/novnc",
+  "/docs/systems/omx/quick_start_guide/operation_guide/cyclo_manager/version_update": {
+    "to": "/docs/software/cyclo/manager/dashboard#version-management",
+    "anchors": {
+      "cyclo-manager-update": "cyclo-manager-update",
+      "agent-update": "agent-update"
+    }
+  },
   "/docs/systems/omx/quick_start_guide/operation_guide/teleoperation": {
     "to": "/docs/systems/omx/quick_start_guide/move_omx#start-the-arms",
     "anchors": {
       "leader-follower-teleoperation": "start-the-arms",
-      "camera-node": "/docs/systems/omx/quick_start_guide/train_and_run_ai#check-what-omx-sees",
-      "follower-bringup-for-inference": "/docs/systems/omx/quick_start_guide/train_and_run_ai#run-omx-on-its-own"
+      "camera-node": "/docs/systems/omx/quick_start_guide/train_and_run_ai#start-omx-and-cyclo-intelligence",
+      "follower-bringup-for-inference": "/docs/systems/omx/quick_start_guide/train_and_run_ai#run-the-ai-model"
     }
   },
   "/docs/systems/omx/resources/legacy/physical_ai_tools/data_tools": "/docs/software/cyclo/intelligence/legacy/physical_ai_tools/data_tools",
@@ -197,6 +223,5 @@
   "/docs/systems/omx/resources/legacy/physical_ai_tools/imitation_learning": "/docs/software/cyclo/intelligence/legacy/physical_ai_tools/imitation_learning",
   "/docs/systems/omx/resources/legacy/physical_ai_tools/model_inference": "/docs/software/cyclo/intelligence/legacy/physical_ai_tools/model_inference",
   "/docs/systems/omx/resources/legacy/physical_ai_tools/model_training": "/docs/software/cyclo/intelligence/legacy/physical_ai_tools/model_training",
-  "/docs/systems/omx/resources/legacy/physical_ai_tools/setup_guide": "/docs/software/cyclo/intelligence/legacy/physical_ai_tools/imitation_learning",
-  "/docs/systems/omx/support/faq": "/docs/systems/omx/support/contact_us"
+  "/docs/systems/omx/resources/legacy/physical_ai_tools/setup_guide": "/docs/software/cyclo/intelligence/legacy/physical_ai_tools/imitation_learning"
 }

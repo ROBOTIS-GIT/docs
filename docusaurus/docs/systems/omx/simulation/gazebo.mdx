@@ -1,0 +1,66 @@
+import SectionCard from '@site/src/components/SectionCard';
+
+# Getting Started with Gazebo
+
+<SectionCard>
+
+## Overview
+
+You can launch Gazebo and RViz individually, or launch RViz together with the physical hardware.
+
+</SectionCard>
+
+<SectionCard>
+
+## Launch Gazebo
+
+### 1. Prepare the Open Manipulator Docker Container
+
+Refer to [Install the software](/docs/systems/omx/quick_start_guide/move_omx#install-the-software) in Bringup to configure the Open Manipulator Docker Container environment.
+
+### 2. Enable GUI Access
+
+Open a new terminal and run the following command:
+
+```bash
+xhost +
+```
+
+### 3. Access the Running Container
+
+Enter the **open_manipulator** container, the robot software container you started in [Install the software](/docs/systems/omx/quick_start_guide/move_omx#install-the-software):
+
+```bash
+cd $HOME/open_manipulator/docker
+./container.sh enter
+```
+
+:::info
+At least one [**Zenoh daemon**](/docs/systems/omx/specifications/software#middleware) must be running in the communication network. If no Zenoh daemon is running, ROS 2 nodes cannot discover or communicate with each other.
+
+For the recommended setup, run `zenohd` in a terminal inside the **open_manipulator Docker container**.
+:::
+
+### 4. Launch Gazebo
+
+Launch the simulation environment using:
+
+```bash
+ros2 launch open_manipulator_bringup omx_f_gazebo.launch.py
+```
+
+### 5. Run MoveIt and GUI in Simulation
+
+Refer to [MoveIt 2](/docs/systems/omx/quick_start_guide/operation_guide/robot_control) to control the robot within the Gazebo environment. [Keyboard Teleop](/docs/systems/omx/quick_start_guide/operation_guide/robot_control#keyboard-teleop) also works with Gazebo.
+
+</SectionCard>
+
+<SectionCard>
+
+## Simulation Views
+
+### OMX_F
+
+![OMX F Simulation](/img/systems/omx/simulation/gazebo/omx_f_gazebo.png)
+
+</SectionCard>

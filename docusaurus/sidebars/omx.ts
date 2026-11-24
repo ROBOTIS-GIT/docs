@@ -18,9 +18,9 @@ const omxSidebar: SidebarsConfig[string] = [
     className: 'omx-sidebar-title',
     items: [
       {type: 'doc', id: 'systems/omx/introduction', label: 'Introduction'},
-      {type: 'doc', id: 'systems/omx/specifications/hardware', label: 'Hardware Specifications'},
+      {type: 'doc', id: 'systems/omx/specifications/hardware', label: 'Hardware Specification'},
       // Zenoh is explained in the last part of this page, Middleware.
-      {type: 'doc', id: 'systems/omx/specifications/software', label: 'Software Specifications'},
+      {type: 'doc', id: 'systems/omx/specifications/software', label: 'Software Architecture'},
       {type: 'doc', id: 'systems/omx/video_gallery', label: 'Video Gallery'},
     ],
   },
@@ -29,13 +29,12 @@ const omxSidebar: SidebarsConfig[string] = [
     label: 'Quick Start Guide',
     collapsible: false,
     className: 'omx-sidebar-title',
+    // The names of the AI Worker Quick Start Guide. Keep the order of the pages in quick_start_guide/_quick_start.ts.
     items: [
-      {type: 'doc', id: 'systems/omx/quick_start_guide/assembly_guide', label: 'Assemble OMX'},
-      // Move OMX does what the Setup Guide, ROS 2 Setup, Operation Guide and Teleoperation pages did, so they are
+      {type: 'doc', id: 'systems/omx/quick_start_guide/assembly_guide', label: 'Hardware Setup'},
+      // Bringup does what the Setup Guide, ROS 2 Setup, Operation Guide and Teleoperation pages did, so they are
       // not listed.
-      {type: 'doc', id: 'systems/omx/quick_start_guide/move_omx', label: 'Move OMX'},
-      // Keep these in the same order as the pages in quick_start_guide/_quick_start.ts.
-      {type: 'doc', id: 'systems/omx/quick_start_guide/train_and_run_ai', label: 'Train and run AI'},
+      {type: 'doc', id: 'systems/omx/quick_start_guide/move_omx', label: 'Bringup'},
     ],
   },
   {
@@ -46,6 +45,8 @@ const omxSidebar: SidebarsConfig[string] = [
     // The rows that fold are closed until they are clicked. The Imitation Learning Overview is not listed: it only
     // compared Cyclo Intelligence with Physical AI Tools, which OMX no longer uses.
     items: [
+      // The first try, right after Bringup. Its page stays in quick_start_guide/, so its address does not change.
+      {type: 'doc', id: 'systems/omx/quick_start_guide/train_and_run_ai', label: 'Train and run AI'},
       {
         type: 'category',
         label: 'Cyclo Intelligence',
@@ -63,32 +64,33 @@ const omxSidebar: SidebarsConfig[string] = [
     ],
   },
   {
-    // Each row finishes the title as a sentence: "Control OMX with MoveIt 2, GUI or Keyboard".
+    // As the AI Worker Simulation group: the Overview lists the models, and each simulator has its page.
     type: 'category',
-    label: 'Control OMX',
+    label: 'Simulation',
     collapsible: false,
     className: 'omx-sidebar-title',
     items: [
-      {type: 'doc', id: 'systems/omx/quick_start_guide/operation_guide/robot_control', label: 'With MoveIt 2, GUI or Keyboard'},
-      // The Advanced Features text is the first part of this page.
-      {type: 'doc', id: 'systems/omx/advanced_features/cyclo_control', label: 'By Target Pose (Cyclo Control)'},
-      {
-        // The arrow leaves no room for one line, so "(Cyclo Manager)" goes on its own line.
-        type: 'category',
-        label: 'From a Browser\n(Cyclo Manager)',
-        className: 'omx-sidebar-two-line',
-        link: {type: 'doc', id: 'systems/omx/quick_start_guide/operation_guide/cyclo_manager/cyclo_manager'},
-        collapsed: true,
-        items: [
-          {type: 'doc', id: 'systems/omx/quick_start_guide/operation_guide/cyclo_manager/install', label: 'Install'},
-          {type: 'doc', id: 'systems/omx/quick_start_guide/operation_guide/cyclo_manager/bringup', label: 'Bringup'},
-          {type: 'doc', id: 'systems/omx/quick_start_guide/operation_guide/cyclo_manager/manage_container', label: 'Manage Containers'},
-          {type: 'doc', id: 'systems/omx/quick_start_guide/operation_guide/cyclo_manager/version_update', label: 'Version Update'},
-          {type: 'doc', id: 'systems/omx/quick_start_guide/operation_guide/cyclo_manager/novnc', label: 'noVNC'},
-        ],
-      },
-      // The Gazebo steps are the last part of this page.
-      {type: 'doc', id: 'systems/omx/simulation/simulation', label: 'In a Simulator'},
+      {type: 'doc', id: 'systems/omx/simulation/simulation', label: 'Overview', key: 'simulation-overview'},
+      {type: 'doc', id: 'systems/omx/simulation/mujoco', label: 'MuJoCo'},
+      {type: 'doc', id: 'systems/omx/simulation/gazebo', label: 'Gazebo'},
+    ],
+  },
+  {
+    // As the AI Worker Advanced Features group. The OMX Cyclo Manager pages are gone, as the AI Worker ones: their
+    // addresses lead to the Cyclo Manager manual (src/data/docRedirects.json).
+    type: 'category',
+    label: 'Advanced Features',
+    collapsible: false,
+    className: 'omx-sidebar-title',
+    items: [
+      // One page: the bringup, MoveIt 2, the GUI (which runs on MoveIt 2) and, last, keyboard teleop (which needs
+      // only the bringup).
+      {type: 'doc', id: 'systems/omx/quick_start_guide/operation_guide/robot_control', label: 'MoveIt 2'},
+      // The old Advanced Features text is the first part of this page.
+      {type: 'doc', id: 'systems/omx/advanced_features/cyclo_control', label: 'Cyclo Control'},
+      // Another way to use OMX, with the LeRobot workflow; the Setup Guide had this link before. Bringup also points
+      // to it in its Step 0.
+      {type: 'link', label: 'LeRobot', href: 'https://huggingface.co/docs/lerobot/omx'},
     ],
   },
   {
@@ -97,9 +99,9 @@ const omxSidebar: SidebarsConfig[string] = [
     collapsible: false,
     className: 'omx-sidebar-title',
     items: [
-      // The release notes are on Discord. Their page only links there. The FAQ page is not listed: the questions
-      // often asked on Discord are cards on the Troubleshooting page.
-      // The pages under support/troubleshooting/ are not in the menu: the Troubleshooting page lists them.
+      // The release notes are on Discord. Their page only links there.
+      // The FAQ page (questions often asked on Discord) and the pages under support/troubleshooting/ are not in the
+      // menu: the Troubleshooting page links to them.
       {type: 'doc', id: 'systems/omx/support/troubleshooting', label: 'Troubleshooting'},
       {type: 'doc', id: 'systems/omx/resources/release_notes', label: 'Release Notes'},
       {type: 'doc', id: 'systems/omx/resources/open_source', label: 'Open Source'},

@@ -1,6 +1,8 @@
 import SectionCard from '@site/src/components/SectionCard';
+import ThemedImage from '@theme/ThemedImage';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
-# Software Overview
+# Software Architecture
 
 **OMX** is a 5-DOF robotic manipulator designed for real-world **Physical AI** research.  
 It supports teleoperation, trajectory learning, and deployment of AI policies through a unified ROS 2 control architecture.
@@ -18,7 +20,29 @@ OMX provides an efficient and compact platform for Physical AI research in both 
 
 <SectionCard>
 
-## System Architecture
+## System Overview
+
+OMX runs its ROS 2 software in the `open_manipulator` Docker container on your PC. The container uses host-mounted source and workspace directories, runs the drivers and controllers for both arms and the camera driver, and exchanges commands and state through ROS 2 with [Zenoh RMW](#middleware). An external PC can join that ROS 2 network for operation and visualization.
+
+<ThemedImage
+  alt="OMX system overview: the open_manipulator Docker container on the user PC, a Zenoh router, host storage, an optional external PC, and the OMX hardware."
+  sources={{
+    light: useBaseUrl('/img/systems/omx/specifications/software/system_overview.svg'),
+    dark: useBaseUrl('/img/systems/omx/specifications/software/system_overview_dark.svg'),
+  }}
+  style={{width: '100%', height: 'auto'}}
+/>
+
+</SectionCard>
+
+<SectionCard>
+
+## Control Flow
+
+### Control Architecture
+
+<div id="system-architecture" />
+
 :::info
  The diagram below illustrates the overall control structure of OMX.
  Teleoperation or AI-generated commands are processed through `ros2_control`, translated by the hardware interface, and executed by DYNAMIXEL actuators via TTL.
@@ -33,11 +57,7 @@ OMX provides an efficient and compact platform for Physical AI research in both 
 | **Actuators** | DYNAMIXEL-X series | servo via TTL |
 | **Communication** | TTL | Dynamixel Protocol 2.0 |
 
-</SectionCard>
-
-<SectionCard>
-
-## Why `ros2_control`?
+#### Why `ros2_control`?
 
 OMX uses `ros2_control` for modular, real-time control of its joints.
 
@@ -47,33 +67,18 @@ OMX uses `ros2_control` for modular, real-time control of its joints.
 
 This makes it easy to switch between manual, scripted, or learned motion strategies.
 
-</SectionCard>
+### Motion Execution Pipeline
 
-<SectionCard>
+<ThemedImage
+  alt="Motion execution from leader or AI policy inputs through ROS 2 controllers to DYNAMIXEL-X actuators, with joint-state feedback and camera input."
+  sources={{
+    light: useBaseUrl('/img/systems/omx/specifications/software/motion_execution_pipeline.svg'),
+    dark: useBaseUrl('/img/systems/omx/specifications/software/motion_execution_pipeline_dark.svg'),
+  }}
+  style={{width: '100%', height: 'auto'}}
+/>
 
-## Motion Execution Pipeline
-
-```
-Input Source (Teleoperation / AI Policy)
-      ↓
-ROS 2 JointTrajectory / Command Topics
-      ↓
-controller_manager (100Hz loop)
-      ↓
-OMX Controllers
-      ↓
-DynamixelHardwareInterface
-      ↓
-TTL Bus
-      ↓
-DYNAMIXEL-X Actuators
-```
-
-</SectionCard>
-
-<SectionCard>
-
-## Controller Configuration & Joint Mapping
+### Controller Configuration & Joint Mapping
 
 | Controller                | Segment             | DOF | Input Topic                                    |
 |---------------------------|---------------------|-----|------------------------------------------------|
@@ -85,52 +90,9 @@ DYNAMIXEL-X Actuators
 :::
 - The gripper operates in **current-based position mode**; all other actuators operate in **position mode** by default.
 
-</SectionCard>
+### Debugging & Safety
 
-<SectionCard>
-
-## Controller YAML Example ([link](https://github.com/ROBOTIS-GIT/open_manipulator/blob/main/open_manipulator_bringup/config/omx_f_follower_ai/hardware_controller_manager.yaml))
-
-```yaml
-/**:
-  controller_manager:
-    ros__parameters:
-      update_rate: 100  # Hz
-
-      joint_state_broadcaster:
-        type: joint_state_broadcaster/JointStateBroadcaster
-
-      arm_controller:
-        type: joint_trajectory_controller/JointTrajectoryController
-
-/**:
-  arm_controller:
-    ros__parameters:
-      joints:
-        - joint1
-        - joint2
-        - joint3
-        - joint4
-        - joint5
-        - gripper_joint_1
-
-      interface_name: position
-
-      command_interfaces:
-        - position
-
-      state_interfaces:
-        - position
-        - velocity
-
-      allow_partial_joints_goal: true
-```
-
-</SectionCard>
-
-<SectionCard>
-
-## Debugging & Visualization Tools
+#### Debugging & Visualization Tools
 
 | Tool / Topic | Description |
 |--------------|-------------|
@@ -138,11 +100,7 @@ DYNAMIXEL-X Actuators
 | `ros2 topic echo /joint_states` | Monitor joint position/velocity |
 | Rviz2 | 3D view of robot model (URDF), TF, and movement |
 
-</SectionCard>
-
-<SectionCard>
-
-## Safety & Limits
+#### Safety & Fault Handling
 
 - Joint limits are defined in the URDF and enforced at the controller layer
 - Velocity/position clamping can be configured per joint
@@ -162,7 +120,7 @@ DYNAMIXEL-X Actuators
 :::warning
 At least one **Zenoh daemon** must be running in the communication network. If no Zenoh daemon is running, ROS 2 nodes cannot discover or communicate with each other.
 
-To start the Zenoh daemon manually, run `zenohd` in a terminal inside the open_manipulator container. `zenohd` is a shortcut for `ros2 run rmw_zenoh_cpp rmw_zenohd`. If you use Cyclo Manager, start it from the **Zenoh Daemon** control box on the [Bringup](../quick_start_guide/operation_guide/cyclo_manager/bringup.mdx#bringup-the-zenoh-daemon) page instead.
+To start the Zenoh daemon manually, run `zenohd` in a terminal inside the open_manipulator container. `zenohd` is a shortcut for `ros2 run rmw_zenoh_cpp rmw_zenohd`. If you use Cyclo Manager, start it from the **Zenoh Daemon** control box instead: see [Zenoh Daemon](/docs/software/cyclo/manager/system#zenoh-daemon) in the Cyclo Manager manual.
 :::
 
 ### What is rmw_zenoh?

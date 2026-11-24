@@ -3234,9 +3234,7 @@
 /* ---------- OMX left menu groups (sidebars/omx.ts only) ----------
    .omx-sidebar-title: a group that does not fold and is not a link, so it gets no hover colour or hand cursor.
    Its name is set large, and a thin line runs down the left of its rows, so the rows read as one group.
-   The size and the line are the same as in the AI Worker menu.
-   .omx-sidebar-two-line: a row whose name has a line break (\n), kept only here in the menu.
-   Elsewhere, such as the place line and Previous / Next, the break shows as a space. */
+   The size and the line are the same as in the AI Worker menu. */
 
 .omx-sidebar-title > .menu__list-item-collapsible > .menu__link {
   cursor: default;
@@ -3253,9 +3251,4 @@
   border-left: 1px solid var(--ifm-color-emphasis-300);
   margin-left: 0.75rem;
   padding-left: 0.25rem;
-}
-
-.omx-sidebar-two-line > .menu__link,
-.omx-sidebar-two-line > .menu__list-item-collapsible > .menu__link {
-  white-space: pre-line;
 }
