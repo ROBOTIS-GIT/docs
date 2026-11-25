@@ -1,0 +1,176 @@
+.diagram {
+  --network-accent: #555;
+  --network-soft: #f1f1f1;
+  margin: 1rem 0 1.5rem;
+  padding: 24px 20px;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 16px;
+  background: var(--ifm-background-surface-color);
+  color: var(--ifm-font-color-base);
+}
+
+:global([data-theme='dark']) .diagram {
+  --network-accent: #aaa;
+  --network-soft: #303030;
+}
+
+.topology {
+  display: grid;
+  grid-template-columns: 1.35fr 0.85fr 1fr 0.85fr 1fr;
+  align-items: center;
+  gap: 8px;
+}
+
+.builtIn {
+  grid-template-columns: 2.4fr 1fr 1fr;
+}
+
+.robot {
+  padding: 12px 8px;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 12px;
+  background: var(--network-soft);
+  text-align: center;
+}
+
+.robotTitle {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+}
+
+.robotContents {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.robotImage {
+  width: 110px;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+:global([data-theme='dark']) .robotImage {
+  filter: invert(1);
+  mix-blend-mode: screen;
+}
+
+.builtIn .robotImage {
+  max-width: 48%;
+}
+
+.device,
+.internalRouter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.deviceIcon {
+  display: block;
+  width: 100%;
+  max-width: 110px;
+  height: auto;
+  margin-bottom: 10px;
+  color: var(--network-accent);
+}
+
+.deviceBody {
+  fill: var(--network-soft);
+}
+
+.statusLight {
+  fill: var(--network-accent);
+}
+
+.port {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 0.75rem;
+  color: var(--network-accent);
+}
+
+.connection {
+  position: relative;
+  color: var(--network-accent);
+  text-align: center;
+}
+
+.connection > span {
+  position: absolute;
+  right: -8px;
+  bottom: 14px;
+  left: -8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.connectionLine {
+  position: relative;
+  height: 0;
+  border-top: 2px solid currentColor;
+}
+
+.wireless .connectionLine {
+  border-top-style: dashed;
+}
+
+@media (max-width: 600px) {
+  .diagram {
+    padding: 20px;
+  }
+
+  .topology,
+  .builtIn {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 12px;
+  }
+
+  .robot {
+    width: 180px;
+  }
+
+  .builtIn .robot {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .deviceIcon {
+    width: 100px;
+    margin-bottom: 4px;
+  }
+
+  .connection {
+    height: 48px;
+  }
+
+  .connection > span {
+    top: 50%;
+    right: auto;
+    bottom: auto;
+    left: 14px;
+    transform: translateY(-50%);
+  }
+
+  .connectionLine {
+    width: 0;
+    height: 100%;
+    border-top: 0;
+    border-left: 2px solid currentColor;
+  }
+
+  .wireless .connectionLine {
+    border-left-style: dashed;
+  }
+
+}

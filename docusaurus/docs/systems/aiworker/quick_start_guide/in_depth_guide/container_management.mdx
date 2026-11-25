@@ -1,0 +1,40 @@
+---
+slug: development_environment
+---
+
+import SectionCard from '@site/src/components/SectionCard';
+
+# Container Management
+
+The AI Worker development environment is preconfigured on the robot PC. This guide explains how to start, enter, and stop the `ai_worker` container.
+
+<SectionCard>
+
+## Manage the Container
+
+First, connect to the robot PC using [SSH](/docs/systems/aiworker/quick_start_guide/in_depth_guide/robot_pc_access). For more information about the system, see [Storage & Directory Layout](/docs/systems/aiworker/overview/software_architecture#storage--directory-layout) and [Containers & Services](/docs/systems/aiworker/overview/software_architecture#containers--services).
+
+AI Worker provides the `container.sh` script to manage its Docker container.
+
+| Command | Description |
+| --- | --- |
+| `start` | Pull the configured images and start the container. |
+| `enter` | Open a shell inside the running container. |
+| `stop` | Stop and remove the container after confirmation. |
+| `help` | Show the available commands. |
+
+On the robot PC, navigate to the Docker directory and run the command you need:
+
+```bash
+cd ~/ai_worker/docker
+./container.sh start  # Start the container
+./container.sh enter  # Enter the container
+./container.sh stop   # Stop and remove the container
+./container.sh help   # Show available commands
+```
+
+:::warning
+Stopping the container also stops its running services. Data stored only inside the container is lost when it is removed; save important files in a host-mounted directory first. See [Container Volume Map](/docs/systems/aiworker/overview/software_architecture#container-volume-map).
+:::
+
+</SectionCard>

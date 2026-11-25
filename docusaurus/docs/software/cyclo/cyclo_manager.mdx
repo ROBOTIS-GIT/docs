@@ -1,30 +1,72 @@
----
-title: Cyclo Manager
-description: Web-based robot operation and maintenance with Cyclo Manager and system-specific guides.
----
+import SectionCard from '@site/src/components/SectionCard';
+import Link from '@docusaurus/Link';
+import styles from '@site/src/components/TroubleshootingList/styles.module.css';
 
-**Cyclo Manager** is a web-based operation and maintenance tool for **AI Worker, OMY, and OMX**. It runs on the robot computer and provides a browser interface for daily robot operation, monitoring, and software maintenance.
+# Cyclo Manager
+
+Cyclo Manager is a browser-based interface for operating and maintaining supported robots.
+
+<SectionCard>
+
+## Introduction
+
+<span id="system-guides" />
+<span id="ai-worker-operation-guide" />
+
+Cyclo Manager provides access to robot services, control tools, and system management from a web browser. Available controls depend on the connected robot and installed software.
+
+</SectionCard>
+
+<SectionCard>
 
 ## Main Features
 
-- Bring up the robot stack and related services.
-- Start, stop, restart, and inspect Docker containers.
-- Monitor robot status, storage usage, and software versions.
-- Update robot software packages and container images.
-- Access container terminals and GUI tools through the browser, including noVNC.
+<span id="what-you-can-do" />
 
-Available features and setup depend on the robot. Follow the system-specific guide for installation, configuration, and operating precautions.
+- Start and monitor robot and leader services.
+- Move supported joints and mobile bases with Jog.
+- Record and play back trajectory commands.
+- Inspect ROS 2 topics, containers, logs, and system status.
+- Access a container terminal, remote desktop, and host files.
 
-## System Guides
+</SectionCard>
 
-| System | Guide |
-| --- | --- |
-| AI Worker | [Cyclo Manager](/docs/systems/aiworker/quick_start_guide/operation_guide/cyclo_manager/) |
-| OMY | [Cyclo Manager](/docs/systems/omy/quick_start_guide/operation_guide/cyclo_manager/) |
-| OMX | [Cyclo Manager](/docs/systems/omx/quick_start_guide/operation_guide/cyclo_manager/) |
+<SectionCard>
 
-Each guide links to installation, bringup, container management, version updates, and noVNC instructions for that system.
+## How It Works
+
+<span id="how-it-runs" />
+<span id="software-architecture" />
+
+Open Cyclo Manager from a browser connected to the Robot PC. The web UI communicates with the Cyclo Manager service on that PC. The service manages containers and communicates with host and container agents to control supported robot services.
+
+</SectionCard>
+
+<SectionCard>
+
+## Documentation Guide
+
+<span id="feature-guides" />
+
+Choose a guide for the feature you want to use.
+
+<ul className={styles.list}>
+  <li><Link className={styles.card} to="/docs/software/cyclo/manager/install"><span>Install</span><span aria-hidden="true">→</span></Link></li>
+  <li><Link className={styles.card} to="/docs/software/cyclo/manager/dashboard"><span>Dashboard</span><span aria-hidden="true">→</span></Link></li>
+  <li><Link className={styles.card} to="/docs/software/cyclo/manager/system"><span>System</span><span aria-hidden="true">→</span></Link></li>
+  <li><Link className={styles.card} to="/docs/software/cyclo/manager/jog"><span>Jog</span><span aria-hidden="true">→</span></Link></li>
+  <li><Link className={styles.card} to="/docs/software/cyclo/manager/record_play"><span>Record &amp; Play</span><span aria-hidden="true">→</span></Link></li>
+  <li><Link className={styles.card} to="/docs/software/cyclo/manager/terminal"><span>Terminal</span><span aria-hidden="true">→</span></Link></li>
+  <li><Link className={styles.card} to="/docs/software/cyclo/manager/novnc"><span>noVNC</span><span aria-hidden="true">→</span></Link></li>
+  <li><Link className={styles.card} to="/docs/software/cyclo/manager/files"><span>Files</span><span aria-hidden="true">→</span></Link></li>
+</ul>
+
+</SectionCard>
+
+<SectionCard>
 
 ## Source Code
 
-- [ROBOTIS-GIT/cyclo_manager](https://github.com/ROBOTIS-GIT/cyclo_manager)
+[ROBOTIS-GIT/cyclo_manager](https://github.com/ROBOTIS-GIT/cyclo_manager)
+
+</SectionCard>

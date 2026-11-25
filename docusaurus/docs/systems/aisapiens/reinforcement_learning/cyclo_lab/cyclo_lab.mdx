@@ -8,9 +8,9 @@ title: Cyclo Lab
 Cyclo Lab is the Isaac Lab-based environment for training AI Sapiens K1 policies in simulation.
 It provides the training and export workflow needed before deploying a policy with Sim2Real.
 
-This guide is based on Cyclo Lab 3.0.0 with Isaac Sim 6.2.0 and Isaac Lab 3.0.0, currently on `feature-isaacsim-6.2.0`. The default `main` branch may use an older runtime; use a version-matched checkout and container for these commands. Learning-method support is listed separately in [Motion Tracking](../motion_tracking).
+This guide is based on Cyclo Lab 3.0.0.
 
-For BeyondMimic policies with matching exported assets, use the [Sim2Real guide](/docs/systems/aisapiens/development_guide/sim2real/).
+For robot-side deployment after training, use the [Sim2Real guide](/docs/systems/aisapiens/development_guide/sim2real/).
 
 ## Choose a Physics Backend
 
@@ -35,7 +35,7 @@ Install these on the host PC first:
 Clone Cyclo Lab with its submodules:
 
 ```bash
-git clone --branch feature-isaacsim-6.2.0 https://github.com/ROBOTIS-GIT/cyclo_lab.git
+git clone https://github.com/ROBOTIS-GIT/cyclo_lab.git
 cd cyclo_lab
 git submodule update --init
 ```

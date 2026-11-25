@@ -1,11 +1,19 @@
+import SectionCard from '@site/src/components/SectionCard';
+
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import RunZenohDaemon from '@site/docs/systems/aiworker/_partials/run_zenoh_daemon.mdx';
 
 # Getting Started with Gazebo
 
+<SectionCard>
+
 ## Overview
 You can launch Gazebo and RViz (MoveIt) individually, launch RViz together with physical hardware, and now run Nav2 with SLAM Toolbox in simulation to map the environment and test navigation before deploying to the robot.
+
+</SectionCard>
+
+<SectionCard>
 
 ## Launch Gazebo
 
@@ -13,28 +21,28 @@ You can launch Gazebo and RViz (MoveIt) individually, launch RViz together with 
     Use this command to run a dynamic simulation of the AI Worker in the Gazebo simulator.  
 
     <Tabs groupId="aiworker-robot-type">
-    <TabItem value="f1" label="FFW-F1">
+    <TabItem value="f1" label="W1">
 
     ```bash
     ros2 launch ffw_bringup ffw_f1_follower_ai_gazebo.launch.py
     ```
 
     </TabItem>
-    <TabItem value="f2" label="FFW-F2">
+    <TabItem value="f2" label="W2">
 
     ```bash
     ros2 launch ffw_bringup ffw_f2_follower_ai_gazebo.launch.py
     ```
 
     </TabItem>
-    <TabItem value="bg2" label="FFW-BG2">
+    <TabItem value="bg2" label="BG2">
 
     ```bash
     ros2 launch ffw_bringup ffw_bg2_follower_ai_gazebo.launch.py
     ```
 
     </TabItem>
-    <TabItem value="sg2" label="FFW-SG2">
+    <TabItem value="sg2" label="SG2">
 
     ```bash
     ros2 launch ffw_bringup ffw_sg2_follower_ai_gazebo.launch.py
@@ -47,28 +55,28 @@ You can launch Gazebo and RViz (MoveIt) individually, launch RViz together with 
     Use this command when you want to visualize the robot model in RViz without running a full simulation or the physical hardware.
 
     <Tabs groupId="aiworker-robot-type">
-    <TabItem value="f1" label="FFW-F1">
+    <TabItem value="f1" label="W1">
 
     ```bash
     ros2 launch ffw_description ffw_f1.launch.py
     ```
 
     </TabItem>
-    <TabItem value="f2" label="FFW-F2">
+    <TabItem value="f2" label="W2">
 
     ```bash
     ros2 launch ffw_description ffw_f2.launch.py
     ```
 
     </TabItem>
-    <TabItem value="bg2" label="FFW-BG2">
+    <TabItem value="bg2" label="BG2">
 
     ```bash
     ros2 launch ffw_description ffw_bg2_rev4.launch.py
     ```
 
     </TabItem>
-    <TabItem value="sg2" label="FFW-SG2">
+    <TabItem value="sg2" label="SG2">
 
     ```bash
     ros2 launch ffw_description ffw_sg2_rev1.launch.py
@@ -84,28 +92,28 @@ You can launch Gazebo and RViz (MoveIt) individually, launch RViz together with 
     <RunZenohDaemon />
 
     <Tabs groupId="aiworker-robot-type">
-    <TabItem value="f1" label="FFW-F1">
+    <TabItem value="f1" label="W1">
 
     ```bash
     ros2 launch ffw_bringup ffw_f1_follower_ai.launch.py start_rviz:=true
     ```
 
     </TabItem>
-    <TabItem value="f2" label="FFW-F2">
+    <TabItem value="f2" label="W2">
 
     ```bash
     ros2 launch ffw_bringup ffw_f2_follower_ai.launch.py start_rviz:=true
     ```
 
     </TabItem>
-    <TabItem value="bg2" label="FFW-BG2">
+    <TabItem value="bg2" label="BG2">
 
     ```bash
     ros2 launch ffw_bringup ffw_bg2_follower_ai.launch.py start_rviz:=true
     ```
 
     </TabItem>
-    <TabItem value="sg2" label="FFW-SG2">
+    <TabItem value="sg2" label="SG2">
 
     ```bash
     ros2 launch ffw_bringup ffw_sg2_follower_ai.launch.py start_rviz:=true
@@ -114,34 +122,50 @@ You can launch Gazebo and RViz (MoveIt) individually, launch RViz together with 
     </TabItem>
     </Tabs>
 
-    *   **Note:** This command is the same as the `Follower` launch command in the [`Teleoperation Guide`](/docs/systems/aiworker/quick_start_guide/operation_guide) and will also launch the cameras by default. To run without cameras, you can add the `launch_cameras:=false` argument.
+    *   **Note:** This command is the same as the `Follower` launch command in the [`Teleoperation Guide`](/docs/systems/aiworker/overview/introduction#documentation-guide) and will also launch the cameras by default. To run without cameras, you can add the `launch_cameras:=false` argument.
+
+</SectionCard>
+
+<SectionCard>
 
 ## Simulation Views
 
-### FFW-BG2
+<div id="ffw-bg2" />
 
-![FFW-BG2 Simulation](/img/systems/aiworker/simulation/gazebo/ffw_bg2_gazebo.png)
+### BG2
+
+![BG2 Simulation](/img/systems/aiworker/simulation/gazebo/ffw_bg2_gazebo.png)
 
 
-### FFW-SG2
+<div id="ffw-sg2" />
 
-![FFW-SG2 Simulation](/img/systems/aiworker/simulation/gazebo/ffw_sg2_gazebo.png)
+### SG2
 
-### FFW-F1
+![SG2 Simulation](/img/systems/aiworker/simulation/gazebo/ffw_sg2_gazebo.png)
 
-![FFW-F1 Simulation](/img/systems/aiworker/simulation/gazebo/ffw_f1_gazebo.png)
+<div id="ffw-w1" />
 
-### FFW-F2
+### W1
 
-![FFW-F2 Simulation](/img/systems/aiworker/simulation/gazebo/ffw_f2_gazebo.png)
+![W1 Simulation](/img/systems/aiworker/simulation/gazebo/ffw_f1_gazebo.png)
+
+<div id="ffw-w2" />
+
+### W2
+
+![W2 Simulation](/img/systems/aiworker/simulation/gazebo/ffw_f2_gazebo.png)
+
+</SectionCard>
+
+<SectionCard>
 
 ## Launch MoveIt
 *   **Launch MoveIt:**
-    You can use the following command to launch MoveIt for FFW-BG2, FFW-SG2, FFW-F1, and FFW-F2:
+    You can use the following command to launch MoveIt for BG2, SG2, W1, and W2:
     Set `model` to match the Follower: `bg2` (default), `sg2`, `f1`, or `f2`.
     ```bash
     ros2 launch ffw_moveit_config moveit.launch.py model:=bg2
-    # Launch MoveIt with the AI Worker Follower model (FFW-BG2, FFW-SG2, FFW-F1, FFW-F2)
+    # Launch MoveIt with the AI Worker Follower model (BG2, SG2, W1, W2)
     ```
 
     If you are using Gazebo, you should add the argument `use_sim:=true`:
@@ -152,6 +176,10 @@ You can launch Gazebo and RViz (MoveIt) individually, launch RViz together with 
 <img src="/img/systems/aiworker/simulation/gazebo/ffw_moveit.gif" alt="AI Worker MoveIt" />
 
 
+</SectionCard>
+
+<SectionCard>
+
 ## Launch Nav2 in Gazebo
 
 Use Nav2 with the Gazebo simulation to test autonomous navigation before running on hardware.
@@ -159,21 +187,21 @@ Use Nav2 with the Gazebo simulation to test autonomous navigation before running
 1. **Start Gazebo simulation:** Use one of the Gazebo launch commands.
 
     <Tabs groupId="aiworker-robot-type">
-    <TabItem value="f2" label="FFW-F2">
+    <TabItem value="f2" label="W2">
 
     ```bash
     ros2 launch ffw_bringup ffw_f2_follower_ai_gazebo.launch.py
     ```
 
     </TabItem>
-    <TabItem value="sg2" label="FFW-SG2">
+    <TabItem value="sg2" label="SG2">
 
     ```bash
     ros2 launch ffw_bringup ffw_sg2_follower_ai_gazebo.launch.py
     ```
 
     </TabItem>
-    <TabItem value="sh5" label="FFW-SH5">
+    <TabItem value="sh5" label="SH5">
 
     ```bash
     ros2 launch ffw_bringup ffw_sh5_follower_ai_gazebo.launch.py
@@ -214,6 +242,10 @@ Use Nav2 with the Gazebo simulation to test autonomous navigation before running
 
    The map uses a two-dimensional Occupancy Grid Map (OGM). White is free space, black is occupied, and gray is unknown.
 
+</SectionCard>
+
+<SectionCard>
+
 ## Navigation Using a Saved Map
 
 - **Use a saved or default map:**
@@ -221,3 +253,5 @@ Use Nav2 with the Gazebo simulation to test autonomous navigation before running
   ros2 launch ffw_navigation navigation.launch.py use_sim_time:=true
   ```
   Set the initial pose in RViz with `2D Pose Estimate` so AMCL can localize. After Nav2 is running, send a goal in RViz using `2D Goal Pose`. The robot will plan and drive to the target pose; if SLAM is enabled, the map updates in real time.
+
+</SectionCard>

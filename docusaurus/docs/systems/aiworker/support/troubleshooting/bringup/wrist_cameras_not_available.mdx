@@ -1,0 +1,109 @@
+---
+title: Wrist Cameras Are Not Available
+description: Check the wrist camera serial number configuration on SG2 and BG2.
+displayed_sidebar: aiworkerSidebar
+---
+
+import SectionCard from '@site/src/components/SectionCard';
+
+[← All troubleshooting guides](/docs/systems/aiworker/support/troubleshooting)
+
+# Wrist Cameras Are Not Available
+
+If robot bringup completes but wrist camera topics or images are missing, check the manually configured camera serial numbers. This guide applies to **SG2 and BG2**.
+
+<SectionCard>
+
+## 1. Check Camera Serial Number Configuration
+
+Camera serial numbers are configured during production, so it is normal for the `ai_worker` configuration to contain local changes. A Git operation may accidentally reset or remove these settings.
+
+Connect to the robot PC via [SSH](/docs/systems/aiworker/quick_start_guide/in_depth_guide/robot_pc_access), then check the repository status:
+
+```bash
+cd ~/ai_worker
+git status
+```
+
+You should see output similar to:
+
+```text
+On branch jazzy
+Your branch is up to date with 'origin/jazzy'.
+
+Changes not staged for commit:
+  modified:   ffw_bringup/config/common/rs_serial.yaml
+```
+
+If `rs_serial.yaml` is not shown as modified, the camera configuration may have been reset or removed. Continue to the next step to check the connected camera serial numbers.
+
+</SectionCard>
+
+<SectionCard>
+
+## 2. Check Connected Camera Serial Numbers
+
+Enter the [AI Worker container](/docs/systems/aiworker/quick_start_guide/in_depth_guide/container_management) and list the connected RealSense cameras:
+
+```bash
+cd ~/ai_worker/docker
+./container.sh enter
+```
+
+Inside the container, run:
+
+```bash
+rs-enumerate-devices --compact
+```
+
+Find the serial numbers for the two wrist cameras in the output. For example:
+
+```text
+18/03 01:38:25,546 ERROR [281473262003328] (context.cpp:40) No valid configuration file found at : /root/.realsense-config.json loading defaults
+Device Name                   Serial Number       Firmware Version
+Intel RealSense D405          123412341234        5.12.14.100
+Intel RealSense D405          567856785678        5.12.14.100
+...
+```
+
+Look for the **Serial Number** values, such as `123412341234` and `567856785678`.
+
+</SectionCard>
+
+<SectionCard>
+
+## 3. Update the Configuration File
+
+Inside the container, open the configuration file:
+
+```bash
+nano ~/ros2_ws/src/ai_worker/ffw_bringup/config/common/rs_serial.yaml
+```
+
+Example configuration:
+
+```yaml
+# Serial numbers for RealSense cameras
+# You can add or modify serial numbers as needed
+camera1_serial: "'218622271442'"
+camera2_serial: "'218622275721'"
+```
+
+Replace the values with the serial numbers you identified earlier:
+
+```yaml
+camera1_serial: "'123412341234'"
+camera2_serial: "'567856785678'"
+```
+
+You can edit this file either inside the container or on the host system, since the source directory is volume-mounted.
+
+</SectionCard>
+
+<SectionCard>
+
+## 4. Verify Left/Right Camera Assignment
+
+Restart robot bringup, then follow [Check Cameras](/docs/systems/aiworker/quick_start_guide/bringup#6-check-cameras) to view the camera images. Verify which image corresponds to each wrist. If the left and right cameras are swapped, switch the serial numbers in the configuration file and restart robot bringup again.
+
+</SectionCard>

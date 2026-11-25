@@ -1,3 +1,5 @@
+import sectionStyles from '@site/src/components/SectionCard/styles.module.css';
+
 import CodeBlock from '@theme/CodeBlock';
 import RecordPageAreas from '@site/src/components/cyclo_intelligence/RecordPageAreas';
 import SubtaskFigure from '@site/src/components/cyclo_intelligence/SubtaskFigure';
@@ -6,9 +8,15 @@ import Link from '@docusaurus/Link';
 
 Use Data Recording to collect robot demonstrations as rosbag2 episodes. After recording, the dataset can be reviewed, edited, merged, converted, or uploaded from Data Tools.
 
+<section className={props.sectionCards ? sectionStyles.card : undefined}>
+
 ## Cyclo Data Workflow
 
 <CycloDataArchitecture />
+
+</section>
+
+<section className={props.sectionCards ? sectionStyles.card : undefined}>
 
 ## Robot Preparation
 
@@ -17,6 +25,10 @@ Use Data Recording to collect robot demonstrations as rosbag2 episodes. After re
 
 For robot operation and camera setup, follow the <strong><Link to={props.robotBringupGuide}>{props.robotPreparationGuideLabel || props.robotName + ' bringup guide'}</Link></strong>. After the robot is ready, return to this page and check the `Camera Views` and `Topic Monitor`.
 :::
+
+</section>
+
+<section className={props.sectionCards ? sectionStyles.card : undefined}>
 
 ## Home Page
 
@@ -70,11 +82,19 @@ observation:
 )}
 </details>
 
+</section>
+
+<section className={props.sectionCards ? sectionStyles.card : undefined}>
+
 ## Record Page
 
 Use the Record page to collect robot demonstrations as rosbag2 episodes. Select an area to see what it is for:
 
 <RecordPageAreas />
+
+</section>
+
+<section className={props.sectionCards ? sectionStyles.card : undefined}>
 
 ## Rosbag Recorder Panel
 
@@ -137,6 +157,10 @@ After entering the required information, click `Record Start` to begin recording
   </>
 )}
 
+</section>
+
+<section className={props.sectionCards ? sectionStyles.card : undefined}>
+
 ## Recording Sequence
 
 1. In the `Rosbag Recorder` panel, fill in `Task Num`, `Task Name`, `Task Instruction`, and subtask information if needed. Then click `Record Start`.
@@ -147,6 +171,10 @@ After entering the required information, click `Record Start` to begin recording
 
 ![Record episode save and discard](/img/systems/_partials/cyclo_intelligence/record_episode_save_discard.png)
 
+
+</section>
+
+<section className={props.sectionCards ? sectionStyles.card : undefined}>
 
 ## Recorded Dataset Location
 
@@ -179,3 +207,5 @@ Each episode folder contains the recorded MCAP file, task metadata, camera video
 | `*.mcap` | Recorded ROS 2 data. |
 | `videos/` | Camera videos and per-camera timestamp files. |
 | `camera_info/` | Camera calibration files captured with the episode. |
+
+</section>
