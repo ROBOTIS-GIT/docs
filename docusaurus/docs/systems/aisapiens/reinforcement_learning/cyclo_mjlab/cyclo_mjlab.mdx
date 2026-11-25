@@ -11,9 +11,10 @@ Built on [MJLab](https://github.com/mujocolab/mjlab) and [MuJoCo](https://mujoco
 Cyclo MJLab currently provides:
 
 - **Velocity** for flat-ground velocity-tracking locomotion.
-- **BeyondMimic (PPO)** for tracking Dance1 and Dance2 reference motions; its existing task IDs use `Cyclo-Mimic-*`.
+- **BeyondMimic** for tracking Dance1 and Dance2 reference motions; its task IDs use `Cyclo-BeyondMimic-*`.
+- **SuperMimic and BlinkMimic** for world-model-based motion tracking.
 
-The BeyondMimic workflow uses the same Sim2Real deployment process as Cyclo Lab. SuperMimic does not yet have a validated export/controller contract for that process.
+The BeyondMimic workflow uses the same Sim2Real deployment process as Cyclo Lab. SuperMimic and BlinkMimic also export ONNX policies and deployment settings.
 For robot-side deployment after training, follow [How to Deploy Your Own Cyclo Lab-Trained Policy](/docs/systems/aisapiens/development_guide/sim2real/#how-to-deploy-your-own-cyclo-lab-trained-policy).
 
 ## Set Up the Docker Container
@@ -71,7 +72,7 @@ The project source and `logs/` directory are shared with the host PC, so trainin
 :::
 
 :::info
-The current environment uses Python 3.11, MJLab 1.2.0, MuJoCo and MuJoCo Warp 3.5.0, and Warp 1.12.0.
+The 1.1.x environment uses Python 3.12 and MJLab 1.6.1 for all four learning methods.
 :::
 
 ## List Available Tasks
@@ -82,12 +83,15 @@ Run the task-listing script inside the container to see the task IDs supported b
 python scripts/list_envs.py
 ```
 
-The current Cyclo MJLab tasks are:
+Examples of available tasks include:
 
 ```text
-Cyclo-Mimic-K1-Rev1-Dance1
-Cyclo-Mimic-K1-Rev1-Dance2
-Cyclo-Velocity-Flat-K1-Rev1-v0
+Cyclo-BeyondMimic-K1-Rev2-Dance1
+Cyclo-BeyondMimic-K1-Rev2-Dance2
+Cyclo-Velocity-Flat-K1-Rev2-v0
+Cyclo-SuperMimic-GenCoord-K1-Rev2-001
+Cyclo-SuperMimic-MaxCoord-K1-Rev2-001
+Cyclo-BlinkMimic-K1-Rev2-001
 ```
 
 Use `--keyword` to filter the list. For example, list only the Mimic tasks with:
@@ -100,10 +104,12 @@ Use the displayed task ID as the first positional argument to `train.py` or `pla
 
 ## Choose a Viewer
 
-The playback script accepts `--viewer auto`, `--viewer native`, or `--viewer viser`.
+BeyondMimic and Velocity accept `--viewer auto`, `--viewer native`, or `--viewer viser`.
 The default `auto` mode uses the native MuJoCo viewer when a desktop display is available and otherwise starts the browser-based Viser viewer.
 
 To select a viewer explicitly, append `--viewer native` or `--viewer viser` to a `play.py` command.
+
+SuperMimic and BlinkMimic default to `viser`; BlinkMimic does not provide a native MuJoCo viewer.
 
 Use `native` when running locally with a desktop display.
 Use `viser` for a headless or remote environment, and open the URL printed by `play.py` in a web browser.
@@ -111,9 +117,10 @@ Use `viser` for a headless or remote environment, and open the URL printed by `p
 ## Next Steps
 
 - Train and export a velocity policy with the [Locomotion guide](./locomotion).
-- Train and export a motion-imitation policy with the [BeyondMimic (PPO) guide](./mimic).
+- Train and export a motion-imitation policy with the [BeyondMimic guide](./mimic).
+- Train and play a world-model policy with the [SuperMimic and BlinkMimic guide](./supermimic).
 - Deploy the exported policy and configuration by following [How to Deploy Your Own Cyclo Lab-Trained Policy](/docs/systems/aisapiens/development_guide/sim2real/#how-to-deploy-your-own-cyclo-lab-trained-policy).
 
 ## Choose a Motion-Tracking Method
 
-Use [Motion Tracking](../motion_tracking) to compare BeyondMimic (PPO) and SuperMimic (world model), then [prepare the motion](../motion_preparation). The existing Mimic task IDs select BeyondMimic; a physics backend switch does not select another learning method. SuperMimic runtime and deployment support must be checked on its [method page](./supermimic).
+Use [Motion Tracking](../motion_tracking) to compare BeyondMimic and SuperMimic (world model), then [prepare the motion](../motion_preparation). The existing Mimic task IDs select BeyondMimic; a physics backend switch does not select another learning method. SuperMimic runtime and deployment support must be checked on its [method page](./supermimic).

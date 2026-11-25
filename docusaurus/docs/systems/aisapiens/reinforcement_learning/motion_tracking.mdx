@@ -11,8 +11,8 @@ Choose how AI Sapiens K1 learns to follow a reference motion. Start with the pla
 
 | Method | How it learns | Use this guide for |
 | --- | --- | --- |
-| BeyondMimic (PPO) | Trains a motion-tracking policy from simulator transitions using PPO. | The existing Dance1/Dance2 train, play, ONNX export, and matched Sim2Real asset workflow. |
-| SuperMimic (world model) | Learns dynamics from collected transitions and trains a policy through imagined rollouts. | Experimental world-model motion tracking; checkpoint, observation, and deployment contracts differ from PPO. |
+| BeyondMimic | Trains a motion-tracking policy from simulator transitions using PPO. | The existing Dance1/Dance2 train, play, ONNX export, and matched Sim2Real asset workflow. |
+| SuperMimic / BlinkMimic (world model) | Learns dynamics from collected transitions and trains a policy through imagined rollouts. | World-model motion tracking; checkpoint and observation formats differ from PPO. |
 
 A method is not a physics backend. In Cyclo Lab, Newton and PhysX select the simulator backend; choosing one does not turn PPO into SuperMimic. Cyclo MJLab uses MuJoCo. Support must be checked for each platform, method, and backend combination.
 
@@ -21,24 +21,21 @@ A method is not a physics backend. In Cyclo Lab, Newton and PhysX select the sim
 | Platform / method | Runtime and physics | Current scope | Play and deployment |
 | --- | --- | --- | --- |
 | Cyclo Lab / BeyondMimic | Isaac Lab; Newton or PhysX in the 6.2 workflow. | Documented K1 Dance1/Dance2 workflow. | Simulation playback and ONNX/Sim2Real asset preparation are documented. |
-| Cyclo Lab / SuperMimic | Native Isaac PhysX only; Newton overrides are rejected. | Supports GenCoord K1, privileged `rep_state`, history length 1, a single clip/encoder and fixed dynamics with zero context. Named 50 Hz references and bounded native learning have been checked. MaxCoord is not integrated. Compiled execution and long-run convergence remain unverified. | Headless local play and learned/optimizer-state continuation checked; simulator/replay/RNG start fresh, so continuation is not exact trajectory resume. No validated Sim2Real export. |
 | Cyclo MJLab / BeyondMimic | The existing Cyclo MJLab runtime and MuJoCo. | Documented K1 Dance1/Dance2 workflow. | Simulation playback and matched policy/configuration export are documented. |
-| Cyclo MJLab / SuperMimic | MuJoCo research APIs integrated through the task/learning flow. | GenCoord/MaxCoord dispatch, direct reuse of the existing 50 Hz Cyclo/MuJoCo NPZ, and bounded optimization have been checked on the development branch. These checks do not demonstrate a converged tracker. | Bundle/runtime requirements differ from PPO; no validated robot deployment contract. |
-
-SuperMimic uses privileged simulator observations in its default development configuration. A world-model checkpoint or a successful optimizer update is not a deployable proprioceptive policy. Do not load it with the BeyondMimic ONNX or `sim2real.yaml` workflow.
+| Cyclo MJLab / SuperMimic and BlinkMimic | MuJoCo. | K1 Rev.1/Rev.2, multiple clips, and SuperMimic GenCoord/MaxCoord. | Browser playback, ONNX export, and matching `sim2real.yaml`. |
 
 ## Follow a Workflow
 
 1. [Prepare and inspect your motion](./motion_preparation).
 2. Set up [Cyclo Lab](./cyclo_lab/) or [Cyclo MJLab](./cyclo_mjlab/).
-3. Choose [Lab BeyondMimic](./cyclo_lab/mimic), [Lab SuperMimic](./cyclo_lab/supermimic), [MJLab BeyondMimic](./cyclo_mjlab/mimic), or [MJLab SuperMimic](./cyclo_mjlab/supermimic).
+3. Choose [Lab BeyondMimic](./cyclo_lab/mimic), [MJLab BeyondMimic](./cyclo_mjlab/mimic), or [MJLab SuperMimic / BlinkMimic](./cyclo_mjlab/supermimic).
 4. Train, select a matching checkpoint, and inspect full-motion playback before considering export.
-5. Follow only the deployment contract documented for that method. SuperMimic robot deployment is not provided here.
+5. Follow the selected method’s Play and Export instructions.
 
 ## Existing Mimic Users
 
-The existing `/cyclo_lab/mimic` and `/cyclo_mjlab/mimic` pages now identify the method as BeyondMimic (PPO). Existing `Cyclo-Mimic-*` task IDs remain the documented compatibility names. A new menu label does not rename those tasks or make their checkpoints compatible with another learner.
+The existing `/cyclo_lab/mimic` and `/cyclo_mjlab/mimic` pages now identify the method as BeyondMimic. Use `Cyclo-BeyondMimic-*` in Cyclo MJLab. Cyclo Lab also retains its `Cyclo-Mimic-*` aliases. A new menu label does not rename those tasks or make their checkpoints compatible with another learner.
 
 For Isaac Sim 6.2 / Isaac Lab 3.0, train and play use the same task ID. Older releases with separate `-Play` registrations and different visualization flags require their version's commands; do not combine them with the 6.2 backend arguments.
 
-Both published development branches use `scripts/reinforcement_learning/train.py` and `play.py` with optional `--algorithm beyondmimic|supermimic` and recognized task inference. Backend options remain platform-specific. Lab loads a v2 `--checkpoint` and can continue learned/optimizer state with fresh replay; MJLab loads a local `--checkpoint-dir` inference bundle. Offline play requires no W&B synchronization. Neither format is a PPO deployment export.
+Cyclo MJLab uses a task ID with `scripts/reinforcement_learning/train.py` and `play.py`. Checkpoint formats and viewer options remain platform-specific. Local playback does not require W&B synchronization.

@@ -1,5 +1,5 @@
 ---
-sidebar_label: BeyondMimic (PPO)
+sidebar_label: BeyondMimic
 title: BeyondMimic Policy Training
 ---
 
@@ -8,7 +8,7 @@ import TabItem from '@theme/TabItem';
 
 # BeyondMimic Policy Training
 
-This is the **BeyondMimic (PPO)** motion-tracking workflow for Cyclo MJLab. The existing URL and `Cyclo-Mimic-*` task names are retained. For method selection, see [Motion Tracking](../motion_tracking); for reference requirements, see [Prepare Motion](../motion_preparation). The [SuperMimic guide](./supermimic) describes its separate experimental scope.
+This is the **BeyondMimic** motion-tracking workflow for Cyclo MJLab. Use the `Cyclo-BeyondMimic-*` task IDs shown below. For method selection, see [Motion Tracking](../motion_tracking); for reference requirements, see [Prepare Motion](../motion_preparation). The [SuperMimic guide](./supermimic) describes the world-model workflow in the same container.
 
 For installation, follow the [Cyclo MJLab setup](./) before running the commands below.
 
@@ -23,14 +23,14 @@ Run the commands inside the Cyclo MJLab container from `/workspace/cyclo_mjlab`.
 
 ```bash
 python scripts/reinforcement_learning/train.py \
-  Cyclo-Mimic-K1-Rev1-Dance1 \
+  Cyclo-BeyondMimic-K1-Rev2-Dance1 \
   --env.scene.num-envs 4096
 ```
 
 Training output is written to:
 
 ```text
-logs/rsl_rl/k1_mimic/<run>/
+logs/rsl_rl/cyclo_beyondmimic_k1_rev2_dance1/<run>/
 ```
 
 `<run>` is the timestamped directory created when training starts.
@@ -38,10 +38,10 @@ The main files in each run directory are:
 
 <div className="docs-folder-tree" role="img" aria-label="Cyclo MJLab mimic training output directory structure">
   <div className="docs-folder-tree__root">
-    <code>logs/rsl_rl/k1_mimic/&lt;run&gt;/</code>
+    <code>logs/rsl_rl/cyclo_beyondmimic_k1_rev2_dance1/&lt;run&gt;/</code>
   </div>
   <ul>
-    <li><code>model_*.pt</code></li>
+    <li><span className="docs-folder-tree__file-stack" aria-hidden="true" /><code>model_*.pt</code></li>
     <li>
       <strong>params/</strong>
       <ul>
@@ -54,7 +54,7 @@ The main files in each run directory are:
 </div>
 
 The training configuration saves a checkpoint every 500 iterations.
-Because Dance1 and Dance2 use the same `k1_mimic` output root, select the run directory created by the task you trained.
+Each task has its own output root. For Dance2, use `logs/rsl_rl/cyclo_beyondmimic_k1_rev2_dance2/`.
 
 ## Play and Export
 
@@ -65,8 +65,8 @@ Select a checkpoint from the matching training run and pass its path to `play.py
 
 ```bash
 python scripts/reinforcement_learning/play.py \
-  Cyclo-Mimic-K1-Rev1-Dance1 \
-  --checkpoint-file logs/rsl_rl/k1_mimic/<run>/model_<iteration>.pt \
+  Cyclo-BeyondMimic-K1-Rev2-Dance1 \
+  --checkpoint-file logs/rsl_rl/cyclo_beyondmimic_k1_rev2_dance1/<run>/model_<iteration>.pt \
   --num-envs 1 \
   --viewer native
 ```
@@ -78,8 +78,8 @@ Use the native viewer when a desktop display is available.
 
 ```bash
 python scripts/reinforcement_learning/play.py \
-  Cyclo-Mimic-K1-Rev1-Dance1 \
-  --checkpoint-file logs/rsl_rl/k1_mimic/<run>/model_<iteration>.pt \
+  Cyclo-BeyondMimic-K1-Rev2-Dance1 \
+  --checkpoint-file logs/rsl_rl/cyclo_beyondmimic_k1_rev2_dance1/<run>/model_<iteration>.pt \
   --num-envs 1 \
   --viewer viser
 ```
@@ -100,8 +100,8 @@ Add `--reference-ghost-offset` to display the reference motion as a semi-transpa
 
 ```bash
 python scripts/reinforcement_learning/play.py \
-  Cyclo-Mimic-K1-Rev1-Dance1 \
-  --checkpoint-file logs/rsl_rl/k1_mimic/<run>/model_<iteration>.pt \
+  Cyclo-BeyondMimic-K1-Rev2-Dance1 \
+  --checkpoint-file logs/rsl_rl/cyclo_beyondmimic_k1_rev2_dance1/<run>/model_<iteration>.pt \
   --num-envs 1 \
   --reference-ghost-offset 1.4,0,0
 ```
@@ -115,10 +115,10 @@ After `play.py` exports the policy, the run directory contains:
 
 <div className="docs-folder-tree" role="img" aria-label="Cyclo MJLab mimic exported policy directory structure">
   <div className="docs-folder-tree__root">
-    <code>logs/rsl_rl/k1_mimic/&lt;run&gt;/</code>
+    <code>logs/rsl_rl/cyclo_beyondmimic_k1_rev2_dance1/&lt;run&gt;/</code>
   </div>
   <ul>
-    <li><code>model_*.pt</code></li>
+    <li><span className="docs-folder-tree__file-stack" aria-hidden="true" /><code>model_*.pt</code></li>
     <li>
       <strong>exported/</strong>
       <ul>
@@ -150,15 +150,15 @@ Use your own motion name in the same places.
 
 1. **Place and convert the motion file.**
 
-   Place the Soma-retargeter output CSV under the K1 Rev.1 motion data directory:
+   Place the Soma-retargeter output CSV under the K1 Rev.2 motion data directory:
 
-   <div className="docs-folder-tree" role="img" aria-label="Cyclo MJLab K1 Rev.1 motion input directory structure">
+   <div className="docs-folder-tree" role="img" aria-label="Cyclo MJLab K1 Rev.2 motion input directory structure">
      <div className="docs-folder-tree__root">
        <code>source/assets/motions/</code>
      </div>
      <ul>
        <li>
-         <strong>K1_rev1/</strong>
+         <strong>K1_rev2/</strong>
          <ul>
            <li><span className="docs-folder-tree__folder">dance1/</span></li>
            <li><span className="docs-folder-tree__folder">dance2/</span></li>
@@ -178,15 +178,17 @@ Use your own motion name in the same places.
 
    ```bash
    python scripts/tools/motion/soma_retargeter_csv_converter.py \
-     -f source/assets/motions/K1_rev1/my_motion/my_motion_soma.csv \
-     --output_name source/assets/motions/K1_rev1/my_motion/my_motion.npz
+     --model third_party/ai_sapiens/ai_sapiens_description/mujoco/k1_rev2/k1.xml \
+     -f source/assets/motions/K1_rev2/my_motion/my_motion_soma.csv \
+     --output_name source/assets/motions/K1_rev2/my_motion/my_motion.npz
    ```
 
    Validate the generated NPZ before training:
 
    ```bash
    python scripts/tools/motion/replay_npz.py \
-     -f source/assets/motions/K1_rev1/my_motion/my_motion.npz \
+     --model third_party/ai_sapiens/ai_sapiens_description/mujoco/k1_rev2/k1.xml \
+     -f source/assets/motions/K1_rev2/my_motion/my_motion.npz \
      --validate-only
    ```
 
@@ -194,22 +196,23 @@ Use your own motion name in the same places.
 
    ```bash
    python scripts/tools/motion/replay_npz.py \
-     -f source/assets/motions/K1_rev1/my_motion/my_motion.npz \
+     --model third_party/ai_sapiens/ai_sapiens_description/mujoco/k1_rev2/k1.xml \
+     -f source/assets/motions/K1_rev2/my_motion/my_motion.npz \
      --loop
    ```
 
 2. **Create a new Mimic task config.**
 
-   Create `source/tasks/mimic/config/k1_rev1/my_motion_env_cfg.py` by duplicating `dance1_env_cfg.py`.
+   Create `source/tasks/beyondmimic/config/k1_rev2/my_motion_env_cfg.py` by duplicating `dance1_env_cfg.py`.
    In the new file, point `TRAJECTORY_FILE` to the generated NPZ:
 
    ```python
    TRAJECTORY_FILE = (
-     SRC_PATH / "assets" / "motions" / "K1_rev1" / "my_motion" / "my_motion.npz"
+     SRC_PATH / "assets" / "motions" / "K1_rev2" / "my_motion" / "my_motion.npz"
    )
    ```
 
-   Rename `k1_rev1_dance1_env_cfg` to `k1_rev1_my_motion_env_cfg` and keep the remaining configuration logic unchanged.
+   Rename `k1_rev2_dance1_env_cfg` to `k1_rev2_my_motion_env_cfg` and keep the remaining configuration logic unchanged.
 
 3. **Register the new task.**
 
@@ -217,15 +220,15 @@ Use your own motion name in the same places.
 
    <div className="docs-folder-tree" role="img" aria-label="Cyclo MJLab Mimic task registration file structure">
      <div className="docs-folder-tree__root">
-       <code>source/tasks/mimic/config/</code>
+       <code>source/tasks/beyondmimic/config/</code>
      </div>
      <ul>
+       <li><code>base_env_cfg.py</code></li>
        <li>
-         <strong>k1_rev1/</strong>
+         <strong>k1_rev2/</strong>
          <ul>
            <li><span className="docs-folder-tree__folder">agents/</span></li>
            <li><code><strong className="docs-folder-tree__file">&lowbar;&lowbar;init&lowbar;&lowbar;.py</strong></code></li>
-           <li><code>base_env_cfg.py</code></li>
            <li><code>dance1_env_cfg.py</code></li>
            <li><code>dance2_env_cfg.py</code></li>
            <li><code><span className="docs-folder-tree__file">my_motion_env_cfg.py</span></code><em>cloned from dance1_env_cfg.py</em></li>
@@ -234,21 +237,20 @@ Use your own motion name in the same places.
      </ul>
    </div>
 
-   In `source/tasks/mimic/config/k1_rev1/__init__.py`, import the new configuration:
+   In `source/tasks/beyondmimic/config/k1_rev2/__init__.py`, import the new configuration:
 
    ```python
-   from .my_motion_env_cfg import k1_rev1_my_motion_env_cfg
+   from .my_motion_env_cfg import k1_rev2_my_motion_env_cfg
    ```
 
    Then register a unique task ID:
 
    ```python
    register_mjlab_task(
-     task_id="Cyclo-Mimic-K1-Rev1-MyMotion",
-     env_cfg=k1_rev1_my_motion_env_cfg(),
-     play_env_cfg=k1_rev1_my_motion_env_cfg(play=True),
-     rl_cfg=k1_rev1_mimic_ppo_runner_cfg(),
-     runner_cls=MotionTrackingOnPolicyRunner,
+     task_id="Cyclo-BeyondMimic-K1-Rev2-MyMotion",
+     env_cfg=k1_rev2_my_motion_env_cfg(),
+     play_env_cfg=k1_rev2_my_motion_env_cfg(play=True),
+     rl_cfg=k1_rev2_mimic_ppo_runner_cfg(),
    )
    ```
 
@@ -258,7 +260,7 @@ Use your own motion name in the same places.
    python scripts/list_envs.py --keyword MyMotion
    ```
 
-   Check that the output includes `Cyclo-Mimic-K1-Rev1-MyMotion`.
+   Check that the output includes `Cyclo-BeyondMimic-K1-Rev2-MyMotion`.
 
 4. **Train and export.**
 

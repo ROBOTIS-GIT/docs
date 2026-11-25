@@ -22,8 +22,8 @@ Use the conversion recipe for the selected platform:
 
 | Platform | Soma CSV conversion and task setup | Expected reference location |
 | --- | --- | --- |
-| Cyclo Lab | [Lab motion/task recipe](./cyclo_lab/mimic#how-to-add-your-own-mimic-task) | `source/cyclo_lab/data/motions/K1_rev1/<motion>/` |
-| Cyclo MJLab | [MJLab motion/task recipe](./cyclo_mjlab/mimic#how-to-add-your-own-mimic-task) | `source/assets/motions/K1_rev1/<motion>/` |
+| Cyclo Lab | [Lab motion/task recipe](./cyclo_lab/mimic#how-to-add-your-own-mimic-task) | `source/cyclo_lab/data/motions/K1_rev2/<motion>/` |
+| Cyclo MJLab | [MJLab motion/task recipe](./cyclo_mjlab/mimic#how-to-add-your-own-mimic-task) | `source/assets/motions/K1_rev2/<motion>/` |
 
 Keep the original headered Soma CSV, converted training NPZ, and deployment CSV distinct. The two platforms' references must be checked against their own loader; matching filenames do not establish matching schemas.
 
@@ -31,28 +31,22 @@ For a Cyclo MJLab reference, its documented offline validator can check the NPZ 
 
 ```bash
 python scripts/tools/motion/replay_npz.py \
-  -f source/assets/motions/K1_rev1/my_motion/my_motion.npz \
+  --model third_party/ai_sapiens/ai_sapiens_description/mujoco/k1_rev2/k1.xml \
+  -f source/assets/motions/K1_rev2/my_motion/my_motion.npz \
   --validate-only
 ```
 
 Replace `my_motion` with the converted motion name. Use the playback recipe to inspect the result as well; structural validation alone does not prove good motion.
 
-## 3. Reuse the Reference Through a Verified Adapter
+## 3. Assign the Motion to a Task
 
-The target user contract is to select the existing 50 Hz Cyclo NPZ for either BeyondMimic or SuperMimic within the same platform. SuperMimic-specific representation conversion belongs inside the adapter, rather than requiring a second user-managed motion dataset. Both platforms implement this contract on their development branches, with different schema and runtime boundaries.
+Use a 50 Hz NPZ converted for the selected platform and robot revision. In Cyclo MJLab, BeyondMimic, SuperMimic, and BlinkMimic can use these files without a separate conversion for each method. Do not interchange Cyclo Lab and Cyclo MJLab NPZ files.
 
-| Method | Input boundary |
-| --- | --- |
-| BeyondMimic | Use the platform's converted NPZ and task configuration. Preserve its named joint/body ordering and required state/velocity fields. |
-| Lab SuperMimic | The development selector accepts the same named 50 Hz Cyclo Lab NPZ for either method. Explicit quaternion metadata and joint/body validation precede the shared loader and Isaac-native bridge. Follow the [Lab instructions](./cyclo_lab/supermimic); no separate research-MJLab conversion is needed. |
-| MJLab SuperMimic | The development branch directly accepts the existing 50 Hz Cyclo/MuJoCo NPZ. Its internal adapter validates named body/joint states, wxyz quaternions, FK and supported COM velocity profiles before the research loader consumes it. Isaac/xyzw inputs are rejected. Follow the [MJLab instructions](./cyclo_mjlab/supermimic); a second manual conversion is unnecessary. |
+For motion paths and task registration, see **How to Add Your Own** in the corresponding guide:
 
-Check units (meters, radians, and their time derivatives), quaternion ordering, root frame, sample rate, and finite values at each conversion boundary. Resample with the matching motion tools; do not fix a rate mismatch by changing only an FPS field. Do not apply a coordinate transform twice.
+- Cyclo Lab: [BeyondMimic](./cyclo_lab/mimic)
+- Cyclo MJLab: [BeyondMimic](./cyclo_mjlab/mimic), [SuperMimic / BlinkMimic](./cyclo_mjlab/supermimic)
 
-Reference reuse does not mean that Lab and MJLab arrays are interchangeable or that PPO and world-model policies share a deployment format. Validate each backend's loader and adapter against the selected robot and reference.
+## 4. Prepare Deployment Files
 
-## 4. Keep Motion and Checkpoint Together
-
-Record the reference file with the task, learner, runtime, model revision, and checkpoint. Use that same reference during playback and export. For BeyondMimic deployment, keep `policy.onnx`, the matching `sim2real.yaml`, and the corresponding motion CSV together. SuperMimic needs its own export/controller contract; preparation of a motion file does not supply one.
-
-SuperMimic validates supported named 50 Hz K1 archives against every frame/body FK and source-defined COM profiles. Arrays must remain real and finite in float32. Missing producer/backend labels remain `unspecified`; a matching physical profile does not prove provenance. Each platform preserves original NPZ bytes and enforces its own conventions. Lab continuation requires the saved motion digest; reference reuse does not imply arbitrary cross-simulator or checkpoint compatibility.
+Use `policy.onnx` and `sim2real.yaml` from the same training run. For motion-tracking policies, also prepare the corresponding motion CSV and follow the method’s Play and Export instructions.

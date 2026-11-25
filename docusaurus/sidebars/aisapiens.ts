@@ -46,8 +46,7 @@ const aisapiensSidebar: SidebarsConfig[string] = [
           {type: 'doc', id: 'systems/aisapiens/reinforcement_learning/cyclo_lab/cyclo_lab', label: 'Overview', key: 'cyclo-lab-overview'},
           {type: 'doc', id: 'systems/aisapiens/reinforcement_learning/cyclo_lab/locomotion', label: 'Locomotion'},
           {type: 'category', label: 'Motion Tracking', key: 'cyclo-lab-motion-tracking', collapsed: false, items: [
-            {type: 'doc', id: 'systems/aisapiens/reinforcement_learning/cyclo_lab/mimic', label: 'BeyondMimic (PPO)'},
-            {type: 'doc', id: 'systems/aisapiens/reinforcement_learning/cyclo_lab/supermimic', label: 'SuperMimic (World Model)', key: 'cyclo_lab-supermimic'},
+            {type: 'doc', id: 'systems/aisapiens/reinforcement_learning/cyclo_lab/mimic', label: 'BeyondMimic'},
           ]},
         ],
       },
@@ -59,8 +58,8 @@ const aisapiensSidebar: SidebarsConfig[string] = [
           {type: 'doc', id: 'systems/aisapiens/reinforcement_learning/cyclo_mjlab/cyclo_mjlab', label: 'Overview'},
           {type: 'doc', id: 'systems/aisapiens/reinforcement_learning/cyclo_mjlab/locomotion', label: 'Locomotion', key: 'cyclo-mjlab-locomotion'},
           {type: 'category', label: 'Motion Tracking', key: 'cyclo-mjlab-motion-tracking', collapsed: false, items: [
-            {type: 'doc', id: 'systems/aisapiens/reinforcement_learning/cyclo_mjlab/mimic', label: 'BeyondMimic (PPO)', key: 'cyclo-mjlab-mimic'},
-            {type: 'doc', id: 'systems/aisapiens/reinforcement_learning/cyclo_mjlab/supermimic', label: 'SuperMimic (World Model)', key: 'cyclo_mjlab-supermimic'},
+            {type: 'doc', id: 'systems/aisapiens/reinforcement_learning/cyclo_mjlab/mimic', label: 'BeyondMimic', key: 'cyclo-mjlab-mimic'},
+            {type: 'doc', id: 'systems/aisapiens/reinforcement_learning/cyclo_mjlab/supermimic', label: 'SuperMimic / BlinkMimic', key: 'cyclo_mjlab-supermimic'},
           ]},
         ],
       },

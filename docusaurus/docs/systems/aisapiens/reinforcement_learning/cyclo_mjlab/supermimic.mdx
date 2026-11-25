@@ -1,91 +1,309 @@
 ---
-sidebar_label: SuperMimic (World Model)
-title: SuperMimic (World Model)
+sidebar_label: SuperMimic / BlinkMimic
+title: SuperMimic / BlinkMimic
 ---
 
-# SuperMimic (World Model)
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
-SuperMimic learns a dynamics model from simulator transitions, then optimizes a tracking policy through imagined rollouts. Cyclo integrates the [official HybridRobotics implementation](https://github.com/HybridRobotics/SuperMimic) through its native task and learning entry points. Its checkpoints, observation contracts, and export paths differ from [BeyondMimic PPO](./mimic).
+# SuperMimic / BlinkMimic
 
-:::info[Development branch]
-These instructions apply to Cyclo MJLab's `feature-supermimic` branch, including the direct-reference adapter at `bbffabe826f149594acfa51789c10e39c249609f`. They do not describe the current `main` release. GenCoord and MaxCoord have passed bounded optimization checks; this is not a claim of converged K1 tracking or robot deployment. Interactive checkpoint playback remains unverified.
-:::
+Train, preview, and export a world-model-based motion-tracking policy with Cyclo MJLab. Select **SuperMimic** or **BlinkMimic** in the tabs below; the selection is shared across this page.
 
-## Install
+Follow the [Cyclo MJLab setup](./), then run the commands inside the container from `/workspace/cyclo_mjlab`.
 
-Use a separate checkout of [Cyclo MJLab](https://github.com/ROBOTIS-GIT/cyclo_mjlab) on `feature-supermimic`. From its repository root, with [uv](https://docs.astral.sh/uv/getting-started/installation/) installed:
-
-```bash
-git submodule update --init third_party/ai_sapiens
-uv sync --project integrations/supermimic --python 3.13 --locked
-```
-
-This creates `integrations/supermimic/.venv` with Python 3.13 and the pinned research runtime (`mjlab` 1.6.0). Keep the existing BeyondMimic Python 3.11 / mjlab 1.2.0 environment or container separate. The `--algorithm` flag selects the learner; it does not install or switch environments. The integration vendors SuperMimic at `abc124c1bd5976341034668af3d12c087f2f1f55` and pins `mjlab_research` at `dd51a9fcc98791a2f0b018b3c7f71a3eefd5ecdd`.
-
-The current MuJoCo-Warp dependencies and CollisionCfg APIs conflict with the legacy runtime. Combining them requires a separately validated migration; the separation is not an inherent Python-version limitation.
-
-## Prepare Motion
-
-Follow [common motion preparation](../motion_preparation). Pass the **same original 50 Hz Cyclo/MuJoCo NPZ** produced by the existing CSV converter to either learner. Train and play adapt it internally; a second manual conversion is unnecessary.
-
-The body-state archive must contain `fps`, unique `joint_names` and `body_names`, `joint_pos`, `joint_vel`, `body_pos_w`, `body_quat_w`, `body_lin_vel_w`, and `body_ang_vel_w`. All K1 hinges and MJCF bodies must be named, with consistent finite frames and normalized **wxyz** quaternions. The adapter matches names and checks every frame's poses and velocities against K1 forward kinematics. It supports the existing committed Dance1/Dance2 and current converter's COM velocity profiles, converting accepted COM velocities to link-origin velocities internally.
-
-Isaac references, explicit conflicting backend/frame metadata, xyzw quaternions, unknown body/model conventions, inconsistent velocities, and non-50 Hz input are rejected. The adapter does not retarget, resample, smooth, or guess quaternion order. Unannotated root-only files lack enough convention evidence: use the complete original body-state archive. Declared root-only research inputs additionally require scalar `backend=mujoco`, `quaternion_order=wxyz`, `velocity_frame=world`, and `velocity_point=link_origin`, named joints, and complete root pose/twist fields.
-
-Specify `--motion-file` exactly once. Arrays must be real and finite after float32 conversion; the control period must remain 0.02 s. Missing producer/backend labels stay `unspecified`, rather than being inferred from FK agreement. Original files remain unchanged. Derived loader files and source/model manifests are stored under git-ignored `.supermimic-data/adapter/`; originals are revalidated at each invocation. Reference reuse does not imply cross-platform array or policy compatibility.
-
-## Select the Method and Task
-
-The common train/play entry points accept `--algorithm beyondmimic|supermimic` or infer the family from the task ID:
-
-```bash
-uv run --project integrations/supermimic python scripts/reinforcement_learning/train.py --list-tasks
-uv run --project integrations/supermimic python scripts/reinforcement_learning/play.py --list-tasks
-```
-
-| Method | Task IDs | Runtime |
-| --- | --- | --- |
-| BeyondMimic | `Cyclo-BeyondMimic-K1-Rev1-Dance1`, `Cyclo-BeyondMimic-K1-Rev1-Dance2`; existing `Cyclo-Mimic-*` aliases remain supported. | Existing PPO environment; follow [BeyondMimic](./mimic). |
-| SuperMimic | `Cyclo-SuperMimic-GenCoord-K1-Rev1`, `Cyclo-SuperMimic-MaxCoord-K1-Rev1` | Separate research environment above. |
+SuperMimic and BlinkMimic train a single policy on multiple reference clips. The examples use **K1 Rev.2, task `001`**, which trains on **Dance1 and Dance2 together**. To use your own motion, see [How to Add Your Own Task](#how-to-add-your-own-task).
 
 ## Train
 
-Run from the repository root. Check GPU availability and choose an environment count that fits its memory:
+<Tabs groupId="mjlab-mimic-method">
+<TabItem value="supermimic" label="SuperMimic" default>
 
 ```bash
-WANDB_MODE=offline uv run --project integrations/supermimic python \
-  scripts/reinforcement_learning/train.py --algorithm supermimic \
-  Cyclo-SuperMimic-GenCoord-K1-Rev1 \
-  --motion-file source/assets/motions/K1_rev1/dance1/dance1.npz \
-  --num-envs 64 --runner.run-name k1-dance1
+python scripts/reinforcement_learning/train.py \
+  Cyclo-SuperMimic-GenCoord-K1-Rev2-001 \
+  --num-envs 4096
 ```
 
-Use `MaxCoord` instead of `GenCoord` for body-space dynamics. Replace the motion path with your validated reference. The runner collects transitions, updates the world model, and optimizes the policy through imagined dynamics. Logs and checkpoints go to `logs/<task>/<timestamp>/`. Offline W&B keeps results local; omit `WANDB_MODE=offline` for authenticated online tracking.
-
-The default actor uses privileged representation state. `--runner.actor-obs proprio` selects proprioceptive inputs, but does not establish a validated deployable policy. Fresh bounded CPU checks cover five official WM/actor updates each for GenCoord/Dance1 and MaxCoord/Dance2, exact final saved tensors and local playback. Earlier CUDA checks are historical. These checks do not measure convergence or policy quality.
-
-## Play and Resume
-
-Completed training saves a local inference bundle: `manifest.json`, `world_model.pt`, `actor.pt`, and optional `critic.pt`. Final trained parameters are saved even between configured save intervals. Offline training and playback make no W&B remote calls and require no upload or synchronization.
-
-Set `CHECKPOINT_DIR` to the actual run directory, then play locally:
+</TabItem>
+<TabItem value="blinkmimic" label="BlinkMimic">
 
 ```bash
-CHECKPOINT_DIR="logs/Cyclo-SuperMimic-GenCoord-K1-Rev1/REPLACE_WITH_RUN_TIMESTAMP"
-uv run --project integrations/supermimic python scripts/reinforcement_learning/play.py \
-  --algorithm supermimic Cyclo-SuperMimic-GenCoord-K1-Rev1 \
-  --motion-file source/assets/motions/K1_rev1/dance1/dance1.npz \
-  --checkpoint-dir "$CHECKPOINT_DIR" --viewer viser
+python scripts/reinforcement_learning/train.py \
+  Cyclo-BlinkMimic-K1-Rev2-001 \
+  --num-envs 4096
 ```
 
-For bounded headless playback, replace `--viewer viser` with `--viewer headless --device cpu --num-steps-rollout 4`. The versioned manifest validates task, representation, actor mode, ordered robot/action contract and exact environment settings, including timestep **and decimation**. GenCoord/MaxCoord mismatches and old bundles without a manifest are rejected.
+</TabItem>
+</Tabs>
 
-Use exactly one of `--checkpoint-dir` or optional `--wandb-path ENTITY/PROJECT/RUN`. Authenticated W&B retrieval and interactive viewers remain untested. This bundle supports inference, not optimizer/replay training continuation or the PPO Sim2Real format.
+SuperMimic also supports `MaxCoord` in place of `GenCoord`.
 
-Fresh verification includes 274 unit/upstream tests, local reload and native headless playback with preserved timing, original NPZ byte preservation and a legacy PPO regression. WM stays frozen during actor updates while both learners update their own parameters. A full proprio/history acceptance matrix, convergence, hardware and export are not validated. No GitHub check runs establish CI green.
+### Training Output
 
-## Export and Deploy
+Each task has its own log directory. `<run>` is the timestamped folder created when training starts.
 
-There is no validated SuperMimic-to-K1 Sim2Real contract in this guide. An actor/world-model bundle is not the BeyondMimic `policy.onnx` plus `sim2real.yaml` pair. Observation history, normalization, action transform, timestep, joint order, and reference format need independent export/controller validation before robot use.
+| Method | Run directory |
+| --- | --- |
+| SuperMimic | `logs/supermimic/<task>/<run>/` |
+| BlinkMimic | `logs/blinkmimic/<task>/<run>/` |
 
-For the existing documented export path, choose [BeyondMimic (PPO)](./mimic). See the [method comparison](../motion_tracking) before selecting a workflow.
+Each run directory contains:
+
+<div className="docs-folder-tree" role="img" aria-label="Training output directory structure">
+  <div className="docs-folder-tree__root">
+    <code>logs/&lt;method&gt;/&lt;task&gt;/&lt;run&gt;/</code>
+  </div>
+  <ul>
+    <li><span className="docs-folder-tree__file-stack" aria-hidden="true" /><code>model_*.pt</code></li>
+    <li><code>last.pt</code></li>
+    <li>
+      <strong>params/</strong>
+      <ul>
+        <li><code>agent.yaml</code></li>
+        <li><code>env.yaml</code></li>
+        <li><code>sim2real.yaml</code></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+## Play and Export
+
+Play the latest saved run for the selected task:
+
+<Tabs groupId="mjlab-mimic-method">
+<TabItem value="supermimic" label="SuperMimic" default>
+
+```bash
+python scripts/reinforcement_learning/play.py \
+  Cyclo-SuperMimic-GenCoord-K1-Rev2-001 \
+  --viewer viser
+```
+
+</TabItem>
+<TabItem value="blinkmimic" label="BlinkMimic">
+
+```bash
+python scripts/reinforcement_learning/play.py \
+  Cyclo-BlinkMimic-K1-Rev2-001 \
+  --viewer viser
+```
+
+</TabItem>
+</Tabs>
+
+Open the URL printed in the terminal. Use the viewer’s motion selector to switch clips.
+
+Play also exports `policy.onnx`. Check the printed export path and use `params/sim2real.yaml` from the same run. Deployment requires a controller that supports the selected method’s observations.
+
+After running the play commands above, the run directory contains:
+
+<div className="docs-folder-tree" role="img" aria-label="Training run with exported policy">
+  <div className="docs-folder-tree__root">
+    <code>logs/&lt;method&gt;/&lt;task&gt;/&lt;run&gt;/</code>
+  </div>
+  <ul>
+    <li><span className="docs-folder-tree__file-stack" aria-hidden="true" /><code>model_*.pt</code></li>
+    <li><code>last.pt</code></li>
+    <li>
+      <strong>exported/</strong>
+      <ul>
+        <li><code>policy.onnx</code></li>
+      </ul>
+    </li>
+    <li>
+      <span className="docs-folder-tree__label">params/</span>
+      <ul>
+        <li><code>agent.yaml</code></li>
+        <li><code>env.yaml</code></li>
+        <li><code>sim2real.yaml</code></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+## How to Add Your Own Task
+
+A task defines a motion library, rather than a separate policy for each clip. This example creates K1 Rev.2 task **`002`** from a collection of walking, turning, and dancing clips, keeping the existing `001` task.
+
+### 1. Place the Motion Files
+
+First, follow [Prepare Motion](../motion_preparation) to generate the training NPZ and deployment CSV files for Cyclo MJLab and K1 Rev.2. Then place the prepared files in a dedicated `task_002_motions/` directory as shown below.
+
+<div className="docs-folder-tree" role="img" aria-label="K1 Rev.2 prepared motion library directory structure">
+  <div className="docs-folder-tree__root">
+    <code>source/assets/motions/K1_rev2/</code>
+  </div>
+  <ul>
+    <li><span className="docs-folder-tree__folder">dance1/</span></li>
+    <li><span className="docs-folder-tree__folder">dance2/</span></li>
+    <li>
+      <strong>task_002_motions/</strong>
+      <ul>
+        <li><code>walk_forward_01.npz</code></li>
+        <li><code>walk_forward_01.csv</code></li>
+        <li><code>walk_forward_02.npz</code></li>
+        <li><code>walk_forward_02.csv</code></li>
+        <li><code>turn_left_01.npz</code></li>
+        <li><code>turn_left_01.csv</code></li>
+        <li><code>dance_01.npz</code></li>
+        <li><code>dance_01.csv</code></li>
+        <li><code>…</code></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+Each clip uses a matching pair of files:
+
+| File | Purpose |
+| --- | --- |
+| `.npz` | 50 Hz motion reference in Cyclo MJLab format for training and playback |
+| `.csv` | Corresponding motion in the deployment format |
+
+Training loads the NPZ files; the CSV files are kept for deployment. Raw retargeter outputs must first be converted to these formats.
+
+Preview the prepared clips before training to check their poses, speed, and loop transitions:
+
+```bash
+python scripts/tools/motion/replay_npz.py \
+  --model third_party/ai_sapiens/ai_sapiens_description/mujoco/k1_rev2/k1.xml \
+  -f source/assets/motions/K1_rev2/task_002_motions/walk_forward_01.npz \
+  --loop
+```
+
+### 2. Create a new task config.
+
+In the selected method’s directory, copy `task_001.py` to `task_002.py`:
+
+<Tabs groupId="mjlab-mimic-method">
+<TabItem value="supermimic" label="SuperMimic" default>
+
+```bash
+cp source/tasks/supermimic/config/k1_rev2/task_001.py \
+   source/tasks/supermimic/config/k1_rev2/task_002.py
+```
+
+</TabItem>
+<TabItem value="blinkmimic" label="BlinkMimic">
+
+```bash
+cp source/tasks/blinkmimic/config/k1_rev2/task_001.py \
+   source/tasks/blinkmimic/config/k1_rev2/task_002.py
+```
+
+</TabItem>
+</Tabs>
+
+In `task_002.py`, point `MOTION_PATHS` to the library directory:
+
+```python
+MOTION_PATHS = (
+    SRC_PATH / "assets/motions/K1_rev2/task_002_motions",
+)
+```
+
+Both methods include every NPZ in this directory and its subdirectories in the same training task. Add more prepared clips to `task_002_motions/` before starting training; no separate task registration is needed for each clip.
+
+To select only part of the collection, use glob patterns instead:
+
+```python
+MOTION_PATHS = (
+    SRC_PATH / "assets/motions/K1_rev2/task_002_motions/walk_*.npz",
+    SRC_PATH / "assets/motions/K1_rev2/task_002_motions/turn_*.npz",
+)
+```
+
+### 3. Register the Task
+
+Edit the highlighted `__init__.py` in the selected method’s directory. Import `task_002` and add the new task to `TASKS`, keeping the existing entries:
+
+<Tabs groupId="mjlab-mimic-method">
+<TabItem value="supermimic" label="SuperMimic" default>
+
+<div className="docs-folder-tree" role="img" aria-label="SuperMimic task registration file structure">
+  <div className="docs-folder-tree__root">
+    <code>source/tasks/supermimic/config/</code>
+  </div>
+  <ul>
+    <li>
+      <strong>k1_rev2/</strong>
+      <ul>
+        <li><code><strong className="docs-folder-tree__file">&lowbar;&lowbar;init&lowbar;&lowbar;.py</strong></code></li>
+        <li><code>task_001.py</code></li>
+        <li><code>task_002.py</code><em>copied from task_001.py</em></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+File: `source/tasks/supermimic/config/k1_rev2/__init__.py`
+
+```python
+from . import task_001
+from . import task_002  # Add task 002
+
+TASKS = {
+    "Cyclo-SuperMimic-GenCoord-K1-Rev2-001": ("gencoord", task_001.make_env_cfg),
+    "Cyclo-SuperMimic-MaxCoord-K1-Rev2-001": ("maxcoord", task_001.make_env_cfg),
+
+    # Add task 002
+    "Cyclo-SuperMimic-GenCoord-K1-Rev2-002": ("gencoord", task_002.make_env_cfg),
+    "Cyclo-SuperMimic-MaxCoord-K1-Rev2-002": ("maxcoord", task_002.make_env_cfg),
+}
+```
+
+</TabItem>
+<TabItem value="blinkmimic" label="BlinkMimic">
+
+<div className="docs-folder-tree" role="img" aria-label="BlinkMimic task registration file structure">
+  <div className="docs-folder-tree__root">
+    <code>source/tasks/blinkmimic/config/</code>
+  </div>
+  <ul>
+    <li>
+      <strong>k1_rev2/</strong>
+      <ul>
+        <li><code><strong className="docs-folder-tree__file">&lowbar;&lowbar;init&lowbar;&lowbar;.py</strong></code></li>
+        <li><code>task_001.py</code></li>
+        <li><code>task_002.py</code><em>copied from task_001.py</em></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+File: `source/tasks/blinkmimic/config/k1_rev2/__init__.py`
+
+```python
+from . import task_001
+from . import task_002  # Add task 002
+
+TASKS = {
+    "Cyclo-BlinkMimic-K1-Rev2-001": task_001.make_task_cfg(),
+
+    # Add task 002
+    "Cyclo-BlinkMimic-K1-Rev2-002": task_002.make_task_cfg(),
+}
+```
+
+</TabItem>
+</Tabs>
+
+Check that the new tasks are registered:
+
+```bash
+python scripts/list_envs.py --keyword K1-Rev2-002
+```
+
+Check that the registered task IDs appear:
+
+- **SuperMimic**
+  - <code style={{whiteSpace: 'nowrap'}}>Cyclo-SuperMimic-GenCoord-K1-Rev2-002</code>
+  - <code style={{whiteSpace: 'nowrap'}}>Cyclo-SuperMimic-MaxCoord-K1-Rev2-002</code>
+- **BlinkMimic**
+  - <code style={{whiteSpace: 'nowrap'}}>Cyclo-BlinkMimic-K1-Rev2-002</code>
+
+### 4. Run the New Task
+
+Use the registered task ID with the Train and Play commands above.

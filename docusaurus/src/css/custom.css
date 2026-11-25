@@ -1607,6 +1607,22 @@
   font-weight: 700;
 }
 
+.docs-folder-tree__file-stack {
+  display: inline-block;
+  width: 0.65rem;
+  height: 0.85rem;
+  margin: 0.15rem 0.65rem 0.15rem 0.1rem;
+  vertical-align: middle;
+  border: 1px solid var(--ifm-color-primary);
+  border-radius: 2px;
+  background: var(--ifm-background-surface-color);
+  box-shadow:
+    2px -2px 0 var(--ifm-background-surface-color),
+    2px -2px 0 1px var(--ifm-color-primary),
+    4px -4px 0 var(--ifm-background-surface-color),
+    4px -4px 0 1px var(--ifm-color-primary);
+}
+
 .docs-folder-tree__folder {
   color: var(--ifm-font-color-base);
   font-family: var(--ifm-font-family-monospace);
