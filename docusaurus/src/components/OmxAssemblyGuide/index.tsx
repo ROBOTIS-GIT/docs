@@ -161,7 +161,7 @@ export default function OmxAssemblyGuide(): React.JSX.Element {
       ) : (
         <div className="omx-guide-content">
           <header className="omx-guide-intro">
-            <p className="omx-guide-eyebrow">OMX / ASSEMBLY GUIDE</p>
+            <p className="omx-guide-eyebrow">OMX / HARDWARE SETUP GUIDE</p>
             <h1>
               {view === "prepare"
                 ? "Build with a clear view."
