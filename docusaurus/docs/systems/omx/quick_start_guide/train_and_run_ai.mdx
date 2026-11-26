@@ -367,10 +367,53 @@ Set the two boxes and OMX as in the picture. Do not move the arms or the camera 
 
 </Clicks>
 
+This is how we set the table for this guide. At the start pose, our camera saw only the ends of the boxes nearest to OMX, at the bottom of its picture. Left and right are swapped in the camera picture.
+
+<TutorialMedia
+  label="Left: the table from above, with the follower at its start pose. Right: the camera picture on the Record page at the same time. The ends of the boxes nearest to OMX are outlined, the left box in orange and the right box in purple. In the camera picture, left and right are swapped."
+  src="/img/systems/omx/quick_start_guide/train_and_run_ai/train_camera_start.webp"
+  shape="free"
+  width={820}
+  boxes={[
+    {x: 0.0595, y: 0.5842, w: 0.0903, h: 0.1237, color: '#f5a524'},
+    {x: 0.3372, y: 0.5842, w: 0.0903, h: 0.1263, color: '#8b5cf6'},
+    {x: 0.5004, y: 0.8537, w: 0.0944, h: 0.1113, color: '#8b5cf6'},
+    {x: 0.8918, y: 0.88, w: 0.0879, h: 0.085, color: '#f5a524'},
+  ]}
+  names={[
+    {text: 'Left box', x: 0.1047, y: 0.765},
+    {text: 'Right box', x: 0.416, y: 0.765},
+    {text: 'Right box', x: 0.5476, y: 0.76},
+    {text: 'Left box', x: 0.9357, y: 0.81},
+  ]}
+  caption="Left image: the table from above. Right image: the camera picture on the Record page."
+/>
+
+When the left box was put on the right box, the camera saw one stack and an empty place.
+
+<TutorialMedia
+  label="The camera picture on the Record page after the left box was put on the right box. The stack is outlined in purple. The empty place where the left box was is outlined with an orange dashed line."
+  src="/img/systems/omx/quick_start_guide/train_and_run_ai/train_camera_stacked.webp"
+  shape="free"
+  width={720}
+  boxes={[
+    {x: 0.0084, y: 0.7268, w: 0.2079, h: 0.2382, color: '#8b5cf6'},
+    {x: 0.7907, y: 0.88, w: 0.1699, h: 0.085, color: '#f5a524', dashed: true},
+  ]}
+  names={[
+    {text: 'Stacked boxes', x: 0.13, y: 0.66},
+    {text: 'Left box was here', x: 0.875, y: 0.81},
+  ]}
+  caption="Image: the camera picture on the Record page after the boxes were stacked."
+/>
+
+You do not have to match these pictures exactly. But it helps if a small part of each box shows at the start pose: our ACT model looked at this part of the picture to decide whether to start or to wait.
+
+The **Record** page zooms the camera picture a little to fill its frame, so the top and bottom edges of the picture are not shown there. You may see only a small part of each box on the page, but the model gets the whole picture.
+
 <Checks>
 
-- The boxes come into the camera picture on the **Record** page when you move the leader toward them. At the start pose, they do not need to be in it
-- The light stays the same. Close the curtains, or turn on the room lights
+- Keep the same light for every try and when you run the model
 
 </Checks>
 
