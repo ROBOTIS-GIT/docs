@@ -51,7 +51,7 @@ The follower needs a 12 V, 5 A adapter. Its plug is 5.5 mm outside and 2.5 mm in
 
 The leader needs no adapter. It runs on its USB-C cable.
 
-If the follower has no 12 V power, its board may not show up on the PC: in [Connect OMX](/docs/systems/omx/quick_start_guide/move_omx#connect-omx), you then see only one `OpenRB-150` line.
+If the follower has no 12 V power, its board may not show up on the PC: in [Check the Connection](/docs/systems/omx/quick_start_guide/setup_hardware#3-check-the-connection), you then see only one `OpenRB-150` line.
 
 </SectionCard>
 
@@ -59,7 +59,7 @@ If the follower has no 12 V power, its board may not show up on the PC: in [Conn
 
 ## Do I Set the Motor IDs Myself? \{#motor-ids}
 
-No. Each motor gets its ID before shipping. Put each motor on the joint of its ID, as in [Hardware Setup](/docs/systems/omx/quick_start_guide/assembly_guide).
+No. Each motor gets its ID before shipping. Put each motor on the joint of its ID, as in the [Assembly Guide](/docs/systems/omx/quick_start_guide/assembly_guide).
 
 ### The motor IDs
 
@@ -86,7 +86,7 @@ A new motor, for example one that replaces a broken motor, needs the ID of its j
 
 That is normal. The leader never moves by itself: its arm joints have no torque, so it stays where your hand puts it.
 
-When the arms start, the follower first moves to its start pose by itself. Then it takes the shape of the leader, and copies it. See [Start the arms](/docs/systems/omx/quick_start_guide/move_omx#start-the-arms).
+When the arms start, the follower first moves to its start pose by itself. Then it takes the shape of the leader, and copies it. See [Start the Arms](/docs/systems/omx/quick_start_guide/bringup#2-start-the-arms).
 
 </SectionCard>
 
@@ -106,9 +106,9 @@ The open_manipulator software has a gravity compensation controller (`om_gravity
 
 Yes. Other USB cameras work too.
 
-Fix the camera firmly, so it does not shake. Then check its picture as in [Start OMX and Cyclo Intelligence](/docs/systems/omx/quick_start_guide/train_and_run_ai#start-omx-and-cyclo-intelligence).
+Fix the camera firmly, so it does not shake. Then check its picture as in [Bringup OMX and Start Cyclo Intelligence](/docs/systems/omx/imitation_learning/setup#4-bringup-omx-and-start-cyclo-intelligence).
 
-The camera frame in the OMX box is made for the camera in [Hardware Setup](/docs/systems/omx/quick_start_guide/assembly_guide), under **Horn orientation, camera and finishing**. Another camera may need another way to fix it to the arm.
+The camera frame in the OMX box is made for the camera in the [Assembly Guide](/docs/systems/omx/quick_start_guide/assembly_guide), under **Horn orientation, camera and finishing**. Another camera may need another way to fix it to the arm.
 
 </SectionCard>
 
