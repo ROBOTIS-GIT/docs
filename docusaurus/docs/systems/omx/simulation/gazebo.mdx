@@ -53,6 +53,13 @@ ros2 launch open_manipulator_bringup omx_f_gazebo.launch.py
 
 Refer to [MoveIt 2](/docs/systems/omx/quick_start_guide/operation_guide/robot_control) to control the robot within the Gazebo environment. [Keyboard Teleop](/docs/systems/omx/quick_start_guide/operation_guide/robot_control#keyboard-teleop) also works with Gazebo.
 
+If you are using Gazebo, you should add the argument `use_sim:=true`:
+
+```bash
+ros2 launch open_manipulator_moveit_config omx_f_moveit.launch.py use_sim:=true
+# Launch MoveIt in simulation mode
+```
+
 </SectionCard>
 
 <SectionCard>
