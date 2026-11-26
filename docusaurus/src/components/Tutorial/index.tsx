@@ -32,8 +32,11 @@ export type TutorialMediaItem = {
    * `color` gives one point its own colour, for a picture where the numbers name different things (give the list the same).
    */
   marks?: {n: number; x: number; y: number; color?: string}[];
-  /** Outlines around what the reader should look at. x, y, w and h run from 0 to 1. `color` as for marks. */
-  boxes?: {x: number; y: number; w: number; h: number; color?: string}[];
+  /**
+   * Outlines around what the reader should look at. x, y, w and h run from 0 to 1. `color` as for marks.
+   * `dashed` draws the outline with a dashed line, for example around a place that is empty now.
+   */
+  boxes?: {x: number; y: number; w: number; h: number; color?: string; dashed?: boolean}[];
   /**
    * `wide` is 16:9 (default). `square` is 1:1, for close-ups shown side by side.
    * `free` keeps the picture's own shape and adds a thin border, for screenshots.
@@ -110,6 +113,7 @@ function MediaItem({label, src, poster, names, tag, marks, boxes, shape = 'wide'
             width: `${box.w * 100}%`,
             height: `${box.h * 100}%`,
             borderColor: box.color,
+            borderStyle: box.dashed ? 'dashed' : undefined,
           }}
         />
       ))}
@@ -122,8 +126,8 @@ function MediaItem({label, src, poster, names, tag, marks, boxes, shape = 'wide'
           {mark.n}
         </span>
       ))}
-      {names?.map(name => (
-        <span key={name.text} className={styles.mediaName} style={{left: `${name.x * 100}%`, top: `${name.y * 100}%`}}>
+      {names?.map((name, index) => (
+        <span key={`name-${index}`} className={styles.mediaName} style={{left: `${name.x * 100}%`, top: `${name.y * 100}%`}}>
           {name.text}
         </span>
       ))}
