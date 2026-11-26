@@ -94,8 +94,25 @@ The first active rule below wins before normal mode switching, RC selection, API
 <ol className="sim2real-failsafe-list">
   <li>
     <strong>RC input unavailable</strong>
-    <span>No accepted RC command, or the latest command is older than <code>teleop_input.timeout</code> (<code>0.2</code> seconds for K1).</span>
-    <em>Response: zero velocity, force <code>Damping</code>, revoke API authority, and discard pending API service requests. This also applies while API authority is active.</em>
+    <span>When accepted RC commands stop:</span>
+    <em>Response: zero velocity at <code>0.2</code> seconds and, at <code>5.0</code> seconds, force <code>Damping</code>, revoke API authority, and discard pending API service requests. This also applies while API authority is active.</em>
+    <div className="rc-input-timeout-timeline" role="list" aria-label="RC input timeout response timeline">
+      <div className="rc-input-timeout-timeline__step" role="listitem">
+        <i aria-hidden="true" />
+        <span className="rc-input-timeout-timeline__time">0.0 s</span>
+        <span>Last accepted RC command</span>
+      </div>
+      <div className="rc-input-timeout-timeline__step" role="listitem">
+        <i aria-hidden="true" />
+        <span className="rc-input-timeout-timeline__time">0.2 s</span>
+        <span>Zero velocity</span>
+      </div>
+      <div className="rc-input-timeout-timeline__step" role="listitem">
+        <i aria-hidden="true" />
+        <span className="rc-input-timeout-timeline__time">5.0 s</span>
+        <span>Force <code>Damping</code></span>
+      </div>
+    </div>
   </li>
   <li>
     <strong>RC damping switch</strong>
@@ -104,13 +121,44 @@ The first active rule below wins before normal mode switching, RC selection, API
   </li>
   <li>
     <strong>Robot feedback watchdog</strong>
-    <span>IMU or joint state feedback stalls after startup. Defaults: <code>imu_timeout=0.5</code>, <code>joint_states_timeout=0.5</code>.</span>
+    <span>IMU or joint state feedback stalls after startup. Defaults: <code>imu_timeout=0.5</code>, <code>joint_states_timeout=0.5</code>. Invalid messages do not reset the timer.</span>
     <em>Response: latch a damping request until the node is restarted and discard pending API service requests.</em>
   </li>
   <li>
     <strong>Policy action fault</strong>
-    <span>A processed policy action is non-finite or exceeds <code>2π</code> rad.</span>
-    <em>Response: force <code>Damping</code> and clear the action fault flag.</em>
+    <span>Inference or action validation fails.</span>
+    <div className="action-fault-flow" aria-label="Policy action fault detection and response">
+      <div className="action-fault-flow__checks" role="list" aria-label="Detection criteria">
+        <div role="listitem">
+          <b>Inference or processing error</b>
+        </div>
+        <div role="listitem">
+          <b>Non-finite value</b>
+          <small>Processed action or Mimic reference</small>
+        </div>
+        <div role="listitem">
+          <b>Absolute position limit</b>
+          <small>Processed target exceeds ±2π rad</small>
+        </div>
+        <div role="listitem">
+          <b>Mimic action boundary + delta</b>
+          <small>|raw action| ≥ 10 and |Δaction| ≥ 90°</small>
+        </div>
+      </div>
+      <div className="action-fault-flow__response" role="list" aria-label="Fault response">
+        <div role="listitem">
+          <b>Failures 1–5</b>
+          <span>Hold the last accepted command, restore observation history, and retry</span>
+        </div>
+        <i aria-hidden="true">→</i>
+        <div role="listitem">
+          <b>6th consecutive failure</b>
+          <span>Force <code>Damping</code> and save diagnostics</span>
+        </div>
+      </div>
+      <small className="action-fault-flow__recovery">A valid action resets the consecutive failure count.</small>
+    </div>
+    <em>Response: retry with the last accepted state. Repeated failures force <code>Damping</code> and save diagnostics.</em>
   </li>
   <li>
     <strong>Unsafe body orientation</strong>
@@ -127,7 +175,7 @@ If the heartbeat is lost during API authority, the node returns to manual author
 This handoff never starts or continues a mimic mode; an active mimic mode falls back to `Velocity`.
 :::
 
-## Policy Location and Mode Switching Configuration
+## Policy Location and Mode Configuration
 
 The root configuration file defines the robot joint order, policy asset search paths, teleoperation mapping, state machine, and behavior assets.
 For K1, the entry point is:
@@ -139,15 +187,16 @@ ai_sapiens_sim2real/config/k1_config.yaml
 The file is organized in this top-level order:
 
 ```yaml
-robot_joint_order:     # joint order expected by the lower-level controller
-policy_asset_roots:    # directories searched for policy folders
-mimic_defaults:        # default playback settings for mimic modes
-authority:             # API handoff settings
-teleop_input:          # RC input plugin and watchdog timeout
-teleop_conditions:     # maps RC input codes to named mode requests
-selectors:             # maps selector codes to concrete modes
-state_machine:         # mode graph, transitions, and state roles
-state_behaviors:       # behavior implementation for each mode
+robot_joint_order:         # joint order expected by the lower-level controller
+policy_action_transition:  # default command blending when entering a policy
+policy_asset_roots:        # directories searched for policy folders
+mimic_defaults:            # default playback settings for mimic modes
+authority:                 # API handoff settings
+teleop_input:              # RC input plugin and watchdog timeout
+teleop_conditions:         # maps RC input codes to named mode requests
+selectors:                 # maps selector codes to concrete modes
+state_machine:             # mode graph, transitions, and state roles
+state_behaviors:           # behavior implementation for each mode
 ```
 
 ### Policy Asset Layout
@@ -157,9 +206,11 @@ The K1 config uses `policy_asset_roots` as the base folder for Sim2Real assets:
 ```yaml
 policy_asset_roots:
   - ../assets/k1
+  - /workspace/ai_sapiens_sim2real_external_assets/k1
 ```
 
 The `asset` value is a path relative to `policy_asset_roots`.
+The first matching asset directory is used.
 
 <div className="sim2real-asset-map" role="img" aria-label="Policy asset path resolution">
   <div className="sim2real-asset-map__formula">
@@ -231,6 +282,102 @@ The K1 mimic selector currently maps RC selector codes to modes as follows:
 | `200` | `MimicSquat` |
 | `201` | `MimicDance1` |
 | `202` | `MimicDance2` |
+
+## Policy Entry
+
+### Mimic Entry Check
+
+Sim2Real compares the robot's tilt with the reference root tilt at the start of playback.
+
+<p className="sim2real-condition-note">The tilt difference is calculated from projected gravity, so it combines roll and pitch; yaw and joint positions are not checked.</p>
+
+<div className="mimic-entry-check" role="img" aria-label="The reference root tilt is compared with the current robot tilt before Mimic entry.">
+  <div className="mimic-entry-check__legend">
+    <span className="mimic-entry-check__legend-reference"><i aria-hidden="true" />Reference start pose</span>
+    <span className="mimic-entry-check__legend-current"><i aria-hidden="true" />Current robot</span>
+  </div>
+
+  <img
+    className="mimic-entry-check__robots"
+    src="/img/systems/aisapiens/development_guide/k1_mimic_entry_side.png"
+    alt="Side view of a blue standing reference K1 over a gray current K1 lying face up on the floor"
+  />
+  <div className="mimic-entry-check__blocked">
+    <span>Tilt difference &gt; 35°</span>
+    <span aria-hidden="true">→</span>
+    <strong>Entry blocked</strong>
+  </div>
+</div>
+
+Mimic entry is blocked when the tilt difference exceeds 35°.
+If entry is blocked, correct the robot's tilt, move the selector away from the motion, and select it again.
+
+### Smooth Policy Entry
+
+By default, a new policy command blends from the previous command for `0.1` seconds to avoid a sudden joint-position jump.
+This applies when entering from a posture or another policy; entry from `Damping` remains immediate.
+
+<figure className="policy-entry-chart">
+  <div className="policy-entry-chart__panels">
+  <div>
+  <svg viewBox="0 0 360 220" role="img" aria-label="Blended output gradually joins a changing policy command over 0.1 seconds, then follows it fully. The dashed line shows immediate switching.">
+    <text x="24" y="18">Joint position command</text>
+    <rect className="policy-entry-chart__window" x="90" y="40" width="170" height="130" />
+    <path className="policy-entry-chart__axis" d="M40 35 V170 H335" />
+    <path className="policy-entry-chart__instant" d="M40 155 H90 L90 70.00 L92 70.94 L94 71.88 L96 72.82 L98 73.74 L100 74.66 L102 75.56 L104 76.45 L106 77.32 L108 78.17 L110 79.00 L112 79.80 L114 80.58 L116 81.33 L118 82.04 L120 82.73 L122 83.38 L124 83.99 L126 84.56 L128 85.10 L130 85.59 L132 86.04 L134 86.44 L136 86.80 L138 87.12 L140 87.39 L142 87.61 L144 87.78 L146 87.90 L148 87.98 L150 88.00 L152 87.98 L154 87.90 L156 87.78 L158 87.61 L160 87.39 L162 87.12 L164 86.80 L166 86.44 L168 86.04 L170 85.59 L172 85.10 L174 84.56 L176 83.99 L178 83.38 L180 82.73 L182 82.04 L184 81.33 L186 80.58 L188 79.80 L190 79.00 L192 78.17 L194 77.32 L196 76.45 L198 75.56 L200 74.66 L202 73.74 L204 72.82 L206 71.88 L208 70.94 L210 70.00 L212 69.06 L214 68.12 L216 67.18 L218 66.26 L220 65.34 L222 64.44 L224 63.55 L226 62.68 L228 61.83 L230 61.00 L232 60.20 L234 59.42 L236 58.67 L238 57.96 L240 57.27 L242 56.62 L244 56.01 L246 55.44 L248 54.90 L250 54.41 L252 53.96 L254 53.56 L256 53.20 L258 52.88 L260 52.61 L262 52.39 L264 52.22 L266 52.10 L268 52.02 L270 52.00 L272 52.02 L274 52.10 L276 52.22 L278 52.39 L280 52.61 L282 52.88 L284 53.20 L286 53.56 L288 53.96 L290 54.41 L292 54.90 L294 55.44 L296 56.01 L298 56.62 L300 57.27 L302 57.96 L304 58.67 L306 59.42 L308 60.20 L310 61.00 L312 61.83 L314 62.68 L316 63.55 L318 64.44 L320 65.34 L322 66.26 L324 67.18 L326 68.12 L328 69.06 L330 70.00" />
+    <path className="policy-entry-chart__blend" d="M40 155 H90 L90 155.00 L92 154.97 L94 154.86 L96 154.70 L98 154.48 L100 154.20 L102 153.87 L104 153.49 L106 153.07 L108 152.60 L110 152.09 L112 151.55 L114 150.97 L116 150.36 L118 149.71 L120 149.04 L122 148.34 L124 147.61 L126 146.86 L128 146.08 L130 145.28 L132 144.45 L134 143.60 L136 142.72 L138 141.82 L140 140.89 L142 139.94 L144 138.96 L146 137.95 L148 136.92 L150 135.85 L152 134.76 L154 133.63 L156 132.47 L158 131.28 L160 130.05 L162 128.79 L164 127.48 L166 126.15 L168 124.77 L170 123.35 L172 121.90 L174 120.40 L176 118.87 L178 117.29 L180 115.68 L182 114.03 L184 112.34 L186 110.61 L188 108.84 L190 107.05 L192 105.22 L194 103.35 L196 101.47 L198 99.55 L200 97.62 L202 95.66 L204 93.69 L206 91.71 L208 89.73 L210 87.73 L212 85.74 L214 83.76 L216 81.79 L218 79.83 L220 77.90 L222 75.99 L224 74.12 L226 72.28 L228 70.49 L230 68.75 L232 67.06 L234 65.44 L236 63.89 L238 62.41 L240 61.01 L242 59.70 L244 58.48 L246 57.35 L248 56.33 L250 55.41 L252 54.61 L254 53.93 L256 53.36 L258 52.92 L260 52.61 L262 52.39 L264 52.22 L266 52.10 L268 52.02 L270 52.00 L272 52.02 L274 52.10 L276 52.22 L278 52.39 L280 52.61 L282 52.88 L284 53.20 L286 53.56 L288 53.96 L290 54.41 L292 54.90 L294 55.44 L296 56.01 L298 56.62 L300 57.27 L302 57.96 L304 58.67 L306 59.42 L308 60.20 L310 61.00 L312 61.83 L314 62.68 L316 63.55 L318 64.44 L320 65.34 L322 66.26 L324 67.18 L326 68.12 L328 69.06 L330 70.00" />
+    <text x="44" y="143">Previous</text>
+    <text x="160" y="68" textAnchor="middle">New policy</text>
+    <text x="175" y="153" textAnchor="middle">Blended output</text>
+    <text x="90" y="190" textAnchor="middle">0</text>
+    <text x="260" y="190" textAnchor="middle">0.1 s</text>
+    <text x="175" y="213" textAnchor="middle">Time since blending starts</text>
+  </svg>
+  <div className="policy-entry-chart__legend">
+    <span className="policy-entry-chart__legend-blend">With blending</span>
+    <span className="policy-entry-chart__legend-instant">Immediate switch</span>
+  </div>
+  </div>
+  <div>
+  <svg viewBox="0 0 360 220" role="img" aria-label="Over 0.1 seconds, the previous command weight decreases smoothly from 1 to 0, while the new policy command weight increases from 0 to 1. The weights always sum to 1.">
+    <text x="24" y="22">Blending weight</text>
+    <rect className="policy-entry-chart__window" x="90" y="40" width="170" height="100" />
+    <path className="policy-entry-chart__axis" d="M40 35 V145 H335" />
+    <path className="policy-entry-chart__instant" d="M40 45 H90 C146.667 45 203.333 140 260 140 H330" />
+    <path className="policy-entry-chart__blend" d="M40 140 H90 C146.667 140 203.333 45 260 45 H330" />
+    <text x="30" y="49" textAnchor="end">1</text>
+    <text x="30" y="144" textAnchor="end">0</text>
+    <text x="90" y="166" textAnchor="middle">0</text>
+    <text x="260" y="166" textAnchor="middle">0.1 s</text>
+    <text x="175" y="190" textAnchor="middle">Time since blending starts</text>
+  </svg>
+  <div className="policy-entry-chart__legend">
+    <span className="policy-entry-chart__legend-blend">New policy: 0 → 1</span>
+    <span className="policy-entry-chart__legend-instant">Previous command: 1 → 0</span>
+  </div>
+  </div>
+  </div>
+  <p className="sim2real-condition-note">The previous command is held as the starting value; the new policy command keeps updating. Their blending weights always sum to 1.</p>
+</figure>
+
+Set the default with `policy_action_transition` and override it only for policies that need a different duration:
+
+```yaml
+policy_action_transition:
+  enabled: true
+  duration: 0.1  # seconds
+
+state_behaviors:
+  my_mimic_motion:
+    kind: mimic
+    asset: mimic/my_motion
+    motion: my_motion_reference.csv
+    policy_action_transition:
+      duration: 0.05
+```
+
+The behavior-level setting inherits omitted fields from the root setting.
+This setting controls command blending, not which mode is selected.
 
 ## How to Deploy Your Own Cyclo Lab-Trained Policy
 
@@ -412,9 +559,11 @@ If the switch is already enabled during boot, the node does not enter API contro
 An API handoff is accepted only when:
 
 - The API heartbeat is arriving within `api_heartbeat_timeout`.
+  - <span className="sim2real-condition-note">Only when `require_api_heartbeat` is enabled (default).</span>
 - The robot is currently in an allowed entry mode: `Damping`, `ReadyPose`, or `Velocity`.
 - The RC velocity command is zero.
-- The `/cmd_vel` velocity command is zero.
+- The `/cmd_vel` command is zero or absent.
+  - <span className="sim2real-condition-note">Only when `authority.api_entry.require_neutral_cmd_vel` is enabled (default).</span>
 
 :::note
 Allowed entry modes are configured under `authority.api_entry.allowed_from_states`.
@@ -426,7 +575,7 @@ If the handoff is rejected, fix the failing condition, then toggle the API switc
 Keeping the switch on does not retry the handoff; the node waits for a fresh switch toggle.
 
 After acceptance, the node enters `API_WARMUP` for the configured warmup duration.
-For the K1 config, the warmup duration is `3.0` seconds, defined in the `authority.api_entry` section of `config/k1_config.yaml`.
+For the K1 config, the warmup duration is `1.0` second, defined in the `authority.api_entry` section of `config/k1_config.yaml`.
 
 `API_WARMUP` is a short confirmation window before the external API client receives API authority.
 During this window, the heartbeat must keep arriving and the operator must keep the API switch enabled.
@@ -447,20 +596,25 @@ The node subscribes to `ai_sapiens_interfaces/msg/ApiHeartbeat` on:
 /ai_sapiens/api_heartbeat
 ```
 
-An external API client must keep publishing this heartbeat while it wants to use API authority.
+An external API client must continuously publish this heartbeat while using API authority.
+Heartbeat enforcement is enabled by default. Set `require_api_heartbeat:=false` to disable it.
 The message contains a `Header` and a `sequence` value that must keep changing.
 The node treats the heartbeat as invalid when `sequence` does not change within `api_heartbeat_timeout`.
 The default timeout is `0.2` seconds.
 
 ### Velocity Command
 
-When API authority is active, velocity commands are read from:
+When API authority is active, velocity commands are received as `geometry_msgs/msg/Twist` messages on:
 
 ```text
 /cmd_vel
 ```
 
-This replaces the RC transmitter as the velocity command source while API authority is active.
+Each `/cmd_vel` command remains valid for one second. If no valid command has been received during the current API session, the API velocity is zero.
+
+By default, moving the RC velocity stick overrides `/cmd_vel` on all axes.
+Centering the stick resumes `/cmd_vel` control.
+Set `authority.teleop_overrides_cmd_vel: false` to disable this override.
 
 ### Request a Mode
 
