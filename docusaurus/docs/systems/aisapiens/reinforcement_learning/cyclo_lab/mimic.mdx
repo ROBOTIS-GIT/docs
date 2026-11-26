@@ -10,7 +10,7 @@ import TabItem from '@theme/TabItem';
 
 # BeyondMimic Policy Training
 
-This is the **BeyondMimic** motion-tracking workflow for Cyclo Lab. The existing URL and `Cyclo-Mimic-*` task names are retained. For method selection, see [Motion Tracking](../motion_tracking); for reference requirements, see [Prepare Motion](../motion_preparation).
+This is the **BeyondMimic** motion-tracking workflow for Cyclo Lab. For method selection, see [Motion Tracking](../motion_tracking); for reference requirements, see [Prepare Motion](../motion_preparation).
 
 For installation, follow the [Cyclo Lab setup](./) before running the commands below.
 
@@ -29,7 +29,7 @@ Select the physics backend with `physics=newton_mjwarp` or `physics=isaacsim_phy
 
 ```bash
 python scripts/reinforcement_learning/rsl_rl/train.py \
-  --task Cyclo-Mimic-K1-Rev2-Dance1 \
+  --task Cyclo-BeyondMimic-K1-Rev2-Dance1 \
   --num_envs 4096 \
   --headless --visualizer none \
   physics=newton_mjwarp
@@ -40,7 +40,7 @@ python scripts/reinforcement_learning/rsl_rl/train.py \
 
 ```bash
 python scripts/reinforcement_learning/rsl_rl/train.py \
-  --task Cyclo-Mimic-K1-Rev2-Dance1 \
+  --task Cyclo-BeyondMimic-K1-Rev2-Dance1 \
   --num_envs 4096 \
   --headless --visualizer none \
   physics=isaacsim_physx
@@ -49,20 +49,20 @@ python scripts/reinforcement_learning/rsl_rl/train.py \
 </TabItem>
 </Tabs>
 
-To resume training, add `--checkpoint logs/rsl_rl/cyclo_mimic_k1_rev2_dance1/<run>/model_<iteration>.pt` to the training command.
+To resume training, add `--checkpoint logs/rsl_rl/cyclo_beyondmimic_k1_rev2_dance1/<run>/model_<iteration>.pt` to the training command.
 `--checkpoint latest` selects a checkpoint from the newest compatible run created by the current training script.
 
 Training output is written to:
 
 ```text
-logs/rsl_rl/cyclo_mimic_k1_rev2_dance1/*/
+logs/rsl_rl/cyclo_beyondmimic_k1_rev2_dance1/*/
 ```
 
 Each run directory contains:
 
 <div className="docs-folder-tree" role="img" aria-label="Cyclo Lab mimic training output directory structure">
   <div className="docs-folder-tree__root">
-    <code>logs/rsl_rl/cyclo_mimic_k1_rev2_dance1/*/</code>
+    <code>logs/rsl_rl/cyclo_beyondmimic_k1_rev2_dance1/*/</code>
   </div>
   <ul>
     <li><span className="docs-folder-tree__file-stack" aria-hidden="true" /><code>model_*.pt</code></li>
@@ -89,7 +89,7 @@ It runs the policy in simulation and exports `exported/policy.onnx` in the train
 
 ```bash
 python scripts/reinforcement_learning/rsl_rl/play.py \
-  --task Cyclo-Mimic-K1-Rev2-Dance1 \
+  --task Cyclo-BeyondMimic-K1-Rev2-Dance1 \
   --num_envs 16 \
   --visualizer newton_gl \
   --real-time \
@@ -101,7 +101,7 @@ python scripts/reinforcement_learning/rsl_rl/play.py \
 
 ```bash
 python scripts/reinforcement_learning/rsl_rl/play.py \
-  --task Cyclo-Mimic-K1-Rev2-Dance1 \
+  --task Cyclo-BeyondMimic-K1-Rev2-Dance1 \
   --num_envs 16 \
   --visualizer kit \
   --real-time \
@@ -117,8 +117,8 @@ To play a specific checkpoint instead of the latest one, add `--checkpoint`:
 
 ```bash
 python scripts/reinforcement_learning/rsl_rl/play.py \
-  --task Cyclo-Mimic-K1-Rev2-Dance1 \
-  --checkpoint logs/rsl_rl/cyclo_mimic_k1_rev2_dance1/2026-01-01_12-00-00/model_1000.pt \
+  --task Cyclo-BeyondMimic-K1-Rev2-Dance1 \
+  --checkpoint logs/rsl_rl/cyclo_beyondmimic_k1_rev2_dance1/2026-01-01_12-00-00/model_1000.pt \
   --num_envs 16 \
   --visualizer newton_gl \
   --real-time \
@@ -130,7 +130,7 @@ The `exported/` directory is added by `play.py`:
 
 <div className="docs-folder-tree" role="img" aria-label="Cyclo Lab mimic training run directory structure">
   <div className="docs-folder-tree__root">
-    <code>logs/rsl_rl/cyclo_mimic_k1_rev2_dance1/*/</code>
+    <code>logs/rsl_rl/cyclo_beyondmimic_k1_rev2_dance1/*/</code>
   </div>
   <ul>
     <li><span className="docs-folder-tree__file-stack" aria-hidden="true" /><code>model_*.pt</code></li>
@@ -270,15 +270,15 @@ Use your own motion name in the same places.
 
    <CodeSnippet
      language="python"
-     accentTokens={['Cyclo-Mimic-K1-Rev2-MyMotion', 'my_motion_env_cfg']}
+     accentTokens={['Cyclo-BeyondMimic-K1-Rev2-MyMotion', 'my_motion_env_cfg']}
      lines={[
        'gym.register(',
-       '    id="Cyclo-Mimic-K1-Rev2-MyMotion",',
+       '    id="Cyclo-BeyondMimic-K1-Rev2-MyMotion",',
        '    entry_point="isaaclab.envs:ManagerBasedRLEnv",',
        '    disable_env_checker=True,',
        '    kwargs={',
        '        "env_cfg_entry_point": f"{__name__}.my_motion_env_cfg:K1Rev2EnvCfg",',
-       '        "rsl_rl_cfg_entry_point": f"{agents.__name__}.rsl_rl_ppo_cfg:K1Rev2MimicPPORunnerCfg",',
+       '        "rsl_rl_cfg_entry_point": f"{__name__}.agents.rsl_rl_ppo_cfg:K1Rev2MimicPPORunnerCfg",',
        '    },',
        ')',
      ]}
@@ -290,13 +290,9 @@ Use your own motion name in the same places.
    python3 scripts/tools/list_envs.py | grep MyMotion
    ```
 
-   Check that the output includes `Cyclo-Mimic-K1-Rev2-MyMotion`.
+   Check that the output includes `Cyclo-BeyondMimic-K1-Rev2-MyMotion`.
 
 4. **Train and export.**
 
    Run `train.py` with the new task ID.
    Then run `play.py` to preview the policy and export `exported/policy.onnx`.
-
-## Version Compatibility
-
-In the Isaac Sim 6.2 / Isaac Lab 3.0 workflow, train and play use the same `Cyclo-Mimic-*` task ID. Older branches registered separate `-Play` tasks and used different visualization flags; those older commands remain version-specific. Do not add `-Play` to the current 6.2 task ID or mix its backend arguments with older branch launchers.

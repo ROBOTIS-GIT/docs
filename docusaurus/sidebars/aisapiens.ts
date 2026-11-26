@@ -47,6 +47,7 @@ const aisapiensSidebar: SidebarsConfig[string] = [
           {type: 'doc', id: 'systems/aisapiens/reinforcement_learning/cyclo_lab/locomotion', label: 'Locomotion'},
           {type: 'category', label: 'Motion Tracking', key: 'cyclo-lab-motion-tracking', collapsed: false, items: [
             {type: 'doc', id: 'systems/aisapiens/reinforcement_learning/cyclo_lab/mimic', label: 'BeyondMimic'},
+            {type: 'doc', id: 'systems/aisapiens/reinforcement_learning/cyclo_lab/supermimic', label: 'SuperMimic / BlinkMimic', key: 'cyclo-lab-supermimic'},
           ]},
         ],
       },

@@ -8,7 +8,7 @@ title: Cyclo Lab
 Cyclo Lab is the Isaac Lab-based environment for training AI Sapiens K1 policies in simulation.
 It provides the training and export workflow needed before deploying a policy with Sim2Real.
 
-This guide is based on Cyclo Lab 3.0.0.
+This guide is based on Cyclo Lab 3.2.0.
 
 For robot-side deployment after training, use the [Sim2Real guide](/docs/systems/aisapiens/development_guide/sim2real/).
 
@@ -85,10 +85,7 @@ Use the no-window option shown for your backend in the training guides when visu
 
 ## Next Steps
 
-- Train and export a velocity policy with the [Locomotion guide](./locomotion).
-- Train and export a motion-imitation policy with the [BeyondMimic guide](./mimic).
+- Train a velocity policy with [Locomotion](./locomotion).
+- Train a motion-tracking policy with [BeyondMimic](./mimic) (PPO) or [SuperMimic / BlinkMimic](./supermimic) (world model).
+- Use [Prepare Motion](../motion_preparation) for custom reference motions.
 - Deploy the exported asset with [How to Deploy Your Own Cyclo Lab-Trained Policy](/docs/systems/aisapiens/development_guide/sim2real/#how-to-deploy-your-own-cyclo-lab-trained-policy).
-
-## Choose a Motion-Tracking Method
-
-Follow the [BeyondMimic guide](./mimic) to train a motion-tracking policy. See [Prepare Motion](../motion_preparation) for custom reference motions.
