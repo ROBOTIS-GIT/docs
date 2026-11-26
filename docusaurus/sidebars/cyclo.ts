@@ -15,7 +15,7 @@ const cycloSidebar: SidebarsConfig[string] = [
         link: {type: 'doc', id: 'software/cyclo/cyclo_studio'},
         collapsed: false,
         items: [
-          doc('software/cyclo/studio/marketplace', 'Cyclo Marketplace'),
+          doc('software/cyclo/studio/marketplace', 'Marketplace'),
         ],
       },
       doc('software/cyclo/cyclo_ai', 'Cyclo AI'),
