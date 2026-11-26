@@ -17,6 +17,11 @@ const cycloSidebar: SidebarsConfig[string] = [
         link: {type: 'doc', id: 'software/cyclo/cyclo_intelligence'},
         collapsed: false,
         items: [
+          doc('software/cyclo/intelligence/setup', 'Setup'),
+          doc('software/cyclo/intelligence/data_recording', 'Data Recording'),
+          doc('software/cyclo/intelligence/data_tools', 'Data Tools'),
+          doc('software/cyclo/intelligence/model_training', 'Model Training Guide'),
+          doc('software/cyclo/intelligence/model_inference', 'Model Inference'),
           {
             type: 'category',
             label: 'Legacy: Physical AI Tools',
