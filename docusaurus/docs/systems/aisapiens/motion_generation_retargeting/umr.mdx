@@ -122,7 +122,7 @@ Choose the tab for your **input format**, then configure the prepared motion fil
 <Tabs groupId="umr-input-source">
 <TabItem value="smplh" label="SMPL-H (FlowHMR)">
 
-Reconstruct your video with [FlowHMR](/docs/systems/aisapiens/motion_generation/flowhmr#reconstruct-a-video). Use the resulting NPZ directly as `motion.data` in step 4; no separate conversion is required.
+Reconstruct your video with [FlowHMR](/docs/systems/aisapiens/motion_generation/flowhmr#2-command-line-inference). Use the resulting NPZ directly as `motion.data` in step 4; no separate conversion is required.
 
 :::info[SMPL-H model]
 **UMR does not include the SMPL-H model.** The neutral model used here is part of the **Extended SMPL+H model** (used in the [AMASS](https://amass.is.tuebingen.mpg.de/) project), available from the [official SMPL-H website](https://mano.is.tue.mpg.de/) under its own license terms. An existing model used for FlowHMR can be reused.
@@ -320,7 +320,7 @@ Then open `motion.json` and edit the fields shown. Replace the example paths wit
 cp humanoid_retarget_defaults_flowhmr.json motion.json
 ```
 
-Use the reconstructed FlowHMR NPZ directly:
+Use the reconstructed FlowHMR NPZ directly. This example uses the bundled CLI video; for your own video, replace `motion.data` with its generated NPZ path:
 
 ```json
 {
