@@ -1,6 +1,6 @@
 import React, {type ReactNode, createContext, useContext, useEffect, useRef, useState} from 'react';
 import Link from '@docusaurus/Link';
-import {useLocation} from '@docusaurus/router';
+import {useHistory, useLocation} from '@docusaurus/router';
 import useBaseUrl, {useBaseUrlUtils} from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import {useMDXComponents} from '@mdx-js/react';
@@ -611,17 +611,43 @@ export function StepTabs({
   const bar = useRef<HTMLElement>(null);
   // Where to scroll once the chosen step is shown: the top of the steps, or a part inside the step.
   const scrollTarget = useRef<HTMLElement | 'top' | null>(null);
-  const {hash} = useLocation();
+  const location = useLocation();
+  const {hash} = location;
+  const history = useHistory();
   const setToc = useContext(SetGuideToc);
   // The titles of the boxes of the open step, for the list at the right, and the box the reader is at.
   const [parts, setParts] = useState<{id: string; text: string}[]>([]);
   const [activePart, setActivePart] = useState<string | null>(null);
+  // A box chosen in the list or by a link stays marked until the reader scrolls on, also where the page
+  // cannot scroll it to the top (the last boxes of a step).
+  const pinnedPart = useRef<string | null>(null);
+  const previousHash = useRef(hash);
+
+  // The bar's real height, for where a link to a box stops (styles: .stepPanel [id]).
+  // It is taller when a line of needs is under it, and different on a narrow screen.
+  useEffect(() => {
+    const barElement = bar.current;
+    const rootElement = root.current;
+    if (!barElement || !rootElement || typeof ResizeObserver === 'undefined') {
+      return undefined;
+    }
+    const measure = () => rootElement.style.setProperty('--guide-bar-height', `${barElement.offsetHeight}px`);
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(barElement);
+    return () => observer.disconnect();
+  }, []);
 
   const scrollTo = (target: HTMLElement | 'top') => {
     if (target !== 'top') {
       target.scrollIntoView({block: 'start'});
+      if (target.matches('[data-step-box] > h3[id]')) {
+        pinnedPart.current = target.id;
+        setActivePart(target.id);
+      }
       return;
     }
+    pinnedPart.current = null;
     // When the steps start near the top of the page, right under its title, go to the very top:
     // every step then opens the same way, with the title, the bar and the start of the step.
     const steps = root.current;
@@ -663,7 +689,13 @@ export function StepTabs({
   };
 
   useEffect(() => {
-    openFromAddress(hash);
+    // Back to the address the page opened with, without a step in it: show the first step again.
+    if (!hash.replace(/^#/, '') && previousHash.current.replace(/^#/, '')) {
+      show(0, 'top');
+    } else {
+      openFromAddress(hash);
+    }
+    previousHash.current = hash;
     // Only the address matters here. The steps are the same for as long as the page is open.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hash]);
@@ -685,10 +717,22 @@ export function StepTabs({
     scrollTo(target);
   }, [current]);
 
+  // Put an id in the address as a new entry of the browser history, as a link on any other page does, so the
+  // browser's Back and Forward buttons go through the steps. The new address then opens the step or the box
+  // (the effect on `hash` above). Returns false when the address already has that id.
+  const navigate = (id: string) => {
+    if (decodeURIComponent(window.location.hash.replace(/^#/, '')) === id) {
+      return false;
+    }
+    history.push({pathname: location.pathname, search: location.search, hash: `#${id}`});
+    return true;
+  };
+
   // A click on the bar or on Back / Next: show that step from its top, and put its id in the address.
   const go = (index: number) => {
-    window.history.replaceState(window.history.state, '', `#${steps[index].props.id}`);
-    show(index, 'top');
+    if (!navigate(steps[index].props.id)) {
+      show(index, 'top');
+    }
   };
 
   // The `###` title of each part of the open step.
@@ -708,9 +752,14 @@ export function StepTabs({
     let frame = 0;
     const update = () => {
       frame = 0;
+      if (pinnedPart.current) {
+        setActivePart(pinnedPart.current);
+        return;
+      }
       const headings = partHeadings();
       const line = bar.current?.getBoundingClientRect().bottom ?? 0;
-      const next = headings.findIndex(heading => heading.getBoundingClientRect().top >= line);
+      // 1 px of slack for rounding: a title that stopped right below the bar counts as below it.
+      const next = headings.findIndex(heading => heading.getBoundingClientRect().top >= line - 1);
       const active =
         next < 0
           ? headings[headings.length - 1]
@@ -724,12 +773,33 @@ export function StepTabs({
         frame = window.requestAnimationFrame(update);
       }
     };
+    // The reader scrolls on by hand: stop keeping the chosen box marked, and mark by position again.
+    const release = () => {
+      if (pinnedPart.current) {
+        pinnedPart.current = null;
+        onScroll();
+      }
+    };
+    const scrollKeys = ['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '];
+    const onKey = (event: KeyboardEvent) => {
+      if (scrollKeys.includes(event.key)) {
+        release();
+      }
+    };
     update();
     window.addEventListener('scroll', onScroll, {passive: true});
     window.addEventListener('resize', onScroll);
+    window.addEventListener('wheel', release, {passive: true});
+    window.addEventListener('touchmove', release, {passive: true});
+    window.addEventListener('mousedown', release);
+    window.addEventListener('keydown', onKey);
     return () => {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
+      window.removeEventListener('wheel', release);
+      window.removeEventListener('touchmove', release);
+      window.removeEventListener('mousedown', release);
+      window.removeEventListener('keydown', onKey);
       window.cancelAnimationFrame(frame);
     };
     // The boxes change only with the step.
@@ -738,8 +808,12 @@ export function StepTabs({
 
   // A click on a box in the list: go to it, and put its id in the address.
   const goToPart = (id: string) => {
-    window.history.replaceState(window.history.state, '', `#${id}`);
-    document.getElementById(id)?.scrollIntoView({block: 'start'});
+    if (!navigate(id)) {
+      const target = document.getElementById(id);
+      if (target) {
+        scrollTo(target);
+      }
+    }
   };
 
   const toc = (

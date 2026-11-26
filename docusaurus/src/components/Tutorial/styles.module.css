@@ -1147,10 +1147,12 @@
   margin-bottom: 0;
 }
 
-/* A link to a step, or to a part of a step, stops below the bar, not under it. */
+/* A link to a step, or to a part of a step, stops just below the bar, not under it.
+   --guide-bar-height is the bar's real height, measured by StepTabs: it is taller with a line of needs under it.
+   5.5rem is only the first guess, before the page's script runs. */
 .stepPanel,
 .stepPanel [id] {
-  scroll-margin-top: calc(var(--ifm-navbar-height) + 5.5rem);
+  scroll-margin-top: calc(var(--ifm-navbar-height) + var(--guide-bar-height, 5.5rem) + 0.75rem);
 }
 
 .stepNav {
