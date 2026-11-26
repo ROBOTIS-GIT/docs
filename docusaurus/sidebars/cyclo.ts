@@ -9,7 +9,14 @@ const cycloSidebar: SidebarsConfig[string] = [
     label: 'Modules',
     collapsed: false,
     items: [
-      doc('software/cyclo/cyclo_studio', 'Cyclo Studio'),
+      {
+        type: 'category',
+        label: 'Cyclo Studio',
+        link: {type: 'doc', id: 'software/cyclo/cyclo_studio'},
+        items: [
+          doc('software/cyclo/studio/hub', 'Hub'),
+        ],
+      },
       doc('software/cyclo/cyclo_marketplace', 'Cyclo Marketplace'),
       doc('software/cyclo/cyclo_ai', 'Cyclo AI'),
       {
