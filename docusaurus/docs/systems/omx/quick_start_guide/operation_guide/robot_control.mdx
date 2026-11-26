@@ -18,6 +18,10 @@ The OMX controller uses `ros2_control` and MoveIt 2 for modular robot control, t
 
 To use `MoveIt 2`, `GUI`, or `Keyboard Teleop`, open a new OpenMANIPULATOR Docker container and launch the OMX packages:
 
+:::info
+This command connects to `/dev/ttyACM0`, the board the PC found first. Before you run it, unplug the USB cables of both arms from the PC. Then plug in only the follower's cable, with its 12 V power on.
+:::
+
 ```bash
 ros2 launch open_manipulator_bringup omx_f.launch.py
 ```
