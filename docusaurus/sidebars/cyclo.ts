@@ -16,6 +16,7 @@ const cycloSidebar: SidebarsConfig[string] = [
         collapsed: false,
         items: [
           doc('software/cyclo/studio/hub', 'Hub'),
+          doc('software/cyclo/studio/simulation', 'Simulation'),
           doc('software/cyclo/studio/marketplace', 'Marketplace'),
         ],
       },
