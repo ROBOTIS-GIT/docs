@@ -42,36 +42,22 @@ const omxSidebar: SidebarsConfig[string] = [
     label: 'Imitation Learning',
     collapsible: false,
     className: 'omx-sidebar-title',
-    // The rows that fold are closed until they are clicked. The Imitation Learning Overview is not listed: it only
-    // compared Cyclo Intelligence with Physical AI Tools, which OMX no longer uses.
+    // OMX has no Cyclo Intelligence pages of its own: Train and run AI is the OMX guide, and its last step points to
+    // Cyclo Intelligence in the Cyclo manual. The old addresses lead to Train and run AI (src/data/docRedirects.json).
     items: [
       // The first try, right after Bringup. Its page stays in quick_start_guide/, so its address does not change.
       {type: 'doc', id: 'systems/omx/quick_start_guide/train_and_run_ai', label: 'Train and run AI'},
-      {
-        type: 'category',
-        label: 'Cyclo Intelligence',
-        link: {type: 'doc', id: 'systems/omx/imitation_learning/imitation_learning'},
-        collapsed: true,
-        items: [
-          {type: 'doc', id: 'systems/omx/imitation_learning/setup', label: 'Setup', key: 'cyclo-intelligence-setup'},
-          {type: 'doc', id: 'systems/omx/imitation_learning/data_recording', label: 'Data Recording', key: 'cyclo-intelligence-data-recording'},
-          {type: 'doc', id: 'systems/omx/imitation_learning/data_tools', label: 'Data Tools', key: 'cyclo-intelligence-data-tools'},
-          {type: 'doc', id: 'systems/omx/imitation_learning/model_training', label: 'Model Training Guide', key: 'cyclo-intelligence-model-training'},
-          {type: 'doc', id: 'systems/omx/imitation_learning/model_inference', label: 'Model Inference', key: 'cyclo-intelligence-model-inference'},
-        ],
-      },
-      // Physical AI Tools (Legacy) is left out of the OMX menu: the team decided OMX uses only Cyclo Intelligence.
     ],
   },
   {
-    // As the AI Worker Simulation group: the Overview lists the models, and each simulator has its page.
+    // As the AI Worker Simulation group. The Overview lists the models, MuJoCo included: OMX has no MuJoCo launch
+    // guide, so MuJoCo has no page of its own. Gazebo has its page.
     type: 'category',
     label: 'Simulation',
     collapsible: false,
     className: 'omx-sidebar-title',
     items: [
       {type: 'doc', id: 'systems/omx/simulation/simulation', label: 'Overview', key: 'simulation-overview'},
-      {type: 'doc', id: 'systems/omx/simulation/mujoco', label: 'MuJoCo'},
       {type: 'doc', id: 'systems/omx/simulation/gazebo', label: 'Gazebo'},
     ],
   },

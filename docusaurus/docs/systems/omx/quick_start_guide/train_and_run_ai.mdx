@@ -29,7 +29,7 @@ import quickStart from './_quick_start';
 
 <GuidePage guide={quickStart} title="Train and run AI">
 
-<StepTabs back={quickStart.pages[1]} next={{title: 'Cyclo Intelligence', to: '/docs/systems/omx/imitation_learning'}} firstNumber={0}>
+<StepTabs back={quickStart.pages[1]} next={{title: 'Simulation', to: '/docs/systems/omx/simulation'}} firstNumber={0}>
 
 <StepTab id="before-you-begin" title="Before you begin">
 
@@ -49,7 +49,7 @@ You show OMX a task at least 50 times with the leader arm. ACT learns from your 
 
 ACT is an imitation learning model. It looks at the camera picture and the arm's angles, and plans the next moves in the way your tries showed it.
 
-The Cyclo Intelligence manual suggests ACT for a first dataset. It is small, and it learns on the one graphics card in your PC.
+ACT is a good model for a first dataset. It is small, and it learns on the one graphics card in your PC.
 
 The clip shows one of our runs that worked. Your result can be different: it depends on your tries, the camera and the light.
 
@@ -160,7 +160,6 @@ Then type `exit` and press **Enter** to leave the container.
 
   The [Zenoh](/docs/systems/omx/specifications/software#middleware) setting lets Cyclo Intelligence talk to the robot's programs on this PC. The container comes with it, and part C only checks it.
 
-  These are the steps of [Cyclo Intelligence Setup](../imitation_learning/setup.mdx). For all its options, see that page.
 
 </details>
 
@@ -328,7 +327,6 @@ Open [http://localhost:7080](http://localhost:7080) in your browser. Then click 
 
   To stop, lower the follower's gripper onto the table. Then press **Ctrl + C** in each terminal, from Terminal 4 back to Terminal 1.
 
-  For every part of the Record page, see [Data Recording](../imitation_learning/data_recording.mdx).
 
 </details>
 
@@ -451,7 +449,6 @@ Your tries are saved on the PC, so this is a good place for a break. To go on la
 
   Each try is saved as one episode: the camera video, the leader's moves and the follower's moves. The AI later learns to turn what the camera sees into the moves you made, so try to make the same clear move every time.
 
-  For every option of this page, see [Data Recording](../imitation_learning/data_recording.mdx).
 
 </details>
 
@@ -641,11 +638,11 @@ INFO 2026-11-12 14:02:12 ot_train.py:737 End of training
 <details>
   <summary>How does it work?</summary>
 
-  The graphics driver lets Ubuntu use the card. The NVIDIA Container Toolkit lets the programs inside Docker use it too. The AI program runs in Docker, so it needs both. Part A has the checks of [Cyclo Intelligence Setup](../imitation_learning/setup.mdx#requirements), and the commands in its box are copied from Ubuntu's and NVIDIA's guides. If they change their commands, their pages linked above have the new ones.
+  The graphics driver lets Ubuntu use the card. The NVIDIA Container Toolkit lets the programs inside Docker use it too. The AI program runs in Docker, so it needs both. The commands in the box of part A are copied from Ubuntu's and NVIDIA's guides. If they change their commands, their pages linked above have the new ones.
 
   The model is named ACT. It looks at the camera picture and the arm's angles, and learns which moves you made next. It goes through your tries many times: 60,000 small learning steps.
 
-  The result is saved in `~/cyclo_intelligence/docker/workspace/model/lerobot/act_stack_box`. For other models and settings, see the [Model Training Guide](../imitation_learning/model_training.mdx).
+  The result is saved in `~/cyclo_intelligence/docker/workspace/model/lerobot/act_stack_box`.
 
 </details>
 
@@ -831,7 +828,7 @@ Click **Stop** on the page. Then press **Ctrl + C** in Terminals 4, 3, 2 and 1.
 
   Many times a second, the model looks at the camera picture and the arm's angles, and plans the next few seconds of moves. With **3D Sim Deploy**, the plan only shows in the 3D picture. With **Real Robot Deploy**, it goes to the motors.
 
-  The model has no "done" signal. It keeps going until you click **Stop**. For every setting on this page, see [Model Inference](../imitation_learning/model_inference.mdx).
+  The model has no "done" signal. It keeps going until you click **Stop**.
 
 </details>
 
@@ -867,23 +864,18 @@ These are the usual reasons, not all of them. A model can also miss for other re
 
 Fix what went wrong. If it was your tries, record them again. Then do [Train the AI model](#train-the-ai-model) and [Run the AI model](#run-the-ai-model) again.
 
-Still missing? Record more tries, or change how the model trains: see [Model Training](../imitation_learning/model_training.mdx) in the Cyclo Intelligence manual. You can also ask on [Discord](https://discord.gg/robotis).
+Still missing? Record more tries, or ask on [Discord](https://discord.gg/robotis).
 
 <GoFurther
-  to="/docs/systems/omx/imitation_learning"
-  button="Open the Cyclo Intelligence manual"
+  to="/docs/software/cyclo/cyclo_intelligence"
+  button="Open Cyclo Intelligence in the Cyclo manual"
   logo="/img/common/CYCLO_Signature_Horiz.svg"
   logoAlt="CYCLO"
 >
 
 ### Learn more in Cyclo Intelligence
 
-This guide used Cyclo Intelligence in one simple way. Its manual shows the rest, for example:
-
-- Add a second camera: [Data Recording](../imitation_learning/data_recording.mdx#home-page), under **Change Collected Data**
-- Choose the FPS of your dataset: [Data Tools](../imitation_learning/data_tools.mdx#convert-dataset), under **Choosing the FPS**. If you change it, type the same number in **Dataset FPS** on the **Inference** page
-- Try other models: [Model Training](../imitation_learning/model_training.mdx#supported-models), under **Which model should I pick?**
-- Change how the model runs: [Model Inference](../imitation_learning/model_inference.mdx#inference-settings)
+This guide used Cyclo Intelligence in one simple way. Its page in the Cyclo manual shows how its parts work together, and where its source code is.
 
 </GoFurther>
 
