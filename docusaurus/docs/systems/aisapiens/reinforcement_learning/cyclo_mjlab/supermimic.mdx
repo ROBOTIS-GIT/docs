@@ -3,6 +3,7 @@ sidebar_label: SuperMimic / BlinkMimic
 title: SuperMimic / BlinkMimic
 ---
 
+import MotionConversion from '@site/src/components/MotionConversion';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
@@ -127,9 +128,39 @@ After running the play commands above, the run directory contains:
 
 A task defines a motion library, rather than a separate policy for each clip. This example creates K1 Rev.2 task **`002`** from a collection of walking, turning, and dancing clips, keeping the existing `001` task.
 
-### 1. Place the Motion Files
+:::note
+This guide assumes you already have robot-motion CSV files exported by [Soma-retargeter](/docs/systems/aisapiens/motion_generation_retargeting/soma_retargeter/) or [UMR](/docs/systems/aisapiens/motion_generation_retargeting/umr/). Choose the matching tab below to convert them for training and deployment.
+:::
 
-First, follow [Prepare Motion](../motion_preparation) to generate the training NPZ and deployment CSV files for Cyclo MJLab and K1 Rev.2. Then place the prepared files in a dedicated `task_002_motions/` directory as shown below.
+### 1. Place and Convert the Motion Files
+
+Keep the four source clips for the new task in `task_002_motions/`, as shown in the matching tab below.
+
+<Tabs groupId="motion-source">
+<TabItem value="soma" label="Soma-retargeter CSV">
+
+Use the headered robot-motion CSV files. Keep the `_soma.csv` suffix to distinguish them from the converted deployment CSV files.
+
+<MotionConversion platform="cyclo-mjlab" source="soma" motionName="walk_forward_01" folderName="task_002_motions" otherMotions={["walk_forward_02", "turn_left_01", "dance_01"]} />
+
+</TabItem>
+<TabItem value="umr" label="UMR CSV">
+
+Use the `_umr.csv` exports, not the `_umr_qpos.npz` archives used for UMR playback.
+
+<MotionConversion platform="cyclo-mjlab" source="umr" motionName="walk_forward_01" folderName="task_002_motions" otherMotions={["walk_forward_02", "turn_left_01", "dance_01"]} />
+
+</TabItem>
+</Tabs>
+
+This creates the Cyclo MJLab motion files used after this step:
+
+- `walk_forward_01.csv` for Sim2Real deployment
+- `walk_forward_01.npz` for training
+
+After conversion, the source CSV (`walk_forward_01_soma.csv` or `walk_forward_01_umr.csv`) is no longer needed for training or Sim2Real deployment and can be removed from this folder.
+
+After converting the other clips, the motion library looks like this:
 
 <div className="docs-folder-tree" role="img" aria-label="K1 Rev.2 prepared motion library directory structure">
   <div className="docs-folder-tree__root">
@@ -155,16 +186,7 @@ First, follow [Prepare Motion](../motion_preparation) to generate the training N
   </ul>
 </div>
 
-Each clip uses a matching pair of files:
-
-| File | Purpose |
-| --- | --- |
-| `.npz` | 50 Hz motion reference in Cyclo MJLab format for training and playback |
-| `.csv` | Corresponding motion in the deployment format |
-
-Training loads the NPZ files; the CSV files are kept for deployment. Raw retargeter outputs must first be converted to these formats.
-
-Preview the prepared clips before training to check their poses, speed, and loop transitions:
+Preview the converted clips before training to check their poses, speed, and loop transitions. The command below previews the first clip, `walk_forward_01.npz`; repeat it with each remaining clip’s filename:
 
 ```bash
 python scripts/tools/motion/replay_npz.py \

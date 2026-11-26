@@ -5,47 +5,37 @@ title: Prepare Motion
 
 # Prepare Motion
 
-Prepare the robot reference before choosing a learner. Human reconstruction, robot retargeting, training motion, policy checkpoints, and deployment assets are different outputs.
+Prepare a training NPZ and deployment CSV for your robot and training environment. Follow the source and retargeting guides below, then continue with your learning method’s motion conversion and task setup instructions.
 
 ## 1. Generate and Retarget the Source
 
 Use [Kimodo](/docs/systems/aisapiens/motion_generation_retargeting/kimodo/), [GEM-X](/docs/systems/aisapiens/motion_generation/gem-x/), or [FlowHMR](/docs/systems/aisapiens/motion_generation/flowhmr/) for human motion as appropriate, then retarget it to the intended K1 revision.
 
 - [Soma-retargeter](/docs/systems/aisapiens/motion_generation_retargeting/soma_retargeter/) exports a headered K1 CSV used by the existing converter recipes.
-- [UMR](/docs/systems/aisapiens/motion_generation_retargeting/umr/) exports qpos NPZ. It is not the Soma CSV or a ready-to-train Cyclo archive. A separately validated adapter is needed; changing its extension does not convert it.
+- [UMR](/docs/systems/aisapiens/motion_generation_retargeting/umr/) exports `_umr_qpos.npz` for UMR playback and `_umr.csv` for Cyclo conversion. The qpos NPZ is not a Cyclo training archive.
 
 Retain the source motion, original frame rate, model revision, and conversion settings. Review foot contact, scale, facing direction, joint limits, speed, and loop continuity. Source motion and body-model licenses still apply.
 
 ## 2. Create the Platform Reference
 
-Use the conversion recipe for the selected platform:
+The guides below include Soma-retargeter CSV and UMR CSV conversion commands. Run the converter inside the selected environment’s Docker container:
 
-| Platform | Soma CSV conversion and task setup | Expected reference location |
+| Environment | Conversion and task setup | Motion directory |
 | --- | --- | --- |
-| Cyclo Lab | [Lab motion/task recipe](./cyclo_lab/mimic#how-to-add-your-own-mimic-task) | `source/cyclo_lab/data/motions/K1_rev2/<motion>/` |
-| Cyclo MJLab | [MJLab motion/task recipe](./cyclo_mjlab/mimic#how-to-add-your-own-mimic-task) | `source/assets/motions/K1_rev2/<motion>/` |
+| Cyclo Lab | [BeyondMimic](./cyclo_lab/mimic#how-to-add-your-own-mimic-task) | `source/cyclo_lab/data/motions/K1_rev2/<motion>/` |
+| Cyclo MJLab | [BeyondMimic](./cyclo_mjlab/mimic#how-to-add-your-own-mimic-task), [SuperMimic / BlinkMimic](./cyclo_mjlab/supermimic#how-to-add-your-own-task) | `source/assets/motions/K1_rev2/<motion>/` |
 
-Keep the original headered Soma CSV, converted training NPZ, and deployment CSV distinct. The two platforms' references must be checked against their own loader; matching filenames do not establish matching schemas.
+Keep the source CSV separate from the converted training NPZ and deployment CSV. Preview the converted motion before training or deployment.
 
-For a Cyclo MJLab reference, its documented offline validator can check the NPZ inside the MJLab container:
-
-```bash
-python scripts/tools/motion/replay_npz.py \
-  --model third_party/ai_sapiens/ai_sapiens_description/mujoco/k1_rev2/k1.xml \
-  -f source/assets/motions/K1_rev2/my_motion/my_motion.npz \
-  --validate-only
-```
-
-Replace `my_motion` with the converted motion name. Use the playback recipe to inspect the result as well; structural validation alone does not prove good motion.
+:::warning[Environment-specific NPZ files]
+Cyclo Lab and Cyclo MJLab NPZ files are not interchangeable. Use the NPZ generated for your training environment.
+:::
 
 ## 3. Assign the Motion to a Task
 
-Use a 50 Hz NPZ converted for the selected platform and robot revision. In Cyclo MJLab, BeyondMimic, SuperMimic, and BlinkMimic can use these files without a separate conversion for each method. Do not interchange Cyclo Lab and Cyclo MJLab NPZ files.
+Use a 50 Hz NPZ converted for the selected environment and robot revision. In Cyclo MJLab, BeyondMimic, SuperMimic, and BlinkMimic use the same converted motion format.
 
-For motion paths and task registration, see **How to Add Your Own** in the corresponding guide:
-
-- Cyclo Lab: [BeyondMimic](./cyclo_lab/mimic)
-- Cyclo MJLab: [BeyondMimic](./cyclo_mjlab/mimic), [SuperMimic / BlinkMimic](./cyclo_mjlab/supermimic)
+Continue with task configuration and registration in the guide selected above. If you already have the converted NPZ and CSV, skip its CSV conversion instructions.
 
 ## 4. Prepare Deployment Files
 

@@ -4,6 +4,7 @@ title: BeyondMimic Policy Training
 ---
 
 import CodeSnippet from '@site/src/components/CodeSnippet';
+import MotionConversion from '@site/src/components/MotionConversion';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
@@ -171,7 +172,7 @@ Do not pair `policy.onnx` from one run with `sim2real.yaml` from another run.
 Use this flow when you want to add a new mimic task for your own motion.
 
 :::note
-This guide assumes you already have a Soma-retargeter output CSV from the [Kimodo](/docs/systems/aisapiens/motion_generation_retargeting/kimodo/) > [Soma-retargeter](/docs/systems/aisapiens/motion_generation_retargeting/soma_retargeter/) pipeline.
+This guide assumes you already have a robot-motion CSV exported by [Soma-retargeter](/docs/systems/aisapiens/motion_generation_retargeting/soma_retargeter/) or [UMR](/docs/systems/aisapiens/motion_generation_retargeting/umr/). Choose the matching tab below to convert it for training and deployment.
 :::
 
 The examples below use `my_motion` as the new motion name.
@@ -179,7 +180,31 @@ Use your own motion name in the same places.
 
 1. **Place and convert the motion file.**
 
-   First, place the Soma-retargeter output CSV under the K1 Rev.2 motion data directory:
+   <Tabs groupId="motion-source">
+   <TabItem value="soma" label="Soma-retargeter CSV">
+
+   Use the headered robot-motion CSV. Keep it as `my_motion_soma.csv`, separate from the converted deployment CSV.
+
+   <MotionConversion platform="cyclo-lab" source="soma" motionName="my_motion" />
+
+   </TabItem>
+   <TabItem value="umr" label="UMR CSV">
+
+   Use the `_umr.csv` export, not the `_umr_qpos.npz` archive used for UMR playback.
+
+   <MotionConversion platform="cyclo-lab" source="umr" motionName="my_motion" />
+
+   </TabItem>
+   </Tabs>
+
+   This creates the Cyclo Lab motion files used after this step:
+
+   - `my_motion.csv` for Sim2Real deployment
+   - `my_motion.npz` for training
+
+   After conversion, the source CSV (`my_motion_soma.csv` or `my_motion_umr.csv`) is no longer needed for training or Sim2Real deployment and can be removed from this folder.
+
+   The converted files are saved alongside the source CSV:
 
    <div className="docs-folder-tree" role="img" aria-label="K1 Rev.2 motion input directory structure">
      <div className="docs-folder-tree__root">
@@ -197,7 +222,8 @@ Use your own motion name in the same places.
                <li>
                  <strong>my_motion/</strong>
                  <ul>
-                   <li><code>my_motion_soma.csv</code></li>
+                   <li><code><strong className="docs-folder-tree__file">my_motion.npz</strong></code><em>Used for training</em></li>
+                   <li><code><strong className="docs-folder-tree__file">my_motion.csv</strong></code><em>Used for deployment</em></li>
                  </ul>
                </li>
              </ul>
@@ -206,25 +232,6 @@ Use your own motion name in the same places.
        </li>
      </ul>
    </div>
-
-   `my_motion_soma.csv` is the Soma-retargeter output CSV.
-
-   Convert it because Cyclo Lab does not train directly from the Soma-retargeter output CSV.
-
-   ```bash
-   python3 scripts/tools/motion/soma_retargeter_csv_converter.py \
-     --robot k1_rev2 \
-     -f source/cyclo_lab/data/motions/K1_rev2/my_motion/my_motion_soma.csv \
-     --output_name source/cyclo_lab/data/motions/K1_rev2/my_motion/my_motion.npz \
-     --viz none
-   ```
-
-   This creates the Cyclo Lab motion files used after this step:
-
-   - `my_motion.csv` for Sim2Real deployment
-   - `my_motion.npz` for training
-
-   Keep `my_motion_soma.csv` as the source record. Training consumes the converted NPZ, and deployment uses the corresponding converted CSV.
 
 2. **Create a new mimic task config.**
 
