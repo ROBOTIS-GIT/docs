@@ -144,21 +144,21 @@ Zenoh is a pub/sub/query protocol designed to move data efficiently across local
 - `rmw_zenoh_cpp` converts the ROS 2 middleware calls into Zenoh operations.
 - A local Zenoh router is normally started so nodes can discover each other.
 - On the same host, message data can use direct peer-to-peer paths instead of forcing every sample through the router.
-- Across multiple hosts, configure the external PC container as a Zenoh client connected to the robot's Zenoh router endpoint.
+- Across multiple hosts, configure the external PC container as a Zenoh client connected to the Zenoh router endpoint on the PC that the OMX is plugged into.
 
 ### External PC Control
 
-To control OMX from an external PC, set up the `open_manipulator` Docker container on the external PC. Then connect the container's Zenoh client to the Zenoh router running on the robot.
+To control OMX from an external PC, set up the `open_manipulator` Docker container on the external PC. Then connect the container's Zenoh client to the Zenoh router running on the PC that the OMX is plugged into (the OMX PC).
 
 Inside the external PC's `open_manipulator` container, set the following environment variable:
 
 ```bash
-export ZENOH_CONFIG_OVERRIDE='transport/shared_memory/enabled=true;mode="client";connect/endpoints=["tcp/robot_ip:7447"]'
+export ZENOH_CONFIG_OVERRIDE='transport/shared_memory/enabled=true;mode="client";connect/endpoints=["tcp/omx_pc_ip:7447"]'
 ```
 
-Replace `robot_ip` with the real IP address of the OMX robot. Use the robot's Wi-Fi IP address when both devices are connected over Wi-Fi, or use the robot's LAN IP address when the external PC is connected through Ethernet.
+Replace `omx_pc_ip` with the real IP address of the OMX PC. Use the OMX PC's Wi-Fi IP address when both PCs are connected over Wi-Fi, or use its LAN IP address when the external PC is connected through Ethernet.
 
-For example, if the robot's IP address is `192.168.0.42`:
+For example, if the OMX PC's IP address is `192.168.0.42`:
 
 ```bash
 export ZENOH_CONFIG_OVERRIDE='transport/shared_memory/enabled=true;mode="client";connect/endpoints=["tcp/192.168.0.42:7447"]'
@@ -186,8 +186,8 @@ ros2 topic echo /joint_states
 
 If topics appear but messages are not flowing, check that:
 
-- `ZENOH_CONFIG_OVERRIDE` uses the robot's real IP address.
-- The robot and external PC are on the same reachable network.
+- `ZENOH_CONFIG_OVERRIDE` uses the OMX PC's real IP address.
+- The OMX PC and the external PC are on the same reachable network.
 - Port `7447` is reachable from the external PC.
 - The `open_manipulator` container is running with the expected network configuration.
 - Old ROS 2 daemon state has been stopped with `ros2 daemon stop`.
