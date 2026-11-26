@@ -3,7 +3,6 @@ import Link from '@docusaurus/Link';
 import {useHistory, useLocation} from '@docusaurus/router';
 import useBaseUrl, {useBaseUrlUtils} from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import {useMDXComponents} from '@mdx-js/react';
 import SectionCard from '@site/src/components/SectionCard';
 import Heading from '@theme/Heading';
 import styles from './styles.module.css';
@@ -210,26 +209,18 @@ function MediaItem({label, src, poster, names, tag, marks, boxes, shape = 'wide'
 }
 
 /**
- * A guide that is read in order, such as the OMX Quick Start Guide, or a set of pages "Help me, AI!" gives the AI,
- * such as the OMX Troubleshooting pages. Keep it in one `_*.ts` file next to its pages.
+ * A guide that is read in order, such as the OMX Quick Start Guide. Keep it in one `_*.ts` file next to its pages.
  */
 export type Guide = {
   /** For example "OMX Quick Start Guide". */
   title: string;
   /** Its pages in reading order. "Help me, AI!" gives the AI these links. */
   pages: {title: string; to: string}[];
-  /** The prompt's first line, before the links. Leave it out for a guide read in order. */
-  intro?: string;
-  /** What the AI is asked to do once it has read the pages. Leave it out to have it help the reader through the guide. */
-  ask?: string[];
-  /** The line under the menu that says what the AI gets. */
-  note?: string;
 };
 
 /**
  * "Help me, AI!" for a guide: opens ChatGPT or Claude with a prompt already typed in.
- * The prompt gives the AI the links to the pages of the guide and asks it to help the reader through them
- * (or what the guide's `ask` says).
+ * The prompt gives the AI the links to the pages of the guide and asks it to help the reader through them.
  * It is only typed in, not sent, so the reader can change it first.
  * The links use the address the site is published at, so the AI can only read the pages once they are online.
  */
@@ -239,13 +230,11 @@ function GuideAsk({guide}: {guide: Guide}) {
   const [copied, setCopied] = useState(false);
 
   const prompt = [
-    guide.intro ?? `I am following the ROBOTIS "${guide.title}". Its pages, in order:`,
+    `I am following the ROBOTIS "${guide.title}". Its pages, in order:`,
     ...guide.pages.map(page => `- ${page.title}: ${siteConfig.url}${withBaseUrl(page.to)}`),
     'Read those pages.',
-    ...(guide.ask ?? [
-      'Then be my helper, so I can get through the guide without getting stuck.',
-      'Use simple words. If something goes wrong, ask me to paste what my terminal shows.',
-    ]),
+    'Then be my helper, so I can get through the guide without getting stuck.',
+    'Use simple words. If something goes wrong, ask me to paste what my terminal shows.',
   ].join('\n');
   const query = encodeURIComponent(prompt);
   const copy = async () => {
@@ -268,230 +257,19 @@ function GuideAsk({guide}: {guide: Guide}) {
         <button type="button" onClick={copy} aria-live="polite">
           {copied ? 'Copied' : 'Copy the prompt for another AI'}
         </button>
-        <p>{guide.note ?? 'The AI gets the links to this guide and is asked to help you through it.'}</p>
+        <p>The AI gets the links to this guide and is asked to help you through it.</p>
       </div>
     </details>
   );
 }
 
-/**
- * A page title with "Help me, AI!" at its right end, for a page that is not a step-by-step guide page,
- * such as Troubleshooting. Put `hide_title: true` in the page's front matter, because this part writes the title.
- */
-export function AskTitle({guide, title}: {guide: Guide; title: string}) {
+/** The title of a guide page, with "Help me, AI!" at its right end. GuidePage puts it at the top of the page. */
+function AskTitle({guide, title}: {guide: Guide; title: string}) {
   return (
     <div className={styles.titleRow}>
       <h1 className={styles.pageTitle}>{title}</h1>
       <GuideAsk guide={guide} />
     </div>
-  );
-}
-
-/**
- * Links to problem pages, one card each, with the same look as the AI Worker Troubleshooting list:
- * the title at the left and an arrow at the right. Put a `##` heading for the group above it.
- */
-export function ProblemCards({items}: {items: {title: string; to: string}[]}) {
-  return (
-    <ul className={styles.problemList}>
-      {items.map(item => (
-        <li key={item.to}>
-          <Link className={styles.problemCard} to={item.to}>
-            <span>{item.title}</span>
-            <span aria-hidden="true">→</span>
-          </Link>
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-/* ---------- Finding a problem in FixCards ----------
-   FixSearch puts a find box above its FixCards. What the reader types is split into words; a message is shown when
-   every word is in it or in its card's title, and the words are marked in yellow. Cards with nothing shown are left
-   out. With the box empty, the cards are shown exactly as they are written. */
-
-type FixCardProps = {title: string; to: string; children: ReactNode};
-
-/** The words typed into FixSearch, in lower case. Empty when the box is empty or there is no FixSearch. */
-const FixWords = createContext<string[]>([]);
-
-/** All the text in a piece of page content, for matching. */
-function textOf(node: ReactNode): string {
-  if (node == null || typeof node === 'boolean') return '';
-  if (typeof node === 'string' || typeof node === 'number') return String(node);
-  if (Array.isArray(node)) return node.map(textOf).join('');
-  if (React.isValidElement(node)) return textOf((node.props as {children?: ReactNode}).children);
-  return '';
-}
-
-/** The messages of a FixCard: the items of the markdown list inside it. */
-function linesOf(children: ReactNode): React.ReactElement[] {
-  const list = React.Children.toArray(children).find(React.isValidElement) as React.ReactElement | undefined;
-  if (!list) return [];
-  return React.Children.toArray((list.props as {children?: ReactNode}).children).filter(React.isValidElement) as React.ReactElement[];
-}
-
-/** The messages of a card that the words find. The card's title counts too, so its step name finds all of them. */
-function foundLines(title: string, children: ReactNode, words: string[]): React.ReactElement[] {
-  const lines = linesOf(children);
-  if (!words.length) return lines;
-  return lines.filter(line => {
-    const text = `${title} ${textOf(line)}`.toLowerCase();
-    return words.every(word => text.includes(word));
-  });
-}
-
-/** Every FixCard inside a piece of page content. */
-function fixCardsIn(node: ReactNode): React.ReactElement<FixCardProps>[] {
-  const out: React.ReactElement<FixCardProps>[] = [];
-  React.Children.forEach(node, child => {
-    if (!React.isValidElement(child)) return;
-    if (child.type === FixCard) out.push(child as React.ReactElement<FixCardProps>);
-    else out.push(...fixCardsIn((child.props as {children?: ReactNode}).children));
-  });
-  return out;
-}
-
-/**
- * The same content with the words marked. Words are found inside each piece of text, not across pieces.
- * `code` is the page's part for `code` (from useMDXComponents): see below.
- */
-function markWords(node: ReactNode, words: string[], code?: unknown): ReactNode {
-  if (!words.length || node == null || typeof node === 'boolean') return node;
-  if (typeof node === 'string' || typeof node === 'number') {
-    const text = String(node);
-    const low = text.toLowerCase();
-    const spans: [number, number][] = [];
-    for (const word of words) {
-      for (let at = low.indexOf(word); at !== -1; at = low.indexOf(word, at + word.length)) spans.push([at, at + word.length]);
-    }
-    if (!spans.length) return text;
-    spans.sort((a, b) => a[0] - b[0]);
-    const joined: [number, number][] = [];
-    for (const [start, end] of spans) {
-      const last = joined[joined.length - 1];
-      if (last && start <= last[1]) last[1] = Math.max(last[1], end);
-      else joined.push([start, end]);
-    }
-    const out: ReactNode[] = [];
-    let at = 0;
-    joined.forEach(([start, end], i) => {
-      if (start > at) out.push(text.slice(at, start));
-      out.push(<mark key={i} className={styles.fixHit}>{text.slice(start, end)}</mark>);
-      at = end;
-    });
-    if (at < text.length) out.push(text.slice(at));
-    return out;
-  }
-  if (Array.isArray(node)) return node.map((child, i) => <React.Fragment key={i}>{markWords(child, words, code)}</React.Fragment>);
-  if (React.isValidElement(node)) {
-    const props = node.props as {children?: ReactNode};
-    if (props.children === undefined) return node;
-    const marked = markWords(props.children, words, code);
-    // Inline code: the site's part for `code` draws a code block as soon as its content is more than plain text.
-    // For inline code it draws a plain <code> with the same props, so the marked words go into one of those.
-    const inline = React.Children.toArray(props.children).every(child => typeof child === 'string' && !child.includes('\n'));
-    if (code && node.type === code && inline) return React.createElement('code', {...props, key: node.key}, marked);
-    return React.cloneElement(node, undefined, marked);
-  }
-  return node;
-}
-
-/**
- * A find box for the `FixCards` inside it, such as the problems of the Quick Start Guide on Troubleshooting.
- * Put the `###` headings and the `FixCards` inside, with a blank line after the opening tag and before the closing one.
- */
-export function FixSearch({placeholder, label, children}: {placeholder: string; label: string; children: ReactNode}) {
-  const [query, setQuery] = useState('');
-  const words = query.toLowerCase().split(/\s+/).filter(Boolean);
-  const found = words.length ? fixCardsIn(children).reduce((n, card) => n + foundLines(card.props.title, card.props.children, words).length, 0) : 0;
-  return (
-    <FixWords.Provider value={words}>
-      <div className={styles.fixSearch} role="search">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-          <circle cx="11" cy="11" r="6.5" />
-          <path d="m16 16 4.5 4.5" />
-        </svg>
-        <input
-          type="search"
-          value={query}
-          placeholder={placeholder}
-          aria-label={label}
-          onChange={event => setQuery(event.target.value)}
-          onKeyDown={event => {
-            if (event.key === 'Escape') setQuery('');
-          }}
-        />
-        <span className={styles.fixCount} aria-live="polite">
-          {words.length && found ? `${found} found` : ''}
-        </span>
-      </div>
-      {words.length && !found ? (
-        <p className={styles.fixNone}>
-          Nothing matches. Try another word, or use <strong>Help me, AI!</strong> at the top of the page.
-        </p>
-      ) : null}
-      {children}
-    </FixWords.Provider>
-  );
-}
-
-/**
- * Cards for the steps of a guide and the messages their fix boxes cover, on Troubleshooting. Put `FixCard` items inside.
- */
-export function FixCards({children}: {children: ReactNode}) {
-  const words = useContext(FixWords);
-  const any = !words.length || fixCardsIn(children).some(card => foundLines(card.props.title, card.props.children, words).length);
-  return (
-    <>
-      <ul className={styles.problemList}>{children}</ul>
-      {any ? null : <p className={styles.fixNone}>Nothing here matches.</p>}
-    </>
-  );
-}
-
-/**
- * One step of a guide in `FixCards`: its title with an arrow, then the messages its fix box covers, one per line.
- * The whole card opens the step with its fix box (`to` ends with `#<step id>-fix`).
- * Put the messages inside as a markdown list, with a blank line before and after it.
- */
-export function FixCard({title, to, children}: FixCardProps) {
-  const words = useContext(FixWords);
-  const {code} = useMDXComponents();
-  let seen: ReactNode = children;
-  if (words.length) {
-    const lines = foundLines(title, children, words);
-    if (!lines.length) return null;
-    const list = React.Children.toArray(children).find(React.isValidElement) as React.ReactElement;
-    seen = React.cloneElement(
-      list,
-      undefined,
-      lines.map(line => React.cloneElement(line, undefined, markWords((line.props as {children?: ReactNode}).children, words, code))),
-    );
-  }
-  return (
-    <li>
-      <Link className={`${styles.problemCard} ${styles.fixCard}`} to={to}>
-        {/* div, not span: the messages are a list, which a span may not hold. */}
-        <div className={styles.fixHead}>
-          <span>{markWords(title, words)}</span>
-          <span aria-hidden="true">→</span>
-        </div>
-        <div className={styles.fixSeen}>{seen}</div>
-      </Link>
-    </li>
-  );
-}
-
-/** The box that ends a problem page when the reader cannot fix it: ROBOTIS repair (A/S), as on the AI Worker pages. */
-export function RepairCard() {
-  return (
-    <a className={styles.repairCard} href="https://www.robotis.com/shop/rma.php" target="_blank" rel="noopener noreferrer">
-      <strong>ROBOTIS A/S Request ↗</strong>
-      <span>Request repair and service for your ROBOTIS product.</span>
-      <small>robotis.com</small>
-    </a>
   );
 }
 
@@ -1141,8 +919,7 @@ export function ScreenshotBox({children, ...media}: TutorialMediaItem & {childre
  * What to do when the result is different. It stays closed until the reader opens it,
  * so a reader for whom everything works never has to read it.
  * Put a markdown table inside with two columns: what the reader sees, and what to do.
- * With an `id`, a link to it opens this box, and inside StepTabs also the step that holds it
- * (the Troubleshooting page links to these boxes).
+ * With an `id`, a link to it opens this box, and inside StepTabs also the step that holds it.
  */
 export function NotGood({id, title = 'Something different?', children}: {id?: string; title?: string; children: ReactNode}) {
   return (
