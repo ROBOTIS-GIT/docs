@@ -46,11 +46,6 @@ body:has(.omx-guide) main > .container > .row > .col {
   background: #fff;
   border-bottom: 1px solid #e5e7eb;
 }
-.omx-guide-back {
-  color: #57616b;
-  font-size: 14px;
-  white-space: nowrap;
-}
 .omx-guide-views {
   display: flex;
   gap: 6px;

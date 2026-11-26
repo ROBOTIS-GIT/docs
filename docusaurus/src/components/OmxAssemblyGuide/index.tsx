@@ -119,9 +119,6 @@ export default function OmxAssemblyGuide(): React.JSX.Element {
       aria-label="OMX assembly guide"
     >
       <nav className="omx-guide-toolbar" aria-label="Assembly guide views">
-        <Link to="/docs/systems/omx/introduction" className="omx-guide-back">
-          ← OMX
-        </Link>
         <div className="omx-guide-views">
           <button
             type="button"
