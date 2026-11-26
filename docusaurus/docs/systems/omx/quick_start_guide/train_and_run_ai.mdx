@@ -718,10 +718,10 @@ Copy this line. You paste it at point 3.
   width={760}
   marks={[
     {n: 1, x: 0.838, y: 0.139},
-    {n: 2, x: 0.77, y: 0.236},
-    {n: 3, x: 0.838, y: 0.538},
+    {n: 2, x: 0.77, y: 0.24},
+    {n: 3, x: 0.838, y: 0.53},
   ]}
-  boxes={[{x: 0.929, y: 0.175, w: 0.051, h: 0.039}]}
+  boxes={[{x: 0.929, y: 0.171, w: 0.051, h: 0.04}]}
 >
 
 <Clicks>
@@ -748,7 +748,7 @@ Always run a new model in the 3D picture before the real arm. If the arm in the 
   width={760}
   marks={[{n: 4, x: 0.648, y: 0.063}]}
   boxes={[
-    {x: 0.7788, y: 0.3629, w: 0.0978, h: 0.056},
+    {x: 0.7789, y: 0.3556, w: 0.0979, h: 0.0563},
     {x: 0.1769, y: 0.6341, w: 0.2353, h: 0.3499},
   ]}
 >
@@ -766,20 +766,20 @@ Always run a new model in the 3D picture before the real arm. If the arm in the 
 Put the two boxes in their places, as when you recorded.
 
 <ScreenshotBox
-  label="The Inference page set for the real arm. Point 5 is Real Robot Deploy, point 6 the Enable tick box of Initial Pose Sync, point 7 the Start button."
+  label="The Inference page set for the real arm. Point 5 is Real Robot Deploy, point 6 the Enable tick box of Slow Start, point 7 the Start button."
   src="/img/systems/omx/quick_start_guide/train_and_run_ai/cyclo_full_inference_real.webp"
   width={760}
   marks={[
-    {n: 5, x: 0.876, y: 0.391},
-    {n: 6, x: 0.905, y: 0.69},
-    {n: 7, x: 0.651, y: 0.063},
+    {n: 5, x: 0.876, y: 0.384},
+    {n: 6, x: 0.915, y: 0.822},
+    {n: 7, x: 0.649, y: 0.063},
   ]}
 >
 
 <Clicks start={5}>
 
 5. **Real Robot Deploy**
-6. **Initial Pose Sync**: tick **Enable**. The arm then goes slowly to its first pose
+6. **Slow Start**: tick **Enable**. The arm then goes slowly to its first pose
 7. **Start**. Now the real arm moves. Click **Stop** when it is done
 
 </Clicks>
@@ -808,7 +808,7 @@ It can stack the box as in the clip, or it can miss. How well it works depends o
 
 | You see | Do this |
 | --- | --- |
-| **Start** stays grey | The AI program is not running, for example after a restart of the PC. Click **ON** and wait for `Running`, with `Up` under it twice. |
+| **Start** stays grey | The AI program is not running, for example after a restart of the PC. Click **ON** and wait for `Running`, with **Engine** `Up` under it. |
 | `Image missing`, or **ON** does nothing | Do part D of [Train the AI model](#train-the-ai-model) again. |
 | An error about the policy path | Check the line you pasted. If you trained into `act_stack_box_2`, use that name. |
 | The arm shakes, or misses the box most of the time | See [Going further: Make it work better](#make-it-work-better). |
