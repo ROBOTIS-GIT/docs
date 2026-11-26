@@ -29,12 +29,15 @@ const omxSidebar: SidebarsConfig[string] = [
     label: 'Quick Start Guide',
     collapsible: false,
     className: 'omx-sidebar-title',
-    // The names of the AI Worker Quick Start Guide. Keep the order of the pages in quick_start_guide/_quick_start.ts.
+    // The names of the AI Worker Quick Start Guide, after the Assembly Guide. OMX also has Software Setup: the
+    // reader installs the robot software on their own PC. The old Setup Guide, ROS 2 Setup, Operation Guide and
+    // Teleoperation addresses lead to these pages (src/data/docRedirects.json).
     items: [
-      {type: 'doc', id: 'systems/omx/quick_start_guide/assembly_guide', label: 'Hardware Setup'},
-      // Bringup does what the Setup Guide, ROS 2 Setup, Operation Guide and Teleoperation pages did, so they are
-      // not listed.
-      {type: 'doc', id: 'systems/omx/quick_start_guide/move_omx', label: 'Bringup'},
+      {type: 'doc', id: 'systems/omx/quick_start_guide/assembly_guide', label: 'Assembly Guide'},
+      {type: 'doc', id: 'systems/omx/quick_start_guide/setup_hardware', label: 'Hardware Setup'},
+      {type: 'doc', id: 'systems/omx/quick_start_guide/setup_software', label: 'Software Setup'},
+      {type: 'doc', id: 'systems/omx/quick_start_guide/bringup', label: 'Bringup'},
+      {type: 'doc', id: 'systems/omx/quick_start_guide/teleoperation', label: 'Teleoperation'},
     ],
   },
   {
@@ -74,8 +77,8 @@ const omxSidebar: SidebarsConfig[string] = [
       {type: 'doc', id: 'systems/omx/quick_start_guide/operation_guide/robot_control', label: 'MoveIt 2'},
       // The old Advanced Features text is the first part of this page.
       {type: 'doc', id: 'systems/omx/advanced_features/cyclo_control', label: 'Cyclo Control'},
-      // Another way to use OMX, with the LeRobot workflow; the Setup Guide had this link before. Bringup also points
-      // to it in its Step 0.
+      // Another way to use OMX, with the LeRobot workflow; the Setup Guide had this link before. Software Setup also
+      // points to it at its top.
       {type: 'link', label: 'LeRobot', href: 'https://huggingface.co/docs/lerobot/omx'},
     ],
   },

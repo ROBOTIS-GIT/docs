@@ -158,7 +158,7 @@ export default function OmxAssemblyGuide(): React.JSX.Element {
       ) : (
         <div className="omx-guide-content">
           <header className="omx-guide-intro">
-            <p className="omx-guide-eyebrow">OMX / HARDWARE SETUP GUIDE</p>
+            <p className="omx-guide-eyebrow">OMX / ASSEMBLY GUIDE</p>
             <h1>
               {view === "prepare"
                 ? "Build with a clear view."
@@ -290,8 +290,8 @@ export default function OmxAssemblyGuide(): React.JSX.Element {
                       ))}
                     </tbody>
                   </table>
-                  <Link to="/docs/systems/omx/quick_start_guide/move_omx">
-                    Continue to software setup →
+                  <Link to="/docs/systems/omx/quick_start_guide/setup_hardware">
+                    Continue to Hardware Setup →
                   </Link>
                 </section>
                 <section className="omx-guide-panel">

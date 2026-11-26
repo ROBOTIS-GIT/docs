@@ -1,0 +1,126 @@
+import SectionCard from '@site/src/components/SectionCard';
+import {TutorialMedia} from '@site/src/components/Tutorial';
+
+# Bringup Guide
+
+This guide explains how to start the robot software. The follower moves to its start pose by itself. Complete [Software Setup](/docs/systems/omx/quick_start_guide/setup_software) before continuing.
+
+:::info[What is bringup?]
+Bringup starts the robot's own programs: the program that talks to the motors, the controllers that move the joints, and the program that tells where each joint is. Then the robot is ready for commands. Which bringup command you use depends on what you do next:
+
+| What you do next | Bringup command | What it starts |
+| --- | --- | --- |
+| Move the follower with the leader arm, or record tries ([Teleoperation](/docs/systems/omx/quick_start_guide/teleoperation), [Recording](/docs/systems/omx/imitation_learning/data_recording)) | `omx_ai.launch.py` | The follower, its start pose, then the leader |
+| Let a trained model or another program move the follower ([Inference](/docs/systems/omx/imitation_learning/model_inference), [Cyclo Control](/docs/systems/omx/advanced_features/cyclo_control)) | `omx_f_follower_ai.launch.py` | The follower only |
+| Move the follower from the PC ([MoveIt 2](/docs/systems/omx/quick_start_guide/operation_guide/robot_control), the GUI or the keyboard) | `omx_f.launch.py` | The follower only, with the controllers MoveIt 2 uses |
+| Try OMX in the simulator ([Gazebo](/docs/systems/omx/simulation/gazebo)) | `omx_f_gazebo.launch.py` | A follower in Gazebo, with no real arm |
+
+This guide uses `omx_ai.launch.py`, so that you can move the follower with the leader arm next.
+:::
+
+You use two terminals in this guide. Leave both open.
+
+| Terminal | Runs | Shows when it is running |
+| --- | --- | --- |
+| Terminal 1 | Zenoh | `Started Zenoh router` |
+| Terminal 2 | The arms | The follower moves to its start pose |
+
+:::warning
+- The follower moves by itself when the software starts. Keep its reach clear.
+- To stop at any moment: **Ctrl + C** in Terminal 2, or pull the follower's 12 V plug.
+:::
+
+<SectionCard>
+
+## 1. Start Zenoh
+
+In a terminal, enter the robot container again, as in [Set the Ports](/docs/systems/omx/quick_start_guide/setup_software#4-set-the-ports). This is Terminal 1.
+
+```bash
+cd $HOME/open_manipulator/docker
+./container.sh enter
+```
+
+Then start [Zenoh](/docs/systems/omx/specifications/software#middleware).
+
+```bash
+zenohd
+```
+
+It answers with one line. Leave Terminal 1 open. The long id at the end is different every time.
+
+```text
+Started Zenoh router with id d6aa70c54ebfe25205e69d0f90b65924
+```
+
+</SectionCard>
+
+<SectionCard>
+
+## 2. Start the Arms
+
+Open a second terminal with **Ctrl + Alt + T**. This is Terminal 2. Enter the robot container there too.
+
+```bash
+cd $HOME/open_manipulator/docker
+./container.sh enter
+```
+
+:::danger[Fold the leader first]
+Before you paste the next line, **fold the leader into the same shape as in the clip, and leave it folded.** At the end, the follower goes at once to the shape the leader is in.
+:::
+
+:::warning
+After you paste the next line, the follower moves by itself to its start pose for about 10 seconds. Keep its reach clear.
+:::
+
+<TutorialMedia
+  label="Seen from above, after the line below is pasted, shown at 3× speed. The leader on the left stays folded on the table. The follower on the right lifts itself up, then folds down into the same shape as the leader."
+  tag="3× speed"
+  src="/img/systems/omx/quick_start_guide/bringup/start_arms_follower.webm"
+  poster="/img/systems/omx/quick_start_guide/bringup/start_arms_follower.webp"
+  shape="free"
+  width={518}
+  height={366}
+/>
+
+```bash
+ros2 launch open_manipulator_bringup omx_ai.launch.py
+```
+
+Check that:
+
+- The follower moved to its start pose by itself
+- Then it took the shape of the leader
+
+<details className="omx-fix">
+  <summary>Something different?</summary>
+
+| You see | Do this |
+| --- | --- |
+| `Unable to connect to a Zenoh router` in Terminal 2 | Terminal 1 is not running. Press **Ctrl + C** in Terminal 2, then do sections 1 and 2 again. |
+| `Error opening serial port!` | The PC cannot find an arm. Check both USB cables and the follower's 12 V power, as in [Hardware Setup](/docs/systems/omx/quick_start_guide/setup_hardware#2-connect-omx). |
+| `There is no status packet!` | Check the follower's 12 V power. If it is on, the arms may be swapped: do [Set the Ports](/docs/systems/omx/quick_start_guide/setup_software#4-set-the-ports) again. |
+
+</details>
+
+<details>
+  <summary>How does it work?</summary>
+
+  [Zenoh](/docs/systems/omx/specifications/software#middleware) lets the robot's programs talk to each other.
+
+  Both programs run inside the robot container, so you enter the container in each new terminal.
+
+</details>
+
+</SectionCard>
+
+<SectionCard>
+
+## Troubleshooting
+
+- [A Motor Blinks Red or Is Not Found](/docs/systems/omx/support/troubleshooting/motors/motor_not_found)
+- [OMX Does Not Start on a Virtual Machine, Windows, or Mac](/docs/systems/omx/support/troubleshooting/pc/pc_not_supported)
+- [Other Bringup Troubleshooting](/docs/systems/omx/support/troubleshooting#bringup)
+
+</SectionCard>
