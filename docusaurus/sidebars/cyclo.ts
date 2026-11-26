@@ -13,11 +13,12 @@ const cycloSidebar: SidebarsConfig[string] = [
         type: 'category',
         label: 'Cyclo Studio',
         link: {type: 'doc', id: 'software/cyclo/cyclo_studio'},
+        collapsed: false,
         items: [
           doc('software/cyclo/studio/hub', 'Hub'),
+          doc('software/cyclo/studio/marketplace', 'Cyclo Marketplace'),
         ],
       },
-      doc('software/cyclo/cyclo_marketplace', 'Cyclo Marketplace'),
       doc('software/cyclo/cyclo_ai', 'Cyclo AI'),
       {
         type: 'category',
