@@ -1,0 +1,220 @@
+import SectionCard from '@site/src/components/SectionCard';
+import {Clicks, ScreenshotBox, TutorialMedia} from '@site/src/components/Tutorial';
+
+# Recording
+
+With the leader arm, pick up one box and put it on the other, at least 50 times. Cyclo Intelligence records every try, and the AI learns from them. Then you make a dataset from your tries.
+
+Before starting, complete [Setup](/docs/systems/omx/imitation_learning/setup). Everything from [4. Bringup OMX and Start Cyclo Intelligence](/docs/systems/omx/imitation_learning/setup#4-bringup-omx-and-start-cyclo-intelligence) must still be running: four terminals and the **Record** page.
+
+<SectionCard>
+
+## 1. Set the Table
+
+Set the two boxes and the follower as in the picture. Do not move the follower or its camera after this.
+
+<TutorialMedia
+  label="The table from above, at the start of a try. Point 1 is the two OpenRB-150 boxes, each outlined. Point 2 is the follower arm on its base, outlined."
+  src="/img/systems/omx/imitation_learning/data_recording/train_table.webp"
+  shape="free"
+  width={620}
+  height={392}
+  marks={[
+    {n: 1, x: 0.443, y: 0.235},
+    {n: 2, x: 0.285, y: 0.79, color: '#2f7cf6'},
+  ]}
+  boxes={[
+    {x: 0.26, y: 0.281, w: 0.108, h: 0.288},
+    {x: 0.518, y: 0.27, w: 0.119, h: 0.288},
+    {x: 0.316, y: 0.585, w: 0.316, h: 0.41, color: '#2f7cf6'},
+  ]}
+/>
+
+<Clicks colors={['', '#2f7cf6']}>
+
+1. **The two boxes.** Put them in the same places every time. Marking their places on the table, for example with tape, is recommended.
+2. **The follower.** Keep it in the same place too, fixed with the clamps, so that its camera sees the table the same way every time.
+
+</Clicks>
+
+This is how we set the table for this guide. At the start pose, our camera saw only the ends of the boxes nearest to OMX, at the bottom of its picture. Left and right are swapped in the camera picture.
+
+<TutorialMedia
+  label="Left: the table from above, with the follower at its start pose. Right: the camera picture on the Record page at the same time. The ends of the boxes nearest to OMX are outlined, the left box in orange and the right box in purple. In the camera picture, left and right are swapped."
+  src="/img/systems/omx/imitation_learning/data_recording/train_camera_start.webp"
+  shape="free"
+  width={820}
+  height={244}
+  boxes={[
+    {x: 0.0595, y: 0.5842, w: 0.0903, h: 0.1237, color: '#f5a524'},
+    {x: 0.3372, y: 0.5842, w: 0.0903, h: 0.1263, color: '#8b5cf6'},
+    {x: 0.5004, y: 0.8537, w: 0.0944, h: 0.1113, color: '#8b5cf6'},
+    {x: 0.8918, y: 0.88, w: 0.0879, h: 0.085, color: '#f5a524'},
+  ]}
+  names={[
+    {text: 'Left box', x: 0.1047, y: 0.765},
+    {text: 'Right box', x: 0.416, y: 0.765},
+    {text: 'Right box', x: 0.5476, y: 0.76},
+    {text: 'Left box', x: 0.9357, y: 0.81},
+  ]}
+  caption="Left image: the table from above. Right image: the camera picture on the Record page."
+/>
+
+When the left box was put on the right box, the camera saw one stack and an empty place.
+
+<TutorialMedia
+  label="The camera picture on the Record page after the left box was put on the right box. The stack is outlined in purple. The empty place where the left box was is outlined with an orange dashed line."
+  src="/img/systems/omx/imitation_learning/data_recording/train_camera_stacked.webp"
+  shape="free"
+  width={720}
+  height={415}
+  boxes={[
+    {x: 0.0084, y: 0.7268, w: 0.2079, h: 0.2382, color: '#8b5cf6'},
+    {x: 0.7907, y: 0.88, w: 0.1699, h: 0.085, color: '#f5a524', dashed: true},
+  ]}
+  names={[
+    {text: 'Stacked boxes', x: 0.13, y: 0.66},
+    {text: 'Left box was here', x: 0.875, y: 0.81},
+  ]}
+  caption="Image: the camera picture on the Record page after the boxes were stacked."
+/>
+
+You do not have to match these pictures exactly. But it helps if a small part of each box shows at the start pose: our ACT model looked at this part of the picture to decide whether to start or to wait.
+
+The **Record** page zooms the camera picture a little to fill its frame, so the top and bottom edges of the picture are not shown there. You may see only a small part of each box on the page, but the model gets the whole picture.
+
+Keep the same light for every try and when you run the model.
+
+</SectionCard>
+
+<SectionCard>
+
+## 2. Record One Try
+
+<ScreenshotBox
+  label="The whole Record page before the first try. The camera picture shows the two boxes, and Topic Monitor shows four green dots. Point 1 is the three task boxes, points 2 and 3 are the Record Start button. The outlined EP number counts the saved tries."
+  src="/img/systems/omx/imitation_learning/data_recording/cyclo_full_record.webp"
+  width={760}
+  height={386}
+  marks={[
+    {n: 1, x: 0.948, y: 0.27},
+    {n: 2, x: 0.79, y: 0.608},
+    {n: 3, x: 0.96, y: 0.608},
+  ]}
+  boxes={[{x: 0.5815, y: 0.027, w: 0.16, h: 0.071}]}
+>
+
+<Clicks>
+
+1. Fill in the three boxes: `1`, `stack_box`, `Stack one box on the other`
+2. **Record Start**. With the leader, pick up one box and put it on the other. Then put the arm back
+3. **Save Episode**. It is the same button, now green
+
+</Clicks>
+
+The number after **EP** goes up by one.
+
+</ScreenshotBox>
+
+One try, between points 2 and 3, looks like this. The follower copies the leader, picks up one box and puts it on the other.
+
+<TutorialMedia
+  label="A 3D clip of one try. A hand holds the leader arm by its two rings, as in Bringup. Both arms start almost folded. The hand lifts the leader, takes one box, carries it onto the other box, lets go, and brings the leader back to where it started. The follower arm copies each move and stacks the box."
+  src="/img/systems/omx/imitation_learning/data_recording/train_one_try.webm"
+  poster="/img/systems/omx/imitation_learning/data_recording/train_one_try.webp"
+  names={[
+    {text: 'Leader', x: 0.39, y: 0.1},
+    {text: 'Follower', x: 0.76, y: 0.1},
+  ]}
+/>
+
+</SectionCard>
+
+<SectionCard>
+
+## 3. Record at Least 50 Tries
+
+Repeat points 2 and 3 of [2. Record One Try](#2-record-one-try), at least 50 times, which is the start LeRobot suggests. Before each try, put the boxes back in their places.
+
+- Start every try from the same arm pose
+- Pick up the same box every time, and grasp it the same way
+- Hold the leader with one hand and click with the other
+- A try went wrong? Click **Discard Episode** and do it again
+
+When you are done, the number after **EP** is 50 or more.
+
+<details className="omx-fix">
+  <summary>Something different?</summary>
+
+| You see | Do this |
+| --- | --- |
+| **Record Start** stays grey | Fill in the first two boxes, `1` and `stack_box`. |
+| A red dot in **Topic Monitor** | Something is not running. Do the fix in [Bringup OMX and Start Cyclo Intelligence](/docs/systems/omx/imitation_learning/setup#4-bringup-omx-and-start-cyclo-intelligence). |
+| The number after **EP** does not go up | The try was not saved. Click **Save Episode** at the end of each try. |
+| No **EP** number on the page | Make the browser window wider. |
+
+</details>
+
+Your tries are saved on the PC, so this is a good place for a break. To go on later, start everything as in [Bringup OMX and Start Cyclo Intelligence](/docs/systems/omx/imitation_learning/setup#4-bringup-omx-and-start-cyclo-intelligence).
+
+<details>
+  <summary>How does it work?</summary>
+
+  Each try is saved as one episode: the camera video, the leader's moves and the follower's moves. The AI later learns to turn what the camera sees into the moves you made, so try to make the same clear move every time.
+
+</details>
+
+For every recording option, see **Data Recording** in the Cyclo manual.
+
+<a href="/docs/software/cyclo/intelligence/data_recording" class="button-shortcut">
+<span>Cyclo Intelligence Data Recording</span>
+</a>
+
+</SectionCard>
+
+<SectionCard>
+
+## 4. Make the Dataset
+
+Turn your tries into a dataset for training, on the same web page.
+
+<ScreenshotBox
+  label="The Convert Dataset tab of Data Tools, with the task folder typed in. Point 1 is Data Tools in the menu on the left, point 2 the Convert Dataset tab at the top, point 3 the task folder box, point 4 the Convert Dataset button."
+  src="/img/systems/omx/imitation_learning/data_recording/cyclo_full_convert.webp"
+  width={760}
+  height={386}
+  marks={[
+    {n: 1, x: 0.062, y: 0.43},
+    {n: 2, x: 0.62, y: 0.088},
+    {n: 3, x: 0.12, y: 0.325},
+    {n: 4, x: 0.12, y: 0.601},
+  ]}
+>
+
+<Clicks>
+
+1. **Data Tools**, in the menu on the left
+2. **Convert Dataset**, at the top
+3. Type `Task_1_stack_box_MCAP`
+4. **Convert Dataset**. Wait until it is done
+
+</Clicks>
+
+</ScreenshotBox>
+
+For the other dataset tools, such as reviewing, deleting or merging episodes, see **Data Tools** in the Cyclo manual.
+
+<a href="/docs/software/cyclo/intelligence/data_tools" class="button-shortcut">
+<span>Cyclo Intelligence Data Tools</span>
+</a>
+
+</SectionCard>
+
+<SectionCard>
+
+## Troubleshooting
+
+- [The Follower Jumps or Does Not Match the Leader](/docs/systems/omx/support/troubleshooting/motors/arm_moves_wrong)
+- [FAQ: Can I Use Another Camera?](/docs/systems/omx/support/faq#other-camera)
+
+</SectionCard>

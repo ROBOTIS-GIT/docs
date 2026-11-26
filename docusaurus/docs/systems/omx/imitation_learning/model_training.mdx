@@ -1,0 +1,214 @@
+import SectionCard from '@site/src/components/SectionCard';
+
+# Training
+
+Train ACT on your dataset. From this page on, the NVIDIA graphics card is needed, so check it first. Most of this page is waiting.
+
+Before starting, complete [Recording](/docs/systems/omx/imitation_learning/data_recording).
+
+<SectionCard>
+
+## 1. Check the Graphics Card
+
+In a PC terminal:
+
+```bash
+nvidia-smi
+docker info | grep -i runtimes
+```
+
+Look for these two lines: your NVIDIA card, and `nvidia` in the `Runtimes` list. Only the left part of the card's line is shown. Your words and numbers can be different.
+
+```text
+|   0  NVIDIA GeForce RTX 4090        Off |
+ Runtimes: runc io.containerd.runc.v2 nvidia
+```
+
+Both lines like this? Go on to the next section. If not, open the box below first.
+
+<details>
+  <summary>Only if the check shows <code>not found</code>, <code>failed</code>, or no <code>nvidia</code></summary>
+
+#### Install the graphics driver
+
+Do this if `nvidia-smi` says `not found` or `failed`. Use these steps from [Ubuntu's guide](https://documentation.ubuntu.com/server/how-to/graphics/install-nvidia-drivers/), not the command the terminal suggests. First bring Ubuntu up to date.
+
+```bash
+sudo apt update && sudo apt upgrade
+```
+
+If it asks `Do you want to continue? [Y/n]`, press **Enter**. Restart the PC. Then install the driver that fits your card.
+
+```bash
+sudo ubuntu-drivers install
+```
+
+Restart the PC again. Then do the check at the top of this section again.
+
+#### Let Docker use the card
+
+Do this if `nvidia` is not in the `Runtimes` line. It installs the NVIDIA Container Toolkit with the commands of [NVIDIA's guide](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html). Paste one box at a time, and wait until you can type again.
+
+```bash
+sudo apt-get update && sudo apt-get install -y --no-install-recommends \
+   ca-certificates \
+   curl \
+   gnupg2
+```
+
+```bash
+curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \
+  && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | \
+    sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
+    sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+```
+
+```bash
+sudo apt-get update
+sudo apt-get install -y nvidia-container-toolkit
+sudo nvidia-ctk runtime configure --runtime=docker
+sudo systemctl restart docker
+```
+
+Then do the check at the top of this section again.
+
+</details>
+
+<details className="omx-fix">
+  <summary>Something different?</summary>
+
+| You see | Do this |
+| --- | --- |
+| `NVIDIA-SMI has failed` after installing the driver | Restart the PC once more. If it stays, see [Ubuntu's guide](https://documentation.ubuntu.com/server/how-to/graphics/install-nvidia-drivers/). |
+| `permission denied`, or no `Runtimes` line | Docker does not run without sudo yet. Do [Manage Docker as a non-root user](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user) in Docker's guide. Then log out of Ubuntu and log in again. |
+| `Could not get lock` | Ubuntu is updating itself. Wait a few minutes, then paste the same lines again. |
+
+</details>
+
+</SectionCard>
+
+<SectionCard>
+
+## 2. Stop the Arms
+
+The arms are not needed while the AI learns.
+
+:::warning
+Lower the follower's gripper onto the table first. The follower goes limp when its program stops.
+:::
+
+Press **Ctrl + C** in Terminals 4, 3, 2 and 1.
+
+</SectionCard>
+
+<SectionCard>
+
+## 3. Start the AI Program
+
+Open a new terminal with **Ctrl + Alt + T**, and paste. The first time, this builds the AI program on your PC. Many lines go by, and it takes a long while. Wait until you can type again.
+
+```bash
+cd ~/cyclo_intelligence
+./docker/container.sh start-lerobot
+```
+
+When you can type again, ask whether it is running.
+
+```bash
+docker ps --filter name=lerobot_server --format "{{.Names}}: {{.Status}}"
+```
+
+Look for `Up`. The time can be different.
+
+```text
+lerobot_server: Up 1 minute (healthy)
+```
+
+<details className="omx-fix">
+  <summary>Something different?</summary>
+
+| You see | Do this |
+| --- | --- |
+| `Error: initialize cyclo_brain/policy/lerobot submodules` | The LeRobot source is not downloaded. Paste the `git submodule` command of [1. Install Cyclo Intelligence](/docs/systems/omx/imitation_learning/setup#1-install-cyclo-intelligence) in Setup, then do this section again. |
+| A line that ends with `no space left on device` | The build needs more free disk. Free some, then do this section again. |
+
+</details>
+
+</SectionCard>
+
+<SectionCard>
+
+## 4. Train
+
+In the same terminal, enter the AI program's container.
+
+```bash
+./docker/container.sh enter-lerobot
+```
+
+Then paste the training command. You do not need to change anything in it.
+
+```bash
+lerobot-train \
+  --dataset.repo_id=local/stack_box \
+  --dataset.root=/workspace/lerobot/Task_1_stack_box_MCAP_lerobot_v30 \
+  --policy.type=act \
+  --policy.chunk_size=50 \
+  --policy.n_action_steps=50 \
+  --policy.device=cuda \
+  --policy.push_to_hub=false \
+  --wandb.enable=false \
+  --batch_size=8 \
+  --steps=60000 \
+  --save_freq=20000 \
+  --output_dir=/workspace/model/lerobot/act_stack_box \
+  --job_name=act_stack_box
+```
+
+Lines with `step:` go by while it learns. Wait until it ends. How long it takes depends on your graphics card.
+
+You should see `End of training` in the last line. Your date and time are different.
+
+```text
+INFO 2026-11-12 14:02:11 ot_train.py:651 Checkpoint policy after step 60000
+INFO 2026-11-12 14:02:12 ot_train.py:737 End of training
+```
+
+<details className="omx-fix">
+  <summary>Something different?</summary>
+
+| You see | Do this |
+| --- | --- |
+| `lerobot_server is not running` | [3. Start the AI Program](#3-start-the-ai-program) did not finish. Do it again. |
+| `No such file or directory` with `lerobot_v30` | The dataset is not there. Do [4. Make the Dataset](/docs/systems/omx/imitation_learning/data_recording#4-make-the-dataset) in Recording again and wait until it is done. |
+| `already exists and resume is False` | You trained before. Paste the training command again with `act_stack_box` changed to `act_stack_box_2`, in both places. |
+| `CUDA out of memory` | Close other programs that use the graphics card, then paste the training command again. |
+
+</details>
+
+<details>
+  <summary>How does it work?</summary>
+
+  The graphics driver lets Ubuntu use the card. The NVIDIA Container Toolkit lets the programs inside Docker use it too. The AI program runs in Docker, so it needs both. The commands in the box of section 1 are copied from Ubuntu's and NVIDIA's guides. If they change their commands, their pages linked above have the new ones.
+
+  The model is named ACT. It looks at the camera picture and the arm's angles, and learns which moves you made next. It goes through your tries many times: 60,000 small learning steps.
+
+  The result is saved in `~/cyclo_intelligence/docker/workspace/model/lerobot/act_stack_box`.
+
+</details>
+
+For other models and every training option, see **Model Training Guide** in the Cyclo manual.
+
+<a href="/docs/software/cyclo/intelligence/model_training" class="button-shortcut">
+<span>Cyclo Intelligence Model Training Guide</span>
+</a>
+
+</SectionCard>
+
+<SectionCard>
+
+## Troubleshooting
+
+- [FAQ: Which PC Can I Use? › To train AI models](/docs/systems/omx/support/faq#to-train-ai-models)
+
+</SectionCard>

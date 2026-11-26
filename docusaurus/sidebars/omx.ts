@@ -45,11 +45,13 @@ const omxSidebar: SidebarsConfig[string] = [
     label: 'Imitation Learning',
     collapsible: false,
     className: 'omx-sidebar-title',
-    // OMX has no Cyclo Intelligence pages of its own: Train and run AI is the OMX guide, and its last step points to
-    // Cyclo Intelligence in the Cyclo manual. The old addresses lead to Train and run AI (src/data/docRedirects.json).
+    // A first try of ACT with Cyclo Intelligence. Each page points to its page under Cyclo Intelligence in the Cyclo
+    // manual for every option.
     items: [
-      // The first try, right after Bringup. Its page stays in quick_start_guide/, so its address does not change.
-      {type: 'doc', id: 'systems/omx/quick_start_guide/train_and_run_ai', label: 'Train and run AI'},
+      {type: 'doc', id: 'systems/omx/imitation_learning/setup', label: 'Setup'},
+      {type: 'doc', id: 'systems/omx/imitation_learning/data_recording', label: 'Recording'},
+      {type: 'doc', id: 'systems/omx/imitation_learning/model_training', label: 'Training'},
+      {type: 'doc', id: 'systems/omx/imitation_learning/model_inference', label: 'Inference'},
     ],
   },
   {
