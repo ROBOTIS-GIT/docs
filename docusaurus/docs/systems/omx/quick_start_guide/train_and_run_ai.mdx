@@ -133,12 +133,14 @@ grep ZENOH_CONFIG_OVERRIDE ~/.bashrc
 
 ### You should see
 
-The first line: the setting is there. The second line starts with # and does nothing. That is fine.
+The first line, in the red box, is the setting. The second line starts with # and does nothing. That is fine.
 
-```text
-export ZENOH_CONFIG_OVERRIDE='transport/shared_memory/enabled=true'
-# export ZENOH_CONFIG_OVERRIDE='transport/shared_memory/enabled=true;mode="client";connect/endpoints=["tcp/192.168.60.139:7447"]'
-```
+<TutorialMedia
+  label="The terminal after the check command. The first line, export ZENOH_CONFIG_OVERRIDE='transport/shared_memory/enabled=true', is marked in red. The second line starts with # and does nothing."
+  src="/img/systems/omx/quick_start_guide/train_and_run_ai/check_zenoh_setting.webp"
+  shape="free"
+  width={760}
+/>
 
 Then type `exit` and press **Enter** to leave the container.
 
