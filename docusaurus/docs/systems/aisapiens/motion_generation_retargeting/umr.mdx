@@ -10,7 +10,7 @@ import TabItem from '@theme/TabItem';
 
 [Unified Motion Retargeting (UMR)](https://hanyang9.github.io/UMR/) transfers human motion to a robot by learning correspondence between their body surfaces, then optimizing the robot's motion against those correspondences.
 
-This guide uses the [ROBOTIS UMR fork](https://github.com/ROBOTIS-GIT/UMR/tree/feature-phase4), branch **`feature-phase4`**. The fork adds an AI Sapiens K1 robot profile and direct SMPL-H motion input while retaining the original UMR input paths.
+This guide uses the [ROBOTIS UMR fork](https://github.com/ROBOTIS-GIT/UMR/tree/feature-k1-smplh-support), branch **`feature-k1-smplh-support`**. The fork adds an AI Sapiens K1 robot profile and direct SMPL-H motion input while retaining the original UMR input paths.
 
 This guide covers motion retargeting for **AI Sapiens K1 Rev.2**.
 
@@ -37,7 +37,7 @@ Use `~/k1-motion` as the workspace for this guide:
 ```bash
 mkdir -p "$HOME/k1-motion"
 cd "$HOME/k1-motion"
-git clone --branch feature-phase4 https://github.com/ROBOTIS-GIT/UMR.git UMR
+git clone --branch feature-k1-smplh-support https://github.com/ROBOTIS-GIT/UMR.git UMR
 cd UMR
 mkdir -p output
 ```
@@ -170,7 +170,7 @@ Original [LAFAN1](https://github.com/ubisoft/ubisoft-laforge-animation-dataset) 
 [LAFAN1 BVH] → lafan_to_smplx → [SMPL-X motion NPZ] → UMR
 ```
 
-See the [UMR adapter guide](https://github.com/ROBOTIS-GIT/UMR/blob/feature-phase4/sample_data/lafan1_smplx/README.md) and [`lafan_to_smplx`](https://github.com/jaraujo98/lafan_to_smplx) for setup and conversion. The converter is a separate tool that depends on GMR; UMR does not run this conversion automatically.
+See the [UMR adapter guide](https://github.com/ROBOTIS-GIT/UMR/blob/feature-k1-smplh-support/sample_data/lafan1_smplx/README.md) and [`lafan_to_smplx`](https://github.com/jaraujo98/lafan_to_smplx) for setup and conversion. The converter is a separate tool that depends on GMR; UMR does not run this conversion automatically.
 
 Set the resulting NPZ's absolute path as `motion.data` in step 4.
 
@@ -252,7 +252,7 @@ Replace the path with the **directory containing `SOMA_neutral.npz`**, not the f
 
 **BONES-SEED**
 
-See the repository's [BONES-SEED / SOMA README](https://github.com/ROBOTIS-GIT/UMR/blob/feature-phase4/sample_data/bones-seed/README.md) for the required motion, shape, rig, and model assets and their folder layout. After preparing them, use the selected BVH as `motion.data` in step 4.
+See the repository's [BONES-SEED / SOMA README](https://github.com/ROBOTIS-GIT/UMR/blob/feature-k1-smplh-support/sample_data/bones-seed/README.md) for the required motion, shape, rig, and model assets and their folder layout. After preparing them, use the selected BVH as `motion.data` in step 4.
 
 Other SOMA BVH sources may use different skeleton or rest-pose conventions; the file extension alone does not establish compatibility.
 
@@ -447,9 +447,9 @@ Choose your training guide below and select its **UMR CSV** tab to convert `your
 
 ## References
 
-- [ROBOTIS FlowHMR input and K1 adapter guide](https://github.com/ROBOTIS-GIT/UMR/blob/feature-phase4/sample_data/flowhmr/README.md)
-- [K1 robot profile](https://github.com/ROBOTIS-GIT/UMR/blob/feature-phase4/robot_configs/humanoid_retarget_robotis_ai_sapiens_k1_example.json)
-- [FlowHMR source defaults](https://github.com/ROBOTIS-GIT/UMR/blob/feature-phase4/humanoid_retarget_defaults_flowhmr.json)
+- [ROBOTIS FlowHMR input and K1 adapter guide](https://github.com/ROBOTIS-GIT/UMR/blob/feature-k1-smplh-support/sample_data/flowhmr/README.md)
+- [K1 robot profile](https://github.com/ROBOTIS-GIT/UMR/blob/feature-k1-smplh-support/robot_configs/humanoid_retarget_robotis_ai_sapiens_k1_example.json)
+- [FlowHMR source defaults](https://github.com/ROBOTIS-GIT/UMR/blob/feature-k1-smplh-support/humanoid_retarget_defaults_flowhmr.json)
 - [FlowHMR public source](https://github.com/flowhmr/flowhmr/tree/df15cadf56e738bf80c42c93d5e73687ff1002d2)
 - [AI Sapiens robot-description source](https://github.com/ROBOTIS-GIT/ai_sapiens/tree/0.4.0)
 
