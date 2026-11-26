@@ -829,6 +829,8 @@ Put the two boxes in their places, as when you recorded.
 
 </ScreenshotBox>
 
+The model does not know when the task is done, so it keeps running until you click **Stop**. To let it try again, put the boxes back in their places.
+
 ### It can look like this
 
 <TutorialMedia
@@ -854,6 +856,7 @@ It can stack the box as in the clip, or it can miss. How well it works depends o
 | **Start** stays grey | The AI program is not running, for example after a restart of the PC. Click **ON** and wait for `Running`, with **Engine** `Up` under it. |
 | `Image missing`, or **ON** does nothing | Do part D of [Train the AI model](#train-the-ai-model) again. |
 | An error about the policy path | Check the line you pasted. If you trained into `act_stack_box_2`, use that name. |
+| The follower stops or shakes. Before **Start**, `/leader/joint_trajectory` in **Topic Monitor** is not `0.0` | The leader program is running too, for example from `omx_ai.launch.py`, and it sends the leader's pose to the follower. Lower the follower's gripper onto the table, press **Ctrl + C** in Terminal 2, then start only the follower: `ros2 launch open_manipulator_bringup omx_f_follower_ai.launch.py` |
 | The arm shakes, or misses the box most of the time | See [Going further: Make it work better](#make-it-work-better). |
 
 </NotGood>
@@ -866,7 +869,7 @@ Lower the follower's gripper onto the table first. The follower goes limp when i
 
 </Caution>
 
-Click **Stop** on the page. Then press **Ctrl + C** in Terminals 4, 3, 2 and 1.
+Click **Stop** on the page. **Stop** pauses the model and keeps it loaded. **Clear** also unloads it, for example before you load another model. Then press **Ctrl + C** in Terminals 4, 3, 2 and 1.
 
 <details>
   <summary>How does it work?</summary>
