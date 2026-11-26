@@ -89,10 +89,8 @@
   border: 1px solid var(--robotis-card-border, rgb(31 35 40 / 14%));
 }
 
-/* A picture or clip with one short line under it: where it was taken and what it shows. */
-.mediaFigure {
-  margin: 0;
-}
+/* A picture or clip with one short line under it: where it was taken and what it shows. Its room above and below
+   is set with the other pictures, below. */
 
 .mediaCaption {
   margin-top: 0.6rem;
@@ -169,372 +167,30 @@
   font-weight: 500;
   line-height: 1.4;
 }
-
-/* ---------- Guide page ----------
-   One column for a page of a guide, such as "Bringup". GuidePage puts this class on it. */
-
-.page {
-  /* The colour of the numbered points, in a list and on a screenshot. A warm coral: it stands apart
-     from the blue, green and red buttons that the screenshots themselves contain. */
+/* The colour of the numbered points, in a list and on a screenshot. A warm coral: it stands apart
+   from the blue, green and red buttons that the screenshots themselves contain. */
+.mediaFrame,
+.clicks {
   --tutorial-mark: #f2603a;
-  position: relative;
 }
 
-/* The page and the list at its right, with the same widths and look as other pages and their list.
-   Like that list, it only shows on screens 997 px and wider. Its links use the site's own list classes. */
-.guideLayout {
-  display: flex;
-  align-items: flex-start;
-}
-
-.guideLayout > .page {
-  flex: 1 1 auto;
-  min-width: 0;
-}
-
-.guideToc {
-  display: none;
-}
-
-@media (min-width: 997px) {
-  .guideLayout > .page {
-    max-width: 75%;
-  }
-
-  .guideToc {
-    position: sticky;
-    top: calc(var(--ifm-navbar-height) + 1rem);
-    display: block;
-    flex: 0 0 25%;
-    max-width: 25%;
-    max-height: calc(100vh - (var(--ifm-navbar-height) + 2rem));
-    padding-left: 2rem;
-    overflow-y: auto;
-  }
-}
-
-/* The open step in the list. */
-.tocStepNow {
-  font-weight: 600;
-}
-
-/* A picture or clip placed straight in the page, in a step, in a step's box or in an "Only if" box gets room above and below. */
-.page > .mediaEmpty,
-.page > .mediaFrame,
-.stepPanel > .mediaEmpty,
-.stepPanel > .mediaFrame,
-[data-step-box] > .mediaEmpty,
-[data-step-box] > .mediaFrame,
-.onlyIfBody > .mediaEmpty,
-.onlyIfBody > .mediaFrame {
+/* A picture or clip on its own, in the page, in a section's box or in a <details>, gets room above and below.
+   Inside a row, a shot, a figure or the larger view, the part around it sets the room. */
+.mediaFrame,
+.mediaEmpty,
+.mediaFigure {
   margin: 1.25rem 0 1.75rem;
 }
 
-/* The title of a guide page (AskTitle in GuidePage). */
-.pageTitle {
+.mediaFigure > .mediaFrame,
+.mediaFigure > .mediaEmpty,
+.mediaRow .mediaFrame,
+.mediaRow .mediaEmpty,
+.mediaRow .mediaFigure,
+.shot .mediaFrame,
+.shot .mediaEmpty,
+.mediaZoom .mediaFrame {
   margin: 0;
-  font-size: var(--ifm-h1-font-size, 3rem);
-}
-
-/* The title, with the AI helper at its right end. */
-.titleRow {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.6rem 1.5rem;
-  margin: 0 0 1.25rem;
-}
-
-/* ---------- Help me, AI! ----------
-   A small menu that opens an AI chat with a question already typed in. */
-
-.ask {
-  position: relative;
-  font-size: 0.88rem;
-}
-
-/* A light steel grey fill with dark letters: it fits the black and white of ROBOTIS,
-   is easy to find next to the title, and leaves blue to the one Next button. */
-.ask > summary {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.4rem 0.9rem;
-  border: 1px solid #cdd4de;
-  border-radius: 999px;
-  background: #e9edf2;
-  color: #1c2330;
-  font-weight: 600;
-  list-style: none;
-  white-space: nowrap;
-  cursor: pointer;
-}
-
-[data-theme='dark'] .ask > summary {
-  border-color: #505968;
-  background: #323945;
-  color: #f1f3f6;
-}
-
-.ask > summary::-webkit-details-marker {
-  display: none;
-}
-
-.ask > summary::after {
-  font-size: 0.7rem;
-  content: '\25BE';
-}
-
-.ask > summary:hover,
-.ask[open] > summary {
-  border-color: #9aa5b4;
-  background: #dfe4eb;
-}
-
-[data-theme='dark'] .ask > summary:hover,
-[data-theme='dark'] .ask[open] > summary {
-  border-color: #76808f;
-  background: #3c4451;
-}
-
-.askMenu {
-  position: absolute;
-  top: calc(100% + 0.4rem);
-  right: 0;
-  z-index: 30;
-  display: flex;
-  flex-direction: column;
-  width: 17.5rem;
-  padding: 0.4rem;
-  border: 1px solid var(--ifm-color-emphasis-300);
-  border-radius: 12px;
-  background: var(--ifm-background-surface-color, #fff);
-  box-shadow: var(--robotis-card-shadow);
-}
-
-.askMenu a,
-.askMenu button {
-  padding: 0.5rem 0.65rem;
-  border: 0;
-  border-radius: 8px;
-  background: none;
-  color: var(--ifm-font-color-base);
-  font: inherit;
-  font-weight: 600;
-  text-align: left;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.askMenu a:hover,
-.askMenu button:hover {
-  background: var(--ifm-color-emphasis-100);
-  color: var(--ifm-color-primary);
-}
-
-.askMenu p {
-  margin: 0.3rem 0 0;
-  padding: 0.5rem 0.65rem 0.3rem;
-  border-top: 1px solid var(--ifm-color-emphasis-200);
-  color: var(--robotis-muted);
-  font-size: 0.78rem;
-  line-height: 1.45;
-}
-
-@media (max-width: 720px) {
-  .askMenu {
-    right: auto;
-    left: 0;
-  }
-}
-
-/* ---------- Terminal map ----------
-   One dark window split into panes: which terminal runs what, and the sign that it is running. */
-
-.page .terminalMap {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1px;
-  margin: 1.25rem 0 1.5rem;
-  padding: 0;
-  overflow: hidden;
-  border: 1px solid #2b313b;
-  border-radius: 12px;
-  background: #3a424f;
-  box-shadow: 0 10px 28px -14px rgb(0 0 0 / 0.5);
-  list-style: none;
-}
-
-[data-theme='dark'] .page .terminalMap {
-  border-color: #6b7689;
-  background: #6b7689;
-}
-
-.terminalMap li {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  min-height: 6.6rem;
-  margin: 0;
-  padding: 0.85rem 1.1rem 1rem;
-  background: #0f1218;
-}
-
-[data-theme='dark'] .terminalMap li {
-  background: #050709;
-}
-
-/* Large, so the reader knows "Terminal 2" before a caution or a step names it. */
-.terminalMapWhere {
-  color: #c3cad4;
-  font-size: 1rem;
-  font-weight: 600;
-}
-
-.terminalMap strong {
-  color: #fff;
-  font-size: 1.45rem;
-  line-height: 1.25;
-}
-
-.terminalMapShows {
-  margin-top: auto;
-  padding-top: 0.4rem;
-  color: #56d364;
-  font-size: 0.88rem;
-  font-weight: 600;
-}
-
-.terminalMapShows::before {
-  margin-right: 0.35rem;
-  content: '\2713';
-}
-
-/* ---------- Marked output ----------
-   What a command prints, in the colours of the site's code blocks (Prism github and dracula),
-   with the parts that are different on every PC outlined in red, as on the ROBOTIS terminal screenshots. */
-
-.markedOutput {
-  margin: 0 0 var(--ifm-leading);
-}
-
-.markedOutput pre {
-  margin: 0;
-  padding: var(--ifm-pre-padding);
-  border-radius: var(--ifm-code-border-radius);
-  background: #f6f8fa;
-  box-shadow: var(--ifm-global-shadow-lw);
-  color: #393a34;
-  font-size: var(--ifm-code-font-size);
-  line-height: 1.9;
-}
-
-[data-theme='dark'] .markedOutput pre {
-  background: #282a36;
-  color: #f8f8f2;
-}
-
-.markedOutput code {
-  padding: 0;
-  border: 0;
-  background: none;
-  font-size: 100%;
-}
-
-.outputMark {
-  padding: 0.05em 0.15em;
-  border-radius: 4px;
-  outline: 2px solid #c80003;
-  outline-offset: 1px;
-  background: none;
-  color: inherit;
-}
-
-[data-theme='dark'] .outputMark {
-  outline-color: #ff6b6b;
-}
-
-.markedOutputNote {
-  margin: 0.6rem 0 0;
-  color: var(--robotis-muted);
-  font-size: 0.95rem;
-}
-
-/* ---------- Caution ----------
-   An amber box for safety notes, and only for them. */
-
-.caution {
-  margin: 1.25rem 0;
-  padding: 0.9rem 1.2rem 1rem;
-  border: 1px solid color-mix(in srgb, var(--ifm-color-warning) 55%, transparent);
-  border-radius: 12px;
-  background: color-mix(in srgb, var(--ifm-color-warning) 12%, transparent);
-}
-
-.caution .cautionTitle {
-  margin: 0 0 0.4rem;
-  color: #8a5300;
-  font-size: 0.95rem;
-  font-weight: 700;
-}
-
-[data-theme='dark'] .caution .cautionTitle {
-  color: #f0b35a;
-}
-
-.caution > :last-child {
-  margin-bottom: 0;
-}
-
-/* Notice: the Caution box with larger text. It keeps its size and colour also among the Goal's side notes. */
-.caution.notice,
-.goalText > .caution.notice {
-  color: var(--ifm-font-color-base);
-  font-size: 1.15rem;
-  line-height: 1.6;
-}
-
-.notice .cautionTitle {
-  font-size: 1.02rem;
-}
-
-/* ---------- Checks ----------
-   What a good result looks like, as a few short lines with a green check mark each. */
-
-.checks ul,
-.checks ol {
-  margin: 1rem 0 1.25rem;
-  padding: 0;
-  list-style: none;
-}
-
-.checks li {
-  position: relative;
-  margin: 0.45rem 0;
-  padding-left: 2rem;
-  font-weight: 500;
-}
-
-.checks li::before {
-  position: absolute;
-  top: 0.18em;
-  left: 0;
-  display: grid;
-  width: 1.3rem;
-  height: 1.3rem;
-  border-radius: 50%;
-  background: #1a7f4b;
-  color: #fff;
-  font-size: 0.78rem;
-  font-weight: 700;
-  line-height: 1;
-  content: '\2713';
-  place-items: center;
-}
-
-[data-theme='dark'] .checks li::before {
-  background: #2ea043;
 }
 
 /* ---------- Clicks ----------
@@ -639,95 +295,17 @@
   }
 }
 
-/* ---------- Fixes ----------
-   What to do when the result is different. Closed until the reader opens it. Inside: a table, what you see → what to do. */
-
-.fix {
-  margin: 1rem 0 1.5rem;
-  border: 1px solid color-mix(in srgb, var(--ifm-color-danger) 38%, transparent);
-  border-radius: 10px;
-  background: color-mix(in srgb, var(--ifm-color-danger) 5%, transparent);
-}
-
-.fix > summary {
-  display: flex;
-  align-items: center;
-  gap: 0.55rem;
-  padding: 0.6rem 1rem;
-  color: var(--ifm-color-danger-darkest);
-  font-size: 0.92rem;
-  font-weight: 600;
-  list-style: none;
-  cursor: pointer;
-}
-
-[data-theme='dark'] .fix > summary {
-  color: var(--ifm-color-danger-lightest);
-}
-
-.fix > summary::-webkit-details-marker {
-  display: none;
-}
-
-.fix > summary::before {
-  font-size: 1.1rem;
-  line-height: 1;
-  content: '\203A';
-  transition: transform 0.15s ease;
-}
-
-.fix[open] > summary::before {
-  transform: rotate(90deg);
-}
-
-.fixBody {
-  padding: 0 1rem 0.9rem;
-  font-size: 0.92rem;
-}
-
-.fixBody table {
-  display: table;
-  width: 100%;
-  margin: 0;
-  border-collapse: collapse;
-}
-
-.fixBody tr,
-.fixBody thead tr,
-.fixBody tr:nth-child(2n) {
+/* A screenshot box inside a section's box (SectionCard) needs no frame of its own. */
+section .screenshotBox {
+  margin: 1.25rem 0;
+  padding: 0;
   border: 0;
-  background: none;
-}
-
-.fixBody th,
-.fixBody td {
-  padding: 0.5rem 0.6rem 0.5rem 0;
-  border: 0;
-  border-top: 1px solid color-mix(in srgb, var(--ifm-color-danger) 22%, transparent);
-  background: none;
-  text-align: left;
-  vertical-align: top;
-}
-
-.fixBody th {
-  color: var(--robotis-muted);
-  font-size: 0.78rem;
-  font-weight: 600;
-}
-
-.fixBody td:first-child {
-  width: 38%;
-  font-weight: 600;
-}
-
-.fixBody > :last-child {
-  margin-bottom: 0;
 }
 
 /* ---------- Shots ----------
    Small actions side by side: a square clip of the robot side, a number, one sentence. */
 
-.page .shots {
+.shots {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.5rem 1.25rem;
@@ -760,8 +338,8 @@
   margin-bottom: 0;
 }
 
-/* Four in a row, for a step that should fit on the screen. */
-.page .shots.shotsSmall {
+/* Four in a row, for a section that should fit on the screen. */
+.shots.shotsSmall {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1rem;
 }
@@ -773,181 +351,14 @@
   line-height: 1.5;
 }
 
-/* ---------- Step tabs ----------
-   The steps of a page, shown one at a time. The bar stays under the navbar while the reader scrolls.
-   The chosen step has the blue line; Next is the only blue button. */
+/* ---------- Rows of pictures ---------- */
 
-.steps {
-  margin: 1.75rem 0 0;
-  scroll-margin-top: var(--ifm-navbar-height);
-}
-
-.stepBar {
-  position: sticky;
-  top: var(--ifm-navbar-height);
-  z-index: 3;
-  margin: 0 0 1.25rem;
-  padding: 0.6rem 0 0.55rem;
-  border-bottom: 1px solid var(--ifm-color-emphasis-200);
-  /* The page colour, so the text scrolling under the bar is hidden. In the light theme
-     --ifm-background-color is transparent and the page is the white of the surface colour. */
-  background: var(--ifm-background-surface-color);
-}
-
-[data-theme='dark'] .stepBar,
-[data-theme='dark'] .stepSelect {
-  background: var(--ifm-background-color);
-}
-
-.stepList {
-  display: grid;
-  grid-template-columns: repeat(var(--step-count), minmax(0, 1fr));
-  gap: 0.4rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.stepList li {
-  margin: 0;
-}
-
-.stepTab {
-  display: block;
-  width: 100%;
-  height: 100%;
-  padding: 0.45rem 0.6rem 0.5rem;
-  border: 0;
-  border-top: 3px solid var(--ifm-color-emphasis-300);
-  border-radius: 0 0 8px 8px;
-  background: none;
-  color: var(--robotis-muted);
-  font: inherit;
-  font-size: 0.86rem;
-  line-height: 1.3;
-  text-align: left;
-  cursor: pointer;
-}
-
-.stepTab:hover {
-  background: var(--ifm-color-emphasis-100);
-  color: var(--ifm-font-color-base);
-}
-
-.stepTabNumber {
-  display: block;
-  font-size: 0.74rem;
-  font-weight: 600;
-}
-
-.stepTabNow,
-.stepTabNow:hover {
-  border-top-color: var(--ifm-color-primary);
-  background: color-mix(in srgb, var(--ifm-color-primary) 7%, transparent);
-  color: var(--ifm-font-color-base);
-  font-weight: 600;
-}
-
-.stepTabNow .stepTabNumber {
-  color: var(--ifm-color-primary);
-}
-
-/* A part after the steps, done only if the reader wants to. A dashed line instead of a full one. */
-.stepTabExtra {
-  border-top-style: dashed;
-}
-
-/* What only some steps need: one thin line under those steps, with the words under it. Steps without a line
-   need nothing more. The line is NVIDIA's green, as the guide uses it for "Needs an NVIDIA GPU"; the words are a
-   darker green, so they stay easy to read on white. */
-.stepNeeds {
-  display: grid;
-  grid-template-columns: repeat(var(--step-count), minmax(0, 1fr));
-  gap: 0.4rem;
-  margin-top: 0.3rem;
-}
-
-.stepNeed {
-  padding-top: 0.25rem;
-  border-top: 2px solid #76b900;
-  color: #4a7500;
-  font-size: 0.74rem;
-  font-weight: 600;
-  line-height: 1.3;
-  text-align: center;
-}
-
-[data-theme='dark'] .stepNeed {
-  color: #9fd356;
-}
-
-.stepSelect {
-  display: none;
-  width: 100%;
-  padding: 0.55rem 0.7rem;
-  border: 1px solid var(--ifm-color-emphasis-300);
-  border-radius: 8px;
-  background: var(--ifm-background-surface-color);
-  color: var(--ifm-font-color-base);
-  font: inherit;
-  font-weight: 600;
-}
-
-/* ---------- Step box ----------
-   Each step is one box: the site's SectionCard, the box of the AI Worker pages, with the step's number and title as
-   its ## title and the parts of the step as ### headings inside it. Its look comes from SectionCard. */
-
-/* GoFurther: the button to a bigger manual at the end of a part, with the manual's logo at its right. */
-.goFurtherFoot {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-top: 1.25rem;
-}
-
-.goFurtherLogo {
-  height: 1.35rem;
-  width: auto;
-}
-
-[data-theme='dark'] .goFurtherLogo {
-  filter: invert(1);
-}
-
-/* A screenshot box inside a step's box needs no frame of its own. */
-[data-step-box] .screenshotBox {
-  margin: 1.25rem 0;
-  padding: 0;
-  border: 0;
-}
-
-/* ---------- Goal ----------
-   The result of the page, at the start of its first step: what the reader is about to do. */
-
-/* The box of the first step comes right after it, so it needs no line of its own. */
-.goal {
-  margin: 0 0 1.25rem;
-}
-
-/* A short title over a clip or a row, such as "At the end of this page" or "Requirements": a little larger than
-   the text, so it is seen before the picture. */
+/* MediaRow `label`: a short title over a row, a little larger than the text, so it is seen before the pictures. */
 .goalLabel {
   margin: 0 0 0.6rem;
   color: var(--ifm-font-color-base);
   font-size: 1.15rem;
   font-weight: 700;
-}
-
-/* The result clip is centred, also when it is narrower than the page. */
-.goal > .mediaFrame,
-.goal > .mediaEmpty {
-  margin-inline: auto;
-}
-
-.goalBelow {
-  margin-top: 1rem;
 }
 
 /* Pictures or clips side by side, the same width; one under the other when there is no room. */
@@ -977,136 +388,14 @@
   color: var(--ifm-heading-color);
 }
 
-.goalText {
-  margin-top: 1rem;
-}
-
-.goalText > :first-child {
-  margin-bottom: 0.35rem;
-  font-size: 1.2rem;
-  font-weight: 600;
-  line-height: 1.45;
-}
-
-.goalText > :last-child {
-  margin-bottom: 0;
-}
-
-/* A link to a step, or to a part of a step, stops just below the bar, not under it.
-   --guide-bar-height is the bar's real height, measured by StepTabs: it is taller with a line of needs under it.
-   5.5rem is only the first guess, before the page's script runs. */
-.stepPanel,
-.stepPanel [id] {
-  scroll-margin-top: calc(var(--ifm-navbar-height) + var(--guide-bar-height, 5.5rem) + 0.75rem);
-}
-
-.stepNav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  margin: 2rem 0 0;
-  padding-top: 1.1rem;
-  border-top: 1px solid var(--ifm-color-emphasis-200);
-}
-
-.stepBack,
-.stepNext {
-  padding: 0.6rem 1.05rem;
-  border-radius: 10px;
-  font: inherit;
-  font-weight: 600;
-  line-height: 1.35;
-  cursor: pointer;
-}
-
-.stepBack {
-  border: 1px solid var(--ifm-color-emphasis-300);
-  background: none;
-  color: var(--ifm-font-color-base);
-}
-
-.stepNext {
-  margin-left: auto;
-  border: 0;
-  background: var(--ifm-color-primary);
-  color: #fff;
-}
-
-.stepBack:hover {
-  background: var(--ifm-color-emphasis-100);
-  color: var(--ifm-font-color-base);
-  text-decoration: none;
-}
-
-.stepNext:hover {
-  background: var(--ifm-color-primary-dark);
-  color: #fff;
-  text-decoration: none;
-}
-
-/* ---------- Only if ----------
-   Parts only some readers need. Closed and quiet, so the others go straight on. */
-
-.onlyIf {
-  margin: 1rem 0 1.5rem;
-  border: 1px solid var(--ifm-color-emphasis-200);
-  border-radius: 12px;
-}
-
-.onlyIf > summary {
-  padding: 0.75rem 1rem;
-  color: var(--robotis-muted);
-  font-size: 0.95rem;
-  list-style: none;
-  cursor: pointer;
-}
-
-.onlyIf > summary::-webkit-details-marker {
-  display: none;
-}
-
-.onlyIf > summary::before {
-  display: inline-block;
-  width: 0.45em;
-  height: 0.45em;
-  margin: 0 0.75em 0.15em 0.1em;
-  border-right: 2px solid currentColor;
-  border-bottom: 2px solid currentColor;
-  content: '';
-  transform: rotate(-45deg);
-  transition: transform 0.15s;
-}
-
-.onlyIf[open] > summary {
-  border-bottom: 1px solid var(--ifm-color-emphasis-200);
-}
-
-.onlyIf[open] > summary::before {
-  transform: rotate(45deg);
-}
-
-.onlyIfBody {
-  padding: 1rem 1rem 0.25rem;
-}
-
 /* ---------- Narrow screens ---------- */
 
 @media (max-width: 720px) {
-  .page .shots {
+  .shots {
     grid-template-columns: 1fr;
   }
 
-  .page .shots.shotsSmall {
+  .shots.shotsSmall {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .stepList,
-  .stepNeeds {
-    display: none;
-  }
-
-  .stepSelect {
-    display: block;
   }
 }
