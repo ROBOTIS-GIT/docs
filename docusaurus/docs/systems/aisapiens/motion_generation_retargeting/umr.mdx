@@ -3,68 +3,82 @@ sidebar_label: UMR
 title: UMR
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # UMR
 
 [Unified Motion Retargeting (UMR)](https://hanyang9.github.io/UMR/) transfers human motion to a robot by learning correspondence between their body surfaces, then optimizing the robot's motion against those correspondences.
 
-This guide uses the [ROBOTIS UMR fork](https://github.com/ROBOTIS-GIT/UMR/tree/feature-phase4), branch **`feature-phase4`**, at revision [`85b9c1c`](https://github.com/ROBOTIS-GIT/UMR/tree/85b9c1c9f0bbbd9b4310039ccc399bbd9618a93d). That branch adds a FlowHMR SMPL-H surface adapter and an AI Sapiens K1 robot profile. These instructions do not describe the fork's `main` branch or the original upstream release.
+This guide uses the [ROBOTIS UMR fork](https://github.com/ROBOTIS-GIT/UMR/tree/feature-phase4), branch **`feature-phase4`**. The fork adds an AI Sapiens K1 robot profile and direct SMPL-H motion input while retaining the original UMR input paths.
 
-The result is a **UMR qpos NPZ** containing K1 generalized coordinates. It is not a CSV, a Cyclo training-motion archive, or a trained robot policy.
+This guide covers motion retargeting for **AI Sapiens K1 Rev.2**.
 
 :::caution[Two different K1 robots]
 Use `humanoid_retarget_robotis_ai_sapiens_k1_example.json` for ROBOTIS AI Sapiens K1. The separate `humanoid_retarget_booster_k1_example.json` targets Booster K1 and uses a different robot model.
 :::
 
-## Requirements
+## Prerequisites
 
-- Git, conda, and separate Python environments for FlowHMR and UMR.
-- The [FlowHMR setup](/docs/systems/aisapiens/motion_generation/flowhmr) completed in `~/k1-motion/FlowHMR`. This guide targets FlowHMR [`df15cad`](https://github.com/flowhmr/flowhmr/tree/df15cadf56e738bf80c42c93d5e73687ff1002d2).
-- The licensed neutral SMPL-H model used by FlowHMR, at `FlowHMR/assets/body_models/smplh/neutral/model.npz`.
-- The AI Sapiens K1 MJCF and its meshes, acquired separately from the [official robot-description repository](https://github.com/ROBOTIS-GIT/ai_sapiens).
-- Python 3.12 for UMR. Its documented environment uses PyTorch 2.4.1 CUDA 12.1 wheels; prepare a compatible NVIDIA GPU and driver for accelerated correspondence learning.
-- A graphical display for the optional MuJoCo playback viewer. Retargeting can be run without opening it by using `--skip-view`.
+- Git, conda, and Python 3.12 for UMR.
+- A compatible NVIDIA GPU and driver for the documented PyTorch 2.4.1 CUDA 12.1 environment.
+- The AI Sapiens K1 MJCF and meshes from the [robot-description repository](https://github.com/ROBOTIS-GIT/ai_sapiens).
+- Motion data and body-model assets for **your selected input source**; see step 3. FlowHMR is required only for the FlowHMR path.
+- A graphical display for optional MuJoCo playback. Retargeting can run without it using `--skip-view`.
 
-UMR's MIT code license does not grant rights to FlowHMR weights, SMPL-H assets, or source motion. FlowHMR code is Apache-2.0; its released weights have separate noncommercial terms. Review the [FlowHMR license guidance](/docs/systems/aisapiens/motion_generation/flowhmr#models-and-assets) and each asset's terms, including the intended use of generated data. Neither body-model assets nor reconstruction checkpoints are redistributed with this adapter.
+Body-model assets and motion datasets are acquired separately. Follow the license and setup guidance linked in your selected input tab.
 
-## 1. Install the UMR Branch
+## 1. Install UMR
 
-Use the same workspace as the FlowHMR guide. Run the following in a new checkout:
+### Clone the Repository
+
+Use `~/k1-motion` as the workspace for this guide:
 
 ```bash
 mkdir -p "$HOME/k1-motion"
 cd "$HOME/k1-motion"
 git clone --branch feature-phase4 https://github.com/ROBOTIS-GIT/UMR.git UMR
 cd UMR
-git checkout 85b9c1c9f0bbbd9b4310039ccc399bbd9618a93d
+mkdir -p output
+```
+
+### Set Up the Python Environment
+
+From the `UMR` directory, create the environment and install dependencies:
+
+```bash
 conda create -n umr python=3.12 pip -y
 conda activate umr
 python -m pip install --index-url https://download.pytorch.org/whl/cu121 torch==2.4.1
 python -m pip install -r requirements-umr.txt
-mkdir -p output
 ```
 
-The commands below assume this layout:
+:::info
+Use a separate environment for UMR. Run retargeting with `conda activate umr`.
+:::
 
-```text
-~/k1-motion/
-  FlowHMR/
-  UMR/
-  ai_sapiens/
-```
+After adding the robot model in step 2, the workspace will contain:
 
-FlowHMR uses its own Python 3.10 environment. Do not install its dependencies into the UMR environment.
+<div className="docs-folder-tree" role="img" aria-label="K1 motion workspace containing UMR for retargeting and ai_sapiens for robot models and meshes">
+  <div className="docs-folder-tree__root">
+    <code>~/k1-motion/</code>
+  </div>
+  <ul>
+    <li><span className="docs-folder-tree__folder">UMR/</span> — Motion retargeting</li>
+    <li><span className="docs-folder-tree__folder">ai_sapiens/</span> — Robot models and meshes</li>
+  </ul>
+</div>
 
-## 2. Obtain and Check the K1 Model
+You can use another workspace path. If you use FlowHMR, place its checkout alongside `UMR/`.
 
-Clone the separately maintained robot description. The following revision provides the model path used in this guide:
+## 2. Prepare the Robot Model
+
+Clone the robot-description repository at tag `0.4.0`, which includes the K1 Rev.2 model used below:
 
 ```bash
 cd "$HOME/k1-motion"
-git clone https://github.com/ROBOTIS-GIT/ai_sapiens.git ai_sapiens
-git -C ai_sapiens checkout 937c67d66db1015a73a359f2c742943810a74e3a
+git clone --branch 0.4.0 https://github.com/ROBOTIS-GIT/ai_sapiens.git ai_sapiens
 ```
-
-Keep the MJCF at `ai_sapiens_description/mujoco/k1/k1.xml` together with the meshes under `ai_sapiens_description/meshes/k1_rev1/`. Moving the XML alone breaks its relative mesh references.
 
 In the UMR environment, check that MuJoCo can load the model and its assets:
 
@@ -75,94 +89,312 @@ python - <<'PY'
 from pathlib import Path
 import mujoco
 
-xml = Path("../ai_sapiens/ai_sapiens_description/mujoco/k1/k1.xml").resolve()
+xml = Path("../ai_sapiens/ai_sapiens_description/mujoco/k1_rev2/k1.xml").resolve()
 model = mujoco.MjModel.from_xml_path(str(xml))
 print("nq:", model.nq, "nv:", model.nv)
 assert (model.nq, model.nv) == (30, 29)
 PY
 ```
 
-This K1 model has a floating root and 23 joints. The supplied K1 profile sets `add_freejoint_root=false`; do not add a second floating root. For another model revision, verify its body names, joints, limits, meshes, and T-pose against the profile before proceeding.
+Expected output:
 
-## 3. Export the FlowHMR Motion to a Surface Archive
-
-First generate and inspect a motion with the [FlowHMR inference guide](/docs/systems/aisapiens/motion_generation/flowhmr#reconstruct-a-video). Its bundled example produces `FlowHMR/output/example/flowhmr_latest.npz` when using the default checkpoint and seed.
-
-Run the exporter in the **FlowHMR environment**, because it uses FlowHMR's SMPL-H forward models. The example below reads the frame rate from that actual output file and uses the same licensed neutral model for forward kinematics and mesh anatomy:
-
-```bash
-conda activate flowhmr
-cd "$HOME/k1-motion/FlowHMR"
-FLOWHMR_FPS=$(python - <<'PY'
-from pathlib import Path
-import numpy as np
-
-motion = Path("output/example/flowhmr_latest.npz")
-with np.load(motion, allow_pickle=False) as data:
-    fps = float(np.asarray(data["mocap_framerate"]).item())
-    assert np.isfinite(fps) and fps > 0
-    print(fps)
-PY
-)
-python ../UMR/scripts/export_flowhmr_surface.py \
-  output/example/flowhmr_latest.npz \
-  ../UMR/output/example_surface.npz \
-  --flowhmr-root . \
-  --model assets/body_models/smplh/neutral/model.npz \
-  --fps "$FLOWHMR_FPS"
+```text
+nq: 30 nv: 29
 ```
 
-For your own clip, replace both the input NPZ and output surface filename, then use the same surface filename in the next section. Nonzero FlowHMR seeds change the input filename. If a source does not contain valid frame-rate metadata, determine its actual motion sample rate before supplying `--fps`; do not substitute the original video's FPS automatically.
+:::note
+The K1 Rev.2 model already includes a floating root. Keep `add_freejoint_root=false` in the K1 profile.
+:::
 
-The exporter requires `poses` with shape `(T, 52, 3)`, `trans` with shape `(T, 3)`, and all 16 shape coefficients in `betas`. It preserves the native SMPL-H topology and evaluates the matching human surface. `--flowhmr-root` selects the source checkout explicitly, so no editable FlowHMR installation or `PYTHONPATH` modification is required.
+## 3. Prepare Motion Data and Body Models
 
-Successful export prints `Validated surface archive:` and the output path. The output must be a new file: the exporter refuses to overwrite an existing archive. Create its parent directory first, as done during UMR setup.
+<div className="umr-motion-source-table">
 
-The surface archive is marked `umr_smplh_surface_v1` and contains motion vertices and 52 joints, template geometry, triangle faces, anatomical labels, all 16 shape coefficients, frame rate, and input/model hashes. It is an intermediate human-motion representation, not K1 joint motion.
+| Input format | SMPL-H | SMPL-X | SOMA BVH |
+| --- | --- | --- | --- |
+| Motion source | FlowHMR | Converted LAFAN1 clips | Kimodo, GEM-X, or BONES-SEED |
+| Required files | Parameter NPZ + SMPL-H model | SMPL-X NPZ + SMPL-X model | BVH + source-specific SOMA assets |
 
-The exporter does not resample, re-ground, adjust cameras, or correct poses. Current FlowHMR output already includes its world-orientation conversion; do not apply that conversion again before export. Optional FlowHMR `--postprocess` must be run in FlowHMR itself and recorded with the input motion.
+</div>
 
-## 4. Configure the Robot and Motion Source Separately
+Choose the tab for your **input format**, then configure the prepared motion file in step 4.
 
-The K1 JSON describes only the robot. `humanoid_retarget_defaults_flowhmr.json` supplies the SMPL-H motion-source settings and extends the base UMR defaults. Use both files together.
+<Tabs groupId="umr-input-source">
+<TabItem value="smplh" label="SMPL-H (FlowHMR)">
 
-Create editable copies in the UMR repository root, then set absolute paths for the acquired model, exported surface, and desired result:
+Reconstruct your video with [FlowHMR](/docs/systems/aisapiens/motion_generation/flowhmr#reconstruct-a-video). Use the resulting NPZ directly as `motion.data` in step 4; no separate conversion is required.
+
+:::info[SMPL-H model]
+**UMR does not include the SMPL-H model.** The neutral model used here is part of the **Extended SMPL+H model** (used in the [AMASS](https://amass.is.tuebingen.mpg.de/) project), available from the [official SMPL-H website](https://mano.is.tue.mpg.de/) under its own license terms. An existing model used for FlowHMR can be reused.
+:::
+
+From the UMR repository root, create the model directory:
+
+```bash
+mkdir -p smplh/neutral
+```
+
+Place your prepared `model.npz` at the **default location** below:
+
+<div className="docs-folder-tree" role="img" aria-label="Default SMPL-H model location: UMR/smplh/neutral/model.npz">
+  <div className="docs-folder-tree__root">
+    <code>UMR/</code>
+  </div>
+  <ul>
+    <li>
+      <span className="docs-folder-tree__folder">smplh/</span>
+      <ul>
+        <li>
+          <span className="docs-folder-tree__folder">neutral/</span>
+          <ul>
+            <li><code>model.npz</code></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+For another location, set `smplh_model_path` to the model's path in the `motion.json` file you will create in step 4.
+
+</TabItem>
+<TabItem value="smplx" label="SMPL-X (LAFAN1)">
+
+Prepare two files: a **motion NPZ** describing the movement and an **SMPL-X model** used to reconstruct the human body surface.
+
+**Prepare the motion**
+
+Original [LAFAN1](https://github.com/ubisoft/ubisoft-laforge-animation-dataset) clips are BVH files. **Convert your selected clip to an SMPL-X NPZ with `lafan_to_smplx` before using it with UMR:**
+
+```text
+[LAFAN1 BVH] → lafan_to_smplx → [SMPL-X motion NPZ] → UMR
+```
+
+See the [UMR adapter guide](https://github.com/ROBOTIS-GIT/UMR/blob/feature-phase4/sample_data/lafan1_smplx/README.md) and [`lafan_to_smplx`](https://github.com/jaraujo98/lafan_to_smplx) for setup and conversion. The converter is a separate tool that depends on GMR; UMR does not run this conversion automatically.
+
+Set the resulting NPZ's absolute path as `motion.data` in step 4.
+
+**Prepare the body model**
+
+:::info[SMPL-X model]
+**UMR does not include the SMPL-X model.** Prepare the body model matching your motion data. Models are available from the [official SMPL-X website](https://smpl-x.is.tue.mpg.de/) under their own license terms.
+:::
+
+The `smpl/` directory is already included in UMR. For motion data with `gender=neutral`, place `SMPLX_NEUTRAL.pkl` at the **default location** below:
+
+<div className="docs-folder-tree" role="img" aria-label="Default SMPL-X model location: UMR/smpl/SMPLX_NEUTRAL.pkl">
+  <div className="docs-folder-tree__root">
+    <code>UMR/</code>
+  </div>
+  <ul>
+    <li>
+      <span className="docs-folder-tree__folder">smpl/</span>
+      <ul>
+        <li><code>SMPLX_NEUTRAL.pkl</code></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+For another location, set `smplx_model_dir` to the model directory in the `motion.json` file you will create in step 4.
+
+</TabItem>
+<TabItem value="soma" label="SOMA BVH (Kimodo, GEM-X, BONES-SEED)">
+
+Prepare the BVH and model assets for your motion source.
+
+:::info[SOMA model assets]
+**UMR does not include the SOMA-X model assets.** They are available from the [official SOMA-X model repository](https://huggingface.co/nvidia/SOMA-X/tree/main) under their own license terms. Existing matching assets can be reused.
+:::
+
+**Kimodo / GEM-X**
+
+- **[Kimodo](/docs/systems/aisapiens/motion_generation_retargeting/kimodo/):** Follow the manual to generate a SOMA motion and export it as BVH with **standard T-pose disabled**.
+- **[GEM-X](/docs/systems/aisapiens/motion_generation/gem-x):** Follow the manual to reconstruct a video. With `--retarget` enabled, it exports a SOMA `.bvh` beside the robot CSV. Use this human-motion BVH, not the CSV or `hpe_results.pt`.
+
+Use the BVH directly as `motion.data` in step 4. Both paths use `SOMA_neutral.npz` to reconstruct the body surface and do not require BONES-SEED actor-shape files.
+
+:::note[GEM-X body shape]
+UMR uses the BVH skeleton and motion with the default SOMA body surface; it does not restore GEM-X's fitted body-shape parameters from `hpe_results.pt`.
+:::
+
+From the UMR repository root, create the model directory:
+
+```bash
+mkdir -p sample_data/soma/soma_assets
+```
+
+Place your prepared model at the **default location** below:
+
+<div className="docs-folder-tree" role="img" aria-label="Default SOMA model location for Kimodo and GEM-X">
+  <div className="docs-folder-tree__root">
+    <code>UMR/</code>
+  </div>
+  <ul>
+    <li>
+      <span className="docs-folder-tree__folder">sample_data/soma/soma_assets/</span>
+      <ul>
+        <li><code>SOMA_neutral.npz</code></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+:::note[Using another model location]
+The default location above is detected automatically. If your model is elsewhere, run this in the same terminal before starting UMR:
+
+```bash
+export UMR_SOMA_ASSETS_PATH="/absolute/path/to/soma_assets"
+```
+
+Replace the path with the **directory containing `SOMA_neutral.npz`**, not the file itself. This setting applies only to the current terminal session.
+:::
+
+**BONES-SEED**
+
+See the repository's [BONES-SEED / SOMA README](https://github.com/ROBOTIS-GIT/UMR/blob/feature-phase4/sample_data/bones-seed/README.md) for the required motion, shape, rig, and model assets and their folder layout. After preparing them, use the selected BVH as `motion.data` in step 4.
+
+Other SOMA BVH sources may use different skeleton or rest-pose conventions; the file extension alone does not establish compatibility.
+
+</TabItem>
+</Tabs>
+
+For additional sources, see the [upstream adapter guides](https://github.com/hanyang9/UMR#readme). Some use different pipelines or defaults.
+
+## 4. Configure Retargeting
+
+`k1.json` selects the robot. `motion.json` selects the source format and processing settings. The remaining steps are shared by all input formats.
+
+Create both files in the **UMR repository root**, as shown below, using the copy commands in this section:
+
+<div className="docs-folder-tree" role="img" aria-label="Create k1.json and motion.json in the UMR repository root">
+  <div className="docs-folder-tree__root">
+    <code>~/k1-motion/</code>
+  </div>
+  <ul>
+    <li>
+      <span className="docs-folder-tree__folder">UMR/</span>
+      <ul>
+        <li><code><strong className="docs-folder-tree__file">k1.json</strong></code><em>Robot settings</em></li>
+        <li><code><strong className="docs-folder-tree__file">motion.json</strong></code><em>Motion and processing settings</em></li>
+        <li><span className="docs-folder-tree__folder">scripts/</span></li>
+        <li><span className="docs-folder-tree__folder">output/</span></li>
+      </ul>
+    </li>
+    <li><span className="docs-folder-tree__folder">ai_sapiens/</span></li>
+  </ul>
+</div>
+
+### Configure the Robot — `k1.json`
+
+Copy the K1 profile once:
 
 ```bash
 conda activate umr
 cd "$HOME/k1-motion/UMR"
 cp robot_configs/humanoid_retarget_robotis_ai_sapiens_k1_example.json k1.json
-cp humanoid_retarget_defaults_flowhmr.json flowhmr.json
-python - <<'PY'
-from pathlib import Path
-import json
-
-root = Path.cwd()
-xml = (root.parent / "ai_sapiens/ai_sapiens_description/mujoco/k1/k1.xml").resolve()
-surface = (root / "output/example_surface.npz").resolve()
-assert xml.is_file(), xml
-assert surface.is_file(), surface
-
-robot_file = root / "k1.json"
-robot = json.loads(robot_file.read_text())
-robot["robot"]["xml"] = str(xml)
-robot_file.write_text(json.dumps(robot, indent=2) + "\n")
-
-source_file = root / "flowhmr.json"
-source = json.loads(source_file.read_text())
-source["motion"]["data"] = str(surface)
-source.setdefault("retarget", {})["out"] = str(root / "output/k1_retargeted_motion.npz")
-source_file.write_text(json.dumps(source, indent=2) + "\n")
-PY
 ```
 
-This preserves `smpl_template.source=motion`, `smpl_template.type=smplh`, `use_betas=true`, and `zero_source_finger_pose=false` from the source defaults. Cached surface geometry already contains the finger poses; changing those poses requires a new export.
+Open `k1.json` and edit `xml` inside `robot` to point to the **Rev.2** model checked in step 2. The copied profile points to the older K1 model.
 
-Keep the copied source defaults in the repository root so their `extends` reference resolves to the supplied base defaults. Absolute asset paths avoid the resolver's distinction between explicit `./` or `../` paths and other relative paths. Do not replace the source defaults with a robot-only JSON.
+For the workspace layout above, the edited field looks like this. Replace `your-user` with your username and keep all other fields in the file unchanged:
 
-The K1 profile uses `torso_link` as its point-cloud center and supplies a robot-specific T-pose. Inspect it against the acquired model. For a modified robot, check its canonical pose in [UMR Studio](https://hanyang9.github.io/UMR/umr_studio.html) rather than copying a different robot's joint settings.
+```json
+{
+  "robot": {
+    "xml": "/home/your-user/k1-motion/ai_sapiens/ai_sapiens_description/mujoco/k1_rev2/k1.xml"
+  }
+}
+```
 
-## 5. Learn Correspondence and Retarget
+### Configure the Motion — `motion.json`
+
+Choose your input format below. Run the copy command from the UMR repository root and keep `motion.json` there so any `extends` reference resolves correctly.
+
+Then open `motion.json` and edit the fields shown. Replace the example paths with your actual paths and **keep all other fields unchanged**. `motion.data` selects the input file; `retarget.out` sets the output path, including its filename. The examples use `seq_key=""` and `seq_index=0` to select a single file.
+
+<Tabs groupId="umr-input-source">
+<TabItem value="smplh" label="SMPL-H (FlowHMR)">
+
+```bash
+cp humanoid_retarget_defaults_flowhmr.json motion.json
+```
+
+Use the reconstructed FlowHMR NPZ directly:
+
+```json
+{
+  "motion": {
+    "data": "/home/your-user/k1-motion/FlowHMR/output/example/flowhmr_latest.npz",
+    "seq_key": "",
+    "seq_index": 0
+  },
+  "retarget": {
+    "out": "/home/your-user/k1-motion/UMR/output/your_motion_01_umr_qpos.npz"
+  }
+}
+```
+
+If your SMPL-H model is outside the default location, also set `smplh_model_path` as described in step 3.
+
+</TabItem>
+<TabItem value="smplx" label="SMPL-X (LAFAN1)">
+
+```bash
+cp humanoid_retarget_defaults.json motion.json
+```
+
+Use the SMPL-X NPZ prepared in step 3. This example assumes you saved it as `UMR/input/your_motion_01.npz`:
+
+```json
+{
+  "motion": {
+    "data": "/home/your-user/k1-motion/UMR/input/your_motion_01.npz",
+    "seq_key": "",
+    "seq_index": 0
+  },
+  "retarget": {
+    "out": "/home/your-user/k1-motion/UMR/output/your_motion_01_umr_qpos.npz"
+  }
+}
+```
+
+If your SMPL-X model is outside the default location, also set `smplx_model_dir` as described in step 3.
+
+</TabItem>
+<TabItem value="soma" label="SOMA BVH (Kimodo, GEM-X, BONES-SEED)">
+
+```bash
+cp humanoid_retarget_defaults_bones_seed.json motion.json
+```
+
+Use the SOMA BVH prepared in step 3. This example assumes you saved it as `UMR/input/your_motion_01.bvh`; for BONES-SEED, use its actual path in the dataset layout described in step 3.
+
+```json
+{
+  "motion": {
+    "data": "/home/your-user/k1-motion/UMR/input/your_motion_01.bvh",
+    "seq_key": "",
+    "seq_index": 0
+  },
+  "retarget": {
+    "out": "/home/your-user/k1-motion/UMR/output/your_motion_01_umr_qpos.npz"
+  }
+}
+```
+
+:::note[Kimodo and GEM-X]
+In `motion.json`, also set `retarget.zero_source_finger_pose` to `false` to preserve finger poses.
+:::
+
+</TabItem>
+</Tabs>
+
+:::note[Choose an output name for each clip]
+Set `retarget.out` to a unique filename for each clip, ending in `_umr_qpos.npz`.
+:::
+
+## 5. Retarget the Motion
 
 Run all stages in the UMR environment:
 
@@ -171,55 +403,124 @@ conda activate umr
 cd "$HOME/k1-motion/UMR"
 python scripts/humanoid_retarget_pipeline.py \
   --config ./k1.json \
-  --defaults ./flowhmr.json \
+  --defaults ./motion.json \
   --stage all \
   --skip-view
 ```
 
 The pipeline builds the source/robot correspondence dataset, trains or reuses compatible correspondence, and retargets the motion. `--skip-view` suppresses the final viewer; it does not skip learning or retargeting.
 
-Correspondence identity includes the source geometry, topology, anatomical labels, and every shape coefficient. Do not reuse an SMPL-X correspondence archive for an SMPL-H surface, or substitute another person's shape while retaining its cache.
+:::note[Reusing or overwriting results]
+UMR may reuse an existing result at the same output path. After changing the motion, robot model, or retargeting settings, choose a new output filename or add `--force-retarget` to overwrite the result.
+:::
 
 For the configuration above, the result is:
 
-```text
-UMR/output/k1_retargeted_motion.npz
-```
+<div className="docs-folder-tree" role="img" aria-label="UMR output files: your_motion_01_umr_qpos.npz and your_motion_01_umr.csv">
+  <div className="docs-folder-tree__root">
+    <code>UMR/output/</code>
+  </div>
+  <ul>
+    <li><code><strong className="docs-folder-tree__file">your_motion_01_umr_qpos.npz</strong></code></li>
+    <li><code><strong className="docs-folder-tree__file">your_motion_01_umr.csv</strong></code></li>
+  </ul>
+</div>
 
-## 6. Inspect the Robot Result
+Use `_umr_qpos.npz` for UMR playback and `_umr.csv` for Cyclo conversion in step 7.
+
+## 6. Play the Retargeted Motion
 
 Replay the result with the model recorded in the archive:
 
 ```bash
 python scripts/visualize_robot_retarget_result.py \
-  --result output/k1_retargeted_motion.npz \
+  --result output/your_motion_01_umr_qpos.npz \
   --play
 ```
 
-The result includes `qpos`, `fps`, `frame_ids`, `robot_xml`, and source metadata. For the checked K1 model, `qpos` has 30 columns: floating-root position, a MuJoCo wxyz quaternion, and 23 joint coordinates in the model's order. Joint angles are in radians and translations in meters. Preserve the model and configuration with the output; do not assume its joint order is the order required by another application.
+## 7. Convert to Training and Deployment Formats
 
-This branch does **not** provide a CSV exporter or a ready-to-train Cyclo motion file. Conversion for [Cyclo Lab Mimic](/docs/systems/aisapiens/reinforcement_learning/cyclo_lab/mimic) or [Cyclo MJLab Mimic](/docs/systems/aisapiens/reinforcement_learning/cyclo_mjlab/mimic) must separately validate joint mapping, root/quaternion conventions, velocities, frame rate, and the destination schema. Review contacts, limits, speed, and continuity in simulation before training.
+Convert `your_motion_01_umr.csv` into the training NPZ and deployment CSV for your training environment.
 
-## Verification Scope
+The default Docker setup mounts each Cyclo repository into its container. Copy the CSV into that repository on the host, then run the converter inside the container as shown below. A file elsewhere on the host is not automatically accessible inside the container.
 
-The adapter's test suite can be run in the UMR environment:
+The examples convert **30 FPS to 50 FPS**; replace `--input_fps 30` with the FPS printed by UMR.
+
+<Tabs groupId="cyclo-platform">
+<TabItem value="cyclo-lab" label="Cyclo Lab">
+
+**On the host**, run from your Cyclo Lab repository root. Adjust the UMR output path if you used another workspace:
 
 ```bash
-python -m unittest discover -s tests -v
+mkdir -p source/cyclo_lab/data/motions/K1_rev2/your_motion_01
+cp "$HOME/k1-motion/UMR/output/your_motion_01_umr.csv" \
+  source/cyclo_lab/data/motions/K1_rev2/your_motion_01/
 ```
 
-It covers archive validation, all-16-coefficient template identity, coordinate conversion, native surface labels, degenerate geometry, and merged robot/source settings. A skipped full-import test means the complete UMR runtime has not been checked in that environment.
+**Inside the Cyclo Lab container**, select the Rev.2 robot and convert the copied CSV:
 
-The serialization/FK-to-retarget interface has also been checked with a 207-frame existing reconstruction and the targeted FlowHMR source. That check does not constitute fresh video inference, validation of optional RGBMocap post-processing, a motion-quality guarantee, or robot deployment validation. The output remains reference kinematics rather than a controller or policy.
+```bash
+cd /workspace/cyclo_lab
+python scripts/tools/motion/csv_to_npz.py \
+  -f source/cyclo_lab/data/motions/K1_rev2/your_motion_01/your_motion_01_umr.csv \
+  --input_fps 30 --output_fps 50 \
+  --robot k1_rev2 \
+  --output_name source/cyclo_lab/data/motions/K1_rev2/your_motion_01/your_motion_01.npz \
+  --headless
+```
 
-## Other Motion Sources
+For playback and task registration, see [Cyclo Lab motion preparation](/docs/systems/aisapiens/reinforcement_learning/cyclo_lab/mimic#how-to-add-your-own-mimic-task).
 
-The [original UMR project](https://github.com/hanyang9/UMR) also documents SMPL-X/LAFAN1, BONES-SEED/SOMA, HiPHI, and other source adapters. Their input formats, human models, and defaults differ from this FlowHMR SMPL-H path. Follow the matching adapter guide rather than selecting a format by filename extension alone.
+</TabItem>
+<TabItem value="cyclo-mjlab" label="Cyclo MJLab">
 
-## Sources
+**On the host**, run from your Cyclo MJLab repository root. Adjust the UMR output path if you used another workspace:
 
-- [ROBOTIS FlowHMR surface and K1 adapter guide at the targeted revision](https://github.com/ROBOTIS-GIT/UMR/blob/85b9c1c9f0bbbd9b4310039ccc399bbd9618a93d/sample_data/flowhmr/README.md)
-- [K1 robot profile](https://github.com/ROBOTIS-GIT/UMR/blob/85b9c1c9f0bbbd9b4310039ccc399bbd9618a93d/robot_configs/humanoid_retarget_robotis_ai_sapiens_k1_example.json)
-- [FlowHMR source defaults](https://github.com/ROBOTIS-GIT/UMR/blob/85b9c1c9f0bbbd9b4310039ccc399bbd9618a93d/humanoid_retarget_defaults_flowhmr.json)
+```bash
+mkdir -p source/assets/motions/K1_rev2/your_motion_01
+cp "$HOME/k1-motion/UMR/output/your_motion_01_umr.csv" \
+  source/assets/motions/K1_rev2/your_motion_01/
+```
+
+**Inside the Cyclo MJLab container**, use the Rev.2 MJCF to convert the copied CSV:
+
+```bash
+cd /workspace/cyclo_mjlab
+python scripts/tools/motion/csv_to_npz.py \
+  -f source/assets/motions/K1_rev2/your_motion_01/your_motion_01_umr.csv \
+  --input_fps 30 --output_fps 50 \
+  --model third_party/ai_sapiens/ai_sapiens_description/mujoco/k1_rev2/k1.xml \
+  --output_name source/assets/motions/K1_rev2/your_motion_01/your_motion_01.npz
+```
+
+For playback and task registration, see [Cyclo MJLab motion preparation](/docs/systems/aisapiens/reinforcement_learning/cyclo_mjlab/mimic#how-to-add-your-own-mimic-task).
+
+</TabItem>
+</Tabs>
+
+The copied source CSV is preserved alongside the converted files in the selected platform's `your_motion_01/` motion directory. These files are also visible on the host through the repository mount:
+
+<div className="docs-folder-tree" role="img" aria-label="Converted motion files: your_motion_01.npz for training and your_motion_01.csv for deployment">
+  <div className="docs-folder-tree__root">
+    <code>your_motion_01/</code>
+  </div>
+  <ul>
+    <li><code>your_motion_01_umr.csv</code><em>UMR source</em></li>
+    <li><code><strong className="docs-folder-tree__file">your_motion_01.npz</strong></code><em>Used for training</em></li>
+    <li><code><strong className="docs-folder-tree__file">your_motion_01.csv</strong></code><em>Used for deployment</em></li>
+  </ul>
+</div>
+
+:::warning[Platform-specific NPZ files]
+Cyclo Lab and Cyclo MJLab NPZ files are not interchangeable. Use the NPZ generated by the converter for your training environment.
+:::
+
+Replay the converted motion before training or deployment.
+
+## References
+
+- [ROBOTIS FlowHMR input and K1 adapter guide](https://github.com/ROBOTIS-GIT/UMR/blob/feature-phase4/sample_data/flowhmr/README.md)
+- [K1 robot profile](https://github.com/ROBOTIS-GIT/UMR/blob/feature-phase4/robot_configs/humanoid_retarget_robotis_ai_sapiens_k1_example.json)
+- [FlowHMR source defaults](https://github.com/ROBOTIS-GIT/UMR/blob/feature-phase4/humanoid_retarget_defaults_flowhmr.json)
 - [FlowHMR public source](https://github.com/flowhmr/flowhmr/tree/df15cadf56e738bf80c42c93d5e73687ff1002d2)
-- [AI Sapiens robot-description source](https://github.com/ROBOTIS-GIT/ai_sapiens/tree/937c67d66db1015a73a359f2c742943810a74e3a)
+- [AI Sapiens robot-description source](https://github.com/ROBOTIS-GIT/ai_sapiens/tree/0.4.0)

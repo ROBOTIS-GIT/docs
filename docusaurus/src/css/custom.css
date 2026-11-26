@@ -3246,3 +3246,17 @@
   outline: 2px solid var(--ifm-color-primary);
   outline-offset: 3px;
 }
+
+/* Distinguish sources, comparison labels, and UMR input formats. */
+.umr-motion-source-table th {
+  background-color: var(--ifm-color-emphasis-200);
+}
+
+.umr-motion-source-table td:first-child {
+  background-color: var(--ifm-color-emphasis-100);
+  font-weight: var(--ifm-font-weight-bold);
+}
+
+.umr-motion-source-table tbody tr:last-child td:not(:first-child) {
+  background-color: color-mix(in srgb, #3b82f6 5%, var(--ifm-background-color));
+}

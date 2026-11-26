@@ -155,19 +155,38 @@ The [output writer](https://github.com/flowhmr/flowhmr/blob/main/flowhmr/pipelin
 
 The writer applies a 180-degree rotation about Y to root pose and translation for export. Consume the exported parameters together with the matching body model; do not mix translations or cameras from another reconstruction. With post-processing enabled, the CLI retains the corrected result under the checkpoint name and removes its intermediate raw output. Keep separate run directories if both versions are needed.
 
+## Prepare the UMR Input
+
+The ROBOTIS UMR fork reads the generated **SMPL-H parameter NPZ directly**. First complete [UMR installation](/docs/systems/aisapiens/motion_generation_retargeting/umr#1-install-umr), then place the same licensed neutral SMPL-H model used for reconstruction at `UMR/smplh/neutral/model.npz`.
+
+In your copy of `humanoid_retarget_defaults_flowhmr.json`, set:
+
+```json
+{
+  "smplh_model_path": "./smplh/neutral/model.npz",
+  "motion": {
+    "data": "../FlowHMR/output/example/flowhmr_latest.npz"
+  }
+}
+```
+
+These are fields to edit, not a replacement for the complete configuration. Change the input path for your clip; nonzero FlowHMR seeds change the filename.
+
+Run retargeting in the **UMR environment**, following the [UMR configuration steps](/docs/systems/aisapiens/motion_generation_retargeting/umr#4-configure-retargeting).
+
 ## Continue to AI Sapiens K1
 
 Use the actual generated NPZ with its matching licensed neutral SMPL-H model. Preserve `poses`, `trans`, all 16 shape coefficients, and the motion sample rate. SMPL-H and SMPL-X have different topology; substituting an SMPL-X surface or trimming shape coefficients changes the motion being retargeted. The exported root pose and translation already include FlowHMR's world-orientation conversion; do not apply it a second time.
 
-The [AI Sapiens K1 UMR guide](/docs/systems/aisapiens/motion_generation_retargeting/umr) targets the ROBOTIS fork's **`feature-phase4`** branch at revision `85b9c1c9f0bbbd9b4310039ccc399bbd9618a93d`. It provides the matching SMPL-H surface adapter and K1 profile; these steps do not assume that the integration is on UMR `main`.
+The [AI Sapiens K1 UMR guide](/docs/systems/aisapiens/motion_generation_retargeting/umr) targets the ROBOTIS fork's **`feature-phase4`** branch. It provides the matching SMPL-H input adapter and K1 profile; these steps do not assume that the integration is on UMR `main`.
 
 Follow that guide to:
 
 1. Install UMR in its separate Python 3.12 environment and obtain the K1 MJCF and meshes.
-2. Run `export_flowhmr_surface.py` in the FlowHMR environment, explicitly selecting the FlowHMR checkout, licensed model, input NPZ, and actual FPS.
+2. Set the reconstruction NPZ and matching SMPL-H model paths as shown above.
 3. Run UMR with both the robot-only K1 configuration and `humanoid_retarget_defaults_flowhmr.json` source settings, then inspect the robot result.
 
-The result is a **UMR qpos NPZ**, not a CSV, a ready-to-train Cyclo motion archive, or a robot policy. Downstream conversion must separately validate the 23-joint mapping, root/quaternion conventions, velocities, frame rate, and destination schema. Review contacts, limits, speed, and continuity before following [Cyclo Lab Mimic](/docs/systems/aisapiens/reinforcement_learning/cyclo_lab/mimic) or [Cyclo MJLab Mimic](/docs/systems/aisapiens/reinforcement_learning/cyclo_mjlab/mimic).
+The K1 retargeting result includes a **UMR qpos NPZ** and a **K1 CSV**. Use the CSV with the matching Cyclo `csv_to_npz.py` and the actual frame rate to create a training motion; the UMR qpos NPZ is not itself a Cyclo training archive or a robot policy. Review contacts, limits, speed, and continuity before following [Cyclo Lab Mimic](/docs/systems/aisapiens/reinforcement_learning/cyclo_lab/mimic) or [Cyclo MJLab Mimic](/docs/systems/aisapiens/reinforcement_learning/cyclo_mjlab/mimic).
 
 The adapter's serialization/FK-to-retarget check used a 207-frame existing reconstruction. It did not exercise fresh video inference or optional RGBMocap post-processing. PHC+ human-model tracking and a successful adapter test do not establish K1 motion quality or hardware deployment readiness.
 
@@ -175,7 +194,7 @@ For another retargeting path, [Soma-retargeter](/docs/systems/aisapiens/motion_g
 
 ## Sources and Verification Scope
 
-Current FlowHMR commands and export behavior were checked against revision [`df15cad`](https://github.com/flowhmr/flowhmr/tree/df15cadf56e738bf80c42c93d5e73687ff1002d2) on November 11, 2026. K1 retargeting is documented for the named ROBOTIS UMR feature branch and its pinned revision, rather than assumed support in `main`.
+Current FlowHMR commands and export behavior were checked against revision [`df15cad`](https://github.com/flowhmr/flowhmr/tree/df15cadf56e738bf80c42c93d5e73687ff1002d2) on November 11, 2026. K1 retargeting is documented for the named ROBOTIS UMR feature branch rather than assumed support in `main`.
 
 - [Official FlowHMR repository](https://github.com/flowhmr/flowhmr)
 - [Installation](https://github.com/flowhmr/flowhmr/blob/main/docs/install.md), [inference](https://github.com/flowhmr/flowhmr/blob/main/docs/inference.md), and [web demo](https://github.com/flowhmr/flowhmr/blob/main/docs/web_demo.md)
