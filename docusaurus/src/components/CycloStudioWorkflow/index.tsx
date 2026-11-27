@@ -1,4 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
+import Translate, {translate} from '@docusaurus/Translate';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import styles from './styles.module.css';
 
@@ -37,16 +38,22 @@ export default function CycloStudioWorkflow() {
           height={100}
         />
         <span className={styles.dot} aria-hidden="true" />
-        <ul className={styles.orbit} role="list" aria-label="Cyclo Studio workflow">
-          <li className={styles.data}>Data</li>
-          <li className={styles.train}>Train</li>
-          <li className={styles.deploy}>Deploy</li>
-          <li className={styles.share}>Share</li>
+        <ul
+          className={styles.orbit}
+          role="list"
+          aria-label={translate({id: 'cycloStudio.workflow.label', message: 'Cyclo Studio workflow'})}
+        >
+          <li className={styles.data}><Translate id="cycloStudio.workflow.data">Data</Translate></li>
+          <li className={styles.train}><Translate id="cycloStudio.workflow.train">Train</Translate></li>
+          <li className={styles.deploy}><Translate id="cycloStudio.workflow.deploy">Deploy</Translate></li>
+          <li className={styles.share}><Translate id="cycloStudio.workflow.share">Share</Translate></li>
         </ul>
       </div>
       <figcaption className={styles.caption}>
         <button className={styles.control} type="button" onClick={() => setPaused((value) => !value)}>
-          {paused ? 'Resume animation' : 'Pause animation'}
+          {paused
+            ? <Translate id="cycloStudio.workflow.resume">Resume animation</Translate>
+            : <Translate id="cycloStudio.workflow.pause">Pause animation</Translate>}
         </button>
       </figcaption>
     </figure>
