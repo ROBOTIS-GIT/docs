@@ -5,13 +5,17 @@ description: Cyclo Intelligence in the CYCLO architecture and related system gui
 
 **Cyclo Intelligence** is the **Learn** module in the CYCLO software layer. It connects demonstration recording, dataset preparation, policy training, and model inference through Cyclo Data and Cyclo Brain.
 
+import CycloIntelligenceOverview from '@site/docs/systems/_partials/cyclo_intelligence/overview.mdx';
+
+<CycloIntelligenceOverview />
+
 ## System Guides
 
 | System | Guide | Coverage |
 | --- | --- | --- |
-| AI Worker | [Cyclo Intelligence](/docs/systems/aiworker/imitation_learning/) | Setup, recording, Data Tools, training, and inference. |
+| AI Worker | [Setup](/docs/systems/aiworker/imitation_learning/setup) | Setup, recording, Data Tools, training, and inference. |
 | OMY | [Cyclo Intelligence](/docs/systems/omy/imitation_learning/) | Setup, recording, Data Tools, training, and inference. |
-| OMX | [Cyclo Intelligence](/docs/systems/omx/imitation_learning/) | Setup, recording, Data Tools, training, and inference. |
+| OMX | [Setup](/docs/systems/omx/imitation_learning/setup#before-you-begin) | Setup, recording, training, and inference. |
 | AI Sapiens | [Cyclo Intelligence](/docs/systems/aisapiens/imitation_learning/cyclo_intelligence) | Coming soon; the system page is a placeholder. |
 
 Follow the guide for your robot to select its configuration and prepare the required robot and camera topics.
@@ -19,3 +23,11 @@ Follow the guide for your robot to select its configuration and prepare the requ
 ## Source Code
 
 - [ROBOTIS-GIT/cyclo_intelligence](https://github.com/ROBOTIS-GIT/cyclo_intelligence)
+
+## Legacy: Physical AI Tools
+
+The previous Physical AI Tools workflow is retained for existing AI Worker installations and is no longer updated. New workflows should use Cyclo Intelligence.
+
+[Open the legacy AI Worker guide](/docs/software/cyclo/intelligence/legacy/physical_ai_tools/imitation_learning).
+
+W1/W2 recording and inference use Cyclo Intelligence; the legacy workflow does not include those model configurations.

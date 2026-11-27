@@ -1,4 +1,163 @@
-# FAQ
-You can find frequently asked questions about the OMX in the FAQ section of the Discord server.
+---
+title: Frequently Asked Questions
+description: Questions that OMX users often asked on the ROBOTIS Discord server, with the answers of ROBOTIS.
+displayed_sidebar: omxSidebar
+---
 
-- **Discord Server**: [https://discord.gg/robotis](https://discord.gg/robotis)
+import SectionCard from '@site/src/components/SectionCard';
+
+{/* Questions that OMX users often asked on the ROBOTIS Discord server, with the answers of ROBOTIS. The Troubleshooting
+    page links here from its group "Frequently Asked on Discord".
+    A new question is one box (SectionCard) that starts with its ## heading, as on the AI Worker pages. The heading
+    ends with a fixed id, written like the ones below, so that a link to it keeps working when its words change.
+    A problem that needs steps gets its own page under support/troubleshooting/ and a card on the Troubleshooting
+    page instead. */}
+
+[← All troubleshooting guides](/docs/systems/omx/support/troubleshooting)
+
+# Frequently Asked Questions
+
+Questions that OMX users often asked on the ROBOTIS Discord server, with the answers of ROBOTIS. If your question is not here, ask on [Discord](https://discord.gg/robotis).
+
+<SectionCard>
+
+## Which PC Can I Use? \{#which-pc}
+
+A PC with Ubuntu 22.04 or 24.04, installed on the PC itself. It can be next to Windows (dual boot). On a virtual machine, Windows or macOS, OMX may not be found or may not start: see [OMX Does Not Start on a Virtual Machine, Windows, or Mac](/docs/systems/omx/support/troubleshooting/pc/pc_not_supported).
+
+### To train AI models
+
+The PC also needs an NVIDIA GPU. ROBOTIS suggests:
+
+| | Minimum | Recommended |
+| --- | --- | --- |
+| CPU | Intel Core i5 or AMD Ryzen 5 | Intel Core i7 or AMD Ryzen 7 |
+| Memory (RAM) | 16 GB | 32 GB |
+| GPU | NVIDIA GPU with CUDA | NVIDIA RTX GPU |
+| GPU memory | 6 GB | 8 GB |
+| Storage | SSD with 100 GB free | SSD with 100 GB free |
+
+### On a Jetson
+
+Use a Jetson Orin Nano or better. Jetson Orin NX and AGX Orin run more stably. The first Jetson Nano is not recommended. Training runs better on a PC with an NVIDIA GPU.
+
+</SectionCard>
+
+<SectionCard>
+
+## What Power Do the Arms Need? \{#power}
+
+The follower needs a 12 V, 5 A adapter. Its plug is 5.5 mm outside and 2.5 mm inside. In some regions, the adapter is not in the box.
+
+The leader needs no adapter. It runs on its USB-C cable.
+
+If the follower has no 12 V power, its board may not show up on the PC: in [Check the Connection](/docs/systems/omx/quick_start_guide/setup_hardware#3-check-the-connection), you then see only one `OpenRB-150` line.
+
+</SectionCard>
+
+<SectionCard>
+
+## Do I Set the Motor IDs Myself? \{#motor-ids}
+
+No. Each motor gets its ID before shipping. Put each motor on the joint of its ID, as in the [Assembly Guide](/docs/systems/omx/quick_start_guide/assembly_guide).
+
+### The motor IDs
+
+The IDs count from the base to the gripper:
+
+| Joint | Leader | Follower |
+| --- | --- | --- |
+| 1 (base) | 1 | 11 |
+| 2 | 2 | 12 |
+| 3 | 3 | 13 |
+| 4 | 4 | 14 |
+| 5 | 5 | 15 |
+| 6 (gripper) | 6 | 16 |
+
+The motor model of each joint is in [Hardware Specification](/docs/systems/omx/specifications/hardware).
+
+A new motor, for example one that replaces a broken motor, needs the ID of its joint: see [How Do I Replace a Motor?](/docs/systems/omx/support/troubleshooting/motors/replace_motor)
+
+</SectionCard>
+
+<SectionCard>
+
+## The Leader Does Not Go to Its Start Pose \{#leader-start-pose}
+
+That is normal. The leader never moves by itself: its arm joints have no torque, so it stays where your hand puts it.
+
+When the arms start, the follower first moves to its start pose by itself. Then it takes the shape of the leader, and copies it. See [Start the Arms](/docs/systems/omx/quick_start_guide/bringup#2-start-the-arms).
+
+</SectionCard>
+
+<SectionCard>
+
+## Does the Leader Have Gravity Compensation? \{#gravity-compensation}
+
+No. The leader's arm joints have no torque, so they move freely by hand.
+
+The open_manipulator software has a gravity compensation controller (`om_gravity_compensation_controller`), which the OMY leader arms use. For the OMX leader it is turned off. To try it, start from the OMY code in [open_manipulator](https://github.com/ROBOTIS-GIT/open_manipulator).
+
+</SectionCard>
+
+<SectionCard>
+
+## Can I Use Another Camera? \{#other-camera}
+
+Yes. Other USB cameras work too.
+
+Fix the camera firmly, so it does not shake. Then check its picture as in [Bringup OMX and Start Cyclo Intelligence](/docs/systems/omx/imitation_learning/setup#4-bringup-omx-and-start-cyclo-intelligence).
+
+The camera frame in the OMX box is made for the camera in the [Assembly Guide](/docs/systems/omx/quick_start_guide/assembly_guide), under **Horn orientation, camera and finishing**. Another camera may need another way to fix it to the arm.
+
+</SectionCard>
+
+<SectionCard>
+
+## Can the Leader and the Follower Be on Two PCs? \{#two-pcs}
+
+Yes. Connect both PCs to the same network, and use the same `ROS_DOMAIN_ID` on both. If the ROS 2 topics of one PC reach the other, the leader on one PC moves the follower on the other. For example, the follower can run on a Raspberry Pi.
+
+The Quick Start Guide uses one PC. How the programs talk to each other is in [Middleware](/docs/systems/omx/specifications/software#middleware), in Software Architecture.
+
+</SectionCard>
+
+<SectionCard>
+
+## Can I Use Two OMX Sets Together, or One Leader for Two Followers? \{#two-sets}
+
+Not with the official software.
+
+ROBOTIS answered that it can be built with ROS 2: for example, to run two sets on one PC, to move two followers with one leader, or to use two arms together for one task.
+
+- Run each arm in its own ROS 2 namespace.
+- Control the arms from one node above them.
+
+You write that part yourself: there is no official example.
+
+</SectionCard>
+
+<SectionCard>
+
+## Where Do I Get a Repair? \{#repair}
+
+Request a repair on the ROBOTIS A/S page. Then send the product to the address it shows, and ROBOTIS checks it.
+
+Many motor problems can be fixed without a repair. Check these first:
+
+- [The Follower Jumps or Does Not Match the Leader](/docs/systems/omx/support/troubleshooting/motors/arm_moves_wrong)
+- [A Motor Blinks Red or Is Not Found](/docs/systems/omx/support/troubleshooting/motors/motor_not_found)
+
+To request repair and service, go to [ROBOTIS A/S Request](https://www.robotis.com/shop/rma.php).
+
+</SectionCard>
+
+<SectionCard>
+
+## Where Is the Older OMX Manual? \{#older-manual}
+
+The older versions of the OMX pages are not on the site anymore.
+
+The [docs repository on GitHub](https://github.com/ROBOTIS-GIT/docs) keeps every change. Go to the pull request or commit of the time you want, and build the site on your PC to read it.
+
+</SectionCard>

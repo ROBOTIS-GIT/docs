@@ -5,8 +5,11 @@ description: Cyclo Intelligence setup documentation for AI Worker.
 
 import CycloIntelligenceSetup from '../../_partials/cyclo_intelligence/setup.mdx';
 
+This AI Worker imitation learning workflow uses [Cyclo Intelligence](/docs/software/cyclo/cyclo_intelligence) for recording, data preparation, training guidance, and inference. Follow the steps in this section after completing robot bringup.
+
 <CycloIntelligenceSetup
+  sectionCards
   robotName="AI Worker"
-  zenohGuide="/docs/systems/aiworker/quick_start_guide/setup_overview/zenoh_communication"
+  zenohGuide="/docs/systems/aiworker/overview/software_architecture#middleware"
   hostNameExample="http://ffw-{serial-number}.local:7080/"
 />

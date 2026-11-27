@@ -1,0 +1,43 @@
+---
+title: How Do I Replace a Motor?
+description: Give the new motor the ID and baud rate of the motor it replaces, then fit its horn as in the Assembly Guide.
+displayed_sidebar: omxSidebar
+---
+
+import SectionCard from '@site/src/components/SectionCard';
+
+[← All troubleshooting guides](/docs/systems/omx/support/troubleshooting)
+
+# How Do I Replace a Motor?
+
+Give the new motor the same ID and baud rate as the motor it replaces. Nothing else needs to be set.
+
+<SectionCard>
+
+## 1. Check the joint
+
+Find the ID of the joint in [Do I Set the Motor IDs Myself?](/docs/systems/omx/support/faq#motor-ids) Use the same motor model as the old motor: see [Hardware Specification](/docs/systems/omx/specifications/hardware).
+
+</SectionCard>
+
+<SectionCard>
+
+## 2. Set the ID and the baud rate
+
+With [DYNAMIXEL Wizard 2.0](https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_wizard2/), set the new motor's ID to the ID of its joint, and its baud rate to 1,000,000 bps (1 Mbps). The DYNAMIXEL Wizard 2.0 manual shows how to connect a motor and change both.
+
+:::caution
+Check the voltage before you power the motor. XL330 motors run on about 5 V, at most 6 V. XL430 motors run on about 12 V. A 12 V supply breaks an XL330 motor.
+:::
+
+</SectionCard>
+
+<SectionCard>
+
+## 3. Fit the motor
+
+Fit the horn as in the [Assembly Guide](/docs/systems/omx/quick_start_guide/assembly_guide), under **Horn orientation, camera and finishing**. Then put the motor on its joint and connect its cables as before.
+
+A horn in the wrong position makes the arm move wrong: see [The Follower Jumps or Does Not Match the Leader](/docs/systems/omx/support/troubleshooting/motors/arm_moves_wrong).
+
+</SectionCard>

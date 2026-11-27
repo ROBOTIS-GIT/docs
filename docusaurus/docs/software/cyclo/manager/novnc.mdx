@@ -1,0 +1,49 @@
+import SectionCard from '@site/src/components/SectionCard';
+
+# noVNC
+
+noVNC lets you access a remote desktop on the robot PC through a web browser without connecting an HDMI monitor. Cyclo Manager starts a noVNC server container that provides its own desktop environment, where you can use graphical applications such as DYNAMIXEL Wizard 2.
+
+<SectionCard>
+
+## Use the Remote Desktop
+
+<span id="start-novnc" />
+
+### 1. Start the noVNC Server
+
+Open **noVNC** in the Cyclo Manager navigation. Click the **start** button in **NOVNC SERVER** at the top of the page to start the noVNC container. Wait for the server to start and the connection screen to appear.
+
+![noVNC server start and log buttons](/img/software/cyclo/manager/novnc/novnc_server_control.png)
+
+<span id="open-the-remote-desktop" />
+
+### 2. Connect to the Desktop
+
+Click **Connect** (**연결** in the screenshot) to open the remote desktop.
+
+<img src="/img/software/cyclo/manager/novnc/novnc_connect.png" alt="noVNC connection screen with the Connect button" style={{display: 'block', maxWidth: '100%', height: 'auto', marginBottom: '2rem'}} />
+
+<span id="troubleshooting" />
+
+:::tip
+
+If a connection failure message appears just after starting the server for the first time, refresh the Cyclo Manager page and connect again.
+
+:::
+
+The remote desktop appears as shown below.
+
+![Connected noVNC desktop with the DYNAMIXEL Wizard 2 shortcut](/img/software/cyclo/manager/novnc/novnc_desktop.png)
+
+### 3. Open DYNAMIXEL Wizard 2
+
+Open the **Dynamixel Wizard 2** shortcut on the desktop to use DYNAMIXEL Wizard 2 in your browser. You can also open other installed tools from their desktop shortcuts.
+
+![DYNAMIXEL Wizard 2 open in the noVNC desktop](/img/software/cyclo/manager/novnc/novnc_page.png)
+
+<span id="stop-novnc" />
+
+When finished, use the **stop** button in **NOVNC SERVER** at the top of the page to stop the noVNC container.
+
+</SectionCard>

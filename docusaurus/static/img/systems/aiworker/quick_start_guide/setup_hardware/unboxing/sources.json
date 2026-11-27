@@ -1,0 +1,19 @@
+{
+  "sourceSha256": {
+    "PR48_C01_carton_full_wrap.mp4": "97c796ccd4b85d93220c4fa6ce62d138575b130f3130eab7414f1233b4627c1d",
+    "PR48_C01_wooden_aircargo.mp4": "6d5713256e4adbb49ef0a0a0143aaf56d049f607d53ee5f51f8ff33313eb84ae"
+  },
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "filter": "crop=1400:880:510:80,scale=1120:704,reverse,setpts=(PTS-STARTPTS)/4,fps=24",
+  "playbackSpeed": 4,
+  "proceduralScenes": {
+    "carton/cut-film-and-tape": {
+      "renderer": "scripts/render-aiworker-cutting.cjs",
+      "scene": "scripts/unboxing-cutting-scene.mjs",
+      "sceneSha256": "b2123e2fb7f8a51a571bbd21a3947a3c4c7d765f85c5fdac3547c0c6eafb0132",
+      "description": "New 3D cutting illustration; not reversed source footage"
+    }
+  },
+  "encoding": "H.264 libx264, CRF 22, medium, yuv420p, 24 fps, no audio, faststart",
+  "timings": "src/components/AiWorkerUnboxing/steps.json"
+}

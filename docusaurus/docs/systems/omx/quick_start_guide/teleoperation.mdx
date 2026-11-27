@@ -1,0 +1,130 @@
+import SectionCard from '@site/src/components/SectionCard';
+import {TutorialMedia} from '@site/src/components/Tutorial';
+
+# Teleoperation
+
+Complete [Software Setup](/docs/systems/omx/quick_start_guide/setup_software) before continuing.
+
+You move the leader arm with your hand, and the follower arm copies every move. This is called **teleoperation**.
+
+<TutorialMedia
+  label="A hand holds the leader arm by its two rings and moves it down, closes the gripper and lifts. The follower arm copies each move."
+  src="/img/systems/omx/quick_start_guide/teleoperation/move_omx_goal.webm"
+  poster="/img/systems/omx/quick_start_guide/teleoperation/move_omx_goal.webp"
+  names={[
+    {text: 'Leader', x: 0.316, y: 0.22},
+    {text: 'Follower', x: 0.665, y: 0.22},
+  ]}
+/>
+
+:::warning
+- The follower moves by itself when the software starts. Keep its reach clear.
+- To stop at any moment: **Ctrl + C** in Terminal 2, or pull the follower's 12 V plug.
+:::
+
+<SectionCard>
+
+## 1. Start the Arms
+
+If the arms are still running from [Bringup](/docs/systems/omx/quick_start_guide/bringup), go on to the next section. If not, start them now with two terminals.
+
+Open a terminal with **Ctrl + Alt + T**, and enter the robot container. This is Terminal 1.
+
+```bash
+cd $HOME/open_manipulator/docker
+./container.sh enter
+```
+
+Then start [Zenoh](/docs/systems/omx/specifications/software#middleware). Leave Terminal 1 open.
+
+```bash
+zenohd
+```
+
+Open a second terminal with **Ctrl + Alt + T**. This is Terminal 2. Enter the robot container there too.
+
+```bash
+cd $HOME/open_manipulator/docker
+./container.sh enter
+```
+
+:::danger[Fold the leader first]
+Before you paste the next line, **fold the leader into the same shape as in the clip, and leave it folded.** At the end, the follower goes at once to the shape the leader is in.
+:::
+
+:::warning
+After you paste the next line, the follower moves by itself to its start pose for about 10 seconds. Keep its reach clear.
+:::
+
+<TutorialMedia
+  label="Seen from above, after the line below is pasted. A hand holds the leader on the left still, folded. The follower on the right moves by itself, then stops in the same shape as the leader."
+  src="/img/systems/omx/quick_start_guide/teleoperation/start_arms_hold_leader.webm"
+  poster="/img/systems/omx/quick_start_guide/teleoperation/start_arms_hold_leader.webp"
+  shape="free"
+  width={560}
+  height={357}
+/>
+
+```bash
+ros2 launch open_manipulator_bringup omx_ai.launch.py
+```
+
+The follower moves to its start pose by itself, then takes the shape of the leader. For what each terminal shows, and what to do if something is different, see [Bringup](/docs/systems/omx/quick_start_guide/bringup).
+
+</SectionCard>
+
+<SectionCard>
+
+## 2. Move the Leader Arm
+
+Move the leader slowly. Squeeze the finger loop on its handle to close the gripper.
+
+<TutorialMedia
+  label="A hand moves the leader arm, and the follower arm copies each move"
+  src="/img/systems/omx/quick_start_guide/operation_guide/ai_teleop.gif"
+  width={560}
+/>
+
+Check that:
+
+- The follower copies the leader
+- The gripper closes when you squeeze the finger loop
+
+<details className="omx-fix">
+  <summary>Something different?</summary>
+
+| You see | Do this |
+| --- | --- |
+| The follower reached its start pose but does not copy | Press **Ctrl + C** in Terminal 2. Check the leader's USB cable. Then do [Set the Ports](/docs/systems/omx/quick_start_guide/setup_software#4-set-the-ports) again. |
+
+</details>
+
+<details>
+  <summary>How does it work?</summary>
+
+  The leader's arm motors are switched off, so your hand can move them. They only measure their angles, 100 times a second. The follower's motors go to the same angles right away. That is why the follower copies you, and why it jumps if the two arms start in different shapes.
+
+</details>
+
+</SectionCard>
+
+<SectionCard>
+
+## 3. Stop Teleoperation
+
+:::warning
+Lower the follower's gripper onto the table first. The follower goes limp when the software stops.
+:::
+
+Press **Ctrl + C** in Terminal 2, then in Terminal 1. Lines with `ERROR` at the very end are normal.
+
+</SectionCard>
+
+<SectionCard>
+
+## Troubleshooting
+
+- [The Follower Jumps or Does Not Match the Leader](/docs/systems/omx/support/troubleshooting/motors/arm_moves_wrong)
+- [Other Teleoperation Troubleshooting](/docs/systems/omx/support/troubleshooting#teleoperation)
+
+</SectionCard>

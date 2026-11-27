@@ -1,0 +1,156 @@
+import SectionCard from '@site/src/components/SectionCard';
+import {Shot, Shots, TutorialMedia} from '@site/src/components/Tutorial';
+
+# Hardware Setup Guide
+
+This guide covers the physical setup before you use OMX: fix the two arms to the table, plug them and the camera into the PC, and check that the PC sees them. Nothing moves in this guide.
+
+Complete the [Assembly Guide](/docs/systems/omx/quick_start_guide/assembly_guide) before continuing.
+
+:::info
+You need an assembled OMX with its camera, and a PC with Ubuntu.
+:::
+
+<SectionCard>
+
+## 1. Fix the Arms to the Table
+
+Use the clamps from the box, at the edge of the table.
+
+<TutorialMedia
+  label="The leader arm on the left and the follower arm on the right, each fixed to the edge of the table with two clamps. The four clamps are outlined."
+  src="/img/systems/omx/quick_start_guide/setup_hardware/start_arms_clamps.webp"
+  shape="free"
+  width={640}
+  height={424}
+  names={[
+    {text: 'Leader', x: 0.095, y: 0.06},
+    {text: 'Follower', x: 0.595, y: 0.06},
+  ]}
+  boxes={[
+    {x: 0.082, y: 0.563, w: 0.091, h: 0.39},
+    {x: 0.328, y: 0.559, w: 0.103, h: 0.395},
+    {x: 0.569, y: 0.548, w: 0.097, h: 0.413},
+    {x: 0.837, y: 0.548, w: 0.091, h: 0.413},
+  ]}
+/>
+
+</SectionCard>
+
+<SectionCard>
+
+## 2. Connect OMX
+
+You need three free USB ports. Any of them will do. The picture shows where each cable goes.
+
+<TutorialMedia
+  label="How OMX-AI connects. The leader's board and the follower's board each go to a USB port on the PC with a USB-A to USB-C cable. The 12 V adapter goes into the power board next to the follower."
+  src="/img/systems/omx/quick_start_guide/setup_guide/setup_guide/hardware_setup_OMX_AI.png"
+  shape="free"
+  width={760}
+  height={358}
+/>
+
+<Shots small>
+
+<Shot
+  tag="Leader"
+  label="A USB cable goes into the board at the back of the leader arm. Then its other end goes into a USB port on the PC."
+  src="/img/systems/omx/quick_start_guide/setup_hardware/connect_usb_leader.webm"
+  poster="/img/systems/omx/quick_start_guide/setup_hardware/connect_usb_leader.webp"
+>
+
+USB cable: into its board, then into the PC.
+
+</Shot>
+
+<Shot
+  tag="Follower"
+  label="The 12 V power plug goes into the small power board next to the follower arm"
+  src="/img/systems/omx/quick_start_guide/setup_hardware/connect_power.webm"
+  poster="/img/systems/omx/quick_start_guide/setup_hardware/connect_power.webp"
+>
+
+12 V power adapter: into the wall, then into the small power board.
+
+</Shot>
+
+<Shot
+  tag="Follower"
+  label="A USB cable goes into the board at the back of the follower arm. Then its other end goes into a USB port on the PC."
+  src="/img/systems/omx/quick_start_guide/setup_hardware/connect_usb_follower.webm"
+  poster="/img/systems/omx/quick_start_guide/setup_hardware/connect_usb_follower.webp"
+>
+
+USB cable: into its board, then into the PC.
+
+</Shot>
+
+<Shot
+  tag="Camera"
+  label="The camera above the gripper of the follower arm. Then its USB cable goes into a USB port on the PC."
+  src="/img/systems/omx/quick_start_guide/setup_hardware/connect_camera.webm"
+  poster="/img/systems/omx/quick_start_guide/setup_hardware/connect_camera.webp"
+>
+
+Its USB cable: into the PC.
+
+</Shot>
+
+</Shots>
+
+</SectionCard>
+
+<SectionCard>
+
+## 3. Check the Connection
+
+Ask the PC what it can see. Open a terminal with **Ctrl + Alt + T**. Copy the box below with the button at its top right, paste it into the terminal with **Ctrl + Shift + V**, and press **Enter**.
+
+```bash
+ls -1 /dev/serial/by-id/ /dev/v4l/by-id/
+```
+
+You should see two `OpenRB-150` lines, one for each arm, and the camera's lines.
+
+<TutorialMedia
+  label="The terminal after the command. In the two lines that start with usb-ROBOTIS_OpenRB-150, the long number is outlined in red. In the two lines that start with usb-HD_USB_Camera, the camera's name is outlined in red."
+  src="/img/systems/omx/quick_start_guide/setup_hardware/connect_omx_ls.webp"
+  shape="free"
+  width={702}
+  height={276}
+/>
+
+The parts outlined in red are different on your PC. Each board has its own number, and another camera has another name.
+
+<details className="omx-fix">
+  <summary>Something different?</summary>
+
+| You see | Do this |
+| --- | --- |
+| Only one `OpenRB-150` line | Most often the follower's 12 V power is off. Check the adapter at the wall and at the follower. |
+| No `OpenRB-150` line, or `No such file or directory` | Push both USB cables in fully, at the arm and at the PC. Use the cables from the OMX box. |
+| No `Camera` line | Unplug the camera's USB cable and plug it in again. If that does not help, try another USB port. |
+| A line is missing and its cable goes through a USB hub | Plug that cable straight into the PC. |
+
+</details>
+
+<details>
+  <summary>How does it work?</summary>
+
+  The leader takes its power from the USB cable. The follower's motors need more power, so the follower has its own 12 V adapter. The PC can see the follower only while that power is on.
+
+  The PC talks to each arm through a small board named OpenRB-150. That is the name you see in the terminal.
+
+</details>
+
+</SectionCard>
+
+<SectionCard>
+
+## Troubleshooting
+
+- [A Motor Blinks Red or Is Not Found](/docs/systems/omx/support/troubleshooting/motors/motor_not_found)
+- [OMX Does Not Start on a Virtual Machine, Windows, or Mac](/docs/systems/omx/support/troubleshooting/pc/pc_not_supported)
+
+</SectionCard>

@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="700" viewBox="0 0 1080 700" role="img" aria-labelledby="title desc">
+<title id="title">OMX system overview</title><desc id="desc">The open_manipulator Docker container on the user PC runs the ROS 2 nodes, controllers and drivers. It uses host storage through bind mounts and talks through a Zenoh router started with zenohd. An optional external PC joins the ROS 2 network. The container exchanges commands and state with the OMX-F follower, the OMX-L leader and the USB camera.</desc>
+<defs>
+<marker id="teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" fill="#397b72"/></marker>
+<marker id="copper" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" fill="#a36a37"/></marker>
+<marker id="purple" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" fill="#70688c"/></marker>
+<marker id="muted" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" fill="#59686e"/></marker>
+</defs>
+<rect width="1080" height="700" rx="20" fill="#ffffff"/>
+<g font-family="Inter, Arial, sans-serif">
+<text x="40" y="48" font-size="16" font-weight="600" text-anchor="start" fill="#59686e">OMX  /  SYSTEM OVERVIEW</text>
+<rect x="320" y="90" width="720" height="430" rx="16" fill="#f5f6f6" stroke="#d7dddd" stroke-width="1.5"/>
+<g transform="translate(346 111)" fill="none" stroke="#59686e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="28" height="20" rx="3"/><path d="M16 22v7M8 30h16"/></g>
+<text x="390" y="136" font-size="25" font-weight="600" text-anchor="start" fill="#202a2e">User PC</text>
+<text x="1012" y="135" font-size="19" font-weight="400" text-anchor="end" fill="#59686e">Ubuntu with Docker</text>
+<path d="M270 340 H300 V245 H365" fill="none" stroke="#397b72" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#teal)" marker-start="url(#teal)"/>
+<text x="43" y="257" font-size="18" font-weight="400" text-anchor="start" fill="#397b72">ROS 2 network</text>
+<path d="M615 245 H650 V305 H685" fill="none" stroke="#397b72" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#teal)" marker-start="url(#teal)"/>
+<text x="680" y="216" font-size="19" font-weight="600" text-anchor="start" fill="#397b72">ROS 2</text>
+<text x="680" y="241" font-size="18" font-weight="400" text-anchor="start" fill="#59686e">rmw_zenoh_cpp</text>
+<path d="M615 410 H685" fill="none" stroke="#59686e" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#muted)" stroke-dasharray="6 6"/>
+<text x="650" y="491" font-size="17" font-weight="400" text-anchor="middle" fill="#59686e">Bind mounts</text>
+<path d="M840 420 V565" fill="none" stroke="#397b72" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#teal)" marker-start="url(#teal)"/>
+<text x="860" y="550" font-size="17" font-weight="400" text-anchor="start" fill="#397b72">Commands / state</text>
+<rect x="40" y="280" width="230" height="120" rx="16" fill="#ffffff" stroke="#d7dddd" stroke-width="1.5"/>
+<g transform="translate(60 302)" fill="none" stroke="#397b72" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="28" height="20" rx="3"/><path d="M16 22v7M8 30h16"/></g>
+<text x="106" y="324" font-size="20" font-weight="600" text-anchor="start" fill="#202a2e">External PC</text>
+<text x="62" y="358" font-size="19" font-weight="400" text-anchor="start" fill="#59686e">Optional ROS 2 tools</text>
+<rect x="365" y="190" width="250" height="110" rx="16" fill="#ffffff" stroke="#d7dddd" stroke-width="1.5"/>
+<g transform="translate(385 212)" fill="none" stroke="#397b72" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="2" width="12" height="9" rx="2"/><path d="M16 11v7M4 18h24M4 18v5M28 18v5"/><rect x="0" y="23" width="8" height="7" rx="2"/><rect x="24" y="23" width="8" height="7" rx="2"/></g>
+<text x="431" y="234" font-size="20" font-weight="600" text-anchor="start" fill="#202a2e">Zenoh router</text>
+<text x="387" y="268" font-size="19" font-weight="400" text-anchor="start" fill="#59686e">Started with zenohd</text>
+<rect x="365" y="350" width="250" height="120" rx="16" fill="#ffffff" stroke="#d7dddd" stroke-width="1.5"/>
+<g transform="translate(385 372)" fill="none" stroke="#59686e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="16" cy="6" rx="13" ry="5"/><path d="M3 6v20c0 7 26 7 26 0V6M3 16c0 7 26 7 26 0"/></g>
+<text x="431" y="394" font-size="20" font-weight="600" text-anchor="start" fill="#202a2e">Host storage</text>
+<text x="387" y="428" font-size="19" font-weight="400" text-anchor="start" fill="#59686e">Source checkout</text>
+<text x="387" y="453" font-size="19" font-weight="400" text-anchor="start" fill="#59686e">Workspace data</text>
+<rect x="685" y="270" width="310" height="150" rx="16" fill="#eef6f3" stroke="#d7dddd" stroke-width="1.5"/>
+<g transform="translate(705 292)" fill="none" stroke="#397b72" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="28" height="25" rx="4"/><path d="M2 12h28M8 8h1M13 8h1M10 18l-4 3 4 3M22 18l4 3-4 3"/></g>
+<text x="751" y="314" font-size="23" font-weight="600" text-anchor="start" fill="#202a2e">open_manipulator</text>
+<text x="707" y="348" font-size="19" font-weight="400" text-anchor="start" fill="#59686e">Docker container</text>
+<text x="707" y="373" font-size="19" font-weight="400" text-anchor="start" fill="#59686e">ROS 2 nodes</text>
+<text x="707" y="398" font-size="19" font-weight="400" text-anchor="start" fill="#59686e">Controllers / drivers</text>
+<rect x="650" y="565" width="390" height="120" rx="16" fill="#ffffff" stroke="#d7dddd" stroke-width="1.5"/>
+<g transform="translate(670 587)" fill="none" stroke="#397b72" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="24" height="24" rx="5"/><circle cx="16" cy="16" r="6"/><path d="M16 10v6h6M0 10h4M0 22h4M28 10h4M28 22h4"/></g>
+<text x="716" y="609" font-size="23" font-weight="600" text-anchor="start" fill="#202a2e">OMX hardware</text>
+<text x="672" y="643" font-size="19" font-weight="400" text-anchor="start" fill="#59686e">OMX-F follower / OMX-L leader</text>
+<text x="672" y="668" font-size="19" font-weight="400" text-anchor="start" fill="#59686e">USB camera</text>
+</g>
+</svg>

@@ -1,0 +1,89 @@
+---
+title: Cannot Connect to the Robot
+description: Check the robot PC and network when SSH or a robot service is unreachable.
+displayed_sidebar: aiworkerSidebar
+---
+
+import SectionCard from '@site/src/components/SectionCard';
+
+[← All troubleshooting guides](/docs/systems/aiworker/support/troubleshooting)
+
+# Cannot Connect to the Robot
+
+Follow these steps if you cannot connect to the robot through SSH, Cyclo Manager, or Cyclo Intelligence.
+
+<SectionCard>
+
+## 1. Open the Router Administration Page
+
+On the User PC, check the IP address and default gateway of the Wi-Fi connection to the robot's router. On Ubuntu, run:
+
+```bash
+ip -4 addr
+ip route | grep default
+```
+
+If the PC has multiple network connections, use the gateway for the interface connected to the robot's router. Enter that gateway address in a browser to open the router administration page. For example, if the PC's IP address is `192.168.6.10` and its gateway is `192.168.6.1`, open `http://192.168.6.1`.
+
+Use the credentials for your router:
+
+- **SG2 / W2:** Sign in to the built-in router using the robot's full serial number as the password.
+- **BG2 / W1:** Sign in to the external router using its user account.
+
+The serial number format is `SNPR48X0000`:
+
+- `X`: model identifier (`A` for BG2 and SG2)
+- `0000`: the last four digits of the serial number
+
+</SectionCard>
+
+<div id="router-ip-address-is-not-19216861" />
+
+<SectionCard>
+
+## 2. The Router IP Address Is Not `192.168.6.1` <span className="badge badge--secondary" style={{fontSize: '0.8rem', float: 'right', marginLeft: '0.75rem'}}>SG2 / W2</span>
+
+The built-in router normally uses `192.168.6.1`, and the robot's AGX Orin uses the fixed address `192.168.6.2/24`.
+
+If the router's gateway is no longer in the `192.168.6.x` network, check the network connected to the robot's **WAN** port. If the upstream router also uses `192.168.6.x`, the built-in router may automatically change its LAN network to avoid an overlap. The AGX Orin remains at `192.168.6.2`, so the PC may no longer be able to reach it. A different gateway alone does not confirm a conflict.
+
+Do not connect the robot's WAN port to an upstream network that overlaps with `192.168.6.0/24`.
+
+**To restore the built-in router network:**
+
+If the built-in router's LAN address changed because of a network conflict, restore it as follows:
+
+1. Disconnect the external LAN cable from the robot's **WAN** port. Disconnecting the cable does not automatically restore the router's LAN settings.
+2. Open and sign in to the built-in router's administration page as described in [section 1](#1-open-the-router-administration-page).
+3. Go to **Advanced → Network → LAN**, change **IP Address** to `192.168.6.1`, and set the subnet mask to `255.255.255.0` (`/24`). Set the DHCP address pool from `192.168.6.100` to `192.168.6.200`, then save the settings.
+4. After applying the settings, reconnect your PC to the robot's Wi-Fi and check that it receives a `192.168.6.x` address.
+
+If you reconnect the WAN cable, use an external network that does not overlap with `192.168.6.0/24`. Otherwise, the conflict can happen again.
+
+</SectionCard>
+
+<SectionCard>
+
+## 3. The Robot Is Not in the Connected Device List
+
+For SG2 and W2, first check that the built-in router uses `192.168.6.1`. If it does not, follow the steps in [The Router IP Address Is Not 192.168.6.1](#router-ip-address-is-not-19216861).
+
+Check the router's connected-device list for the robot's AGX Orin. If it does not appear, restart the robot, wait for it to finish booting, and check the list again.
+
+</SectionCard>
+
+<SectionCard>
+
+## 4. Check the Robot Connection
+
+If the robot appears in the connected-device list, use its listed IP address to try connecting via SSH:
+
+```bash
+ssh robotis@<robot_ip>
+```
+
+Replace `<robot_ip>` with the robot's IP address shown in the router's connected-device list.
+
+If the robot still does not appear or you cannot connect via SSH, connect a monitor to the robot PC via HDMI and check whether it boots normally.
+
+</SectionCard>

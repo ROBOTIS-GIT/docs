@@ -1,0 +1,73 @@
+---
+title: Leader Bringup Fails with a Ping Error
+description: Check Leader DYNAMIXEL connections when bringup fails with a ping error.
+displayed_sidebar: aiworkerSidebar
+---
+
+import SectionCard from '@site/src/components/SectionCard';
+
+[← All troubleshooting guides](/docs/systems/aiworker/support/troubleshooting)
+
+# Leader Bringup Fails with a Ping Error
+
+If Leader bringup fails with a ping error for a specific DYNAMIXEL ID, there may be a hardware connection issue. For example:
+
+```text
+[comm_id:010][ID:010] Request ping - COMM_ERROR : [TxRxResult] There is no status packet!
+```
+
+Use DYNAMIXEL Wizard 2.0 to scan the Leader's DYNAMIXELs and check which IDs are detected.
+
+<SectionCard>
+
+## 1. Open DYNAMIXEL Wizard
+
+Connect the SMPS to the Leader and supply 12 V power. Then choose one of the following ways to use DYNAMIXEL Wizard 2.0:
+
+- **User PC:** Install [DYNAMIXEL Wizard 2.0](https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_wizard2/) on your PC, connect the Leader's USB port to the PC, and launch the application.
+- **Robot PC:** Connect the Leader's USB port to the robot, open [noVNC in Cyclo Manager](/docs/software/cyclo/manager/novnc), and launch DYNAMIXEL Wizard 2 from the remote desktop.
+
+Stop the Leader service before scanning so it does not use the same serial ports. In DYNAMIXEL Wizard, click **Options**.
+
+![Options button in DYNAMIXEL Wizard 2.0](/img/systems/aiworker/support/troubleshooting/teleoperation/leader_bringup/wizard_options.png)
+
+</SectionCard>
+
+<SectionCard>
+
+## 2. Configure the Scan
+
+In **Options**, select the following settings:
+
+![DYNAMIXEL Wizard scan options for protocol, ports, baud rate, and ID range](/img/systems/aiworker/support/troubleshooting/teleoperation/leader_bringup/wizard_scan_options.png)
+
+| Setting | Value |
+|---|---|
+| Protocol | 2.0 |
+| Port | The Leader's connected port, such as `ttyUSB0` or `ttyUSB1` |
+| Baud rate | 4,000,000 bps |
+| ID range | 0–40 |
+
+The screenshot shows 1,000,000 bps selected. For the Leader, select **4,000,000 bps** as listed above.
+
+The corresponding USB port should appear after the Leader is connected. Select the port or ports used by the Leader, then click **Scan** in the upper left of DYNAMIXEL Wizard.
+
+</SectionCard>
+
+<SectionCard>
+
+## 3. Check the Scan Results
+
+Check that all expected DYNAMIXEL IDs are detected. The following image shows an example scan result:
+
+![DYNAMIXEL Wizard scan results showing Leader devices and IDs](/img/systems/aiworker/support/troubleshooting/teleoperation/leader_bringup/wizard_scan_results.png)
+
+If a specific joint and subsequent devices in its connection chain are not detected, there may be a broken wire or disconnected cable around that joint. Check the hardware connection, power, USB port, and scan settings.
+
+<a href="https://www.robotis.com/shop/rma.php" style={{display: 'block', padding: '1rem 1.25rem', border: '1px solid var(--ifm-color-emphasis-300)', borderRadius: '10px', color: 'var(--ifm-font-color-base)', textDecoration: 'none'}}>
+  <strong>ROBOTIS A/S Request ↗</strong><br />
+  <span>Request repair and service for your ROBOTIS product.</span><br />
+  <small>robotis.com</small>
+</a>
+
+</SectionCard>

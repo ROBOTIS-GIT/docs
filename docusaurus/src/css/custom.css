@@ -2703,36 +2703,56 @@
   box-shadow: var(--robotis-card-shadow);
 }
 
-/* Docusaurus Tabs: render tab content as a VitePress-like boxed panel. */
+/* Docusaurus Tabs: keep the model selector and its content in one card. */
 .theme-doc-markdown .tabs-container {
   margin: 1rem 0 1.5rem;
-}
-
-.theme-doc-markdown .tabs-container .tabs {
-  margin-bottom: 0;
-  border-bottom: 1px solid var(--robotis-card-border);
-}
-
-.theme-doc-markdown .tabs-container .margin-top--md {
-  margin-top: 0 !important;
-}
-
-.theme-doc-markdown .tabs-container [role='tabpanel'] {
   padding: 1rem 1.1rem;
   border: 1px solid var(--robotis-card-border);
-  border-top: 0;
-  border-radius: 0 0 14px 14px;
-  background:
-    linear-gradient(180deg, color-mix(in srgb, var(--ifm-color-primary) 3%, transparent), transparent 55%),
-    var(--ifm-background-surface-color);
+  border-radius: 14px;
+  background: var(--ifm-background-surface-color);
   box-shadow: var(--robotis-card-shadow);
 }
 
-.theme-doc-markdown .tabs-container [role='tabpanel'] > :first-child {
+.theme-doc-markdown .tabs-container .tabs {
+  gap: 0.5rem;
+  margin-bottom: 0;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.theme-doc-markdown .tabs-container .tabs__item {
+  min-width: 4rem;
+  padding: 0.45rem 1rem;
+  justify-content: center;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 8px;
+  background: var(--ifm-background-surface-color);
+}
+
+.theme-doc-markdown .tabs-container .tabs__item--active {
+  border-color: var(--ifm-color-primary);
+  background: color-mix(in srgb, var(--ifm-color-primary) 12%, var(--ifm-background-surface-color));
+  color: var(--ifm-color-primary);
+}
+
+[data-theme='dark'] .theme-doc-markdown .tabs-container .tabs__item--active {
+  color: var(--ifm-color-primary-light);
+}
+
+.theme-doc-markdown .tabs-container .tabs__item:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}
+
+.theme-doc-markdown .tabs-container [role='tabpanel'] h3 {
+  font-size: 1.5rem;
+}
+
+.theme-doc-markdown .tabs-container > .margin-top--md > [role='tabpanel'] > :first-child {
   margin-top: 0;
 }
 
-.theme-doc-markdown .tabs-container [role='tabpanel'] > :last-child {
+.theme-doc-markdown .tabs-container > .margin-top--md > [role='tabpanel'] > :last-child {
   margin-bottom: 0;
 }
 
@@ -3126,4 +3146,158 @@
   .software-overview-section {
     padding: 1.25rem;
   }
+}
+
+.aiworker-controller-table table {
+  font-size: 0.85rem;
+}
+
+.aiworker-controller-table th,
+.aiworker-controller-table td {
+  padding: 0.4rem 0.5rem;
+}
+
+.aiworker-volume-table {
+  overflow-x: auto;
+}
+
+.aiworker-volume-table table {
+  font-size: 0.75rem;
+}
+
+.aiworker-volume-table th,
+.aiworker-volume-table td {
+  padding: 0.4rem 0.35rem;
+  white-space: nowrap;
+}
+
+.aiworker-top-category > .menu__list-item-collapsible > .menu__link {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.aiworker-top-category .menu__list {
+  border-left: 1px solid var(--ifm-color-emphasis-300);
+  margin-left: 0.75rem;
+  padding-left: 0.25rem;
+}
+
+.aiworker-guide-cards,
+.aiworker-guide-cards > li {
+  scroll-margin-top: calc(var(--ifm-navbar-height) + 1rem);
+}
+
+.aiworker-guide-cards a {
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1fr);
+  gap: 0.35rem 0.8rem;
+  align-content: start;
+  height: 100%;
+  padding: 1.1rem;
+  border-color: var(--ifm-color-emphasis-200);
+  border-radius: 14px;
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--ifm-color-primary) 4%, var(--ifm-background-surface-color)),
+    var(--ifm-background-surface-color));
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+  line-height: 1.45;
+}
+
+.aiworker-guide-cards .aiworker-guide-icon {
+  grid-row: 1 / span 2;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0.45rem;
+  border-radius: 9px;
+  background: color-mix(in srgb, var(--ifm-color-primary) 10%, transparent);
+  color: var(--ifm-color-primary);
+}
+
+.aiworker-guide-cards span {
+  grid-column: 2;
+  margin-top: 0;
+  color: color-mix(in srgb, var(--ifm-link-color) 75%, var(--ifm-font-color-base));
+  font-weight: 500;
+}
+
+.aiworker-guide-cards a:is(:hover, :focus-visible) {
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-heading-color);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.aiworker-guide-cards a:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 3px;
+}
+
+/* ---------- OMX left menu groups (sidebars/omx.ts only) ----------
+   .omx-sidebar-title: a group that does not fold and is not a link, so it gets no hover colour or hand cursor.
+   Its name is set large, and a thin line runs down the left of its rows, so the rows read as one group.
+   The size and the line are the same as in the AI Worker menu. */
+
+.omx-sidebar-title > .menu__list-item-collapsible > .menu__link {
+  cursor: default;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.omx-sidebar-title > .menu__list-item-collapsible:hover,
+.omx-sidebar-title > .menu__list-item-collapsible > .menu__link:hover {
+  background: none;
+}
+
+.omx-sidebar-title .menu__list {
+  border-left: 1px solid var(--ifm-color-emphasis-300);
+  margin-left: 0.75rem;
+  padding-left: 0.25rem;
+}
+
+/* ---------- OMX tables in note boxes (docs/systems/omx pages only) ----------
+   A table in a note box, such as "What is bringup?" (blue :::info), or in the green "Something different?" folding box,
+   gets the page's own background, so it reads as a white box inside the coloured one. Tables on other pages stay as
+   they are. */
+
+html[class*='docs-doc-id-systems/omx/'] :is(.theme-admonition, details.omx-fix) table {
+  background-color: var(--ifm-background-surface-color);
+  border-radius: 8px;
+}
+
+/* Its first column ("You see") keeps room, so a long command in the next column does not squeeze it to one word
+   per line. On a phone the room is smaller, and the table scrolls sideways if it must. */
+html[class*='docs-doc-id-systems/omx/'] :is(.theme-admonition, details.omx-fix) table :is(th, td):first-child {
+  min-width: 14rem;
+}
+
+@media (max-width: 720px) {
+  html[class*='docs-doc-id-systems/omx/'] :is(.theme-admonition, details.omx-fix) table :is(th, td):first-child {
+    min-width: 9rem;
+  }
+}
+
+/* "Something different?" is a folding box, closed at first (<details className="omx-fix">). It takes the green of a
+   :::tip box and its thick left edge, so it stands apart from the blue "How does it work?" box. */
+html[class*='docs-doc-id-systems/omx/'] details.omx-fix {
+  --ifm-alert-background-color: var(--ifm-color-success-contrast-background);
+  --ifm-alert-background-color-highlight: rgba(0, 164, 0, 0.15);
+  --ifm-alert-foreground-color: var(--ifm-color-success-contrast-foreground);
+  --ifm-alert-border-color: var(--ifm-color-success-dark);
+  border-left-width: var(--ifm-alert-border-left-width);
+}
+
+/* Paragraphs in a note box (:::info, :::tip, :::warning) sit a little closer together on the OMX pages, so a short
+   box such as "What is ACT?" reads as one note. The last paragraph keeps no space under it, as before. */
+html[class*='docs-doc-id-systems/omx/'] .theme-admonition p:not(:last-child) {
+  margin-bottom: 0.75rem;
+}
+
+/* A link to a place on an OMX page stops below the top bar, as a link to a markdown title does: a title written in
+   HTML (<h2 id="...">, as on the Troubleshooting page), or a spot that is not a title
+   (<span id="..." className="omx-anchor">, such as the box under Terminal 3). */
+html[class*='docs-doc-id-systems/omx/'] :is(.markdown h2[id], .omx-anchor) {
+  scroll-margin-top: calc(var(--ifm-navbar-height) + 0.5rem);
+}
+
+html[class*='docs-doc-id-systems/omx/'] .omx-anchor {
+  display: block;
 }

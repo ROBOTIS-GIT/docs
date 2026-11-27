@@ -91,7 +91,7 @@ function ProductGrid(): ReactNode {
             }
           />
           <ProductCard
-            to="/docs/systems/aiworker/introduction"
+            to="/docs/systems/aiworker/overview/introduction"
             imageSrc="/img/mega-menu/ai-worker.webp"
             imageAlt="AI Worker"
             title={<Translate id="home.card.aiworker.title">AI Worker</Translate>}

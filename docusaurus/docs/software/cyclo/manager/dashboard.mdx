@@ -1,0 +1,141 @@
+import SectionCard from '@site/src/components/SectionCard';
+
+# Dashboard
+
+Use Dashboard to monitor the Robot PC and manage containers, images, and software versions.
+
+<SectionCard>
+
+## Dashboard Overview
+
+Dashboard brings system status, container management, and version management together on one page.
+
+![Cyclo Manager dashboard](/img/software/cyclo/manager/dashboard/dashboard.png)
+
+</SectionCard>
+
+<SectionCard>
+
+## System Status
+
+The **System Status** panel shows the Robot PC's CPU and memory usage, system and SSD storage usage, and temperature when available.
+
+![System Status panel showing CPU, memory, storage, and temperature](/img/software/cyclo/manager/dashboard/system_status.png)
+
+Click **CPU** to open **CPU Usage** and inspect the host processes using CPU resources. The panel shows overall CPU and memory usage, followed by each process's PID, user, CPU and memory usage, resident memory (RSS), and command.
+
+![CPU Usage panel showing host process resource usage](/img/software/cyclo/manager/dashboard/cpu_usage_processes.png)
+
+</SectionCard>
+
+<SectionCard>
+
+## Container Management
+
+<span id="features" />
+<span id="containers" />
+
+### Manage Containers
+
+The **Container Management** panel lists Docker containers and their status. For each container, you can:
+
+- **Start, stop, or restart** the container.
+- View the container's **logs**.
+- Open a **terminal** inside the container.
+- View and edit the container's **`.bashrc`** configuration.
+
+![Container management](/img/software/cyclo/manager/dashboard/container_management.png)
+
+<span id="container-configuration" />
+<span id="change-ros_domain_id" />
+
+Use the `.bashrc` control for a container to inspect and edit its shell configuration. Changes do not alter the environment of already-running processes; restart the affected services or container when required.
+
+![Editing a container bashrc](/img/software/cyclo/manager/dashboard/modifying_bashrc_cyclo_manager.png)
+
+### Manage Docker Images
+
+<span id="docker-image-management" />
+<span id="docker-images" />
+<span id="clean-up-docker-images" />
+
+Open Docker image management from the container management area to review image tags, size, and container usage. Delete an unused image or prune dangling images when needed. Images used by a container cannot be removed from this screen.
+
+![Docker image management](/img/software/cyclo/manager/dashboard/image_management.png)
+
+</SectionCard>
+
+<SectionCard>
+
+## Version Management
+
+Use **Version Management** to inspect and update supported software packages, Cyclo Manager, and container agents.
+
+![Version management](/img/software/cyclo/manager/dashboard/version_management.png)
+
+### Package Update
+
+Use **Package Update** to update a supported robot software repository and recreate its container. Click **Update** when an update is available.
+
+<details>
+<summary>Package update procedure</summary>
+
+1. Stop the running container when prompted.
+
+   ![Stop the container before updating](/img/software/cyclo/manager/dashboard/version_update1.png)
+
+2. Choose how to handle local changes. Updates are supported on the `main` and `jazzy` branches.
+
+   ![Choose how to handle local changes](/img/software/cyclo/manager/dashboard/version_update2.png)
+
+3. Select files to preserve as needed, including any robot-specific configuration.
+
+   ![Select files to preserve](/img/software/cyclo/manager/dashboard/version_update3.png)
+
+4. Continue the update. Cyclo Manager updates the repository and recreates the container. Downloading an image may take several minutes.
+
+   ![Update the repository and recreate the container](/img/software/cyclo/manager/dashboard/version_update4.png)
+
+   ![Package update result](/img/software/cyclo/manager/dashboard/version_update5.png)
+
+</details>
+
+### Cyclo Manager Update
+
+Use **Cyclo Manager Update** to update the CLI package and restart the Manager stack with matching API and web UI images. Click **Update** when a new version is available, then reopen the web UI after the update.
+
+<details>
+<summary>Cyclo Manager update details</summary>
+
+![Cyclo Manager update](/img/software/cyclo/manager/dashboard/cyclo_manager_update.png)
+
+The update also restarts the host agent. If the web update fails, connect to the Robot PC and run:
+
+```bash
+cyclo_manager update
+```
+
+You can also update manually from a terminal on the Robot PC:
+
+```bash
+pip install -U cyclo-manager
+cyclo-manager down
+cyclo-manager up --pull
+```
+
+The `--pull` option downloads the configured images before starting the updated stack. The `down` command stops and removes the Manager stack and its host-agent service; `up` sets them up again. Both `cyclo-manager` and `cyclo_manager` are supported command names.
+
+</details>
+
+### Agent Update
+
+Use **Agent Update** when the s6 agent inside a managed container is incompatible with the installed Cyclo Manager version. In **Container Agents**, click **Update** for the affected container. The container may restart during the update.
+
+<details>
+<summary>Agent update screen</summary>
+
+![Container agent update](/img/software/cyclo/manager/dashboard/agent_version_update.png)
+
+</details>
+
+</SectionCard>

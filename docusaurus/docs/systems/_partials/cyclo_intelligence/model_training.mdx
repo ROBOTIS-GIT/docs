@@ -1,3 +1,5 @@
+import sectionStyles from '@site/src/components/SectionCard/styles.module.css';
+
 import TrainingStrategies from '@site/src/components/cyclo_intelligence/TrainingStrategies';
 import ModelPicker from '@site/src/components/cyclo_intelligence/ModelPicker';
 
@@ -6,6 +8,8 @@ import ModelPicker from '@site/src/components/cyclo_intelligence/ModelPicker';
 Training is performed outside Cyclo Intelligence. Training environments vary by model, GPU, framework version, and server setup, so Cyclo Intelligence provides this page as a guide instead of a fixed training Docker environment.
 
 Use `Data Tools` to convert and upload the dataset. Train the model in your own training environment, then bring the trained model back into Cyclo Intelligence with `Data Tools` and run it from `Model Inference`.
+
+<section className={props.sectionCards ? sectionStyles.card : undefined}>
 
 ## Supported Models
 
@@ -89,6 +93,10 @@ Unsure? Train `ACT` on your first dataset.
 
 </details>
 
+</section>
+
+<section className={props.sectionCards ? sectionStyles.card : undefined}>
+
 ## Set Up LeRobot
 
 All seven policies train with the same `lerobot-train` entry point. Install LeRobot on the training machine:
@@ -107,6 +115,10 @@ Then log in so the dataset uploaded from `Data Tools` can be pulled, and set the
 hf auth login
 HF_USER=$(hf auth whoami | head -n 1)
 ```
+
+</section>
+
+<section className={props.sectionCards ? sectionStyles.card : undefined}>
 
 ## Train
 
@@ -321,6 +333,10 @@ lerobot-train \
 
 To train on more than one GPU, `lerobot-train` is launched through `torchrun` or `accelerate launch`. See [Multi-GPU Training](https://huggingface.co/docs/lerobot/en/multi_gpu_training) for the launchers, FSDP and HSDP flags, and batch-size semantics.
 
+</section>
+
+<section className={props.sectionCards ? sectionStyles.card : undefined}>
+
 ## Upload the Trained Model
 
 From the training machine, **push the checkpoint** you want to deploy to Hugging Face. Then in Cyclo Intelligence, open `Data Tools` → `Hugging Face Upload & Download`, choose the `Model` type, and download it into `/workspace/model`.
@@ -340,3 +356,5 @@ For GR00T N1.7, select the checkpoint folder:
 ```
 
 Cyclo Intelligence aims to expand this training flow to Green VLA, RLDX, PI, and other SOTA models from LeRobot and outside.
+
+</section>
