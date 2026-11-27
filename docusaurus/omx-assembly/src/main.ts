@@ -5,6 +5,7 @@ import { Viewer } from "./viewer";
 import type { Manual, Part } from "./types";
 import { progressKey, completedStepIndices } from "./timeline.mjs";
 import { advancePlayback } from "./playback.mjs";
+import { screwCaution } from "./screw-caution.mjs";
 const icons = {
   play: '<path d="m8 5 11 7-11 7z"/>',
   pause: '<path d="M8 5v14M16 5v14"/>',
@@ -19,6 +20,7 @@ const icons = {
   link: '<path d="m9 15 6-6M8 13l-2 2a3 3 0 0 0 4 4l3-3M11 8l3-3a3 3 0 0 1 4 4l-2 2"/>',
   menu: '<path d="M4 6h16M4 12h16M4 18h16"/>',
   reset: '<path d="M4 11a8 8 0 1 1 2 7M4 4v7h7"/>',
+  alert: '<path d="M12 3.5 2.5 20h19z"/><path d="M12 10v4.5m0 2.7v.1"/>',
 };
 const icon = (name: keyof typeof icons) =>
   `<svg viewBox="0 0 24 24" aria-hidden="true">${icons[name]}</svg>`;
@@ -160,6 +162,16 @@ root.innerHTML = /* HTML */ ` <header class="app-header">
             <span class="eyebrow" id="current-counter"></span>
             <h3 id="current-title"></h3>
             <p class="part-spec" id="current-part"></p>
+            <p class="screw-caution" id="caution-motor" hidden>
+              ${icon("alert")}<span
+                >Do not overtighten — the joint will squeak</span
+              >
+            </p>
+            <p class="screw-caution" id="caution-frame" hidden>
+              ${icon("alert")}<span
+                >Do not overtighten — the frame can break</span
+              >
+            </p>
             <p class="official-part-label" id="official-part-label" hidden></p>
           </div>
           <button
@@ -575,6 +587,8 @@ function go(index: number, changeURL = true) {
     bag.title =
       s.officialLabelNote ??
       "Name shown in the official assembly video, to help match the part packaging.";
+    $("caution-motor").hidden = screwCaution(s) !== "motor";
+    $("caution-frame").hidden = screwCaution(s) !== "frame";
     $<HTMLButtonElement>("previous").disabled = current === 0;
     $("next").innerHTML =
       current === manual.steps.length - 1
