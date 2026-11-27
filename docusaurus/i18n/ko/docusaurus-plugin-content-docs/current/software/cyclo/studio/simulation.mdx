@@ -166,17 +166,17 @@ export const SimulationScreenshot = ({file, width, height, focus, alt}) => (
 
    <SimulationScreenshot file="video-motion-processing" width={580} height={250} alt="Bhangra 영상을 제출한 뒤 모션을 생성 중인 화면" />
 
-5. **내 모션**에 결과가 나타나면 **동작 보기**를 선택합니다. **입력 영상**(Source video)이 꺼져 있으면 켭니다. 타임라인을 재생하면서 원본 영상과 **K1 로봇** 미리보기를 비교할 수 있습니다.
+5. **내 모션**에 결과가 나타나면 **동작 보기**를 선택해 **K1 로봇**의 움직임을 확인합니다. 업로드한 영상과 비교하려면 미리보기를 재생하는 동안 **입력 영상**(Source video)을 켭니다.
 
 <video
-  aria-label="Bhangra 원본 영상과 K1 로봇 모션을 나란히 재생하는 모습"
+  aria-label="영상에서 생성한 참조 모션을 K1 로봇으로 미리 보는 모습"
   controls
   playsInline
   preload="metadata"
-  poster={useBaseUrl('/img/software/cyclo/studio/simulation/dev-video-motion-bhangra-side-by-side.webp')}
+  poster={useBaseUrl('/img/software/cyclo/studio/simulation/video-motion-k1-preview.webp')}
   style={{width: '100%', height: 'auto', display: 'block', borderRadius: '8px'}}>
   <source
-    src={useBaseUrl('/img/software/cyclo/studio/simulation/dev-video-motion-bhangra-side-by-side.mp4')}
+    src={useBaseUrl('/img/software/cyclo/studio/simulation/video-motion-k1-preview.mp4')}
     type="video/mp4"
   />
   브라우저가 동영상 태그를 지원하지 않습니다.
