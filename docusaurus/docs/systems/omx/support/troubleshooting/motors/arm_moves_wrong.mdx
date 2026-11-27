@@ -1,0 +1,59 @@
+---
+title: The Follower Jumps or Does Not Match the Leader
+description: Check the motor horns when the follower jumps, turns a joint the wrong way, or takes another shape than the leader.
+displayed_sidebar: omxSidebar
+---
+
+import SectionCard from '@site/src/components/SectionCard';
+
+[← All troubleshooting guides](/docs/systems/omx/support/troubleshooting)
+
+# The Follower Jumps or Does Not Match the Leader
+
+You start the arms, and the follower jumps, turns a joint the other way, or takes another shape than the leader. A motor may also stop with a blinking red light, and the terminal shows a line like this:
+
+```text
+Hardware Error Details: 0x20 (32): Overload Error
+```
+
+Most often, a motor horn was fitted in the wrong position during assembly. The horn is the round part on the motor that the frame is screwed to. The follower copies the angle of each leader joint, so a horn in the wrong position on the **leader** makes the follower move wrong too.
+
+<SectionCard>
+
+## 1. Stop the arms
+
+Press **Ctrl + C** in Terminal 2, then in Terminal 1. Then unplug the follower's 12 V adapter, so no motor keeps pushing.
+
+</SectionCard>
+
+<SectionCard>
+
+## 2. Compare the arms with the reference pose
+
+When every joint is at its initial position (180°), each arm has exactly this shape:
+
+| Leader | Follower |
+| --- | --- |
+| ![The leader with all joints at the initial position (180 degrees)](/img/systems/omx/quick_start_guide/assembly_guide/omx_l_initial.webp) | ![The follower with all joints at the initial position (180 degrees)](/img/systems/omx/quick_start_guide/assembly_guide/omx_f_initial.webp) |
+
+In this pose, the mark on each horn lines up with the mark on its motor case:
+
+![The single mark on the horn lined up with the mark on the motor case, for XL330 and XL430](/img/systems/omx/quick_start_guide/assembly_guide/horn-alignment.webp)
+
+A joint whose parts meet at another angle in this pose has its horn in the wrong position. Check the leader first, then the follower. [DYNAMIXEL Wizard 2.0](https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_wizard2/) can move a motor to 180°: its Goal Position is then 2048.
+
+</SectionCard>
+
+<SectionCard>
+
+## 3. Fit the horn again
+
+At that joint, take the frame off the horn. Turn the motor to 180°, so the horn mark lines up with the mark on the case. Then put the frame back as in the reference pose, and screw it on again. The horn orientation is also in the [Assembly Guide](/docs/systems/omx/quick_start_guide/assembly_guide), under **Horn orientation, camera and finishing**.
+
+Then start the arms again, as in [Start the Arms](/docs/systems/omx/quick_start_guide/bringup#2-start-the-arms).
+
+If the arms still move wrong, or a motor keeps blinking red, see [A Motor Blinks Red or Is Not Found](/docs/systems/omx/support/troubleshooting/motors/motor_not_found).
+
+To request repair and service, go to [ROBOTIS A/S Request](https://www.robotis.com/shop/rma.php).
+
+</SectionCard>

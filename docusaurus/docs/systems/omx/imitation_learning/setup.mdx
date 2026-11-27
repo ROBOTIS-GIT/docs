@@ -1,11 +1,383 @@
----
-title: Setup
-description: Cyclo Intelligence setup documentation for OMX.
----
+import SectionCard from '@site/src/components/SectionCard';
+import {Clicks, MediaRow, ScreenshotBox, TutorialMedia} from '@site/src/components/Tutorial';
 
-import CycloIntelligenceSetup from '../../_partials/cyclo_intelligence/setup.mdx';
+# Setup
 
-<CycloIntelligenceSetup
-  robotName="OMX"
-  zenohGuide="/docs/systems/omx/specifications/zenoh_communication"
+<SectionCard>
+
+## Before You Begin
+
+This Imitation Learning section shows the simplest way to try imitation learning with OMX, using **[Cyclo Intelligence](/docs/software/cyclo/cyclo_intelligence)**. Cyclo Intelligence is the ROBOTIS software that connects recording, dataset preparation, training and running the model.
+
+Right after you assemble OMX, you teach it one task, putting one box on the other, and train ACT, a small imitation learning model, on your tries. The boxes are the two OpenRB-150 boxes that come with OMX.
+
+You do it in four steps, one on each page of this section:
+
+1. **[Setup](/docs/systems/omx/imitation_learning/setup)** (this page): install Cyclo Intelligence, then start OMX, its camera and Cyclo Intelligence.
+2. **[Recording](/docs/systems/omx/imitation_learning/data_recording)**: with the leader arm, put one box on the other at least 50 times. Cyclo Intelligence records every try. Then you make a dataset from your tries.
+3. **[Training](/docs/systems/omx/imitation_learning/model_training)**: train an ACT model on your dataset, with the NVIDIA graphics card in your PC.
+4. **[Inference](/docs/systems/omx/imitation_learning/model_inference)**: run the model. OMX does the task by itself.
+
+Before starting, complete [Teleoperation](/docs/systems/omx/quick_start_guide/teleoperation).
+
+<TutorialMedia
+  label="One of our runs. The follower arm picks up one box and puts it on the other by itself. No hand is on the leader arm."
+  src="/img/systems/omx/imitation_learning/model_inference/train_result.webm"
+  poster="/img/systems/omx/imitation_learning/model_inference/train_result.webp"
+  shape="free"
+  width={820}
+  height={518}
 />
+
+The clip shows one of our runs that worked. Your result can be different: it depends on your tries, the camera and the light.
+
+:::info[What is ACT?]
+ACT is an imitation learning model. It looks at the camera picture and the arm's angles, and plans the next moves in the way your tries showed it.
+
+ACT is a good model for a first dataset. It is small, and it learns on the one graphics card in your PC.
+
+You show OMX a task at least 50 times with the leader arm. ACT learns from your tries, and then OMX tries the task by itself.
+:::
+
+### Requirements
+
+You need OMX and two boxes. [Training](/docs/systems/omx/imitation_learning/model_training) and [Inference](/docs/systems/omx/imitation_learning/model_inference) also need an NVIDIA graphics card in your PC.
+
+<MediaRow
+  note={<>
+    <strong>The boxes do not have to be OpenRB-150 boxes.</strong> You can use other boxes of a similar size.
+    Still, we recommend the OpenRB-150 boxes for your first try, because this guide uses them in every step and
+    picture. Two of them come with every OMX, so you can practice without preparing anything extra.
+  </>}
+>
+  <TutorialMedia
+    label="OMX: the leader arm and the follower arm with its camera."
+    src="/img/systems/omx/imitation_learning/setup/train_omx.webp"
+    shape="free"
+    width={800}
+    height={600}
+    names={[{text: 'OMX with camera frame', x: 0.5, y: 0.08}]}
+  />
+  <TutorialMedia
+    label="Two OpenRB-150 boxes floating and turning. They come with OMX."
+    src="/img/systems/omx/imitation_learning/setup/train_boxes_spin.webm"
+    poster="/img/systems/omx/imitation_learning/setup/train_boxes_spin.webp"
+    shape="free"
+    width={800}
+    height={600}
+    names={[
+      {text: 'OpenRB box ×2', x: 0.5, y: 0.08},
+      {text: 'Included with OMX', x: 0.5, y: 0.94},
+    ]}
+  />
+</MediaRow>
+
+</SectionCard>
+
+<SectionCard>
+
+## 1. Install Cyclo Intelligence
+
+Cyclo Intelligence records what you show OMX, and later runs the AI model. You install it once.
+
+In a PC terminal:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/ROBOTIS-GIT/cyclo_intelligence/main/install.sh | bash
+```
+
+When it is done, it shows where it put Cyclo Intelligence. On your PC, your user name is in place of `robotis`.
+
+<TutorialMedia
+  label="The terminal after the install command. The lines in the middle, where git downloads Cyclo Intelligence, are left out and shown as three dots. The line [install] Installed Cyclo Intelligence at: /home/robotis/cyclo_intelligence is marked in red. The last lines say how to start it, and that the model sources were not downloaded."
+  src="/img/systems/omx/imitation_learning/setup/install_cyclo_intelligence.webp"
+  shape="free"
+  width={760}
+  height={285}
+/>
+
+The last lines also say that the model sources were not downloaded. Download the one this guide uses, LeRobot. [Training](/docs/systems/omx/imitation_learning/model_training) builds the AI program from it.
+
+```bash
+cd ~/cyclo_intelligence
+git submodule update --init -- \
+  cyclo_brain/sdk/zenoh_ros2_sdk \
+  cyclo_brain/policy/lerobot/lerobot
+```
+
+The last line starts with `Submodule path 'cyclo_brain/policy/lerobot/lerobot': checked out`.
+
+<details className="omx-fix">
+  <summary>Something different?</summary>
+
+| You see | Do this |
+| --- | --- |
+| `curl: command not found` | Paste `sudo apt install curl`, then do this section again. |
+| `Refusing to modify an existing Cyclo checkout` | It was downloaded before. Update it with the lines under this table, then go on to the next section. |
+
+If it was downloaded before, update it:
+
+```bash
+cd ~/cyclo_intelligence && git pull --ff-only
+git submodule update --init -- \
+  cyclo_brain/sdk/zenoh_ros2_sdk \
+  cyclo_brain/policy/lerobot/lerobot
+```
+
+Then, in [3. Start the AI Program](/docs/systems/omx/imitation_learning/model_training#3-start-the-ai-program) of Training, start the AI program with this line the first time:
+
+```bash
+./docker/container.sh start-lerobot --build
+```
+
+</details>
+
+For every setup option, see **Setup** in the Cyclo manual.
+
+<a href="/docs/software/cyclo/intelligence/setup" class="button-shortcut">
+<span>Cyclo Intelligence Setup</span>
+</a>
+
+</SectionCard>
+
+<SectionCard>
+
+## 2. Start It and Enter Its Container
+
+```bash
+cd ~/cyclo_intelligence
+./docker/container.sh start
+./docker/container.sh enter
+```
+
+It downloads Cyclo Intelligence, then opens a terminal inside its container. Wait until you can type again. If it asks for your password, type it.
+
+<details className="omx-fix">
+  <summary>Something different?</summary>
+
+| You see | Do this |
+| --- | --- |
+| A line that ends with `no space left on device` | Free some disk space. Then do this section again. |
+
+</details>
+
+</SectionCard>
+
+<SectionCard>
+
+## 3. Check the Zenoh Setting
+
+In the Cyclo container, check the [Zenoh](/docs/systems/omx/specifications/software#middleware) setting:
+
+```bash
+grep ZENOH_CONFIG_OVERRIDE ~/.bashrc
+```
+
+You should see this. The first line, in the red box, is the setting. The second line starts with # and does nothing. That is fine.
+
+<TutorialMedia
+  label="The terminal after the check command. The first line, export ZENOH_CONFIG_OVERRIDE='transport/shared_memory/enabled=true', is marked in red. The second line starts with # and does nothing."
+  src="/img/systems/omx/imitation_learning/setup/check_zenoh_setting.webp"
+  shape="free"
+  width={760}
+  height={165}
+/>
+
+Then type `exit` and press **Enter** to leave the container.
+
+<details className="omx-fix">
+  <summary>Something different?</summary>
+
+| You see | Do this |
+| --- | --- |
+| No line | Paste <code>echo "export ZENOH_CONFIG_OVERRIDE='transport/shared_memory/enabled=true'" >> ~/.bashrc</code>, then `source ~/.bashrc`. |
+
+</details>
+
+<details>
+  <summary>How does it work?</summary>
+
+  Cyclo Intelligence runs in its own Docker container, next to the robot software. You use it through a web page, which opens in the next section.
+
+  The [Zenoh](/docs/systems/omx/specifications/software#middleware) setting lets Cyclo Intelligence talk to the robot's programs on this PC. The container comes with it, and this section only checks it.
+
+</details>
+
+</SectionCard>
+
+<SectionCard>
+
+## 4. Bringup OMX and Start Cyclo Intelligence
+
+Bring up OMX and its camera, then start Cyclo Intelligence and look through the camera. Each time you come back to record, start in the same way.
+
+:::warning
+The follower moves by itself when the arms start. Keep its reach clear.
+:::
+
+Use four terminals, in this order. Leave each one open.
+
+![The four terminals placed two by two on the screen. Terminal 1, robot container: Zenoh, with zenohd. Terminal 2, robot container: the arms, with ros2 launch open_manipulator_bringup omx_ai.launch.py. Terminal 3, robot container: the camera, with ros2 launch open_manipulator_bringup camera_usb_cam.launch.py. Terminal 4, Cyclo container: Cyclo Intelligence, with cyclo_intelligence.](/img/systems/omx/imitation_learning/setup/terminals_record.webp)
+
+We recommend placing the terminals like this, so that you can see all four at once.
+
+### Enter the Containers
+
+Open four terminals with **Ctrl + Alt + T**. In Terminals 1, 2 and 3, enter the robot container.
+
+```bash
+cd $HOME/open_manipulator/docker
+./container.sh enter
+```
+
+In Terminal 4, enter the Cyclo Intelligence container.
+
+```bash
+cd ~/cyclo_intelligence
+./docker/container.sh enter
+```
+
+### Terminal 1: Zenoh
+
+Start [Zenoh](/docs/systems/omx/specifications/software#middleware):
+
+```bash
+zenohd
+```
+
+### Terminal 2: The Arms
+
+Hold the leader folded like the follower's start pose, as in [Start the Arms](/docs/systems/omx/quick_start_guide/bringup#2-start-the-arms). Then paste.
+
+```bash
+ros2 launch open_manipulator_bringup omx_ai.launch.py
+```
+
+### Terminal 3: The Camera
+
+```bash
+ros2 launch open_manipulator_bringup camera_usb_cam.launch.py
+```
+
+The last line:
+
+```text
+[usb_cam]: Timer triggering every 33 ms
+```
+
+<span id="another-camera" className="omx-anchor"></span>
+
+<details>
+  <summary>Only if your PC has another camera, such as a laptop's own</summary>
+
+The OMX camera may then have another number than `/dev/video0`. Press **Ctrl + C** in Terminal 3, and find its number:
+
+```bash
+v4l2-ctl --list-devices
+```
+
+<TutorialMedia
+  label="The terminal after v4l2-ctl --list-devices. HD USB Camera, and /dev/video0 in the first line under it, are marked in red."
+  src="/img/systems/omx/imitation_learning/setup/camera_list_devices.webp"
+  shape="free"
+  width={430}
+  height={107}
+/>
+
+Under `HD USB Camera`, take the first `/dev/video` line. Then set the camera topic namespace and video device explicitly, with that number in place of `/dev/video0`:
+
+```bash
+ros2 launch open_manipulator_bringup camera_usb_cam.launch.py name:=camera1 video_device:=/dev/video0
+```
+
+Keep `name:=camera1`. Cyclo Intelligence looks for the camera by this name.
+
+</details>
+
+### Terminal 4: Cyclo Intelligence
+
+```bash
+cyclo_intelligence
+```
+
+Wait for this line:
+
+```text
+[cyclo_data]: cyclo_data node ready.
+```
+
+### The Web Page
+
+Open [http://localhost:7080](http://localhost:7080) in your browser. Then click three things.
+
+<ScreenshotBox
+  label="The Cyclo Intelligence home page. Point 1 is the robot type list, point 2 the Set Robot Type button, point 3 Record in the menu on the left."
+  src="/img/systems/omx/imitation_learning/setup/cyclo_full_home.webp"
+  width={760}
+  height={386}
+  marks={[
+    {n: 1, x: 0.534, y: 0.542},
+    {n: 2, x: 0.534, y: 0.61},
+    {n: 3, x: 0.062, y: 0.298},
+  ]}
+>
+
+<Clicks>
+
+1. Choose `omx_f`
+2. **Set Robot Type**
+3. **Record**, in the menu on the left
+
+</Clicks>
+
+</ScreenshotBox>
+
+You should see the camera picture on the **Record** page.
+
+<ScreenshotBox
+  label="The picture from the OMX camera on the Record page of Cyclo Intelligence. The gripper and the table are in view."
+  src="/img/systems/omx/imitation_learning/setup/cyclo_record_camera.webp"
+  width={760}
+  height={434}
+>
+
+Check that:
+
+- The camera picture is on the page. Wave your hand in front of the camera to be sure
+- Under it, **Topic Monitor** shows four green dots
+
+</ScreenshotBox>
+
+<details className="omx-fix">
+  <summary>Something different?</summary>
+
+| You see | Do this |
+| --- | --- |
+| No picture, and `Device specified is not available` in Terminal 3 | Unplug the camera's USB cable and plug it in again. Press **Ctrl + C** in Terminal 3 and paste its line again. |
+| The picture of another camera, such as a laptop's own | Open the box [Only if your PC has another camera](#another-camera), under Terminal 3. |
+| A red dot at `/joint_states` or `/leader/joint_trajectory` | Cyclo Intelligence started before the arms. Press **Ctrl + C** in Terminal 4, paste its line again, reload the page, and choose `omx_f` again. |
+| The page does not open | Terminal 4 is not running. Paste its line. |
+
+</details>
+
+<details>
+  <summary>How does it work?</summary>
+
+  Each terminal runs one program inside a container: [Zenoh](/docs/systems/omx/specifications/software#middleware), the arms and the camera in the robot container, and Cyclo Intelligence in its own. Cyclo Intelligence listens to the arms and the camera, so they must be running before it starts.
+
+  To stop, lower the follower's gripper onto the table. Then press **Ctrl + C** in each terminal, from Terminal 4 back to Terminal 1.
+
+</details>
+
+</SectionCard>
+
+<SectionCard>
+
+## Troubleshooting
+
+- [A Motor Blinks Red or Is Not Found](/docs/systems/omx/support/troubleshooting/motors/motor_not_found)
+- [OMX Does Not Start on a Virtual Machine, Windows, or Mac](/docs/systems/omx/support/troubleshooting/pc/pc_not_supported)
+- [FAQ: Which PC Can I Use?](/docs/systems/omx/support/faq#which-pc)
+- [FAQ: Can I Use Another Camera?](/docs/systems/omx/support/faq#other-camera)
+
+</SectionCard>

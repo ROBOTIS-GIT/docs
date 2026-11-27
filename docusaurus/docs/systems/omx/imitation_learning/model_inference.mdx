@@ -1,11 +1,245 @@
----
-title: Model Inference
-description: Cyclo Intelligence model inference documentation for OMX.
----
+import SectionCard from '@site/src/components/SectionCard';
+import {Clicks, ScreenshotBox, Shot, Shots, TutorialMedia} from '@site/src/components/Tutorial';
 
-import CycloIntelligenceModelInference from '../../_partials/cyclo_intelligence/model_inference.mdx';
+# Inference
 
-<CycloIntelligenceModelInference
-  robotFollowerBringupGuide="/docs/systems/omx/quick_start_guide/operation_guide/teleoperation#follower-bringup-for-inference"
-  robotFollowerBringupGuideLabel="OMX Follower Bringup for Inference"
+Take your hands off. The AI model moves the follower now.
+
+Before starting, complete [Training](/docs/systems/omx/imitation_learning/model_training).
+
+You use the four terminals of [4. Bringup OMX and Start Cyclo Intelligence](/docs/systems/omx/imitation_learning/setup#4-bringup-omx-and-start-cyclo-intelligence) again. This time Terminal 2 starts only the follower.
+
+![The four terminals placed two by two on the screen. Terminal 1, robot container: Zenoh, with zenohd. Terminal 2, robot container: the follower only, with ros2 launch open_manipulator_bringup omx_f_follower_ai.launch.py. Terminal 3, robot container: the camera, with ros2 launch open_manipulator_bringup camera_usb_cam.launch.py. Terminal 4, Cyclo container: Cyclo Intelligence, with cyclo_intelligence.](/img/systems/omx/imitation_learning/model_inference/terminals_inference.webp)
+
+We recommend placing the terminals like this, so that you can see all four at once.
+
+:::warning
+- The follower moves by itself, and it can move in ways you do not expect. Keep its reach clear.
+- To stop: click **Stop** on the page, press **Ctrl + C** in Terminal 2, or pull the follower's 12 V plug.
+:::
+
+<SectionCard>
+
+## 1. Start Everything, Without the Leader
+
+Use Terminals 1 to 4, still inside their containers. If you closed one, open it again and enter its container as in [Bringup OMX and Start Cyclo Intelligence](/docs/systems/omx/imitation_learning/setup#4-bringup-omx-and-start-cyclo-intelligence). Then paste one line in each, in this order.
+
+In Terminal 1, start [Zenoh](/docs/systems/omx/specifications/software#middleware):
+
+```bash
+zenohd
+```
+
+In Terminal 2:
+
+```bash
+ros2 launch open_manipulator_bringup omx_f_follower_ai.launch.py
+```
+
+In Terminal 3:
+
+```bash
+ros2 launch open_manipulator_bringup camera_usb_cam.launch.py
+```
+
+In Terminal 4:
+
+```bash
+cyclo_intelligence
+```
+
+</SectionCard>
+
+<SectionCard>
+
+## 2. Open the Inference Page
+
+Open [http://localhost:7080](http://localhost:7080), choose `omx_f`, click **Set Robot Type**, then click **Inference** on the left.
+
+Copy this line. You paste it at point 3 in the next section.
+
+```text
+/workspace/model/lerobot/act_stack_box/checkpoints/060000/pretrained_model
+```
+
+</SectionCard>
+
+<SectionCard>
+
+## 3. Load the Model
+
+<ScreenshotBox
+  label="The Inference page. Point 1 is the Model list, point 2 the ON button of LeRobot Docker, with its state outlined, point 3 the Policy Path box."
+  src="/img/systems/omx/imitation_learning/model_inference/cyclo_full_inference_load.webp"
+  width={760}
+  height={386}
+  marks={[
+    {n: 1, x: 0.838, y: 0.139},
+    {n: 2, x: 0.77, y: 0.24},
+    {n: 3, x: 0.838, y: 0.53},
+  ]}
+  boxes={[{x: 0.929, y: 0.171, w: 0.051, h: 0.04}]}
+>
+
+<Clicks>
+
+1. **Model**: choose `ACT`
+2. **LeRobot Docker** says `Running`. If it does not, click **ON** and wait
+3. **Policy Path**: paste the line
+
+</Clicks>
+
+</ScreenshotBox>
+
+</SectionCard>
+
+<SectionCard>
+
+## 4. Try It in the 3D Picture First
+
+:::warning
+Always run a new model in the 3D picture before the real arm. If the arm in the picture moves wildly, do not go on. Train again.
+:::
+
+<ScreenshotBox
+  label="The Inference page. 3D Sim Deploy and the 3D picture of the arm are outlined. Point 4 is the Start button at the top."
+  src="/img/systems/omx/imitation_learning/model_inference/cyclo_full_inference_load.webp"
+  width={760}
+  height={386}
+  marks={[{n: 4, x: 0.648, y: 0.063}]}
+  boxes={[
+    {x: 0.7789, y: 0.3556, w: 0.0979, h: 0.0563},
+    {x: 0.1769, y: 0.6341, w: 0.2353, h: 0.3499},
+  ]}
+>
+
+<Clicks start={4}>
+
+4. **Start**. With **3D Sim Deploy** chosen (outlined), only the arm in the 3D picture (outlined) moves. Watch it there, then click **Stop**
+
+</Clicks>
+
+</ScreenshotBox>
+
+</SectionCard>
+
+<SectionCard>
+
+## 5. Run It on the Real Arm
+
+Put the two boxes in their places, as when you recorded.
+
+<ScreenshotBox
+  label="The Inference page set for the real arm. Point 5 is Real Robot Deploy, point 6 the Enable tick box of Slow Start, point 7 the Start button."
+  src="/img/systems/omx/imitation_learning/model_inference/cyclo_full_inference_real.webp"
+  width={760}
+  height={386}
+  marks={[
+    {n: 5, x: 0.876, y: 0.384},
+    {n: 6, x: 0.915, y: 0.822},
+    {n: 7, x: 0.649, y: 0.063},
+  ]}
+>
+
+<Clicks start={5}>
+
+5. **Real Robot Deploy**
+6. **Slow Start**: tick **Enable**. The arm then goes slowly to its first pose
+7. **Start**. Now the real arm moves. Click **Stop** when it is done
+
+</Clicks>
+
+</ScreenshotBox>
+
+The model does not know when the task is done, so it keeps running until you click **Stop**. To let it try again, put the boxes back in their places.
+
+### It Can Look Like This
+
+<TutorialMedia
+  label="One of our runs. The follower arm picks up one box and puts it on the other by itself. No hand is on the leader arm."
+  src="/img/systems/omx/imitation_learning/model_inference/train_result.webm"
+  poster="/img/systems/omx/imitation_learning/model_inference/train_result.webp"
+  shape="free"
+  width={760}
+  height={481}
 />
+
+Check that the follower moves by itself, with no hand on the leader.
+
+It can stack the box as in the clip, or it can miss. How well it works depends on many things, such as what the camera sees, the light and your tries. To make it better, see [Improve](#improve).
+
+<details className="omx-fix">
+  <summary>Something different?</summary>
+
+| You see | Do this |
+| --- | --- |
+| **Start** stays grey | The AI program is not running, for example after a restart of the PC. Click **ON** and wait for `Running`, with **Engine** `Up` under it. |
+| `Image missing`, or **ON** does nothing | Do [3. Start the AI Program](/docs/systems/omx/imitation_learning/model_training#3-start-the-ai-program) in Training again. |
+| An error about the policy path | Check the line you pasted. If you trained into `act_stack_box_2`, use that name. |
+| The follower stops or shakes. Before **Start**, `/leader/joint_trajectory` in **Topic Monitor** is not `0.0` | The leader program is running too, for example from `omx_ai.launch.py`, and it sends the leader's pose to the follower. Lower the follower's gripper onto the table, press **Ctrl + C** in Terminal 2, then start only the follower: `ros2 launch open_manipulator_bringup omx_f_follower_ai.launch.py` |
+| The arm shakes, or misses the box most of the time | See [Improve](#improve). |
+
+</details>
+
+### Stop
+
+:::warning
+Lower the follower's gripper onto the table first. The follower goes limp when its program stops.
+:::
+
+Click **Stop** on the page. **Stop** pauses the model and keeps it loaded. **Clear** also unloads it, for example before you load another model. Then press **Ctrl + C** in Terminals 4, 3, 2 and 1.
+
+<details>
+  <summary>How does it work?</summary>
+
+  Many times a second, the model looks at the camera picture and the arm's angles, and plans the next few seconds of moves. With **3D Sim Deploy**, the plan only shows in the 3D picture. With **Real Robot Deploy**, it goes to the motors.
+
+  The model has no "done" signal. It keeps going until you click **Stop**.
+
+</details>
+
+</SectionCard>
+
+<SectionCard>
+
+## Improve
+
+This section is for after your first run, if you want OMX to do the task better.
+
+How well imitation learning works depends on many things: what the camera sees, the light and the things around the robot, and how many tries you recorded and how alike they are. A second camera can also help. The camera on the wrist sees only what is in front of the gripper, and LeRobot, which trains the model in this guide, suggests two camera views.
+
+### What the Camera Should See
+
+OMX decides each move from the camera picture. So when it runs, the picture should look like it did when you recorded. You should be able to do the task by only looking at the picture. With one camera on the wrist, the picture can show no box at the start: the box should come into it as the gripper moves near.
+
+<Shots>
+  <Shot label="The OMX camera picture with the gripper near the box, and the box in it" src="/img/systems/omx/imitation_learning/model_inference/train_further_1.webm" poster="/img/systems/omx/imitation_learning/model_inference/train_further_1.webp"><strong>Good:</strong> the box comes into the picture as the gripper moves near.</Shot>
+  <Shot label="The OMX camera picture with the gripper near the box, but no box in it" src="/img/systems/omx/imitation_learning/model_inference/train_further_2.webm" poster="/img/systems/omx/imitation_learning/model_inference/train_further_2.webp"><strong>Not good:</strong> the box stays out of the picture.</Shot>
+  <Shot label="The OMX camera picture with a hand in it" src="/img/systems/omx/imitation_learning/model_inference/train_further_3.webm" poster="/img/systems/omx/imitation_learning/model_inference/train_further_3.webp"><strong>Not good:</strong> a hand is in the picture. Only the follower and the box it carries should move in it.</Shot>
+  <Shot label="The OMX camera picture in other light than in the recording" src="/img/systems/omx/imitation_learning/model_inference/train_further_4.webm" poster="/img/systems/omx/imitation_learning/model_inference/train_further_4.webp"><strong>Not good:</strong> the light is different from when you recorded. Daylight from a window changes during the day.</Shot>
+</Shots>
+
+### Other Usual Reasons
+
+These are the usual reasons, not all of them. A model can also miss for other reasons, such as how many tries you recorded or how it was trained. They come from the [LeRobot guide](https://huggingface.co/docs/lerobot/en/il_robots#tips-for-gathering-data) and its list of [what makes a good dataset](https://huggingface.co/blog/lerobot-datasets#what-makes-a-good-dataset).
+
+| What went wrong | What to do |
+| --- | --- |
+| The scene changed after you recorded | Run OMX in the same place, with the same things around it, as when you recorded. |
+| Your tries were not alike | Start every try from the same pose, and pick up the same box the same way. Discard odd tries. |
+| The boxes were in too many places | Keep them in the same places at first. Add other places only after it works well, with about 10 tries at each. |
+| The camera shakes | Fix the camera firmly. |
+
+Fix what went wrong. If it was your tries, record them again. Then do [Training](/docs/systems/omx/imitation_learning/model_training) and this page again.
+
+Still missing? Record more tries, or ask on [Discord](https://discord.gg/robotis).
+
+### Learn More in Cyclo Intelligence
+
+This guide used Cyclo Intelligence in one simple way. Its pages in the Cyclo manual explain every part: setup, recording, the dataset tools, training with other models, and every inference option.
+
+<a href="/docs/software/cyclo/cyclo_intelligence" class="button-shortcut">
+<span>Open Cyclo Intelligence in the Cyclo Manual</span>
+</a>
+
+</SectionCard>
