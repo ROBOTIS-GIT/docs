@@ -1,6 +1,7 @@
 import React from 'react';
 import {useLocation} from '@docusaurus/router';
 import {useDoc} from '@docusaurus/plugin-content-docs/client';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import DocItemLayout from '@theme-original/DocItem/Layout';
 import DocItemPaginator from '@theme/DocItem/Paginator';
 import DocVersionBanner from '@theme/DocVersionBanner';
@@ -23,6 +24,10 @@ function normalizeDocPath(pathname) {
 }
 
 function UnsupportedKoreanDocNotice({englishPath}) {
+  const {siteConfig, i18n: {localeConfigs}} = useDocusaurusContext();
+  const english = localeConfigs.en;
+  const englishUrl = english.url === siteConfig.url ? '' : english.url;
+
   return (
     <div className="ko-unsupported-doc" aria-labelledby="ko-unsupported-doc-title">
       <section className="ko-unsupported-doc__notice">
@@ -31,7 +36,7 @@ function UnsupportedKoreanDocNotice({englishPath}) {
         <p>
           이 문서는 현재 영어 원문만 제공됩니다.
         </p>
-        <a className="button button--primary" href={englishPath}>
+        <a className="button button--primary" href={`${englishUrl}${englishPath}`}>
           영어 원문 보기
         </a>
       </section>
