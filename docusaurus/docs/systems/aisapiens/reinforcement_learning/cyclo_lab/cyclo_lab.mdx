@@ -31,10 +31,12 @@ Install these on the host PC first:
 - Docker and Docker Compose.
 - NVIDIA Container Toolkit.
 - NVIDIA GPU driver compatible with the Isaac Sim container image.
+- Git LFS (`sudo apt install git-lfs` on Ubuntu), required to download the Dance1 and Dance2 motion files.
 
-Clone Cyclo Lab with its submodules:
+On the host, initialize Git LFS before cloning Cyclo Lab with its submodules:
 
 ```bash
+git lfs install
 git clone https://github.com/ROBOTIS-GIT/cyclo_lab.git
 cd cyclo_lab
 git submodule update --init
@@ -43,9 +45,11 @@ git submodule update --init
 <details>
 <summary>Already cloned Cyclo Lab?</summary>
 
-Initialize the submodules before starting the container:
+From the repository root on the host, download the LFS files and initialize the submodules before starting the container:
 
 ```bash
+git lfs install
+git lfs pull
 git submodule update --init
 ```
 
