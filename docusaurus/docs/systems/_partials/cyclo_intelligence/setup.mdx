@@ -64,6 +64,8 @@ docker info | grep -i runtimes
 
 ## 1. Install
 
+{props.preinstalledOnW1W2 && <p>Cyclo Intelligence is pre-installed on W1 and W2.</p>}
+
 ```bash
 curl -fsSL https://raw.githubusercontent.com/ROBOTIS-GIT/cyclo_intelligence/main/install.sh | bash
 ```
