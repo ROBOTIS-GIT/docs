@@ -13,8 +13,9 @@ server from the repository root:
 docker compose -f docker-compose.dev.yml up --build -d
 ```
 
-Open http://localhost:5715. The development server uses the English (`en`) locale
-and automatically reloads when source files change.
+Open http://localhost:5715 for English or http://localhost:5716/ko/ for Korean.
+Use the language menu to switch between the two development servers. Both
+automatically reload when source files change.
 
 View the logs:
 

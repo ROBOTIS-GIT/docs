@@ -8,7 +8,7 @@
 
 The architecture is organized into three layers:
 
-- **Platform:** Cyclo Studio simulates and trains Cyclo Ready Robots to create actions and deploy them to physical robots. Cyclo Marketplace lets users share and sell datasets, actions, and AI models.
+- **Platform:** Cyclo Studio simulates and trains Cyclo Ready Robots to create actions and deploy them to physical robots. Marketplace lets users share and sell datasets, actions, and AI models.
 - **Software:** Intelligence, Lab, Control, App, and Flow cover learning, simulation, motion control, applications, and orchestration. Cyclo Manager provides web-based robot operation and maintenance. Under these modules, OS provides the common foundation for DYNAMIXEL management, service management, real-time control, health, and safety.
 - **Hardware:** DYNAMIXEL actuators power AI Sapiens, AI Worker, OMY, OMX, ROBOTIS Hand, and custom DYNAMIXEL-based robots.
 
@@ -20,8 +20,7 @@ CYCLO follows ROBOTIS's open-source philosophy, making software building blocks 
 
 | Layer | Module | Role |
 | --- | --- | --- |
-| Platform | [Cyclo Studio](/docs/software/cyclo/cyclo_studio) | Simulate and train Cyclo Ready Robots, create actions, and deploy them to physical robots. |
-| Platform | [Cyclo Marketplace](/docs/software/cyclo/cyclo_marketplace) | Share and sell datasets, actions, and AI models. |
+| Platform | [Cyclo Studio](/docs/software/cyclo/cyclo_studio) | Find datasets in [Marketplace](/docs/software/cyclo/cyclo_marketplace), train models in [Simulation](/docs/software/cyclo/studio/simulation), deploy to robots, and share results through [Hub](/docs/software/cyclo/studio/hub). |
 | Software | [Cyclo AI](/docs/software/cyclo/cyclo_ai) | Develop software for DYNAMIXEL actuators and ROBOTIS robots with Codex and Claude Code. |
 | Software | [Cyclo Intelligence](/docs/software/cyclo/cyclo_intelligence) | Learn through demonstration recording, policy training, and inference. |
 | Software | [Cyclo Lab](/docs/software/cyclo/cyclo_lab) | Simulate robots and develop reinforcement learning policies. |

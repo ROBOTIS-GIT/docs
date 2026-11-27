@@ -1,0 +1,175 @@
+---
+title: Marketplace
+slug: /software/cyclo/cyclo_marketplace
+description: Find robot datasets and 3D assets, review formats and licenses, and download acquired assets from your Cyclo Studio library.
+---
+
+import SectionCard from '@site/src/components/SectionCard';
+
+**Marketplace** is the asset catalog in [Cyclo Studio](../cyclo_studio.mdx). Use it to find robot datasets and 3D assets, check their compatibility and licenses, and download acquired files for your projects. You can also upload your own datasets to share.
+
+Catalog and detail screenshots show actual ROBOTIS listings. Cart and library screens use sample data; available assets and specifications may differ.
+
+:::info[Current Availability]
+Only free assets can currently be ordered. Paid checkout and the **Price** filter are not available yet. An asset with a listed price can be viewed, but a nonzero order total cannot be checked out.
+
+You cannot upload your own datasets yet. This feature is planned for a future release.
+:::
+
+<SectionCard>
+
+## Before You Start
+
+- You can browse the catalog and open asset details without signing in.
+- Sign in to save assets, add them to your cart, place an order, or download acquired files.
+- If you registered with an email address, complete email verification before signing in.
+
+Open **Marketplace** in Cyclo Studio. The basic workflow is:
+
+1. Narrow the catalog with filters and sorting.
+2. Open an asset and check its format, robot platform, version, and license.
+3. Acquire a free asset using **Buy now** or the cart.
+4. Open **My Page → Library** and download its files.
+
+</SectionCard>
+
+<SectionCard>
+
+## Find an Asset
+
+### Filter the Catalog
+
+Use the filter panel beside the product list. On smaller screens, or when the panel does not fit vertically, click **Filters** to open it.
+
+| Filter | How to use it |
+| --- | --- |
+| **Product type** | Select **Dataset** or **3D asset**. |
+| **File format** | Select an available format, such as **LeRobot Dataset** or **Sapiens K1 Motion**. |
+| **Category** | Select a category from the catalog. |
+| **Robot platform** | Enter the exact platform identifier, such as `ffw_sg2_rev1`. A partial name does not match. |
+
+Filters in different groups work together. Each group accepts one selection at a time. Remove an active filter above the results, or click **Reset** to clear the filters and restore **Newest** sorting.
+
+<img src="/img/software/cyclo/studio/marketplace/catalog.png" alt="English Marketplace with product type, file format, category, and robot platform filters beside real ROBOTIS dataset cards" style={{display: 'block', width: '100%', maxWidth: 1100, height: 'auto', margin: '1rem auto 2rem'}} />
+
+### Sort the Results
+
+The menu above the cards defaults to **Newest**. Choose **Most popular**, **Top rated**, **Most viewed**, **Price: low to high**, or **Price: high to low** to change the order.
+
+Scroll through the results to load additional assets. If a **Load more** button appears, click it to continue.
+
+### Save an Asset for Later
+
+Hover over a card, or focus its controls with the keyboard, to reveal its actions. Click the heart (**Save**) to save the asset; click it again to remove the saved state. Sign-in is required.
+
+</SectionCard>
+
+<SectionCard>
+
+## Review Asset Details
+
+Click an asset card to open its details. Use the preview arrows or thumbnails to switch between images and videos. Videos have playback controls.
+
+Check the following before ordering:
+
+| Information | What to check |
+| --- | --- |
+| **Formats** and **Total size** | Confirm that your tools support the file format and that you have enough storage. |
+| **Asset version** | Check the release label and activation date when shown. |
+| **License** and **License details** | Read the displayed license and any custom terms before using or redistributing the files. |
+| **Dataset attributes** | Check the robot platform, collection environment, episode count, samples, and sampling rate when supplied. |
+| **Sensors and observations** | Check camera modalities, resolution, frame rate, and joint-state availability when supplied. |
+
+<img src="/img/software/cyclo/studio/marketplace/asset-details.png" alt="Shower Puff Pick & Place dataset detail dialog with a photographic preview, version, license, file formats, and Buy now and Add to cart controls" style={{display: 'block', width: '100%', maxWidth: 1100, height: 'auto', margin: '1rem auto 2rem'}} />
+
+Use the tabs below the specifications:
+
+- **Description**: Read the publisher's description of the asset.
+- **Formats / versions**: Review the file names, formats, and sizes. For an asset you already own, downloadable files can also have a download control.
+- **Reviews**: Read available ratings, reviews, and seller replies. Review submission is not available in this interface.
+
+Some fields are omitted when the publisher has not provided them. A matching platform identifier alone does not establish compatibility; also check the files, sensors, and description.
+
+</SectionCard>
+
+<SectionCard>
+
+## Acquire a Free Asset
+
+A free asset still needs to be acquired before it appears in your library. Saving an asset or adding it to the cart does not grant download access.
+
+### Buy One Asset
+
+1. Open the asset details and click **Buy now**.
+2. Sign in if prompted.
+3. Review the asset and amount on the **Checkout** page.
+4. Complete the order as described below.
+
+### Use the Cart
+
+1. Click **Add to cart** in the asset details. The cart icon on a product card also adds that asset and opens the cart.
+2. Open **Cart** from the navigation when you are ready to review your selection.
+3. Select the assets you want to acquire. Use **Select all** to select available items.
+4. Check the items and **Order summary**, then click **Check out**.
+
+Use **Remove selected** to remove selected items from the cart. **Remove unavailable** clears items that can no longer be ordered. You cannot acquire an asset you already own or buy from your own store.
+
+<figure style={{margin: '1rem 0 2rem'}}>
+  <img src="/img/software/cyclo/studio/marketplace/cart.png" alt="Cart containing an example free dataset, with item selection, removal controls, order summary, and Check out button" style={{display: 'block', width: '100%', maxWidth: 1100, height: 'auto', margin: '0 auto'}} />
+  <figcaption style={{marginTop: '0.5rem', textAlign: 'center', fontSize: '0.875rem'}}>Example screen with sample cart data.</figcaption>
+</figure>
+
+### Complete the Order
+
+1. On **Checkout**, verify the order items, any displayed discount, and **Amount due**. The total must be zero while paid checkout is unavailable.
+2. Read the order consent text. Select the checkbox only if you agree.
+3. Click the **Pay** button showing a zero total.
+4. Wait for **Purchase complete**, then click **Go to your library**.
+
+If the amount or terms change, review the updated information before trying again. If an order is already in progress, wait for it to finish rather than starting another order.
+
+:::note[Payment Controls]
+The payment-method area is not a working card-registration flow. Do not use it to set up a payment card; paid orders are not supported yet.
+:::
+
+</SectionCard>
+
+<SectionCard>
+
+## Download Acquired Files
+
+1. Open **More (···) → My Page** in the navigation, then select **Library**. The **Go to your library** link after a completed order opens the same section.
+2. Find the acquired asset and expand its row using the chevron (**Show files**).
+3. Check the file name, format, and size, then click **Download** beside the file you need.
+4. Allow the browser's download or new-tab prompt if it blocks the file from opening.
+
+<figure style={{margin: '1rem 0 2rem'}}>
+  <img src="/img/software/cyclo/studio/marketplace/library.png" alt="Library with an expanded example K1 motion asset showing its file name, format, size, and Download button" style={{display: 'block', width: '100%', maxWidth: 1100, height: 'auto', margin: '0 auto'}} />
+  <figcaption style={{marginTop: '0.5rem', textAlign: 'center', fontSize: '0.875rem'}}>Example screen with sample library data.</figcaption>
+</figure>
+
+You can also use the download icon on an owned asset's Marketplace card. If several files are available, choose the required file in **Formats / versions**. Files are downloaded individually.
+
+:::tip[Already Owned Assets]
+If **Download from library** in the detail panel is disabled, open **My Page → Library** to download the files. The library lists files available to your account.
+:::
+
+</SectionCard>
+
+<SectionCard>
+
+## Troubleshooting
+
+| Situation | What to do |
+| --- | --- |
+| No matching assets | Remove filters or click **Reset**. Check that **Robot platform** contains the complete identifier. |
+| Filter options or products fail to load | Click **Try again** in the affected area. Check your network connection if the error continues. |
+| A sign-in prompt appears | Sign in to the account that will acquire or already owns the asset. |
+| Checkout reports an unavailable item | Return to the cart, remove unavailable items, and review the selection again. |
+| Checkout reports a changed amount or terms | Review the updated total or consent before submitting the order again. |
+| An asset is already owned | Open **My Page → Library** instead of ordering it again. |
+| A nonzero order cannot be completed | Paid checkout is not available yet. Only free assets can currently be acquired. |
+| Library files do not appear | Confirm that the order completed and that you are signed in to the same account. Expand the asset and retry if a loading error is shown. |
+| Download does not start | Allow the browser's blocked download or new tab, then click **Download** again to request a fresh link. |
+
+</SectionCard>

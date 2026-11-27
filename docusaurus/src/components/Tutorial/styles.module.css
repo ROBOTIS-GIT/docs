@@ -1,0 +1,401 @@
+/* ---------- Pictures and clips ---------- */
+
+.mediaItem,
+.mediaEmpty {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+}
+
+.mediaItem {
+  background: #eef1f5;
+  object-fit: cover;
+}
+
+/* Names written on top of a picture or clip. The pictures have a light background in both themes,
+   so the names are always dark. They keep a readable size however small the picture is shown. */
+.mediaFrame {
+  position: relative;
+  container-type: inline-size;
+}
+
+.mediaName {
+  position: absolute;
+  color: #1f2328;
+  font-size: clamp(0.8rem, 3.4cqw, 1.2rem);
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+/* One name in a rounded label at the top left: which arm or part the picture is about.
+   Dark with white letters and a white edge, so it is clear on the light background and on the dark robot. */
+.mediaTag {
+  position: absolute;
+  top: clamp(0.6rem, 3.4cqw, 1rem);
+  left: clamp(0.6rem, 3.4cqw, 1rem);
+  padding: 0.5em 1em;
+  border: 1.5px solid rgb(255 255 255 / 90%);
+  border-radius: 999px;
+  background: #14171c;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 28%);
+  color: #fff;
+  font-size: clamp(0.82rem, 3.8cqw, 1rem);
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* A numbered point on a screenshot: click here. The same point as in the list next to it. */
+.mediaMark {
+  position: absolute;
+  display: grid;
+  width: clamp(1.25rem, 4.4cqw, 1.75rem);
+  height: clamp(1.25rem, 4.4cqw, 1.75rem);
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: var(--tutorial-mark);
+  box-shadow: 0 2px 6px rgb(0 0 0 / 35%);
+  color: #fff;
+  font-size: clamp(0.7rem, 2.3cqw, 0.88rem);
+  font-weight: 700;
+  line-height: 1;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  place-items: center;
+}
+
+/* An outline on a screenshot: look here. The colour of the numbered points, because the Cyclo Intelligence
+   pages use green for buttons and states, and a green outline is lost on them. */
+.mediaBox {
+  position: absolute;
+  border: 3px solid var(--tutorial-mark);
+  border-radius: 10px;
+  pointer-events: none;
+}
+
+.mediaSquare {
+  aspect-ratio: 1;
+}
+
+/* A screenshot keeps its own shape. The thin border shows where a white screen ends on a white page. */
+.mediaFree {
+  height: auto;
+  aspect-ratio: auto;
+  border: 1px solid var(--robotis-card-border, rgb(31 35 40 / 14%));
+}
+
+/* A picture or clip with one short line under it: where it was taken and what it shows. Its room above and below
+   is set with the other pictures, below. */
+
+.mediaCaption {
+  margin-top: 0.6rem;
+  color: var(--robotis-muted);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+/* A screenshot opens larger when clicked. The hint shows while the pointer is on it. */
+.mediaZoomable {
+  cursor: zoom-in;
+}
+
+.mediaZoomHint {
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0.5rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 6px;
+  background: rgb(0 0 0 / 62%);
+  color: #fff;
+  font-size: 0.75rem;
+  line-height: 1.6;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s;
+}
+
+.mediaZoomable:hover .mediaZoomHint,
+.mediaZoomable:focus-visible .mediaZoomHint {
+  opacity: 1;
+}
+
+/* The larger view covers the window below the site's top bar. A click anywhere or Escape closes it. */
+.mediaZoom {
+  --tutorial-mark: #f2603a;
+  position: fixed;
+  z-index: 1000;
+  inset: var(--ifm-navbar-height, 3.75rem) 0 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb(0 0 0 / 82%);
+  cursor: zoom-out;
+}
+
+.mediaZoomFrame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+/* An empty slot that says what is still to be made. */
+.mediaEmpty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: 1rem;
+  border: 1px dashed var(--ifm-color-emphasis-400);
+  background: var(--ifm-color-emphasis-100);
+  text-align: center;
+}
+
+.mediaEmpty span {
+  color: var(--robotis-muted);
+  font-size: 0.78rem;
+}
+
+.mediaEmpty strong {
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+/* The colour of the numbered points, in a list and on a screenshot. A warm coral: it stands apart
+   from the blue, green and red buttons that the screenshots themselves contain. */
+.mediaFrame,
+.clicks {
+  --tutorial-mark: #f2603a;
+}
+
+/* A picture or clip on its own, in the page, in a section's box or in a <details>, gets room above and below.
+   Inside a row, a shot, a figure or the larger view, the part around it sets the room. */
+.mediaFrame,
+.mediaEmpty,
+.mediaFigure {
+  margin: 1.25rem 0 1.75rem;
+}
+
+.mediaFigure > .mediaFrame,
+.mediaFigure > .mediaEmpty,
+.mediaRow .mediaFrame,
+.mediaRow .mediaEmpty,
+.mediaRow .mediaFigure,
+.shot .mediaFrame,
+.shot .mediaEmpty,
+.mediaZoom .mediaFrame {
+  margin: 0;
+}
+
+/* ---------- Clicks ----------
+   A numbered list of things to click. Its numbers are the same points as the marks on a screenshot. */
+
+.clicks ol {
+  margin: 1rem 0 1.25rem;
+  padding: 0;
+  list-style: none;
+  counter-reset: click var(--clicks-from, 0);
+}
+
+.clicks li {
+  position: relative;
+  margin: 0.55rem 0;
+  padding-left: 2.4rem;
+  counter-increment: click;
+}
+
+.clicks li::before {
+  position: absolute;
+  top: -0.05em;
+  left: 0;
+  display: grid;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: var(--tutorial-mark);
+  color: #fff;
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 1;
+  content: counter(click);
+  place-items: center;
+}
+
+/* A list point can have its own colour (Clicks `colors`), the same as its mark on the picture. */
+.clicks li:nth-child(1)::before {
+  background: var(--click-1, var(--tutorial-mark));
+}
+
+.clicks li:nth-child(2)::before {
+  background: var(--click-2, var(--tutorial-mark));
+}
+
+.clicks li:nth-child(3)::before {
+  background: var(--click-3, var(--tutorial-mark));
+}
+
+.clicks li:nth-child(4)::before {
+  background: var(--click-4, var(--tutorial-mark));
+}
+
+.clicks li:nth-child(5)::before {
+  background: var(--click-5, var(--tutorial-mark));
+}
+
+.clicks li:nth-child(6)::before {
+  background: var(--click-6, var(--tutorial-mark));
+}
+
+.clicks li:nth-child(7)::before {
+  background: var(--click-7, var(--tutorial-mark));
+}
+
+.clicks li:nth-child(8)::before {
+  background: var(--click-8, var(--tutorial-mark));
+}
+
+/* ---------- Screenshot box ----------
+   One rounded box, as wide as the reading column. Inside: the short text on top, its screenshot below it
+   at the full width of the box. A screenshot narrower than the box is not stretched; it sits in the middle. */
+
+.screenshotBox {
+  margin: 1.25rem 0 1.75rem;
+  padding: 1.25rem 1.4rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 14px;
+}
+
+.screenshotBoxText > :first-child,
+.screenshotBoxText > :first-child > :first-child {
+  margin-top: 0;
+}
+
+.screenshotBoxText > :last-child,
+.screenshotBoxText > :last-child > :last-child {
+  margin-bottom: 0;
+}
+
+.screenshotBoxPicture {
+  margin-top: 1.1rem;
+}
+
+.screenshotBoxPicture > .mediaFrame {
+  margin: 0 auto;
+}
+
+@media (max-width: 720px) {
+  .screenshotBox {
+    padding: 1rem;
+  }
+}
+
+/* A screenshot box inside a section's box (SectionCard) needs no frame of its own. */
+section .screenshotBox {
+  margin: 1.25rem 0;
+  padding: 0;
+  border: 0;
+}
+
+/* ---------- Shots ----------
+   Small actions side by side: a square clip of the robot side, a number, one sentence. */
+
+.shots {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem 1.25rem;
+  margin: 1.25rem 0 1.75rem;
+  padding: 0;
+  counter-reset: shot;
+  list-style: none;
+}
+
+.shots .shot {
+  margin: 0;
+  counter-increment: shot;
+}
+
+.shotText {
+  display: grid;
+  grid-template-columns: 1.6rem minmax(0, 1fr);
+  margin-top: 0.7rem;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.shotText::before {
+  color: var(--robotis-muted);
+  font-variant-numeric: tabular-nums;
+  content: counter(shot);
+}
+
+.shotText > div > :last-child {
+  margin-bottom: 0;
+}
+
+/* Four in a row, for a section that should fit on the screen. */
+.shots.shotsSmall {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.shotsSmall .shotText {
+  grid-template-columns: 1.2rem minmax(0, 1fr);
+  margin-top: 0.5rem;
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+/* ---------- Rows of pictures ---------- */
+
+/* MediaRow `label`: a short title over a row, a little larger than the text, so it is seen before the pictures. */
+.goalLabel {
+  margin: 0 0 0.6rem;
+  color: var(--ifm-font-color-base);
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+/* Pictures or clips side by side, the same width; one under the other when there is no room. */
+.mediaRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1rem;
+}
+
+/* A row and its note take the room of a paragraph, so the next title does not sit on them. */
+.mediaRowSet {
+  margin-bottom: var(--ifm-leading);
+}
+
+/* MediaRow `note`: a line set apart under the row, with a bar in the main colour at its left. */
+.mediaRowNote {
+  margin-top: 1rem;
+  padding: 0.85rem 1.1rem;
+  border-left: 4px solid var(--ifm-color-primary);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--ifm-color-primary) 7%, var(--ifm-background-surface-color));
+  font-size: 1.02rem;
+  line-height: 1.6;
+}
+
+.mediaRowNote strong {
+  color: var(--ifm-heading-color);
+}
+
+/* ---------- Narrow screens ---------- */
+
+@media (max-width: 720px) {
+  .shots {
+    grid-template-columns: 1fr;
+  }
+
+  .shots.shotsSmall {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
