@@ -1,0 +1,300 @@
+---
+title: Hub
+description: Browse Cyclo Studio training results, download Datasets and Actions, replay trained policies, and deploy models to a robot from the Hub tab.
+---
+
+import SectionCard from '@site/src/components/SectionCard';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+**Hub** is the tab in **Cyclo Studio** for finding and using training results. It brings together the input motion used for training (**Dataset**) and the trained model with its settings and deployment files (**Actions**).
+
+<SectionCard>
+
+## Video Walkthrough
+
+Watch how to find projects, preview Datasets, replay Actions, and check deployment history in Hub.
+
+<video
+  aria-label="Cyclo Studio Hub usage walkthrough"
+  controls
+  playsInline
+  width="1280"
+  height="800"
+  preload="auto"
+  poster={useBaseUrl('/img/software/cyclo/studio/hub/hub_walkthrough_en.jpg')}
+  style={{width: '100%', height: 'auto', aspectRatio: '8 / 5', display: 'block', borderRadius: '8px', background: '#0f172a'}}>
+  <source
+    src={useBaseUrl('/img/software/cyclo/studio/hub/hub_walkthrough_en.webm')}
+    type="video/webm"
+  />
+  <source
+    src={useBaseUrl('/img/software/cyclo/studio/hub/hub_walkthrough_en.mp4')}
+    type="video/mp4"
+  />
+  <track
+    kind="chapters"
+    src={useBaseUrl('/img/software/cyclo/studio/hub/hub_walkthrough_en.chapters.vtt')}
+    srcLang="en"
+    label="Chapters"
+  />
+  Your browser does not support the video tag.
+</video>
+
+</SectionCard>
+
+<SectionCard>
+
+## Open Hub
+
+1. Sign in to Cyclo Studio.
+2. Select **Hub** from the main navigation.
+3. Choose the view for your task:
+
+| View | Use it to |
+| --- | --- |
+| **Shared results** | Explore published projects and open their training results. |
+| **My results** | Check your own results, including results still being prepared. |
+| **Deployments** | Find your Hub robot deployment records and inspect their progress. |
+
+![Hub tabs with project search, sorting, result type filters, and refresh controls](/img/software/cyclo/studio/hub/hub_navigation_en.jpg)
+
+Each training run can have two independently prepared packages:
+
+| Package | Contents | Main actions |
+| --- | --- | --- |
+| **Dataset** | Input motion and the settings used to generate and prepare it for training. | **Download ZIP**, **Play preview** |
+| **Actions** | Trained model, training settings, and deployment files. | **Download ZIP**, **Deploy** |
+
+:::note
+Published results are visible to other signed-in users. Selecting **My results** changes which projects you see; it does not change their public visibility.
+:::
+
+</SectionCard>
+
+<SectionCard>
+
+## Automatic Saving After Training
+
+Hub automatically registers eligible results after successful **AI Sapiens K1 Custom Mimic** training using text- or video-generated motion in Cyclo Studio. You do not need to upload the result or click a separate save button.
+
+1. Complete the training in **Simulation**.
+2. Check **Automatic Hub results** on the training completion screen.
+3. Select **Open my Hub results** to open **My results** for that project.
+4. Expand the project and check its Dataset and Actions cards.
+
+The two packages are prepared independently. A Dataset may be ready while Actions is still waiting for the final model or execution package. Successful training does not mean that both Hub packages are already downloadable.
+
+Automatically registered results appear in **Shared results** after their files have been prepared, verified, and published.
+
+<details>
+<summary>Understand the saving status</summary>
+
+| Status | What it means |
+| --- | --- |
+| Waiting for the final files | A required motion, final model, configuration, or matching execution package is not ready. A waiting deadline may be shown. |
+| Preparing to save to Hub | The result is waiting for processing. |
+| Creating the download ZIP | Hub is assembling the package. |
+| Creating the preview and thumbnail | Hub is preparing the motion video and image. |
+| Saving files to Hub / Verifying the saved files | Files are being uploaded and checked before publication. |
+| Retrying the connection | A temporary error occurred. Check the displayed automatic retry time. |
+| Storage capacity needs attention | Processing is waiting for storage capacity. |
+| Saved to Hub | The package has finished saving. |
+| Could not finish saving to Hub | Read the reason, address the issue, then select **Retry build** if it is available. |
+
+Use **Refresh** to check the current state. Processing results in an expanded project also update automatically during the main preparation stages.
+
+</details>
+
+:::info
+Automatic registration currently covers the supported Custom Mimic workflow. Older training runs and other training types may not have Hub results.
+:::
+
+</SectionCard>
+
+<SectionCard>
+
+## Find a Project
+
+Use the same search and type controls in **Shared results** and **My results**.
+
+| Control | How to use it |
+| --- | --- |
+| **Search projects, motions, creators** | Enter part of a project name, motion description, or creator name. Clear the text to remove the search. |
+| **Newest projects / Project name** | Sort projects by their creation date or alphabetically by name. |
+| **All types / Dataset / Actions** | Choose the result type to include. This filter also applies to results inside a project. |
+| **More projects** | Load the next group of projects when available. The displayed count is the number currently loaded. |
+| **Refresh** | Reload the current results. |
+
+### Shared Results
+
+Each project card shows a thumbnail, project name, training and result counts, available result types, creator, and Hub registration date.
+
+1. Open a project card to view its training results.
+2. Use the heart button to like the project. Select it again to remove your like. Likes apply to the project as a whole.
+3. Select **All projects** to return to the gallery. Browser **Back** also returns from project details to the list; **Forward** can reopen the project.
+
+### My Results
+
+Projects appear as expandable rows. Select a project heading to open its results, and select it again to collapse it. Opening another project switches the expanded section.
+
+Your results can appear here before they are published. Check the saving status and publication badge on each card.
+
+<details>
+<summary>Publication badges</summary>
+
+| Badge | Meaning |
+| --- | --- |
+| **Published** | Other signed-in users can access the result. |
+| **Not published yet** | The result is not yet available to other users. |
+| **Private** | Only the owner can access the result. |
+| **Public access paused** | Files are ready, but public access is currently paused. |
+| **Withdrawn** | The result is no longer publicly available. |
+| **Public status unconfirmed** | Refresh to check the current public visibility. |
+
+</details>
+
+</SectionCard>
+
+<SectionCard>
+
+## Inspect Training Results
+
+A project groups its results by training run. Each group shows its Hub registration time and the Dataset and Actions cards available for that run.
+
+- If several training runs are loaded, use **Select a loaded training result** to display one run or **All loaded training results**.
+- Select **More training results** to load additional results. The selector only includes runs already loaded.
+- For text-generated motion, **Input prompt** shows the original text. Long text is initially limited to three lines; select **Show full prompt**, then **Collapse** to fold it again.
+- A video-generated result or an older result without a text prompt uses the available motion description or **Training result** heading instead.
+
+The result type filter remains active inside the project. If a card is missing, check whether **Dataset** or **Actions** is selected before changing the filter to **All types**.
+
+</SectionCard>
+
+<SectionCard>
+
+## Use a Dataset
+
+### Download the Input Motion
+
+On a ready Dataset card, select **Download ZIP**. The ZIP contains the input motion and its generation, preprocessing, or retargeting settings, depending on how the motion was created.
+
+Uploaded original video is excluded from the Hub Dataset ZIP and generated preview. The derived motion remains part of the Dataset.
+
+### Play the Preview
+
+1. Select **Play preview** on the Dataset card.
+2. Use the video controls to play, pause, or seek through the motion.
+3. Select **Close preview** when finished.
+
+Preview links expire. If playback stops with an expiry message, select **Play preview** again to request a new link.
+
+</SectionCard>
+
+<SectionCard>
+
+## Replay Actions in the Browser
+
+Select **Deploy** on a ready Actions card to open the replay window. The window first checks and loads a compatible policy package for the selected result.
+
+When the simulator is ready, use these controls:
+
+| Control | Result |
+| --- | --- |
+| **Run model** | Start the selected policy in the browser simulation. |
+| **Stop model** | End the policy test and return the simulated robot to standing control. |
+| **Start over** | Reset the simulated robot to its starting state. |
+| **Pause / Resume** | Freeze the simulation or continue from the same moment. |
+| **Camera views** | Switch to the center, robot-fit, front, or side view. |
+| **Advanced controls** | Inspect joints, add or edit obstacles, or open **Pose & physics** for simulated support, basic pose, and damping controls. |
+
+Select **Close** to leave the replay window. You can also select **Download ZIP** on the Actions card to download its model, settings, and deployment files.
+
+:::info[Video preview and policy replay]
+The thumbnail and generated preview replay motion data; they are not an evaluation of the trained policy. The Actions replay window runs the policy in your browser. Check that behavior before choosing a robot deployment target.
+:::
+
+If the package is being prepared, wait for the status to update or select **Check again**. A release without a compatible replay package must be rebuilt from supported source files before it can be replayed through this window. For an archived project message, restore your project in Simulation before retrying.
+
+</SectionCard>
+
+<SectionCard>
+
+## Deploy Actions to a Robot
+
+### Before You Begin
+
+- Your account must have an approved **Robot Developer** or **Administrator** role.
+- The selected Actions must have a compatible, ready deployment package.
+- The target robot must be prepared to receive deployments. Confirm its **Robot ID** before sending a model.
+
+Published Actions can be used by another approved user without ownership of the original project. The deployment is recorded for the user making the request.
+
+### Send the Model
+
+1. Open **Deploy** on the Actions card and review the policy in the browser replay window.
+2. Select **Deploy to robot** in that window.
+3. Check the model and checkpoint information in the deployment dialog.
+4. Enter the target **Robot ID**, or choose a recent deployment target when one is shown.
+5. Enter a **Model name** if the dialog requests it.
+6. Check the model-to-robot summary, then select **Deploy to robot** to submit the request.
+7. Follow the progress in the dialog or open the Hub **Deployments** tab.
+
+Robot IDs are case-sensitive and accept 1–64 letters, digits, underscores, or hyphens. If a model name is requested, use 100 characters or fewer.
+
+Recent targets show responses from loaded deployment records. They do not by themselves confirm that a robot is currently online. If another unresolved deployment occupies the selected robot, check that record before submitting a new one.
+
+:::warning[Installation and motion are separate]
+Deployment installs the model on the target robot. Starting physical motion is controlled separately on the robot. Confirm the correct robot and its operating conditions before using the installed model.
+:::
+
+Closing the dialog after submission does not cancel the deployment. Continue monitoring it in **Deployments**.
+
+</SectionCard>
+
+<SectionCard>
+
+## Check Deployment History
+
+Open **Deployments** to see your Hub robot deployment records.
+
+1. Search by **robot ID, model, or checkpoint**.
+2. Use **Deployment status** to select **All statuses**, **In progress**, **Needs attention**, **Failed**, or **Installed**.
+3. Open **Deployment details** for a record to inspect its progress, timestamps, checkpoint, and events. Select **Load older deployments** when available to load earlier records.
+
+| Status | What to check |
+| --- | --- |
+| **Preparing files / Queued** | The deployment is preparing its package or waiting to send. |
+| **Waiting for robot / Accepted by robot** | The request was sent or acknowledged. Installation is not yet confirmed. |
+| **Downloading / Validating files / Installing** | The robot is receiving, checking, or applying the package. |
+| **Installed** | The robot reported successful installation. |
+| **Failed** | Inspect the reported error before making another attempt. |
+| **Check robot status** | The final result is uncertain. Check the robot directly before allowing another deployment. |
+
+### Resolve an Interrupted Delivery
+
+- **Resend the same request** appears while a sent request is still eligible for retransmission. Use it to resend that request rather than create a different deployment.
+- For **Check robot status**, verify on the robot that downloading and installation have finished. Then select **Check robot status** and **Checked · allow a new deployment** if the confirmation matches what you verified.
+- When offered, **Deploy this model again** starts another attempt, and **Deploy to another robot** selects a different target.
+
+:::caution
+**Checked · allow a new deployment** clears the unresolved deployment's reservation. It does not stop the robot or cancel robot-side work. Only confirm after checking the robot directly.
+:::
+
+</SectionCard>
+
+<SectionCard>
+
+## Troubleshooting
+
+| Situation | What to do |
+| --- | --- |
+| No projects or results appear | Check the selected view, search text, and result type. Load more results if available, then refresh. For a new training run, check its automatic Hub saving status. |
+| Results could not be loaded | Select **Try again**. Sign in again if your session has expired. |
+| A thumbnail is unavailable | Refresh the results. Use the package's saving status to determine whether it is ready. |
+| A download or preview cannot be opened | Refresh the result and try again to obtain a current link. The release may have changed or been withdrawn. |
+| Saving to Hub failed | Read the reason on your result card. Resolve missing files, access, or capacity issues before selecting **Retry build** when available. |
+| Policy replay cannot start | Read the replay message and use **Check again** when offered. An incompatible or unavailable package cannot be used for replay through this window. |
+| **Deploy to robot** is unavailable | Check your approved role, package readiness, deployment service availability, and any unresolved deployment for the target robot. |
+| Deployment progress cannot be refreshed | Reload the deployment details before making another request. Closing the window does not stop an existing deployment. |
+
+</SectionCard>

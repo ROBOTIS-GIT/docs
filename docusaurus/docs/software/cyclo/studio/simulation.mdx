@@ -1,0 +1,331 @@
+---
+title: Simulation
+description: Simulate a ROBOTIS robot in your browser, create reference motions, train and test models, and deploy compatible models from Cyclo Studio.
+---
+
+import SectionCard from '@site/src/components/SectionCard'
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import styles from './simulation.module.css';
+
+export const SimulationScreenshot = ({file, width, height, focus, alt}) => (
+  <figure className={styles.screenshot} style={{maxWidth: width}}>
+    <img
+      src={useBaseUrl(`/img/software/cyclo/studio/simulation/${file}.webp`)}
+      width={width}
+      height={height}
+      alt={alt}
+      loading="lazy"
+    />
+    {focus && <span className={styles.highlight} style={{inset: focus}} aria-hidden="true" />}
+  </figure>
+);
+
+**Simulation** is the Cyclo Studio workspace for developing and testing robot motion before running it on a physical Cyclo Ready Robot. This guide uses **Sapiens K1**, the robot available when you create a Simulation project.
+
+## Workflow
+
+<ol className={styles.workflow} role="list">
+  <li className={styles.step}>
+    <a href="#create-motion">Create Motion</a>
+    <p>Turn a text prompt or video into a reference motion for Mimic.</p>
+  </li>
+  <li className={styles.step}>
+    <a href="#training">Training</a>
+    <p>Train a model with your Mimic motion or a Locomotion preset.</p>
+  </li>
+  <li className={styles.step}>
+    <a href="#training-results-and-models">Test in Simulation</a>
+    <p>Try the trained model in Play.</p>
+  </li>
+  <li className={styles.step}>
+    <a href="#deploy-a-model-to-a-robot">Deploy to a Real Robot</a>
+    <p>Send a compatible model to your robot and confirm installation.</p>
+  </li>
+</ol>
+
+<a className={styles.legacyAnchor} id="project-tools" />
+<a className={styles.legacyAnchor} id="follow-the-workflow-in-studio" />
+<a className={styles.legacyAnchor} id="try-a-model-in-play" />
+
+<SectionCard>
+
+## Play
+
+From **Simulation**, select **Try built-in models**, or open **Play** in a project. Play runs in the browser without a cloud GPU session.
+
+### Built-in Walk
+
+Open **Select Model** and choose **Walk** under **Built-in models**.
+
+<SimulationScreenshot file="play-model-picker" width={1440} height={950} focus="21.3% 44.4% 74.1% 51%" alt="Play with Walk highlighted under Built-in models" />
+
+1. Select **Start** when available and click the 3D view.
+2. Hold **↑** to walk forward and add **Shift** to run, as shown below. Use **↓** to move backward, **←/→** to turn, or **Space** to stop moving.
+3. Select **Stop** to return to standing control or **Initialize** to reset the robot to its starting state.
+
+<video
+  aria-label="Built-in Walk accelerating into a run in Play"
+  controls
+  playsInline
+  preload="metadata"
+  poster={useBaseUrl('/img/software/cyclo/studio/simulation/dev-walk-accelerate-v2.webp')}
+  style={{width: '100%', height: 'auto', display: 'block', borderRadius: '8px'}}>
+  <source
+    src={useBaseUrl('/img/software/cyclo/studio/simulation/dev-walk-accelerate-v2.mp4')}
+    type="video/mp4"
+  />
+  Your browser does not support the video tag.
+</video>
+
+<a className={styles.legacyAnchor + " " + styles.danceAnchor} id="watch-a-checkpoint-test" />
+
+### Trained dance
+
+To try your own trained model, open **Training** → **Training History**, choose **View results** for your run, then expand a saved checkpoint and select **Test in 3D Play**. In the example below, the robot performs a trained dance while the results stay open.
+
+<video
+  aria-label="Robot performing a user-trained dance in Play"
+  controls
+  playsInline
+  preload="metadata"
+  poster={useBaseUrl('/img/software/cyclo/studio/simulation/dev-dance-checkpoint-test-v2.webp')}
+  style={{width: '100%', height: 'auto', display: 'block', borderRadius: '8px'}}>
+  <source
+    src={useBaseUrl('/img/software/cyclo/studio/simulation/dev-dance-checkpoint-test-v2.mp4')}
+    type="video/mp4"
+  />
+  Your browser does not support the video tag.
+</video>
+
+</SectionCard>
+
+:::tip[Ready to create your own motion?]
+
+[Create a project](#create-a-project), then make and preview a reference motion for [Mimic training](#training). For Locomotion, create a project and go straight to [Training](#training).
+
+:::
+
+<SectionCard>
+
+<a className={styles.legacyAnchor} id="open-a-project" />
+
+## Create a project
+
+1. Sign in to Cyclo Studio and select **Simulation** in the main navigation.
+2. Select **New project**, choose **Sapiens K1**, enter a **Project name**, and select **Create**. To resume existing work, select a project under **My projects**.
+3. The project opens in **Play**. Use the toolbar next to the 3D view to open **Create motion**.
+
+<SimulationScreenshot file="new-project-button" width={324} height={72} alt="New project button on the Simulation project list" />
+
+Select **Project home** to return to the project list. To rename a project, use the pencil icon on the project card and select **Save name**. To remove a project from the list, stop its active jobs and GPU sessions, then use the trash icon and confirm **Remove from list**. Its motions, training results, and deployed models are preserved.
+
+</SectionCard>
+
+<SectionCard>
+
+<a className={styles.legacyAnchor} id="create-a-motion-for-mimic-training" />
+
+## Create motion
+
+### From text to a robot motion
+
+1. Select **Text**. In **Motion description**, describe the movement, for example, “Raise your right hand to shoulder height and give a little wave.” Set **Duration (seconds)** between 2 and 10 and choose 1–4 **Candidates**.
+2. Select **Generate motion**. When the candidate appears in **My Motions**, select **Preview motion** and use the timeline to inspect it in **K1 robot** view.
+
+<video
+  aria-label="Open a saved candidate in My Motions and preview it on the K1 robot"
+  controls
+  playsInline
+  preload="metadata"
+  poster={useBaseUrl('/img/software/cyclo/studio/simulation/dev-reference-motion-v2.webp')}
+  style={{width: '100%', height: 'auto', display: 'block', borderRadius: '8px'}}>
+  <source
+    src={useBaseUrl('/img/software/cyclo/studio/simulation/dev-reference-motion-v2.mp4')}
+    type="video/mp4"
+  />
+  Your browser does not support the video tag.
+</video>
+
+### From a video to a robot motion
+
+1. In **Create motion**, select **Video**.
+
+   <SimulationScreenshot file="video-motion-select-video" width={602} height={152} alt="Video button highlighted in the Create motion panel" />
+
+2. Select **Choose video**. Use an MP4 between 2 seconds and 5 minutes, up to 500 MiB. Film one person facing the camera with their whole body in frame and hold the camera steady.
+
+   <SimulationScreenshot file="video-motion-choose-video" width={602} height={258} alt="Choose video button highlighted in Video mode" />
+
+3. Select the MP4 in the file picker and select **Open** to upload it.
+
+   <SimulationScreenshot file="video-motion-file-picker" width={720} height={328} alt="video.mp4 selected in the file picker with Open highlighted" />
+
+4. The **Generate motion** button becomes available after the upload finishes. Select it and follow the progress in **Create motion**.
+
+   <SimulationScreenshot file="video-motion-generate" width={602} height={104} alt="Generate motion button highlighted before the video upload" />
+
+   <SimulationScreenshot file="video-motion-processing" width={580} height={250} alt="Motion generation in progress after submitting the Bhangra video" />
+
+5. When the result appears under **My Motions**, select **Preview motion** to see the motion on the **K1 robot**. To compare it with the video you uploaded, turn on **Source video** while the preview plays.
+
+<video
+  aria-label="K1 robot preview of a reference motion generated from video"
+  controls
+  playsInline
+  preload="metadata"
+  poster={useBaseUrl('/img/software/cyclo/studio/simulation/video-motion-k1-preview.webp')}
+  style={{width: '100%', maxWidth: 536, height: 'auto', display: 'block', borderRadius: '8px'}}>
+  <source
+    src={useBaseUrl('/img/software/cyclo/studio/simulation/video-motion-k1-preview.mp4')}
+    type="video/mp4"
+  />
+  Your browser does not support the video tag.
+</video>
+
+<a className={styles.legacyAnchor} id="tell-the-three-views-apart" />
+
+To train on either reference motion, select **Use for Mimic training** in the preview or **Training** on its card. After training, use [Play](#play) to see how closely the trained robot follows the reference.
+
+Use **Save motion draft** to come back to a text prompt later. If generation fails, check **Drafts and previous attempts** for the attempt status and **My Page** for your remaining motion time.
+
+</SectionCard>
+
+<SectionCard>
+
+<a className={styles.legacyAnchor} id="start-training" />
+
+## Training
+
+When you select **Use for Mimic training** from a motion preview, Training opens with that motion selected. To start from Training, select **New training**, enter a **Training name**, and select **Next** to choose the **Training type**.
+
+<SimulationScreenshot file="training-workspace" width={605} height={390} focus="47.9% 2.6% 7.7% 2.5%" alt="Training type selector with the Locomotion and Mimic choices highlighted" />
+
+| Training type | Setup |
+| --- | --- |
+| **Locomotion** | Choose **Walking · Stability and smoothness** or **Running · Speed tracking**. |
+| **Mimic** | Use the motion you previewed or choose a saved motion from **My motions**. You can also select **Upload file** for a compatible CYCLO Sapiens K1 retargeted ZIP up to 128 MiB or choose an eligible purchased motion from **Marketplace**. |
+
+1. Set **Target iterations** under **Training settings**.
+2. In **GPU and launch**, choose a **GPU profile** and select **Start training**. Use **Refresh GPUs** to check availability.
+3. Wait for the live viewer to connect.
+
+Reward weights tell training which behaviors to prioritize, such as tracking the target speed or following the reference motion. For your first run, use the default **Mimic** weights or the weights set by your **Locomotion** preset. To tune them, open **Show advanced settings** under **Training settings** for Mimic. For Locomotion, edit the weights below the **Locomotion reward preset**. Changes apply to the next run.
+
+### Watch training progress
+
+A local Studio demo shows the final settings, **Start training**, and preparation with a simulated launch. The live viewer footage is from a separate recorded Mimic run.
+
+<video
+  aria-label="Training settings and simulated launch in a local demo, followed by an actual recorded Mimic run"
+  controls
+  playsInline
+  preload="metadata"
+  poster={useBaseUrl('/img/software/cyclo/studio/simulation/training-start-and-progress-light.webp')}
+  style={{width: '100%', height: 'auto', display: 'block', borderRadius: '8px'}}>
+  <source
+    src={useBaseUrl('/img/software/cyclo/studio/simulation/training-start-and-progress-light.mp4')}
+    type="video/mp4"
+  />
+  Your browser does not support the video tag.
+</video>
+
+For Mimic, allow roughly **3–10 hours** as a planning estimate. Run time varies with reference motion length, target iterations, GPU profile, and other settings.
+
+Training requires GPU access and time. Check **Training time available** during GPU selection or **My Page** → **Time balances**. Runs can continue after you leave Training or close the browser, within time and server limits. Reopen **Training** to check progress.
+
+</SectionCard>
+
+<SectionCard>
+
+<a className={styles.legacyAnchor} id="review-training-history-and-test-a-checkpoint" />
+
+## Training results and models
+
+### Review and test a training run
+
+Open **Training** → **Training History**, then select **View results** for a saved run or **View progress** for an active run. Use search, **Filters**, or **Load earlier runs** to find it.
+
+<SimulationScreenshot file="training-history" width={696} height={578} focus="80.9% 24.3% 11.8% 56.6%" alt="Training History with View results highlighted on a saved run" />
+
+In the results, review the run status, iterations, and reward trend. Expand a checkpoint under **Models** and select **Test in 3D Play**. Its policy runs automatically beside the open results, so you can check how the robot moves.
+
+<SimulationScreenshot file="checkpoint-preview" width={1176} height={850} focus="68.7% 41.8% 25.7% 44.8%" alt="Expanded checkpoint with Test in 3D Play highlighted next to the simulator" />
+
+- In Play, use **Edit environment** to add obstacles or **Close checkpoint preview** to return to the results.
+- If playback is unavailable, choose a checkpoint marked **Ready to play**, or use **Refresh training files** after package preparation. Use **Metrics & download** to review checkpoint metrics and files.
+- On completion, use **Try this model** if available. For eligible text- or video-generated Mimic runs, **Automatic Hub results** reports whether the associated Dataset and Actions were saved. See the [Hub guide](/docs/software/cyclo/studio/hub).
+
+### Continue from a saved checkpoint
+
+Select **Resume training from this checkpoint** in the checkpoint's actions. In **Resume from checkpoint**, enter the **Total target iterations** you want the new run to reach. For example, to continue from iteration 2,200 through iteration 5,000, enter **5,000**. Review the environment and GPU time settings, then select **Resume on GPU**.
+
+The resumed run restores the saved learning state and creates a new run. The original checkpoint stays available and the simulation episodes start again. If training stopped because values became numerically unstable, consider resuming from an earlier checkpoint.
+
+
+### Find your trained models
+
+Open **Models** and look under **My trained models**. Search by name, motion, or date, then expand a run's **Checkpoints** to compare available versions.
+
+<SimulationScreenshot file="models-play" width={696} height={636} focus="62.7% 75.7% 30.7% 6%" alt="My trained models with Run in Play highlighted on a model card" />
+
+- Select **Run in Play** for the model or **Play** for a checkpoint with a ready playback package. Use **Source training** to open its run.
+- Use **Save as model** when available to keep a named model linked to its source file. The **Model name** can be up to 100 characters.
+- In the Play picker, choose a compatible checkpoint under **My models** and select **Start** when ready. Use **+ Add model**, when available, to test a compatible CYCLO ZIP until you reload or switch projects.
+
+### Remove a model card or training result
+
+| Action | What it removes |
+| --- | --- |
+| **Delete card** in **Models** | The card in the model library. The training record and checkpoints stay available. |
+| **Delete training record** in **Training History** | The run and its checkpoints from the project. |
+| **Delete checkpoint** in the run results | The selected checkpoint and its associated playback files. Other checkpoints stay available. |
+
+Wait for an active run to finish before deleting it or its checkpoints. These actions preserve models already installed on robots.
+
+</SectionCard>
+
+<SectionCard>
+
+## Deploy a model to a robot
+
+### Set up your Sapiens K1
+
+For first-time setup, have your Sapiens K1 powered on and connected to the internet, with Docker installed on the robot PC. Use a data-capable USB-C cable and a desktop browser with Web Serial, such as Chrome or Edge. Sign in to Cyclo Studio over HTTPS and ask your robot administrator for the configured **Robot ID** if you do not have it.
+
+1. Connect your computer to the robot's USB serial port. Open **Simulation** and select **Robot Setup** at the top right.
+
+   <figure className={styles.screenshot} style={{maxWidth: 372}}>
+     <img src={useBaseUrl('/img/software/cyclo/studio/simulation/robot-setup-button.webp')} width={372} height={113} alt="Robot Setup next to New project at the top right of Simulation" loading="lazy" />
+   </figure>
+
+2. In the browser's serial picker, select the robot's port and choose **Connect**. The port name varies by device and operating system. If the list is empty, check the robot's power, cable, and USB port.
+3. Cyclo Studio attempts to sign in as root. If prompted, enter the robot PC's **Linux password (if required)** and select **Log in**.
+4. In **Robot setup progress**, wait for confirmation that the MQTT client is running. Cyclo Studio installs the client if needed and starts its container if stopped.
+
+   <SimulationScreenshot file="robot-setup-progress" width={1160} height={456} focus="34% 44% 55% 1.6%" alt="Robot setup progress confirming the Linux shell connection and that the MQTT client is running, with Robot PC messages and Close below" />
+
+If setup fails, expand **Robot PC messages**, check the robot's internet connection, and use **Check again** when available. If setup cannot confirm the result, close the dialog and reconnect to check the robot's state. **Close** disconnects the USB serial session. A running client confirms local setup. The deployment stages below show when the robot responds over the network.
+
+### Send the model and confirm installation
+
+Test the model in Play and confirm you selected the intended checkpoint.
+
+Open **Deploy** → **Add model**, choose a project model, then select **Review deployment**.
+
+<SimulationScreenshot file="deploy-action" width={702} height={612} focus="78.1% 17.4% 14.5% 58.4%" alt="Selected checkpoint in Deploy with Review deployment highlighted" />
+
+1. Check the checkpoint, **Model name**, and **Robot ID**. IDs are case-sensitive and accept 1–64 letters, digits, underscores, or hyphens.
+2. If prompted, select **Review and convert on GPU**, then **Finish review and prepare files**. Conversion uses GPU time. Sending ready files requires no additional GPU session.
+3. Review the model and target robot shown together above the buttons, then select **Deploy to robot**.
+
+   <SimulationScreenshot file="deploy-review" width={570} height={828} focus="85.5% 8.2% 9.7% 65.8%" alt="Model and target robot in the deployment review, with Deploy to robot highlighted" />
+
+4. Follow **Prepare**, **Send**, **Download**, **Install**, and **Complete** in **Deployment details**. The screenshot shows **Prepare** in progress. **Accepted by robot** confirms that the robot received the request. Wait until **Complete** is highlighted and the status reads **Installed**.
+
+   <SimulationScreenshot file="deploy-progress" width={556} height={718} focus="46.7% 13.5% 44.5% 7.8%" alt="Deployment in progress with Preparing files status and only the Prepare stage highlighted" />
+
+5. To reopen the record, select **Robot deployments** at the top of the project and find it under **Robot deployment history**. For the latest reported inventory, select the **Robot ID** under **Models installed on robot**. Start motion separately on the robot.
+
+You can also open deployment from **Send to Robot** on a model card or **Deploy to robot** on a checkpoint. If the inventory is unconfirmed or the record says **Check robot status**, verify downloading and installation directly on the robot before confirming **Checked · allow a new deployment**.
+
+</SectionCard>

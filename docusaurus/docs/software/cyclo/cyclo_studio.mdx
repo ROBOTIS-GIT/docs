@@ -1,12 +1,28 @@
 ---
 title: Cyclo Studio
-description: Simulate and train Cyclo Ready Robots to create actions and deploy them to physical robots.
+description: Train and deploy robot models in Simulation, share results through Hub, and find datasets and 3D assets in Marketplace.
 ---
 
-**Cyclo Studio** is a platform for simulating and training **Cyclo Ready Robots**, creating **actions**, and deploying those actions to physical robots.
+import CycloStudioWorkflow from '@site/src/components/CycloStudioWorkflow';
 
-The workflow connects simulation and learning with real-world operation: simulate a Cyclo Ready Robot, train it to create actions, then deploy those actions to the physical robot.
+**Cyclo Studio** is a workspace for developing and sharing behaviors for **Cyclo Ready Robots**. It brings together model development in **Simulation**, shared training results in **Hub**, and datasets and 3D assets in **Marketplace**.
 
-:::info[Under Development]
-Cyclo Studio is currently under development. Detailed information and usage guides will be added in a future update.
-:::
+<CycloStudioWorkflow />
+
+## Simulation
+
+Simulation is where you create motions, train models, and evaluate how a robot moves. For AI Sapiens K1, **Mimic** training teaches the robot to follow a reference motion that you can generate from a text description or recorded video. **Locomotion** training focuses on walking, running, and balance.
+
+Each project keeps its training runs and model checkpoints together. You can monitor learning progress, replay a checkpoint in a browser-based physics simulation, and deploy a compatible model to a physical robot after testing it. [Simulation guide](./studio/simulation.mdx)
+
+## Hub
+
+Hub is where you find and share training results. Eligible runs are automatically prepared as two reusable packages. A **Dataset** contains the reference motion and its settings. **Actions** contain the trained model, its settings, and deployment files.
+
+Use **My results** to check your own packages as they are prepared and **Shared results** to explore published projects. You can preview or download a Dataset, replay compatible Actions in your browser, and track the installation of Actions you deploy to a robot. [Hub guide](./studio/hub.mdx)
+
+## Marketplace
+
+Marketplace is a catalog of robot datasets and 3D assets. You can also upload your own datasets to share with others. Filter by asset type, format, or robot platform to find files such as LeRobot datasets or AI Sapiens K1 motions. Each listing describes the asset and its license so you can check compatibility and usage terms before acquiring it.
+
+You can save listings for later, order available free assets, and download the files from **My Page → Library**. See the [Marketplace guide](./studio/marketplace.mdx) for current availability.

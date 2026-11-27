@@ -8,10 +8,27 @@ services:
       - ./docusaurus:/app
       - /app/node_modules
       - /app/omx-assembly/node_modules
+      - /app/.docusaurus-ko
     ports:
       - "5715:5715"
+      - "5716:5716"
     environment:
       DOCUSAURUS_ON_BROKEN_LINKS: warn
-    command: >
-      npm start -- --host 0.0.0.0 --port 5715 --locale en
+      DOCUSAURUS_DEV_EN_URL: http://localhost:5715
+      DOCUSAURUS_DEV_KO_URL: http://localhost:5716
+    init: true
+    command:
+      - bash
+      - -ec
+      - |
+        npm run prestart
+        DOCUSAURUS_URL="$$DOCUSAURUS_DEV_EN_URL" \
+          node_modules/.bin/docusaurus start --host 0.0.0.0 --port 5715 --locale en --no-open &
+        english_pid=$$!
+        DOCUSAURUS_URL="$$DOCUSAURUS_DEV_KO_URL" DOCUSAURUS_GENERATED_FILES_DIR_NAME=.docusaurus-ko \
+          node_modules/.bin/docusaurus start --host 0.0.0.0 --port 5716 --locale ko --no-open &
+        korean_pid=$$!
+        trap 'kill "$$english_pid" "$$korean_pid" 2>/dev/null || true' EXIT
+        trap 'exit 0' INT TERM
+        wait -n "$$english_pid" "$$korean_pid"
     restart: unless-stopped

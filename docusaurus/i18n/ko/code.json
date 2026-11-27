@@ -47,6 +47,27 @@
   "home.meta.description": {
     "message": "ROBOTIS 제품, 플랫폼, 개발 도구의 전자 매뉴얼"
   },
+  "cycloStudio.workflow.label": {
+    "message": "Cyclo Studio 작업 흐름"
+  },
+  "cycloStudio.workflow.data": {
+    "message": "데이터"
+  },
+  "cycloStudio.workflow.train": {
+    "message": "학습"
+  },
+  "cycloStudio.workflow.deploy": {
+    "message": "배포"
+  },
+  "cycloStudio.workflow.share": {
+    "message": "공유"
+  },
+  "cycloStudio.workflow.resume": {
+    "message": "애니메이션 재개"
+  },
+  "cycloStudio.workflow.pause": {
+    "message": "애니메이션 일시정지"
+  },
   "theme.ErrorPageContent.title": {
     "message": "페이지에 오류가 발생하였습니다.",
     "description": "The title of the fallback page when the page crashed"
