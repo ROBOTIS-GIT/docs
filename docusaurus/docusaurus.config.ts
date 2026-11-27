@@ -32,8 +32,8 @@ const config: Config = {
     localeConfigs: {
       // CI builds one locale at a time, which disables Docusaurus' automatic
       // locale path prefixing. Keep the language-switch URLs explicit.
-      en: { label: 'English', htmlLang: 'en', baseUrl: deploymentBaseUrl },
-      ko: { label: '한국어', htmlLang: 'ko', baseUrl: `${deploymentBaseUrl}ko/` },
+      en: { label: 'English', htmlLang: 'en', baseUrl: deploymentBaseUrl, url: process.env.DOCUSAURUS_DEV_EN_URL },
+      ko: { label: '한국어', htmlLang: 'ko', baseUrl: `${deploymentBaseUrl}ko/`, url: process.env.DOCUSAURUS_DEV_KO_URL },
     },
   },
 
