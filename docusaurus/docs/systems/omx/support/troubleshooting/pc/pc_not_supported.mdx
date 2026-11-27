@@ -1,0 +1,38 @@
+---
+title: OMX Does Not Start on a Virtual Machine, Windows, or Mac
+description: The OMX software is made for Ubuntu installed on the PC itself. Check which PCs work.
+displayed_sidebar: omxSidebar
+---
+
+import SectionCard from '@site/src/components/SectionCard';
+
+[← All troubleshooting guides](/docs/systems/omx/support/troubleshooting)
+
+# OMX Does Not Start on a Virtual Machine, Windows, or Mac
+
+The OpenRB-150 boards do not show up in `/dev/serial/by-id`, or the arms do not start, on a PC like these:
+
+- A virtual machine, such as VMware or VirtualBox
+- Windows, also with WSL
+- macOS
+- The first Jetson Nano (not a Jetson Orin)
+
+The OMX software is made for Ubuntu 22.04 or 24.04, installed on the PC itself.
+
+<SectionCard>
+
+## 1. Use Ubuntu on the PC itself
+
+Install Ubuntu 22.04 or 24.04 on the PC. It can be next to Windows (dual boot). Then follow [Hardware Setup](/docs/systems/omx/quick_start_guide/setup_hardware) and the pages after it.
+
+To train AI models, the PC also needs an NVIDIA GPU. See [Which PC Can I Use?](/docs/systems/omx/support/faq#which-pc)
+
+</SectionCard>
+
+<SectionCard>
+
+## 2. On a Jetson, use a Jetson Orin
+
+Use a Jetson Orin Nano or better. Jetson Orin NX and AGX Orin run more stably. Train the AI models on a PC with an NVIDIA GPU.
+
+</SectionCard>
