@@ -23,7 +23,7 @@ Select the physics backend with `physics=newton_mjwarp` or `physics=isaacsim_phy
 
 ```bash
 python scripts/reinforcement_learning/rsl_rl/train.py \
-  --task Cyclo-Velocity-Flat-K1-Rev1-v0 \
+  --task Cyclo-Velocity-Flat-K1-Rev2-v0 \
   --num_envs 4096 \
   --headless --visualizer none \
   physics=newton_mjwarp
@@ -34,7 +34,7 @@ python scripts/reinforcement_learning/rsl_rl/train.py \
 
 ```bash
 python scripts/reinforcement_learning/rsl_rl/train.py \
-  --task Cyclo-Velocity-Flat-K1-Rev1-v0 \
+  --task Cyclo-Velocity-Flat-K1-Rev2-v0 \
   --num_envs 4096 \
   --headless --visualizer none \
   physics=isaacsim_physx
@@ -43,23 +43,23 @@ python scripts/reinforcement_learning/rsl_rl/train.py \
 </TabItem>
 </Tabs>
 
-To resume training, add `--checkpoint logs/rsl_rl/k1_rev1_velocity/<run>/model_<iteration>.pt` to the training command.
+To resume training, add `--checkpoint logs/rsl_rl/k1_rev2_velocity/<run>/model_<iteration>.pt` to the training command.
 `--checkpoint latest` selects a checkpoint from the newest compatible run created by the current training script.
 
 Training output is written to:
 
 ```text
-logs/rsl_rl/k1_rev1_velocity/*/
+logs/rsl_rl/k1_rev2_velocity/*/
 ```
 
 Each run directory contains:
 
 <div className="docs-folder-tree" role="img" aria-label="Cyclo Lab locomotion training output directory structure">
   <div className="docs-folder-tree__root">
-    <code>logs/rsl_rl/k1_rev1_velocity/*/</code>
+    <code>logs/rsl_rl/k1_rev2_velocity/*/</code>
   </div>
   <ul>
-    <li><code>model_*.pt</code></li>
+    <li><span className="docs-folder-tree__file-stack" aria-hidden="true" /><code>model_*.pt</code></li>
     <li>
       <strong>params/</strong>
       <ul>
@@ -83,7 +83,7 @@ It runs the policy in simulation and exports `exported/policy.onnx` in the train
 
 ```bash
 python scripts/reinforcement_learning/rsl_rl/play.py \
-  --task Cyclo-Velocity-Flat-K1-Rev1-v0 \
+  --task Cyclo-Velocity-Flat-K1-Rev2-v0 \
   --num_envs 16 \
   --visualizer newton_gl \
   --real-time \
@@ -95,7 +95,7 @@ python scripts/reinforcement_learning/rsl_rl/play.py \
 
 ```bash
 python scripts/reinforcement_learning/rsl_rl/play.py \
-  --task Cyclo-Velocity-Flat-K1-Rev1-v0 \
+  --task Cyclo-Velocity-Flat-K1-Rev2-v0 \
   --num_envs 16 \
   --visualizer kit \
   --real-time \
@@ -105,14 +105,16 @@ python scripts/reinforcement_learning/rsl_rl/play.py \
 </TabItem>
 </Tabs>
 
+Both Newton and PhysX support `--visualizer kit`, `--visualizer newton_gl`, and `--visualizer viser`. For Viser, open the URL printed in the terminal.
+
 For playback without a window, replace the `--visualizer` option with `--headless --visualizer none`.
 
 To play a specific checkpoint instead of the latest one, add `--checkpoint`:
 
 ```bash
 python scripts/reinforcement_learning/rsl_rl/play.py \
-  --task Cyclo-Velocity-Flat-K1-Rev1-v0 \
-  --checkpoint logs/rsl_rl/k1_rev1_velocity/2026-01-01_12-00-00/model_1000.pt \
+  --task Cyclo-Velocity-Flat-K1-Rev2-v0 \
+  --checkpoint logs/rsl_rl/k1_rev2_velocity/2026-01-01_12-00-00/model_1000.pt \
   --num_envs 16 \
   --visualizer newton_gl \
   --real-time \
@@ -124,10 +126,10 @@ The `exported/` directory is added by `play.py`:
 
 <div className="docs-folder-tree" role="img" aria-label="Cyclo Lab locomotion training run directory structure">
   <div className="docs-folder-tree__root">
-    <code>logs/rsl_rl/k1_rev1_velocity/*/</code>
+    <code>logs/rsl_rl/k1_rev2_velocity/*/</code>
   </div>
   <ul>
-    <li><code>model_*.pt</code></li>
+    <li><span className="docs-folder-tree__file-stack" aria-hidden="true" /><code>model_*.pt</code></li>
     <li>
       <strong>exported/</strong>
       <ul>

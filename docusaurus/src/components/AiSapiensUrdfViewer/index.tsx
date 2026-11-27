@@ -1,25 +1,28 @@
 import React, {useEffect, useRef, useState} from 'react';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import './styles.css';
 
 const ASSET_BASE = '/assets/aisapiens/k1/ai_sapiens_description';
-const URDF_URL = `${ASSET_BASE}/urdf/k1_rev1/k1.urdf`;
+
 
 type ViewerState = 'loading' | 'ready' | 'error';
 
 export default function AiSapiensUrdfViewer(): React.JSX.Element {
+  const {i18n: {currentLocale}} = useDocusaurusContext();
+  const korean = currentLocale === 'ko';
+  const [meshProgress, setMeshProgress] = useState<{loaded: number; total: number} | null>(null);
   const mountRef = useRef<HTMLDivElement | null>(null);
   const resetRef = useRef<(() => void) | null>(null);
   const autoRotateRef = useRef<((enabled: boolean) => void) | null>(null);
   const jointFramesRef = useRef<((visible: boolean) => void) | null>(null);
   const [viewerState, setViewerState] = useState<ViewerState>('loading');
-  const [statusText, setStatusText] = useState('Loading AI Sapiens K1 URDF...');
   const [autoRotate, setAutoRotate] = useState(true);
   const [jointFramesVisible, setJointFramesVisible] = useState(false);
 
   useEffect(() => {
     let disposed = false;
     let animationFrame = 0;
-    let finalizeTimer = 0;
+    let failed = false;
     let resizeObserver: ResizeObserver | null = null;
     let renderer: any = null;
     let controls: any = null;
@@ -82,7 +85,7 @@ export default function AiSapiensUrdfViewer(): React.JSX.Element {
         renderer.outputColorSpace = THREE.SRGBColorSpace;
         renderer.shadowMap.enabled = true;
         renderer.shadowMap.type = THREE.PCFShadowMap;
-        mount.appendChild(renderer.domElement);
+
 
         controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
@@ -118,8 +121,8 @@ export default function AiSapiensUrdfViewer(): React.JSX.Element {
           far: number;
           floorScale: number;
         } | null = null;
-        let finalized = false;
-        let geometryLoadDone = false;
+        let visualCount = 0;
+        const completedMeshes = new Set<string>();
         let jointFrameHelpers: any[] = [];
 
         const applyHomeView = () => {
@@ -139,67 +142,53 @@ export default function AiSapiensUrdfViewer(): React.JSX.Element {
           floor.position.z = 0;
         };
 
-        const finishWhenGeometryReady = () => {
-          if (disposed || finalized || !loadedRobot) return;
-          if (!geometryLoadDone) return;
-
-          loadedRobot.updateMatrixWorld(true);
-          const pendingBox = new THREE.Box3().setFromObject(loadedRobot);
-          const pendingSize = new THREE.Vector3();
-          pendingBox.getSize(pendingSize);
-          const meshReady = !pendingBox.isEmpty() && Math.max(pendingSize.x, pendingSize.y, pendingSize.z) > 0.05;
-
-          if (!meshReady) {
-            finalizeTimer = window.setTimeout(finishWhenGeometryReady, 120);
-            return;
-          }
-
-          loadedRobot.traverse((object: any) => {
-            if (!object.isMesh) return;
-            object.castShadow = true;
-            object.receiveShadow = true;
-
-            const material = object.material;
-            if (material) {
-              material.color?.set?.(0xb9c0ca);
-              material.roughness = 0.58;
-              material.metalness = 0.08;
-              material.needsUpdate = true;
-            }
-          });
-
-          finalized = true;
-
-          window.requestAnimationFrame(() => {
-            if (disposed) return;
-            resize();
-            frameRobot(loadedRobot);
-            createJointFrameHelpers(loadedRobot);
-            applyHomeView();
-            controls.saveState();
-            controls.autoRotate = autoRotate;
-            setStatusText('AI Sapiens K1 URDF loaded');
-            setViewerState('ready');
-
-            resetRef.current = () => {
-              controls.reset();
-              applyHomeView();
-              controls.saveState();
-            };
-          });
+        const fail = (error: unknown) => {
+          if (disposed || failed) return;
+          failed = true;
+          console.error('[AiSapiensUrdfViewer] Model loading failed', error);
+          setViewerState('error');
         };
 
         const loadingManager = new THREE.LoadingManager();
-        loadingManager.onProgress = (_url: string, loaded: number, total: number) => {
-          if (disposed) return;
-          if (!finalized && total > 0) {
-            setStatusText(`Loading meshes ${loaded}/${total}...`);
+        loadingManager.onError = fail;
+        loadingManager.onProgress = (url: string) => {
+          if (disposed || failed || !url.endsWith('.dae')) return;
+          completedMeshes.add(url);
+          if (visualCount > 0 && completedMeshes.size < visualCount) {
+            setMeshProgress({loaded: completedMeshes.size, total: visualCount});
+          } else {
+            setMeshProgress(null);
           }
         };
         loadingManager.onLoad = () => {
-          if (disposed) return;
-          geometryLoadDone = true;
-          finishWhenGeometryReady();
+          if (disposed || failed) return;
+          try {
+            if (!loadedRobot || !visualCount) throw new Error('URDF contains no visuals');
+            loadedRobot.traverse((object: any) => {
+              if (object.isURDFVisual && !object.getObjectByProperty('isMesh', true)) {
+                throw new Error('A K1 visual is missing its mesh');
+              }
+              if (object.isMesh) {
+                object.castShadow = true;
+                object.receiveShadow = true;
+              }
+            });
+            resize();
+            frameRobot(loadedRobot);
+            createJointFrameHelpers(loadedRobot);
+            controls.saveState();
+            controls.autoRotate = autoRotate;
+            resetRef.current = () => {
+              controls.reset();
+              applyHomeView();
+            };
+            renderer.render(scene, camera);
+            mount.appendChild(renderer.domElement);
+            setViewerState('ready');
+            animationFrame = window.requestAnimationFrame(animate);
+          } catch (error) {
+            fail(error);
+          }
         };
 
         const loader = new URDFLoader(loadingManager);
@@ -220,6 +209,7 @@ export default function AiSapiensUrdfViewer(): React.JSX.Element {
         const frameRobot = (robot: any) => {
           robot.updateMatrixWorld(true);
           const box = new THREE.Box3().setFromObject(robot);
+          if (box.isEmpty()) throw new Error('Empty robot bounds');
           const size = new THREE.Vector3();
           const center = new THREE.Vector3();
           box.getSize(size);
@@ -288,7 +278,7 @@ export default function AiSapiensUrdfViewer(): React.JSX.Element {
         };
 
         loader.load(
-          URDF_URL,
+          `${ASSET_BASE}/urdf/k1_rev2/k1.urdf`,
           (robot: any) => {
             if (disposed || !scene) {
               disposeObjectResources(robot);
@@ -297,15 +287,11 @@ export default function AiSapiensUrdfViewer(): React.JSX.Element {
 
             loadedRobot = robot;
             scene.add(robot);
-            finishWhenGeometryReady();
+            robot.traverse((node: any) => { if (node.isURDFVisual) visualCount++; });
+            if (visualCount) setMeshProgress({loaded: completedMeshes.size, total: visualCount});
           },
           undefined,
-          (error: unknown) => {
-            if (disposed) return;
-            console.error('[AiSapiensUrdfViewer] Failed to load URDF', error);
-            setViewerState('error');
-            setStatusText('Could not load the K1 URDF model.');
-          },
+          fail,
         );
 
         resizeObserver = new ResizeObserver(resize);
@@ -329,12 +315,12 @@ export default function AiSapiensUrdfViewer(): React.JSX.Element {
           renderer.render(scene, camera);
           animationFrame = window.requestAnimationFrame(animate);
         };
-        animate();
+
       } catch (error) {
         if (disposed) return;
         console.error('[AiSapiensUrdfViewer] Viewer initialization failed', error);
         setViewerState('error');
-        setStatusText('Could not initialize the 3D viewer.');
+
       }
     }
 
@@ -342,7 +328,7 @@ export default function AiSapiensUrdfViewer(): React.JSX.Element {
 
     return () => {
       disposed = true;
-      if (finalizeTimer) window.clearTimeout(finalizeTimer);
+
       if (animationFrame) window.cancelAnimationFrame(animationFrame);
       if (resizeObserver) resizeObserver.disconnect();
       if (controls) controls.dispose();
@@ -369,15 +355,20 @@ export default function AiSapiensUrdfViewer(): React.JSX.Element {
   }, [jointFramesVisible]);
 
   return (
-    <section className="ai-sapiens-urdf-viewer" aria-label="AI Sapiens K1 interactive URDF model">
-      <div className="ai-sapiens-urdf-viewer__stage" ref={mountRef}>
-        <div className={`ai-sapiens-urdf-viewer__status ai-sapiens-urdf-viewer__status--${viewerState}`}>
-          {statusText}
-        </div>
+    <section className="ai-sapiens-urdf-viewer" aria-label="AI Sapiens K1 Rev.2" data-state={viewerState}>
+      <div className="ai-sapiens-urdf-viewer__stage" ref={mountRef} aria-busy={viewerState === 'loading'}>
+        {viewerState === 'loading' && (
+          <div className="ai-sapiens-urdf-viewer__loading" role="status">
+            <span>{korean ? '모델 불러오는 중' : 'Loading model'}</span>
+            <progress aria-label={korean ? '모델 로딩' : 'Model loading'} value={meshProgress?.loaded} max={meshProgress?.total} />
+          </div>
+        )}
+        {viewerState === 'error' && <div className="ai-sapiens-urdf-viewer__loading" role="alert">{korean ? '모델을 불러올 수 없습니다.' : 'Could not load the model.'}</div>}
         <button
           type="button"
+          disabled={viewerState !== 'ready'}
           className="ai-sapiens-urdf-viewer__canvas-toggle"
-          aria-label={jointFramesVisible ? 'Hide joint frames' : 'Show joint frames'}
+          aria-label={jointFramesVisible ? (korean ? '관절 좌표계 숨기기' : 'Hide joint frames') : (korean ? '관절 좌표계 표시' : 'Show joint frames')}
           aria-pressed={jointFramesVisible}
           onClick={() => setJointFramesVisible((value) => !value)}
         >
@@ -385,25 +376,22 @@ export default function AiSapiensUrdfViewer(): React.JSX.Element {
             <path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z" />
             <circle cx="12" cy="12" r="3" />
           </svg>
-          <span>{jointFramesVisible ? 'Hide Joint Frames' : 'Show Joint Frames'}</span>
+          <span>{jointFramesVisible ? (korean ? '관절 좌표계 숨기기' : 'Hide joint frames') : (korean ? '관절 좌표계 표시' : 'Show joint frames')}</span>
         </button>
       </div>
 
       <div className="ai-sapiens-urdf-viewer__toolbar">
-        <div>
-          <p className="ai-sapiens-urdf-viewer__title">AI Sapiens K1</p>
-          <p className="ai-sapiens-urdf-viewer__hint">Drag to orbit and scroll to zoom.</p>
-        </div>
         <div className="ai-sapiens-urdf-viewer__actions">
-          <button type="button" onClick={() => resetRef.current?.()}>
-            Reset View
+          <button type="button" disabled={viewerState !== 'ready'} onClick={() => resetRef.current?.()}>
+            {korean ? '시점 초기화' : 'Reset view'}
           </button>
           <button
             type="button"
+            disabled={viewerState !== 'ready'}
             aria-pressed={autoRotate}
             onClick={() => setAutoRotate((value) => !value)}
           >
-            {autoRotate ? 'Pause Rotate' : 'Auto Rotate'}
+            {autoRotate ? (korean ? '회전 일시정지' : 'Pause rotation') : (korean ? '자동 회전' : 'Auto rotate')}
           </button>
         </div>
       </div>

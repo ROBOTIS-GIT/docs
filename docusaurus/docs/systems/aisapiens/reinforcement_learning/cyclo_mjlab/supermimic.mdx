@@ -1,0 +1,331 @@
+---
+sidebar_label: SuperMimic / BlinkMimic
+title: SuperMimic / BlinkMimic
+---
+
+import MotionConversion from '@site/src/components/MotionConversion';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# SuperMimic / BlinkMimic
+
+Train, preview, and export a world-model-based motion-tracking policy with Cyclo MJLab. Select **SuperMimic** or **BlinkMimic** in the tabs below; the selection is shared across this page.
+
+Follow the [Cyclo MJLab setup](./), then run the commands inside the container from `/workspace/cyclo_mjlab`.
+
+SuperMimic and BlinkMimic train a single policy on multiple reference clips. The examples use **K1 Rev.2, task `001`**, which trains on **Dance1 and Dance2 together**. To use your own motion, see [How to Add Your Own Task](#how-to-add-your-own-task).
+
+## Train
+
+<Tabs groupId="mjlab-mimic-method">
+<TabItem value="supermimic" label="SuperMimic" default>
+
+```bash
+python scripts/reinforcement_learning/train.py \
+  Cyclo-SuperMimic-GenCoord-K1-Rev2-001 \
+  --num-envs 4096
+```
+
+</TabItem>
+<TabItem value="blinkmimic" label="BlinkMimic">
+
+```bash
+python scripts/reinforcement_learning/train.py \
+  Cyclo-BlinkMimic-K1-Rev2-001 \
+  --num-envs 4096
+```
+
+</TabItem>
+</Tabs>
+
+SuperMimic also supports `MaxCoord` in place of `GenCoord`.
+
+### Training Output
+
+Each task has its own log directory. `<run>` is the timestamped folder created when training starts.
+
+| Method | Run directory |
+| --- | --- |
+| SuperMimic | `logs/supermimic/<task>/<run>/` |
+| BlinkMimic | `logs/blinkmimic/<task>/<run>/` |
+
+Each run directory contains:
+
+<div className="docs-folder-tree" role="img" aria-label="Training output directory structure">
+  <div className="docs-folder-tree__root">
+    <code>logs/&lt;method&gt;/&lt;task&gt;/&lt;run&gt;/</code>
+  </div>
+  <ul>
+    <li><span className="docs-folder-tree__file-stack" aria-hidden="true" /><code>model_*.pt</code></li>
+    <li><code>last.pt</code></li>
+    <li>
+      <strong>params/</strong>
+      <ul>
+        <li><code>agent.yaml</code></li>
+        <li><code>env.yaml</code></li>
+        <li><code>sim2real.yaml</code></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+## Play and Export
+
+Play the latest saved run for the selected task:
+
+<Tabs groupId="mjlab-mimic-method">
+<TabItem value="supermimic" label="SuperMimic" default>
+
+```bash
+python scripts/reinforcement_learning/play.py \
+  Cyclo-SuperMimic-GenCoord-K1-Rev2-001 \
+  --viewer viser
+```
+
+</TabItem>
+<TabItem value="blinkmimic" label="BlinkMimic">
+
+```bash
+python scripts/reinforcement_learning/play.py \
+  Cyclo-BlinkMimic-K1-Rev2-001 \
+  --viewer viser
+```
+
+</TabItem>
+</Tabs>
+
+Open the URL printed in the terminal. Use the viewer’s motion selector to switch clips.
+
+Play also exports `policy.onnx`. Check the printed export path and use `params/sim2real.yaml` from the same run. Deployment requires a controller that supports the selected method’s observations.
+
+After running the play commands above, the run directory contains:
+
+<div className="docs-folder-tree" role="img" aria-label="Training run with exported policy">
+  <div className="docs-folder-tree__root">
+    <code>logs/&lt;method&gt;/&lt;task&gt;/&lt;run&gt;/</code>
+  </div>
+  <ul>
+    <li><span className="docs-folder-tree__file-stack" aria-hidden="true" /><code>model_*.pt</code></li>
+    <li><code>last.pt</code></li>
+    <li>
+      <strong>exported/</strong>
+      <ul>
+        <li><code>policy.onnx</code></li>
+      </ul>
+    </li>
+    <li>
+      <span className="docs-folder-tree__label">params/</span>
+      <ul>
+        <li><code>agent.yaml</code></li>
+        <li><code>env.yaml</code></li>
+        <li><code>sim2real.yaml</code></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+## How to Add Your Own Task
+
+A task defines a motion library, rather than a separate policy for each clip. This example creates K1 Rev.2 task **`002`** from a collection of walking, turning, and dancing clips, keeping the existing `001` task.
+
+:::note
+This guide assumes you already have robot-motion CSV files exported by [Soma-retargeter](/docs/systems/aisapiens/motion_generation_retargeting/soma_retargeter/) or [UMR](/docs/systems/aisapiens/motion_generation_retargeting/umr/). Choose the matching tab below to convert them for training and deployment.
+:::
+
+### 1. Place and Convert the Motion Files
+
+Keep the four source clips for the new task in `task_002_motions/`, as shown in the matching tab below.
+
+<Tabs groupId="motion-source">
+<TabItem value="soma" label="Soma-retargeter CSV">
+
+Use the headered robot-motion CSV files. Keep the `_soma.csv` suffix to distinguish them from the converted deployment CSV files.
+
+<MotionConversion platform="cyclo-mjlab" source="soma" motionName="walk_forward_01" folderName="task_002_motions" otherMotions={["walk_forward_02", "turn_left_01", "dance_01"]} />
+
+</TabItem>
+<TabItem value="umr" label="UMR CSV">
+
+Use the `_umr.csv` exports, not the `_umr_qpos.npz` archives used for UMR playback.
+
+<MotionConversion platform="cyclo-mjlab" source="umr" motionName="walk_forward_01" folderName="task_002_motions" otherMotions={["walk_forward_02", "turn_left_01", "dance_01"]} />
+
+</TabItem>
+</Tabs>
+
+This creates the Cyclo MJLab motion files used after this step:
+
+- `walk_forward_01.csv` for Sim2Real deployment
+- `walk_forward_01.npz` for training
+
+After conversion, the source CSV (`walk_forward_01_soma.csv` or `walk_forward_01_umr.csv`) is no longer needed for training or Sim2Real deployment and can be removed from this folder.
+
+After converting the other clips, the motion library looks like this:
+
+<div className="docs-folder-tree" role="img" aria-label="K1 Rev.2 prepared motion library directory structure">
+  <div className="docs-folder-tree__root">
+    <code>source/assets/motions/K1_rev2/</code>
+  </div>
+  <ul>
+    <li><span className="docs-folder-tree__folder">dance1/</span></li>
+    <li><span className="docs-folder-tree__folder">dance2/</span></li>
+    <li>
+      <strong>task_002_motions/</strong>
+      <ul>
+        <li><code>walk_forward_01.npz</code></li>
+        <li><code>walk_forward_01.csv</code></li>
+        <li><code>walk_forward_02.npz</code></li>
+        <li><code>walk_forward_02.csv</code></li>
+        <li><code>turn_left_01.npz</code></li>
+        <li><code>turn_left_01.csv</code></li>
+        <li><code>dance_01.npz</code></li>
+        <li><code>dance_01.csv</code></li>
+        <li><code>…</code></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+Preview the converted clips before training to check their poses, speed, and loop transitions. The command below previews the first clip, `walk_forward_01.npz`; repeat it with each remaining clip’s filename:
+
+```bash
+python scripts/tools/motion/replay_npz.py \
+  --model third_party/ai_sapiens/ai_sapiens_description/mujoco/k1_rev2/k1.xml \
+  -f source/assets/motions/K1_rev2/task_002_motions/walk_forward_01.npz \
+  --loop
+```
+
+### 2. Create a new task config.
+
+In the selected method’s directory, copy `task_001.py` to `task_002.py`:
+
+<Tabs groupId="mjlab-mimic-method">
+<TabItem value="supermimic" label="SuperMimic" default>
+
+```bash
+cp source/tasks/supermimic/config/k1_rev2/task_001.py \
+   source/tasks/supermimic/config/k1_rev2/task_002.py
+```
+
+</TabItem>
+<TabItem value="blinkmimic" label="BlinkMimic">
+
+```bash
+cp source/tasks/blinkmimic/config/k1_rev2/task_001.py \
+   source/tasks/blinkmimic/config/k1_rev2/task_002.py
+```
+
+</TabItem>
+</Tabs>
+
+In `task_002.py`, point `MOTION_PATHS` to the library directory:
+
+```python
+MOTION_PATHS = (
+    SRC_PATH / "assets/motions/K1_rev2/task_002_motions",
+)
+```
+
+Both methods include every NPZ in this directory and its subdirectories in the same training task. Add more prepared clips to `task_002_motions/` before starting training; no separate task registration is needed for each clip.
+
+To select only part of the collection, use glob patterns instead:
+
+```python
+MOTION_PATHS = (
+    SRC_PATH / "assets/motions/K1_rev2/task_002_motions/walk_*.npz",
+    SRC_PATH / "assets/motions/K1_rev2/task_002_motions/turn_*.npz",
+)
+```
+
+### 3. Register the Task
+
+Edit the highlighted `__init__.py` in the selected method’s directory. Import `task_002` and add the new task to `TASKS`, keeping the existing entries:
+
+<Tabs groupId="mjlab-mimic-method">
+<TabItem value="supermimic" label="SuperMimic" default>
+
+<div className="docs-folder-tree" role="img" aria-label="SuperMimic task registration file structure">
+  <div className="docs-folder-tree__root">
+    <code>source/tasks/supermimic/config/</code>
+  </div>
+  <ul>
+    <li>
+      <strong>k1_rev2/</strong>
+      <ul>
+        <li><code><strong className="docs-folder-tree__file">&lowbar;&lowbar;init&lowbar;&lowbar;.py</strong></code></li>
+        <li><code>task_001.py</code></li>
+        <li><code>task_002.py</code><em>copied from task_001.py</em></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+File: `source/tasks/supermimic/config/k1_rev2/__init__.py`
+
+```python
+from . import task_001
+from . import task_002  # Add task 002
+
+TASKS = {
+    "Cyclo-SuperMimic-GenCoord-K1-Rev2-001": ("gencoord", task_001.make_env_cfg),
+    "Cyclo-SuperMimic-MaxCoord-K1-Rev2-001": ("maxcoord", task_001.make_env_cfg),
+
+    # Add task 002
+    "Cyclo-SuperMimic-GenCoord-K1-Rev2-002": ("gencoord", task_002.make_env_cfg),
+    "Cyclo-SuperMimic-MaxCoord-K1-Rev2-002": ("maxcoord", task_002.make_env_cfg),
+}
+```
+
+</TabItem>
+<TabItem value="blinkmimic" label="BlinkMimic">
+
+<div className="docs-folder-tree" role="img" aria-label="BlinkMimic task registration file structure">
+  <div className="docs-folder-tree__root">
+    <code>source/tasks/blinkmimic/config/</code>
+  </div>
+  <ul>
+    <li>
+      <strong>k1_rev2/</strong>
+      <ul>
+        <li><code><strong className="docs-folder-tree__file">&lowbar;&lowbar;init&lowbar;&lowbar;.py</strong></code></li>
+        <li><code>task_001.py</code></li>
+        <li><code>task_002.py</code><em>copied from task_001.py</em></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+File: `source/tasks/blinkmimic/config/k1_rev2/__init__.py`
+
+```python
+from . import task_001
+from . import task_002  # Add task 002
+
+TASKS = {
+    "Cyclo-BlinkMimic-K1-Rev2-001": task_001.make_task_cfg(),
+
+    # Add task 002
+    "Cyclo-BlinkMimic-K1-Rev2-002": task_002.make_task_cfg(),
+}
+```
+
+</TabItem>
+</Tabs>
+
+Check that the new tasks are registered:
+
+```bash
+python scripts/list_envs.py --keyword K1-Rev2-002
+```
+
+Check that the registered task IDs appear:
+
+- **SuperMimic**
+  - <code style={{whiteSpace: 'nowrap'}}>Cyclo-SuperMimic-GenCoord-K1-Rev2-002</code>
+  - <code style={{whiteSpace: 'nowrap'}}>Cyclo-SuperMimic-MaxCoord-K1-Rev2-002</code>
+- **BlinkMimic**
+  - <code style={{whiteSpace: 'nowrap'}}>Cyclo-BlinkMimic-K1-Rev2-002</code>
+
+### 4. Run the New Task
+
+Use the registered task ID with the Train and Play commands above.

@@ -1,0 +1,203 @@
+---
+sidebar_label: FlowHMR
+title: FlowHMR
+---
+
+# FlowHMR
+
+Use [FlowHMR](https://github.com/flowhmr/flowhmr) to extract **human motion from a video**. This guide covers installation, reconstruction, and preview of the resulting SMPL-H motion NPZ.
+
+**Video → FlowHMR → SMPL-H motion NPZ**
+
+## 1. Installation
+
+These steps follow the [official installation guide](https://github.com/flowhmr/flowhmr/blob/main/docs/install.md) for the **V2M** setup with YOLO26m and Pi4, omitting full-pipeline-only steps. Use a machine with an NVIDIA GPU, a working NVIDIA driver, and Conda installed. Complete **Clone**, **V2M environment**, and **Data** below; all are required for this setup. Run their command blocks **in order in the same terminal**.
+
+### Clone
+
+Download FlowHMR and its required SAM 3D Body submodule:
+
+```bash
+mkdir -p "$HOME/k1-motion"
+cd "$HOME/k1-motion"
+git clone https://github.com/flowhmr/flowhmr.git FlowHMR
+cd FlowHMR
+git submodule update --init --recursive -- third_party/sam-3d-body
+```
+
+:::note[Workspace layout]
+This guide uses `~/k1-motion` as a shared workspace for motion-generation and retargeting tools.
+:::
+
+### V2M environment
+
+Install the required packages:
+
+```bash
+conda create -n flowhmr python=3.10 -y
+conda activate flowhmr
+pip install -r requirements.txt -r tools/web/requirements.txt
+```
+
+Check that PyTorch can use the GPU:
+
+```bash
+python -c "import torch, ultralytics; print(torch.__version__, torch.cuda.is_available())"
+```
+
+Expected: `2.5.1+cu118 True`. If it prints `False`, resolve GPU access before continuing.
+
+#### Default detector and camera
+
+Prepare **YOLO26m, Pi4, and SAM 3D Body**. All three are required for the default pipeline used in this guide.
+
+:::info[SAM 3D Body access]
+**SAM 3D Body requires access approval.** Sign in to [its Hugging Face model page](https://huggingface.co/facebook/sam-3d-body-dinov3) and submit an access request. Wait until your account has access before downloading the model.
+:::
+
+Log in with the approved account:
+
+```bash
+conda activate flowhmr
+cd "$HOME/k1-motion/FlowHMR"
+huggingface-cli login
+```
+
+When prompted, enter a Hugging Face token from the same account with permission to download the model. Then download the required files:
+
+```bash
+huggingface-cli download Ultralytics/YOLO26 yolo26m.pt --local-dir ckpts/yolo26m
+python tools/setup_pi4_camera.py
+huggingface-cli download yyfz233/Pi4 model.safetensors --local-dir ckpts/pi4
+huggingface-cli download facebook/sam-3d-body-dinov3 --local-dir ckpts/sam-3d-body-dinov3
+```
+
+### Data
+
+#### Body models [manual]
+
+:::info[SMPL-H model]
+**The SMPL-H model is required and is not included with FlowHMR.** Prepare the **AMASS neutral SMPL-H model** (Extended SMPL+H) from the [SMPL-H / MANO website](https://mano.is.tue.mpg.de/), which requires registration and agreement to its license. An existing matching model can be reused.
+:::
+
+Extract the archive and copy **`neutral/model.npz`** into the location below. Create any missing folders.
+
+<div className="docs-folder-tree" role="img" aria-label="SMPL-H model location: ~/k1-motion/FlowHMR/assets/body_models/smplh/neutral/model.npz">
+  <div className="docs-folder-tree__root">
+    <code>~/k1-motion/FlowHMR/</code>
+  </div>
+  <ul>
+    <li>
+      <span className="docs-folder-tree__folder">assets/body_models/smplh/neutral/</span>
+      <ul>
+        <li><code><strong className="docs-folder-tree__file">model.npz</strong></code></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+Also download the **required joint regressor**, which maps body-mesh vertices to joint positions. This is a separate file from `model.npz`:
+
+```bash
+mkdir -p assets/body_models
+wget -O assets/body_models/smpl_neutral_J_regressor.pt \
+  https://raw.githubusercontent.com/zju3dv/GVHMR/main/hmr4d/utils/body_model/smpl_neutral_J_regressor.pt
+```
+
+#### FlowHMR checkpoints
+
+Download the **required FlowHMR model weights**. Run this command to install `flowhmr_latest`, which generates the human motion:
+
+```bash
+huggingface-cli download fafsaf1/flowhmr-0.46B \
+  --include "flowhmr_latest/*" "config.json" \
+  --local-dir checkpoints
+```
+
+### Smoke tests
+
+**Recommended installation check:** run the example below before processing your own video. It verifies the setup; it does not install additional models.
+
+#### Inference
+
+Run the bundled video through the complete reconstruction pipeline:
+
+```bash
+conda activate flowhmr
+cd "$HOME/k1-motion/FlowHMR"
+python run_v2m_demo_generation.py assets/example/example.mp4
+```
+
+Installation is verified when the log ends with **`=== Done | ok=1 failed=0 ===`** and `output/example/flowhmr_latest.npz` is created.
+
+**Optional fallback:** run the following only if camera estimation runs out of GPU memory. Skip it if the example above succeeds:
+
+```bash
+pip install pycolmap==3.12.6
+python run_v2m_demo_generation.py assets/example/example.mp4 --camera simplevo
+```
+
+For optional post-processing, alternative backends, and FBX export, see the [official installation guide](https://github.com/flowhmr/flowhmr/blob/main/docs/install.md).
+
+## 2. Command-Line Inference
+
+To reconstruct your own video, replace `/path/to/your_video.mp4` with its actual path and run:
+
+```bash
+conda activate flowhmr
+cd "$HOME/k1-motion/FlowHMR"
+python run_v2m_demo_generation.py /path/to/your_video.mp4
+```
+
+For a fixed-camera video, add `--static_camera`. If you used SimpleVO in the installation check, add `--camera simplevo`.
+
+### Output
+
+With the default checkpoint and seed, the motion is saved in `output/<video-stem>/flowhmr_latest.npz`. For example, `your_video.mp4` produces:
+
+<div className="docs-folder-tree" role="img" aria-label="CLI result: ~/k1-motion/FlowHMR/output/your_video/flowhmr_latest.npz">
+  <div className="docs-folder-tree__root">
+    <code>~/k1-motion/FlowHMR/</code>
+  </div>
+  <ul>
+    <li>
+      <span className="docs-folder-tree__folder">output/</span>
+      <ul>
+        <li>
+          <span className="docs-folder-tree__folder">your_video/</span>
+          <ul>
+            <li><code><strong className="docs-folder-tree__file">flowhmr_latest.npz</strong></code><em>SMPL-H human motion</em></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+See the [official CLI guide](https://github.com/flowhmr/flowhmr/blob/main/docs/inference.md) for additional options.
+
+## 3. Web demo
+
+Use the web interface if you prefer uploading a video, selecting a person, and previewing the motion in a browser. It is an alternative to the CLI workflow above.
+
+```bash
+conda activate flowhmr
+cd "$HOME/k1-motion/FlowHMR"
+python app.py --port 8080 --device cuda:0
+```
+
+1. Wait for **`FlowHMR web demo ready`**, then open [http://localhost:8080](http://localhost:8080) on the same machine.
+2. Upload your video and enable **Manual person selection** if needed.
+3. Start reconstruction. When detection pauses for a choice, select and confirm the person to reconstruct.
+4. Wait for reconstruction to finish, then play the video and reconstructed motion in the viewer.
+
+Web results are saved separately as `output/web_jobs/<job_id>/motion.npz`. If you used SimpleVO in the installation check, select **Settings → Camera → SimpleVO** before starting. See the [official web guide](https://github.com/flowhmr/flowhmr/blob/main/docs/web_demo.md) for other settings.
+
+For K1 retargeting, one option is [UMR](/docs/systems/aisapiens/motion_generation_retargeting/umr), which accepts the generated SMPL-H motion NPZ.
+
+## Attribution and Terms
+
+This page is an independent integration guide based on the [official FlowHMR project and documentation](https://github.com/flowhmr/flowhmr).
+
+- FlowHMR code is released under [Apache-2.0](https://github.com/flowhmr/flowhmr/blob/main/LICENSE). Its model weights have a [separate license](https://huggingface.co/fafsaf1/flowhmr-0.46B/blob/main/LICENSE), limited to non-commercial educational, research, and non-profit use.
+- Third-party models and assets, including SMPL-H and SAM 3D Body, remain subject to their own licenses and access terms.

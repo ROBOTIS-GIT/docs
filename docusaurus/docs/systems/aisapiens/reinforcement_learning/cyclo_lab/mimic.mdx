@@ -1,13 +1,18 @@
 ---
-sidebar_label: Mimic
-title: Mimic Policy Training
+sidebar_label: BeyondMimic
+title: BeyondMimic Policy Training
 ---
 
 import CodeSnippet from '@site/src/components/CodeSnippet';
+import MotionConversion from '@site/src/components/MotionConversion';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Mimic Policy Training
+# BeyondMimic Policy Training
+
+This is the **BeyondMimic** motion-tracking workflow for Cyclo Lab. For method selection, see [Motion Tracking](../motion_tracking); for reference requirements, see [Prepare Motion](../motion_preparation).
+
+For installation, follow the [Cyclo Lab setup](./) before running the commands below.
 
 <video className="ai-sapiens-demo-video" controls autoPlay muted loop playsInline preload="metadata">
   <source src="/videos/systems/aisapiens/k1_mimic_dance_isaac_lab.webm" type="video/webm" />
@@ -24,7 +29,7 @@ Select the physics backend with `physics=newton_mjwarp` or `physics=isaacsim_phy
 
 ```bash
 python scripts/reinforcement_learning/rsl_rl/train.py \
-  --task Cyclo-Mimic-K1-Rev1-Dance1 \
+  --task Cyclo-BeyondMimic-K1-Rev2-Dance1 \
   --num_envs 4096 \
   --headless --visualizer none \
   physics=newton_mjwarp
@@ -35,7 +40,7 @@ python scripts/reinforcement_learning/rsl_rl/train.py \
 
 ```bash
 python scripts/reinforcement_learning/rsl_rl/train.py \
-  --task Cyclo-Mimic-K1-Rev1-Dance1 \
+  --task Cyclo-BeyondMimic-K1-Rev2-Dance1 \
   --num_envs 4096 \
   --headless --visualizer none \
   physics=isaacsim_physx
@@ -44,23 +49,23 @@ python scripts/reinforcement_learning/rsl_rl/train.py \
 </TabItem>
 </Tabs>
 
-To resume training, add `--checkpoint logs/rsl_rl/cyclo_mimic_k1_rev1_dance1/<run>/model_<iteration>.pt` to the training command.
+To resume training, add `--checkpoint logs/rsl_rl/cyclo_beyondmimic_k1_rev2_dance1/<run>/model_<iteration>.pt` to the training command.
 `--checkpoint latest` selects a checkpoint from the newest compatible run created by the current training script.
 
 Training output is written to:
 
 ```text
-logs/rsl_rl/cyclo_mimic_k1_rev1_dance1/*/
+logs/rsl_rl/cyclo_beyondmimic_k1_rev2_dance1/*/
 ```
 
 Each run directory contains:
 
 <div className="docs-folder-tree" role="img" aria-label="Cyclo Lab mimic training output directory structure">
   <div className="docs-folder-tree__root">
-    <code>logs/rsl_rl/cyclo_mimic_k1_rev1_dance1/*/</code>
+    <code>logs/rsl_rl/cyclo_beyondmimic_k1_rev2_dance1/*/</code>
   </div>
   <ul>
-    <li><code>model_*.pt</code></li>
+    <li><span className="docs-folder-tree__file-stack" aria-hidden="true" /><code>model_*.pt</code></li>
     <li>
       <strong>params/</strong>
       <ul>
@@ -84,7 +89,7 @@ It runs the policy in simulation and exports `exported/policy.onnx` in the train
 
 ```bash
 python scripts/reinforcement_learning/rsl_rl/play.py \
-  --task Cyclo-Mimic-K1-Rev1-Dance1 \
+  --task Cyclo-BeyondMimic-K1-Rev2-Dance1 \
   --num_envs 16 \
   --visualizer newton_gl \
   --real-time \
@@ -96,7 +101,7 @@ python scripts/reinforcement_learning/rsl_rl/play.py \
 
 ```bash
 python scripts/reinforcement_learning/rsl_rl/play.py \
-  --task Cyclo-Mimic-K1-Rev1-Dance1 \
+  --task Cyclo-BeyondMimic-K1-Rev2-Dance1 \
   --num_envs 16 \
   --visualizer kit \
   --real-time \
@@ -106,14 +111,16 @@ python scripts/reinforcement_learning/rsl_rl/play.py \
 </TabItem>
 </Tabs>
 
+Both Newton and PhysX support `--visualizer kit`, `--visualizer newton_gl`, and `--visualizer viser`. For Viser, open the URL printed in the terminal.
+
 For playback without a window, replace the `--visualizer` option with `--headless --visualizer none`.
 
 To play a specific checkpoint instead of the latest one, add `--checkpoint`:
 
 ```bash
 python scripts/reinforcement_learning/rsl_rl/play.py \
-  --task Cyclo-Mimic-K1-Rev1-Dance1 \
-  --checkpoint logs/rsl_rl/cyclo_mimic_k1_rev1_dance1/2026-01-01_12-00-00/model_1000.pt \
+  --task Cyclo-BeyondMimic-K1-Rev2-Dance1 \
+  --checkpoint logs/rsl_rl/cyclo_beyondmimic_k1_rev2_dance1/2026-01-01_12-00-00/model_1000.pt \
   --num_envs 16 \
   --visualizer newton_gl \
   --real-time \
@@ -125,10 +132,10 @@ The `exported/` directory is added by `play.py`:
 
 <div className="docs-folder-tree" role="img" aria-label="Cyclo Lab mimic training run directory structure">
   <div className="docs-folder-tree__root">
-    <code>logs/rsl_rl/cyclo_mimic_k1_rev1_dance1/*/</code>
+    <code>logs/rsl_rl/cyclo_beyondmimic_k1_rev2_dance1/*/</code>
   </div>
   <ul>
-    <li><code>model_*.pt</code></li>
+    <li><span className="docs-folder-tree__file-stack" aria-hidden="true" /><code>model_*.pt</code></li>
     <li>
       <strong>exported/</strong>
       <ul>
@@ -167,7 +174,7 @@ Do not pair `policy.onnx` from one run with `sim2real.yaml` from another run.
 Use this flow when you want to add a new mimic task for your own motion.
 
 :::note
-This guide assumes you already have a Soma-retargeter output CSV from the [Kimodo](/docs/systems/aisapiens/motion_generation_retargeting/kimodo/) > [Soma-retargeter](/docs/systems/aisapiens/motion_generation_retargeting/soma_retargeter/) pipeline.
+This guide assumes you already have a robot-motion CSV exported by [Soma-retargeter](/docs/systems/aisapiens/motion_generation_retargeting/soma_retargeter/) or [UMR](/docs/systems/aisapiens/motion_generation_retargeting/umr/). Choose the matching tab below to convert it for training and deployment.
 :::
 
 The examples below use `my_motion` as the new motion name.
@@ -175,9 +182,33 @@ Use your own motion name in the same places.
 
 1. **Place and convert the motion file.**
 
-   First, place the Soma-retargeter output CSV under the K1 Rev.1 motion data directory:
+   <Tabs groupId="motion-source">
+   <TabItem value="soma" label="Soma-retargeter CSV">
 
-   <div className="docs-folder-tree" role="img" aria-label="K1 Rev.1 motion input directory structure">
+   Use the headered robot-motion CSV. Keep it as `my_motion_soma.csv`, separate from the converted deployment CSV.
+
+   <MotionConversion platform="cyclo-lab" source="soma" motionName="my_motion" />
+
+   </TabItem>
+   <TabItem value="umr" label="UMR CSV">
+
+   Use the `_umr.csv` export, not the `_umr_qpos.npz` archive used for UMR playback.
+
+   <MotionConversion platform="cyclo-lab" source="umr" motionName="my_motion" />
+
+   </TabItem>
+   </Tabs>
+
+   This creates the Cyclo Lab motion files used after this step:
+
+   - `my_motion.csv` for Sim2Real deployment
+   - `my_motion.npz` for training
+
+   After conversion, the source CSV (`my_motion_soma.csv` or `my_motion_umr.csv`) is no longer needed for training or Sim2Real deployment and can be removed from this folder.
+
+   The converted files are saved alongside the source CSV:
+
+   <div className="docs-folder-tree" role="img" aria-label="K1 Rev.2 motion input directory structure">
      <div className="docs-folder-tree__root">
        <code>source/cyclo_lab/data/</code>
      </div>
@@ -186,14 +217,15 @@ Use your own motion name in the same places.
          <span className="docs-folder-tree__folder">motions/</span>
          <ul>
            <li>
-             <span className="docs-folder-tree__folder">K1_rev1/</span>
+             <span className="docs-folder-tree__folder">K1_rev2/</span>
              <ul>
                <li><span className="docs-folder-tree__folder">dance1/</span></li>
                <li><span className="docs-folder-tree__folder">dance2/</span></li>
                <li>
                  <strong>my_motion/</strong>
                  <ul>
-                   <li><code>my_motion_soma.csv</code></li>
+                   <li><code><strong className="docs-folder-tree__file">my_motion.npz</strong></code><em>Used for training</em></li>
+                   <li><code><strong className="docs-folder-tree__file">my_motion.csv</strong></code><em>Used for deployment</em></li>
                  </ul>
                </li>
              </ul>
@@ -203,31 +235,13 @@ Use your own motion name in the same places.
      </ul>
    </div>
 
-   `my_motion_soma.csv` is the Soma-retargeter output CSV.
-
-   Convert it because Cyclo Lab does not train directly from the Soma-retargeter output CSV.
-
-   ```bash
-   python3 scripts/tools/motion/soma_retargeter_csv_converter.py \
-     -f source/cyclo_lab/data/motions/K1_rev1/my_motion/my_motion_soma.csv \
-     --output_name source/cyclo_lab/data/motions/K1_rev1/my_motion/my_motion.npz \
-     --viz none
-   ```
-
-   This creates the Cyclo Lab motion files used after this step:
-
-   - `my_motion.csv` for Sim2Real deployment
-   - `my_motion.npz` for training
-
-   After conversion, `my_motion_soma.csv` is not used by training or Sim2Real deployment, so it can be removed from this folder.
-
 2. **Create a new mimic task config.**
 
    Create `my_motion_env_cfg.py` by duplicating the existing `dance1_env_cfg.py`.
    In the new file, set `TRAJECTORY_FILE` to the new NPZ path.
 
    ```python
-   TRAJECTORY_FILE = f"{CYCLO_LAB_ASSETS_DATA_DIR}/motions/K1_rev1/my_motion/my_motion.npz"
+   TRAJECTORY_FILE = f"{CYCLO_LAB_ASSETS_DATA_DIR}/motions/K1_rev2/my_motion/my_motion.npz"
    ```
 
 3. **Register the new task.**
@@ -236,16 +250,16 @@ Use your own motion name in the same places.
 
    <div className="docs-folder-tree" role="img" aria-label="Mimic task registration file structure">
      <div className="docs-folder-tree__root">
-       <code>source/cyclo_lab/cyclo_lab/manager_based/mimic/</code>
+       <code>source/cyclo_lab/cyclo_lab/manager_based/mimic/beyondmimic/</code>
        <strong>config/</strong>
      </div>
      <ul>
+       <li><code>base_env_cfg.py</code></li>
        <li>
-         <strong>k1_rev1/</strong>
+         <strong>k1_rev2/</strong>
          <ul>
            <li><span className="docs-folder-tree__folder">agents/</span></li>
            <li><code><strong className="docs-folder-tree__file">&lowbar;&lowbar;init&lowbar;&lowbar;.py</strong></code></li>
-           <li><code>base_env_cfg.py</code></li>
            <li><code>dance1_env_cfg.py</code></li>
            <li><code>dance2_env_cfg.py</code></li>
            <li><code><span className="docs-folder-tree__file">my_motion_env_cfg.py</span></code><em>cloned from dance1_env_cfg.py</em></li>
@@ -254,19 +268,19 @@ Use your own motion name in the same places.
      </ul>
    </div>
 
-   Add an entry to `source/cyclo_lab/cyclo_lab/manager_based/mimic/config/k1_rev1/__init__.py`:
+   Add an entry to `source/cyclo_lab/cyclo_lab/manager_based/mimic/beyondmimic/config/k1_rev2/__init__.py`:
 
    <CodeSnippet
      language="python"
-     accentTokens={['Cyclo-Mimic-K1-Rev1-MyMotion', 'my_motion_env_cfg']}
+     accentTokens={['Cyclo-BeyondMimic-K1-Rev2-MyMotion', 'my_motion_env_cfg']}
      lines={[
        'gym.register(',
-       '    id="Cyclo-Mimic-K1-Rev1-MyMotion",',
+       '    id="Cyclo-BeyondMimic-K1-Rev2-MyMotion",',
        '    entry_point="isaaclab.envs:ManagerBasedRLEnv",',
        '    disable_env_checker=True,',
        '    kwargs={',
-       '        "env_cfg_entry_point": f"{__name__}.my_motion_env_cfg:K1Rev1EnvCfg",',
-       '        "rsl_rl_cfg_entry_point": f"{agents.__name__}.rsl_rl_ppo_cfg:K1Rev1MimicPPORunnerCfg",',
+       '        "env_cfg_entry_point": f"{__name__}.my_motion_env_cfg:K1Rev2EnvCfg",',
+       '        "rsl_rl_cfg_entry_point": f"{__name__}.agents.rsl_rl_ppo_cfg:K1Rev2MimicPPORunnerCfg",',
        '    },',
        ')',
      ]}
@@ -278,7 +292,7 @@ Use your own motion name in the same places.
    python3 scripts/tools/list_envs.py | grep MyMotion
    ```
 
-   Check that the output includes `Cyclo-Mimic-K1-Rev1-MyMotion`.
+   Check that the output includes `Cyclo-BeyondMimic-K1-Rev2-MyMotion`.
 
 4. **Train and export.**
 

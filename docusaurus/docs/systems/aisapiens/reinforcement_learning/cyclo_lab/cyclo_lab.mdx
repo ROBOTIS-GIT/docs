@@ -8,7 +8,7 @@ title: Cyclo Lab
 Cyclo Lab is the Isaac Lab-based environment for training AI Sapiens K1 policies in simulation.
 It provides the training and export workflow needed before deploying a policy with Sim2Real.
 
-This guide is based on Cyclo Lab 3.0.0.
+This guide is based on Cyclo Lab 3.2.0.
 
 For robot-side deployment after training, use the [Sim2Real guide](/docs/systems/aisapiens/development_guide/sim2real/).
 
@@ -31,10 +31,12 @@ Install these on the host PC first:
 - Docker and Docker Compose.
 - NVIDIA Container Toolkit.
 - NVIDIA GPU driver compatible with the Isaac Sim container image.
+- Git LFS (`sudo apt install git-lfs` on Ubuntu), required to download the Dance1 and Dance2 motion files.
 
-Clone Cyclo Lab with its submodules:
+On the host, initialize Git LFS before cloning Cyclo Lab with its submodules:
 
 ```bash
+git lfs install
 git clone https://github.com/ROBOTIS-GIT/cyclo_lab.git
 cd cyclo_lab
 git submodule update --init
@@ -43,9 +45,11 @@ git submodule update --init
 <details>
 <summary>Already cloned Cyclo Lab?</summary>
 
-Initialize the submodules before starting the container:
+From the repository root on the host, download the LFS files and initialize the submodules before starting the container:
 
 ```bash
+git lfs install
+git lfs pull
 git submodule update --init
 ```
 
@@ -85,6 +89,7 @@ Use the no-window option shown for your backend in the training guides when visu
 
 ## Next Steps
 
-- Train and export a velocity policy with the [Locomotion guide](./locomotion).
-- Train and export a motion-imitation policy with the [Mimic guide](./mimic).
+- Train a velocity policy with [Locomotion](./locomotion).
+- Train a motion-tracking policy with [BeyondMimic](./mimic) (PPO) or [SuperMimic / BlinkMimic](./supermimic) (world model).
+- Use [Prepare Motion](../motion_preparation) for custom reference motions.
 - Deploy the exported asset with [How to Deploy Your Own Cyclo Lab-Trained Policy](/docs/systems/aisapiens/development_guide/sim2real/#how-to-deploy-your-own-cyclo-lab-trained-policy).

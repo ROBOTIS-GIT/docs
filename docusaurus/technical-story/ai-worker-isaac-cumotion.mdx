@@ -70,9 +70,7 @@ environment.
     alt="AI Worker and NVIDIA Isaac ROS cuMotion system architecture"
     style={{maxWidth: '100%', borderRadius: '8px', background: '#fff'}}
   />
-  <p style={{marginTop: '8px', fontSize: '14px', color: '#76B900', fontStyle: 'italic'}}>
-    AI Worker streams camera and robot state data to the GPU workstation; cuMotion returns trajectories to the robot controllers.
-  </p>
+  <p style={{marginTop: '8px', fontSize: '14px', color: '#76B900', fontStyle: 'italic'}}>AI Worker streams camera and robot state data to the GPU workstation; cuMotion returns trajectories to the robot controllers.</p>
 </div>
 
 The data flow is as follows:
@@ -123,9 +121,7 @@ The exported spheres are then visualized in RViz during motion planning process.
     alt="AI Worker collision spheres in Isaac Sim and RViz"
     style={{maxWidth: '100%', borderRadius: '8px', background: '#fff'}}
   />
-  <p style={{marginTop: '8px', fontSize: '14px', color: '#76B900', fontStyle: 'italic'}}>
-    XRDF collision spheres in Isaac Sim (left) and the corresponding visualization during motion planning (right).
-  </p>
+  <p style={{marginTop: '8px', fontSize: '14px', color: '#76B900', fontStyle: 'italic'}}>XRDF collision spheres in Isaac Sim (left) and the corresponding visualization during motion planning (right).</p>
 </div>
 
 :::tip
@@ -192,9 +188,7 @@ goal or an unexpected detour.
     alt="AI Worker end-effector target-pose planning"
     style={{width: '588px', maxWidth: '100%', height: 'auto', borderRadius: '8px', background: '#fff'}}
   />
-  <p style={{marginTop: '8px', fontSize: '14px', color: '#76B900', fontStyle: 'italic'}}>
-    Target-pose planning for the left arm, right arm, and whole-body planning group.
-  </p>
+  <p style={{marginTop: '8px', fontSize: '14px', color: '#76B900', fontStyle: 'italic'}}>Target-pose planning for the left arm, right arm, and whole-body planning group.</p>
 </div>
 
 ### 4.2 Static-scene collision avoidance
@@ -262,9 +256,7 @@ clearance from every modeled panel.
     alt="AI Worker collision avoidance on static scene"
     style={{width: '588px', maxWidth: '100%', height: 'auto', borderRadius: '8px', background: '#fff'}}
   />
-  <p style={{marginTop: '8px', fontSize: '14px', color: '#76B900', fontStyle: 'italic'}}>
-    The end effector moves between shelf compartments represented by static collision geometry.
-  </p>
+  <p style={{marginTop: '8px', fontSize: '14px', color: '#76B900', fontStyle: 'italic'}}>The end effector moves between shelf compartments represented by static collision geometry.</p>
 </div>
 
 ### 4.3 Dynamic-scene collision avoidance with Nvblox
@@ -385,15 +377,11 @@ the predefined-object catalog.
 <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px', margin: '16px 0'}}>
   <div>
     <img src="/img/systems/aiworker/resources/technical_story/isaac_cumotion/wo_object_attachment.gif" alt="Object collision without attachment" style={{width: '100%', borderRadius: '8px'}} />
-    <p style={{marginTop: '8px', fontSize: '14px', color: '#76B900', fontStyle: 'italic'}}>
-      Without attachment, carried-object collisions are not considered, and the box hits the obstacle.
-    </p>
+    <p style={{marginTop: '8px', fontSize: '14px', color: '#76B900', fontStyle: 'italic'}}>Without attachment, carried-object collisions are not considered, and the box hits the obstacle.</p>
   </div>
   <div>
     <img src="/img/systems/aiworker/resources/technical_story/isaac_cumotion/object_attachment.gif" alt="Object collision avoidance with attachment" style={{width: '100%', borderRadius: '8px'}} />
-    <p style={{marginTop: '8px', fontSize: '14px', color: '#76B900', fontStyle: 'italic'}}>
-      With attachment, carried-object collisions are considered, and the box avoids the obstacle.
-    </p>
+    <p style={{marginTop: '8px', fontSize: '14px', color: '#76B900', fontStyle: 'italic'}}>With attachment, carried-object collisions are considered, and the box avoids the obstacle.</p>
   </div>
 </div>
 
