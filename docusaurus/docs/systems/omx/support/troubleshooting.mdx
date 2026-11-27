@@ -1,0 +1,46 @@
+---
+title: Troubleshooting
+description: Troubleshooting and recovery guides for OMX.
+---
+
+import Link from '@docusaurus/Link';
+import styles from '@site/src/components/TroubleshootingList/styles.module.css';
+
+{/* The same page as the AI Worker Troubleshooting page: its sentence, its group names, and groups of cards with the
+    TroubleshootingList styles. TroubleshootingList itself lists only the AI Worker pages, so the groups are written
+    out here, as the AI Worker In-depth Guide page does. The group titles are <h2> tags, as TroubleshootingList
+    writes them, so this page has no list at the right either.
+    Add a guide with steps for a problem under support/troubleshooting/<group>/, with title, description and
+    displayed_sidebar: omxSidebar, and a link back to this page. Then add its card here. A short question asked on
+    Discord goes in the FAQ page (faq.mdx) instead. */}
+
+Choose a guide for the issue you are investigating. If the issue persists, [report it](/docs/systems/omx/support/issues) or [contact ROBOTIS](/docs/systems/omx/support/contact_us).
+
+<section className={styles.section}>
+  <h2 id="bringup">Bringup</h2>
+  <ul className={styles.list}>
+    <li><Link className={styles.card} to="/docs/systems/omx/support/troubleshooting/motors/motor_not_found"><span>A Motor Blinks Red or Is Not Found</span><span aria-hidden="true">→</span></Link></li>
+    <li><Link className={styles.card} to="/docs/systems/omx/support/troubleshooting/pc/pc_not_supported"><span>OMX Does Not Start on a Virtual Machine, Windows, or Mac</span><span aria-hidden="true">→</span></Link></li>
+  </ul>
+</section>
+
+<section className={styles.section}>
+  <h2 id="teleoperation">Teleoperation</h2>
+  <ul className={styles.list}>
+    <li><Link className={styles.card} to="/docs/systems/omx/support/troubleshooting/motors/arm_moves_wrong"><span>The Follower Jumps or Does Not Match the Leader</span><span aria-hidden="true">→</span></Link></li>
+  </ul>
+</section>
+
+<section className={styles.section}>
+  <h2 id="robot-recovery">Robot Recovery</h2>
+  <ul className={styles.list}>
+    <li><Link className={styles.card} to="/docs/systems/omx/support/troubleshooting/motors/replace_motor"><span>How Do I Replace a Motor?</span><span aria-hidden="true">→</span></Link></li>
+  </ul>
+</section>
+
+<section className={styles.section}>
+  <h2 id="frequently-asked-on-discord">Frequently Asked on Discord</h2>
+  <ul className={styles.list}>
+    <li><Link className={styles.card} to="/docs/systems/omx/support/faq"><span>Frequently Asked Questions</span><span aria-hidden="true">→</span></Link></li>
+  </ul>
+</section>

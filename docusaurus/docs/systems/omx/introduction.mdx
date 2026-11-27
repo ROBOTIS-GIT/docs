@@ -1,8 +1,13 @@
-# About OMX
+import Link from '@docusaurus/Link';
+import SectionCard from '@site/src/components/SectionCard';
+
+# Introduction to OMX
 
 <img src="/img/systems/omx/introduction/main_image.webp" width="600"/>
 
 The ROBOTIS **OMX** is an entry‑level Physical AI manipulator designed for hands‑on dataset collection and comparison, helping newcomers step into Physical AI with confidence. This compact 5‑DOF platform, built on **DYNAMIXEL‑X**, supports end‑to‑end IL/RL pipelines and **ROS 2‑native** workflows.
+
+<SectionCard>
 
 ## Key Features
 
@@ -70,9 +75,13 @@ The ROBOTIS **OMX** is an entry‑level Physical AI manipulator designed for han
   <div class="feature-item">
     <div class="feature-icon">🔄</div>
     <h3>AI Workflows</h3>
-    <p>OMX is compatible with ROBOTIS Physical AI Tools and native LeRobot workflows, so users can build AI-driven applications out of the box.</p>
+    <p>OMX is compatible with ROBOTIS Cyclo Intelligence and native LeRobot workflows, so users can build AI-driven applications out of the box.</p>
   </div>
 </div>
+
+</SectionCard>
+
+<SectionCard>
 
 ## OMX Lineup Overview
 
@@ -93,3 +102,110 @@ The OMX series offers multiple configurations for various teleoperation and mani
 - `OMX-AI`
   Complete teleoperation set including OMX-L leader unit and OMX-F follower unit.
   Provides a full leader-follower system for imitation learning and teleoperation applications.
+
+</SectionCard>
+
+{/* Questions a first-time user may have, each with the page that answers it. The cards use the same classes as the
+    AI Worker introduction (software-overview-nav, aiworker-guide-cards), so they look the same without new styles. */}
+
+<SectionCard>
+
+## Documentation Guide
+
+<ul className="software-overview-nav aiworker-guide-cards">
+  <li>
+    <Link to="/docs/systems/omx/specifications/hardware">
+      <svg className="aiworker-guide-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+        <rect x="6" y="6" width="12" height="12" rx="2" />
+        <path d="M9 3v3m6-3v3M9 18v3m6-3v3M3 9h3m-3 6h3m12-6h3m-3 6h3M10 10h4v4h-4z" />
+      </svg>
+      Looking for hardware specifications?
+      <span>Hardware Specification →</span>
+    </Link>
+  </li>
+  <li>
+    <Link to="/docs/systems/omx/specifications/software">
+      <svg className="aiworker-guide-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+        <rect x="9" y="3" width="6" height="5" rx="1" />
+        <rect x="2" y="16" width="6" height="5" rx="1" />
+        <rect x="16" y="16" width="6" height="5" rx="1" />
+        <path d="M12 8v4M5 16v-4h14v4" />
+      </svg>
+      Want to understand the software architecture?
+      <span>Software Architecture →</span>
+    </Link>
+  </li>
+  <li>
+    <Link to="/docs/systems/omx/quick_start_guide/assembly_guide">
+      <svg className="aiworker-guide-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+        <path d="m3 7 9-4 9 4v10l-9 4-9-4V7Zm0 0 9 4 9-4M12 11v10M7.5 5l9 4v4" />
+      </svg>
+      First time using OMX?
+      <span>Assembly Guide →</span>
+    </Link>
+  </li>
+  <li>
+    <Link to="/docs/systems/omx/quick_start_guide/teleoperation">
+      <svg className="aiworker-guide-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+        <rect x="2" y="6" width="20" height="13" rx="4" />
+        <path d="M7 10v5m-2.5-2.5h5" />
+        <circle cx="16" cy="11" r="0.7" />
+        <circle cx="19" cy="14" r="0.7" />
+      </svg>
+      How do I move OMX with the leader arm?
+      <span>Teleoperation →</span>
+    </Link>
+  </li>
+  <li>
+    <Link to="/docs/systems/omx/imitation_learning/setup">
+      <svg className="aiworker-guide-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+        <path d="m12 3 10 5-10 5L2 8l10-5Zm-10 9 10 5 10-5M2 16l10 5 10-5" />
+      </svg>
+      Want OMX to learn a task from you?
+      <span>Imitation Learning / Setup →</span>
+    </Link>
+  </li>
+  <li>
+    <Link to="https://huggingface.co/docs/lerobot/omx">
+      <svg className="aiworker-guide-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+        <path d="M14 4h6v6M20 4l-8 8" />
+        <path d="M18 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4" />
+      </svg>
+      Want to use LeRobot instead of ROS 2?
+      <span>LeRobot Setup Guide →</span>
+    </Link>
+  </li>
+  <li>
+    <Link to="/docs/systems/omx/quick_start_guide/operation_guide/robot_control">
+      <svg className="aiworker-guide-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+        <rect x="2" y="6" width="20" height="12" rx="2" />
+        <path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10" />
+      </svg>
+      Want to control OMX with MoveIt 2 or a keyboard?
+      <span>MoveIt 2 →</span>
+    </Link>
+  </li>
+  <li>
+    <Link to="/docs/systems/omx/simulation">
+      <svg className="aiworker-guide-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+        <rect x="3" y="3" width="18" height="14" rx="2" />
+        <path d="M8 21h8m-4-4v4M10 7l5 3-5 3V7Z" />
+      </svg>
+      Want to try OMX in a simulator?
+      <span>Simulation / Overview →</span>
+    </Link>
+  </li>
+  <li>
+    <Link to="/docs/systems/omx/support/troubleshooting">
+      <svg className="aiworker-guide-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+        <circle cx="12" cy="12" r="9" />
+        <circle cx="12" cy="12" r="4" />
+        <path d="m5.6 5.6 3.6 3.6m5.6 5.6 3.6 3.6m0-12.8-3.6 3.6m-5.6 5.6-3.6 3.6" />
+      </svg>
+      Something not working?
+      <span>Troubleshooting →</span>
+    </Link>
+  </li>
+</ul>
+
+</SectionCard>

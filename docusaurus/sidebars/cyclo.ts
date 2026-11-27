@@ -11,12 +11,18 @@ const cycloSidebar: SidebarsConfig[string] = [
     items: [
       doc('software/cyclo/cyclo_studio', 'Cyclo Studio'),
       doc('software/cyclo/cyclo_marketplace', 'Cyclo Marketplace'),
+      doc('software/cyclo/cyclo_ai', 'Cyclo AI'),
       {
         type: 'category',
         label: 'Cyclo Intelligence',
         link: {type: 'doc', id: 'software/cyclo/cyclo_intelligence'},
-        collapsed: false,
+        collapsed: true,
         items: [
+          doc('software/cyclo/intelligence/setup', 'Setup'),
+          doc('software/cyclo/intelligence/data_recording', 'Data Recording'),
+          doc('software/cyclo/intelligence/data_tools', 'Data Tools'),
+          doc('software/cyclo/intelligence/model_training', 'Model Training Guide'),
+          doc('software/cyclo/intelligence/model_inference', 'Model Inference'),
           {
             type: 'category',
             label: 'Legacy: Physical AI Tools',

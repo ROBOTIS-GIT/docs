@@ -66,8 +66,8 @@ Choose how to launch the robot and Leader. All-in-One starts both together; Sepa
 
 These commands start an **LG2 Leader with BG2/SG2**, or an **A1 Leader with W1/W2**. For other combinations, select the **Separate Launches** tab.
 
-:::tip[Default arm controls]
-Launching the programs does not start arm teleoperation. On A1, A2, and LG2, push both triggers forward together for 2 seconds, then release them, to start both arms. Repeat the action to pause both arms. See [Operation Guide](/docs/systems/aiworker/quick_start_guide/teleoperation#4-operation-guide) before starting.
+:::tip[Default controls]
+After launching the programs, push both triggers forward together for 2 seconds and release them to start teleoperation. Repeat the action to pause both arms and disable the Leader's gripper and joystick motion controls. See [Operation Guide](/docs/systems/aiworker/quick_start_guide/teleoperation#4-operation-guide) before starting.
 :::
 
 To start both the `Leader` and `Follower (BG2/SG2/W1/W2)` simultaneously:
@@ -76,14 +76,14 @@ To start both the `Leader` and `Follower (BG2/SG2/W1/W2)` simultaneously:
   <TabItem value="f1" label="W1">
 
 ```bash
-ros2 launch ffw_bringup ffw_f1_ai.launch.py
+ros2 launch ffw_bringup w1_ai.launch.py
 ```
 
   </TabItem>
   <TabItem value="f2" label="W2">
 
 ```bash
-ros2 launch ffw_bringup ffw_f2_ai.launch.py
+ros2 launch ffw_bringup w2_ai.launch.py
 ```
 
   </TabItem>
@@ -109,14 +109,14 @@ Or use the shortcut:
   <TabItem value="f1" label="W1">
 
 ```bash
-ffw_f1_ai
+w1_ai
 ```
 
   </TabItem>
   <TabItem value="f2" label="W2">
 
 ```bash
-ffw_f2_ai
+w2_ai
 ```
 
   </TabItem>
@@ -149,14 +149,14 @@ Wait for Follower initialization to finish before starting the Leader. The requi
   <TabItem value="f1" label="W1">
 
 ```bash
-ros2 launch ffw_bringup ffw_f1_follower_ai.launch.py
+ros2 launch ffw_bringup w1_follower_ai.launch.py
 ```
 
   </TabItem>
   <TabItem value="f2" label="W2">
 
 ```bash
-ros2 launch ffw_bringup ffw_f2_follower_ai.launch.py
+ros2 launch ffw_bringup w2_follower_ai.launch.py
 ```
 
   </TabItem>
@@ -182,14 +182,14 @@ Or use the shortcut:
   <TabItem value="f1" label="W1">
 
 ```bash
-ffw_f1_follower_ai
+w1_follower_ai
 ```
 
   </TabItem>
   <TabItem value="f2" label="W2">
 
 ```bash
-ffw_f2_follower_ai
+w2_follower_ai
 ```
 
   </TabItem>

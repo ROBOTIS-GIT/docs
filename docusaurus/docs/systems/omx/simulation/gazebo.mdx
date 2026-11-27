@@ -1,14 +1,24 @@
+import SectionCard from '@site/src/components/SectionCard';
+
 # Getting Started with Gazebo
 
+<SectionCard>
+
 ## Overview
+
 You can launch Gazebo and RViz individually, or launch RViz together with the physical hardware.
 
-## 1. Prepare the Open Manipulator Docker Container
+</SectionCard>
 
-Refer to the [ROS 2 (Physical AI Tools) Setup Guide](/docs/systems/omx/resources/legacy/physical_ai_tools/setup_guide) to configure the Open Manipulator Docker Container environment.
+<SectionCard>
 
+## Launch Gazebo
 
-## 2. Enable GUI Access
+### 1. Prepare the Open Manipulator Docker Container
+
+Refer to [Software Setup](/docs/systems/omx/quick_start_guide/setup_software) to configure the Open Manipulator Docker Container environment.
+
+### 2. Enable GUI Access
 
 Open a new terminal and run the following command:
 
@@ -16,20 +26,22 @@ Open a new terminal and run the following command:
 xhost +
 ```
 
+### 3. Access the Running Container
 
-## 3. Access the Running Container
+Enter the **open_manipulator** container, the robot software container you started in [Software Setup](/docs/systems/omx/quick_start_guide/setup_software#3-start-the-robot-container):
 
 ```bash
+cd $HOME/open_manipulator/docker
 ./container.sh enter
 ```
 
 :::info
-At least one **Zenoh daemon** must be running in the communication network. If no Zenoh daemon is running, ROS 2 nodes cannot discover or communicate with each other.
+At least one [**Zenoh daemon**](/docs/systems/omx/specifications/software#middleware) must be running in the communication network. If no Zenoh daemon is running, ROS 2 nodes cannot discover or communicate with each other.
 
 For the recommended setup, run `zenohd` in a terminal inside the **open_manipulator Docker container**.
 :::
 
-## 4. Launch Gazebo
+### 4. Launch Gazebo
 
 Launch the simulation environment using:
 
@@ -37,14 +49,25 @@ Launch the simulation environment using:
 ros2 launch open_manipulator_bringup omx_f_gazebo.launch.py
 ```
 
+### 5. Run MoveIt and GUI in Simulation
 
-## 5. Run MoveIt and GUI in Simulation
+Refer to [MoveIt 2](/docs/systems/omx/quick_start_guide/operation_guide/robot_control) to control the robot within the Gazebo environment. [Keyboard Teleop](/docs/systems/omx/quick_start_guide/operation_guide/robot_control#keyboard-teleop) also works with Gazebo.
 
-Refer to the [Operation Guide](/docs/systems/omx/quick_start_guide/operation_guide) to control the robot within the Gazebo environment.
+If you are using Gazebo, you should add the argument `use_sim:=true`:
 
+```bash
+ros2 launch open_manipulator_moveit_config omx_f_moveit.launch.py use_sim:=true
+# Launch MoveIt in simulation mode
+```
+
+</SectionCard>
+
+<SectionCard>
 
 ## Simulation Views
 
 ### OMX_F
 
 ![OMX F Simulation](/img/systems/omx/simulation/gazebo/omx_f_gazebo.png)
+
+</SectionCard>

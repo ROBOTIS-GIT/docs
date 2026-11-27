@@ -13,18 +13,16 @@ Before starting, stop any other program that is sending motion commands to the F
 
 After the Leader has started, push **both triggers forward together for 2 seconds**, then release them to **start or pause teleoperation**.
 
-- **Start:** The Follower's arms begin following the Leader. Keep the Leader steady while the Follower moves toward the Leader's pose.
-- **Pause:** The arms stop following the Leader and hold their positions.
+- **Start:** The Follower's arms begin following the Leader, and the joystick controls become active. Keep the Leader steady while the Follower moves toward the Leader's pose.
+- **Pause:** Both arms stop following the Leader and hold their positions. The Leader's gripper, head, lift, and mobile-base controls are disabled.
 
 ![Push both triggers forward to start or pause both arms](/img/systems/aiworker/quick_start_guide/teleoperation/push_trigger_ai_worker.gif)
-
-:::warning
-Pausing arm teleoperation does not stop head, lift, or mobile-base movement. Keep the joysticks centered, and use the robot's emergency stop if unexpected motion occurs.
-:::
 
 ### Joystick & Gripper Controls
 
 On models with a mobile base, press both joystick buttons together and release them **before 0.5 seconds** to switch between **Head mode** and **Base mode**.
+
+<img src="/img/systems/aiworker/quick_start_guide/teleoperation/a1_double_short_press.gif" alt="Briefly press both joystick buttons to change what the joysticks control" style={{width: '694px', maxWidth: '100%', height: 'auto'}} />
 
 | Control | Head mode | Base mode |
 | --- | --- | --- |
@@ -36,7 +34,7 @@ On models with a mobile base, press both joystick buttons together and release t
 ![Mobile-base joystick directions: left joystick for translation and right joystick for turning](/img/systems/aiworker/quick_start_guide/teleoperation/LG2_Joystick.png)
 
 :::warning
-The arms continue following the Leader during mobile-base control.
+If the arms are already following the Leader, switching to Base mode leaves arm teleoperation active.
 :::
 
 <details>

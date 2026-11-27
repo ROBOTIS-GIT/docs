@@ -1,0 +1,256 @@
+import SectionCard from '@site/src/components/SectionCard';
+import {TutorialMedia} from '@site/src/components/Tutorial';
+
+# Software Setup Guide
+
+This guide explains how to download and start the robot software, and how to tell it which arm is which. You do this once. You copy and paste, and change one line in two files. You do not write code.
+
+Complete [Hardware Setup](/docs/systems/omx/quick_start_guide/setup_hardware) before continuing.
+
+:::info
+**OMX also works with LeRobot.** To use OMX directly with the LeRobot workflow instead, follow the [LeRobot Setup Guide](https://huggingface.co/docs/lerobot/omx). The LeRobot workflow does not require the ROS 2 setup on this page.
+:::
+
+<SectionCard>
+
+## Prerequisites
+
+| Requirement | Note |
+| :---: | :--- |
+| Docker Engine | Install Docker Engine before starting the OpenMANIPULATOR container. |
+| Git | Used to clone the OpenMANIPULATOR repository. |
+| USB access | The leader and follower OpenRB boards must be visible from the host PC. |
+
+</SectionCard>
+
+<SectionCard>
+
+## 1. Check Docker and Git
+
+Open a terminal with **Ctrl + Alt + T**. Copy a box with the button at its top right, paste it into the terminal with **Ctrl + Shift + V**, and press **Enter**.
+
+```bash
+docker compose version
+git --version
+docker run hello-world
+```
+
+Look for these three lines among the others. Your version numbers can be different.
+
+```text
+Docker Compose version v5.3.0
+git version 2.43.0
+Hello from Docker!
+```
+
+All three are there? Go on to the next section. If one is missing, install it first. For Docker Engine, use [Docker's guide](https://docs.docker.com/engine/install/ubuntu/).
+
+<details className="omx-fix">
+  <summary>Something different?</summary>
+
+| You see | Do this |
+| --- | --- |
+| `'compose' is not a docker command` | An older Docker from Ubuntu is on the PC. Remove it as in "Uninstall old versions" of [Docker's guide](https://docs.docker.com/engine/install/ubuntu/#uninstall-old-versions). Then install Docker Engine with the same guide. |
+| `permission denied` | Docker does not run without sudo yet. Do [Manage Docker as a non-root user](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user) in Docker's guide. Then log out of Ubuntu, log in again, and do this section again. |
+
+</details>
+
+</SectionCard>
+
+<SectionCard>
+
+## 2. Download the Robot Software
+
+The robot software goes into a folder named `open_manipulator`.
+
+```bash
+cd $HOME
+git clone https://github.com/ROBOTIS-GIT/open_manipulator
+```
+
+<details className="omx-fix">
+  <summary>Something different?</summary>
+
+| You see | Do this |
+| --- | --- |
+| `'open_manipulator' already exists` | It was downloaded before. That is fine. Go on to the next section. |
+
+</details>
+
+</SectionCard>
+
+<SectionCard>
+
+## 3. Start the Robot Container
+
+```bash
+cd $HOME/open_manipulator/docker
+./container.sh start
+```
+
+It asks for your password, then downloads the container and starts it. Wait until you can type again.
+
+<details>
+  <summary>How does it work?</summary>
+
+  Docker runs programs in containers. A container holds a program together with everything that program needs. So the robot software runs on its own Ubuntu 24.04 inside its container, whatever Ubuntu your PC has.
+
+  Git downloads the robot software in section 2, and section 3 starts it in its container. The last thing OMX needs from the PC is USB access, and the next section uses it.
+
+</details>
+
+</SectionCard>
+
+<SectionCard>
+
+## 4. Set the Ports
+
+Tell the robot software which arm is which. You do this once. You use two terminals: the robot container terminal opens the launch files, and a PC terminal shows each board's name.
+
+### Enter the Robot Container
+
+```bash
+cd $HOME/open_manipulator/docker
+./container.sh enter
+```
+
+The line where you type now starts like this. Your PC's name is different. This is the robot container terminal. Leave it open.
+
+```text
+root@robotis-MS-7E07:~/ros2_ws#
+```
+
+### Leader Port
+
+Unplug the follower's USB cable from the PC. Only the leader's USB cable stays in.
+
+Open a PC terminal with **Ctrl + Alt + T**, and check the OpenRB serial ID there. Leave this terminal open too.
+
+```bash
+ls -al /dev/serial/by-id/
+```
+
+<TutorialMedia
+  label="The terminal lists one board, the leader's. Its name, which starts with usb-ROBOTIS_OpenRB-150 and ends with -if00, is marked in red."
+  src="/img/systems/omx/quick_start_guide/setup_software/set_ports_leader_ls.webp"
+  shape="free"
+  width={760}
+  height={213}
+/>
+
+In the robot container terminal, open the leader launch file.
+
+```bash
+sudo nano ~/ros2_ws/src/open_manipulator/open_manipulator_bringup/launch/omx_l_leader_ai.launch.py
+```
+
+Set `port_name` to the leader serial path:
+
+```python
+# omx_l_leader_ai.launch.py
+DeclareLaunchArgument(
+    'port_name',
+    default_value='/dev/serial/by-id/{your_leader_serial_id}',
+    description='Port name for hardware connection.',
+)
+```
+
+In nano:
+
+1. Press **Ctrl + W**, type `port_name`, and press **Enter**. The line below it is the one to change.
+2. Delete the old value between the quotes, and type `/dev/serial/by-id/`.
+3. In the PC terminal, select the name marked in red with the mouse, and copy it with **Ctrl + Shift + C**. Back in nano, paste it with **Ctrl + Shift + V**.
+4. Save with **Ctrl + O**, then **Enter**. Close with **Ctrl + X**.
+
+<TutorialMedia
+  label="A screen recording of the leader launch file in nano. Ctrl + W finds port_name, the old value is deleted, and /dev/serial/by-id/ and the board's name are put in its place. Ctrl + O saves the file."
+  src="/img/systems/omx/quick_start_guide/setup_software/set_ports_leader.webm"
+  poster="/img/systems/omx/quick_start_guide/setup_software/set_ports_leader.webp"
+  shape="free"
+  width={760}
+  height={479}
+/>
+
+### Follower Port
+
+Unplug the leader's USB cable, and plug the follower's USB cable back in. **The follower's 12 V power must be on**, or the PC cannot see its board. In the PC terminal, check the OpenRB serial ID again.
+
+```bash
+ls -al /dev/serial/by-id/
+```
+
+<TutorialMedia
+  label="The terminal lists one board, the follower's. Its name is marked in red."
+  src="/img/systems/omx/quick_start_guide/setup_software/set_ports_follower_ls.webp"
+  shape="free"
+  width={760}
+  height={213}
+/>
+
+In the robot container terminal, open the follower launch file.
+
+```bash
+sudo nano ~/ros2_ws/src/open_manipulator/open_manipulator_bringup/launch/omx_f_follower_ai.launch.py
+```
+
+Set `port_name` to the follower serial path, in the same way as for the leader. Copy the name from the PC terminal after you type `/dev/serial/by-id/` in nano.
+
+```python
+# omx_f_follower_ai.launch.py
+DeclareLaunchArgument(
+    'port_name',
+    default_value='/dev/serial/by-id/{your_follower_serial_id}',
+    description='Port name for hardware connection.',
+)
+```
+
+Then plug the leader's USB cable back in. Type `exit` and press **Enter** to leave the robot container. You can close the PC terminal too.
+
+### Check Both Files
+
+The follower launch file should look like this. The leader launch file looks the same, with the leader board's name.
+
+<TutorialMedia
+  label="The follower launch file, open in nano. The port_name part, marked in red, has /dev/serial/by-id/ followed by the follower board's name as its default_value."
+  src="/img/systems/omx/quick_start_guide/setup_software/set_ports_follower_file.webp"
+  shape="free"
+  width={760}
+  height={338}
+/>
+
+Check that:
+
+- Each file has the name of its own arm's board
+- The two names are different
+
+<details className="omx-fix">
+  <summary>Something different?</summary>
+
+| You see | Do this |
+| --- | --- |
+| `No such container` or `is not running` when you enter the container | The container did not start. Do [3. Start the Robot Container](#3-start-the-robot-container) again. |
+| `./container.sh: No such file or directory` | Paste both lines together. The first line goes to the right folder. |
+| `No such file or directory` after `ls` | The PC sees no board. Push the USB cable in fully. For the follower, its 12 V power must be on too. |
+| Two `OpenRB-150` names after `ls` | Both USB cables are in. Unplug the other arm's cable, then paste the `ls` line again. |
+
+</details>
+
+<details>
+  <summary>How does it work?</summary>
+
+  The robot software runs inside a Docker container named `open_manipulator`. A container holds a program together with everything that program needs. `./container.sh enter` opens a terminal inside it.
+
+  Each arm talks to the PC through its OpenRB-150 board, and every board has its own name. The leader port and the follower port save each arm's board name in the file that starts that arm. Then the software always finds the right arm. The container shares the `open_manipulator` folder with your PC, so the change stays.
+
+</details>
+
+</SectionCard>
+
+<SectionCard>
+
+## Troubleshooting
+
+- [OMX Does Not Start on a Virtual Machine, Windows, or Mac](/docs/systems/omx/support/troubleshooting/pc/pc_not_supported)
+- [A Motor Blinks Red or Is Not Found](/docs/systems/omx/support/troubleshooting/motors/motor_not_found)
+
+</SectionCard>
