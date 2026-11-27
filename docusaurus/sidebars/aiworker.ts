@@ -20,6 +20,7 @@ const aiworkerSidebar: SidebarsConfig[string] = [
     label: 'Quick Start Guide',
     items: [
       {type: 'doc', id: 'systems/aiworker/quick_start_guide/setup_hardware', label: 'Hardware Setup'},
+      {type: 'doc', id: 'systems/aiworker/quick_start_guide/diagnostics', label: 'Diagnostics'},
       {type: 'doc', id: 'systems/aiworker/quick_start_guide/bringup', label: 'Bringup'},
       {type: 'doc', id: 'systems/aiworker/quick_start_guide/teleoperation', label: 'Teleoperation'},
       {

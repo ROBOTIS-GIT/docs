@@ -1,0 +1,135 @@
+import SectionCard from '@site/src/components/SectionCard';
+import AiWorkerNetworkDiagram from '@site/src/components/AiWorkerNetworkDiagram';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Diagnostics Guide
+
+After setting up AI Worker, use Cyclo Manager to check its devices and camera streams before bringup. This guide walks through the initial check.
+
+:::info
+
+Complete [Hardware Setup](/docs/systems/aiworker/quick_start_guide/setup_hardware) and power on the robot before continuing.
+
+:::
+
+:::warning
+
+Before starting a check, stop **Robot** and **Leader** bringup in Cyclo Manager. Close any other programs using the robot devices or cameras while the check is running.
+
+:::
+
+<SectionCard>
+
+## 1. Network Connection
+
+<Tabs>
+<TabItem value="f1-bg2" label="W1 / BG2">
+
+These models do not have a built-in router. Connect the robot's LAN port to an external router, then connect your PC to the same router using Wi-Fi or LAN. An external router is not included with the robot.
+
+<AiWorkerNetworkDiagram router="external" />
+
+</TabItem>
+<TabItem value="f2-sg2" label="W2 / SG2">
+
+These models have a built-in router. Connect your PC to the robot's Wi-Fi network:
+
+- **Network name:** `AIWORKER` followed by the last four digits of the robot's serial number. ex. `AIWORKER0000`.
+- **Default password:** The same as the network name. ex. `AIWORKER0000`
+
+The serial number is printed on a sticker on the back of the robot body.
+
+<img src="/img/systems/aiworker/quick_start_guide/in_depth_guide/robot_pc_access/serial_number.png" alt="Example of a serial number sticker on the robot" style={{width: '401px', maxWidth: '100%'}} />
+
+<AiWorkerNetworkDiagram router="built-in" />
+
+</TabItem>
+</Tabs>
+
+</SectionCard>
+
+<span id="2-open-diagnostics" />
+
+<SectionCard>
+
+## 2. Open Cyclo Manager
+
+Open a browser on your PC and enter the address below. Replace `<serial_number>` with the serial number printed on the robot.
+
+```text
+http://ffw-<serial_number>.local:3000
+```
+
+For example, if the serial number is `SNPR48A0000`, open `http://ffw-SNPR48A0000.local:3000`. You can also use the robot's IP address with port `3000`.
+
+Use [Cyclo Manager](/docs/software/cyclo/cyclo_manager) to bring up the robot. Cyclo Manager is pre-installed on W1 and W2 models. If it has not been installed, follow [Install](/docs/software/cyclo/manager/install).
+
+Open the **Diagnostics** page in Cyclo Manager to begin the check.
+
+:::info
+
+The s6 agent version must be compatible with Cyclo Manager. If it is incompatible, see [Agent Update](/docs/software/cyclo/manager/dashboard#agent-update).
+
+:::
+
+![Cyclo Manager Diagnostics page](/img/software/cyclo/manager/diagnostics/diagnostics_overview.png)
+
+</SectionCard>
+
+<SectionCard>
+
+## 3. Check Robot Devices
+
+1. Press **A** on the Remote E-STOP to release the safety lock. If the red E-STOP button is pressed, rotate it clockwise first. Then select the **Robot** tab, choose your robot type, and select **Start check**.
+
+2. Wait for the configured devices to respond. Check their status on **Robot map** or in **Device list**. Select a device to see its readings and any reported issue.
+
+   ![Robot map with device status markers](/img/systems/aiworker/quick_start_guide/diagnostics/robot_check.png)
+
+3. Review any **Warning**, **Error**, **Communication Error**, **Unknown**, **Not checked**, or stale status. For example, check the port and device connections if a device does not respond. See [Device Status](/docs/software/cyclo/manager/diagnostics#device-status) for the meaning of each status.
+4. Select **Stop check** when finished.
+
+</SectionCard>
+
+<SectionCard>
+
+## 4. Check Cameras
+
+1. Select the **Camera** tab and choose **Start check**.
+2. Check that the connected cameras appear. Select each camera and confirm that its live image updates. Use **Color** and **Depth** to inspect the available streams.
+
+   ![Detected cameras and a live camera stream](/img/systems/aiworker/quick_start_guide/diagnostics/camera_check.png)
+
+3. If a camera is missing or has a stream error, check its connection and power. Restart the check after reconnecting a camera.
+4. Select **Stop check** when finished.
+
+The camera check confirms frame reception. For camera functions and status details, see [Camera Diagnostics](/docs/software/cyclo/manager/diagnostics#camera-diagnostics).
+
+</SectionCard>
+
+<SectionCard>
+
+## 5. Check the Leader
+
+Connect the leader to the robot and turn on its power before checking it. For model-specific connection instructions, see [Connect the Leader](/docs/systems/aiworker/quick_start_guide/teleoperation#1-connect-the-leader). Keep leader bringup stopped during the check.
+
+1. Select the **Robot** tab and choose your leader type: **A1 leader**, **A2 leader**, or **LG2 leader**. Select **Start check**.
+2. Wait for the configured devices to respond. Check their status on **Robot map** or in **Device list**. Select a device to see its readings and any reported issue.
+
+   ![Leader check showing device statuses and details](/img/systems/aiworker/quick_start_guide/diagnostics/leader_check.png)
+
+3. Review any device that is not **Healthy**. If a device does not respond, check its power, connection, and port settings. See [Device Status](/docs/software/cyclo/manager/diagnostics#device-status) for status meanings.
+4. Select **Stop check** when finished.
+
+</SectionCard>
+
+<SectionCard>
+
+## 6. Continue to Bringup
+
+Make sure the Robot and Camera checks are stopped and investigate any unexpected results before proceeding to [Bringup](/docs/systems/aiworker/quick_start_guide/bringup).
+
+For details about device statuses, connection settings, and troubleshooting, see the [Cyclo Manager Diagnostics manual](/docs/software/cyclo/manager/diagnostics).
+
+</SectionCard>

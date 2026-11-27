@@ -377,6 +377,7 @@
   "/docs/systems/aiworker/overview/software_architecture",
   "/docs/systems/aiworker/overview/video_gallery",
   "/docs/systems/aiworker/quick_start_guide/bringup",
+  "/docs/systems/aiworker/quick_start_guide/diagnostics",
   "/docs/systems/aiworker/quick_start_guide/in_depth_guide",
   "/docs/systems/aiworker/quick_start_guide/in_depth_guide/checking_battery_state",
   "/docs/systems/aiworker/quick_start_guide/in_depth_guide/cli_bringup_teleoperation",

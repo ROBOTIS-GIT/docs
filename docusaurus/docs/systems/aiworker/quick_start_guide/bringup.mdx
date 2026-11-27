@@ -1,55 +1,30 @@
-import AiWorkerNetworkDiagram from '@site/src/components/AiWorkerNetworkDiagram';
 import SectionCard from '@site/src/components/SectionCard';
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
 
 # Bringup Guide
 
-This guide explains how to bring up the AI Worker robot. Complete [Hardware Setup](/docs/systems/aiworker/quick_start_guide/setup_hardware) before continuing.
+This guide explains how to bring up the AI Worker robot. Complete [Hardware Setup](/docs/systems/aiworker/quick_start_guide/setup_hardware) and [Diagnostics](/docs/systems/aiworker/quick_start_guide/diagnostics) before continuing.
+
+<span id="1-network-connection" />
+
+For network setup, see [Network Connection](/docs/systems/aiworker/quick_start_guide/diagnostics#1-network-connection).
+
+<span id="2-open-cyclo-manager" />
 
 <SectionCard>
 
-## 1. Network Connection
+## 1. Open Cyclo Manager
 
-<Tabs>
-<TabItem value="f1-bg2" label="W1 / BG2">
-
-These models do not have a built-in router. Connect the robot's LAN port to an external router, then connect your PC to the same router using Wi-Fi or LAN. An external router is not included with the robot.
-
-<AiWorkerNetworkDiagram router="external" />
-
-</TabItem>
-<TabItem value="f2-sg2" label="W2 / SG2">
-
-These models have a built-in router. Connect your PC to the robot's Wi-Fi network:
-
-- **Network name:** `AIWORKER` followed by the last four digits of the robot's serial number. ex. `AIWORKER0000`.
-- **Default password:** The same as the network name. ex. `AIWORKER0000`
-
-<AiWorkerNetworkDiagram router="built-in" />
-
-</TabItem>
-</Tabs>
-
-</SectionCard>
-
-<SectionCard>
-
-## 2. Open Cyclo Manager
-
-Open `http://ffw-<serial_number>.local:3000` in a browser on your PC, replacing `<serial_number>` with the serial number printed on the robot. For example, if the serial number is `SNPR48A0000`, open `http://ffw-SNPR48A0000.local:3000`. You can also use the robot's IP address with port `3000`.
-
-Use [Cyclo Manager](/docs/software/cyclo/cyclo_manager) to bring up the robot. Cyclo Manager is pre-installed on W1 and W2 models. If it has not been installed, follow [Install](/docs/software/cyclo/manager/install).
-
-Open the **System** page in Cyclo Manager to begin bringup.
+Open the **System** page in Cyclo Manager to begin bringup. If you need to reconnect, see [Open Cyclo Manager](/docs/systems/aiworker/quick_start_guide/diagnostics#2-open-cyclo-manager).
 
 ![System Page](/img/software/cyclo/manager/system/system_page.png)
 
 </SectionCard>
 
+<span id="3-start-the-zenoh-daemon" />
+
 <SectionCard>
 
-## 3. Start the Zenoh Daemon
+## 2. Start the Zenoh Daemon
 
 :::info[RMW_ZENOH NOTIFICATION]
 AI Worker uses Zenoh as RMW since version 2.0.0.
@@ -64,9 +39,11 @@ Check that the status light turns green. Once started, the Zenoh daemon restarts
 
 </SectionCard>
 
+<span id="4-bringup-the-robot" />
+
 <SectionCard>
 
-## 4. Bringup the Robot
+## 3. Bringup the Robot
 
 :::warning
 Starting robot bringup will cause the robot to move.  
@@ -87,9 +64,11 @@ If the model or joint states do not update, check `ROS_DOMAIN_ID`, the robot bri
 
 </SectionCard>
 
+<span id="5-check-robot-operation" />
+
 <SectionCard>
 
-## 5. Check Robot Operation
+## 4. Check Robot Operation
 
 After bringup, check that the robot responds to movement commands.
 
@@ -111,11 +90,14 @@ For more about the controls, see [Jog](/docs/software/cyclo/manager/jog).
 
 </SectionCard>
 
+<span id="6-check-cameras" />
+<span id="5-check-cameras" />
+
 <SectionCard>
 
-## 6. Check Cameras
+## 5. Check Camera Topics
 
-Check that the robot's cameras provide live images in Cyclo Intelligence.
+Check that camera topic images are delivered to Cyclo Intelligence after bringup by viewing the live images in **Camera Views**.
 
 1. Return to the **System** page in Cyclo Manager. Click the start arrow in **Cyclo Intelligence** and wait for the status light to turn green.
 
