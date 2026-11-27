@@ -53,6 +53,7 @@ const cycloSidebar: SidebarsConfig[string] = [
           doc('software/cyclo/manager/install', 'Install'),
           doc('software/cyclo/manager/dashboard', 'Dashboard'),
           doc('software/cyclo/manager/system', 'System'),
+          doc('software/cyclo/manager/diagnostics', 'Diagnostics'),
           doc('software/cyclo/manager/jog', 'Jog'),
           doc('software/cyclo/manager/record_play', 'Record & Play'),
           doc('software/cyclo/manager/terminal', 'Terminal'),

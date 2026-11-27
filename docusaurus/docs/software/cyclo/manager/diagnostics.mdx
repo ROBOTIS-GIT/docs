@@ -1,0 +1,216 @@
+import SectionCard from '@site/src/components/SectionCard';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+export function StatusIcon({symbol, color}) {
+  return <span aria-hidden="true" style={{display: 'inline-grid', placeItems: 'center', width: '16px', height: '16px', marginRight: '6px', borderRadius: '50%', background: color, color: '#10201c', fontSize: '10px', fontWeight: 700, verticalAlign: 'middle'}}>{symbol}</span>;
+}
+
+# Diagnostics
+
+Use Diagnostics to check robot devices and camera streams.
+
+- **Robot** checks DYNAMIXEL devices, sensors, and controllers.
+- **Camera** checks camera streams.
+
+:::info
+
+The AI Worker container must be running with a compatible s6 agent and diagnostic software. If the agent is incompatible, follow the [Agent Update](/docs/software/cyclo/manager/dashboard#agent-update) instructions.
+
+:::
+
+:::warning
+
+Stop robot and leader bringup before starting a check. Stop all diagnostic checks before starting bringup. During a robot check, do not run another program that communicates with the same devices.
+
+:::
+
+![Diagnostics page with Robot and Camera tabs and the robot map](/img/software/cyclo/manager/diagnostics/diagnostics_overview.png)
+
+<SectionCard>
+
+## Robot Diagnostics
+
+Robot Diagnostics checks the hardware status of DYNAMIXEL devices, sensors, and controllers configured for the selected robot type.
+
+### What Is Checked
+
+Robot Diagnostics uses the selected robot type's Xacro configuration to identify the DYNAMIXEL devices, controllers, and sensors to check.
+
+The check verifies:
+
+- Whether the configured ports can be opened.
+- Whether each device responds and reports supported status information.
+
+Depending on the device model, readings can include hardware errors, voltage, temperature, and supported board data. Additional devices may be identified without a full diagnostic read.
+
+Expand **Connection settings** to review the configured devices, ports, and baud rates.
+
+- **Details** shows the device names and IDs for a connection.
+- **Change** lets you use a different port or baud rate for the check.
+
+Changes apply only to the check; they do not modify the Xacro or device settings.
+
+![Robot type and expanded connection settings with Checklist, Change, and Details](/img/software/cyclo/manager/diagnostics/connection_settings.png)
+
+### Robot Map and Device List
+
+Select **Start check** to begin and **Stop check** to end the check.
+
+:::info
+
+If no Diagnostics page remains connected, the check stops after approximately five seconds without a connection signal. Reconnecting within that period keeps it running.
+
+:::
+
+Use **Robot map** or **Device list** to view device status. Select a device in either view to see its details.
+
+<Tabs>
+<TabItem value="robot-map" label="Robot map">
+
+The robot map shows configured devices on a robot illustration. Each marker displays the device's ID and current status.
+
+<img src="/img/software/cyclo/manager/diagnostics/robot_map.png" alt="Robot map with device status markers" style={{display: 'block', width: '100%', maxWidth: '800px', height: 'auto', marginBottom: '2rem'}} />
+
+</TabItem>
+<TabItem value="device-list" label="Device list">
+
+The device list lets you browse devices, search by name, ID, or model, and filter by region or attention status.
+
+<img src="/img/software/cyclo/manager/diagnostics/device_list.png" alt="Device list with search and device status" style={{display: 'block', width: '100%', maxWidth: '700px', height: 'auto', marginBottom: '2rem'}} />
+
+</TabItem>
+</Tabs>
+
+### Device Status
+
+Each marker shows the current status of its device. Select a marker for details.
+
+| Status | Meaning |
+| --- | --- |
+| <StatusIcon symbol="✓" color="#89d185" /> **Healthy** | The device responds and its required diagnostic readings indicate no issue. |
+| <StatusIcon symbol="!" color="#cca700" /> **Warning** | A DYNAMIXEL temperature is within 5 °C below its configured limit, or a Y-series device reports error code 9, the multi-turn battery warning. |
+| <StatusIcon symbol="!" color="#f48771" /> **Error** | The device reports a hardware error or alert, its voltage is outside its configured limits, its temperature reaches or exceeds its configured limit, or its detected model differs from the configured model. A supported board's nonzero error code is also treated as an error. |
+| <span style={{whiteSpace: 'nowrap'}}><StatusIcon symbol="!" color="#f0a663" /> <strong>Communication Error</strong></span> | The port cannot be opened or maintained, the device does not respond to PING, or a register read fails. |
+| <StatusIcon symbol="?" color="#75beff" /> **Unknown** | The device responds, but its health cannot be determined. Examples include an unavailable model definition, unsupported board readings, or missing required readings or limits. |
+| <StatusIcon symbol="·" color="#989898" /> **Not checked** | The device is waiting to be checked or could not be checked through its hand controller. |
+| <StatusIcon symbol="◷" color="#75beff" /> **Stale data** | During an active check, the last response or a required board reading is missing or more than three seconds old. |
+
+A communication failure does not by itself establish that the device hardware is faulty. **Unknown** and **Not checked** do not mean the device is healthy.
+
+{/* Screenshot 3: Robot image with status markers and the status legend. */}
+
+### Device Details
+
+Select a device to see its name, ID, identified model, status, port, source, and last response. The remaining fields depend on the device type, model, and available readings.
+
+<Tabs>
+<TabItem value="dxl" label="DYNAMIXEL">
+
+Supported readings include input voltage, configured voltage range, temperature and its configured limit, and hardware errors.
+
+<img src="/img/software/cyclo/manager/diagnostics/dxl_details.png" alt="DYNAMIXEL details showing voltage, temperatures, and hardware errors" style={{display: 'block', width: '100%', maxWidth: '353px', height: 'auto', marginBottom: '2rem'}} />
+
+</TabItem>
+<TabItem value="board" label="Sensors and controllers">
+
+Supported readings include error codes and board-specific values. Some values are labelled **raw**.
+
+<img src="/img/software/cyclo/manager/diagnostics/controller_details.png" alt="RCU board details showing its error code and board readings" style={{display: 'block', width: '100%', maxWidth: '350px', height: 'auto', marginBottom: '2rem'}} />
+
+</TabItem>
+<TabItem value="tactile" label="Tactile sensor">
+
+Supported readings include health information and raw pressure readings for the sensing elements.
+
+<img src="/img/software/cyclo/manager/diagnostics/tactile_details.png" alt="Tactile sensor details showing health information, pressure readings, and the Calibrate button" style={{display: 'block', width: '100%', maxWidth: '353px', height: 'auto', marginBottom: '2rem'}} />
+
+</TabItem>
+</Tabs>
+
+Expand **Technical details · raw registers** for the underlying available readings and communication details. Unavailable or stale data is not a current measurement.
+
+### Clear Multi-turn
+
+For a supported Y-series DYNAMIXEL, expand **Hardware errors** in the device details. Select **Clear multi-turn** to clear the multi-turn position.
+
+<img src="/img/software/cyclo/manager/diagnostics/clear_multi_turn.png" alt="Hardware errors expanded with the Clear multi-turn button" style={{display: 'block', width: '100%', maxWidth: '340px', height: 'auto', marginBottom: '2rem'}} />
+
+Use this operation only when the DYNAMIXEL is stopped. It changes the reported position reference, so confirm the position before operating the robot. A failed or unconfirmed result is shown in a dialog.
+
+</SectionCard>
+
+<SectionCard>
+
+## Camera Diagnostics
+
+Camera Diagnostics detects connected RealSense and ZED cameras and checks whether their color and depth streams are receiving frames.
+
+### Camera Discovery and Status
+
+Select **Start check** to discover connected RealSense and ZED cameras supported by the installed SDKs. Each camera appears as it is found. Select a camera to view its stream, and select **Stop check** to end the check.
+
+:::info
+
+If no Diagnostics page remains connected, the check stops after approximately five seconds without a connection signal. Reconnecting within that period keeps it running.
+
+:::
+
+Each camera card shows its name, serial number, and status. **Streaming** means frames are being received. For an error, select the camera and review its message.
+
+To find a camera connected after the check started, stop and restart the check.
+
+![Camera check with detected cameras and the selected stream](/img/software/cyclo/manager/diagnostics/camera_stream.png)
+
+### Color and Depth
+
+Select **Color** or **Depth** above the preview to change the displayed stream when available. Both streams are requested at startup. Other detected cameras continue to be monitored when they are not selected.
+
+The depth preview is a colorized visualization, not a distance measurement or depth-accuracy test. The check verifies frame reception; it does not verify ROS topic delivery or image quality.
+
+![Camera check showing the Depth stream](/img/software/cyclo/manager/diagnostics/camera_depth.png)
+
+### Frame Rate and Stream Information
+
+| Display | Meaning |
+| --- | --- |
+| **Camera FPS** | Camera frame rate reported or estimated from available camera timing information. A dash means it is unavailable. |
+| **Received FPS** | Frame rate received by the diagnostic worker for the selected stream. |
+| **Configured FPS** | Frame rate of the selected stream configuration. |
+
+The preview can also show the serial number, USB connection and resolution when available. Browser display rate can be lower than the received rate because of encoding, network, or browser performance.
+
+</SectionCard>
+
+<SectionCard>
+
+## Tactile Calibration
+
+For a supported responding tactile sensor, **Calibrate** appears beside **Pressure readings**. Select it to send a calibration command through the running check. A failure or unconfirmed result is shown in a dialog.
+
+<img src="/img/software/cyclo/manager/diagnostics/tactile_calibration.png" alt="Tactile pressure readings and Calibrate button" style={{display: 'block', width: '100%', maxWidth: '327px', height: 'auto', marginBottom: '2rem'}} />
+
+</SectionCard>
+
+<SectionCard>
+
+## Troubleshooting
+
+| Symptom | What to check |
+| --- | --- |
+| **Start check** is unavailable | Stop bringup and check the AI Worker agent connection. Follow any update or connection message displayed on the page. |
+| Port connection failed | Check the port path, device permissions, USB connection, power, and whether another process uses the port. Restart the check after reconnecting a disconnected port. |
+| No PING response | Check device power, wiring, ID, and baud rate. A missing response does not identify the failed component by itself. |
+| Register read failed | Check communication and device connections. The device may have responded to PING even though a subsequent read failed. |
+| Model mismatch or unavailable definition | Inspect the expected and detected models and the displayed model definition message. These conditions are independent. |
+| Camera missing or stream error | Check power, connection, installed SDK, and whether another process uses the camera. Restart the check after reconnecting it. |
+
+</SectionCard>
+
+
+
+:::note
+
+Checks started directly from a terminal are managed separately.
+
+:::
