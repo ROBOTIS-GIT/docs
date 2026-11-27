@@ -18,6 +18,9 @@ SuperMimic and BlinkMimic train a single policy on multiple reference clips. The
 
 ## Train
 
+<Tabs groupId="cyclo-lab-physics" defaultValue="newton" queryString>
+<TabItem value="newton" label="Newton (K1 Default)">
+
 <Tabs groupId="lab-mimic-method">
 <TabItem value="supermimic" label="SuperMimic" default>
 
@@ -43,7 +46,38 @@ python scripts/reinforcement_learning/train.py \
 </TabItem>
 </Tabs>
 
-SuperMimic also supports `MaxCoord` in place of `GenCoord`. For PhysX, replace `physics=newton_mjwarp` with `physics=isaacsim_physx` in both train and play commands.
+</TabItem>
+<TabItem value="physx" label="PhysX">
+
+<Tabs groupId="lab-mimic-method">
+<TabItem value="supermimic" label="SuperMimic" default>
+
+```bash
+python scripts/reinforcement_learning/train.py \
+  Cyclo-SuperMimic-GenCoord-K1-Rev2-001 \
+  --num-envs 4096 \
+  --headless --visualizer none \
+  physics=isaacsim_physx
+```
+
+</TabItem>
+<TabItem value="blinkmimic" label="BlinkMimic">
+
+```bash
+python scripts/reinforcement_learning/train.py \
+  Cyclo-BlinkMimic-K1-Rev2-001 \
+  --num-envs 4096 \
+  --headless --visualizer none \
+  physics=isaacsim_physx
+```
+
+</TabItem>
+</Tabs>
+
+</TabItem>
+</Tabs>
+
+SuperMimic also supports `MaxCoord` in place of `GenCoord`.
 
 ### Training Output
 
@@ -78,6 +112,9 @@ Each run directory contains:
 
 Play the latest saved run for the selected task, using the same physics backend as training:
 
+<Tabs groupId="cyclo-lab-physics" defaultValue="newton" queryString>
+<TabItem value="newton" label="Newton (K1 Default)">
+
 <Tabs groupId="lab-mimic-method">
 <TabItem value="supermimic" label="SuperMimic" default>
 
@@ -85,7 +122,7 @@ Play the latest saved run for the selected task, using the same physics backend 
 python scripts/reinforcement_learning/play.py \
   Cyclo-SuperMimic-GenCoord-K1-Rev2-001 \
   --num-envs 1 \
-  --visualizer kit \
+  --visualizer newton_gl \
   physics=newton_mjwarp
 ```
 
@@ -96,14 +133,55 @@ python scripts/reinforcement_learning/play.py \
 python scripts/reinforcement_learning/play.py \
   Cyclo-BlinkMimic-K1-Rev2-001 \
   --num-envs 1 \
-  --visualizer kit \
+  --visualizer newton_gl \
   physics=newton_mjwarp
 ```
 
 </TabItem>
 </Tabs>
 
-In the Isaac Sim window, use the **Motion tracking → Motion** selector to switch clips. The panel also lets you restart the selected motion and toggle reference overlays.
+</TabItem>
+<TabItem value="physx" label="PhysX">
+
+<Tabs groupId="lab-mimic-method">
+<TabItem value="supermimic" label="SuperMimic" default>
+
+```bash
+python scripts/reinforcement_learning/play.py \
+  Cyclo-SuperMimic-GenCoord-K1-Rev2-001 \
+  --num-envs 1 \
+  --visualizer kit \
+  physics=isaacsim_physx
+```
+
+</TabItem>
+<TabItem value="blinkmimic" label="BlinkMimic">
+
+```bash
+python scripts/reinforcement_learning/play.py \
+  Cyclo-BlinkMimic-K1-Rev2-001 \
+  --num-envs 1 \
+  --visualizer kit \
+  physics=isaacsim_physx
+```
+
+</TabItem>
+</Tabs>
+
+</TabItem>
+</Tabs>
+
+Both Newton and PhysX support `--visualizer kit`, `--visualizer newton_gl`, and `--visualizer viser`. For Viser, open the URL printed in the terminal.
+
+:::note[Playback motions]
+
+By default, play uses the selected task's current motion list.
+
+For example, if a policy was trained on clips 1 and 2, but the task selected for playback contains clips 1, 2, and 3, all three appear in the motion selector. Playback starts with the first clip; select another clip to switch motions.
+
+:::
+
+In the viewer, use the **Motion tracking → Motion** selector to switch clips. The panel also lets you restart the selected motion and toggle reference overlays.
 
 Play also exports `exported/policy.onnx`. Use `params/sim2real.yaml` from the same run. Deployment requires a controller that supports the selected method’s observations.
 

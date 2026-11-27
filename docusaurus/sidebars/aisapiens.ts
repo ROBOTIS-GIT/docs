@@ -83,7 +83,6 @@ const aisapiensSidebar: SidebarsConfig[string] = [
     items: [
       {type: 'doc', id: 'systems/aisapiens/motion_generation_retargeting/soma_x', label: 'SOMA-X'},
       {type: 'doc', id: 'systems/aisapiens/motion_generation_retargeting/soma_retargeter/soma_retargeter', label: 'Soma-retargeter'},
-      {type: 'doc', id: 'systems/aisapiens/motion_generation_retargeting/gmr', label: 'GMR'},
       {type: 'doc', id: 'systems/aisapiens/motion_generation_retargeting/umr', label: 'UMR'},
     ],
   },
